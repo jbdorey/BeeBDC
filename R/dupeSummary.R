@@ -23,7 +23,7 @@
 #' @param collectInfoColumns A character vector. The columns to be checked in combinatino with all of
 #' the collectionCols columns.
 #' @param completeness_cols A character vector. A set of columns that are used to order and select 
-#' duplicates by. For each occurrence, this function will calculate the sum of [base::complete.cases()].
+#' duplicates by. For each occurrence, this function will calculate the sum of [complete.cases()].
 #' Within duplicate clusters occurrences with a greater number of the completeness_cols filled in will
 #' be kept over those with fewer.
 #' @param CustomComparisonsRAW A list of character vectors. Custom comparisons — as a list of 

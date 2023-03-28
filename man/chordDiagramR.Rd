@@ -21,7 +21,8 @@ chordDiagramR(
   legendX = grid::unit(6, "mm"),
   legendY = grid::unit(18, "mm"),
   legendJustify = c("left", "bottom"),
-  niceFacing = TRUE
+  niceFacing = TRUE,
+  self.link = 2
 )
 }
 \arguments{
@@ -62,6 +63,9 @@ Passed to \code{\link[ComplexHeatmap:draw-dispatch]{ComplexHeatmap::draw()}}. De
 
 \item{niceFacing}{TRUE/FALSE. The niceFacing option automatically adjusts the text facing
 according to their positions in the circle. Passed to \code{\link[circlize:highlight.sector]{circlize::highlight.sector()}}.}
+
+\item{importFrom}{1 or 2 (numeric). Passed to \code{\link[circlize:chordDiagram]{circlize::chordDiagram()}}:
+if there is a self link in one sector, 1 means the link will be degenerated as a 'mountain' and the width corresponds to the value for this connection. 2 means the width of the starting root and the ending root all have the width that corresponds to the value for the connection.}
 }
 \value{
 Saves a figure to the provided file path.
