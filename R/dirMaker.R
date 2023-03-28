@@ -153,7 +153,7 @@ dirMaker <- function(
   
     ##### 1.2 DataPath ####
     # Create the DataPath if it does not already exist
-  if(is.null(DataPath) ){
+  if(is.null(DataPath)){
   if (!fs::dir_exists(paste0(RootPath, DataSubPath))) {
     fs::dir_create(paste0(RootPath, DataSubPath), recurse = TRUE)
     # User warning

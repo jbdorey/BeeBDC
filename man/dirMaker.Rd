@@ -40,13 +40,13 @@ and Pcikering's Discover Life website.}
 \item{OutPathName}{character string. The name of the \code{OutPath} subfolder within the \code{RootPath.} Default is
 "Output".}
 
-\item{Report}{Logical. If True, create a "Report" folder within OutPath.}
+\item{Report}{Logical. If True, create a "Report" folder within OutPath. Default = TRUE.}
 
-\item{Check}{Logical. If True, create a "Check" folder within OutPath.}
+\item{Check}{Logical. If True, create a "Check" folder within OutPath. Default = TRUE.}
 
-\item{Figures}{Logical. If True, create a "Figures" folder within OutPath.}
+\item{Figures}{Logical. If True, create a "Figures" folder within OutPath. Default = TRUE.}
 
-\item{Intermediate}{Logical. If True, create a "Intermediate" folder within OutPath.}
+\item{Intermediate}{Logical. If True, create a "Intermediate" folder within OutPath. Default = TRUE.}
 
 \item{RDoc}{character string. The path to the current script or report, relative to the project
 root. Passing an absolute path raises an error. This argument is used by \code{\link[here:i_am]{here::i_am()}} and incorrectly
