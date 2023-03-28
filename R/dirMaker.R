@@ -127,7 +127,7 @@ dirMaker <- function(
   #### 1.0 Set paths ####
     ##### 1.1 ScriptPath ####
   # Create the ScriptPath if it does not already exist
-  if(is.null(ScriptPath) & ScriptPath != FALSE){
+  if(is.null(ScriptPath)){
   if (!fs::dir_exists(paste0(RootPath, "/BDC_repo/BeeDC/R"))) {
     fs::dir_create(paste0(RootPath, "/BDC_repo/BeeDC/R"), recurse = TRUE)
     warning(paste0(" — We created the ", 
@@ -182,8 +182,8 @@ dirMaker <- function(
   
     ##### 1.3 DiscLifePath ####
   # Create the DiscLifePath if it does not already exist
-  if(is.null(DiscLifePath)  & DiscLifePath != FALSE){
-  if (!fs::dir_exists(paste0(RootPath, "/BDC_repo/DiscoverLife_Data")) & DiscLifePath != FALSE) {
+  if(is.null(DiscLifePath) ){
+  if (!fs::dir_exists(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"))) {
     fs::dir_create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recurse = TRUE)
     {
       fs::dir_create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recurse = TRUE)
