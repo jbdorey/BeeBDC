@@ -24,19 +24,19 @@
 #' @examples
 #' \dontrun{
 #' An example using a .csv file
-#' EPEL_Data <- EPEL_readr(path = paste0(DataPath, "/Additional_Datasets"),
+#' EPEL_Data <- Ereadr_PEL(path = paste0(DataPath, "/Additional_Datasets"),
 #'inFile = "/InputDatasets/bee_data_canada.csv",
 #' outFile = "jbd_EPEL_data.csv",
 #' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 #' 
 #' An example using a .xlsx file
-#'     Arm_Data <- Arm_readr(path = paste0(DataPath, "/Additional_Datasets"),
+#'     Arm_Data <- readr_Arm(path = paste0(DataPath, "/Additional_Datasets"),
 #' inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
 #' outFile = "jbd_Arm_Data.csv",
 #' sheet = "Sheet1",
 #' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 #' }
-EPEL_readr <- function(path = NULL,
+readr_EPEL <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
@@ -107,12 +107,12 @@ EPEL_readr <- function(path = NULL,
 readr::write_csv(EPEL_Data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(EPEL_Data)
-} # END EPEL_readr
+} # END readr_EPEL
 
 
 #### 2.0 ASP ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
- ASP_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_ASP <- function(path = NULL,
                          inFile = NULL,
                          outFile = NULL,
                       dataLicense = NULL){
@@ -167,13 +167,13 @@ ASP_data <- readr::read_csv(paste(path, inFile, sep = "/"),
 readr::write_csv(ASP_data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(ASP_data)
-} # END ASP_readr
+} # END readr_ASP
 
 
 #### 3.0 BMin ####
  
- #' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-BMin_readr <- function(path = NULL,
+ #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_BMin <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
@@ -207,13 +207,13 @@ BMin_data <- readr::read_csv(paste(path, inFile, sep = "/"),
 readr::write_csv(BMin_data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(BMin_data)
-} # END BMin_readr
+} # END readr_BMin
 
 
 
 #### 4.0 BMont ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-BMont_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_BMont <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
@@ -281,12 +281,12 @@ BMont_data <- readr::read_csv(paste(path, inFile, sep = "/"),
 readr::write_csv(BMont_data, file = paste(path, outFile, sep = "/"))
   # Return data
 return(BMont_data)
-} # END BMont_readr
+} # END readr_BMont
 
 
 #### 5.0 Ecd ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-Ecd_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_Ecd <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                       dataLicense = NULL){
@@ -323,11 +323,11 @@ Ecd_data <- readr::read_csv(paste(path, inFile, sep = "/"),
 readr::write_csv(Ecd_data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(Ecd_data)
-} # END Ecd_readr
+} # END readr_Ecd
 
 ###### 6.0 Gai ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-Gai_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_Gai <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                       dataLicense = NULL){
@@ -398,7 +398,7 @@ Gai_data <- readr::read_csv(paste(path, inFile, sep = "/"),
 readr::write_csv(Gai_data, file =  paste(path, outFile, sep = "/"))
 # Return data
 return(Gai_data)
-} # END Gai_readr
+} # END readr_Gai
 
 #### 7.0 CAES ####
 
@@ -424,18 +424,18 @@ return(Gai_data)
 #'
 #' @examples
 #' An example using a .csv file
-#' EPEL_Data <- EPEL_readr(path = paste0(DataPath, "/Additional_Datasets"),
+#' EPEL_Data <- readr_EPEL(path = paste0(DataPath, "/Additional_Datasets"),
 #'inFile = "/InputDatasets/bee_data_canada.csv",
 #' outFile = "jbd_EPEL_data.csv",
 #' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 #' 
 #' An example using a .xlsx file
-#'     Arm_Data <- Arm_readr(path = paste0(DataPath, "/Additional_Datasets"),
+#'     Arm_Data <- readr_Arm(path = paste0(DataPath, "/Additional_Datasets"),
 #' inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
 #' outFile = "jbd_Arm_Data.csv",
 #' sheet = "Sheet1",
 #' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
-CAES_readr <- function(path = NULL,
+readr_CAES <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
@@ -578,7 +578,7 @@ CAES_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
 readr::write_csv(CAES_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
 return(CAES_data)
-} # END CAES_readr
+} # END readr_CAES
 
 
 
@@ -586,8 +586,8 @@ return(CAES_data)
 
 
 #### 9.0 KP ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-KP_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_KP <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
                      dataLicense = NULL){
@@ -696,7 +696,7 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
   readr::write_csv(KP_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(KP_data)
-} # END KP_readr
+} # END readr_KP
 
 
 
@@ -704,8 +704,8 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
 
 
 #### 10.0 INHS ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-INHS_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_INHS <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
                      dataLicense = NULL){
@@ -742,15 +742,15 @@ INHS_readr <- function(path = NULL,
   readr::write_csv(INHS_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(INHS_data)
-} # END INHS_readr
+} # END readr_INHS
 
 
 
 
 
 #### 11.0 EcoS ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-EcoS_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_EcoS <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
                      dataLicense = NULL){
@@ -811,7 +811,7 @@ EcoS_readr <- function(path = NULL,
   readr::write_csv(EcoS_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(EcoS_data)
-} # END EcoS_readr
+} # END readr_EcoS
 
 
 
@@ -821,9 +821,9 @@ EcoS_readr <- function(path = NULL,
 
 
 #### 12.0 GeoL ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
   # These datasets are from my output but have been run through GeoLocate to find location information
-GeoL_readr <- function(path = NULL,
+readr_GeoL <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
@@ -942,7 +942,7 @@ GeoL_readr <- function(path = NULL,
   readr::write_csv(GeoL_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(GeoL_data)
-} # END GeoL_readr
+} # END readr_GeoL
 
 
 
@@ -953,8 +953,8 @@ GeoL_readr <- function(path = NULL,
 
 
 #### 13.0 EaCO ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-EaCO_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_EaCO <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
@@ -1056,7 +1056,7 @@ EaCO_readr <- function(path = NULL,
   readr::write_csv(EaCO_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(EaCO_data)
-} # END EaCO_readr
+} # END readr_EaCO
 
 
 
@@ -1066,8 +1066,8 @@ EaCO_readr <- function(path = NULL,
 
 
 #### 14.0 MABC ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-MABC_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_MABC <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
@@ -1160,7 +1160,7 @@ MABC_readr <- function(path = NULL,
   readr::write_csv(MABC_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(MABC_data)
-} # END MABC_readr
+} # END readr_MABC
 
 
 
@@ -1168,8 +1168,8 @@ MABC_readr <- function(path = NULL,
 
 
 #### 15.0 Col ####
-#' @describeIn CAES_readr Data files are specific to various data providers and users may examine code function-by-function. 
-Col_readr <- function(path = NULL,
+#' @describeIn readr_CAES Data files are specific to various data providers and users may examine code function-by-function. 
+readr_Col <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
@@ -1311,7 +1311,7 @@ Col_readr <- function(path = NULL,
   readr::write_csv(Col_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Col_data)
-} # END Col_readr
+} # END readr_Col
 
 
 
@@ -1319,8 +1319,8 @@ Col_readr <- function(path = NULL,
 
 
 #### 16.0 FSCA ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-FSCA_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_FSCA <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
@@ -1361,14 +1361,14 @@ FSCA_readr <- function(path = NULL,
   readr::write_csv(FSCA_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(FSCA_data)
-} # END FSCA_readr
+} # END readr_FSCA
 
 
 
 
 #### 17.0 SMC ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-SMC_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_SMC <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
@@ -1415,14 +1415,14 @@ SMC_readr <- function(path = NULL,
   readr::write_csv(SMC_Data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(SMC_Data)
-} # END SMC_readr
+} # END readr_SMC
 
 
 
 
 #### 18.0 Bal ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-Bal_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_Bal <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
@@ -1490,7 +1490,7 @@ Bal_readr <- function(path = NULL,
   readr::write_csv(Bal_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Bal_data)
-} # END Bal_readr
+} # END readr_Bal
 
 
 
@@ -1499,8 +1499,8 @@ Bal_readr <- function(path = NULL,
 
 
 #### 19.0 Lic ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-Lic_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_Lic <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL,
@@ -1580,7 +1580,7 @@ Lic_readr <- function(path = NULL,
   readr::write_csv(Lic_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Lic_data)
-} # END Lic_readr
+} # END readr_Lic
 
 
 
@@ -1588,8 +1588,8 @@ Lic_readr <- function(path = NULL,
 
 
 #### 20.0 Arm ####
-#' @describeIn CAES_readr Data files are specific to various data providers and users may examine code function-by-function. 
-Arm_readr <- function(path = NULL,
+#' @describeIn readr_CAES Data files are specific to various data providers and users may examine code function-by-function. 
+readr_Arm <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
@@ -1691,7 +1691,7 @@ Arm_readr <- function(path = NULL,
   readr::write_csv(Arm_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Arm_data)
-} # END Arm_readr
+} # END readr_Arm
 
 
 
@@ -1701,8 +1701,8 @@ Arm_readr <- function(path = NULL,
 
 
 #### 21.0 Dorey ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-Dor_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_Dor <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
@@ -1739,13 +1739,13 @@ Dor_readr <- function(path = NULL,
   readr::write_csv(Dor_data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(Dor_data)
-} # END Dor_readr
+} # END readr_Dor
 
 
 
 #### 22.0 MEPB ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-MEPB_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_MEPB <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
@@ -1792,14 +1792,14 @@ MEPB_readr <- function(path = NULL,
   readr::write_csv(MEPB_data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(MEPB_data)
-} # END MEPB_readr
+} # END readr_MEPB
 
 
 
 
 #### 23.0 Brazil ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-BBD_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_BBD <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
@@ -1899,14 +1899,14 @@ BBD_readr <- function(path = NULL,
   readr::write_csv(BBD_data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(BBD_data)
-} # END BBD_readr
+} # END readr_BBD
 
 
 
 
 #### 24.0 MPUJ ####
-#' @describeIn EPEL_readr Data files are specific to various data providers and users may examine code function-by-function. 
-MPUJ_readr <- function(path = NULL,
+#' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+readr_MPUJ <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL,
@@ -2001,5 +2001,5 @@ MPUJ_readr <- function(path = NULL,
   readr::write_csv(MPUJ_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(MPUJ_data)
-} # END MPUJ_readr
+} # END readr_MPUJ
 
