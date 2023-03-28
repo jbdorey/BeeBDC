@@ -139,14 +139,14 @@ dirMaker <- function(
   ScriptPath <- paste(RootPath,
                       "/BDC_repo/BeeDC/R", sep = "")
   }else{# If user provides an alternate ScriptRoot path
-    if (!fs::dir_exists(ScriptPath) & ScriptPath != FALSE) {
+    if(ScriptPath != FALSE){
+    if (!fs::dir_exists(ScriptPath)) {
       fs::dir_create(ScriptPath, recurse = TRUE)
       warning(paste0(" — We created the ", 
                      ScriptPath,
                      "file. This file needs to have the NewFunctions added to it otherise things won't",
                      " work. These can be added from our GitHub"))
     }
-    if(ScriptPath != FALSE){
   # Choose the location of the script
   ScriptPath <- ScriptPath}
     }
@@ -154,7 +154,8 @@ dirMaker <- function(
     ##### 1.2 DataPath ####
     # Create the DataPath if it does not already exist
   if(is.null(DataPath) & DataPath != FALSE){
-  if (!fs::dir_exists(paste0(RootPath, DataSubPath))  & DataPath != FALSE) {
+    if(DataPath != FALSE){
+  if (!fs::dir_exists(paste0(RootPath, DataSubPath))) {
     fs::dir_create(paste0(RootPath, DataSubPath), recurse = TRUE)
     # User warning
     warning(paste0(" — We created the ", 
@@ -162,10 +163,11 @@ dirMaker <- function(
                    "file. This file needs to have the occurrence data that you want to use ",
                    "added to it otherise things won't",
                    " work. Please choose this data or download it from the supp. materials of our paper"))
-  }
+  }}
   # Choose the location of your data
   DataPath <- paste(RootPath, DataSubPath, sep = "")
   }else{
+    if(DataPath != FALSE){
     if (!fs::dir_exists(DataPath)) {
       fs::dir_create(DataPath, recurse = TRUE)
       # User warning
@@ -175,7 +177,6 @@ dirMaker <- function(
                      "added to it otherise things won't",
                      " work. Please choose this data or download it from the supp. materials of our paper"))
     }
-    if(DataPath != FALSE){
       # Choose the location of the DataPath
       DataPath <- DataPath}
   }
@@ -198,7 +199,8 @@ dirMaker <- function(
   DiscLifePath <- paste(RootPath,
                         "/BDC_repo/DiscoverLife_Data", sep = "")
   }else{
-    if (!fs::dir_exists(DiscLifePath)   & DiscLifePath != FALSE) {
+    if(DiscLifePath != FALSE){
+    if (!fs::dir_exists(DiscLifePath)) {
       fs::dir_create(DiscLifePath, recurse = TRUE)
       {
         fs::dir_create(DiscLifePath, recurse = TRUE)
@@ -209,7 +211,6 @@ dirMaker <- function(
                        " work. These can be added from our GitHub"))
       }
     }
-    if(DiscLifePath != FALSE){
       # Choose the location of the DiscLifePath
       DiscLifePath <- DiscLifePath}
   }
@@ -217,7 +218,7 @@ dirMaker <- function(
   
   ##### 1.4 OutPath ####
   # Create the OutPath if it does not already exist
-  if(is.null(OutPath) & OutPath != FALSE){
+  if(is.null(OutPath)){
     if (!fs::dir_exists(paste0(DataPath, "/", OutPathName)) & OutPath != FALSE) {
       fs::dir_create(paste0(DataPath,  "/", OutPathName), recurse = TRUE)
       {
@@ -231,7 +232,8 @@ dirMaker <- function(
     # Choose the taxonomy path
     OutPath <- paste(DataPath,  "/", OutPathName, sep = "")
   }else{
-    if (!fs::dir_exists(OutPath) & OutPath != FALSE) {
+    if(OutPath != FALSE){
+    if (!fs::dir_exists(OutPath)) {
       fs::dir_create(OutPath, recurse = TRUE)
       {
         fs::dir_create(OutPath, recurse = TRUE)
@@ -239,9 +241,7 @@ dirMaker <- function(
         warning(paste0(" — We created the ", 
                        OutPath,
                        "file."))
-      }
-    }
-    if(OutPath != FALSE){
+    }}
       # Choose the location of the OutPath
       OutPath <- OutPath}
   }
