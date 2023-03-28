@@ -1,0 +1,271 @@
+# This function was written by James B Dorey on the 29th of September 2022
+# Its purpose is to visualise some data spatially by country
+# Please contact jbdorey@me.com for help
+
+
+#' Create country-level summary maps of species and occurrence numbers
+#' 
+#' Builds an output figure that shows the number of species and the number of occurrences per country.
+#' Breaks the data into classes for visualisation. Users may filter mapData to their taxa of interest to produce
+#' figures of interest.
+#'
+#' @param mapData A data frame or tibble. Occurrence records as input.
+#' @param class_n The number of categories to break the data into.
+#' @param class_Style The class style passed to [classInt::classIntervals()], options are chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails", or "maximum".
+#' Default = fisher
+#' @param filename A character vector with both the path to the save location and the file name itself
+#' for the output figure.
+#' @param width Numeric. The width, in inches, of the resulting figure. Default = 10.
+#' @param height Numeric. The height, in inches, of the resulting figure. Default = 5.
+#' @param dpi Numeric. The resolution of the resulting plot. Default = 300.
+#'
+#' @return Saves a figure to the user-specified outpath and name with a global map of bee occurrence
+#' species and count data from the input dataset. 
+#' @export
+#'
+#' @examples
+#' # This simple example using the test data has very few classes due to the small amount of input data.
+#' summaryMaps(
+#' mapData = BeeDC::beesFlagged,
+#' width = 10, height = 10,
+#' class_n = 4,
+#' class_Style = "fisher",
+#' filename = paste0(OutPath_Figures, "/CountryMaps_fisher_TEST.pdf")
+#' )
+#' 
+#' 
+summaryMaps <- function(
+    mapData = NULL,
+    class_n = 15,
+    class_Style = "fisher",
+    filename = NULL,
+    width = 10, height = 5,
+    dpi = 300
+){
+  require(ggplot2)
+  require(dplyr)
+  require(stringr)
+  require(tidyr)
+  require(classInt)
+  require(rnaturalearth)
+  require(tibble)
+  require(ggspatial)
+  
+  
+  #### 0.0 Prep ####
+  ##### 0.1 errors ####
+  ###### a. FATAL errors ####
+  if(is.null(mapData)){
+    stop(" — Please provide an argument for mapData I'm a program not a magician.")
+  }
+  if(is.null(filename)){
+    stop(" — No argument provided for filename. Please provide a filename in full path format.")
+  }
+  
+  
+
+  #### 1.0 Download base map ####
+    ###### 1.1 naturalEarth ####
+  # Download world map using rnaturalearth packages
+  worldMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
+                                          type = "map_units", scale = 110) %>%
+    # Select only a subset of the naturalearthdata columns to extract
+    dplyr::select(name_long, iso_a3, name, name_long, geometry)
+
+  # This stops a plotting error
+  sf_use_s2(FALSE)
+  
+  
+    ###### 1.2 occurrences ####
+  # Make all of the US virgin islands species into US species
+    #  mapData$countryCode <- stringr::str_replace(string = mapData$countryCode, 
+    #                                              pattern = "VI", replacement = "US")
+  # Turn occData into a simple point feature
+  mapData <- sf::st_as_sf(mapData %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+                         coords = c("decimalLongitude", "decimalLatitude"),
+                         na.fail = TRUE,
+                         # Assign the CRS from the rnaturalearth map to the point data
+                         crs = sf::st_crs(worldMap)) %>%
+    # Use a subset of columns
+    dplyr::select(database_id, scientificName, species, 
+                  country, stateProvince, dataSource, geometry)
+  
+    ##### 1.3 Extraction ####
+  writeLines(" — Extracting country data from points...")
+  #Extract polygon information to points
+  mapData <- sf::st_intersection(worldMap,
+                                        mapData) %>%
+    # drop geometry
+    sf::st_drop_geometry(mapData)
+  writeLines("Extraction complete.")
+  
+
+  #### 2.0 Species map ####
+    ##### 2.1 Data prep ####
+  # Get the unique country-species pairs
+  spMapData <- mapData %>%
+    dplyr::distinct(scientificName, name_long, .keep_all = TRUE) %>%
+    # Group by the country
+    dplyr::group_by(name_long) %>%
+    # Get a count of the records per country
+    dplyr::mutate(count = n()) %>% dplyr::ungroup() %>%
+    # Get unique
+    dplyr::distinct(name_long, .keep_all = TRUE) 
+  
+  ##### 2.2 Breaks ####
+  # make class intervals.
+  # Class intervals from ?classIntervals: fixed", "sd", "equal", "pretty", "quantile", 
+  # "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"
+  classes <- classInt::classIntervals(spMapData$count, n = class_n, style = class_Style, dig.lab=20,
+                                      dataPrecision=0)
+  # Next we’ll create a new column in our sf object using the base R cut() function to cut up our 
+  # percent variable into distinct groups:
+  spMapData <- spMapData %>%
+    dplyr::mutate(class_count = cut(count, 
+                                    classes$brks %>% round(digits = 0),
+                                    include.lowest = T, dig.lab = 10)) %>%
+      # format the class_count column to remove spaces, add comma break, and join min and max
+    dplyr::mutate(class_count2 = class_count %>%
+                    stringr::str_remove("\\[|\\]|\\(|\\)") %>%
+                    stringr::str_remove("\\]") %>%
+                    stringr::str_replace(",", "-")) %>%
+    tidyr::separate(col = class_count2, into = c("min", "max"), sep = "-") %>%
+    dplyr::mutate(min = min %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
+                  max = max %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
+                  class_count2 = stringr::str_c(min, max, sep = "-") ) 
+  
+  # Join the map and occurrence data
+  fullMap <-  dplyr::full_join(worldMap,  spMapData,
+                               by = c("name_long" = "name_long")) %>%
+    # Remove na rows
+    tidyr::drop_na(count)
+  
+  ##### 2.3 Draw map ####
+  # Make the map
+  (spCountryMap <- ggplot2::ggplot(data = fullMap, ) +
+     # Add in a blank base-map to highlight countries with no data
+     ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
+      # Plot and colour the terrestrial base map
+      ggplot2::geom_sf(aes(fill = class_count), size = 0.15)+ 
+      # Set map limits, if wanted
+      ggplot2::coord_sf(expand = FALSE, ylim = c(-60,90), lims_method = "geometry_bbox") + 
+      # Map formatting
+      # Add in the map's north arrow
+      ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
+                             pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
+                             style = north_arrow_fancy_orienteering) + # Add in NORTH ARROW
+      ggplot2::theme(panel.grid.major = ggplot2::element_line(color = gray(.1, alpha = 0.1), 
+                                            linetype = "dashed", linewidth = 0.5), # Add grid lines
+            panel.border = ggplot2::element_rect(color = gray(.1, alpha = 1), 
+                                        linetype = "solid", linewidth = 0.5,
+                                        fill = NA), # add panel border
+            panel.background = ggplot2::element_rect(fill = "aliceblue") )+ # Add background — colour in the ocean
+      # Change map colour scheme — CHOOSE YOUR OWN ADVENTURE
+      # For Dorey colour scheme use the below
+      ggplot2::scale_fill_viridis_d(option = "inferno",
+                           na.value = "grey50",
+                           name = "Class count",
+                           labels = fullMap %>%
+                             dplyr::arrange(count) %>% 
+                             dplyr::distinct(class_count2) %>%
+                             dplyr::pull(class_count2)) + # options = "magma", "inferno", "plasma", "cividis"
+      # Add in X and Y labels
+      xlab("Longitude") + ylab("Latitude") + 
+      # Add in the title
+      ggtitle( "Number of species per country")  )
+  
+  rm(spMapData)
+  
+  
+  #### 3.0 occurrence map ####
+  ##### 2.1 data prep ####
+  # Get the unique county-database_id pairs
+  mapTable <- mapData %>%
+      # Group by the country
+    dplyr::group_by(name_long) %>%
+      # Get a count of the records per country
+    dplyr::mutate(occCount = n()) %>%
+    # Get unique
+    dplyr::distinct(name_long, .keep_all = TRUE) %>%
+      # Select only these columns
+    dplyr::select(name_long, occCount)
+  
+  # Join the map and occurrence data
+  fullMap <-  dplyr::full_join(worldMap,  mapTable,
+                               by = c("name_long" = "name_long")) %>%
+    # Remove na rows
+    tidyr::drop_na(occCount)
+  
+  ##### 2.2 Breaks ####
+  # make class intervals.
+  # Class intervals from ?classIntervals: fixed", "sd", "equal", "pretty", "quantile", 
+  # "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"
+  classes <- classInt::classIntervals(fullMap$occCount, n = class_n, style = class_Style, dig.lab=20,
+                                      dataPrecision=0)
+  # Next we’ll create a new column in our sf object using the base R cut() function to cut up our 
+  # percent variable into distinct groups:
+  fullMap <- fullMap %>%
+    dplyr::mutate(class_count = cut(occCount, 
+                                    classes$brks %>% round(digits = 0),
+                                    include.lowest = T, dig.lab = 10)) %>%
+  # format the class_count column to remove spaces, add comma break, and join min and max
+  dplyr::mutate(class_count2 = class_count %>%
+                  stringr::str_remove("\\[|\\]|\\(|\\)") %>%
+                  stringr::str_remove("\\]") %>%
+                  stringr::str_replace(",", "-")) %>%
+    tidyr::separate(col = class_count2, into = c("min", "max"), sep = "-") %>%
+    dplyr::mutate(min = min %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
+                  max = max %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
+                  class_count2 = stringr::str_c(min, max, sep = "-") ) 
+  
+  ##### 2.3 Draw map ####
+  # Make the map
+  (occCountryMap <- ggplot2::ggplot(data = fullMap) +
+      # Add in a blank base-map to highlight countries with no data
+     ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
+      # Plot and colour the terrestrial base map
+      ggplot2::geom_sf(aes(fill = class_count), size = 0.15)+ 
+      # Set map limits, if wanted
+     ggplot2::coord_sf(expand = FALSE, ylim = c(-60,90), lims_method = "geometry_bbox") + 
+     # Map formatting
+      # Add in the map's north arrow
+      ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
+                                        pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
+                                        style = north_arrow_fancy_orienteering) + # Add in NORTH ARROW
+      ggplot2::theme(panel.grid.major = ggplot2::element_line(color = gray(.1, alpha = 0.1), 
+                                                              linetype = "dashed", linewidth = 0.5), # Add grid lines
+                     panel.border = ggplot2::element_rect(color = gray(.1, alpha = 1), 
+                                                          linetype = "solid", linewidth = 0.5,
+                                                          fill = NA), # add panel border
+                     panel.background = ggplot2::element_rect(fill = "aliceblue") )+ # Add background — colour in the ocean
+      # Change map colour scheme — CHOOSE YOUR OWN ADVENTURE
+      # For Dorey colour scheme use the below
+      ggplot2::scale_fill_viridis_d(option = "inferno",
+                                    na.value = "grey50",
+                                    name = "Class count",
+                                    labels = fullMap %>%
+                                      dplyr::arrange(occCount) %>% 
+                                      dplyr::distinct(class_count2) %>%
+                                      dplyr::pull(class_count2)) + # options = "magma", "inferno", "plasma", "cividis"
+      # Add in X and Y labels
+      xlab("Longitude") + ylab("Latitude") + 
+      # Add in the title
+      ggtitle( "Number of occurrences per country")  )
+  
+  #### 4.0 combine + save ####
+  # plot the figures together
+  (combinedPlot <- cowplot::plot_grid(spCountryMap,
+                                  #    + 
+                                  # theme(legend.position = legend.position,
+                                  #       legend.title = element_blank()),
+                                  occCountryMap, 
+                                  labels = c("(a)","(b)"),
+                                 ncol = 1, align = 'v', axis = 'l'))
+  # Save the plot
+  cowplot::save_plot(filename = filename,
+                     plot = combinedPlot,
+                     base_width = width,
+                     base_height = height, dpi = dpi)
+  
+  
+} # END function

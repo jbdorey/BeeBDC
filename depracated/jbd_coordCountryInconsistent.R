@@ -1,0 +1,146 @@
+   # This function was written by James B Dorey starting from the 3rd-7th of June 2022.
+# It is intended to replace the bdc function bdc_coordinates_country_inconsistent for larger datasets
+# where it is simply not feasible. 
+  # Initial function finished: _____
+  # For questions, please ask James at jbdorey@me.com
+
+jbd_coordCountryInconsistent <- function(
+    data = NULL,
+    path = NULL,
+    lon = "decimalLongitude",
+    lat = "decimalLatitude",
+    mapFile = NULL,
+    mapResolution = 50,
+    pointBuffer = 0.01){
+startTime <- Sys.time()
+  require(rnaturalearth)
+  require(dplyr)
+  require(tibble)
+  require(sf)
+  require(mgsub)
+  require(terra)
+
+  #### 0.0 Prep ####
+    # Reduce dataset 
+  dataR <- data %>%
+    dplyr::select(database_id, decimalLatitude, decimalLongitude, country) %>%
+      # Remove lat/lon NAs
+    dplyr::filter(!is.na(decimalLatitude)) %>% dplyr::filter(!is.na(decimalLongitude))
+  
+  #### 1.1 Terrestrial map ####
+      ##### 1.1 rnaturalearth DL ####
+  writeLines(" — Downloading naturalearth map...")
+  # Download the rnaturalearth countries
+vectEarth <- rnaturalearth::ne_countries(scale = mapResolution, type = "countries", 
+                                    returnclass = "sf" )%>%
+  dplyr::select(name_long, iso_a2, geometry, admin, sovereignt, name)
+  # Repair gemoetries
+sf::sf_use_s2(FALSE)
+
+
+  #### 2.0 Extractions ####
+    ##### 2.1 Country name ####
+writeLines(" — Extracting initial country names without buffer...")
+      # Turn the points into an sf object
+sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
+                   crs = terra::crs(vectEarth))
+  # Extract the country for the points from the vectEarth map
+country_extracted <- sf::st_intersection(vectEarth, sp)
+  
+    ##### 2.2 Failures ####
+  # Find those records that don't match.
+failed_extract <- country_extracted %>%
+    # Find the mis-matched countries
+  dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
+                                                   tolower(sovereignt), tolower(name))) %>%
+  dplyr::filter(!tolower(iso_a2) %in% tolower(country)) %>%
+    # Remove NA countries
+  dplyr::filter(!is.na(country)) %>%
+  tibble::tibble() %>%
+  sf::st_as_sf(crs = terra::crs(vectEarth))
+    # Replace some country names as needed and re-remove
+failed_extract$country <-
+  mgsub::mgsub(failed_extract$country, 
+               pattern = c("Martinique", "French guiana", "Federated States of Micronesia"),
+               replacement = c("France", "France", "Micronesia"))
+  # Remove new matches
+failed_extract <- failed_extract %>%
+  # Find the mis-matched countries
+  dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
+                                                   tolower(sovereignt), tolower(name))) %>%
+  dplyr::filter(!tolower(iso_a2) %in% tolower(country)) %>%
+  # Remove NA countries
+  dplyr::filter(!is.na(country)) %>%
+  tibble::tibble() %>%
+  sf::st_as_sf(crs = terra::crs(vectEarth))
+
+  # Find the unique combination of failures
+failed_unique <- failed_extract %>% dplyr::distinct(admin, country, iso_a2)
+
+    ##### 2.3 Buffer fails ####
+writeLines(" — Buffering natualearth map by pointBuffer...")
+  # Buffer the natural earth map
+suppressWarnings({
+  vectEarth_buff <- vectEarth %>% 
+  sf::st_buffer(dist = pointBuffer)
+})
+
+writeLines(" — Extracting FAILED country names WITH buffer...")
+# Extract the country for the points from the vectEarth map
+suppressWarnings({
+  failed_extract_2 <- failed_extract %>%
+  dplyr::select(database_id, country, geometry) %>%
+  sf::st_intersection(vectEarth_buff, .)
+})
+    # Find MATCHES #
+  # With country
+fExtr_1 <- failed_extract_2 %>% 
+  dplyr::filter(tolower(country) %in% c(tolower(name_long), tolower(admin),
+                                                  tolower(sovereignt), tolower(name)))
+  # With iso_a2
+fExtr_2 <- failed_extract_2 %>% 
+  dplyr::filter(tolower(iso_a2) %in% tolower(country))
+
+ids2keep <- dplyr::bind_rows(fExtr_1, fExtr_2) %>%
+  # Find the mis-matched countries
+  dplyr::filter(tolower(country) %in% c(tolower(name_long), tolower(admin),
+                                                   tolower(sovereignt), tolower(name))) %>%
+  dplyr::filter(tolower(iso_a2) %in% tolower(country)) %>%
+    # Keep only the database id
+  dplyr::select(database_id)
+
+  #### 3.0 Final fails ####
+# Get the final fails by removing those to keep from the failed list
+ids2remove <- failed_extract_2 %>%
+  dplyr::filter(!database_id %in% ids2keep$database_id) %>%
+  dplyr::select(database_id)
+
+
+  #### 4.0 Finals ####
+    # Create new column
+data <- data %>% 
+  dplyr::mutate(.coordinates_country_inconsistent = !database_id %in% ids2remove$database_id)
+    # Save the failed_unique csv
+writeLines(paste(" — Saving the unique failed country matches as ",
+                 here::here("Output", "Check", "failed_unique_CCinconsistent.csv")))
+failed_unique %>%
+  readr::write_csv(.,
+                   here::here("Output", "Check", "failed_unique_CCinconsistent.csv"))
+
+    # return message
+message(paste("\nbdc_coordinates_country_inconsistent:\nFlagged", 
+              format(sum(data$.coordinates_country_inconsistent == FALSE, na.rm = TRUE), big.mark = ","),
+              "records.\nThe column, '.coordinates_country_inconsistent',",
+              "was added to the database.\n"), sep = "")
+ endTime <- Sys.time()
+    # Time output
+ message(paste(
+   " — Completed in ", 
+   round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
+   " minutes.",
+   sep = ""))
+
+  # Return the data
+return(data)
+} # END function
+  

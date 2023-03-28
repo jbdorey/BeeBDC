@@ -1,0 +1,56 @@
+# Description of the BeeDC taxonomic dataset
+# 16th of March 2023
+
+#' A country-level checklist of bees from Discover Life
+#'
+#' Contains taxonomic information for the bees of the world.
+#'
+#' @docType data
+#'
+#' @usage BeeDC::beesTaxonomy
+#'
+#' @format An object of class \code{"tibble"}
+#' \describe{
+#'  \item{flags}{Flags or comments about the taxon name.}
+#'  \item{taxonomic_status}{Taxonomic status. Values are "accepted" or "synonym"}
+#'  \item{source}{Source of the name.}
+#'  \item{accid}{The id of the accepted taxon name or "0" if taxonomic_status == accepted.}
+#'  \item{id}{The id number for the taxon name.}
+#'  \item{kingdom}{Kingdom == Animalia.}
+#'  \item{phylum}{Phylum == Arthropoda.}
+#'  \item{class}{Class == Insecta.}
+#'  \item{order}{Order == Hymenoptera.}
+#'  \item{family}{Bee family.}
+#'  \item{subfamily}{Bee subfamily.}
+#'  \item{tribe}{Bee tribe.}
+#'  \item{subtribe}{Bee subtribe.}
+#'  \item{validName}{The scientificName.}
+#'  \item{canonical}{The scientificName without the scientificNameAuthority.}
+#'  \item{canonical_withFlags}{The scientificName without the scientificNameAuthority and with Discover Life taxonomy flags.}
+#'  \item{genus}{Bee genus.}
+#'  \item{subgenus}{Bee subgenus.}
+#'  \item{species}{Bee specificEpithet.}
+#'  \item{infraspecies}{Bee infraSpecificEpithet.}
+#'  \item{authorship}{Bee scientificNameAuthority.}
+#' \item{taxon_rank}{Bee taxon_rank.}
+#' \item{valid}{Logical of if the name is valid.}
+#' \item{notes}{Notes about the name}
+#'  
+#'  
+#' }
+#' @references This dataset was created using the Discover Life taxonomy. See rawDataWrite.R
+#' for further information on download date in file name.
+#' Dataset is from the publication: 
+#' DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.
+#' @keywords datasets
+#' @examples
+#'
+#' data(beesTaxonomy)
+#' head(beesTaxonomy)
+#'
+"beesTaxonomy"
+
+
+
+
+
