@@ -23,6 +23,10 @@
 #' @param RDoc character string. The path to the current script or report, relative to the project 
 #' root. Passing an absolute path raises an error. This argument is used by [here::i_am()] and incorrectly
 #' setting this may result in bdc:: figures being saved to your computer's root directory
+#' @param Report Logical. If True, create a "Report" folder within OutPath.
+#' @param Check Logical. If True, create a "Check" folder within OutPath.
+#' @param Figures Logical. If True, create a "Figures" folder within OutPath.
+#' @param Intermediate Logical. If True, create a "Intermediate" folder within OutPath.
 #' 
 #'
 #' @return A list containing the required directories in your global environment. This function should
@@ -86,6 +90,10 @@ dirMaker <- function(
     DiscLifePath = NULL,
     OutPath = NULL,
     OutPathName = "Output",
+    Report = TRUE,
+    Check = TRUE,
+    Figures = TRUE,
+    Intermediate = TRUE,
     RDoc = NULL
 ){
   # Package names
@@ -131,7 +139,7 @@ dirMaker <- function(
   ScriptPath <- paste(RootPath,
                       "/BDC_repo/BeeDC/R", sep = "")
   }else{# If user provides an alternate ScriptRoot path
-    if (!fs::dir_exists(ScriptPath)) {
+    if (!fs::dir_exists(ScriptPath) & ScriptPath != FALSE) {
       fs::dir_create(ScriptPath, recurse = TRUE)
       warning(paste0(" — We created the ", 
                      ScriptPath,
@@ -146,7 +154,7 @@ dirMaker <- function(
     ##### 1.2 DataPath ####
     # Create the DataPath if it does not already exist
   if(is.null(DataPath) & DataPath != FALSE){
-  if (!fs::dir_exists(paste0(RootPath, DataSubPath))) {
+  if (!fs::dir_exists(paste0(RootPath, DataSubPath))  & DataPath != FALSE) {
     fs::dir_create(paste0(RootPath, DataSubPath), recurse = TRUE)
     # User warning
     warning(paste0(" — We created the ", 
@@ -175,7 +183,7 @@ dirMaker <- function(
     ##### 1.3 DiscLifePath ####
   # Create the DiscLifePath if it does not already exist
   if(is.null(DiscLifePath)  & DiscLifePath != FALSE){
-  if (!fs::dir_exists(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"))) {
+  if (!fs::dir_exists(paste0(RootPath, "/BDC_repo/DiscoverLife_Data")) & DiscLifePath != FALSE) {
     fs::dir_create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recurse = TRUE)
     {
       fs::dir_create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recurse = TRUE)
@@ -190,7 +198,7 @@ dirMaker <- function(
   DiscLifePath <- paste(RootPath,
                         "/BDC_repo/DiscoverLife_Data", sep = "")
   }else{
-    if (!fs::dir_exists(DiscLifePath)) {
+    if (!fs::dir_exists(DiscLifePath)   & DiscLifePath != FALSE) {
       fs::dir_create(DiscLifePath, recurse = TRUE)
       {
         fs::dir_create(DiscLifePath, recurse = TRUE)
@@ -210,7 +218,7 @@ dirMaker <- function(
   ##### 1.4 OutPath ####
   # Create the OutPath if it does not already exist
   if(is.null(OutPath) & OutPath != FALSE){
-    if (!fs::dir_exists(paste0(DataPath, "/", OutPathName))) {
+    if (!fs::dir_exists(paste0(DataPath, "/", OutPathName)) & OutPath != FALSE) {
       fs::dir_create(paste0(DataPath,  "/", OutPathName), recurse = TRUE)
       {
         fs::dir_create(paste0(DataPath, "/", OutPathName), recurse = TRUE)
@@ -223,7 +231,7 @@ dirMaker <- function(
     # Choose the taxonomy path
     OutPath <- paste(DataPath,  "/", OutPathName, sep = "")
   }else{
-    if (!fs::dir_exists(OutPath)) {
+    if (!fs::dir_exists(OutPath) & OutPath != FALSE) {
       fs::dir_create(OutPath, recurse = TRUE)
       {
         fs::dir_create(OutPath, recurse = TRUE)
@@ -240,24 +248,28 @@ dirMaker <- function(
   
   #### 2.0 Create paths ####
       # If these bdc folders do not exist in the chosen directory, create them
-  if (!fs::dir_exists(paste0(OutPath, "/Check"))) {
+  if (!fs::dir_exists(paste0(OutPath, "/Check")) & Check != FALSE) {
     fs::dir_create(paste0(OutPath, "/Check"), recurse = TRUE)
   }
-  if (!fs::dir_exists(paste0(OutPath, "/Figures"))) {
+  if (!fs::dir_exists(paste0(OutPath, "/Figures")) & Figures != FALSE) {
     fs::dir_create(paste0(OutPath, "/Figures"), recurse = TRUE)
   }
-  if (!fs::dir_exists(paste0(OutPath, "/Intermediate"))) {
+  if (!fs::dir_exists(paste0(OutPath, "/Intermediate")) & Intermediate != FALSE) {
     fs::dir_create(paste0(OutPath, "/Intermediate"), recurse = TRUE)
   }
-  if (!fs::dir_exists(paste0(OutPath, "/Report"))) {
+  if (!fs::dir_exists(paste0(OutPath, "/Report")) & Report != FALSE) {
     fs::dir_create(paste0(OutPath, "/Report"), recurse = TRUE)
   }
   
     ##### 2.1 Make sub-paths ####
-  OutPath_Check <- paste(OutPath, "/Check", sep = "")
-  OutPath_Figures <- paste(OutPath, "/Figures", sep = "")
-  OutPath_Intermediate <- paste(OutPath, "/Intermediate", sep = "")
-  OutPath_Report <- paste(OutPath, "/Report", sep = "")
+  if(Check != FALSE){
+  OutPath_Check <- paste(OutPath, "/Check", sep = "")}
+  if(Figures != FALSE){
+  OutPath_Figures <- paste(OutPath, "/Figures", sep = "")}
+  if(Intermediate != FALSE){
+  OutPath_Intermediate <- paste(OutPath, "/Intermediate", sep = "")}
+  if(Report != FALSE){
+  OutPath_Report <- paste(OutPath, "/Report", sep = "")}
   
   #### 3.0 Set here::here ####
     # here::here needs to know where to find all output files. This is set here.
