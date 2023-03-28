@@ -153,8 +153,7 @@ dirMaker <- function(
   
     ##### 1.2 DataPath ####
     # Create the DataPath if it does not already exist
-  if(is.null(DataPath) & DataPath != FALSE){
-    if(DataPath != FALSE){
+  if(is.null(DataPath) ){
   if (!fs::dir_exists(paste0(RootPath, DataSubPath))) {
     fs::dir_create(paste0(RootPath, DataSubPath), recurse = TRUE)
     # User warning
@@ -163,7 +162,7 @@ dirMaker <- function(
                    "file. This file needs to have the occurrence data that you want to use ",
                    "added to it otherise things won't",
                    " work. Please choose this data or download it from the supp. materials of our paper"))
-  }}
+  }
   # Choose the location of your data
   DataPath <- paste(RootPath, DataSubPath, sep = "")
   }else{
