@@ -23,10 +23,10 @@
 #' @param RDoc character string. The path to the current script or report, relative to the project 
 #' root. Passing an absolute path raises an error. This argument is used by [here::i_am()] and incorrectly
 #' setting this may result in bdc:: figures being saved to your computer's root directory
-#' @param Report Logical. If True, create a "Report" folder within OutPath.
-#' @param Check Logical. If True, create a "Check" folder within OutPath.
-#' @param Figures Logical. If True, create a "Figures" folder within OutPath.
-#' @param Intermediate Logical. If True, create a "Intermediate" folder within OutPath.
+#' @param Report Logical. If True, create a "Report" folder within OutPath. Default = TRUE.
+#' @param Check Logical. If True, create a "Check" folder within OutPath. Default = TRUE.
+#' @param Figures Logical. If True, create a "Figures" folder within OutPath. Default = TRUE.
+#' @param Intermediate Logical. If True, create a "Intermediate" folder within OutPath. Default = TRUE.
 #' 
 #'
 #' @return A list containing the required directories in your global environment. This function should
@@ -219,7 +219,7 @@ dirMaker <- function(
   ##### 1.4 OutPath ####
   # Create the OutPath if it does not already exist
   if(is.null(OutPath)){
-    if (!fs::dir_exists(paste0(DataPath, "/", OutPathName)) & OutPath != FALSE) {
+    if (!fs::dir_exists(paste0(DataPath, "/", OutPathName))) {
       fs::dir_create(paste0(DataPath,  "/", OutPathName), recurse = TRUE)
       {
         fs::dir_create(paste0(DataPath, "/", OutPathName), recurse = TRUE)
