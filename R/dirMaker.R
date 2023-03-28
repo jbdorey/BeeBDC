@@ -138,8 +138,9 @@ dirMaker <- function(
                      "file. This file needs to have the NewFunctions added to it otherise things won't",
                      " work. These can be added from our GitHub"))
     }
+    if(ScriptPath != FALSE){
   # Choose the location of the script
-  ScriptPath <- ScriptPath
+  ScriptPath <- ScriptPath}
     }
   
     ##### 1.2 DataPath ####
@@ -166,8 +167,9 @@ dirMaker <- function(
                      "added to it otherise things won't",
                      " work. Please choose this data or download it from the supp. materials of our paper"))
     }
-    # Choose the location of your data
-    DataPath <- DataPath
+    if(DataPath != FALSE){
+      # Choose the location of the DataPath
+      DataPath <- DataPath}
   }
   
     ##### 1.3 DiscLifePath ####
@@ -199,8 +201,9 @@ dirMaker <- function(
                        " work. These can be added from our GitHub"))
       }
     }
-    # Choose the taxonomy path
-    DiscLifePath <- DiscLifePath
+    if(DiscLifePath != FALSE){
+      # Choose the location of the DiscLifePath
+      DiscLifePath <- DiscLifePath}
   }
   
   
@@ -230,8 +233,9 @@ dirMaker <- function(
                        "file."))
       }
     }
-    # Choose the OutPath path
-    OutPath <- OutPath
+    if(OutPath != FALSE){
+      # Choose the location of the OutPath
+      OutPath <- OutPath}
   }
   
   #### 2.0 Create paths ####
