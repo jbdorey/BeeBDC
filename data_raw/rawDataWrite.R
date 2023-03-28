@@ -1,6 +1,6 @@
 # Set up datasets
 library(readr)
-setwd("/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper/BDC_repo/BeeDC/data_raw")
+setwd("/Users/jamesdorey/Desktop/Uni/Packages/BeeDC/data_raw")
   #### 1.0 Example occurrence data ####
 beesFlagged <- readr::read_csv("beesFlagged.csv")
 usethis::use_data(beesFlagged)
@@ -16,6 +16,6 @@ beesChecklist <- readr::read_csv("CheckL_combined2023-02-20.csv")
 usethis::use_data(beesChecklist)
 
 beesTaxonomy <- readr::read_csv("Paige_DLdf_2023-03-28.csv")
-usethis::use_data(beesTaxonomy)
+usethis::use_data(beesTaxonomy, overwrite = TRUE)
 
 
