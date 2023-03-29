@@ -50,9 +50,9 @@ Data files are specific to various data providers and users may examine code fun
 }
 \section{Functions}{
 \itemize{
-\item \code{readr_Col()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_Col()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_Arm()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_Arm()}: Reads specific data files into Darwin Core format
 
 }}
 \examples{

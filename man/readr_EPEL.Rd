@@ -98,43 +98,43 @@ Data files are specific to various data providers and users may examine code fun
 }
 \section{Functions}{
 \itemize{
-\item \code{readr_ASP()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_ASP()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_BMin()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_BMin()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_BMont()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_BMont()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_Ecd()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_Ecd()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_Gai()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_Gai()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_KP()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_KP()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_INHS()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_INHS()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_EcoS()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_EcoS()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_GeoL()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_GeoL()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_EaCO()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_EaCO()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_MABC()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_MABC()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_FSCA()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_FSCA()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_SMC()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_SMC()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_Bal()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_Bal()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_Lic()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_Lic()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_Dor()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_Dor()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_MEPB()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_MEPB()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_BBD()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_BBD()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_MPUJ()}: Data files are specific to various data providers and users may examine code function-by-function.
+\item \code{readr_MPUJ()}: Reads specific data files into Darwin Core format
 
 }}
 \examples{

@@ -111,7 +111,10 @@ return(EPEL_Data)
 
 
 #### 2.0 ASP ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_ASP <- function(path = NULL,
                          inFile = NULL,
@@ -173,7 +176,10 @@ return(ASP_data)
 
 #### 3.0 BMin ####
  
- #' @rdname readr_EPEL
+ #' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 
 readr_BMin <- function(path = NULL,
@@ -215,7 +221,10 @@ return(BMin_data)
 
 
 #### 4.0 BMont ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_BMont <- function(path = NULL,
                       inFile = NULL,
@@ -289,7 +298,10 @@ return(BMont_data)
 
 
 #### 5.0 Ecd ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_Ecd <- function(path = NULL,
                        inFile = NULL,
@@ -331,7 +343,10 @@ return(Ecd_data)
 } # END readr_Ecd
 
 ###### 6.0 Gai ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_Gai <- function(path = NULL,
                        inFile = NULL,
@@ -592,7 +607,10 @@ return(CAES_data)
 
 
 #### 9.0 KP ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_KP <- function(path = NULL,
                      inFile = NULL,
@@ -711,7 +729,10 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
 
 
 #### 10.0 INHS ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_INHS <- function(path = NULL,
                      inFile = NULL,
@@ -757,7 +778,10 @@ readr_INHS <- function(path = NULL,
 
 
 #### 11.0 EcoS ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_EcoS <- function(path = NULL,
                      inFile = NULL,
@@ -830,8 +854,10 @@ readr_EcoS <- function(path = NULL,
 
 
 #### 12.0 GeoL ####
-#' @rdname readr_EPEL
-  # These datasets are from my output but have been run through GeoLocate to find location information
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_GeoL <- function(path = NULL,
                        inFile = NULL,
@@ -963,7 +989,10 @@ readr_GeoL <- function(path = NULL,
 
 
 #### 13.0 EaCO ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_EaCO <- function(path = NULL,
                        inFile = NULL,
@@ -1077,7 +1106,10 @@ readr_EaCO <- function(path = NULL,
 
 
 #### 14.0 MABC ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_MABC <- function(path = NULL,
                        inFile = NULL,
@@ -1180,7 +1212,10 @@ readr_MABC <- function(path = NULL,
 
 
 #### 15.0 Col ####
-#' @rdname readr_CAES
+#' @describeIn readr_CAES
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_Col <- function(path = NULL,
                        inFile = NULL,
@@ -1332,7 +1367,10 @@ readr_Col <- function(path = NULL,
 
 
 #### 16.0 FSCA ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_FSCA <- function(path = NULL,
                        inFile = NULL,
@@ -1381,7 +1419,10 @@ readr_FSCA <- function(path = NULL,
 
 
 #### 17.0 SMC ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_SMC <- function(path = NULL,
                       inFile = NULL,
@@ -1436,7 +1477,10 @@ readr_SMC <- function(path = NULL,
 
 
 #### 18.0 Bal ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_Bal <- function(path = NULL,
                       inFile = NULL,
@@ -1515,7 +1559,10 @@ readr_Bal <- function(path = NULL,
 
 
 #### 19.0 Lic ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_Lic <- function(path = NULL,
                       inFile = NULL,
@@ -1605,7 +1652,10 @@ readr_Lic <- function(path = NULL,
 
 
 #### 20.0 Arm ####
-#' @rdname readr_CAES
+#' @describeIn readr_CAES
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_Arm <- function(path = NULL,
                        inFile = NULL,
@@ -1719,7 +1769,10 @@ readr_Arm <- function(path = NULL,
 
 
 #### 21.0 Dorey ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_Dor <- function(path = NULL,
                       inFile = NULL,
@@ -1763,7 +1816,10 @@ readr_Dor <- function(path = NULL,
 
 
 #### 22.0 MEPB ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_MEPB <- function(path = NULL,
                        inFile = NULL,
@@ -1818,7 +1874,10 @@ readr_MEPB <- function(path = NULL,
 
 
 #### 23.0 Brazil ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_BBD <- function(path = NULL,
                       inFile = NULL,
@@ -1926,7 +1985,10 @@ readr_BBD <- function(path = NULL,
 
 
 #### 24.0 MPUJ ####
-#' @rdname readr_EPEL
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
 #' @export
 readr_MPUJ <- function(path = NULL,
                       inFile = NULL,
