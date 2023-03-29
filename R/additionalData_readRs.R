@@ -112,6 +112,7 @@ return(EPEL_Data)
 
 #### 2.0 ASP ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_ASP <- function(path = NULL,
                          inFile = NULL,
                          outFile = NULL,
@@ -173,6 +174,8 @@ return(ASP_data)
 #### 3.0 BMin ####
  
  #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
+
 readr_BMin <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -213,6 +216,7 @@ return(BMin_data)
 
 #### 4.0 BMont ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_BMont <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -286,6 +290,7 @@ return(BMont_data)
 
 #### 5.0 Ecd ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_Ecd <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -327,6 +332,7 @@ return(Ecd_data)
 
 ###### 6.0 Gai ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_Gai <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -587,6 +593,7 @@ return(CAES_data)
 
 #### 9.0 KP ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_KP <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
@@ -705,6 +712,7 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
 
 #### 10.0 INHS ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_INHS <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
@@ -750,6 +758,7 @@ readr_INHS <- function(path = NULL,
 
 #### 11.0 EcoS ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_EcoS <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
@@ -823,6 +832,7 @@ readr_EcoS <- function(path = NULL,
 #### 12.0 GeoL ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
   # These datasets are from my output but have been run through GeoLocate to find location information
+#' @export
 readr_GeoL <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -954,6 +964,7 @@ readr_GeoL <- function(path = NULL,
 
 #### 13.0 EaCO ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_EaCO <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1067,6 +1078,7 @@ readr_EaCO <- function(path = NULL,
 
 #### 14.0 MABC ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_MABC <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1169,6 +1181,7 @@ readr_MABC <- function(path = NULL,
 
 #### 15.0 Col ####
 #' @describeIn readr_CAES Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_Col <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1320,6 +1333,7 @@ readr_Col <- function(path = NULL,
 
 #### 16.0 FSCA ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_FSCA <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1368,6 +1382,7 @@ readr_FSCA <- function(path = NULL,
 
 #### 17.0 SMC ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_SMC <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -1422,6 +1437,7 @@ readr_SMC <- function(path = NULL,
 
 #### 18.0 Bal ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_Bal <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -1500,6 +1516,7 @@ readr_Bal <- function(path = NULL,
 
 #### 19.0 Lic ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_Lic <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -1589,6 +1606,7 @@ readr_Lic <- function(path = NULL,
 
 #### 20.0 Arm ####
 #' @describeIn readr_CAES Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_Arm <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1702,6 +1720,7 @@ readr_Arm <- function(path = NULL,
 
 #### 21.0 Dorey ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_Dor <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -1745,6 +1764,7 @@ readr_Dor <- function(path = NULL,
 
 #### 22.0 MEPB ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_MEPB <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1799,6 +1819,7 @@ readr_MEPB <- function(path = NULL,
 
 #### 23.0 Brazil ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_BBD <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -1906,6 +1927,7 @@ readr_BBD <- function(path = NULL,
 
 #### 24.0 MPUJ ####
 #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+#' @export
 readr_MPUJ <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
