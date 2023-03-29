@@ -173,7 +173,7 @@ return(ASP_data)
 
 #### 3.0 BMin ####
  
- #' @describeIn readr_EPEL Data files are specific to various data providers and users may examine code function-by-function. 
+ #' @describeIn readr_EPEL
 #' @export
 
 readr_BMin <- function(path = NULL,
