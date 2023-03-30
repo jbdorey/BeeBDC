@@ -33,10 +33,12 @@ from inclusion and removed after creating the .summary column. Additionally, the
 can be filtered to only those where .summary = TRUE at the end of the function.
 }
 \examples{
+# Read in example data
+data(beesFlagged)
 
 # To only update the .summary column
 beesFlagged_out <- summaryFun(
-    data = BeeDC::beesFlagged,
+    data = beesFlagged,
     dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms", ".unLicensed"),
     removeFilterColumns = FALSE,
     filterClean = FALSE)

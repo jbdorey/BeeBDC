@@ -3,7 +3,26 @@
   # jbdorey@me.com for help.
 
 
-jbd_flagAbsent <-
+#' Flags occurrences that are absent
+#' 
+#' Flags occurrences that are "ABSENT" for the .occurrenceAbsent (or some other user-specified) column
+#'
+#' @param data A data frame or tibble. Occurrence records as input.
+#' @param PresAbs Character. The column in which the function will find "ABSENT" or "PRESENT" records.
+#' Default = "occurrenceStatus"
+#'
+#' @return The data with a new column called ".occurrenceAbsent" where FALSE == "ABSENT" records.
+#' @export
+#'
+#' @examples
+#'   # Brign in the data
+#' data(beesRaw)
+#'   # Run the function
+#' beesRaw_out <- jbd_flagAbsent(data = beesRaw,
+#' PresAbs = "occurrenceStatus")
+#'   # See the result
+#' table(beesRaw_out$.occurrenceAbsent, useNA = "always")
+flagAbsent <-
   function(data = NULL,
            PresAbs = "occurrenceStatus") {
     .data <- .occurrenceAbsent <- NULL

@@ -16,7 +16,32 @@
   # allTaxo: TAXON_MATCH_HIGHERRANK, TYPE_STATUS_INVALID, TAXON_MATCH_FUZZY
 
 
-jbd_GBIFissues <- function (data = NULL, 
+#' Flags records with GBIF issues
+#' 
+#' This function will flag a user-specified vector of GBIF issues.
+#'
+#' @param data A data frame or tibble. Occurrence records as input.
+#' @param issueColumn The column in which to look for GBIF issues. Default = "issue".
+#' @param GBIFflags The GBIF issues to flag. Users may choose their own vector of issues to flag or
+#' use a pre-set vector or vectors, including c("allDates", "allMetadata", "allObservations", 
+#' "allSpatial", "allTaxo", or "all").
+#' 
+#' Default = c("COORDINATE_INVALID", "PRESUMED_NEGATED_LONGITUDE", "PRESUMED_NEGATED_LATITUDE", "COUNTRY_COORDINATE_MISMATCH", "ZERO_COORDINATE")
+#'
+#' @return Returns the data with a new column, ".GBIFflags", where FALSE = records with any of the provided 
+#' GBIFflags.
+#' @export
+#'
+#' @examples
+#' # Import the example data
+#' data(beesRaw)
+#' # Run the function
+#' beesRaw_Out <- GBIFissues(data = beesRaw, 
+#'    issueColumn = "issue", 
+#'    GBIFflags = c("COORDINATE_INVALID", "ZERO_COORDINATE")) 
+#' 
+#' 
+GBIFissues <- function (data = NULL, 
                             issueColumn = "issue", 
                             GBIFflags = NULL) 
 {

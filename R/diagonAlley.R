@@ -3,7 +3,7 @@
   # the 27th and 28th of May 2022. Please contact James at jbdorey@me.com with questions if needed.
 
 
-jbd_diagonAlley <- function(
+diagonAlley <- function(
   data = NULL,
   minRepeats = NULL
   ){

@@ -41,9 +41,11 @@ Breaks the data into classes for visualisation. Users may filter mapData to thei
 figures of interest.
 }
 \examples{
+# Read in data
+data(beesFlagged)
 # This simple example using the test data has very few classes due to the small amount of input data.
 summaryMaps(
-mapData = BeeDC::beesFlagged,
+mapData = beesFlagged,
 width = 10, height = 10,
 class_n = 4,
 class_Style = "fisher",

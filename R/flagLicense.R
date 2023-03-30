@@ -4,7 +4,32 @@
   # jbdorey@me.com for help.
 
 
-jbd_flagLicense <-
+#' Flag license protected records
+#' 
+#' This function will search for strings that indicate a record is actually restricted in its use
+#' and flag them.
+#'
+#' @param data A data frame or tibble. Occurrence records as input.
+#' @param strings_to_restrict A character vector with the strings used to detect protected records.
+#' Default =  c("All Rights Reserved", "All rights reserved", "All rights reserved.", "ND", "Not for public")
+#' @param excludeDataSource Optional. A character vector. A vector of the data sources (dataSource) 
+#' that will not be flagged as protected, even if they are. This is useful if you have a private dataset 
+#' that is all listed as "All rights reserved" which you want to be ignored by this flag.
+#'
+#' @return Returns the data with a new column, .unLicensed, where FALSE = records that are protected by 
+#' a license.
+#' @export
+#'
+#' @examples
+#'   # Read in the example data
+#' data("beesRaw")
+#'   # Run the function
+#' beesRaw_out <- flagLicense(data = beesRaw,
+#'                         strings_to_restrict = "all",
+#'                         # DON'T flag if in the following data# source(s)
+#'                         excludeDataSource = NULL)
+
+flagLicense <-
   function(data = NULL,
            strings_to_restrict = "all",
            excludeDataSource = NULL) {
