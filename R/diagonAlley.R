@@ -3,6 +3,27 @@
   # the 27th and 28th of May 2022. Please contact James at jbdorey@me.com with questions if needed.
 
 
+#' Find fill-down errors
+#' 
+#' A simple function that looks for potential lat/lon fill down errors by finding consecutive numbers.
+#'
+#' @param data A data frame or tibble. Occurrence records as input.
+#' @param minRepeats Numeric. The minimum number of lat or lon repeats to flag a record
+#'
+#' @return Retrusn the data with a new column, .sequential, where FALSE = records that have consecutive 
+#' latitudes or longitudes.
+#' @export
+#'
+#' @examples
+#' # Read in the example data
+#'   data(beesRaw)
+#'  # Run the function
+#'   beesRaw_out <- diagonAlley(
+#'     data = beesRaw,
+#'     # The minimum number of repeats needed to find a sequence in for flagging
+#'     minRepeats = 4)
+#'   
+#' 
 diagonAlley <- function(
   data = NULL,
   minRepeats = NULL

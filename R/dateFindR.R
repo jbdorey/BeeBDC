@@ -511,7 +511,7 @@ dateFindR <-
         " — Formating and combining the new data..", sep = ""))
         ##### 4.1 formatting... ####
         # Extract only the date from occYr_2
-      occYr_2$date <- as.character(occYr_2$date) %>% lubridate::ymd_hms() %>% date()
+      occYr_2$date <- as.character(occYr_2$date) %>% lubridate::ymd_hms() %>% lubridate::date()
         # Set as date format...
       ymd_keepers_21$date <- lubridate::ymd(ymd_keepers_21$date)
       dmy_keepers_22$date <- lubridate::ymd(dmy_keepers_22$date)

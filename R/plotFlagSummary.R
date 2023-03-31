@@ -46,10 +46,11 @@
 #' @export
 #'
 #' @examples
-#' 
+#' # import data
+#' data(beesFlagged)
 #'  # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 #' plotFlagSummary(
-#'   plotData = BeeDC::beesFlagged,
+#'   plotData = beesFlagged,
 #'   # Colours in order of pass (TRUE), fail (FALSE), and NA
 #'   flagColours = c("#127852", "#A7002D", "#BDBABB"),
 #'   filename = paste0("FlagsPlot_TEST_", Sys.Date(),".pdf"),
