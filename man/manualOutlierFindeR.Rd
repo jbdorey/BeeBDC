@@ -10,7 +10,9 @@ manualOutlierFindeR(
   PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
   newOutliersName = "All_outliers_ANB.xlsx",
   ColombiaOutliers_all = "All_Colombian_OutlierIDs.csv",
-  duplicates = NULL
+  duplicates = NULL,
+  NearTRUE = NULL,
+  NearTRUE_threshold = 5
 )
 }
 \arguments{
@@ -25,6 +27,13 @@ manualOutlierFindeR(
 \item{ColombiaOutliers_all}{A character file name to the csv file.}
 
 \item{duplicates}{A data frame or tibble. The duplicate file produced by \code{\link[=dupeSummary]{dupeSummary()}}.}
+
+\item{NearTRUE}{Optional. A character file name to the csv file. If you want to remove expert
+outliers that are too close to TRUE points, use the name of the NearTRUE.csv.
+Note: This implementation is only basic for now unless there is a greater need in the future.}
+
+\item{NearTRUE_threshold}{Numeric. The threshold (in km) for the distance to TRUE points to
+keep expert outliers.}
 }
 \value{
 Returns the occData with a new column, \link{.expertOutlier} where records that are FALSE are
@@ -39,6 +48,8 @@ the expert outliers.
 }
 \examples{
 \dontrun{
+  # Read example data
+  data(beesFlagged)
 # Read in the most-recent duplicates file as well
 if(!exists("duplicates")){
   duplicates <- file_finder(path = DataPath,
@@ -46,7 +57,7 @@ if(!exists("duplicates")){
     readr::read_csv()}
 # identify the outliers and get a list of their database_ids
 beesFlagged_out <- manualOutlierFindeR(
-  occData = BeeDC::beesFlagged,
+  occData = beesFlagged,
   DataPath = DataPath,
   PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
   newOutliersName = "^All_outliers_ANB_14March.xlsx",
