@@ -1891,13 +1891,16 @@ readr_BBD <- function(path = NULL,
   require(mgsub)
   
   #### 23.2 Read+ ####
+  lookupCols <- c(verbatimScientificName = "Scientificname_ORIGINAL",
+                  verbatimLatitude = "Lat_original",
+                  verbatimLongitude = "Long_original")
   BBD_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                               trim_ws = TRUE) %>%
     # Rename columns
     dplyr::rename(
+      tidyselect::any_of(lookupCols),
       id = "CodeBBdatabase_curated",
       scientificName = "Scientific name corrected",
-      verbatimScientificName = "Scientificname_ORIGINAL",
       family = "Family",
       institutionCode = "institutioncode",
       # infraspecificEpithet = "Spcslink.subspecies",
@@ -1909,8 +1912,6 @@ readr_BBD <- function(path = NULL,
       stateProvince = "State",
       decimalLatitude = "Latitude_dec.degrees",
       decimalLongitude = "Longitude_dec.degrees",
-      verbatimLatitude = "Lat_original",
-      verbatimLongitude = "Long_original",
       coordinateUncertaintyInMeters = "Precision.of.coord.meters",
       verbatimLocality = "Locality.original",
       georeferenceRemarks = "NotasLatLong",
