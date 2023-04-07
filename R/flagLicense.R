@@ -1,7 +1,7 @@
 # This function is a modification of a bdc function and flags columns as FALSE when they are  
   # present in the strings_to_restrict. 
 # This function was written on the 22nd of May 2022 by James Dorey. Email James at
-  # jbdorey@me.com for help.
+  # jbdorey@me.com for help.#
 
 
 #' Flag license protected records
