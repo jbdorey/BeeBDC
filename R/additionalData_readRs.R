@@ -1928,6 +1928,9 @@ readr_BBD <- function(path = NULL,
       basisOfRecord = "Spcslink.basisofrecord",
       # occurrenceID = "Spcslink.collectioncode",
       eventRemarks = "NotesOnLocality") %>%
+    #dplyr::mutate(
+    #  decimalLatitude = decimalLatitude %>% stringr::str_replace("\\,", "\\."),
+    #  decimalLongitude = decimalLongitude %>% stringr::str_replace("\\,", "\\."))
     # add the database_id column
     dplyr::mutate(
       database_id = paste("BBD_data_", 1:nrow(.), sep = ""),
