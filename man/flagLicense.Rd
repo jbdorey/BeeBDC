@@ -4,7 +4,7 @@
 \alias{flagLicense}
 \title{Flag license protected records}
 \usage{
-flagLicense(occurDF)
+flagLicense(data = NULL, strings_to_restrict = "all", excludeDataSource = NULL)
 }
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
