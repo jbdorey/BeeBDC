@@ -29,8 +29,7 @@
 #'                         # DON'T flag if in the following data# source(s)
 #'                         excludeDataSource = NULL)
 
-flagLicense <-
-  function(data = NULL,
+flagLicense <- function(data = NULL,
            strings_to_restrict = "all",
            excludeDataSource = NULL) {
     .data <- .unLicensed <- NULL
