@@ -143,12 +143,12 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
     dplyr::mutate(SciPost = stringr::str_c(genus, species, postal, sep = "_"))
     # Make a new columns showing if that species is expected in that state.
   points_match <- points_simple %>%
-    dplyr::filter(country == "United states") %>%
+    dplyr::filter(stringr::str_detect(tolower(country), "united states")) %>%
     dplyr::mutate(exactMatch = dplyr::if_else(SciPost %in% CL_simple$SciPost,
                                         TRUE, FALSE)) %>%
       # join the assignmentCertainty column if there's a match
     dplyr::left_join(dplyr::select(CL_simple, SciPost, assignmentCertainty), 
-                     by = "SciPost", multiple = "all" )
+                     by = "SciPost", multiple = "all", relationship = "many-to-many" )
     # Show a quick summary
     # table(points_match$exactMatch, useNA = "always")
     # table(points_match$assignmentCertainty, useNA = "always")
@@ -169,7 +169,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
     dplyr::distinct(SciPost, .keep_all = TRUE)
   # Make a new columns showing if that species is expected in that state.
   npoints_match <- points_simple %>%
-    dplyr::filter(country == "United states") %>%
+    dplyr::filter(stringr::str_detect(tolower(country), "united states")) %>%
     dplyr::mutate(neighbourMatch = dplyr::if_else(SciPost %in% nCL_simple$SciPost,
                                               TRUE, FALSE)) %>%
       # Assign neighbourMatch for assignmentCertainty where occurrence was neighbour matched.
