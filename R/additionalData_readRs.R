@@ -1180,7 +1180,7 @@ readr_MABC <- function(path = NULL,
       identificationRemarks = stringr::str_c(
         dplyr::if_else(!is.na(tribe), paste0("tribe: ", tribe), ""))) %>%
   # Add year and ensure ymd format
-  dplyr::mutate(eventDate = lubridate::ymd(eventDate))  %>%
+  dplyr::mutate(eventDate = lubridate::dmy(eventDate))  %>%
     # Add dataset information
     dplyr::mutate(dataSource = "MABC_Anthophila") %>%
     # Remove any double white-spaces

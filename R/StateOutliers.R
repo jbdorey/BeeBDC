@@ -75,7 +75,9 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
   #### 2.0 Use occ. data ####
   ##### 2.1 Angela data ####
   # Turn occData into a simple point feature
-  points <- sf::st_as_sf(occData, coords = c("longitude", "latitude"),
+  points <- sf::st_as_sf(occData %>%
+                           tidyr::drop_na(longitude, latitude),
+                         coords = c("longitude", "latitude"),
                             # Assign the CRS from the rnaturalearth map to the point data
                             crs = sf::st_crs(stateMap)) %>%
       # Use a subset of columns
@@ -120,7 +122,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
     # Join the datasets togehter so that we can make a list of adjacent states to match also
   neighbouringStates <- CL %>%
     dplyr::left_join(dplyr::select(neighbouringStates, c(state, neighboursText)),
-                     by = "state", multiple = "all")
+                     by = "state", multiple = "all", relationship = "many-to-many")
     
 
   
@@ -189,7 +191,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
       # neighbour-joined dataset
     dplyr::left_join(dplyr::select(npoints_match, c(database_id, neighbourMatch, 
                                                        nAssignmentCertainty)),
-                     by = "database_id", multiple = "all") %>%
+                     by = "database_id", multiple = "all", relationship = "many-to-many") %>%
       # Remove geometry column
     dplyr::select(!tidyselect::starts_with("geometry")) %>%
       # Combine exactMatch and neighbourMatch
@@ -234,7 +236,8 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
                                      FALSE, TRUE))
       # Merge with orignal dataset
     output <- occData %>%
-      dplyr::left_join(bpoints_match, by = "database_id", multiple = "all")
+      dplyr::left_join(bpoints_match, by = "database_id", multiple = "all", relationship = "many-to-many") %>%
+      dplyr::distinct(database_id, .keep_all = TRUE)
 
     # return message
     message(paste("\nchecklistOutlieR:\nFlagged", 

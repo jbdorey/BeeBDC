@@ -195,7 +195,7 @@ if(onlySummary == FALSE){
   database <- database %>% 
     dplyr::mutate(mapLevels = dplyr::if_else(.expertOutlier == FALSE,
                                              "expertOutlier",
-                    dplyr::if_else(.countryOutlier == FALSE,
+                    dplyr::if_else(.countryOutlier == FALSE | is.na(.countryOutlier),
       "countryOutlier", dplyr::if_else(.summary == FALSE,
                                        "FALSE", "TRUE"))) %>%
         factor(c("TRUE", "FALSE", "countryOutlier", "expertOutlier"), 
@@ -352,6 +352,9 @@ for (x in 1:length(speciesList)){
                                             if(".countryOutlier" %in% colnames(databaseSpp)){
                                                            paste0("Country outliers: ", databaseSpp$.countryOutlier, 
                                                                   ";   ")},
+                                            if(".countryOutlier" %in% colnames(databaseSpp)){
+                                              paste0("State outliers: ", databaseSpp$.stateOutlier, 
+                                                     ";   ")},
                                            if(".expertOutlier" %in% colnames(databaseSpp)){
                                              paste0("Expert-identified outliers: ", databaseSpp$.expertOutlier, 
                                                     ";   ")},
