@@ -63,8 +63,8 @@ repo_merge <- function(path, save_type, occ_paths){
         # If there is a date range of days, take only the first day
       data_i$day <- data_i$day %>% 
         stringr::str_replace(pattern = "-.*", replacement = "") %>% 
-        stringr::str_squish() # %>%
-        # as.integer()
+        stringr::str_squish() %>%
+        as.integer()
       
       
       ###### Attr. mangement ####
