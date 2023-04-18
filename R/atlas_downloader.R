@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' remotes::install_github("AtlasOfLivingAustralia/galah@dev")
+#' remotes::install_github("AtlasOfLivingAustralia/galah")
 #' atlas_downloader(path = DataPath,
 #'                userEmail = "InsertYourEmail",
 #'                ALA_taxon = "Apiformes")

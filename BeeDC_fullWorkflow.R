@@ -94,7 +94,7 @@ renv::snapshot()
 
 ##### 1.1 Download ALA data ####
 # Downloads ALA data and creates a new file in the HomePath to put those data
-atlas_downloader(path = DataPath,
+BeeDC::atlas_downloader(path = DataPath,
                userEmail = "jbdorey@me.com",
                ALA_taxon = "Apiformes")
 
