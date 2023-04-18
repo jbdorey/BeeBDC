@@ -42,8 +42,10 @@ repo_merge <- function(path, save_type, occ_paths){
   # Make an internal copy of the template for use in the loop as the template tibble
   # IF the data template does not exist, one will be created
   if(exists("data_template") == FALSE){
-    data_template <- EmptyDF_builder(path = path, 
-                                     colSet = "character") # Or "formatted"
+    tibbleCols <- BeeDC::ColTypeR()[[1]] %>% names()
+    matrix(nrow = 0, ncol = length(tibbleCols)) %>% as.data.frame() %>% 
+      setNames(tibbleCols) %>%
+      tibble::as_tibble(col_types = BeeDC::ColTypeR()) 
   }
   # Copy the template
   Data_WebDL <- data_template

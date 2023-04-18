@@ -119,7 +119,7 @@ ColTypeR <- function(...){
     .occurrenceAbsent = col_logical(), .coordinates_country_inconsistent = col_logical(), 
     .unLicensed = col_logical(), .invalidName = col_logical(),
     .sequential = col_logical(), idContinuity = col_logical(), .uncertaintyThreshold = col_logical(),
-    .GBIFflags = col_logical(), duplicateStatus = col_character(),
+    .GBIFflags = col_logical(), 
       # Paige columns
     finalLatitude = col_double(), finalLongitude = col_double(), 
     
