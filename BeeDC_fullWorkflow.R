@@ -115,8 +115,7 @@ DataImp <- BeeDC::repo_merge(path = DataPath,
 # if meta_process = FALSE, then it will re-import as-is and be quicker. If TRUE, it will re
 # import but also with extra metadata files in the attributes and a uuid column
 DataImp <- BeeDC::importOccurrences(path = DataPath,
-                             fileName = "BeeData",
-                             meta_process = FALSE)
+                             fileName = "BeeData")
 
 
 ##### 1.3 Import USGS Data ####
