@@ -1,0 +1,32 @@
+citHeader("To cite BeeDC in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "BeeDC: A new R package and globally synthesised and flagged bee occurrence dataset",
+  author   = person("Dorey, James B [aut],Chesshire, Paige R [aut],Bolaños, Angela N [aut],O’Reilly, Robert L [aut],Bossert, Silas [aut],Collins, Shannon M [aut],Lichtenberg, Elinor M [aut],Tucker, Erika [aut],Smith-Pardo, Allan [aut],Falcon-Brindis, Armando [aut],Guevara, Diego A [aut],Ribeiro, Bruno R [aut],de Pedro, Diego [aut],Fischer, Erica [aut],Hung, James Keng-Lou [aut],Parys, Katherine A [aut],Rogan, Matthew S [aut],Minckley, Robert L [aut],Velzco, Santiago J E [aut],Griswold, Terry [aut],Zarrillo, Tracy A [aut],Sica, Yanina [aut],Orr, Michael C [aut],Guzman, Laura Melissa [aut],Ascher, John [aut],Hughes, Alice C [aut],Cobb, Neil S [aut]"),
+  journal  = "Scientific Data",
+  year     = "2023",
+  volume   = "1",
+  number   = "1",
+  pages    = "1",
+  url      = "NA",
+  textVersion = paste(
+"DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. BeeDC: A new R package and globally synthesised and flagged bee occurrence dataset. Scientific Data."
+  )
+)
+
+
+citEntry(
+  entry    = "Manual",
+  title    = "BeeDC: a bee and other occurrence data cleaning package",
+  author   = person("Dorey, James B [aut],O’Reilly, Robert L [aut],Bossert, Silas [aut],Fischer, Erica [aut]"),
+  year     = "2023",
+  note = paste0("R package version ", packageVersion )
+  url      = "https://github.com/jbdorey/BeeDC",
+  textVersion = paste(
+"DOREY, J. B., CHESSHIRE, O’REILLY, R. L., BOSSERT, FISCHER, E. (2023). BeeDC: a bee and other occurrence data cleaning package",
+paste0("R package version ", packageVersion ), "url = https://github.com/jbdorey/BeeDC"
+  )
+)
+
+

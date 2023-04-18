@@ -1294,7 +1294,7 @@ check_time <- BeeDC::dupeSummary(
   numberThreshold = 3,
      # Minimum number of numbers WITHOUT any characters
   numberOnlyThreshold = 5
-) %>% # END jbd_dupeSummary
+) %>% # END dupeSummary
   tibble::as_tibble(col_types = BeeDC::ColTypeR())
 
 # Save the dataset into the intermediate folder

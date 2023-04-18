@@ -27,8 +27,9 @@ use_github_actions()
 
 #### 2.0 Create package ####
   ##### 2.1 Descriptions ####
-# Write DESCRIPTION file
+# Write DESCRIPTION file inst
 packageDir <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeDC"
+packageVersion <- "0.0.1"
 setwd(packageDir)
 usethis::create_package(path = packageDir,
                         roxygen = TRUE,
@@ -36,8 +37,8 @@ usethis::create_package(path = packageDir,
                         check_name = TRUE,
                         open = FALSE,
                         fields = list(
-                          Title = "Cleans global bee, or other, occurrence data",
-                          Version = "0.0.1",
+                          Title = "BeeDC: a bee and other occurrence data cleaning package",
+                          Version = packageVersion,
                           `Authors@R` = c(person(given = "James B.",
                                                family = "Dorey",
                                                role = c("aut", "cre"),
@@ -53,15 +54,15 @@ usethis::create_package(path = packageDir,
 requiredPackages <- sort(c("R.utils","bdc","tidyr","magrittr","ggplot2","dplyr","tibble","forcats","galah", "EML","emld", "stringr","lubridate","tidyselect","mgsub","rnaturalearth","rnaturalearthdata", "circlize","BiocManager","paletteer","readxl","readr","cowplot","igraph","ggspatial", "janitor", "rlist"))
 lapply(requiredPackages,  usethis::use_package, type = "Imports")
 
-
   # Add suggested packages
 suggestedPackages <- sort(c("praise", "rlang", "xml2",  "rvest", "countrycode", "rangeBuilder","rworldmap","hexbin"))
 lapply(suggestedPackages,  usethis::use_package, type = "Suggests")
 
+# In order to initialise a package citation file: (Don't re-run!)
+#usethis::use_citation()
+
 # Order and format
 usethis::use_tidy_description()
-
-
 
 setwd(packageDir)
 
@@ -72,6 +73,9 @@ devtools::load_all()
   ##### 2.3 Generate documentation ####
 #roxygen2::roxygenise()
 devtools::document()
+
+citation("BeeDC")
+print(citation("BeeDC"), bibtex=TRUE)
 
 
   ##### 2.4 Test package ####
