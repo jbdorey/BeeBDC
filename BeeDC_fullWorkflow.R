@@ -1,10 +1,8 @@
-# This R script was written by James Dorey, starting on the 2nd of May 2022. The script intends
-# to clean occurrence data from several sources using a combination of custom functions and 
-# functions from the "bdc" package.
+# This R script was written by James Dorey, starting on the 2nd of May 2022. The script serves
+# as a workflow for the BeeDC package to clean and flag bee occurrence data.
+# It also uses functions from several sources and particularly from the "bdc" package.
 # For queries, please feel free to contact James Dorey at jbdorey@me.com
 
-# WHAT TO ADD? You can list things here if you see the need.
-  # Sort completness also by number of decimal places on lat/lon?
 
 #### 0.0 Script preparation ####
 # Install BeeDC 
@@ -27,16 +25,15 @@ BeeDC::dirMaker(
   list2env(envir = .GlobalEnv)  
 # Set the working directory
 setwd(DataPath)
-# Install reenv, IF NEEDED
+# Install reenv, IF NEEDED, and then initialise the project
 #install.packages("renv")
 renv::init() 
 
 
 ##### 0.2 Install packages (if needed) #####
-# Install only those packages that are not already present in your system
-# Choose packages that need to be installed 
+# Choose packages that need to be installed/loaded
 # You may need to install gdal on your computer. This can be done on mac by using
-# Homebrew in the terminal and the command "brew install gdal"
+  # Homebrew in the terminal and the command "brew install gdal"
 list.of.packages <- c("R.utils",           # To use gunzip
                       "bdc",               # data cleaning package
                       "tidyr",             #  Part of the tidyverse
@@ -66,7 +63,6 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "hexbin",
                       "circlize", 
                       "BiocManager",
-                      #"ComplexHeatmap",
                       "paletteer",
                       "readxl",
                       "readr",             #  Part of the tidyverse — reads files (e.g., .csv)
@@ -74,14 +70,13 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "igraph",
                       "ggspatial",
                       "galah")        #  Makes ggplot2 create north arrows or scale bars
-# Install sf and terra seperately
-# renv::install(c("sf","terra"), type = "binary")
+# Install sf, terra, galah, and ComplexHeatMap seperately
 renv::install(c("sf","terra"), type = "binary")
+remotes::install_github("AtlasOfLivingAustralia/galah")
+BiocManager::install("ComplexHeatmap")
 # List the new (not installed) packages and then if there are any, install them.
 renv::install(packages = c(list.of.packages, "ropensci/rnaturalearthhires", "mattflor/chorddiag"), 
               rebuild = FALSE) # try changing to TRUE if you're having package troubles
-remotes::install_github("AtlasOfLivingAustralia/galah")
-BiocManager::install("ComplexHeatmap")
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above, with the addition of "rnaturalearthhires"
@@ -112,20 +107,18 @@ DataImp <- BeeDC::repo_merge(path = DataPath,
 # This will return a list with 
 # 1. the occurrence dataset with attributes and 
 # 2. the appended eml file
-# if meta_process = FALSE, then it will re-import as-is and be quicker. If TRUE, it will re
-# import but also with extra metadata files in the attributes and a uuid column
 DataImp <- BeeDC::importOccurrences(path = DataPath,
                              fileName = "BeeData")
 
 
 ##### 1.3 Import USGS Data ####
-# The USGS_formatter will find, import, format and create metadata for the USGS dataset
-# pubDate must be in day-month-year format.
+# The USGS_formatter will find, import, format, and create metadata for the USGS dataset
+# pubDate must be in day-month-year format and must be supplied by the user here.
 USGS_data <- BeeDC::USGS_formatter(path = DataPath, pubDate = "19-11-2022")
 
 ##### 1.4 Formatted Source Importer ####
 # Formatted source importer. Use this importer to find files that have been formatted and need to 
-# be added to the larger data file
+# be added to the larger data file (e.g., made by repo_merge and USGS_formatter)
 # Input is the 
 # The strings to find and import
 # USGS_ > finds the start of the file name, from the USGS_formatter
@@ -161,9 +154,11 @@ rm(Complete_data, DataImp)
   # You may either use 
     # (a) the bdc import method (works well with general datasets) or 
     # (b) the jbd import method (works well with above data merge)
-  # The bdc import is not truly supported here, but provided as an example. Please go to section
+  # The bdc import is NOT truly supported here, but provided as an example. Please go to section
     # 2.1b below.
 ###### a. bdc import ####
+warning(paste0("The bdc method here is not truly implemented and supported. If you use it you must do so alone.",
+               " This is just a place-holder.", "\nPreferably, go directly to 2.1b — jbd import."))
 # Read in the bdc metadata
 bdc_metadata <- readr::read_csv(paste(DataPath, "Output", "bdc_integration.csv", sep = "/"))
 # ?issue — datasetName is a darwinCore field already!

@@ -2,7 +2,9 @@
 ##### 1. atlas_downloader ####
 #' Downloads occurrence data from the Atlas of Living Australia (ALA)
 #'
-#' Downloads ALA data and creates a new file in the path to put those data
+#' Downloads ALA data and creates a new file in the path to put those data. This function can also
+#' request downloads from other atlases (see: http://galah.ala.org.au/articles/choosing_an_atlas.html).
+#' However, it will only send the download to your email and you must do the rest yourself at this point.
 #' 
 #' @param path A character directory. The path to a folder where the download will be stored.
 #' @param userEmail A character string. The email to use with your ALA account (you must create and account).
