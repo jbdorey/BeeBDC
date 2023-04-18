@@ -14,7 +14,35 @@ Imports:
     dplyr,
     EML,
     emld,
-    forcats
+    forcats,
+    galah,
+    ggplot2,
+    ggspatial,
+    igraph,
+    janitor,
+    lubridate,
+    magrittr,
+    mgsub,
+    paletteer,
+    R.utils,
+    readr,
+    readxl,
+    rlist,
+    rnaturalearth,
+    rnaturalearthdata,
+    stringr,
+    tibble,
+    tidyr,
+    tidyselect
+Suggests: 
+    countrycode,
+    hexbin,
+    praise,
+    rangeBuilder,
+    rlang,
+    rvest,
+    rworldmap,
+    xml2
 Encoding: UTF-8
 roxygen: TRUE
 Roxygen: list(markdown = TRUE)
