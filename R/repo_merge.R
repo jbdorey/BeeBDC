@@ -42,7 +42,7 @@ repo_merge <- function(path, save_type, occ_paths){
   # Make an internal copy of the template for use in the loop as the template tibble
     data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
       purrr::map_dfc(setNames, object = list(character())) %>%
-      readr::type_convert(col_types = BeeDC::ColTypeR())
+      readr::type_convert(col_types = cols(.default = col_character()))
   # Copy the template
   Data_WebDL <- data_template
   # Make an empty eml file for the loop

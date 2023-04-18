@@ -12,11 +12,10 @@ data_reader <-  function(path_i, home_path){
   ColTypes <- ColTypeR()
   # Get the columns to keep
   ColsToKeep <- names(ColTypes$cols)
-  # IF the data template does not exist, one will be created
-  if(exists("data_template") == FALSE){
-    data_template <- EmptyDF_builder(path = home_path,
-                                     colSet = "character") # Or "formatted"
-  }
+  # Make an internal copy of the template for use in the loop as the template tibble
+  data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
+    purrr::map_dfc(setNames, object = list(character())) %>%
+    readr::type_convert(col_types = cols(.default = col_character()))
   
   #### ALA data ####
   if(grepl("ALA_data", names(path_i)) == "TRUE"){
