@@ -58,8 +58,8 @@ repo_merge <- function(path, save_type, occ_paths){
       
       ##### Data ####
       # Use the custom function data_reader to read in the occurrence data in the correct format
-      data_i <- data_reader(path_i = path_i, home_path = path) %>%
-        readr::type_convert(col_types = BeeDC::ColTypeR())
+      data_i <- data_reader(path_i = path_i, home_path = path) #%>%
+        #readr::type_convert(col_types = BeeDC::ColTypeR())
         # If there is a date range of days, take only the first day
       data_i$day <- data_i$day %>% 
         stringr::str_replace(pattern = "-.*", replacement = "") %>% 
