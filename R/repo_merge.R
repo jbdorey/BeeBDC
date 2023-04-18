@@ -42,10 +42,9 @@ repo_merge <- function(path, save_type, occ_paths){
   # Make an internal copy of the template for use in the loop as the template tibble
   # IF the data template does not exist, one will be created
   if(exists("data_template") == FALSE){
-    tibbleCols <- BeeDC::ColTypeR()[[1]] %>% names()
-    matrix(nrow = 0, ncol = length(tibbleCols)) %>% as.data.frame() %>% 
-      setNames(tibbleCols) %>%
-      tibble::as_tibble(col_types = BeeDC::ColTypeR()) 
+    data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
+      purrr::map_dfc(setNames, object = list(character())) %>%
+      readr::type_convert(col_types = BeeDC::ColTypeR())
   }
   # Copy the template
   Data_WebDL <- data_template
@@ -62,7 +61,8 @@ repo_merge <- function(path, save_type, occ_paths){
       
       ##### Data ####
       # Use the custom function data_reader to read in the occurrence data in the correct format
-      data_i <- data_reader(path_i = path_i, home_path = path)
+      data_i <- data_reader(path_i = path_i, home_path = path) %>%
+        readr::type_convert(col_types = BeeDC::ColTypeR())
         # If there is a date range of days, take only the first day
       data_i$day <- data_i$day %>% 
         stringr::str_replace(pattern = "-.*", replacement = "") %>% 

@@ -20,10 +20,11 @@ attr_builder <- function(path_i, occ_input){
     Attributes_i <- tibble::tibble(dataSource = paste("ALA_", 
                                                       galahDL_i$taxon, 
                                                       sep = ""),
-                                   alternateIdentifier =  galahDL_i$search_url,
+                                   alternateIdentifier = if("search_url" %in% colnames(galahDL_i)){
+                                     galahDL_i$search_url}else(NA_character_),
                                    title = "ALA Occurrence Download. ", 
-                                   pubDate = galahDL_i$download_date%>%
-                                     lubridate::as_date(),
+                                   pubDate = galahDL_i$download_date %>%
+                                                              lubridate::as_date(),
                                    dateStamp = galahDL_i$download_date,
                                    doi = galahDL_i$doi,
                                    downloadLink = galahDL_i$download_link,

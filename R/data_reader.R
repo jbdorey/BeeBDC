@@ -3,7 +3,10 @@
 data_reader <-  function(path_i, home_path){
   require(readr, dplyr, mgsub, tibble)
   require(stringr)
-  # Find the paths
+  #Set up bee family list
+  Bee_Families <- c("Andrenidae","Apidae", "Colletidae","Halictidae","Megachilidae","Melittidae",
+                    "Stenotritidae","andrenidae","apidae", "colletidae","halictidae","megachilidae",
+                    "melittidae","stenotritidae")  # Find the paths
   occ_paths <- data_finder(path = path_i)
   # Get the column types
   ColTypes <- ColTypeR()
@@ -33,8 +36,13 @@ data_reader <-  function(path_i, home_path){
                                      c(""))
     # Filter the columns to only those that we want to select, based on the ColsToKeep vector 
     # that we created at the top of the R-script
-    data_i <- data_i %>%  # The dataframe to match with
-      dplyr::rename("id" = "recordID") %>%
+    if("recordID" %in% colnames(data_i)){
+      data_i <- data_i %>%
+        # The dataframe to match with
+        dplyr::rename("id" = "recordID") 
+    }
+      
+    data_i <- data_i %>%  
       # select columns that match the following string
       dplyr::select( dplyr::matches(      
         # Use the carrot "^" to signify start of string and dollar sign "$" to signify end of 

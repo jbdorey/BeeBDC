@@ -10,7 +10,7 @@
 # Install BeeDC 
 # When prompted, just hit enter for updates.
 remotes::install_github("https://github.com/jbdorey/BeeDC.git", user="jbdorey", ref = "main", 
-                        force = FALSE,
+                        force = TRUE,
                         auth_token = "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")
 
 ##### 0.1 Working directory ####
@@ -104,7 +104,7 @@ BeeDC::atlas_downloader(path = DataPath,
 DataImp <- BeeDC::repo_merge(path = DataPath, 
                         # Find data — Many problems can be solved by running data_finder(path = DataPath)
                         # And looking for problems
-                      occ_paths = data_finder(path = DataPath),
+                      occ_paths = BeeDC::data_finder(path = DataPath),
                       save_type = "R_file")
 
 
@@ -186,7 +186,7 @@ occPath <- BeeDC::file_finder(path = DataPath, fileName = "Fin_BeeData_combined_
 # read in the file
 db_standardized <- readr::read_csv(occPath, 
                                    # Use the basic ColTypeR function to determine types
-                                   col_types = ColTypeR(), trim_ws = TRUE)
+                                   col_types = BeeDC::ColTypeR(), trim_ws = TRUE)
 # add the database_id columns
 db_standardized <- db_standardized %>%
   dplyr::mutate(
@@ -200,7 +200,7 @@ db_standardized <- db_standardized %>%
   # read in a prior run of choice
   priorRun <- BeeDC::file_finder(path = DataPath,
                           file = "01_prefilter_database_9Aug22.csv") %>%
-    readr::read_csv(file = ., col_types = ColTypeR())
+    readr::read_csv(file = ., col_types = BeeDC::ColTypeR())
   
   # Which datasets are static and should be excluded from matching?
   excludeDataset <- c("ASP", "BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
@@ -236,7 +236,7 @@ db_standardized <- db_standardized %>%
 # Import Paige's cleaned N. American data
 # IF you haven't figured out by now, dont worry about the column name warning — not all columns occur here.
 PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
-                                  sep = "/"), col_types = ColTypeR()) %>%
+                                  sep = "/"), col_types = BeeDC::ColTypeR()) %>%
   # Change the column name from Source to dataSource to match the rest of the data.
   dplyr::rename(dataSource = Source) %>%
   # EXTRACT WAS HERE
@@ -418,33 +418,33 @@ rm(EPEL_Data, ASP_Data, BMin_Data, BMont_Data, Ecd_Data, Gai_Data, CAES_Data,
 db_standardized <- db_standardized %>%
   dplyr::bind_rows(
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_ASP_data.csv"), col_types = ColTypeR()),
+                           "/jbd_ASP_data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_EPEL_data.csv"), col_types = ColTypeR()),
+                           "/jbd_EPEL_data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_BMin_data.csv"), col_types = ColTypeR()),
+                           "/jbd_BMin_data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_BMont_data.csv"), col_types = ColTypeR()),
+                           "/jbd_BMont_data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Ecd_data.csv"), col_types = ColTypeR()),
+                           "/jbd_Ecd_data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Gai_data.csv"), col_types = ColTypeR()),
+                           "/jbd_Gai_data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_CT_Data.csv"), col_types = ColTypeR()),
+                           "/jbd_CT_Data.csv"), col_types = BeeDC::ColTypeR()),
      readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_GeoL_Data.csv"), col_types = ColTypeR()),
+                           "/jbd_GeoL_Data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_EaCo_Data.csv"), col_types = ColTypeR()), 
+                           "/jbd_EaCo_Data.csv"), col_types = BeeDC::ColTypeR()), 
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_SMC_Data.csv"), col_types = ColTypeR()),
+                           "/jbd_SMC_Data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Bal_Data.csv"), col_types = ColTypeR()),
+                           "/jbd_Bal_Data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Lic_Data.csv"), col_types = ColTypeR()),
+                           "/jbd_Lic_Data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Arm_Data.csv"), col_types = ColTypeR()),
+                           "/jbd_Arm_Data.csv"), col_types = BeeDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Dor_Data.csv"), col_types = ColTypeR())) %>% 
+                           "/jbd_Dor_Data.csv"), col_types = BeeDC::ColTypeR())) %>% 
   # END bind_rows
   suppressWarnings(classes = "warning") # End suppressWarnings — due to col_types
 
@@ -460,7 +460,7 @@ db_standardized %>%
 #### 3.0 Initial flags ####
 #   # Read data back in if needed
 #   check_pf <- readr::read_csv(paste(OutPath_Intermediate, "00_prefilter_database.csv",
-#                                     sep = "/"), col_types = ColTypeR())
+#                                     sep = "/"), col_types = BeeDC::ColTypeR())
 
 # See here for bdc tutorial — https://brunobrr.github.io/bdc/articles/prefilter.html
 ##### 3.1 SciName ####
@@ -593,7 +593,7 @@ countryOutput %>%
 # Read in IF needed
 # check_pf <- readr::read_csv(paste(DataPath, 
 #               "Output", "Intermediate", "01_prefilter_database.csv", sep = "/"),
-#               col_types = ColTypeR())
+#               col_types = BeeDC::ColTypeR())
 # remove the interim datasets
 rm(check_pf_noNa, countryOutput)
 
@@ -757,7 +757,7 @@ rm(check_pf)
 # Read in the filtered dataset
 database <-
   readr::read_csv( paste(OutPath_Intermediate, "01_prefilter_output.csv",
-                         sep = "/"), col_types = ColTypeR())
+                         sep = "/"), col_types = BeeDC::ColTypeR())
 # Remove names_clean if it already exists (i.e. you have run this before on this dataset)
 database <- database %>%
   dplyr::select(!tidyselect::any_of("names_clean"))
@@ -826,7 +826,7 @@ database <-
   readr::read_csv(paste(OutPath_Intermediate, "02_taxonomy_database.csv", sep = "/"),
                   # It is likely that not all columns are present in this list and hence might 
                   # throw a warning. Don't stress it.
-                  col_types = ColTypeR())
+                  col_types = BeeDC::ColTypeR())
 
 ##### 5.1 Coord precision ####
 # This function identifies records with a coordinate precision below a specified number of decimal 
@@ -932,7 +932,7 @@ check_space %>%
   # Read in the dataset if needed
     # check_space <- readr::read_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
     #                                           sep = "/"),
-    #                                     col_types = ColTypeR())
+    #                                     col_types = BeeDC::ColTypeR())
 
 
 # SPATIAL gridding from rasterisation:
@@ -1135,7 +1135,7 @@ rm(output)
 database <- readr::read_csv(paste0(OutPath_Intermediate, "03_space_database.csv", sep = "/"), 
                             # It is likely that not all columns are present in this list and hence might
                             # throw a warning. Don't stress it.
-                            col_types = ColTypeR())
+                            col_types = BeeDC::ColTypeR())
   # You can plot a histogram of dates here, pre-cleaning to examine potential issues
 hist(lubridate::ymd_hms(database$eventDate, truncated = 5), breaks = 20)
 # Filter some silly dates that don't make sense...
@@ -1230,7 +1230,7 @@ check_time %>%
   # check_time <-
   #   readr::read_csv(paste(OutPath_Intermediate, "04_time_database.csv",
   #                          sep = "/"),
-  #                   col_types = ColTypeR())
+  #                   col_types = BeeDC::ColTypeR())
 
 ##### 6.8 Save flags ####
 # SAVE the flags so far
@@ -1295,7 +1295,7 @@ check_time <- BeeDC::dupeSummary(
      # Minimum number of numbers WITHOUT any characters
   numberOnlyThreshold = 5
 ) %>% # END jbd_dupeSummary
-  tibble::as_tibble(col_types = ColTypeR())
+  tibble::as_tibble(col_types = BeeDC::ColTypeR())
 
 # Save the dataset into the intermediate folder
 check_time %>%
@@ -1323,7 +1323,7 @@ BeeDC::flagRecorder(
   # Remove outliers based on manual identification of these records by experts
 outliers <- readr::read_csv(
   "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper/Data_acquisition_workflow/Paige_data/removedBecauseDeterminedOutlier.csv",
-  col_types = ColTypeR())
+  col_types = BeeDC::ColTypeR())
 
 # Find outliers by occurrenceID
 Outl_occID <- check_time %>%
@@ -1435,7 +1435,7 @@ BeeDC::chordDiagramR(
 # Use the uncleaned dataset
 beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                  sep = "/"),
-                           col_types = ColTypeR())
+                           col_types = BeeDC::ColTypeR())
 # Create a figure shoring the total number of duplicates, kept duplicates, and unique
 # records for each datasource (simplified to the text before the first underscore) and
 # the proportion of the above for each data source
@@ -1492,7 +1492,7 @@ BeeDC::plotFlagSummary(
 # Import CLEANED dataset (you can change this option)
 mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                  sep = "/"),
-                           col_types = ColTypeR())
+                           col_types = BeeDC::ColTypeR())
 
   ###### a. Summary maps ####
 # Read in the function
@@ -1543,7 +1543,7 @@ BeeDC::interactiveMapR(
 if(!exists("mapData")){
   mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                 sep = "/"),
-                          col_types = ColTypeR(),
+                          col_types = BeeDC::ColTypeR(),
   locale = readr::locale(encoding = "UTF-8"))}
 institutionList_DL <- readxl::read_excel(paste(DiscLifePath, "Apoidea Bee Collections Master List jan 2023.xlsx",
                                                sep = "/"))
