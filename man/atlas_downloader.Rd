@@ -25,7 +25,9 @@ atlas_downloader(
 Completes an ALA data download and saves those data to the path provided.
 }
 \description{
-Downloads ALA data and creates a new file in the path to put those data
+Downloads ALA data and creates a new file in the path to put those data. This function can also
+request downloads from other atlases (see: http://galah.ala.org.au/articles/choosing_an_atlas.html).
+However, it will only send the download to your email and you must do the rest yourself at this point.
 }
 \examples{
 \dontrun{

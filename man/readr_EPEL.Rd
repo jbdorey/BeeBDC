@@ -8,7 +8,6 @@
 \alias{readr_Ecd}
 \alias{readr_Gai}
 \alias{readr_KP}
-\alias{readr_INHS}
 \alias{readr_EcoS}
 \alias{readr_GeoL}
 \alias{readr_EaCO}
@@ -36,8 +35,6 @@ readr_Ecd(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 readr_Gai(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
 readr_KP(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
-
-readr_INHS(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
 readr_EcoS(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
@@ -109,8 +106,6 @@ Data files are specific to various data providers and users may examine code fun
 \item \code{readr_Gai()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_KP()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_INHS()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_EcoS()}: Reads specific data files into Darwin Core format
 

@@ -80,7 +80,8 @@ renv::install(packages = c(list.of.packages, "ropensci/rnaturalearthhires", "mat
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above, with the addition of "rnaturalearthhires"
-lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra", "galah", "ComplexHeatmap"), 
+lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra", "galah", "ComplexHeatmap",
+         "BeeDC"), 
        library, character.only = TRUE)
 # Save a snapshot of the environment
 renv::snapshot()

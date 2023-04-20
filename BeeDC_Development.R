@@ -82,6 +82,7 @@ print(citation("BeeDC"), bibtex=TRUE)
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
+usethis::use_test("ColTypeR")
 
 
   ##### 2.5 Check package ####
