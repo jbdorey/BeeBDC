@@ -728,51 +728,6 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
 
 
 
-#### 10.0 INHS ####
-#' @describeIn readr_EPEL
-#' 
-#' Reads specific data files into Darwin Core format
-#' 
-#' @export
-readr_INHS <- function(path = NULL,
-                     inFile = NULL,
-                     outFile = NULL,
-                     dataLicense = NULL){
-  #### 10.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
-  
-  #### 10.2 Read+ ####
-  # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-  INHS_data <- readr::read_csv(paste(path, inFile, sep = "/"),
-                                trim_ws = TRUE, col_types = ColTypeR()) %>%
-    # Format eventDate and add dataSource
-    dplyr::mutate(
-      dataSource = "INHS_Anthophila") %>%
-    # add the database_id column
-    dplyr::mutate(
-      database_id = paste("INHS_data_", 1:nrow(.), sep = ""),
-      .before = catalogNumber)  %>%
-    dplyr::mutate(license = dataLicense) %>%
-    # add the database_id column
-    dplyr::mutate(
-      datasetName = "Illinois Natural History Survey",
-      datasetID = "INHS",
-      
-    )
-  
-  #### 10.3 Out ####
-  # Save the dataset
-  readr::write_csv(INHS_data, file = paste(path, outFile, sep = "/"))
-  # Return the data from the function to the user
-  return(INHS_data)
-} # END readr_INHS
-
 
 
 
