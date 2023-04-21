@@ -10,7 +10,7 @@
 RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
 
 # Set the working directory
-setwd(DataPath)
+setwd(paste0(RootPath,"/Data_acquisition_workflow"))
 # Install reenv, IF NEEDED, and then initialise the project
 #install.packages("renv")
 renv::init() 
