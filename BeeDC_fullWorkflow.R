@@ -5,30 +5,15 @@
 
 
 #### 0.0 Script preparation ####
-# Install BeeDC 
-# When prompted, just hit enter for updates.
-remotes::install_github("https://github.com/jbdorey/BeeDC.git", user="jbdorey", ref = "main", 
-                        force = TRUE,
-                        auth_token = "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")
-
 ##### 0.1 Working directory ####
 # Choose the path to the root folder in which all other folders can be found (or made by dirMaker)
 RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
-  # Load in this initial packae 
-library(magrittr)
-  # Create file paths and prepare for what's to come
-BeeDC::dirMaker(
-  RootPath = RootPath,
-  # Input the location of the workflow script RELATIVE to the RootPath
-  RDoc = "Packages/BeeDC/BeeDC_fullWorkflow.R") %>%
-  # Add paths created by this function to the .GlobalEnv
-  list2env(envir = .GlobalEnv)  
+
 # Set the working directory
 setwd(DataPath)
 # Install reenv, IF NEEDED, and then initialise the project
 #install.packages("renv")
 renv::init() 
-
 
 ##### 0.2 Install packages (if needed) #####
 # Choose packages that need to be installed/loaded
@@ -85,6 +70,21 @@ lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra", "gal
        library, character.only = TRUE)
 # Save a snapshot of the environment
 renv::snapshot()
+
+  ##### 0.4 BeeDC ####
+# Install BeeDC 
+# When prompted, just hit enter for updates.
+remotes::install_github("https://github.com/jbdorey/BeeDC.git", user="jbdorey", ref = "main", 
+                        force = TRUE,
+                        auth_token = "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")
+
+# Create file paths and prepare for what's to come
+BeeDC::dirMaker(
+  RootPath = RootPath,
+  # Input the location of the workflow script RELATIVE to the RootPath
+  RDoc = "Packages/BeeDC/BeeDC_fullWorkflow.R") %>%
+  # Add paths created by this function to the .GlobalEnv
+  list2env(envir = .GlobalEnv)  
 
 #### 1.0 Data merge ####
 
