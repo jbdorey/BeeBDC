@@ -58,7 +58,7 @@ countryOutlieRs <- function(
 countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
                                         type = "countries", scale = rnearthScale)  %>%
   # Select only a subset of the naturalearthdata columns to extract
-  dplyr::select(iso_a2, iso_a3, name, name_long, geometry) %>%
+  dplyr::select(iso_a2, iso_a3, name, name_long, continent, geometry) %>%
   # Replace some country codes to match the checklist
   dplyr::mutate(iso_a3 = iso_a3 %>% stringr::str_replace_all(
     c("ALA" = "FIN", # Åland Islands == Finland

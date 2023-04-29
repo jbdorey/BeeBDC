@@ -99,6 +99,10 @@ data_all <- data_all %>%
   dplyr::bind_rows(data_noNa)
 rm(data_noNa)
 
+# Remove illegal characters
+data_all$country <- data_all$country %>%
+  stringr::str_replace(., pattern = paste("\\[", "\\]", "\\?",
+                                          sep=  "|"), replacement = "")
 # Replace the problems as they occur
 data_all <- data_all %>%
   dplyr::left_join(commonProblems, by = c("country" = "problem")) %>%

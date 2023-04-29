@@ -51,11 +51,15 @@ usethis::create_package(path = packageDir,
                           License = usethis::use_ccby_license()
                         ))
   # Add required packages
-requiredPackages <- sort(c("R.utils","bdc","tidyr","magrittr","ggplot2","dplyr","tibble","forcats","galah", "EML","emld", "stringr","lubridate","tidyselect","mgsub","rnaturalearth","rnaturalearthdata", "circlize","BiocManager","paletteer","readxl","readr","cowplot","igraph","ggspatial", "janitor", "rlist"))
+requiredPackages <- sort(c("R.utils","bdc","tidyr","magrittr","ggplot2","dplyr","tibble","forcats",
+                           "EML","emld", "stringr","lubridate","tidyselect","mgsub",
+                           "rnaturalearth","rnaturalearthdata", "circlize","BiocManager","paletteer",
+                           "readxl","readr","cowplot","igraph","ggspatial", "janitor", "rlist"))
 lapply(requiredPackages,  usethis::use_package, type = "Imports")
 
   # Add suggested packages
-suggestedPackages <- sort(c("praise", "rlang", "xml2",  "rvest", "countrycode", "rangeBuilder","rworldmap","hexbin"))
+suggestedPackages <- sort(c("praise", "rlang", "xml2",  "rvest", "countrycode", "rangeBuilder",
+                            "rworldmap","galah", "hexbin"))
 lapply(suggestedPackages,  usethis::use_package, type = "Suggests")
 
 # In order to initialise a package citation file: (Don't re-run!)
