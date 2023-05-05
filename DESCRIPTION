@@ -1,5 +1,5 @@
 Package: BeeDC
-Title: Cleans global bee, or other, occurrence data
+Title: BeeDC: a bee and other occurrence data cleaning package
 Version: 0.0.1
 Authors@R: 
     person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre"),
@@ -15,7 +15,6 @@ Imports:
     EML,
     emld,
     forcats,
-    galah,
     ggplot2,
     ggspatial,
     igraph,
@@ -36,6 +35,7 @@ Imports:
     tidyselect
 Suggests: 
     countrycode,
+    galah,
     hexbin,
     praise,
     rangeBuilder,
