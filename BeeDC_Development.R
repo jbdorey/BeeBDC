@@ -8,10 +8,12 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("ComplexHeatmap")
 remotes::install_github("AtlasOfLivingAustralia/galah@dev")
 install.packages("datapasta")
+install.packages("xlsx")
 
 library(devtools)
 library(usethis)
 library(datapasta)
+library(xlsx)
 
 #### 1.0 one-time set up ####
 # Most of this is not necessary
