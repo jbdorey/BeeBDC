@@ -88,7 +88,6 @@ BeeDC::dirMaker(
   list2env(envir = .GlobalEnv)  
 
 #### 1.0 Data merge ####
-
 ##### 1.1 Download ALA data ####
 # Downloads ALA data and creates a new file in the HomePath to put those data
 BeeDC::atlas_downloader(path = DataPath,
@@ -104,14 +103,12 @@ DataImp <- BeeDC::repo_merge(path = DataPath,
                       occ_paths = BeeDC::data_finder(path = DataPath),
                       save_type = "R_file")
 
-
 # Load in the most-recent version of these data if needed 
 # This will return a list with 
 # 1. the occurrence dataset with attributes and 
 # 2. the appended eml file
 DataImp <- BeeDC::importOccurrences(path = DataPath,
                              fileName = "BeeData")
-
 
 ##### 1.3 Import USGS Data ####
 # The USGS_formatter will find, import, format, and create metadata for the USGS dataset
@@ -144,17 +141,17 @@ BeeDC::data_saver(path = DataPath,# The main path to look for data in
 rm(Complete_data, DataImp)
 
 
-#### 2.0 Data preperation ####
-##### 2.1 standardise datasets ####
+#### 2.0 Data preparation ####
+##### 2.1 Standardise datasets ####
   # You may either use 
     # (a) the bdc import method (works well with general datasets) or 
-    # (b) the jbd import method (works well with above data merge)
+    # (b) the BeeDC import method (works well with above data merge)
   # The bdc import is NOT truly supported here, but provided as an example. Please go to section
     # 2.1b below.
 ###### a. bdc import ####
 warning(paste0("The bdc method here is not truly implemented and supported. If you use it you must do so alone.",
                " This is just a place-holder for people using the bdc package more heavily.",
-               "\nPreferably, go directly to 2.1b — jbd import."))
+               "\nPreferably, go directly to 2.1b — BeeDC import."))
 # Read in the bdc metadata
 bdc_metadata <- readr::read_csv(paste(DataPath, "Output", "bdc_integration.csv", sep = "/"))
 # Standardise the dataset to bdc
@@ -168,7 +165,7 @@ config_description <- readr::read_csv(paste(DataPath, "Output", "bdc_configDesc.
                                             sep = "/"), 
                                       show_col_types = FALSE, trim_ws = TRUE)
 
-###### b. jbd import ####
+###### b. BeeDC import ####
 # You can also just read the data in using the below script. This will 
 # likely be quicker and more-reliable. Find the path
 occPath <- BeeDC::file_finder(path = DataPath, fileName = "Fin_BeeData_combined_")
@@ -624,7 +621,6 @@ if(!exists("check_pf")){
   # country name
 check_pf <- BeeDC::jbd_coordCountryInconsistent(
   data = check_pf,
-  path = DataPath,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
   mapResolution = 50,

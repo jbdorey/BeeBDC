@@ -7,9 +7,11 @@ if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("ComplexHeatmap")
 remotes::install_github("AtlasOfLivingAustralia/galah@dev")
+install.packages("datapasta")
 
 library(devtools)
 library(usethis)
+library(datapasta)
 
 #### 1.0 one-time set up ####
 # Most of this is not necessary
@@ -86,7 +88,7 @@ print(citation("BeeDC"), bibtex=TRUE)
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
-usethis::use_test("ColTypeR")
+usethis::use_test("readr_Arm")
 
 
   ##### 2.5 Check package ####

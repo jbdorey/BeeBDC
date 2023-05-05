@@ -48,6 +48,7 @@ ColTypeR <- function(...){
     # DBL — Locality info
     decimalLatitude = col_double(), decimalLongitude = col_double(),
     verbatimLatitude = col_character(), verbatimLongitude = col_character(),
+    verbatimElevation = col_character(),
     # CHR/Factor — Locality info
     stateProvince = col_character(), country = col_character(), continent = col_factor(), 
     locality = col_character(), island = col_character(),
@@ -81,7 +82,7 @@ ColTypeR <- function(...){
     verbatimScientificName = col_character(), verbatimEventDate = col_character(),
     # CHR/Factor — Aux info
     associatedTaxa = col_character(), associatedOrganisms = col_character(), 
-    fieldNotes = col_character(), sex = col_factor(),
+    fieldNotes = col_character(), sex = col_character(),
     # CHR — Rights info
     rights = col_character(), rightsHolder = col_character(), accessRights = col_character(), 
     dctermsLicense = col_character(), dctermsType = col_character(), 
