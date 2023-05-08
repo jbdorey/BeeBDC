@@ -85,6 +85,8 @@ jbd_CfC_chunker <- function(data = NULL,
     ##### 0.1 nChunks ####
   # Find the number of chunks needed to complete the run
   nChunks = ceiling(nrow(data)/stepSize)
+    # Find the max nrow
+  nrowMax <- nrow(data)
   # IF a run failed you can start again from the same spot using append = TRUE
     ##### 0.2 append ####
   if(append == TRUE){
@@ -98,6 +100,10 @@ jbd_CfC_chunker <- function(data = NULL,
   # It will also differ if append == true based on where the run is at.
     ##### 0.3 chunkEnd ####
   chunkEnd = (chunkStart + stepSize) - 1
+    # If chunkEnd surpasses nrowMax, then assign nrowMax.
+  if(chunkEnd > nrowMax){
+    chunkEnd = nrowMax
+  }
   
   ##### 0.4 Text out ####
   # Write user output

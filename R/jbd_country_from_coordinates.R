@@ -60,7 +60,7 @@ jbd_country_from_coordinates <-
     
     minimum_colnames <- c(lat, lon)
     
-    if (!all(minimum_colnames %in% colnames(data))) {
+    if(!all(minimum_colnames %in% colnames(data))) {
       stop(
         "These columns names were not found in your database: ",
         paste(minimum_colnames[!minimum_colnames %in% colnames(data)],
@@ -72,7 +72,7 @@ jbd_country_from_coordinates <-
     # check if data has a country column
     has_country <- any(colnames(data) == country)
     
-    if (!has_country) {
+    if(!has_country) {
       data$country <- NA
     }
     
@@ -92,10 +92,10 @@ jbd_country_from_coordinates <-
       data %>%
       dplyr::filter(is.na(country) | country == "")
     
-    if (nrow(data_no_country) == 0) {
+    if(nrow(data_no_country) == 0) {
       data <- data %>% dplyr::select(-id_temp)
       message("All records already had country information. Nothing was done!")
-    } else{
+    }else{
       # converts coordinates columns to spatial points
       suppressWarnings({
         data_no_country <-
