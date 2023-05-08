@@ -100,10 +100,7 @@ jbd_CfC_chunker <- function(data = NULL,
   # It will also differ if append == true based on where the run is at.
     ##### 0.3 chunkEnd ####
   chunkEnd = (chunkStart + stepSize) - 1
-    # If chunkEnd surpasses nrowMax, then assign nrowMax.
-  if(chunkEnd > nrowMax){
-    chunkEnd = nrowMax
-  }
+
   
   ##### 0.4 Text out ####
   # Write user output
@@ -152,6 +149,10 @@ jbd_CfC_chunker <- function(data = NULL,
     # Set chunkStart to be chunkEnd +1 for the next row
     chunkStart = chunkStart + stepSize
     chunkEnd = chunkEnd + stepSize
+    # If chunkEnd surpasses nrowMax, then assign nrowMax.
+    if(chunkEnd > nrowMax){
+      chunkEnd = nrowMax
+    }
       ###### 1.4 Text and gc ####
     # Make room on the RAM by cleaning up the garbage
     # user output
