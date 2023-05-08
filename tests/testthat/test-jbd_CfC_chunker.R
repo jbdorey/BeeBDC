@@ -5,7 +5,7 @@ require(BeeDC)
 data("bees3sp")
 
 
-testData <- BeeDC::jbd_CfC_chunker(data = bees3sp %>%
+countryOutput <- BeeDC::jbd_CfC_chunker(data = bees3sp %>%
                                      tidyr::drop_na(decimalLatitude),
                                         lat = "decimalLatitude",
                                         lon = "decimalLongitude",
@@ -15,6 +15,26 @@ testData <- BeeDC::jbd_CfC_chunker(data = bees3sp %>%
                                         # Start row
                                         chunkStart = 1,
                                         append = FALSE)
+
+
+  # Test expected number of rows
+testthat::test_that("jbd_CfC_chunker row count expected", {
+  testthat::expect_equal(nrow(countryOutput), 86)
+})
+  # Test output class
+testthat::test_that("jbd_CfC_chunker expected class", {
+  testthat::expect_type(countryOutput, "list")
+})
+
+# Test output class
+testthat::test_that("jbd_CfC_chunker check that the input and output contries are the same — because nothing was changed for this test dataset.", {
+  testthat::expect_equal(countryOutput$country, bees3sp %>%
+                          tidyr::drop_na(decimalLatitude) %>%
+                          dplyr::pull(country))
+})
+
+
+
 
 
 

@@ -543,7 +543,7 @@ jbd_create_figures <-
       for (i in seq_along(res)) {
         column_to_map <- names(res)[i]
         ggplot2::ggsave(
-          paste(OutPath_Figures,
+          paste(path,
             "/",
             workflow_step,
             "_",
@@ -562,7 +562,7 @@ jbd_create_figures <-
         )
       }
       
-      message("Check figures in ", paste(OutPath_Figures, sep = "/"))
+      message("Check figures in ", paste(path, sep = "/"))
     }
     
     return(res)
