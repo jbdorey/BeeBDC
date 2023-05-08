@@ -80,6 +80,8 @@ jbd_Ctrans_chunker <- function(
     #### 0.1 nChuncks ####
    # Find the number of chunks needed to complete the run
   nChunks = ceiling(nrow(data)/stepSize)
+  # Find the max nrow
+  nrowMax <- nrow(data)
    # IF a run failed you can start again from the same spot using append = TRUE
   #### 0.2 Append ####
   if(append == TRUE){
@@ -144,6 +146,10 @@ jbd_Ctrans_chunker <- function(
     # Set chunkStart to be chunkEnd +1 for the next row
     chunkStart = chunkStart + stepSize
     chunkEnd = chunkEnd + stepSize
+    # If chunkEnd surpasses nrowMax, then assign nrowMax.
+    if(chunkEnd > nrowMax){
+      chunkEnd = nrowMax
+    }
     # Make room on the RAM by cleaning up the garbage
     # user output
       #### 1.3 Clear RAM ####
