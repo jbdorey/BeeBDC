@@ -285,6 +285,10 @@ idMatchR <- function(
     dplyr::group_by(databaseName) %>%
       # Add a new column with the databaseNum numbers
     dplyr::mutate(missingNum = databaseNum) %>%
+      # If the group is entirely unmatched, assign the first row in that group to equal 1
+    dplyr::mutate(missingNum = dplyr::if_else(dplyr::row_number() == 1 & is.na(missingNum[[1]]),
+                  1,
+                  missingNum)) %>%
       # Fill down the missing numbers starting from 1+ the maximum within databaseName group.
     dplyr::mutate(missingNum = dplyr::if_else(is.na(missingNum), 
                                         (max(missingNum, na.rm = TRUE)+
@@ -326,7 +330,7 @@ idMatchR <- function(
     # Update the database_id column to include the new database_ids, or the old ones where
       # new ones aren't available.
     dplyr::mutate(database_id = dplyr::if_else(is.na(database_id_new),
-                                                # If from an excluded dataset, keep exisitng database_id
+                                                # If from an excluded dataset, keep existing database_id
                                                database_id,
                                                 # Otherwise Assign the newly matched id
                                                database_id_new)) %>% 

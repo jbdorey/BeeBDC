@@ -154,7 +154,8 @@ ASP_data <- readr::read_csv(paste(path, inFile, sep = "/"),
     eventDate = lubridate::dmy(eventDate,
                                truncated = 2),
     # I'm sorry but this catalogNumber is useless. I'm going to edit it more-unique
-    catalogNumber = paste0("ASP_", catalogNumber)) %>%
+    catalogNumber = dplyr::if_else(!is.na(catalogNumber),
+                                   paste0("ASP_", catalogNumber), "")) %>%
   # add the database_id column
   dplyr::mutate(
     database_id = paste("ASP_data_", 1:nrow(.), sep = ""),
