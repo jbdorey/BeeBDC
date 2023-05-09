@@ -325,7 +325,11 @@ idMatchR <- function(
                      suffix = c("", "_new")) %>%
     # Update the database_id column to include the new database_ids, or the old ones where
       # new ones aren't available.
-    dplyr::mutate(database_id = database_id_new) %>% 
+    dplyr::mutate(database_id = dplyr::if_else(is.na(database_id_new),
+                                                # If from an excluded dataset, keep exisitng database_id
+                                               database_id,
+                                                # Otherwise Assign the newly matched id
+                                               database_id_new)) %>% 
     dplyr::select(!database_id_new)
   
   
