@@ -292,7 +292,7 @@ idMatchR <- function(
                                            sum(complete.cases(missingNum))),
                   missingNum)) %>%
       # Update the database_id column
-    dplyr::mutate(database_id_new = stringr::str_c(databaseName, missingNum)) %>% 
+    dplyr::mutate(database_id = stringr::str_c(databaseName, missingNum)) %>% 
       # Filter for only NA values on the databaseNum column
     dplyr::filter(!complete.cases(databaseNum)) 
   
@@ -320,12 +320,13 @@ idMatchR <- function(
     # Merge the new databse IDs with the returnData
   returnData <- returnData %>%
       # Join the checkedData dataset
-    dplyr::left_join(checkedData %>% dplyr::select(database_id, database_id_new),
-                     by = "database_id") %>%
+    dplyr::left_join(checkedData %>% dplyr::select(database_id, database_id_current),
+                     by = c("database_id" = "database_id_current"),
+                     suffix = c("", "_new")) %>%
     # Update the database_id column to include the new database_ids, or the old ones where
       # new ones aren't available.
-    dplyr::mutate(database_id = dplyr::if_else(
-      is.na(database_id_new), database_id, database_id_new))
+    dplyr::mutate(database_id = database_id_new) %>% 
+    dplyr::select(!database_id_new)
   
   
 
