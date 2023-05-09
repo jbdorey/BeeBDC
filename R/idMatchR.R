@@ -292,7 +292,7 @@ idMatchR <- function(
                                            sum(complete.cases(missingNum))),
                   missingNum)) %>%
       # Update the database_id column
-    dplyr::mutate(database_id = stringr::str_c(databaseName, missingNum)) %>% 
+    dplyr::mutate(database_id_new = stringr::str_c(databaseName, missingNum)) %>% 
       # Filter for only NA values on the databaseNum column
     dplyr::filter(!complete.cases(databaseNum)) 
   
