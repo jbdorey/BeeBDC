@@ -1,14 +1,69 @@
 data("beesFlagged")
 
-(figures <-
+
+
+#### 1.0 prefilter ####
+figuresP <-
+   BeeDC::jbd_create_figures(
+     data = tibble::tibble(beesFlagged %>% dplyr::select(!.uncer_terms)),
+     path = paste0(tempdir()),
+     database_id = "database_id",
+     workflow_step = "prefilter",
+     save_figures = TRUE)
+
+
+# Test the number of time figures
+testthat::test_that("jbd_create_figures number of figures", {
+  testthat::expect_equal(length(figuresP), 5)
+})
+testthat::test_that("jbd_create_figures expected class", {
+  testthat::expect_type(figuresP, "list")
+})
+testthat::test_that("jbd_create_figures expected class", {
+  testthat::expect_type(figuresP[[1]], "list")
+})
+
+
+
+#### 2.0 space ####
+figuresS <-
   BeeDC::jbd_create_figures(
     data = tibble::tibble(beesFlagged %>% dplyr::select(!.uncer_terms)),
     path = paste0(tempdir()),
     database_id = "database_id",
     workflow_step = "space",
     save_figures = TRUE)
-)
+
+# Test the number of space figures
+testthat::test_that("jbd_create_figures number of figures", {
+  testthat::expect_equal(length(figuresS), 4)
+})
+testthat::test_that("jbd_create_figures expected class", {
+  testthat::expect_type(figuresS, "list")
+})
+testthat::test_that("jbd_create_figures expected class", {
+  testthat::expect_type(figuresS[[1]], "list")
+})
+
+#### 3.0 time ####
+figuresT <-
+    BeeDC::jbd_create_figures(
+      data = tibble::tibble(beesFlagged %>% dplyr::select(!.uncer_terms)),
+      path = paste0(tempdir()),
+      database_id = "database_id",
+      workflow_step = "time",
+      save_figures = TRUE)
 
 
+# Test the number of time figures
+testthat::test_that("jbd_create_figures number of figures", {
+  testthat::expect_equal(length(figuresT), 5)
+})
+testthat::test_that("jbd_create_figures expected class", {
+  testthat::expect_type(figuresT, "list")
+})
+testthat::test_that("jbd_create_figures expected class", {
+  testthat::expect_type(figuresT[[1]], "list")
+})
 
 

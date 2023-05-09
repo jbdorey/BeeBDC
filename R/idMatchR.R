@@ -237,7 +237,8 @@ idMatchR <- function(
   
   #### 2.0 Data return ####
   writeLines(" — Combining ids and assigning new ones where needed...")
-    # Add a column, idContinuity, that shows that these ids are continuous with prior versions
+    # Add a column to that matched data:
+      # idContinuity, that shows that these ids are continuous with prior versions
   loopDF <- loopDF %>%
     dplyr::mutate(idContinuity = TRUE)
   
@@ -284,24 +285,23 @@ idMatchR <- function(
     dplyr::group_by(databaseName) %>%
       # Add a new column with the databaseNum numbers
     dplyr::mutate(missingNum = databaseNum) %>%
-      # Fill these numbers down
-    tidyr::fill(missingNum) %>%
+      # Fill down the missing numbers starting from 1+ the maximum within databaseName group.
+    dplyr::mutate(missingNum = dplyr::if_else(is.na(missingNum), 
+                                        (max(missingNum, na.rm = TRUE)+
+                                           dplyr::row_number()- 
+                                           sum(complete.cases(missingNum))),
+                  missingNum)) %>%
+      # Update the database_id column
+    dplyr::mutate(database_id = stringr::str_c(databaseName, missingNum)) %>% 
       # Filter for only NA values on the databaseNum column
-    dplyr::filter(!complete.cases(databaseNum)) %>%
-      # Now, add the rownumber to the missing values (i.e. continue the sequence)
-    dplyr::mutate(missingNum = missingNum + dplyr::row_number())
+    dplyr::filter(!complete.cases(databaseNum)) 
   
     # Now combine
   checkedData <- checkedData %>%
       # First, remove those newData from the checkedData
-    dplyr::filter(!database_id %in% newData$database_id) %>%
+    dplyr::filter(!database_id_current %in% newData$database_id_current) %>%
       # now re-combine
     dplyr::bind_rows(newData) %>%
-      # combine the databaseNum and missingNum columns
-    dplyr::mutate(combinedNums = dplyr::if_else(
-      complete.cases(databaseNum), databaseNum, missingNum)) %>%
-      # Create the new database_id column
-    dplyr::mutate(database_id_new = stringr::str_c(databaseName, combinedNums)) %>%
       # Remove groupings
     dplyr::ungroup()
 
