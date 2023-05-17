@@ -1,27 +1,28 @@
-#' Create figures reporting the results of the bdc/BeeDC package
+#' Create figures reporting the results of the bdc/BeeDC packages
 #'
 #' Creates figures (i.e., bar plots, maps, and histograms) reporting the results
-#' of data quality tests implemented in the bdc package. Works like [bdc::bdc_create_figures()],
-#' but allows the user to specify a save path.
+#' of data quality tests implemented the bdc and BeeDC packages. Works like [bdc::bdc_create_figures()],
+#' but it allows the user to specify a save path.
 #'
-#' @param data data.frame. Containing the results of data quality tests; that
+#' @param data A data frame or tibble. Needs to contain the results of data quality tests; that
 #' is, columns starting with ".".
-#' @param path A directory as a path. The path to a directory to save the figures to. Default = OutPath_Figures.
-#' @param workflow_step character string. Name of the workflow step. Options
+#' @param path A character directory. The path to a directory in which to save the figures. 
+#' Default = OutPath_Figures.
+#' @param workflow_step A character string. Name of the workflow step. Options
 #' available are "prefilter", "space", and "time".
-#' @param database_id character string. The column name with a unique record
+#' @param database_id A character string. The column name with a unique record
 #' identifier. Default = "database_id".
-#' @param save_figures logical. Should the figures be saved for further
-#' inspection? Default = FALSE.
+#' @param save_figures Logical. Indicates if the figures should be saved for further inspection or 
+#' use. Default = FALSE.
 #'
 #' @details This function creates figures based on the results of data quality
-#' tests implemented. A pre-defined list of test names is used for creating
+#' tests. A pre-defined list of test names is used for creating
 #' figures depending on the name of the workflow step informed. Figures are
-#' saved in "Output/Figures" if save_figures == TRUE.
+#' saved in "Output/Figures" if save_figures = TRUE.
 #'
-#' @return List containing figures showing the results of data quality test
-#' implemented in one module of bdc. When save_figures = TRUE, figures are
-#' also saved locally in a png format.
+#' @return List containing figures showing the results of data quality tests
+#' implemented in one module of bdc/BeeDC. When save_figures = TRUE, figures are
+#' also saved locally in a .png format.
 #'
 #' @importFrom CoordinateCleaner cc_val
 #' @importFrom readr read_csv
@@ -35,6 +36,7 @@
 #' @importFrom stats reorder
 #' @importFrom tibble as_tibble
 #' @importFrom tidyselect starts_with
+#' @importFrom dplyr %>%
 #' @export
 #'
 #' @examples
@@ -74,6 +76,7 @@ jbd_create_figures <-
     . <- .data <- n_flagged <- n_total <- freq <- NULL
     . <- V1 <- Name <- freq <- year <- decimalLongitude <- NULL
     decimalLatitude <- . <- long <- lat <- group <- `NA` <- .summary <- NULL
+    OutPath_Figures <- OutPath_Report <- NULL
     
     if(is.null(path)){
       warning("Please provide a path!")
@@ -83,8 +86,9 @@ jbd_create_figures <-
       check_require_cran("cowplot")
       check_require_cran("readr")
       check_require_cran("rworldmap")
-      check_require_cran("ggplot2")
+      check_require_cran("ggspatial")
       check_require_cran("hexbin")
+      requireNamespace("bdc")
       
     })
     
@@ -264,7 +268,8 @@ jbd_create_figures <-
             dplyr::mutate_if(is.character, ~ as.logical(as.character(.))) %>%
             dplyr::summarise_all(., .funs = sum) %>%
             t() %>%
-            tibble::as_tibble(rownames = "NA") %>%
+            tibble::as_tibble(rownames = "NA", .name_repair = "unique") %>%
+            setNames(c('NA', "V1")) %>%
             dplyr::mutate(V1 = nrow(data) - V1) %>%
             dplyr::mutate(
               freq =
@@ -479,7 +484,7 @@ jbd_create_figures <-
         temp <- readr::read_csv("Output/Check/01_coordinates_transposed.csv")
         
         p1 <-
-          bdc_quickmap(
+          bdc::bdc_quickmap(
             data = temp,
             lon = "decimalLongitude",
             lat = "decimalLatitude",
@@ -488,7 +493,7 @@ jbd_create_figures <-
           )
         
         p2 <-
-          bdc_quickmap(
+          bdc::bdc_quickmap(
             data = temp,
             lon = "decimalLongitude_modified",
             lat = "decimalLatitude_modified",

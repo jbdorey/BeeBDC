@@ -1,13 +1,17 @@
 # This function was made by James Dorey to manage flags in the synonym lists
-# For queries, please contact James Dorey at jbdorey@me.com
+# For queries, please contact James Dorey at jbdorey[at]me.com
 # This function was started on 15th May 2022 and last updated 17th May 2022
+#' @importFrom dplyr %>%
+
 
 FlagManager <- function(InSynList = DLdf,
                         flagCol = flags){
+  # locally bind variables to the function
+  . <- DLdf <- flags <- genus <- validName <- canonical <- NULL
   
   #### Flags option ####
   if(flagCol == "flags"){
-    writeLines(" — Using the flags column.")
+    base::writeLines(" - Using the flags column.")
   # If there is no canonical_withFlags, make one with the canonical column, assuming it has flags
   suppressWarnings( CWFtest <- InSynList$canonical_withFlags,
                     classes = "warning")
@@ -20,10 +24,10 @@ FlagManager <- function(InSynList = DLdf,
     InSynList$canonical_withFlags <- InSynList$canonical
   }
   
-  writeLines(" — 1. Remove flag from validName column...")
+  base::writeLines(" - 1. Remove flag from validName column...")
   ##### START ProgBar 1 ####
   # Initializes the progress bar
-  pb1 <- txtProgressBar(min = 0,      # Minimum value of the progress bar
+  pb1 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
                        max = nrow(InSynList), # Maximum value of the progress bar
                        style = 3,    # Progress bar style (also available style = 1 and style = 2)
                        width = NA,   # Progress bar width. Defaults to getOption("width")
@@ -37,7 +41,7 @@ FlagManager <- function(InSynList = DLdf,
     } # END IF statement
     
     # Sets the progress bar to the current state
-    setTxtProgressBar(pb1, i)
+    utils::setTxtProgressBar(pb1, i)
   } # END loop COLUMNS
   #### END progBar 1 ####
   close(pb1) # Close the connection
@@ -69,10 +73,10 @@ FlagManager <- function(InSynList = DLdf,
     paste(collapse="|")
   
   
-  writeLines(" — 2. Find and add flags to the 'flags' column...")
+  base::writeLines(" - 2. Find and add flags to the 'flags' column...")
   #### START ProgBar 2 ####
   # Initializes the progress bar
-  pb2 <- txtProgressBar(min = 0,      # Minimum value of the progress bar
+  pb2 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
                        max = length(FlagAnnot_cols), # Maximum value of the progress bar
                        style = 3,    # Progress bar style (also available style = 1 and style = 2)
                        width = NA,   # Progress bar width. Defaults to getOption("width")
@@ -83,7 +87,8 @@ FlagManager <- function(InSynList = DLdf,
     for(i in 1:nrow(InSynList)){ # ROWS
       if(grepl(FlagsAnnot,  InSynList[i,FlagAnnot_cols[j]], fixed = FALSE) == TRUE){
         # Extract the flag from the string and add the column name
-        ExtractedFlag <- str_extract_all(InSynList[i,FlagAnnot_cols[j]], FlagsAnnot, simplify = TRUE) %>%
+        ExtractedFlag <- stringr::str_extract_all(InSynList[i,FlagAnnot_cols[j]], 
+                                                  FlagsAnnot, simplify = TRUE) %>%
           paste(FlagAnnot_cols[j],.,sep=" ", collapse = "|") %>%
           gsub("  ", " ",. ) # Remove double spaces
         if( is.na(InSynList[i,"flags"]) == TRUE){ # If there is NO flag, insert this flag as is
@@ -92,10 +97,10 @@ FlagManager <- function(InSynList = DLdf,
           InSynList[i,"flags"] <- paste(InSynList[i,"flags"], ExtractedFlag, sep =  " | ")
         } # END if else statement
       } # END find flag IF statement
-    } # END for loop of flag annotations — ROWS
+    } # END for loop of flag annotations - ROWS
     
     # Sets the progress bar to the current state
-    setTxtProgressBar(pb2, j)
+    utils::setTxtProgressBar(pb2, j)
   } # END loop COLUMNS
   #### END progBar 2 ####
   close(pb2) # Close the connection
@@ -107,7 +112,7 @@ FlagManager <- function(InSynList = DLdf,
                                   function(y) gsub(FlagsAnnot, " ", y))) 
   # Replace existing columns with these new, trimmed, columns
   InSynList[c(FlagAnnot_cols)] <- TempCols[, FlagAnnot_cols]
-  # Add the canonical column after the canonical column with flags — later convert to 
+  # Add the canonical column after the canonical column with flags - later convert to 
     # canonical and canonical_withFlags
   CanTest <- InSynList$canonical
     # IF there IS already a canonical column repalce that column with the new one...
@@ -122,7 +127,7 @@ FlagManager <- function(InSynList = DLdf,
   
 #### Notes option ####
   if(flagCol == "notes"){
-    writeLines(" — Using the notes column.")
+    base::writeLines(" - Using the notes column.")
     # If there is no canonical_withFlags, make one with the canonical column, assuming it has flags
     suppressWarnings( CWFtest <- InSynList$canonical_withFlags,
                       classes = "warning")
@@ -135,10 +140,10 @@ FlagManager <- function(InSynList = DLdf,
       InSynList$canonical_withFlags <- InSynList$canonical
     }
     
-    writeLines(" — 1. Remove flag from validName column...")
+    base::writeLines(" - 1. Remove flag from validName column...")
     ##### START ProgBar 1 ####
     # Initializes the progress bar
-    pb1 <- txtProgressBar(min = 0,      # Minimum value of the progress bar
+    pb1 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
                           max = nrow(InSynList), # Maximum value of the progress bar
                           style = 3,    # Progress bar style (also available style = 1 and style = 2)
                           width = NA,   # Progress bar width. Defaults to getOption("width")
@@ -152,7 +157,7 @@ FlagManager <- function(InSynList = DLdf,
       } # END IF statement
       
       # Sets the progress bar to the current state
-      setTxtProgressBar(pb1, i)
+      utils::setTxtProgressBar(pb1, i)
     } # END loop COLUMNS
     #### END progBar 1 ####
     close(pb1) # Close the connection
@@ -183,10 +188,10 @@ FlagManager <- function(InSynList = DLdf,
       paste(collapse="|")
     
     
-    writeLines(" — 2. Find and add flags to the 'flags' column...")
+    base::writeLines(" - 2. Find and add flags to the 'flags' column...")
     #### START ProgBar 2 ####
     # Initializes the progress bar
-    pb2 <- txtProgressBar(min = 0,      # Minimum value of the progress bar
+    pb2 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
                           max = length(FlagAnnot_cols), # Maximum value of the progress bar
                           style = 3,    # Progress bar style (also available style = 1 and style = 2)
                           width = NA,   # Progress bar width. Defaults to getOption("width")
@@ -197,7 +202,8 @@ FlagManager <- function(InSynList = DLdf,
       for(i in 1:nrow(InSynList)){ # ROWS
         if(grepl(FlagsAnnot,  InSynList[i,FlagAnnot_cols[j]], fixed = FALSE) == TRUE){
           # Extract the flag from the string and add the column name
-          ExtractedFlag <- str_extract_all(InSynList[i,FlagAnnot_cols[j]], FlagsAnnot, simplify = TRUE) %>%
+          ExtractedFlag <- stringr::str_extract_all(InSynList[i,FlagAnnot_cols[j]], 
+                                                    FlagsAnnot, simplify = TRUE) %>%
             paste(FlagAnnot_cols[j],.,sep=" ", collapse = "|") %>%
             gsub("  ", " ",. ) # Remove double spaces
           if( is.na(InSynList[i,"notes"]) == TRUE){ # If there is NO flag, insert this flag as is
@@ -206,10 +212,10 @@ FlagManager <- function(InSynList = DLdf,
             InSynList[i,"notes"] <- paste(InSynList[i,"notes"], ExtractedFlag, sep =  " | ")
           } # END if else statement
         } # END find flag IF statement
-      } # END for loop of flag annotations — ROWS
+      } # END for loop of flag annotations - ROWS
       
       # Sets the progress bar to the current state
-      setTxtProgressBar(pb2, j)
+      utils::setTxtProgressBar(pb2, j)
     } # END loop COLUMNS
     #### END progBar 2 ####
     close(pb2) # Close the connection
@@ -221,7 +227,7 @@ FlagManager <- function(InSynList = DLdf,
                                     function(y) gsub(FlagsAnnot, " ", y))) 
     # Replace existing columns with these new, trimmed, columns
     InSynList[c(FlagAnnot_cols)] <- TempCols[, FlagAnnot_cols]
-    # Add the canonical column after the canonical column with flags — later convert to 
+    # Add the canonical column after the canonical column with flags - later convert to 
     # canonical and canonical_withFlags
     CanTest <- InSynList$canonical
     # IF there IS already a canonical column repalce that column with the new one...
@@ -236,7 +242,7 @@ FlagManager <- function(InSynList = DLdf,
   
   #### neither ####
   if(flagCol != "flags" & flagCol != "notes"){
-    writelines("!! The flagCol option must equal 'flags' or 'notes' !!")
+    base::writeLines("!! The flagCol option must equal 'flags' or 'notes' !!")
   }
   
   #backupdf <- InSynList

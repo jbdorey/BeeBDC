@@ -9,14 +9,16 @@ diagonAlley(data = NULL, minRepeats = NULL)
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
 
-\item{minRepeats}{Numeric. The minimum number of lat or lon repeats to flag a record}
+\item{minRepeats}{Numeric. The minimum number of lat or lon repeats needed to flag a record}
 }
 \value{
-Retrusn the data with a new column, .sequential, where FALSE = records that have consecutive
-latitudes or longitudes.
+The function returns the input data with a new column, .sequential, where FALSE =
+records that have consecutive latitudes or longitudes greater than or equal to the user-defined
+threshold.
 }
 \description{
-A simple function that looks for potential lat/lon fill down errors by finding consecutive numbers.
+A simple function that looks for potential latitude and longitude fill-down errors by
+identifying identical coordinates in a user-defined number of consecutive records.
 }
 \examples{
 # Read in the example data

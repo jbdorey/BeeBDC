@@ -1,53 +1,62 @@
 # This function was written by James B Dorey on the 29th of September 2022
 # Its purpose is to visualise all flags for each dataSource (simplified to the text before the 
   # first underscore)
-# Please contact jbdorey@me.com for help
-
-
-#' Summary plot of all flags
+# Please contact jbdorey[at]me.com for help
+#' Generate a plot summarising flagged data
 #' 
 #' Creates a compound bar plot that shows the proportion of records that pass or fail each flag (rows)
-#' and for each data source (columns).
+#' and for each data source (columns). The function can also optionally return a point map for 
+#' a user-specified species when plotMap = TRUE.
 #'
 #' @param plotData A data frame or tibble. Occurrence records as input.
 #' @param flagColours A character vector. Colours in order of pass (TRUE), fail (FALSE), and NA.
+#' Default = c("#127852", "#A7002D", "#BDBABB").
 #' @param filename Character. The name of the file to be saved, ending in ".pdf".
-#' @param outpath Character. The path to the directory in which the figure will be saved.
+#' If saving as a different file type, change file type suffix - See `device`.
+#' @param outpath A character path. The path to the directory in which the figure will be saved.
 #' Default = OutPath_Figures.
 #' @param width Numeric. The width of the output figure in user-defined units Default = 15.
-#' @param height Numeric. The height of the output figure in user-defined Default = 9.
+#' @param height Numeric. The height of the output figure in user-defined units Default = 9.
 #' @param units Character. The units for the figure width and height passed to [ggplot2::ggsave()] 
-#' ("in", "cm", "mm", or "px").
-#' @param dpi Passed to [ggplot2::ggsave()]. Plot resolution. Also accepts a string input: "retina" (320), "print" (300), or 
+#' ("in", "cm", "mm", or "px"). Default = "in".
+#' @param dpi Numeric. Passed to [ggplot2::ggsave()]. Plot resolution. Also accepts a string input: "retina" (320), "print" (300), or 
 #' "screen" (72). Applies only to raster output types. Default = 300.
-#' @param bg Passed to [ggplot2::ggsave()]. Background colour. If NULL, uses the plot.background fill value from the plot theme.
+#' @param bg Character. Passed to [ggplot2::ggsave()]. Background colour. If NULL, uses the plot.background fill value from the plot theme.
 #' Default = "white."
-#' @param device Passed to [ggplot2::ggsave()]. Device to use. Can either be a device function (e.g. png), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
-#' Default = "pdf".
+#' @param device Character. Passed to [ggplot2::ggsave()]. Device to use. Can either be a device function (e.g. png), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
+#' Default = "pdf". If not using default, change file name suffix in filename argument.
 #' @param speciesName Optional. Character. A species name, as it occurs in the user-input nameColumn.
-#' If entered, the data will be filtered to this species for the plot.
-#' #' @param nameColumn Optional. Character. If speciesName is not NULL, enter the column to look 
+#' If provided, the data will be filtered to this species for the plot.
+#' @param nameColumn Optional. Character. If speciesName is not NULL, enter the column to look 
 #' for the species in. A User might realise that, combined with speciesName, figures can be made for
 #' a variety of factors.
 #' @param saveFiltered Optional. Logical. If TRUE, the filtered data will be saved to the computer 
 #' as a .csv file.
-#' #' @param plotMap Logical. If TRUE, the function will produce a point map. Tested for use with one
+#' @param plotMap Logical. If TRUE, the function will produce a point map. Tested for use with one
 #' species at a time; i.e., with speciesName is not NULL.
 #' @param filterColumn Optional. The flag column to display on the map. Default = .summary.
 #' @param mapAlpha Optional. Numeric. The opacity for the points on the map.
 #' @param saveTable Optional. Logical. If TRUE, the function will save the data used to produce the 
 #' compound bar plot.
 #' @param jitterValue Optional. Numeric. The value to jitter points by in the map in decimal degrees.
-#' @param ... Optional. Extra variables can be fed into [forcats::fct_recode()] to change names on plot.
+#' @param ... Optional. Extra variables to be fed into [forcats::fct_recode()] to change names on plot.
 #' For example... 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd", Gaiarsa = "Gai"
 #'
 #' @return Exports a compound bar plot that summarises all flag columns. Optionally can also return 
-#' A point map for a particular species in tandem with the summary plot.
+#' a point map for a particular species in tandem with the summary plot.
 #' @export
+#' 
+#' @importFrom dplyr across desc %>%
+#' @importFrom ggplot2 geom_sf geom_point geom_jitter scale_color_manual coord_sf 
+#'   element_rect scale_fill_viridis_d
+#' xlab ylab ggtitle 
+#' @importFrom ggspatial north_arrow_fancy_orienteering annotation_north_arrow
+#' @importFrom grDevices gray
 #'
 #' @examples
 #' # import data
 #' data(beesFlagged)
+#' OutPath_Figures <- tempdir()
 #'  # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 #' plotFlagSummary(
 #'   plotData = beesFlagged,
@@ -98,43 +107,45 @@ plotFlagSummary <- function(
     jitterValue = NULL,
     ...
 ){
-  require(ggplot2)
-  require(dplyr)
-  require(stringr)
-  require(tidyr)
-  require(tidyselect)
-  require(forcats)
+  # locally bind variables to the function
+  OutPath_Figures <- decimalLatitude <- decimalLongitude <- . <- dataSource <- NULL
+  database <- flags <- value <- count <- .data <- NULL
+  
+  requireNamespace("ggspatial")
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
+  requireNamespace("forcats")
   
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
   if(is.null(plotData)){
-    stop(" — Please provide an argument for plotData I'm a program not a magician.")
+    stop(" - Please provide an argument for plotData I'm a program not a magician.")
   }
   if(is.null(outpath)){
-    stop(" — Please provide an argument for outpath Seems reckless to let me just guess.")
+    stop(" - Please provide an argument for outpath Seems reckless to let me just guess.")
   }
   if(is.null(speciesName) & saveFiltered == TRUE){
-    stop(" — saveFiltered cannot be TRUE if no speciesName is provided to filter occurrences.\n",
+    stop(" - saveFiltered cannot be TRUE if no speciesName is provided to filter occurrences.\n",
          "This functionality is provided to save the filtered dataset for examination.")
   }
   ###### b. warnings ####
   if(is.null(speciesName) & plotMap == TRUE){
-    warning(" — plotMap is not tested with no speciesName provided to filter occurrences.\n",
+    warning(" - plotMap is not tested with no speciesName provided to filter occurrences.\n",
             "This functionality is provided to check the filtered dataset for examination and I fear ",
             "that this might result in an intense task to run... Maybe not... Enjoy!")
   }
   if(is.null(filename)){
-    writeLines(" — No argument provided for filename. Using default of 'FlagsPlot_DATE.pdf'")
+    writeLines(" - No argument provided for filename. Using default of 'FlagsPlot_DATE.pdf'")
     filename = paste0("FlagsPlot_", Sys.Date(),".pdf")
   }
   if(is.null(filterColumn)){
-    writeLines(" — No argument provided for filterColumn Using default of '.summary'")
+    writeLines(" - No argument provided for filterColumn Using default of '.summary'")
     filterColumn = ".summary"
   }
   if(!is.null(speciesName) & is.null(nameColumn)){
-    writeLines(" — nameColumn is not provided. Defaulting to scientificName.\n")
+    writeLines(" - nameColumn is not provided. Defaulting to scientificName.\n")
     nameColumn = "scientificName"
   }
 
@@ -144,12 +155,12 @@ plotFlagSummary <- function(
   ##### 1.1 Optional species filter ####
     # If a species name is provided then filter to ONLY that/those species
   if(!is.null(speciesName)){
-    writeLines(" — Filtering to selected species...")
+    writeLines(" - Filtering to selected species...")
       ###### a. filter ####
       # Filter data
     plotData <- plotData %>%
       dplyr::filter( plotData[[nameColumn]] %in% speciesName)
-    writeLines(paste0(" — Selected species has ",
+    writeLines(paste0(" - Selected species has ",
                format(nrow(plotData), big.mark = ","),
                " occurrences."))
     # OPTIONAL save filtered data
@@ -178,7 +189,7 @@ plotFlagSummary <- function(
   
 
   ##### 1.3 Prepare for plot ####
-  writeLines(" — Preparing data to plot...")
+  writeLines(" - Preparing data to plot...")
   # Make a column with the dataSource without numbers
   plotData <- plotData %>%
     # Make a new column with the dataSource names but not the specifics
@@ -275,7 +286,7 @@ plotFlagSummary <- function(
   
 #### 2.0 Plot ####
     ##### 2.1 Build plot ####
-  writeLines(" — Building plot...")
+  writeLines(" - Building plot...")
   plot <-  ggplot2::ggplot(data = plotData) +
     # Set up the plot facets
     ggplot2::facet_grid( flagType~database, scales = "free", space= "free_y") + 
@@ -357,7 +368,7 @@ plotFlagSummary <- function(
                                             linetype = "solid", linewidth = 0.5,
                                             fill = NA), # add panel border
                 panel.background = element_rect(fill = "aliceblue") ,
-                plot.title = element_text(face = "italic"))+ # Add background — colour in the ocean
+                plot.title = element_text(face = "italic"))+ # Add background - colour in the ocean
           # Change map colour scheme
           scale_fill_viridis_d(option = "magma") + # options = "magma", "inferno", "plasma", "cividis"
           # Add in X and Y labels

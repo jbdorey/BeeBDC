@@ -2,7 +2,7 @@
 % Please edit documentation in R/flagAbsent.R
 \name{flagAbsent}
 \alias{flagAbsent}
-\title{Flags occurrences that are absent}
+\title{Flags occurrences that are marked as absent}
 \usage{
 flagAbsent(data = NULL, PresAbs = "occurrenceStatus")
 }
@@ -13,16 +13,16 @@ flagAbsent(data = NULL, PresAbs = "occurrenceStatus")
 Default = "occurrenceStatus"}
 }
 \value{
-The data with a new column called ".occurrenceAbsent" where FALSE == "ABSENT" records.
+The input data with a new column called ".occurrenceAbsent" where FALSE == "ABSENT" records.
 }
 \description{
 Flags occurrences that are "ABSENT" for the .occurrenceAbsent (or some other user-specified) column
 }
 \examples{
-  # Brign in the data
+  # Bring in the data
 data(beesRaw)
   # Run the function
-beesRaw_out <- jbd_flagAbsent(data = beesRaw,
+beesRaw_out <- flagAbsent(data = beesRaw,
 PresAbs = "occurrenceStatus")
   # See the result
 table(beesRaw_out$.occurrenceAbsent, useNA = "always")

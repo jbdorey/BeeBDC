@@ -1,18 +1,22 @@
 # This Function is designed to produce a summary table of data sources.
 # It was written by James B Dorey from the 20th of January 2023.
+#' @importFrom dplyr %>%
 dataProvTables <- function(
     occData = NULL,
     runBeeDataChecks = FALSE,
     institutionList = NULL
 ){
-  require(dplyr)
-  require(stringr)
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
   
   #### 0.0 Warnings ####
   if(is.null(occData)){
     stop("You must provide a checklist of countries")
   }
-  
+  # locally bind variables to the function
+  dataSource<-institutionCode<-recordNumber<-institutionCodeNew<-recordedBy<-occurrenceID<-
+    catalogNumber<-bibliographicCitation<-datasetName<-otherCatalogNumbers<-rightsHolder<-
+    references<-eventID<-datasetID<-database_id<-id<-scientificName<-DataPath <- NULL
   
   #### 1.0 Data prep ####
   if(runBeeDataChecks == TRUE){
@@ -146,18 +150,18 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
                                                is.na(institutionCodeNew), "Mohonk Preserve", institutionCodeNew),
         institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "^LUXNATFUND|^DSS00") & 
                                                is.na(institutionCodeNew), "National Museum of Natural History, Luxembourg", institutionCodeNew),
-        institutionCodeNew = dplyr::if_else( stringr::str_detect(datasetName, "Collection hymenoptères MNHNL") & 
+        institutionCodeNew = dplyr::if_else( stringr::str_detect(datasetName, "Collection hymenopteres MNHNL") & 
                                                is.na(institutionCodeNew), "National Museum of Natural History, Luxembourg", institutionCodeNew),
         
-        institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "IIA−ENT") & 
-                                               is.na(institutionCodeNew), "INSTITUTO DE INVESTIGAÇÃO AGRONÓMICA - IIA", institutionCodeNew),
+        institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "IIA-ENT") & 
+                                               is.na(institutionCodeNew), "INSTITUTO DE INVESTIGACaO AGRONOMICA - IIA", institutionCodeNew),
         institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "indiabiodiversity\\.org") & 
                                                is.na(institutionCodeNew), "IndiaBiodiversity.org", institutionCodeNew),
         institutionCodeNew = dplyr::if_else( stringr::str_detect(catalogNumber, "^OPI") & 
                                                is.na(institutionCodeNew), "South Australia, Department for Environment and Water", institutionCodeNew),
         institutionCodeNew = dplyr::if_else( stringr::str_detect(catalogNumber, "^WFM[0-9]+") & 
                                                is.na(institutionCodeNew), "Western Australia, Department of Biodiversity, Conservation and Attractions", institutionCodeNew),
-        institutionCodeNew = dplyr::if_else( stringr::str_detect(recordedBy, "LIMOUSIN,BUREAU D'ÉTUDE DGE|PNR PL|Agnièle Touret-Alby, Quentin Rome|AGASSE-YVER Florence, MARLE Micka|AUBERT Matthieu|BESSIERE A\\., BLEOMELEN Alwin \\(PNM\\)|Bottinelli Julien|PERCHE NATURE|BRUGEROLLES Yvan|CENSE Thierry,CENSE Colette|CESARI Lily \\(Naturoptère\\)|CHOREIN Adrien \\(CEN Centre\\)|Cocquempot C\\.|DAMOISEAU Sébastien \\(CERCOPE\\)|GENOUD David|Gosselin M\\.|Grumdi|Jean-Pierre Viallard|Jean-Pierre Carreras|Jean-Loup d'Hondt|Jean-Loup d'Hondt|Jean-Louis PRATZ|Jean-Jacques Laffitte|Jean-Laurent HENTZ|Jean-François Campion|Jean-Sébastien Carteron|LE DIVELEC Romain|MAILLIER Sébastien|MARTHA Benoit|PLATEAUX Luc|PRATZ Jean-Louis|Sebastien LAGUET|Sebbbounet|Thierry ROBERT|\\(ECOSPHERE\\)|\\(CEN AQUITAINE\\)") & 
+        institutionCodeNew = dplyr::if_else( stringr::str_detect(recordedBy, "LIMOUSIN,BUREAU D'ETUDE DGE|PNR PL|Agniele Touret-Alby, Quentin Rome|AGASSE-YVER Florence, MARLE Micka|AUBERT Matthieu|BESSIERE A\\., BLEOMELEN Alwin \\(PNM\\)|Bottinelli Julien|PERCHE NATURE|BRUGEROLLES Yvan|CENSE Thierry,CENSE Colette|CESARI Lily \\(Naturoptere\\)|CHOREIN Adrien \\(CEN Centre\\)|Cocquempot C\\.|DAMOISEAU Sebastien \\(CERCOPE\\)|GENOUD David|Gosselin M\\.|Grumdi|Jean-Pierre Viallard|Jean-Pierre Carreras|Jean-Loup d'Hondt|Jean-Loup d'Hondt|Jean-Louis PRATZ|Jean-Jacques Laffitte|Jean-Laurent HENTZ|Jean-Francois Campion|Jean-Sebastien Carteron|LE DIVELEC Romain|MAILLIER Sebastien|MARTHA Benoit|PLATEAUX Luc|PRATZ Jean-Louis|Sebastien LAGUET|Sebbbounet|Thierry ROBERT|\\(ECOSPHERE\\)|\\(CEN AQUITAINE\\)") & 
                                                is.na(institutionCodeNew), "OFB-CNRS-MNHN", institutionCodeNew),
         institutionCodeNew = dplyr::if_else( stringr::str_detect(datasetID, "E053-2614A8C02B7C|B2C9849D2ACF|2614A8C021C1|2614A8C0FB88|2614A8C0E6FC|2614A8C0CF63|2614A8C05B99|2614A8C00BBE|2614A8C0C021|2614A8C0FC45|2614A8C067D6|2614A8C0753D|2614A8C057EA|5014A8C02001|5014A8C04A0C|2614A8C00722|-E053-|-e053-|F0DFF9845389|8EA38E099656|26033513335E|C9074EB78761|9AC2D5DAB4DF|DF2C4D61871E|E06C2F2DB641|A83B5C8B393F|3D6B50E67F30|6DB84CF2329A|EEE933FAF77E|9776F5D05D87|A174FB52126E|26E5D9FC07CC|1CF99798EDF1|4E1ECB87BC1F|B6A9BC006CB2|6943DF45F77E|E17388AB56E2|B65CCE479F2E|C02F4B1A3FE8") & 
                                                is.na(institutionCodeNew), "OFB-CNRS-MNHN", institutionCodeNew),
@@ -196,13 +200,13 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
         "CardObs", institutionCode)) %>%
       dplyr::mutate(institutionCode = dplyr::if_else(
         stringr::str_detect(institutionCode, "Instituto Nacional de Pesquisas da Amaz"),
-        "Instituto Nacional de Pesquisas da Amazônia (INPA)", institutionCode)) %>%
+        "Instituto Nacional de Pesquisas da Amazonia (INPA)", institutionCode)) %>%
       dplyr::mutate(institutionCode = dplyr::if_else(
         stringr::str_detect(institutionCode, "\\(JBB\\)"),
-        "Jardín Botánico de Bogotá José Celestino Mutis (JBB)", institutionCode)) %>%
+        "Jardin Botanico de Bogota Jose Celestino Mutis (JBB)", institutionCode)) %>%
       dplyr::mutate(institutionCode = dplyr::if_else(
         stringr::str_detect(institutionCode, "^SDA$"),
-        "SDA - Secretaría Distrital de Ambiente", institutionCode)) %>%
+        "SDA - Secretaria Distrital de Ambiente", institutionCode)) %>%
       dplyr::mutate(institutionCode = dplyr::if_else(
         stringr::str_detect(institutionCode, "Universidad del Magdalena"),
         "Universidad del Magdalena (UniMagdalena)", institutionCode)) %>%

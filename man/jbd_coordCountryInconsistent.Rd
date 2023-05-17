@@ -20,16 +20,18 @@ jbd_coordCountryInconsistent(
 \item{lat}{Character. The name of the column to use as latitude. Default = "decimalLatitude".}
 
 \item{mapResolution}{Numeric or character. To be passed to \code{\link[rnaturalearth:ne_countries]{rnaturalearth::ne_countries()}}'s scale.
-sScale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'.}
+Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”.
+Smaller values return higher-resolution maps.}
 
 \item{pointBuffer}{Numeric. Amount to buffer points, in decimal degrees. If the point is outside
 of a country, but within this point buffer, it will not be flagged.}
 }
 \value{
-The input data with a new column, .coordinates_country_inconsistent
+The input occurrence data with a new column, .coordinates_country_inconsistent
 }
 \description{
-Compares stated country name with the coordinates using rnaturalearth data. The prefix, jbd_ is meant
+Compares stated country name in an occurrence record with record’s coordinates using
+rnaturalearth data. The prefix, jbd_ is meant
 to distinguish this function from the similar \code{\link[bdc:bdc_coordinates_country_inconsistent]{bdc::bdc_coordinates_country_inconsistent()}}.
 }
 \examples{

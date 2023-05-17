@@ -1,40 +1,41 @@
 # Description of the BeeDC taxonomic dataset
 # 16th of March 2023
 
-#' A country-level checklist of bees from Discover Life
+#' A nearly complete taxonomy of bees globally
 #'
-#' Contains taxonomic information for the bees of the world.
+#' Contains taxonomic information for the bees of the world. Source of taxonomy is listed under 
+#' "source" but are mostly derived from the Discover Life website.
 #'
 #' @docType data
 #'
-#' @usage BeeDC::beesTaxonomy
+#' @usage data(beesTaxonomy)
 #'
-#' @format An object of class \code{"tibble"}
+#' @format An object of class \code{"tibble"} ## `beesTaxonomy`
 #' \describe{
 #'  \item{flags}{Flags or comments about the taxon name.}
 #'  \item{taxonomic_status}{Taxonomic status. Values are "accepted" or "synonym"}
 #'  \item{source}{Source of the name.}
 #'  \item{accid}{The id of the accepted taxon name or "0" if taxonomic_status == accepted.}
 #'  \item{id}{The id number for the taxon name.}
-#'  \item{kingdom}{Kingdom == Animalia.}
-#'  \item{phylum}{Phylum == Arthropoda.}
-#'  \item{class}{Class == Insecta.}
-#'  \item{order}{Order == Hymenoptera.}
-#'  \item{family}{Bee family.}
-#'  \item{subfamily}{Bee subfamily.}
-#'  \item{tribe}{Bee tribe.}
-#'  \item{subtribe}{Bee subtribe.}
-#'  \item{validName}{The scientificName.}
+#'  \item{kingdom}{The biological kingdom the taxon belongs to. For bees, kingdom == Animalia.}
+#'  \item{phylum}{The biological phylum the taxon belongs to. For bees, phylum == Arthropoda.}
+#'  \item{class}{The biological class the taxon belongs to. For bees, class == Insecta.}
+#'  \item{order}{The biological order the taxon belongs to. For bees, order == Hymenoptera.}
+#'  \item{family}{The family of bee which the species belongs to.}
+#'  \item{subfamily}{The subfamily of bee which the species belongs to.}
+#'  \item{tribe}{The tribe of bee which the species belongs to.}
+#'  \item{subtribe}{The subtribe of bee which the species belongs to.}
+#'  \item{validName}{The valid scientific name as it should occur in the “scientificName” column in a Darwin Core file.}
 #'  \item{canonical}{The scientificName without the scientificNameAuthority.}
 #'  \item{canonical_withFlags}{The scientificName without the scientificNameAuthority and with Discover Life taxonomy flags.}
-#'  \item{genus}{Bee genus.}
-#'  \item{subgenus}{Bee subgenus.}
-#'  \item{species}{Bee specificEpithet.}
-#'  \item{infraspecies}{Bee infraSpecificEpithet.}
-#'  \item{authorship}{Bee scientificNameAuthority.}
-#' \item{taxon_rank}{Bee taxon_rank.}
-#' \item{valid}{Logical of if the name is valid.}
-#' \item{notes}{Notes about the name}
+#'  \item{genus}{The genus the bee species belongs to.}
+#'  \item{subgenus}{The subgenus the bee species belongs to.}
+#'  \item{species}{The specific epithet for the bee species.}
+#'  \item{infraspecies}{The infraspecific epithet for the bee addressed.}
+#'  \item{authorship}{The author who described the bee species.}
+#' \item{taxon_rank}{Rank for the bee taxon addressed in the entry.}
+#' \item{valid}{Logical for if the name is valid. TRUE == a valid name, FALSE == invalid scientific name.}
+#' \item{notes}{Additional notes about the name/taxon.}
 #'  
 #'  
 #' }

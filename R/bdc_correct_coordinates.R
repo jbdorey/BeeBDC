@@ -28,7 +28,7 @@
 #' @return Internal function
 #'
 #' @importFrom CoordinateCleaner cc_val clean_coordinates
-#' @importFrom dplyr filter mutate as_tibble select all_of pull bind_rows distinct relocate left_join
+#' @importFrom dplyr filter mutate as_tibble select all_of pull bind_rows distinct relocate left_join  %>%
 #'
 #' @noRd
 #'
@@ -46,7 +46,9 @@ bdc_correct_coordinates <-
            world_poly,
            world_poly_iso,
            border_buffer = border_buffer) {
-    . <- decimalLatitude <- decimalLongitude <- .summary <- NULL
+    . <- decimalLatitude <- decimalLongitude <- .summary <- iso2c <- NULL
+    
+    requireNamespace("bdc")
     
     x_mod <- paste0(x, "_modified")
     y_mod <- paste0(y, "_modified")

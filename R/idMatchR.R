@@ -1,31 +1,39 @@
-
 # This function was written by James B Dorey on the 7th of September 2022.
   # It aims to match up database_id numbers applied between different runs by matching the
   # current and prior runs and a list of columns to find matches by. It finally matches the 
   # remaining occurrences by mergine by all columns.
-  # For help, please contact jbdorey@me.com
+  # For help, please contact jbdorey[at]me.com
 
 
 #' Attempt to match database_ids from a prior run
+#' 
+#' This function attempts to match database_ids from a prior bdc or BeeDC run in order to keep 
+#' this column somewhat consistent between iterations. However, not all records contain sufficient
+#' information for this to work flawlessly.
 #'
 #' @param currentData A data frame or tibble. The NEW occurrence records as input.
 #' @param priorData A data frame or tibble. The PRIOR occurrence records as input.
-#' @param matchBy User-provided list of columns to iteratively compare. 
+#' @param matchBy A list of character vectors Should contain the columns to iteratively compare.
 #' @param completeness_cols A character vector. The columns to check for completeness, arrange, 
-#' and keep the relevant prior database_id.
-#' @param excludeDataset A character vector. The dataSources that are to be excluded from data matching. 
-#' These should be static dataSources from minor providers.
+#' and assign the relevant prior database_id.
+#' @param excludeDataset A character vector. The dataSources that are to be excluded from data 
+#' matching. These should be static dataSources from minor providers.
 #'
 #' @return The input data frame returned with a new column that shows the updated database_ids
 #' as in priorData where they could be matched
 #' 
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom stats complete.cases
+#' @importFrom dplyr desc across
 #'
 #' @examples
 #' 
 #' # Which datasets are static and should be excluded from matching?
 #' excludeDataset <- c("BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
-#'                     "Gai", "KP", "EPEL", "USGS", "FSCA", "SMC", "Bal", "Lic", "Arm", "BBD", "MEPB")
+#'                     "Gai", "KP", "EPEL", "USGS", "FSCA", "SMC", "Bal", "Lic", "Arm", "BBD", 
+#'                     "MEPB")
 #'   # Match the data to itself just as an example of running the code.
 #' beesRaw_out <- idMatchR(
 #'   currentData = BeeDC::beesRaw,
@@ -36,9 +44,10 @@
 #'                         c("occurrenceID", "dataSource"),
 #'                         c("recordId", "dataSource"),
 #'                         c("id"),
-#'                         # Because INHS was entered as it's own dataset but is now included in the GBIF download...
+#'                         # Because INHS was entered as it's own dataset but is now included in 
+#'                           # the GBIF download...
 #'                         c("catalogNumber", "institutionCode")),
-#'   # You can exclude datasets from prior by matching their prefixs — before first underscore:
+#'   # You can exclude datasets from prior by matching their prefixs - before first underscore:
 #'   excludeDataset = excludeDataset)
 
 idMatchR <- function(
@@ -47,11 +56,14 @@ idMatchR <- function(
     matchBy = NULL,
     completeness_cols = NULL,
     excludeDataset = NULL){
-  require(dplyr)
-  require(stringr)
-  require(tidyselect)
-  require(tidyr)
+  # locally bind variables to the function
+  dataSource <- completeness <- database_id <- . <- currentConcat <- dataSourceShort <- 
+    database_id_matched <- idContinuity <- databaseName <- database_id_current <-
+    databaseNum <- missingNum <- database_id_new <- NULL
   
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
+
     #### 0.0 Prep ####
     ##### 0.1 Errors ####
       ###### a. fatal ####
@@ -68,7 +80,7 @@ idMatchR <- function(
   ###### b. Warnings ####
   if(is.null(completeness_cols)){
     message(paste("Warning message: \n",
-                  " — No completeness_cols provided. Using default of: ",
+                  " - No completeness_cols provided. Using default of: ",
                   "c('decimalLatitude',  'decimalLongitude', 'scientificName', and 'eventDate')",
                   sep=""))
     completeness_cols = c("decimalLatitude",  "decimalLongitude",
@@ -92,9 +104,10 @@ idMatchR <- function(
   # Save a count of priorData rows
   priorRowCount <- nrow(priorData)
     ###### a. dataSource ####
-    # If the user is matching by DataSource, then simplify that column to only the over-arching source.
+    # If the user is matching by DataSource, then simplify that column to only the over-arching 
+    # source.
   if(any(stringr::str_detect(string = unlist(matchBy), pattern = "dataSource"))){
-      # PRIOR dataset — Only run if Rm datasets isn't running already
+      # PRIOR dataset - Only run if Rm datasets isn't running already
     if(is.null(excludeDataset)){
     priorData <- priorData %>%
       # Remove all text after the first "_"
@@ -120,7 +133,7 @@ idMatchR <- function(
   # Get the sum of the complete.cases of four important fields. Preference will be given to keeping 
   # the most-complete records
   writeLines(paste(
-    " — Generating a basic completeness summary from the ", 
+    " - Generating a basic completeness summary from the ", 
     paste(completeness_cols, collapse = ", "), " columns.","\n",
     "This summary is simply the sum of complete.cases in each column. It ranges from zero to the N",
     " of columns. This will be used to sort duplicate rows and select the most-complete rows.",
@@ -138,7 +151,7 @@ idMatchR <- function(
   
     #### 1.0 loop ####
   
-  writeLines(" — Starting core loop...")
+  writeLines(" - Starting core loop...")
     # Set up al oop dataframe to enter into
   loopDF <- tibble::tibble()
   # Create a dataset to put unique vaules into
@@ -150,8 +163,8 @@ idMatchR <- function(
     if(length(currentMatch) == 1){
       matched <- priorData %>%
         # Remove NA values and get distinct
-        tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
-        dplyr::distinct(across( tidyselect::all_of(currentMatch)),
+        tidyr::drop_na(currentMatch) %>%
+        dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)),
                         .keep_all = TRUE) %>%
         # Add a new column with these values concatenated,
         # dplyr::mutate(currentConcat = tidyselect::all_of(currentMatch))
@@ -161,8 +174,8 @@ idMatchR <- function(
                          currentData %>% dplyr::select(c(database_id, 
                                                        tidyselect::all_of(currentMatch))) %>%
                            # Remove NA values and get distinct
-                           tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
-                           dplyr::distinct(across( tidyselect::all_of(currentMatch)),
+                           tidyr::drop_na(currentMatch) %>%
+                           dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)),
                                            .keep_all = TRUE),
                            by = tidyselect::all_of(currentMatch),
                          suffix = c("", "_current")) %>%
@@ -172,7 +185,7 @@ idMatchR <- function(
         tidyr::drop_na()
       
       # User output
-      writeLines(paste0(" — we matched ", 
+      writeLines(paste0(" - we matched ", 
                         format(nrow(matched), big.mark = ","),
                         " records using ", 
                         paste0(currentMatch, collapse = ", "), "."))
@@ -186,8 +199,8 @@ idMatchR <- function(
     if(length(currentMatch) > 1){
       matched <- priorData %>%
       # Remove NA values and get distinct
-      tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
-      dplyr::distinct(across( tidyselect::all_of(currentMatch)),
+      tidyr::drop_na(currentMatch) %>%
+      dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)),
                       .keep_all = TRUE) %>%
       # Add a new column with these values concatenated,
       tidyr::unite(., c(currentMatch), col = currentConcat) %>% 
@@ -197,8 +210,8 @@ idMatchR <- function(
                        currentData %>% dplyr::select(c(database_id, 
                                                    tidyselect::all_of(currentMatch))) %>%
                          # Remove NA values and get distinct
-                         tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
-                         dplyr::distinct(across( tidyselect::all_of(currentMatch)), 
+                         tidyr::drop_na(currentMatch) %>%
+                         dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)), 
                                          .keep_all = TRUE) %>%
                          # Add a new column with these values concatenated,
                          tidyr::unite(., c(currentMatch), col = currentConcat),
@@ -210,7 +223,7 @@ idMatchR <- function(
         tidyr::drop_na()
       
       # User output
-      writeLines(paste0(" — we matched ", 
+      writeLines(paste0(" - we matched ", 
                         format(nrow(matched), big.mark = ","),
                         " records using ", paste0(currentMatch, collapse = ", "), "."))
       # Merge with loopDF
@@ -236,7 +249,7 @@ idMatchR <- function(
   
   
   #### 2.0 Data return ####
-  writeLines(" — Combining ids and assigning new ones where needed...")
+  writeLines(" - Combining ids and assigning new ones where needed...")
     # Add a column to that matched data:
       # idContinuity, that shows that these ids are continuous with prior versions
   loopDF <- loopDF %>%
@@ -310,7 +323,7 @@ idMatchR <- function(
     dplyr::ungroup()
 
   # User output
-  writeLines(paste0(" — We matched a total of ",
+  writeLines(paste0(" - We matched a total of ",
                     format(sum(complete.cases(checkedData$databaseNum)), big.mark = ","),
                     " database_id numbers. We then assigned new database_id numbers to ",
                     format(sum(complete.cases(checkedData$missingNum)), big.mark = ","),
@@ -330,7 +343,8 @@ idMatchR <- function(
     # Update the database_id column to include the new database_ids, or the old ones where
       # new ones aren't available.
     dplyr::mutate(database_id = dplyr::if_else(is.na(database_id_new),
-                                                # If from an excluded dataset, keep existing database_id
+                                                # If from an excluded dataset, 
+                                                # keep existing database_id
                                                database_id,
                                                 # Otherwise Assign the newly matched id
                                                database_id_new)) %>% 

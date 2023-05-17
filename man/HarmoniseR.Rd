@@ -17,17 +17,20 @@ HarmoniseR(path = NULL, SynList = BeeDC::beesTaxonomy, occurrences = NULL)
 The occurrences are returned with update taxonomy columns, including: scientificName,
 species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and
 scientificNameAuthorship. A new column, .invalidName, is also added and is FALSE when the occurrence's
-name didn ot match the supplied SynList taxonomy.
+name did not match the supplied taxonomy.
 }
 \description{
 Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match
-the list. This function could be hijacked to service other taxa if a user matched the format of the
+the checklist. This function could be hijacked to service other taxa if a user matched the format of the
 \link{beesTaxonomy} file.
 }
 \examples{
 
-beesRaw_out <- HarmoniseR(path = DataPath, #The path to a folder that the output can be saved
-                       SynList = BeeDC::beesTaxonomy, # The formatted taxonomy file
-                       occurrences = BeeDC::beesFlagged)
+beesRaw_out <- HarmoniseR(
+  #The path to a folder that the output can be saved
+path = tempdir(),
+# The formatted taxonomy file
+SynList = BeeDC::beesTaxonomy, 
+occurrences = BeeDC::beesFlagged)
 table(beesRaw_out$.invalidName, useNA = "always")
 }

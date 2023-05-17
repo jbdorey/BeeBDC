@@ -2,21 +2,22 @@
 
 
 ###### 0.2.1 NS func. ####
+
+#' @importFrom dplyr %>%
 # This function splits up the input name into its component elements
 nameSplitR <- function(NameInput, 
                             Authority_patterns = NULL){
-  require(mgsub)
-  require(stringr)
-  require(magrittr)
-  
+  requireNamespace("mgsub")
+  requireNamespace("bdc")
+
   if(is.null(Authority_patterns)){
   # split up the authority from the species name based on regular expressions
       # Help can be found testing regex here: https://www.regextester.com/95629
     Authority_patterns <- paste0("([a-zA-Z.\\-\\_]+,)", "|", # Find words ending in comma
                            "[a-zA-Z0-9.\\-\\_]+ and ","|", # Or find words before " and "
                            "(\\s[:upper:])", "|", # Find a space then an upper-case letter (i.e., an author name after the species name)
-                           "(\\([A-Z][a-z]+)(?=\\s)", "|", #, "|", # Find a capitalized word (with or without a bracket) — \\([A-Z][a-z]+) — that is followed by a space (not a bracket) — (?=\\s)
-                           "(\\([A-Z]{1,2}[\\.]?)(?=\\s)", "|", # Find those few authorities that start with multiple capital letters — (SS Saunders, 1850), or with initials — (W. F. Kirby, 1900)
+                           "(\\([A-Z][a-z]+)(?=\\s)", "|", #, "|", # Find a capitalized word (with or without a bracket) - \\([A-Z][a-z]+) - that is followed by a space (not a bracket) - (?=\\s)
+                           "(\\([A-Z]{1,2}[\\.]?)(?=\\s)", "|", # Find those few authorities that start with multiple capital letters - (SS Saunders, 1850), or with initials - (W. F. Kirby, 1900)
                            "(\\([A-Z][a-zů\\u00c0-\\u017e]+\\-[A-Z]+)(?=[\\s\\,])","|", # Match as above, but with special characters
                            "(\\([A-Z][a-zů\\u00c0-\\u017e]+)(?=[\\s\\,])","|", # Match as above, but with special characters
                            " \\(?de | \\(?van der | \\?van ", "|", # Finds the prefixs for last names "de Villers", "van der Zanden" etc.
@@ -61,16 +62,16 @@ nameSplitR <- function(NameInput,
     Flags <- substr(AuthSplit,  
                     start = (nchar(AuthSplit2)+1), stop = (nchar(AuthSplit))) %>% # extract just the FLAG by removing the author
       trimws( which = "left" , whitespace = "[\\, \\] \\) ]")
-  }else{ # END flag test — IF
+  }else{ # END flag test - IF
     AuthSplit2 <- AuthSplit
     Flags <- ""
-  } # END flag test — ELSE
+  } # END flag test - ELSE
   
   # Return values of interest
   AuthSplitOut <- list("flags" = Flags, "validName" = NameInput, 
                        "canonical" = paste( Gen_Name, "(", SubGen_Name , ")", SpName, SubSpName, sep	= " ") %>% 
                          mgsub::mgsub(c("NA","\\( "," \\)"),c("","\\(","\\)") ) %>%
-                         mgsub::mgsub(c("  ","\\(\\)"),c(" ","") ), # Formerly in full — SpSplit[1] 
+                         mgsub::mgsub(c("  ","\\(\\)"),c(" ","") ), # Formerly in full - SpSplit[1] 
                        "genus" = Gen_Name,
                        "subgenus" = SubGen_Name, "species" = SpName, "infraspecies" = SubSpName,
                        "authorship" = AuthSplit2)

@@ -1,75 +1,84 @@
 # This function was written by James Dorey to remove duplicates using between one and two methods
   # This was written between the 11th of June 2022. For help, please contact James at
-  # jbdorey@me.com
+  # jbdorey[at]me.com
 
 #' Identifies duplicate occurrence records
 #' 
 #' This function uses user-specified inputs and columns to identify duplicate occurrence records. 
-#' Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted
-#'  at the end of the function.
-#' The function is designed to work with Darwin Core data with a database_id column, but is also 
-#' modifiable.
+#' Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and 
+#' sorted at the end of the function.
+#' The function is designed to work with Darwin Core data with a database_id column, 
+#' but it is also modifiable to work with other columns.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param path A character path to the location where the duplicateRun_ file will be saved.
-#' @param duplicatedBy A character vector. Options are c("ID", "collectionInfo", "both"). "ID" columns 
-#' runs through a series of ID-only columns defined by idColumns. "collectionInfo" runs through a series
-#' of columns defined by collectInfoColumns, which are checked in combination with collectionCols. "both"
-#' runs both of the above.
-#' @param idColumns A character vector. The columns to be checked individually for internal duplicates.
-#' Intended for use with ID columns only.
-#' @param collectionCols A character vector. The columns to be checked in combination with each of the
-#' completeness_cols.
-#' @param collectInfoColumns A character vector. The columns to be checked in combinatino with all of
-#' the collectionCols columns.
+#' @param duplicatedBy A character vector. Options are c("ID", "collectionInfo", "both"). "ID" 
+#' columns runs through a series of ID-only columns defined by idColumns. "collectionInfo" runs 
+#' through a series of columns defined by collectInfoColumns, which are checked in combination 
+#' with collectionCols. "both" runs both of the above.
+#' @param idColumns A character vector. The columns to be checked individually for internal 
+#' duplicates. Intended for use with ID columns only.
+#' @param collectionCols A character vector. The columns to be checked in combination with each 
+#' of the completeness_cols.
+#' @param collectInfoColumns A character vector. The columns to be checked in combinatino with 
+#' all of the collectionCols columns.
 #' @param completeness_cols A character vector. A set of columns that are used to order and select 
 #' duplicates by. For each occurrence, this function will calculate the sum of [complete.cases()].
-#' Within duplicate clusters occurrences with a greater number of the completeness_cols filled in will
-#' be kept over those with fewer.
-#' @param CustomComparisonsRAW A list of character vectors. Custom comparisons — as a list of 
-#' columns to iteratively compare for duplicates. These differ from the CustomComparisons in that they
-#' ignore the minimum number and character thresholds for IDs.
-#' @param CustomComparisons A list of character vectors. Custom comparisons — as a list of 
-#' columns to iteratively compare for duplicates. These comparisons are made after character and number
-#' thresholds are accounted for in ID columns.
-#' @param sourceOrder A character vector. The order in which you want to KEEP duplicated based on the 
-#' dataSource column. NOTE: These dataSources are simplified to the string prior to the first "_".
-#' Hence, "GBIF_Anthophyla" becomes "GBIF."
-#' @param PaigeSort Logical. If TRUE, Paige's data will be preferred over the raw GBIF/SCAN/iDigBio data.
-#' To preference Paige's data over the RAW GBIF data, use the below. See 1. Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography. 
-#' default = FALSE.
+#' Within duplicate clusters occurrences with a greater number of the completeness_cols filled 
+#' in will be kept over those with fewer.
+#' @param CustomComparisonsRAW A list of character vectors. Custom comparisons - as a list of 
+#' columns to iteratively compare for duplicates. These differ from the CustomComparisons in 
+#' that they ignore the minimum number and character thresholds for IDs.
+#' @param CustomComparisons A list of character vectors. Custom comparisons - as a list of 
+#' columns to iteratively compare for duplicates. These comparisons are made after character 
+#' and number thresholds are accounted for in ID columns.
+#' @param sourceOrder A character vector. The order in which you want to KEEP duplicated 
+#' based on the dataSource column (i.e. what order to prioritize data sources). 
+#' NOTE: These dataSources are simplified to the string prior 
+#' to the first "_". Hence, "GBIF_Anthophyla" becomes "GBIF."
+#' @param PaigeSort Logical. If TRUE, Paige's data will be preferred over the raw 
+#' GBIF/SCAN/iDigBio data. To preference Paige's data over the RAW GBIF data.
+#' See 1. Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J.,
+#'  . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species 
+#'  identifies persistent data gaps. Ecography. default = FALSE.
 #' @param PaigeOrder A character vector. Like sourceOrder, except based on the database_id prefix,
 #' rather than the dataSource. Additionally, this is only examined if PaigeSort == TRUE.
-#' @param dontFilterThese A character vector of flag columns to be ignored in the creation or updating
-#'  of the .summary column. Passed to [BeeDC::summaryFun()].
+#' @param dontFilterThese A character vector. This should contain the flag columns to be ignored 
+#' in the creation or updating of the .summary column. Passed to  [BeeDC::summaryFun()].
 #' @param characterThreshold Numeric. The complexity threshold for ID letter length. This is the
-#' minimum number of characters that need to be present in ADDITION TO the numberThreshold for an ID
-#' number to be tested for duplicates. Ignored by CustomComparisonsRAW. The columns that are checked
-#' are occurrenceID, recordId, id, catalogNumber, and otherCatalogNumbers. Default = 2.
+#' minimum number of characters that need to be present in ADDITION TO the numberThreshold for an
+#'  ID number to be tested for duplicates. Ignored by CustomComparisonsRAW. The columns that are 
+#'  checked are occurrenceID, recordId, id, catalogNumber, and otherCatalogNumbers. Default = 2.
 #' @param numberThreshold Numeric. The complexity threshold for ID number length. This is the
-#' minimum amount of number that need to be present in ADDITION TO the characterThreshold for an ID
-#' number to be tested for duplicates. Ignored by CustomComparisonsRAW. The columns that are checked
-#' are occurrenceID, recordId, id, catalogNumber, and otherCatalogNumbers. Default = 3.
+#' minimum number of numeric characters that need to be present in ADDITION TO the 
+#' characterThreshold for an ID number to be tested for duplicates. Ignored by 
+#' CustomComparisonsRAW. The columns that are checked are occurrenceID, recordId, id, 
+#' catalogNumber, and otherCatalogNumbers. Default = 3.
 #' @param numberOnlyThreshold Numeric. As numberThreshold except the characterThreshold is ignored.
 #' Default = 5.
 #' @param catalogSwitch Logical. If TRUE, and the catalogNumber is empty the function will copy over
-#'  the otherCatalogNumbers into catalogNumber and visa versa. Hence, the function will attempt to match 
-#'  more catalog numbers as both of these functions can be problematic. Default = TRUE.
+#'  the otherCatalogNumbers into catalogNumber and visa versa. Hence, the function will attempt 
+#'  to matchmore catalog numbers as both of these functions can be problematic. Default = TRUE.
 #'
 #' @return Returns data with an additional column called .duplicates where FALSE occurrences are 
-#' duplicates and TRUE occurrences are either kept duplicates or unique. Also exports a .csv to the user-specified
-#' location with information about duplicate matching. This file is used by other functions including
+#' duplicates and TRUE occurrences are either kept duplicates or unique. Also exports a .csv to 
+#' the user-specified location with information about duplicate matching. This file is used by 
+#' other functions including
 #' [BeeDC::manualOutlierFindeR()] and [BeeDC::chordDiagramR()]
+#'
+#' @importFrom stats complete.cases setNames
+#' @importFrom dplyr n_groups lst desc %>%
+#' 
 #' @export
 #'
 #' @examples
-#' 
-#' 
 #' beesFlagged_out <- dupeSummary(
 #' data = BeeDC::beesFlagged,
-#' path = paste0(DataPath, "/Output/Report/"),
+#'   # Should start with paste0(DataPath, "/Output/Report/"), instead of tempdir():
+#' path = paste0(tempdir(), "/"),
 #' # options are "ID","collectionInfo", or "both"
-#' duplicatedBy = "collectionInfo", # I'm only running ID for the first lot because we might recover other info later
+#' duplicatedBy = "collectionInfo", # I'm only running ID for the first lot because we might 
+#' # recover other info later
 #' # The columns to generate completeness info from
 #' completeness_cols = c("decimalLatitude",  "decimalLongitude",
 #'                       "scientificName", "eventDate"),
@@ -79,7 +88,7 @@
 #'                    "recordedBy"),
 #' # The columns to combine, one-by-one with the collectionCols
 #' collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),
-#' # Custom comparisons — as a list of columns to compare
+#' # Custom comparisons - as a list of columns to compare
 #' # RAW custom comparisons do not use the character and number thresholds
 #' CustomComparisonsRAW = tibble::lst(c("catalogNumber", "institutionCode", "scientificName")),
 #' # Other custom comparisons use the character and number thresholds
@@ -107,8 +116,6 @@
 dupeSummary <- function(
     data = NULL,
     path = NULL,
-    maxYear = lubridate::year(Sys.Date()),
-    minYear = 1700,
     duplicatedBy = NULL,
     # The columns to generate completeness info from
     completeness_cols = NULL,
@@ -118,14 +125,14 @@ dupeSummary <- function(
       # The columns to combine, one-by-one with the collectionCols
     collectInfoColumns = NULL,
     CustomComparisonsRAW = NULL,
-    # Custom comparisons — as a list of 
+    # Custom comparisons - as a list of 
     CustomComparisons = NULL,
       # The order in which you want to KEEP duplicated based on data source
     sourceOrder = NULL,
       # To preference Paige's data over the RAW GBIF data, use the below
     PaigeSort = FALSE,
     PaigeOrder = c("Paige", "Dorey"),
-      # Columns not to filter in .summary — default is below
+      # Columns not to filter in .summary - default is below
     dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
                         ".uncertaintyThreshold", ".unLicensed"),
     # Set the complexity threshold for id letter and number length
@@ -137,14 +144,15 @@ dupeSummary <- function(
     numberOnlyThreshold = 5,
     catalogSwitch = TRUE
 ){
+  # locally bind variables to the function
+  database_id <- dataSource <- dupColumn_s <- completeness <- .summary <- database_id_match <-
+    group <- database_id_Main <- dataSourceMain <- database_id_keep <- . <- NULL
+  
   # Load required packages
-  require(dplyr)
-  require(readr)
-  require(stringr)
-  require(lubridate)
-  require(tibble)
-  require(tidyselect)
-  require(igraph)
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
+  requireNamespace("lubridate")
+  requireNamespace("igraph")
     # Record start time
   startTime <- Sys.time()
   
@@ -152,46 +160,33 @@ dupeSummary <- function(
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
   if(is.null(data)){
-    stop(" — Please provide an argument for data. I'm a program not a magician.")
+    stop(" - Please provide an argument for data. I'm a program not a magician.")
   }
   if(is.null(sourceOrder)){
     stop(paste("Warning message: \n",
-               " — No sourceOrder provided. This must be provided as the name of each dataSource ",
+               " - No sourceOrder provided. This must be provided as the name of each dataSource ",
                "before the first '_' in the desired order.",
                sep=""))
   }
   ###### b. Warnings ####
-  if(is.null(maxYear)){
-    message(paste("Warning message: \n",
-                  " — No maxYear provided. Using default of this year: ",
-                  lubridate::year(Sys.Date()),
-                  sep = ""))
-    maxYear == lubridate::year(Sys.Date())
-  }
-  if(is.null(minYear)){
-    message(paste("Warning message: \n",
-                  " — No minYear provided. Using default of: 1700",
-                  sep = ""))
-    minYear == 1700
-  }
   if(is.null(duplicatedBy)){
     message(paste("Warning message: \n",
-                  " — No duplicatedBy provided. Consider if you want to choose to find duplicates by (i)",
-                  " 'ID' columns only (for pre-cleaned data), by (ii) 'collectionInfo' columns only ",
-                  "(for cleaned data), or (ii) 'both'.\n",
-                  "NULL is acceptable, if quickDeDuplicate == TRUE",
-                  sep = ""))
+          " - No duplicatedBy provided. Consider if you want to choose to find duplicates by (i)",
+          " 'ID' columns only (for pre-cleaned data), by (ii) 'collectionInfo' columns only ",
+          "(for cleaned data), or (ii) 'both'.\n",
+          "NULL is acceptable, if quickDeDuplicate == TRUE",
+          sep = ""))
   }
   if(is.null(idColumns) & stringr::str_detect(duplicatedBy, "ID|both")){
     message(paste("Warning message: \n",
-                  " — No idColumns provided. Using default of: ",
+                  " - No idColumns provided. Using default of: ",
                   "c('gbifID',  'occurrenceID', 'recordId', and 'id')",
                   sep=""))
     idColumns = c("gbifID", "occurrenceID", "recordId","id")
   }
   if(is.null(completeness_cols)){
     message(paste("Warning message: \n",
-                  " — No completeness_cols provided. Using default of: ",
+                  " - No completeness_cols provided. Using default of: ",
                   "c('decimalLatitude',  'decimalLongitude', 'scientificName', and 'eventDate')",
                   sep=""))
     completeness_cols = c("decimalLatitude",  "decimalLongitude",
@@ -199,16 +194,16 @@ dupeSummary <- function(
   }
   if(is.null(collectionCols)){
     message(paste("Warning message: \n",
-                  " — No collectionCols provided. Using default of: ",
-                  "c('decimalLatitude',  'decimalLongitude', 'scientificName', 'eventDate', and 'recordedBy')",
+                  " - No collectionCols provided. Using default of: ",
+      "c('decimalLatitude',  'decimalLongitude', 'scientificName', 'eventDate', and 'recordedBy')",
                   sep=""))
     collectionCols = c("decimalLatitude", "decimalLongitude", "scientificName", "eventDate", 
                        "recordedBy")
   }
   if(is.null(collectInfoColumns)){
     message(paste("Warning message: \n",
-                  " — No collectInfoColumns provided. Using default of: ",
-                  "c('recordNumber',  'eventID', 'catalogNumber', 'otherCatalogNumbers', and 'collectionID')",
+                  " - No collectInfoColumns provided. Using default of: ",
+      "c('recordNumber',  'eventID', 'catalogNumber', 'otherCatalogNumbers', and 'collectionID')",
                   sep=""))
     collectInfoColumns = c("recordNumber", "eventID", "catalogNumber", "otherCatalogNumbers",
                            "collectionID")
@@ -220,7 +215,7 @@ dupeSummary <- function(
   # Get the sum of the complete.cases of four important fields. Preference will be given to keeping 
   # the most-complete records
   writeLines(paste(
-    " — Generating a basic completeness summary from the ", 
+    " - Generating a basic completeness summary from the ", 
     paste(completeness_cols, collapse = ", "), " columns.","\n",
     "This summary is simply the sum of complete.cases in each column. It ranges from zero to the N",
     " of columns. This will be used to sort duplicate rows and select the most-complete rows.",
@@ -229,7 +224,7 @@ dupeSummary <- function(
   
   
   # Update the .summary column, ignoring the dontFilterThese columns.
-  writeLines(" — Updating the .summary column to sort by...")
+  writeLines(" - Updating the .summary column to sort by...")
   data <- summaryFun(
     data = data,
     # Don't filter these columns (or NULL)
@@ -263,19 +258,13 @@ dupeSummary <- function(
     # Removed for now because dateIdentified is too poorly filled out.
   # Format the dateIdentified column
     #    writeLines(paste(
-    #      " — Formatting the dateIdentified column to date format...", 
+    #      " - Formatting the dateIdentified column to date format...", 
     #      sep = ""
     #    ))
     #    Loop_data$dateIdentified <- lubridate::ymd_hms(Loop_data$dateIdentified,
     #                                              truncated = 5, quiet = TRUE) %>%
     #      as.Date()
   
-    #   # Add a column for yearIdentified
-    #   Loop_data$yearIdentified <- lubridate::year(Loop_data$dateIdentified) 
-    #   # Remove years out of the reasonable range defined by maxYear and minYear
-    #   Loop_data$yearIdentified <- ifelse(Loop_data$yearIdentified > maxYear | 
-    #                                        Loop_data$yearIdentified < minYear,
-    #                                 NA, Loop_data$yearIdentified)
   # Add the dupColumn_s as NA for the first iteration
   Loop_data$dupColumn_s <- NA
 
@@ -286,7 +275,7 @@ dupeSummary <- function(
     
     #### 1.0 CUSTOM_RAW ####
     if(!is.null(CustomComparisonsRAW)){
-      message(" — Working on CustomComparisonsRAW duplicates...")
+      message(" - Working on CustomComparisonsRAW duplicates...")
       # Get complete cases of CustomComparisonsRAW from each dataset
       
       ##### 1.1 Loop ####
@@ -339,7 +328,7 @@ dupeSummary <- function(
           "\nCompleted iteration ", i, " of ", length(CustomComparisonsRAW), ":"
         ))
         writeLines(
-          paste0(" — Identified ", 
+          paste0(" - Identified ", 
                  format(duplicates2record, big.mark = ","), 
                  " duplicate records and kept ",
                  format(keptCount, big.mark = ","),
@@ -356,14 +345,16 @@ dupeSummary <- function(
     Loop_data <- Loop_data %>%
       dplyr::mutate(
         if("occurrenceID" %in% colnames(Loop_data)){
-          occurrenceID = dplyr::if_else( stringr::str_count(occurrenceID, "[A-Za-z]") >= characterThreshold &
-                                           stringr::str_count(occurrenceID, "[0-9]") >= numberThreshold |
-                                           stringr::str_count(occurrenceID, "[0-9]") >= numberOnlyThreshold, 
+          occurrenceID = dplyr::if_else( 
+            stringr::str_count(occurrenceID, "[A-Za-z]") >= characterThreshold &
+              stringr::str_count(occurrenceID, "[0-9]") >= numberThreshold |
+              stringr::str_count(occurrenceID, "[0-9]") >= numberOnlyThreshold, 
                                          occurrenceID, NA_character_)},
         if("recordId" %in% colnames(Loop_data)){
-          recordId = dplyr::if_else( stringr::str_count(recordId, "[A-Za-z]") >= characterThreshold &
-                                       stringr::str_count(recordId, "[0-9]") >= numberThreshold |
-                                       stringr::str_count(recordId, "[0-9]") >= numberOnlyThreshold, 
+          recordId = dplyr::if_else( 
+            stringr::str_count(recordId, "[A-Za-z]") >= characterThreshold &
+              stringr::str_count(recordId, "[0-9]") >= numberThreshold |
+              stringr::str_count(recordId, "[0-9]") >= numberOnlyThreshold, 
                                      recordId, NA_character_)},
         if("id" %in% colnames(Loop_data)){
           id = dplyr::if_else( stringr::str_count(id, "[A-Za-z]") >= characterThreshold &
@@ -371,14 +362,16 @@ dupeSummary <- function(
                                  stringr::str_count(id, "[0-9]") >= numberOnlyThreshold, 
                                id, NA_character_)}, 
         if("catalogNumber" %in% colnames(Loop_data)){
-          catalogNumber = dplyr::if_else( stringr::str_count(catalogNumber, "[A-Za-z]") >= characterThreshold &
-                                            stringr::str_count(catalogNumber, "[0-9]") >= numberThreshold |
-                                            stringr::str_count(catalogNumber, "[0-9]") >= numberOnlyThreshold, 
+          catalogNumber = dplyr::if_else( 
+            stringr::str_count(catalogNumber, "[A-Za-z]") >= characterThreshold &
+              stringr::str_count(catalogNumber, "[0-9]") >= numberThreshold |
+              stringr::str_count(catalogNumber, "[0-9]") >= numberOnlyThreshold, 
                                           catalogNumber, NA_character_)}, 
         if("otherCatalogNumbers" %in% colnames(Loop_data)){
-          otherCatalogNumbers = dplyr::if_else( stringr::str_count(otherCatalogNumbers, "[A-Za-z]") >= characterThreshold &
-                                                  stringr::str_count(otherCatalogNumbers, "[0-9]") >= numberThreshold |
-                                                  stringr::str_count(otherCatalogNumbers, "[0-9]") >= numberOnlyThreshold, 
+          otherCatalogNumbers = dplyr::if_else( 
+            stringr::str_count(otherCatalogNumbers, "[A-Za-z]") >= characterThreshold &
+              stringr::str_count(otherCatalogNumbers, "[0-9]") >= numberThreshold |
+              stringr::str_count(otherCatalogNumbers, "[0-9]") >= numberOnlyThreshold, 
                                                 otherCatalogNumbers, NA_character_)})
     ##### 2.2. catalogSwitch ####
     # If the catalogNumber is empty, copy over the otherCatalogNumbers value and visa versa
@@ -396,7 +389,7 @@ dupeSummary <- function(
     
     #### 3.0 CUSTOM ####
     if(!is.null(CustomComparisons)){
-      message(" — Working on CustomComparisons duplicates...")
+      message(" - Working on CustomComparisons duplicates...")
       # Get complete cases of CustomComparisons from each dataset
       
       ##### 3.1 Loop ####
@@ -449,7 +442,7 @@ dupeSummary <- function(
           "\nCompleted iteration ", i, " of ", length(CustomComparisons), ":"
         ))
         writeLines(
-          paste0(" — Identified ", 
+          paste0(" - Identified ", 
                  format(duplicates2record, big.mark = ","), 
                  " duplicate records and kept ",
                  format(keptCount, big.mark = ","),
@@ -463,7 +456,7 @@ dupeSummary <- function(
     
   #### 4.0 ID ####
   if(duplicatedBy %in% c("ID","both")){
-    message(" — Working on ID duplicates...")
+    message(" - Working on ID duplicates...")
     # Get complete cases of collectionInfo from each dataset
     
     ##### 4.1 Loop ####
@@ -515,7 +508,7 @@ dupeSummary <- function(
         "\nCompleted iteration ", i, " of ", length(idColumns), ":"
       ))
       writeLines(
-        paste(" — Identified ", 
+        paste(" - Identified ", 
               format(duplicates2record, big.mark = ","), 
               " duplicate records and kept ",
               format(keptCount, big.mark = ","),
@@ -531,7 +524,7 @@ dupeSummary <- function(
   
   #### 5.0 collectionInfo ####
   if(duplicatedBy %in% c("collectionInfo","both")){
-    message(" — Working on collectionInfo duplicates...")
+    message(" - Working on collectionInfo duplicates...")
     # Get complete cases of collectionInfo from each dataset
 
           ##### 5.1 Loop ####
@@ -587,7 +580,7 @@ dupeSummary <- function(
       "\nCompleted iteration ", i, " of ", length(collectInfoColumns), ":"
     ))
     writeLines(
-      paste0(" — Identified ", 
+      paste0(" - Identified ", 
              format(duplicates2record, big.mark = ","), 
              " duplicate records and kept ",
              format(keptCount, big.mark = ","),
@@ -604,7 +597,7 @@ dupeSummary <- function(
 
     #### 6.0 runningDuplicates File ####
     ##### 6.1 Clustering duplicates####
-    writeLines(" — Clustering duplicate pairs...")
+    writeLines(" - Clustering duplicate pairs...")
       # Cluster the id pairs into groups
     clusteredDuplicates <- runningDuplicates %>% 
       dplyr::select(database_id_match, database_id) %>% 
@@ -650,7 +643,7 @@ dupeSummary <- function(
     ##### 6.2 Arrange data ####
     # Prepare data order
     if(PaigeSort == TRUE){
-      writeLines(" — Ordering Paige's updates...")
+      writeLines(" - Ordering Paige's updates...")
       PaigeOrder = PaigeOrder
       clusteredDuplicates <- clusteredDuplicates %>%
         # Make a new column with the database_id SOURCE, not the full database_id with numbers
@@ -665,8 +658,8 @@ dupeSummary <- function(
     }
     
     
-    writeLines(" — Ordering data by 1. dataSource, 2. completeness",
-               " and 3. .summary column...")
+    writeLines(paste0(" - Ordering data by 1. dataSource, 2. completeness",
+               " and 3. .summary column..."))
     clusteredDuplicates <- clusteredDuplicates %>%
       # Extract only the actual source, not the taxonomic level
       dplyr::mutate(dataSourceMain = stringr::str_replace(dataSource,
@@ -683,7 +676,9 @@ dupeSummary <- function(
       dplyr::select(!c(dataSourceMain)) 
     
     ##### 6.3 Keep first #####
-    writeLines(" — Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...")
+    writeLines(paste0(" - Find and FIRST duplicate to keep and assign other associated", 
+                      " duplicates to that one (i.e., across multiple tests a 'kept duplicate', ",
+                      "could otherwise be removed)..."))
     # Find the first duplicate and assign the match to that one as the kept dupicate
     clusteredDuplicates <- clusteredDuplicates %>%
       dplyr::mutate(database_id_keep = database_id[1], .after = database_id) %>%
@@ -699,7 +694,7 @@ dupeSummary <- function(
                                   "_", Sys.Date(),
                                   ".csv"))
   writeLines(paste0(
-    " — Duplicates have been saved in the file and location: ", 
+    " - Duplicates have been saved in the file and location: ", 
     paste0(path, 
            "duplicateRun_", paste(duplicatedBy, collapse = "_"),
            "_", Sys.Date(),
@@ -725,14 +720,14 @@ dupeSummary <- function(
     #### Final output ####
  
     writeLines(paste0(
-      " — Across the entire dataset, there are now ",
+      " - Across the entire dataset, there are now ",
       format(sum(Loop_data$.duplicates == FALSE), big.mark = ","), " duplicates from a total of ",
       format(nrow(Loop_data), big.mark = ","), " occurrences."
     ))
 
   endTime <- Sys.time()
   message(paste(
-    " — Completed in ", 
+    " - Completed in ", 
     round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
     " minutes.",
     sep = ""))

@@ -2,23 +2,27 @@
 # It is intended to replace the bdc function bdc_coordinates_country_inconsistent for larger datasets
 # where it is simply not feasible. 
   # Initial function finished: _____
-  # For questions, please ask James at jbdorey@me.com
+  # For questions, please ask James at jbdorey[at]me.com
 
 #' Flags coordinates that are inconsistent with the stated country name
 #' 
-#' Compares stated country name with the coordinates using rnaturalearth data. The prefix, jbd_ is meant
+#' Compares stated country name in an occurrence record with record’s coordinates using 
+#' rnaturalearth data. The prefix, jbd_ is meant
 #' to distinguish this function from the similar [bdc::bdc_coordinates_country_inconsistent()].
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
 #' @param mapResolution Numeric or character. To be passed to [rnaturalearth::ne_countries()]'s scale.
-#' sScale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'.
+#' Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”. 
+#' Smaller values return higher-resolution maps.
 #' @param pointBuffer Numeric. Amount to buffer points, in decimal degrees. If the point is outside 
 #' of a country, but within this point buffer, it will not be flagged.
 #'
-#' @return The input data with a new column, .coordinates_country_inconsistent
+#' @return The input occurrence data with a new column, .coordinates_country_inconsistent
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' 
@@ -35,13 +39,16 @@ jbd_coordCountryInconsistent <- function(
     lat = "decimalLatitude",
     mapResolution = 50,
     pointBuffer = 0.01){
+  
+  database_id <- decimalLatitude <- decimalLongitude <- country <- name_long <- iso_a2 <- 
+    geometry <- admin <- sovereignt <- name <- . <- NULL
+  
 startTime <- Sys.time()
-  require(rnaturalearth)
-  require(dplyr)
-  require(tibble)
-  require(sf)
-  require(mgsub)
-  require(terra)
+requireNamespace("rnaturalearth")
+requireNamespace("dplyr")
+requireNamespace("ggspatial")
+requireNamespace("mgsub")
+requireNamespace("terra")
 
   #### 0.0 Prep ####
     # Reduce dataset 
@@ -52,7 +59,7 @@ startTime <- Sys.time()
   
   #### 1.1 Terrestrial map ####
       ##### 1.1 rnaturalearth DL ####
-  writeLines(" — Downloading naturalearth map...")
+  writeLines(" - Downloading naturalearth map...")
   # Download the rnaturalearth countries
 vectEarth <- rnaturalearth::ne_countries(scale = mapResolution, type = "countries", 
                                     returnclass = "sf" )%>%
@@ -63,7 +70,7 @@ sf::sf_use_s2(FALSE)
 
   #### 2.0 Extractions ####
     ##### 2.1 Country name ####
-writeLines(" — Extracting initial country names without buffer...")
+writeLines(" - Extracting initial country names without buffer...")
       # Turn the points into an sf object
 sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
                    crs = terra::crs(vectEarth))
@@ -101,14 +108,14 @@ failed_extract <- failed_extract %>%
 failed_unique <- failed_extract %>% dplyr::distinct(admin, country, iso_a2)
 
     ##### 2.3 Buffer fails ####
-writeLines(" — Buffering natualearth map by pointBuffer...")
+writeLines(" - Buffering natualearth map by pointBuffer...")
   # Buffer the natural earth map
 suppressWarnings({
   vectEarth_buff <- vectEarth %>% 
   sf::st_buffer(dist = pointBuffer)
 })
 
-writeLines(" — Extracting FAILED country names WITH buffer...")
+writeLines(" - Extracting FAILED country names WITH buffer...")
 # Extract the country for the points from the vectEarth map
 suppressWarnings({
   failed_extract_2 <- failed_extract %>%
@@ -152,7 +159,7 @@ message(paste("\nbdc_coordinates_country_inconsistent:\nFlagged",
  endTime <- Sys.time()
     # Time output
  message(paste(
-   " — Completed in ", 
+   " - Completed in ", 
    round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
    " minutes.",
    sep = ""))

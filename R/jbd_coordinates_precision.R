@@ -1,29 +1,34 @@
 # This function was written by James B Dorey on the 19th December 2022
 # Its purpose is to flag rounded coordinates. This replaces bdc_coordinates_precision by flagging ONLY
 # Occurrences where both lat AND lon are rounded; not just one.
-# Please contact jbdorey@me.com for help
+# Please contact jbdorey[at]me.com for help
 
 #' Flags coordinates for imprecision
 #' 
-#' This function flags occurrences where BOTH lat and lon are rounded. This contrasts with 
-#' [bdc::bdc_coordinates_precision()] that will flag occurrences where only one of lat OR lon are rounded.
-#' The BeeDC approach saves occurrences that may have had terminal zeros rounded.
+#' This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with 
+#' [bdc::bdc_coordinates_precision()] that will flag occurrences where only one of latitude OR 
+#' longitude are rounded. The BeeDC approach saves occurrences that may have had terminal zeros rounded
+#' in one coordinate column.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
 #' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
-#' @param ndec Numeric. The number of decimal places to flag in decimal degrees. Hence, 2 = 0.01.
+#' @param ndec Numeric. The number of decimal places to flag in decimal degrees. For example, 
+#' argument value of 2 would flag occurrences with nothing in the hundredths place (0.0x).
 #'
 #' @return Returns the input data frame with a new column, .rou, where FALSE indicates occurrences 
 #' that failed the test.
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' beesRaw_out <- jbd_coordinates_precision(
 #'   data = BeeDC::beesRaw,
 #'   lon = "decimalLongitude",
 #'   lat = "decimalLatitude",
-#'   ndec = 2 # number of decimals to be tested
+#'     # number of decimals to be tested
+#'   ndec = 2
 #' )
 #' table(beesRaw_out$.rou, useNA = "always")
 
@@ -38,7 +43,7 @@ jbd_coordinates_precision <-
     ##### 0.1 errors ####
     ###### a. FATAL errors ####
     if(is.null(ndec)){
-      stop(paste0(" — No ndec was provided. This is the minimum number of decimal places",
+      stop(paste0(" - No ndec was provided. This is the minimum number of decimal places",
                   " that the coordinates should have to be considered valid"))
     }
     

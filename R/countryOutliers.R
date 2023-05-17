@@ -3,20 +3,26 @@
 
 #' Flag country-level outliers with a provided checklist.
 #'
-#' @param checklist A data frame or tibble. The formatted checklist built based on the Discover Life website.
+#'This function flags country-level outliers using the checklist provided with this package. 
+#'For additional context and column names, see [BeeDC::beesChecklist()].
+#'
+#' @param checklist A data frame or tibble. The formatted checklist which was built based on the Discover Life website.
 #' @param occData A data frame or tibble. The a Darwin Core occurrence dataset.
 #' @param keepAdjacentCountry Logical. If TRUE, occurrences in countries that are adjacent to checklist countries will be 
 #' kept. If FALSE, they will be flagged.
-#' @param pointBuffer Numeric. The buffer around points beyond which if they are outside of a 
-#' checklist country they will be flagged as FALSE. This provides a good way to maintian points that 
-#' occur right along the coast of the rnaturalearth maps.
-#' @param rnearthScale Numeric. The map scale fed into [rnaturalearth::ne_countries()]'s scale parameter:
+#' @param pointBuffer Numeric. A buffer around points to help them align with a country or coastline.
+#' This provides a good way to retain points that occur right along the coast or borders of the 
+#' maps in rnaturalearth
+#' @param rnearthScale Numeric. The value fed into the map scale parameter for
+#'  [rnaturalearth::ne_countries()]'s scale parameter:
 #' 	Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large', where smaller numbers 
 #' 	are higher resolution. WARNING: This function is tested on 110 and 50.
 #'
-#' @return The input data with a new column, .countryOutlier. TRUE == passed, FALSE == failed, 
-#' NA == did not overlap with rnaturalearth map.
+#' @return The input data with a new column, .countryOutlier. There are three possible values for 
+#' the new column: TRUE == passed, FALSE == failed, NA == did not overlap with rnaturalearth map.
+#' 
 #' @export
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' 
@@ -34,8 +40,18 @@ countryOutlieRs <- function(
     pointBuffer = NULL,
     rnearthScale = 50
     ){
+  # locally bind variables to the function
+  iso_a2<-iso_a3<-name<-name_long<-continent<-geometry<-countryOutlieRs<-decimalLongitude<-
+    countryOutlieRs<-decimalLatitude<-database_id<-countryOutlieRs<-scientificName<-species<-
+    family<-subfamily<-genus<-countryOutlieRs<-specificEpithet<-countryOutlieRs<-
+    scientificNameAuthorship<-country<-stateProvince<-eventDate<-countryOutlieRs<-
+    institutionCode<-recordNumber<-catalogNumber<-dataSource<-countryOutlieRs<-
+    verbatim_scientificName<-.<-neighbours<-rowNum<-countryOutlieRs<-neighboursText<-
+    SciCountry<-validName<-countryOutlieRs<-SciCountry_noYear<-countryOutlieRs<-
+    neighbourMatch_noYear<-countryOutlieRs<-exactMatch_noYear<-matchType<-countryMatch<-
+    countryOutlieRs<-countryOutlieRs<-.countryOutlier <- NULL
   
-  # REMOVE — TEST thinning
+  # REMOVE - TEST thinning
    #  occData <- occData %>%
    #    filter(row_number() %% 100 == 1)
   startTime <- Sys.time()
@@ -61,7 +77,7 @@ countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
   dplyr::select(iso_a2, iso_a3, name, name_long, continent, geometry) %>%
   # Replace some country codes to match the checklist
   dplyr::mutate(iso_a3 = iso_a3 %>% stringr::str_replace_all(
-    c("ALA" = "FIN", # Åland Islands == Finland
+    c("ALA" = "FIN", # Aland Islands == Finland
     "ASM" = "WSM", # American Samoa == Samoa
     "HKG" = "CHN", # Hong Kong == China
     "MAF" = "SXM"))) # Saint-Martin == Sint Maarten
@@ -86,7 +102,7 @@ sf::sf_use_s2(FALSE)
   
     ##### 2.2 Extraction ####
     ###### a. exactCountry ####
-  writeLines(" — Extracting country data from points...")
+  writeLines(" - Extracting country data from points...")
     #Extract polygon information to points
   points_extract <- sf::st_intersection(countryMap,
                               points)
@@ -96,7 +112,7 @@ sf::sf_use_s2(FALSE)
   points_failed <- points %>%
     dplyr::filter(!database_id %in% points_extract$database_id)
   
-  writeLines(" — Buffering failed points by pointBuffer...")
+  writeLines(" - Buffering failed points by pointBuffer...")
   # Buffer the natural earth map
   suppressWarnings({
       # Buffer the failed points 
@@ -115,7 +131,7 @@ sf::sf_use_s2(FALSE)
     dplyr::bind_rows(points_failed %>% sf::st_drop_geometry())
   } # End if pointBuffer
   
-  writeLines(" — Prepare the neighbouring country dataset...")
+  writeLines(" - Prepare the neighbouring country dataset...")
   ###### b. neighbouringCountries ####
     # Get a list of countries that share borders
   countriesBordering <- sf::st_intersects(countryMap, countryMap) %>%
@@ -158,7 +174,7 @@ sf::sf_use_s2(FALSE)
     dplyr::select(database_id)
   
     ##### 2.3 Compare ####
-  writeLines(" — Compare points with the checklist...")
+  writeLines(" - Compare points with the checklist...")
     # Get a smaller subset of the columns AND make a new columns with scientific name and country
   points_simple <- points_extract %>% 
     dplyr::select(database_id, iso_a3, scientificName, country) %>%
@@ -248,7 +264,7 @@ sf::sf_use_s2(FALSE)
   
   
   #### 3.0 Merge ####
-  writeLines(" — Combining data...")
+  writeLines(" - Combining data...")
     # Merge both points_match datasets
   bpoints_match <- tibble::tibble(points_match) %>%
       # Join the two datasets togehter keeping only neighbourMatch and assignmentCertainty from the 
@@ -298,7 +314,7 @@ sf::sf_use_s2(FALSE)
   ###### c. distinct buffer ####
     # For those buffered records that might have overlapped with >1 country, select the unfiltered one, if it exists.
   if(!is.null(pointBuffer)){
-    writeLines(" — Sorting and removing potentially duplicated buffered points...")
+    writeLines(" - Sorting and removing potentially duplicated buffered points...")
     bpoints_match <- bpoints_match %>%
       dplyr::group_by(database_id) %>%
       dplyr::arrange(desc(.countryOutlier), .by_group = TRUE) %>%
@@ -306,7 +322,7 @@ sf::sf_use_s2(FALSE)
     }
   
   writeLines(paste0(
-    " — Finished. \n",
+    " - Finished. \n",
     "We have matched ", 
     format(sum(bpoints_match$countryMatch == "exact", na.rm = TRUE), big.mark = ","),
     " records to their exact country and ", 
@@ -348,7 +364,7 @@ sf::sf_use_s2(FALSE)
     endTime <- Sys.time()
     # Time output
     message(paste(
-      " — Completed in ", 
+      " - Completed in ", 
       round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
       " minutes.",
       sep = ""))

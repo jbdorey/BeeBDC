@@ -3,24 +3,24 @@
 #' Country names derived from valid geographic coordinates are added to records
 #' missing country names.
 #'
-#' @param data data.frame. Containing geographical coordinates and country
-#' names.
-#' @param lat character string. The column name with latitude in decimal
+#' @param data A data frame or tibble. This needs to contain, at a minimum, 
+#' columns with geographical coordinates and country names.
+#' @param lat A character string. The column name with latitude in decimal
 #' degrees
 #' and WGS84. Default = "decimalLatitude".
-#' @param lon character string. The column with longitude in decimal degrees and
+#' @param lon A character string. The column with longitude in decimal degrees and
 #' WGS84. Default = "decimalLongitude".
-#' @param  country character string. The column name with the country assignment
+#' @param  country A character string. The column name with the country assignment
 #' of each record. Default = "country". If no column name is provided a new
 #' column "country" is created.
 #'
 #' @details This function assigns a country name for records missing such
 #' information. Country names are extracted from valid geographic coordinates
-#' using a high-quality map of the world (rnaturalearth package). No
+#' using a high-quality map of the world (from the rnaturalearth package). No
 #' country name is added to records whose coordinates are in the sea.
 #'
-#' @return A tibble containing country names for records missing such
-#' information.
+#' @return A tibble of the original input data with country names added for records missing 
+#' such information and for which a country determination could be made.
 #'
 #' @importFrom CoordinateCleaner cc_val cc_sea
 #' @importFrom dplyr mutate filter select left_join as_tibble 
@@ -28,6 +28,8 @@
 #' @importFrom sf st_as_sf st_set_crs st_crs st_intersection
 #'
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' \dontrun{
@@ -52,8 +54,9 @@ jbd_country_from_coordinates <-
     
     suppressWarnings({
       check_require_cran("rnaturalearth")
-      check_require_github("ropensci/rnaturalearthdata")
+      # check_require_github("ropensci/rnaturalearthdata")
     })
+    loadNamespace("bdc")
     
     # create an id_temp
     data$id_temp <- 1:nrow(data)
@@ -84,7 +87,7 @@ jbd_country_from_coordinates <-
     
     worldmap <- rnaturalearth::ne_countries(scale = "large")
     
-    # JBD edit — Remove empty elements from list before testing.
+    # JBD edit - Remove empty elements from list before testing.
     # data <- data[sapply(data, function(x) dim(x)[1]) > 0]
     
     

@@ -1,3 +1,8 @@
+requireNamespace("tibble")
+requireNamespace("tribble")
+requireNamespace("dplyr")
+requireNamespace("stringr")
+
   # Read in a flagged test dataset
 data("beesFlagged")
   # Create a dummy "priorData" dataset using the first fifty rows

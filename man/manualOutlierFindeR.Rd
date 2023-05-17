@@ -2,7 +2,7 @@
 % Please edit documentation in R/manualOutlierFindeR.R
 \name{manualOutlierFindeR}
 \alias{manualOutlierFindeR}
-\title{Identifies expert outliers and their duplicate records}
+\title{Finds outliers, and their duplicates, as determined by experts}
 \usage{
 manualOutlierFindeR(
   occData = NULL,
@@ -20,11 +20,11 @@ manualOutlierFindeR(
 
 \item{DataPath}{A character path to the directory that contains the outlier spreadsheets.}
 
-\item{PaigeOutliersName}{A character file name to the csv file.}
+\item{PaigeOutliersName}{A character patch. Should lead to outlier spreadsheet from Paige Chesshire (csv file).}
 
-\item{newOutliersName}{A character file name to the xlsx file.}
+\item{newOutliersName}{A character path. Should lead to appropriate outlier spreadsheet (xlsx file).}
 
-\item{ColombiaOutliers_all}{A character file name to the csv file.}
+\item{ColombiaOutliers_all}{A character path. Should lead to spreadsheet of bee outliers from Colombia (csv file).}
 
 \item{duplicates}{A data frame or tibble. The duplicate file produced by \code{\link[=dupeSummary]{dupeSummary()}}.}
 
@@ -36,14 +36,14 @@ Note: This implementation is only basic for now unless there is a greater need i
 keep expert outliers.}
 }
 \value{
-Returns the occData with a new column, \link{.expertOutlier} where records that are FALSE are
+Returns the occData with a new column, \code{.expertOutlier} where records that are FALSE are
 the expert outliers.
 }
 \description{
 Uses expert-identified outliers with source spreadsheets that may be edited by users. The function
 will also use the duplicates file made using \code{\link[=dupeSummary]{dupeSummary()}} to identify duplicates of the
-expert outliers and flag those as well.
-The function will add a flagging column called \link{.expertOutlier} where records that are FALSE are
+expert-identified outliers and flag those as well.
+The function will add a flagging column called \code{.expertOutlier} where records that are FALSE are
 the expert outliers.
 }
 \examples{

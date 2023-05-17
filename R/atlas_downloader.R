@@ -1,17 +1,26 @@
 
 ##### 1. atlas_downloader ####
-#' Downloads occurrence data from the Atlas of Living Australia (ALA)
+#' Download occurrence data from the Atlas of Living Australia (ALA)
+#'
 #'
 #' Downloads ALA data and creates a new file in the path to put those data. This function can also
 #' request downloads from other atlases (see: http://galah.ala.org.au/articles/choosing_an_atlas.html).
 #' However, it will only send the download to your email and you must do the rest yourself at this point.
 #' 
 #' @param path A character directory. The path to a folder where the download will be stored.
-#' @param userEmail A character string. The email to use with your ALA account (you must create and account).
+#' @param userEmail A character string. The email used associated with the user’s ALA account; 
+#' user must make an ALA account to download data. 
 #' @param ALA_taxon A character string. The taxon to download from ALA. Uses [galah::galah_identify()]
 #' @param DL_reason Numeric. The reason for data download according to [galah::galah_config()]
+#' @param atlas Character. The atlas to download occurrence data from - see here https://galah.ala.org.au/R/articles/choosing_an_atlas.html for details.
+#' Note: the default is "ALA" and is probably the only atlas which will work seamlessly with the rest
+#' of the workflow. However, different atlases can still be downloaded and a doi will be sent to 
+#' your email.
 #'
 #' @return Completes an ALA data download and saves those data to the path provided.
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom utils unzip
 #' @export
 #'
 #' @examples
@@ -19,17 +28,21 @@
 #' remotes::install_github("AtlasOfLivingAustralia/galah")
 #' atlas_downloader(path = DataPath,
 #'                userEmail = "InsertYourEmail",
-#'                ALA_taxon = "Apiformes")
+#'                ALA_taxon = "Apiformes",
+#'                DL_reason = 4)
 #'                }
 atlas_downloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, atlas = "ALA"){
+  # locally bind variabls to the function
+  . <- NULL
+  
   #### Intro checks ####
   writeLines(paste("1.","\n",
-                   " — Note: galah has a 50 million record download limit.", "\n",
+                   " - Note: galah has a 50 million record download limit.", "\n",
                    "You may call atlas_counts() to check.", "\n",
-                   " — Additionally, you must register your email with your ", atlas, " otherwise you will get an ",
+                   " - Additionally, you must register your email with your ", atlas, " otherwise you will get an ",
                    "error message.", "\n",
-                   "See here — https://www.ala.org.au — or your relevant atlas","\n",
-                   " — Valid donwload reasons include can be found by running show_all_reasons()",
+                   "See here - https://www.ala.org.au - or your relevant atlas","\n",
+                   " - Valid donwload reasons include can be found by running show_all_reasons()",
                    sep = ""))
   # Check for a userEmail input present and halt if FALSE
   if(exists("userEmail") == FALSE){
@@ -39,16 +52,16 @@ atlas_downloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, a
   if(grepl( ".[^@]+@{1}.+\\..+", userEmail) == FALSE){
     stop("The email you entered might be incorrect, please double-check the format.")
   }
-  require(galah)
-  require(rvest)
-  require(httr)
+  requireNamespace("galah")
+  requireNamespace("rvest")
+  requireNamespace("httr")
   # Define ColsToKeep
   ColsToKeep <- BeeDC::ColTypeR()[[1]] %>% names()
   # Create a new working directory for ALA data in the path provided
   dir.create(paste(path, atlas, "_galah_path", sep = "/"), showWarnings = FALSE)
   atlas_galah_path <- paste(path, "/", atlas, "_galah_path", sep = "")
   # Set up the ALA download configuration
-  writeLines(" — Setting galah configuration.")
+  writeLines(" - Setting galah configuration.")
   galah::galah_config(cache_directory= atlas_galah_path, download_reason_id = DL_reason, verbose=TRUE, 
                       email = userEmail, send_email = TRUE, atlas = atlas) 
 
@@ -59,7 +72,7 @@ atlas_downloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, a
   # DOWNLOAD ALA data here
   # Apiformes is an informal name that is helpful to select the bee families out of the superfamily Apoidea.
   writeLines(paste("2.","\n",
-                   " — Beginning atlas download via galah.", "\n",
+                   " - Beginning atlas download via galah.", "\n",
                    "A progress bar of your download should appear shortly. You will also receive an email ",
                    "when your download is complete.", sep = ""))
   ALA_Occurence_download <- galah::galah_call() %>%
@@ -69,7 +82,7 @@ atlas_downloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, a
   # get download attributes from file and make it into a dataframe
   attrs_ALA_Occurence_download <- attributes(ALA_Occurence_download) 
   
-  writeLines(paste("3.","\n"," — atlas download is complete.", "\n",
+  writeLines(paste("3.","\n"," - atlas download is complete.", "\n",
                    "The script will now download and unzip all of the data and metadata to ",
                    atlas_galah_path, ". This may take a short while.",
                    sep = ""))
@@ -116,7 +129,7 @@ atlas_downloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, a
                            "galah_DL_info.csv", 
                            sep = ""))
   # Write user instructions
-  writeLines(paste("4.","\n"," — Fin.",
+  writeLines(paste("4.","\n"," - Fin.",
                    sep = ""))
 }
 ##### Current end ALA ####

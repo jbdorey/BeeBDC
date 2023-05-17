@@ -1,11 +1,13 @@
 ##### 2.1 data_finder ####
-#' Find GBIF, ALA, iDigBio, and SCAN files
+#' Find GBIF, ALA, iDigBio, and SCAN files in a directory
 #'
 #' @param path A directory as character. The path within which to recursively look for GBIF, ALA, 
 #' iDigBio, and SCAN files.
 #'
 #' @return Returns a list of directories to each of the above data downloads
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' \dontrun{
@@ -13,7 +15,8 @@
 #' BeeDC::data_finder(path = DataPath)
 #' }
 data_finder <- function(path){
-  require(magrittr)
+  . <- NULL
+  requireNamespace("dplyr")
   # Find ALL occurrence file downloads contained within the HomePath and return their location and 
   # their information
   AllOccLocs <- file.info(list.files(path, full.names = T, pattern = "occurrence(s)?(_raw)?\\.|^data.csv",

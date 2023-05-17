@@ -1,5 +1,7 @@
-require(readr)
-require(tibble)
+requireNamespace("readr")
+requireNamespace("tibble")
+requireNamespace("xlsx")
+requireNamespace("tribble")
 
 
 testData <- tibble::tribble(

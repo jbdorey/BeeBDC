@@ -13,9 +13,10 @@ data_saver(
 )
 }
 \arguments{
-\item{path}{The main path to look for data in.}
+\item{path}{Character. The main file path to look for data in.}
 
-\item{save_type}{Character. File format to save as. Either "R_file" OR "CSV_file".}
+\item{save_type}{Character. The file format in which to save occurrence and EML data.
+Either "R_file" or "CSV_file"}
 
 \item{occurrences}{The occurrences to save as a data frame or tibble.}
 
@@ -24,18 +25,19 @@ data_saver(
 \item{file_prefix}{Character. A prefix for the resulting output file.}
 }
 \value{
-Saves both occurrence and EML data as a list.
+This function saves both occurrence and EML data as a list when save_type = "R_File" or
+as individual csv files when save_type = "CSV_file".
 }
 \description{
 Generally used at the end of 1.x in the example workflow.
 }
 \examples{
 \dontrun{
-data_saver(path = DataPath,# The main path to look for data in
+data_saver(path = tempdir(),# The main path to look for data in
 save_type = "CSV_file", # "R_file" OR "CSV_file"
 occurrences = Complete_data$Data_WebDL, # The existing datasheet
 eml_files = Complete_data$eml_files, # The existing EML files
-file_prefix = "Fin_") # The prefix for the filenames
+file_prefix = "Fin_") # The prefix for the file name
 }
 
 }

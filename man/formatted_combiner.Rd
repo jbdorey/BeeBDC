@@ -16,10 +16,10 @@ formatted_combiner(path, strings, existingOccurrences, existingEMLs)
 \item{existingEMLs}{An EML file. The existing EML data file to be appended.}
 }
 \value{
-A list with the occurrence dataset and the EML file.
+A list with the combined occurrence dataset and the updated EML file.
 }
 \description{
-Merges the Darwin Core version of the USGS dataset that was created using \code{\link[=BeeDC:USGS_formatter]{BeeDC:USGS_formatter()}}
+Merges the Darwin Core version of the USGS dataset that was created using \code{\link[=USGS_formatter]{USGS_formatter()}}
 with the main dataset
 }
 \examples{

@@ -5,10 +5,10 @@
 #' 
 #' Using all flag columns (column names starting with "."), this function either creates or updates
 #' the .summary flag column which is FALSE when ANY of the flag columns are FALSE. Columns can be excluded
-#' from inclusion and removed after creating the .summary column. Additionally, the occurrence dataset
+#'  and removed after creating the .summary column. Additionally, the occurrence dataset
 #' can be filtered to only those where .summary = TRUE at the end of the function.
 #'
-#' @param data A data frame or tibble. Occurrence records as input.
+#' @param data A data frame or tibble. Occurrence records to use as input.
 #' @param dontFilterThese A character vector of flag columns to be ignored in the creation or updating
 #'  of the .summary column.
 #' @param removeFilterColumns Logical. If TRUE all columns starting with "." will be removed in the 
@@ -16,8 +16,11 @@
 #' @param filterClean Logical. If TRUE, the data will be filtered to only those occurrence where .summary
 #' = TRUE (i.e., completely clean according to the used flag columns). Default = FALSE.
 #'
-#' @return Returns a data frame or tibble similar to the input data but modified based on the above parameters.
+#' @return Returns a data frame or tibble of the input data but modified based on the above parameters.
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' 
 #'
 #' @examples
 #' # Read in example data
@@ -49,6 +52,8 @@ summaryFun <- function(
     dontFilterThese = NULL,
     removeFilterColumns = FALSE,
     filterClean = FALSE){
+  # locally bind variables to the function
+  . <- rowSum <- .summaryNew <- .summary <- NULL
   
   #### 0.0 Prep ####
   if(is.null(data)){
@@ -60,7 +65,7 @@ summaryFun <- function(
     ##### 1.1 dontFilterThese present ####
     # User output
   if(!is.null(dontFilterThese)){
-    writeLines(paste0(" — We will NOT flag the following columns. However, they will remain",
+    writeLines(paste0(" - We will NOT flag the following columns. However, they will remain",
                       " in the data file.\n",
                       paste(dontFilterThese, collapse = ", ") ))
       # Run function
@@ -76,7 +81,7 @@ summaryFun <- function(
       # Make FALSE == 1 and TRUE == 0
       dplyr::mutate_if(is.logical, ~abs(as.numeric(.) - 1)) %>%
       # IF rowSum > 0 then there is at least one flag
-      dplyr::mutate(rowSum = rowSums(., na.rm = TRUE)) %>%
+      dplyr::mutate(rowSum = base::rowSums(., na.rm = TRUE)) %>%
       # Add the .summary column
       dplyr::mutate(.summaryNew = dplyr::if_else(rowSum > 0,
                                                  FALSE, TRUE)) %>%
@@ -87,7 +92,7 @@ summaryFun <- function(
   
   ##### 1.2 dontFilterThese NULL ####
   if(is.null(dontFilterThese)){
-    writeLines(paste0(" — We will flag all columns starting with '.'"))
+    writeLines(paste0(" - We will flag all columns starting with '.'"))
       # Run function
     dataOut <-
       data %>%
@@ -109,7 +114,7 @@ summaryFun <- function(
   }
   
   ##### 1.3 User message ####
-  message(paste(" — summaryColumnR:\nFlagged", 
+  message(paste(" - summaryColumnR:\nFlagged", 
                 format(sum(dataOut$.summary == FALSE, na.rm = TRUE), big.mark = ","),
                 "\n ",
                 "The .summary column was added to the database.",
@@ -123,7 +128,7 @@ summaryFun <- function(
     dataOut <- dataOut   %>%
       # FILTER HERE
       dplyr::filter(.summary == TRUE) 
-    message(paste(" — REMOVED all occurrences that were FALSE for the 'summary' column.")) 
+    message(paste(" - REMOVED all occurrences that were FALSE for the 'summary' column.")) 
   }
   
   ##### 2.2 Remove filtering columns ####

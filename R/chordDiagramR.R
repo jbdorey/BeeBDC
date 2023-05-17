@@ -1,12 +1,14 @@
 # This function was written by James B Dorey on the 29th of September 2022
 # Its purpose is to visualise duplicate occurrence data by using a chord diagram
-# Please contact jbdorey@me.com for help
+# Please contact jbdorey[at]me.com for help
 
 #' Build a chord diagram of duplicate occurrence links
 #' 
-#' Outputs a figure that shows the relative size and direction of duplicate occurrence points.
+#' This function outputs a figure which shows the relative size and direction of occurrence points 
+#' duplicated between data providers, such as, SCAN, GBIF, ALA, etc.
+#' 
 #'
-#' @param dupeData A tibble or data frame. The duplicate file produced by [BeeDC::jbd_dupeSummary()]
+#' @param dupeData A tibble or data frame. The duplicate file produced by [BeeDC::dupeSummary()]
 #' @param savePath A character directory. The directory in which the figure should be saved.
 #' @param width Numeric. The width of the figure to save (in inches). Default = 7.
 #' @param height Numeric. The height of the figure to save (in inches). Default = 6.
@@ -21,15 +23,15 @@
 #' @param canvas.ylim Canvas limits from [circlize::circos.par()]. Default = c(-1.0,1.0).
 #' @param canvas.xlim Canvas limits from [circlize::circos.par()]. Default = c(-0.6, 0.25).
 #' @param text.col A character string. Text colour
-#' @param legendX The x position of the legends, measured in current viewport.
+#' @param legendX The x position of the legends, as measured in current viewport.
 #'  Passed to [ComplexHeatmap::draw()]. Default = grid::unit(6, "mm").
-#' @param legendY The y position of the legends, measured in current viewport.
+#' @param legendY The y position of the legends, as measured in current viewport.
 #'  Passed to [ComplexHeatmap::draw()]. Default = grid::unit(18, "mm").
-#' @param legendJustify Justification of the legends. 
+#' @param legendJustify A character vector declaring the justification of the legends. 
 #' Passed to [ComplexHeatmap::draw()]. Default = c("left", "bottom").
 #' @param niceFacing TRUE/FALSE. The niceFacing option automatically adjusts the text facing 
 #' according to their positions in the circle. Passed to [circlize::highlight.sector()].
-#' @param importFrom 1 or 2 (numeric). Passed to [circlize::chordDiagram()]:	
+#' @param self.link 1 or 2 (numeric). Passed to [circlize::chordDiagram()]:	
 #' if there is a self link in one sector, 1 means the link will be degenerated as a 'mountain' and the width corresponds to the value for this connection. 2 means the width of the starting root and the ending root all have the width that corresponds to the value for the connection.
 #'
 #'
@@ -38,7 +40,7 @@
 #' @importFrom ComplexHeatmap Legend packLegend draw
 #' @importFrom circlize circos.clear circos.par chordDiagram mm_h circos.trackPlotRegion get.cell.meta.data highlight.sector circos.clear
 #' @importFrom stringr str_replace str_c
-#' @importFrom dplyr bind_cols full_join mutate select group_by if_else arrange n filter
+#' @importFrom dplyr bind_cols full_join mutate select group_by if_else arrange n filter %>%
 #' @importFrom paletteer paletteer_dynamic
 #' @importFrom grid unit
 #' 
@@ -49,9 +51,9 @@
 #' @examples
 #' \dontrun{
 #'  chordDiagramR(
-# The duplicate data from the dupeSummary function output  
+# # The duplicate data from the dupeSummary function output  
 #' dupeData = duplicates,
-#' savePath = paste0(OutPath_Figures, "/ChordDiagram.pdf"),
+#' savePath = paste0(tempdir(), "/ChordDiagram.pdf"),
 #' # These can be modified to help fit the final pdf that's exported.
 #' width = 9,
 #' height = 7.5,
@@ -92,22 +94,25 @@ chordDiagramR <- function(
   legendJustify = c("left", "bottom"),
   niceFacing = TRUE,
   self.link = 2){
+  # locally bind variabls to the function
+  Frequency <- Frequency_dupe <- sourceName <- . <- sourceCategories <- groupCount <- cur_group_id <-
+    groupNumber <- groupPalette <- groupColours <- 
   
-  require(circlize)
-  require(ComplexHeatmap)
-  require(stringr)
-  require(dplyr)
-  require(paletteer)
-  require(grid)
+    requireNamespace("circlize")
+  requireNamespace("ComplexHeatmap")
+  requireNamespace("bdc")
+  requireNamespace("dplyr")
+  requireNamespace("paletteer")
+  requireNamespace("grid")
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
   if(is.null(dupeData)){
-    stop(" — Please provide an argument for dupeData. I'm a program not a magician.")
+    stop(" - Please provide an argument for dupeData. I'm a program not a magician.")
   }
   if(is.null(savePath)){
-    stop(" — Please provide an argument for savePath. Seems reckless to let me just guess.")
+    stop(" - Please provide an argument for savePath. Seems reckless to let me just guess.")
   }
   
 
@@ -122,10 +127,10 @@ classes = "message")
   # Create tables of the counts of kept source and duplicate source
 keptSource <- table(dupeData$dataSource) %>%
   as.data.frame() %>% tibble::tibble() %>% 
-  setNames(c("sourceName", "Frequency")) 
+  stats::setNames(c("sourceName", "Frequency")) 
 dupeSource <- table(dupeData$dataSource_keep) %>%
   as.data.frame() %>% tibble::tibble() %>% 
-  setNames(c("sourceName", "Frequency_dupe")) 
+  stats::setNames(c("sourceName", "Frequency_dupe")) 
   # Merge the sources and get their sum (for a total frequency count to order by)
 colourTable <- dplyr::full_join(keptSource, dupeSource, by = "sourceName") %>%
   dplyr::mutate(Frequency = (Frequency + Frequency_dupe)) %>%
@@ -156,7 +161,7 @@ colourTable <- dplyr::full_join(keptSource, dupeSource, by = "sourceName") %>%
                   paletteer::paletteer_dynamic(
                     palette = groupPalette[[1]],
                     n = groupCount[[1]]) %>% list(),
-                colour = unlist(groupColours)[row_number()])
+                colour = unlist(groupColours)[dplyr::row_number()])
 
 
 circlize::circos.clear()
@@ -213,7 +218,7 @@ circlize::circos.clear()
 
 title(title)
 
-dev.copy2pdf(file = savePath, height = height, width = width, bg = bg)
+grDevices::dev.copy2pdf(file = savePath, height = height, width = width, bg = bg)
 
 #dev.off()
 } # END function

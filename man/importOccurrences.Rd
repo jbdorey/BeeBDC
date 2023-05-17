@@ -10,7 +10,7 @@ importOccurrences(path = path, fileName = "^BeeData_")
 \item{path}{A directory as a character. The directory to recursively look in for the above data.}
 
 \item{fileName}{Character. A String of text to look for the most-recent dataset.
-Default = "^BeeData_". Find faults by modifying \link{file_finder(path = path, fileName = fileName)}
+Default = "^BeeData_". Find faults by modifying \code{\link[=file_finder]{file_finder()}}
 and logic-checking the file that's found.}
 }
 \value{
@@ -18,8 +18,8 @@ A list with a data frame of merged occurrence records, "Data_WebDL", and a list 
 files contained in "eml_files".
 }
 \description{
-Looks for and imports the most-recent version of the data created by the \code{\link[=repo_merge]{repo_merge()}}
-function
+Looks for and imports the most-recent version of the occurrence data created by the \code{\link[=repo_merge]{repo_merge()}}
+function.
 }
 \examples{
 \dontrun{

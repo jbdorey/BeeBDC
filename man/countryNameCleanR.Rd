@@ -2,21 +2,22 @@
 % Please edit documentation in R/countryNameCleanR.R
 \name{countryNameCleanR}
 \alias{countryNameCleanR}
-\title{A simple function to fix a user-input list of country name issues.}
+\title{Fix country name issues using a user-input list}
 \usage{
 countryNameCleanR(data = NULL, ISO2_table = NULL, commonProblems = NULL)
 }
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
 
-\item{ISO2_table}{A data frame or tibble with the columns ISO2 and FullName for country names. Default
+\item{ISO2_table}{A data frame or tibble with the columns ISO2 and long names for country names. Default
 is a static version from Wikipedia.}
 
-\item{commonProblems}{A data frame or tibble with the columns problem and fix.}
+\item{commonProblems}{A data frame or tibble. It must have two columns:
+one containing the user-identified problem and one with a user-defined fix}
 }
 \value{
-Returns the input data but with the countries occurring in the problem column replaced
-with those in the fix column.
+Returns the input data, but with countries occurring in the user-supplied problem
+column ("commonProblems") replaced with those in the user-supplied fix column
 }
 \description{
 This function is basic for a user to manually fix some country name inconsistencies.
@@ -24,5 +25,12 @@ This function is basic for a user to manually fix some country name inconsistenc
 \examples{
 beesFlagged_out <- countryNameCleanR(
 data = BeeDC::beesFlagged,
-commonProblems = commonProblems)
+commonProblems = tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+                        'United States','U.S.A','MX','CA','Bras.','Braz.',
+                        'Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
+                        fix = c('United States of America','United States of America',
+                                'United States of America','United States of America',
+                                'United States of America','United States of America',
+                                'United States of America','Mexico','Canada','Brazil',
+                                'Brazil','Brazil','Northern Mariana Islands','PUERTO.RICO')))
 }

@@ -12,7 +12,7 @@ summaryFun(
 )
 }
 \arguments{
-\item{data}{A data frame or tibble. Occurrence records as input.}
+\item{data}{A data frame or tibble. Occurrence records to use as input.}
 
 \item{dontFilterThese}{A character vector of flag columns to be ignored in the creation or updating
 of the .summary column.}
@@ -24,12 +24,12 @@ output data. This only makes sense to use when filterClean = TRUE. Default = FAL
 = TRUE (i.e., completely clean according to the used flag columns). Default = FALSE.}
 }
 \value{
-Returns a data frame or tibble similar to the input data but modified based on the above parameters.
+Returns a data frame or tibble of the input data but modified based on the above parameters.
 }
 \description{
 Using all flag columns (column names starting with "."), this function either creates or updates
 the .summary flag column which is FALSE when ANY of the flag columns are FALSE. Columns can be excluded
-from inclusion and removed after creating the .summary column. Additionally, the occurrence dataset
+and removed after creating the .summary column. Additionally, the occurrence dataset
 can be filtered to only those where .summary = TRUE at the end of the function.
 }
 \examples{

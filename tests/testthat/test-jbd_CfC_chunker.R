@@ -1,6 +1,6 @@
-require(rnaturalearthdata)
-require(rnaturalearth)
-require(BeeDC)
+requireNamespace("rnaturalearth")
+requireNamespace("BeeDC")
+requireNamespace("tribble")
 
 data("bees3sp")
 

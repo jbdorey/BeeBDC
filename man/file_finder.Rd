@@ -12,16 +12,19 @@ file_finder(path, fileName)
 \item{fileName}{A character/regex string. The file name to find.}
 }
 \value{
-Returns a directory to the most-recent file that matches the provied fileName. Using regex
-can greatly improve specificity. Will also output the file that it has found — it is worthwhile
-checking that this is the correct file.
+Returns a directory to the most-recent file that matches the provied file Using regex
+can greatly improve specificity. Using regex can greatly improve specificity.
+The function will also write into the console the file that it has found - it is worthwhile to
+check that this is the correct file to avoid complications down the line
 }
 \description{
-A simple function used to find files within a user-defined directory based on a user-provided character
-string.
+A function which can be used to find files within a user-defined directory based on a
+user-provided character string.
 }
 \examples{
+\dontrun{
 file_finder(path = RootPath, fileName = "beesRaw")
 # more specifically the .csv version
 file_finder(path = RootPath, fileName = "beesRaw.csv")
+}
 }

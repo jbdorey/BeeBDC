@@ -1,47 +1,51 @@
 # This function was written by James B Dorey and Angela Nava Bolańos from the 12 th of October 2022
 # Its purpose is to create series of output figures or csv files for specified species
-# Please contact jbdorey@me.com for help
-
-#' Creates interactive .html maps for species
+# Please contact jbdorey[at]me.com for help
+#' Creates interactive html maps for species
 #' 
 #' Uses the occurrence data (preferably uncleaned) and outputs interactive .html maps that can be opened
 #' in your browser to a specific directory. The maps can highlight if an occurrence has passed all filtering
 #' (.summary == TRUE) or failed at least one filter (.summary == FALSE). This can be modified by first running
 #' [BeeDC::summaryFun()] to set the columns that you want to be highlighted. It can also highlight occurrences
-#' flagged as expert or country outliers.
+#' flagged as expert-identified or country outliers.
 #' 
-#' @param database A data frame or tibble. Occurrence records as input.
+#' @param database A data frame or tibble. Occurrence records to use as input.
 #' @param dir A directory as character. Directory where to save output maps.
 #' @param longitude Character. The name of the longitude column. Default = "decimalLongitude".
 #' @param latitude Character. The name of the latitude column. Default = "decimalLatitude".
 #' @param speciesColumn Character. The name of the column containing species names (or another factor)
 #' to build individual maps from. Default = "scientificName".
-#' @param speciesList A character vector. A character vector of species names, as they appear in the
-#' speciesColumn, to make maps of. Or "ALL" to make maps of all species present in the database. Hence,
-#' a user may first filter their database and then use "ALL".
-#' @param countryList A character vector. Country names to map, or NULL for ALL.
-#' @param jitterValue Numeric. The amount, in decimal degrees, to jitter the map points by — important 
-#' for separating stacked points with the same coords.
-#' @param onlySummary Logical. If TRUE, will not look to plot country or expert outliers in 
-#' different colours.
+#' @param speciesList A character vector. Should contain species names as they appear in the 
+#' speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all 
+#' species present in the database. Hence, a user may first filter their database and then use "ALL".
+#' @param countryList A character vector. Country names to map, or NULL for to map ALL countries.
+#' @param jitterValue Numeric. The amount, in decimal degrees, to jitter the map points by - this 
+#' is important for separating stacked points with the same coordinates.
+#' @param onlySummary Logical. If TRUE, the function will not look to plot country or 
+#' expert-identified outliers in different colours.
 #' @param overWrite Logical. If TRUE, the function will overwrite existing files in the provided
 #' directory that have the same name.
 #' Default = TRUE.
-#' @param TrueAlwaysTop If TRUE, the "TRUE" points will always be displayed on top of other points. 
+#' @param TrueAlwaysTop If TRUE, the quality (TRUE) points will always be displayed on top of other points. 
 #' If FALSE, then whichever layer was turned on most-recently will be displayed on top.
-#' @param excludeApis_mellifera Logical. If TRUE, will not map Apis mellifera. Note: in most cases 
-#' A. mellifera has too many points and the resultign map will take a long time to make and be difficult to open.
+#' @param excludeApis_mellifera Logical. If TRUE, will not map records for Apis mellifera. Note: in most cases 
+#' A. mellifera has too many points, and the resulting map will take a long time to make and be difficult to open.
 #' Default = TRUE.
 #' @param pointColours A character vector of colours. In order provide colour for TRUE, FALSE, countryOutlier, and customOutlier.
 #' Default = c("blue", "darkred","#ff7f00", "black").
 #'
-#' @return Exports .html interactive maps to the specified directory.
+#' @return Exports .html interactive maps of bee occurrences to the specified directory.
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom utils installed.packages install.packages
+#' @importFrom dplyr across where
 #'
 #' @examples
+#' OutPath_Figures <- tempdir()
 #' 
 #' interactiveMapR(
-#' # occurrence data — start with entire dataset, filter down to these species
+#' # occurrence data - start with entire dataset, filter down to these species
 #' database = BeeDC::bees3sp, # %>%
 #'   # Select only those species in the 100 randomly chosen
 #'   # dplyr::filter(scientificName %in% beeData_interactive$scientificName),
@@ -54,18 +58,19 @@
 #' latitude = "decimalLatitude",
 #' # Occurrence dataset column with species names
 #' speciesColumn = "scientificName",
-#' # Which species to map — a character vector of names or "ALL"
+#' # Which species to map - a character vector of names or "ALL"
 #' # Note: "ALL" is defined AFTER filtering for country
 #' speciesList = "ALL",
-#' countryList = NULL, # studyArea
-#' # Point jitter to see stacked points — jitters an amount in decimal degrees
+#' # studyArea
+#' countryList = NULL, 
+#' # Point jitter to see stacked points - jitters an amount in decimal degrees
 #' jitterValue = 0.01,
 #' # If TRUE, it will only map the .summary column. Otherwise, it will map .summary
 #' # which will be over-written by countryOutliers and manualOutliers
 #' onlySummary = TRUE,
 #' excludeApis_mellifera = TRUE,
 #' overWrite = TRUE,
-#' # TRUE, FALSE, countryOutlier, customOutlier
+#'   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 #' pointColours = c("blue", "darkred","#ff7f00", "black")
 #' )
 
@@ -79,7 +84,7 @@ interactiveMapR <- function(
     latitude = "decimalLatitude",
       # Occurrence dataset column with species names
     speciesColumn = "scientificName",
-      # Which species to map — a character vector of names or "ALL"
+      # Which species to map - a character vector of names or "ALL"
     speciesList = NULL,
     countryList = NULL,
     jitterValue = NULL,
@@ -89,21 +94,26 @@ interactiveMapR <- function(
     excludeApis_mellifera = TRUE,
     pointColours = c("blue", "darkred","#ff7f00", "black")
     ){
-  require(htmlwidgets)
-  require(leaflet)
-  require(DT)
-  require(fs)
-  require(dplyr)
+  # locally bind variables to the function
+  country <- .data <- scientificName <- expertOutlier <- .countryOutlier <- .summary <-
+    providers <- databaseSpp <- .expertOutlier <- NULL
+    
+  
+  requireNamespace("htmlwidgets")
+  requireNamespace("leaflet")
+  requireNamespace("DT")
+  requireNamespace("bdc")
+  requireNamespace("dplyr")
   
 #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
   if(is.null(database)){
-    stop(paste0(" — No database was given. Please specify the data that you want to map ",
+    stop(paste0(" - No database was given. Please specify the data that you want to map ",
                 "for your data-cleaning adventures. I'll do the rest."))
   }
   if(is.null(dir)){
-    stop(paste0(" — No dir was given. Please specify the directory to save the maps to."))
+    stop(paste0(" - No dir was given. Please specify the directory to save the maps to."))
   }
   
   ##### 0.2 Packages ####
@@ -241,11 +251,11 @@ for (x in 1:length(speciesList)){
   # Make the base map
   mdatabaseSpp <- leaflet::leaflet(data = databaseLoop ) %>% 
       # Add map panes
-    addMapPane(name = "maplabels_FALSE", zIndex = 410) %>% 
-    addMapPane(name = "maplabels_TRUE", zIndex = 420) %>% # higher zIndex rendered on top
+    leaflet::addMapPane(name = "maplabels_FALSE", zIndex = 410) %>% 
+    leaflet::addMapPane(name = "maplabels_TRUE", zIndex = 420) %>% # higher zIndex rendered on top
     # Base groups
-    addTiles(group = "OSM (default)") %>%
-    addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite")
+    leaflet::addTiles(group = "OSM (default)") %>%
+    leaflet::addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite")
     # For the names in the list, apply the points function
   names(databaseLoop) %>%
     purrr::walk(function(walkName) {
@@ -261,7 +271,7 @@ for (x in 1:length(speciesList)){
                               popup = stringr::str_c(
                                 sep = "",
                                 ###### a. basic data ####
-                                "<b>Basic data </b> — ",
+                                "<b>Basic data </b> - ",
                                 "ID: ", databaseSpp$database_id, " ", #databaseSpp is the name of database and ID the name of the column
                                 if("family" %in% colnames(databaseSpp)){
                                   paste0("Family: ", databaseSpp$family, 
@@ -282,9 +292,9 @@ for (x in 1:length(speciesList)){
                                                            paste0("Authority: ", databaseSpp$scientificNameAuthorship, 
                                                                   ";   ")},
                                 ###### b. summary data ####
-                                "<p></p> <b>Summary flag</b> — ", databaseSpp$.summary,
+                                "<p></p> <b>Summary flag</b> - ", databaseSpp$.summary,
                                 ###### c. initial data ####
-                                "<p></p><b>Initial flags</b> — ",
+                                "<p></p><b>Initial flags</b> - ",
                                             if(".coordinates_empty" %in% colnames(databaseSpp)){
                                                            paste0("No coordinates: ", databaseSpp$.coordinates_empty, 
                                                                   ";   ")},
@@ -305,7 +315,7 @@ for (x in 1:length(speciesList)){
                                                                   ";   ")},
                                 ###### d. taxonomy data ####
                                               # Taxonomy
-                                "<p></p><b>Taxonomy flags</b> — ",
+                                "<p></p><b>Taxonomy flags</b> - ",
                                             if(".scientificName_empty" %in% colnames(databaseSpp)){
                                                            paste0("No scientific name: ", databaseSpp$.scientificName_empty, 
                                                                   ";   ")},
@@ -317,7 +327,7 @@ for (x in 1:length(speciesList)){
                                                                   ";   ")},
                                 ###### e. space data ####
                                               # space
-                                "<p></p><b>Space flags</b> — ",
+                                "<p></p><b>Space flags</b> - ",
                                             if(".rou" %in% colnames(databaseSpp)){
                                                            paste0("Coordinates rounded: ", databaseSpp$.rou, 
                                                                   ";   ")},
@@ -372,7 +382,7 @@ for (x in 1:length(speciesList)){
                                                                   ";   ")},
                                 ###### f. time data ####
                                             # Time
-                                "<p></p><b>Time flags</b> — ",
+                                "<p></p><b>Time flags</b> - ",
                                             if(".eventDate_empty" %in% colnames(databaseSpp)){
                                                            paste0("No event date: ", databaseSpp$.eventDate_empty, 
                                                                   ";   ")},
@@ -382,11 +392,11 @@ for (x in 1:length(speciesList)){
                                 ###### g. duplicate data ####
                                             # Duplicate
                                 if(".duplicates" %in% colnames(databaseSpp)){
-                                               paste0("<p></p><b>Duplicate flag</b> — ", databaseSpp$.duplicates,
+                                               paste0("<p></p><b>Duplicate flag</b> - ", databaseSpp$.duplicates,
                                                       ";   ")},
                                 ###### h. collection data ####
                                 # Time
-                                "<p></p><b>Collection data</b> — ",
+                                "<p></p><b>Collection data</b> - ",
                                 if("recordedBy" %in% colnames(databaseSpp)){
                                   paste0("Collector(s): ", databaseSpp$recordedBy, 
                                          ";   ")},
@@ -435,13 +445,13 @@ for (x in 1:length(speciesList)){
   ###### j. controller ####
     # Add the layers control
     mdatabaseSpp <- mdatabaseSpp %>%
-      addLegend(color = pointColours[1:length(names(databaseLoop))],
+      leaflet::addLegend(color = pointColours[1:length(names(databaseLoop))],
                 labels = names(databaseLoop), 
                 group = names(databaseLoop)) %>%
     leaflet::addLayersControl(
       baseGroups = c("OSM (default)", "Toner Lite"),
       overlayGroups = names(databaseLoop),
-      options = layersControlOptions(collapsed = FALSE, autoZIndex = FALSE,
+      options = leaflet::layersControlOptions(collapsed = FALSE, autoZIndex = FALSE,
                                      sortLayers = FALSE))
 
   ###### k. save ####

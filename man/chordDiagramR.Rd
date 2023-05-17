@@ -26,7 +26,7 @@ chordDiagramR(
 )
 }
 \arguments{
-\item{dupeData}{A tibble or data frame. The duplicate file produced by \code{\link[=jbd_dupeSummary]{jbd_dupeSummary()}}}
+\item{dupeData}{A tibble or data frame. The duplicate file produced by \code{\link[=dupeSummary]{dupeSummary()}}}
 
 \item{savePath}{A character directory. The directory in which the figure should be saved.}
 
@@ -52,32 +52,33 @@ using the \code{paletteer} package. Default = c("cartography::blue.pal", "cartog
 
 \item{text.col}{A character string. Text colour}
 
-\item{legendX}{The x position of the legends, measured in current viewport.
+\item{legendX}{The x position of the legends, as measured in current viewport.
 Passed to \code{\link[ComplexHeatmap:draw-dispatch]{ComplexHeatmap::draw()}}. Default = grid::unit(6, "mm").}
 
-\item{legendY}{The y position of the legends, measured in current viewport.
+\item{legendY}{The y position of the legends, as measured in current viewport.
 Passed to \code{\link[ComplexHeatmap:draw-dispatch]{ComplexHeatmap::draw()}}. Default = grid::unit(18, "mm").}
 
-\item{legendJustify}{Justification of the legends.
+\item{legendJustify}{A character vector declaring the justification of the legends.
 Passed to \code{\link[ComplexHeatmap:draw-dispatch]{ComplexHeatmap::draw()}}. Default = c("left", "bottom").}
 
 \item{niceFacing}{TRUE/FALSE. The niceFacing option automatically adjusts the text facing
 according to their positions in the circle. Passed to \code{\link[circlize:highlight.sector]{circlize::highlight.sector()}}.}
 
-\item{importFrom}{1 or 2 (numeric). Passed to \code{\link[circlize:chordDiagram]{circlize::chordDiagram()}}:
+\item{self.link}{1 or 2 (numeric). Passed to \code{\link[circlize:chordDiagram]{circlize::chordDiagram()}}:
 if there is a self link in one sector, 1 means the link will be degenerated as a 'mountain' and the width corresponds to the value for this connection. 2 means the width of the starting root and the ending root all have the width that corresponds to the value for the connection.}
 }
 \value{
 Saves a figure to the provided file path.
 }
 \description{
-Outputs a figure that shows the relative size and direction of duplicate occurrence points.
+This function outputs a figure which shows the relative size and direction of occurrence points
+duplicated between data providers, such as, SCAN, GBIF, ALA, etc.
 }
 \examples{
 \dontrun{
  chordDiagramR(
 dupeData = duplicates,
-savePath = paste0(OutPath_Figures, "/ChordDiagram.pdf"),
+savePath = paste0(tempdir(), "/ChordDiagram.pdf"),
 # These can be modified to help fit the final pdf that's exported.
 width = 9,
 height = 7.5,

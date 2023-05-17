@@ -16,7 +16,7 @@ USGS_formatter(path, pubDate)
 Returns a list with the occurrence data, "USGS_data", and the EML data, "EML_attributes".
 }
 \description{
-The USGS_formatter will find, import, format and create metadata for the USGS dataset.
+The function finds, imports, formats, and creates metadata for the USGS dataset.
 }
 \examples{
 \dontrun{

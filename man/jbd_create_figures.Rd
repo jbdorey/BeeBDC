@@ -2,7 +2,7 @@
 % Please edit documentation in R/jbd_create_figures.R
 \name{jbd_create_figures}
 \alias{jbd_create_figures}
-\title{Create figures reporting the results of the bdc/BeeDC package}
+\title{Create figures reporting the results of the bdc/BeeDC packages}
 \usage{
 jbd_create_figures(
   data,
@@ -13,35 +13,36 @@ jbd_create_figures(
 )
 }
 \arguments{
-\item{data}{data.frame. Containing the results of data quality tests; that
+\item{data}{A data frame or tibble. Needs to contain the results of data quality tests; that
 is, columns starting with ".".}
 
-\item{path}{A directory as a path. The path to a directory to save the figures to. Default = OutPath_Figures.}
+\item{path}{A character directory. The path to a directory in which to save the figures.
+Default = OutPath_Figures.}
 
-\item{database_id}{character string. The column name with a unique record
+\item{database_id}{A character string. The column name with a unique record
 identifier. Default = "database_id".}
 
-\item{workflow_step}{character string. Name of the workflow step. Options
+\item{workflow_step}{A character string. Name of the workflow step. Options
 available are "prefilter", "space", and "time".}
 
-\item{save_figures}{logical. Should the figures be saved for further
-inspection? Default = FALSE.}
+\item{save_figures}{Logical. Indicates if the figures should be saved for further inspection or
+use. Default = FALSE.}
 }
 \value{
-List containing figures showing the results of data quality test
-implemented in one module of bdc. When save_figures = TRUE, figures are
-also saved locally in a png format.
+List containing figures showing the results of data quality tests
+implemented in one module of bdc/BeeDC. When save_figures = TRUE, figures are
+also saved locally in a .png format.
 }
 \description{
 Creates figures (i.e., bar plots, maps, and histograms) reporting the results
-of data quality tests implemented in the bdc package. Works like \code{\link[bdc:bdc_create_figures]{bdc::bdc_create_figures()}},
-but allows the user to specify a save path.
+of data quality tests implemented the bdc and BeeDC packages. Works like \code{\link[bdc:bdc_create_figures]{bdc::bdc_create_figures()}},
+but it allows the user to specify a save path.
 }
 \details{
 This function creates figures based on the results of data quality
-tests implemented. A pre-defined list of test names is used for creating
+tests. A pre-defined list of test names is used for creating
 figures depending on the name of the workflow step informed. Figures are
-saved in "Output/Figures" if save_figures == TRUE.
+saved in "Output/Figures" if save_figures = TRUE.
 }
 \examples{
 \dontrun{

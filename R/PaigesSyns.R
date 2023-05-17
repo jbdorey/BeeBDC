@@ -1,12 +1,14 @@
 # This script was written by James Dorey to use Paige Chesshire's taxonomy updates to update the 
   # Orr and Ascher combined taxonomy
   # This function checks if there is a match in the current taxonomy or not
-# For queries, please contact James Dorey at jbdorey@me.com
+# For queries, please contact James Dorey at jbdorey[at]me.com
 # This function was started on 15th May 2022 and last updated 17th May 2022
-
+#' @importFrom dplyr %>%
 
 PaigesSyns <- function(PaigeSheet = Paige_sheet_loc,
                        SynFile = SynL_AO){
+  # locally bind variables to the function
+  . <- Paige_sheet_loc <- SynL_AO <- canonical <- id <- NULL
   
   # Read in the relevant sheets from the excel file
   SynChanges <- readxl::read_excel(PaigeSheet, sheet = "Synonym_changes")

@@ -13,40 +13,37 @@ An object of class \code{"tibble"}
 \item{subfamily}{Subfamily name}
 \item{genus}{Genus name}
 \item{subgenus}{Subgenus name}
-\item{subspecies}{Full name with subspecies name — ALA column}
-\item{specificEpithet}{The species name only}
-\item{infraspecificEpithet}{The subspecies name only}
-\item{acceptedNameUsage}{The full name, with authorship and date information if known, of the currently valid (zoological) or accepted (botanical) taxon.}
-\item{taxonRank}{The taxonomic rank of the most specific name in the scientificName.}
-\item{scientificNameAuthorship}{The authorship information for the scientificName formatted according to the conventions of the applicable nomenclaturalCode.}
-\item{identificationQualifier}{A brief phrase or a standard term ("cf.", "aff.") to express the determiner's doubts about the Identification.}
-\item{higherClassification}{A list (concatenated and separated) of taxa names terminating at the rank immediately superior to the taxon referenced in the taxon record.)}
-\item{identificationReferences}{A list (concatenated and separated) of references (publication, global unique identifier, URI) used in the Identification.}
-\item{typeStatus}{A list (concatenated and separated) of nomenclatural types (type status, typified scientific name, publication) applied to the subject.}
-\item{previousIdentifications}{A list (concatenated and separated) of previous assignments of names to the Organism.}
-\item{verbatimIdentification}{A string representing the taxonomic identification as it appeared in the original record.}
-\item{identifiedBy}{A list (concatenated and separated) of names of people, groups, or organizations who assigned the Taxon to the subject.}
-\item{dateIdentified}{The date on which the subject was determined as representing the Taxon.}
+\item{subspecies}{Full scientific name with subspecies name — ALA column}
+\item{specificEpithet}{The species name (specific epithet) only}
+\item{infraspecificEpithet}{The subspecies name (intraspecific epithet) only}
+\item{acceptedNameUsage}{The full scientific name, with authorship and date information if known, of the currently valid (zoological) or accepted (botanical) taxon.}
+\item{taxonRank}{The taxonomic rank of the most specific name in the scientificName column.}
+\item{scientificNameAuthorship}{The authorship information for the scientificName column formatted according to the conventions of the applicable nomenclaturalCode.}
+\item{identificationQualifier}{A brief phrase or a standard term ("cf.", "aff.") to express the determiner's doubts about the identification.}
+\item{higherClassification}{A list (concatenated and separated) of taxon names terminating at the rank immediately superior to the taxon referenced in the taxon record.)}
+\item{identificationReferences}{A list (concatenated and separated) of references (e.g. publications, global unique identifier, URI, etc.) used in the identification of the occurrence.}
+\item{typeStatus}{A list (concatenated and separated) of nomenclatural types (e.g. type status, typified scientific name, publication) applied to the occurrence.}
+\item{previousIdentifications}{A list (concatenated and separated) of previous assignments of names to the occurrence.}
 \item{verbatimIdentification}{This term is meant to allow the capture of an unaltered original identification/determination, including identification qualifiers, hybrid formulas, uncertainties, etc. This term is meant to be used in addition to scientificName (and identificationQualifier etc.), not instead of it.}
 \item{identifiedBy}{A list (concatenated and separated) of names of people, groups, or organizations who assigned the Taxon to the subject.}
-\item{dateIdentified}{The date on which the subject was determined as representing the Taxon.}
-\item{decimalLatitude}{The geographic latitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive.}
-\item{decimalLongitude}{The geographic longitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are east of the Greenwich Meridian, negative values are west of it. Legal values lie between -180 and 180, inclusive.}
-\item{stateProvince}{The name of the next smaller administrative region than country (state, province, canton, department, region, etc.) in which the Location occurs.}
-\item{continent}{The name of the continent in which the Location occurs.}
-\item{locality}{The specific description of the place.}
-\item{island}{The name of the island on or near which the Location occurs.}
-\item{county}{The full, unabbreviated name of the next smaller administrative region than stateProvince (county, shire, department, etc.) in which the Location occurs.}
-\item{municipality}{The full, unabbreviated name of the next smaller administrative region than county (city, municipality, etc.) in which the Location occurs. Do not use this term for a nearby named place that does not contain the actual location.}
+\item{dateIdentified}{The date on which the occurrence was identified as belonging to a taxon.}
+\item{decimalLatitude}{The geographic latitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a location. Positive values are north of the Equator, negative values are south of it, and valid values lie between -90 and 90, inclusive.}
+\item{decimalLongitude}{The geographic longitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a location. Positive values are east of the Greenwich Meridian, and negative values are west of it. Valid values lie between -180 and 180, inclusive.}
+\item{stateProvince}{The name of the next smaller administrative region than country (e.g. state, province, canton, department, region, etc.) in which the location for the occurrence is found.}
+\item{continent}{The name of the continent in which the location for the occurrence is found.}
+\item{locality}{A specific description of the place the occurrence was found.}
+\item{island}{The name of the island on or near which the location for the occurrence is found, if applicable.}
+\item{county}{The full, unabbreviated name of the next smaller administrative region than stateProvince (e.g. county, shire, department, etc.) in which the location for the occurrence is found.}
+\item{municipality}{The full, unabbreviated name of the next smaller administrative region than county (e.g. city, municipality, etc.) in which the location for the occurrence is found. Do not use this term for a nearby named place that does not contain the actual location for the occurrence.}
 \item{license}{A legal document giving official permission to do something with the resource.}
-\item{issue}{entry}
-\item{eventDate}{The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context.}
+\item{issue}{A GBIF-defined issue.}
+\item{eventDate}{The time or interval during which the Event occurred. For occurrences, this is the time or interval when the event was recorded.}
 \item{eventTime}{The time or interval during which an Event occurred.}
-\item{day}{The integer day of the month on which the Event occurred.}
-\item{month}{The integer month in which the Event occurred.}
-\item{year}{The four-digit year in which the Event occurred, according to the Common Era Calendar.}
+\item{day}{The integer day of the month on which the Event occurred. For occurrences, this is the day when the event was recorded.}
+\item{month}{The integer month in which the Event occurred. For occurrences, this is the month of when the event was recorded.}
+\item{year}{The four-digit year in which the Event occurred, according to the Common Era Calendar. For occurrences, this is the year when the event was recorded.}
 \item{basisOfRecord}{The specific nature of the data record. Recommended best practice is to use the standard label of one of the Darwin Core classes.PreservedSpecimen, FossilSpecimen, LivingSpecimen, MaterialSample, Event, HumanObservation, MachineObservation, Taxon, Occurrence, MaterialCitation}
-\item{country}{The name of the country or major administrative unit in which the Location occurs.}
+\item{country}{The name of the country or major administrative unit in which the location for the occurrence is found.}
 \item{type}{The nature or genre of the resource. StillImage, MovingImage, Sound, PhysicalObject, Event, Text.}
 \item{occurrenceStatus}{A statement about the presence or absence of a Taxon at a Location. present, absent.}
 \item{recordNumber}{An identifier given to the Occurrence at the time it was recorded. Often serves as a link between field notes and an Occurrence record, such as a specimen collector's number.}
@@ -59,7 +56,7 @@ An object of class \code{"tibble"}
 \item{organismQuantity}{A number or enumeration value for the quantity of organisms. Examples	27 (organismQuantity) with individuals (organismQuantityType). 12.5 (organismQuantity) with \% biomass (organismQuantityType). r (organismQuantity) with Braun Blanquet Scale (organismQuantityType). many (organismQuantity) with individuals (organismQuantityType).}
 \item{coordinatePrecision}{A decimal representation of the precision of the coordinates given in the decimalLatitude and decimalLongitude.}
 \item{coordinateUncertaintyInMeters}{The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.}
-\item{spatiallyValid}{entry}
+\item{spatiallyValid}{Occurrence records in the ALA can be filtered by using the spatially valid flag. This flag combines a set of tests applied to the record to see how reliable are its spatial data components.}
 \item{catalogNumber}{An identifier (preferably unique) for the record within the data set or collection.}
 \item{gbifID}{The identifier assigned by GBIF for each record.}
 \item{datasetID}{An identifier for the set of data. May be a global unique identifier or an identifier specific to a collection or institution.}
@@ -69,41 +66,40 @@ An object of class \code{"tibble"}
 \item{occurrenceID}{An identifier for the Occurrence (as opposed to a particular digital record of the occurrence). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the occurrenceID globally unique.}
 \item{taxonKey}{The GBIF-assigned taxon identifier number.}
 \item{collectionID}{An identifier for the collection or dataset from which the record was derived.}
-\item{verbatimScientificName}{entry}
-\item{verbatimEventDate}{The verbatim original representation of the date and time information for an Event.}
-\item{associatedTaxa}{A list (concatenated and separated) of identifiers or names of taxa and the associations of this Occurrence to each of them.}
-\item{associatedOrganisms}{A list (concatenated and separated) of identifiers of other Organisms and the associations of this Organism to each of them.}
+\item{verbatimScientificName}{Scientific name as recorded on specimen label, not necessarily valid.}
+\item{verbatimEventDate}{The verbatim original representation of the date and time information for an event. For occurrences, this is the date-time when the event was recorded as noted by the collector.}
+\item{associatedTaxa}{A list (concatenated and separated) of identifiers or names of taxa and the associations of this occurrence to each of them.}
+\item{associatedOrganisms}{A list (concatenated and separated) of identifiers of other Organisms and the associations of this occurrence to each of them.}
 \item{fieldNotes}{One of a) an indicator of the existence of, b) a reference to (publication, URI), or c) the text of notes taken in the field about the Event.}
 \item{sex}{The sex of the biological individual(s) represented in the Occurrence.}
-\item{rights}{entry}
+\item{rights}{A description of the usage rights applicable to the record.}
 \item{rightsHolder}{A person or organization owning or managing rights over the resource.}
 \item{accessRights}{Information about who can access the resource or an indication of its security status.}
 \item{associatedReferences}{A list (concatenated and separated) of identifiers (publication, bibliographic reference, global unique identifier, URI) of literature associated with the Occurrence.}
 \item{bibliographicCitation}{A bibliographic reference for the resource as a statement indicating how this record should be cited (attributed) when used.}
 \item{references}{A related resource that is referenced, cited, or otherwise pointed to by the described resource.}
 \item{informationWithheld}{Additional information that exists, but that has not been shared in the given record.}
-\item{isDuplicateOf}{Additional information that exists, but that has not been shared in the given record.}
-\item{hasCoordinate}{entry}
-\item{hasGeospatialIssues}{entry}
-\item{isDuplicateOf}{entry}
-\item{occurrenceYear}{entry}
-\item{id}{entry}
-\item{duplicateStatus}{entry}
-\item{associatedOccurrences}{A list (concatenated and separated) of identifiers of other Occurrence records and their associations to this Occurrence.}
+\item{isDuplicateOf}{The code for another occerrence but for the same specimen.}
+\item{hasCoordinate}{Variable indicating presence/absence of location coordinates.}
+\item{hasGeospatialIssues}{Variable indicating validity of geospatial data associated with record.}
+\item{occurrenceYear}{Year associated with Occurrence.}
+\item{id}{Variable with identifying value for the Occurrenc.}
+\item{duplicateStatus}{Variable indicating is Occurrence is duplicate or not.}
+\item{associatedOccurrences}{A list (concatenated and separated) of identifiers of other occurrence records and their associations to this occurrence.}
 \item{locationRemarks}{Comments or notes about the Location.}
 \item{dataSource}{BeeDC assigned source of the data. Often written when the data is formatted by a BeeDC::xxx_readr function or similar.}
 \item{verbatim_scientificName}{The verbatim (originally-provided) scientific name}
 \item{.scientificName_empty}{Flag produced by \code{\link[bdc:bdc_scientificName_empty]{bdc::bdc_scientificName_empty()}} where FALSE == no scientific name provided and TRUE means that there is text in that column.}
 \item{.coordinates_empty}{Flag produced by \code{\link[bdc:bdc_coordinates_empty]{bdc::bdc_coordinates_empty()}} where FALSE == no coordinates provided.}
-\item{.coordinates_outOfRange}{Flag produced by \code{\link[bdc:bdc_coordinates_outOfRange]{bdc::bdc_coordinates_outOfRange()}} where FALSE == point off the earth. This function identifies records with out-of-range coordinates (not between -90 and 90 for latitude; between -180 and 180 for longitude).}
+\item{.coordinates_outOfRange}{Flag column produced by bdc::bdc_coordinates_outOfRange() where FALSE == coordinates represent a point off of the Earth. This is to say, the function identifies records with out-of-range coordinates (not between -90 and 90 for latitude; not between -180 and 180 for longitude).}
 \item{.basisOfRecords_notStandard}{Flag produced by \code{\link[bdc:bdc_basisOfRecords_notStandard]{bdc::bdc_basisOfRecords_notStandard()}} where FALSE == an occurrence with a basisOfRecord not defined as acceptable by the user.}
 \item{country_suggested}{A country name suggested by the \code{\link[bdc:bdc_country_standardized]{bdc::bdc_country_standardized()}} function.}
 \item{countryCode}{A country code suggested by the \code{\link[bdc:bdc_country_standardized]{bdc::bdc_country_standardized()}} function.}
-\item{coordinates_transposed}{A column indicating if coordinates were tansposed by \code{\link[=jbd_Ctrans_chunker]{jbd_Ctrans_chunker()}} where FALSE == transposed.}
+\item{coordinates_transposed}{A column indicating if coordinates were identified as being transposed by the function BeeDC::jbd_Ctrans_chunker() where FALSE == transposed.}
 \item{.coordinates_country_inconsistent}{A flag generated by \code{\link[=jbd_coordCountryInconsistent]{jbd_coordCountryInconsistent()}} where FALSE == an occurrence where the country name and coordinates did not match.}
-\item{.occurrenceAbsent}{A flag generated by \code{\link[=jbd_flagAbsent]{jbd_flagAbsent()}} where FALSE == occurrences marked as "ABSENT" in the "occurrenceStatus" column}
-\item{.unLicensed}{A flag generated by \code{\link[=jbd_flagLicense]{jbd_flagLicense()}} where FALSE == those occurrences protected by a restrictive license.}
-\item{.GBIFflags}{A flag generated by \code{\link[=jbd_GBIFissues]{jbd_GBIFissues()}} where FALSE == an occurrence with user-specified GBIF issues to flag.}
+\item{.occurrenceAbsent}{A flag generated by \code{\link[=flagAbsent]{flagAbsent()}} where FALSE == occurrences marked as "ABSENT" in the "occurrenceStatus" column}
+\item{.unLicensed}{A flag generated by \code{\link[=flagLicense]{flagLicense()}} where FALSE == those occurrences protected by a restrictive license.}
+\item{.GBIFflags}{A flag generated by \code{\link[=GBIFissues]{GBIFissues()}} where FALSE == an occurrence with user-specified GBIF issues to flag.}
 \item{.uncer_terms}{A flag generated by \code{\link[bdc:bdc_clean_names]{bdc::bdc_clean_names()}} where FALSE == the presence of taxonomic uncertainty terms.}
 \item{names_clean}{A column made by \code{\link[bdc:bdc_clean_names]{bdc::bdc_clean_names()}} indicating the cleaned scientificName}
 \item{.invalidName}{A flag generated by \code{\link[=HarmoniseR]{HarmoniseR()}} where FALSE == occurrences whose scientificName did not match the Discover Life taxonomy.}
@@ -115,7 +111,7 @@ An object of class \code{"tibble"}
 \item{.cen}{A flag generated by \code{\link[CoordinateCleaner:clean_coordinates]{CoordinateCleaner::clean_coordinates()}} where FALSE == records around country or province centroids.}
 \item{.gbf}{A flag generated by \code{\link[CoordinateCleaner:clean_coordinates]{CoordinateCleaner::clean_coordinates()}} where FALSE == records around the GBIF headquarters.}
 \item{.inst}{A flag generated by \code{\link[CoordinateCleaner:clean_coordinates]{CoordinateCleaner::clean_coordinates()}} where FALSE == records around biodiversity institutions.}
-\item{.sequential}{A flag generated by \code{\link[=jbd_diagonAlley]{jbd_diagonAlley()}} where FALSE == records that are possibly the result of fill-down errors in sequence.}
+\item{.sequential}{A flag generated by \code{\link[=diagonAlley]{diagonAlley()}} where FALSE == records that are possibly the result of fill-down errors in sequence.}
 \item{.lonFlag}{A flag generated by \code{\link[CoordinateCleaner:cd_round]{CoordinateCleaner::cd_round()}} where FALSE == potential gridding in the longitude column within dataset.}
 \item{.latFlag}{A flag generated by \code{\link[CoordinateCleaner:cd_round]{CoordinateCleaner::cd_round()}} where FALSE == potential gridding in the latitude column within dataset.}
 \item{.gridSummary}{A flag generated by \code{\link[CoordinateCleaner:cd_round]{CoordinateCleaner::cd_round()}} where FALSE == potential gridding in either the longitude or latitude columns within dataset.}
@@ -125,21 +121,21 @@ An object of class \code{"tibble"}
 \item{.sea}{A flag generated by \code{\link[=countryOutlieRs]{countryOutlieRs()}} where FALSE == occurrences that are in the ocean.}
 \item{.summary}{A flag generated by \code{\link[=summaryFun]{summaryFun()}} where FALSE == occurrences flagged as FALSE in any of the .flag columns. In this example it excludes flags in the ".gridSummary", ".lonFlag", ".latFlag", and ".uncer_terms" columns.}
 \item{.eventDate_empty}{A flag generated by \code{\link[bdc:bdc_eventDate_empty]{bdc::bdc_eventDate_empty()}} where FALSE == occurrences with no eventDate provided.}
-\item{.year_outOfRange}{A flag generated by \code{\link[bdc:bdc_year_outOfRange]{bdc::bdc_year_outOfRange()}} where FALSE == occurrences older than a threshold date. In this case 1950.}
-\item{.duplicates}{A flag generated by \code{\link[=jbd_dupeSummary]{jbd_dupeSummary()}} where FALSE == occurrences identified as duplicates. There will be an associated kept duplicate (.duplictes == TRUE) for all duplicate clusters.}
+\item{.year_outOfRange}{A flag column generated by bdc::bdc_year_outOfRange() where FALSE == occurrences older than a threshold date. In the case of the bee dataset used in this package, the lower threshold is 1950}
+\item{.duplicates}{A flag generated by \code{\link[=dupeSummary]{dupeSummary()}} where FALSE == occurrences identified as duplicates. There will be an associated kept duplicate (.duplictes == TRUE) for all duplicate clusters.}
 }
 }
 \usage{
-BeeDC::beesFlagged
+data(beesFlagged)
 }
 \description{
-The included species are:
-"Agapostemon tyleri Cockerell, 1917", "Centris rhodopus Cockerell, 1897", and
-"Perdita octomaculata (Say, 1824)"
+This test dataset includes 105 random occurrence records from three bee species.
+The included species are: "Agapostemon tyleri Cockerell, 1917", "Centris rhodopus Cockerell,
+1897", and "Perdita octomaculata (Say, 1824)".
 }
 \details{
-A small bee occurrence dataset with flags generated by BeeDC used to run example script and test
-functions. For data types, see \code{\link[=colTypeR]{colTypeR()}}.
+A small bee occurrence dataset with flags generated by BeeDC which can be used to run the
+example script and to test functions. For data types, see \code{\link[=ColTypeR]{ColTypeR()}}.
 }
 \examples{
 

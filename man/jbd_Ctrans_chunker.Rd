@@ -22,20 +22,21 @@ jbd_Ctrans_chunker(
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
 
-\item{lat}{Character. The name of the column to use as latitude. Default = "decimalLatitude".}
+\item{lat}{Character. The column with latitude in decimal degrees. Default = "decimalLatitude".}
 
-\item{lon}{Character. The name of the column to use as longitude. Default = "decimalLongitude".}
+\item{lon}{Character. The column with longitude in decimal degrees. Default = "decimalLongitude".}
 
-\item{id}{Character. Default = "database_id".}
+\item{id}{Character. The column name with a unique record identifier. Default = "database_id".}
 
-\item{country}{Character. The name of the column containing country names. Default = "country'.}
+\item{country}{Character. The name of the column containing country names. Default = "country".}
 
-\item{countryCode}{Character. Identifies the countryCode column. Default = "countryCode".}
+\item{countryCode}{Character. Identifies the column containing ISO-2 country codes
+Default = "countryCode".}
 
-\item{sci_names}{Character. The columns containing scientific names. Default = "scientificName".}
+\item{sci_names}{Character. The column containing scientific names. Default = "scientificName".}
 
 \item{border_buffer}{Numeric. The buffer, in decimal degrees, around points to help match them
-to countries. Default = 0.2 | ~22 km at equator.}
+to countries. Default = 0.2 (~22 km at equator).}
 
 \item{save_outputs}{Logical. If TRUE, transposed occurrences will be saved to their own file.}
 
@@ -53,25 +54,34 @@ that had coordinates transposed.
 \description{
 Because the \code{\link[=jbd_coordinates_transposed]{jbd_coordinates_transposed()}} function is very RAM-intensive, this wrapper
 allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a
-time. The prefix jbd_ is used to highlight the difference between that function and the related
+time. The prefix jbd_ is used to highlight the difference between this function and the related
 \code{\link[bdc:bdc_coordinates_transposed]{bdc::bdc_coordinates_transposed()}}.
 }
 \examples{
+library(dplyr)
+  # Import and prepare the data
+data(beesFlagged)
+beesFlagged <- beesFlagged \%>\% dplyr::select(!c(.val, .sea))
+  # Run the function
 beesFlagged_out <- jbd_Ctrans_chunker(
 # bdc_coordinates_transposed inputs
-data = BeeDC::beesFlagged,
+data = beesFlagged,
 id = "database_id",
 lat = "decimalLatitude",
 lon = "decimalLongitude",
 country = "country_suggested",
 countryCode = "countryCode",
-border_buffer = 0.2, # in decimal degrees (~22 km at the equator)
+# in decimal degrees (~22 km at the equator)
+border_buffer = 0.2, 
 save_outputs = TRUE,
 sci_names = "scientificName",
 # chunker inputs
-stepSize = 1000000,  # How many rows to process at a time
-chunkStart = 1,  # Start row
-append = FALSE  # If FALSE it may overwrite existing dataset
+# How many rows to process at a time
+stepSize = 1000000,  
+# Start row
+chunkStart = 1,  
+# If FALSE it may overwrite existing dataset
+append = FALSE  
 ) 
 table(beesFlagged_out$coordinates_transposed, useNA = "always")
 

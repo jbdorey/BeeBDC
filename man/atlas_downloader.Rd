@@ -2,7 +2,7 @@
 % Please edit documentation in R/atlas_downloader.R
 \name{atlas_downloader}
 \alias{atlas_downloader}
-\title{Downloads occurrence data from the Atlas of Living Australia (ALA)}
+\title{Download occurrence data from the Atlas of Living Australia (ALA)}
 \usage{
 atlas_downloader(
   path,
@@ -15,11 +15,17 @@ atlas_downloader(
 \arguments{
 \item{path}{A character directory. The path to a folder where the download will be stored.}
 
-\item{userEmail}{A character string. The email to use with your ALA account (you must create and account).}
+\item{userEmail}{A character string. The email used associated with the user’s ALA account;
+user must make an ALA account to download data.}
 
 \item{ALA_taxon}{A character string. The taxon to download from ALA. Uses \code{\link[galah:galah_identify]{galah::galah_identify()}}}
 
 \item{DL_reason}{Numeric. The reason for data download according to \code{\link[galah:galah_config]{galah::galah_config()}}}
+
+\item{atlas}{Character. The atlas to download occurrence data from - see here https://galah.ala.org.au/R/articles/choosing_an_atlas.html for details.
+Note: the default is "ALA" and is probably the only atlas which will work seamlessly with the rest
+of the workflow. However, different atlases can still be downloaded and a doi will be sent to
+your email.}
 }
 \value{
 Completes an ALA data download and saves those data to the path provided.
@@ -34,6 +40,7 @@ However, it will only send the download to your email and you must do the rest y
 remotes::install_github("AtlasOfLivingAustralia/galah")
 atlas_downloader(path = DataPath,
                userEmail = "InsertYourEmail",
-               ALA_taxon = "Apiformes")
+               ALA_taxon = "Apiformes",
+               DL_reason = 4)
                }
 }

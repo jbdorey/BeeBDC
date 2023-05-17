@@ -9,7 +9,7 @@ repo_merge(path, save_type, occ_paths)
 \arguments{
 \item{path}{A directory as a character. The directory to recursively look in for the above data.}
 
-\item{save_type}{Character. The data type to save the resultign file as. Options are:
+\item{save_type}{Character. The data type to save the resulting file as. Options are:
 csv_files" or "R_file".}
 
 \item{occ_paths}{A list of directories. Preferably produced using \code{\link[=data_finder]{data_finder()}} the
@@ -27,7 +27,7 @@ metadata.
 \examples{
 \dontrun{
 DataImp <- repo_merge(path = DataPath, 
-# Find data — Many problems can be solved by running [BeeDC::data_finder(path = DataPath)]
+# Find data - Many problems can be solved by running [BeeDC::data_finder(path = DataPath)]
 # And looking for problems
 occ_paths = [BeeDC::data_finder(path = DataPath)],
 save_type = "R_file")

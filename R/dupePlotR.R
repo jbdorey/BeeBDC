@@ -1,14 +1,16 @@
 # This function was written by James B Dorey on the 29th of September 2022
 # Its purpose is to visualise duplicate occurrence data by using a compound bargraph
-# Please contact jbdorey@me.com for help
+# Please contact jbdorey[at]me.com for help
 
 #' Create a compound bar graph of duplicate data sources
 #' 
-#' Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each data source
+#' Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each 
+#' data source
 #' while the other shows the proportion of records that are duplicated within each data source.
 #'
 #' @param Data A data frame or tibble. Occurrence records as input.
-#' @param outpath A directory as a character string. Where the plot should be saved and it's name.
+#' @param outpath A directory as a character string. Where the plot should be saved AND it's name.
+#' i.e. mypath/.../duplicatePlot.pdf 
 #' @param legend.position The position of the legend as coordinates. Default = c(0.85, 0.8).
 #' @param base_height Numeric. The height of the plot in inches. Default = 7.
 #' @param base_width Numeric. The width of the plot in inches. Default = 7.
@@ -18,14 +20,18 @@
 #'
 #' @return Outputs a .pdf figure.
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' 
-#' # This example will show a warning for the factor levels taht are not present in the specific test dataset
+#' # This example will show a warning for the factor levels taht are not present in the specific 
+#' # test dataset
 #' dupePlotR(
 #'   Data = beesFlagged,
 #'   # The outpath to save the plot as
-#'   outpath = paste0(OutPath_Figures, "/duplicatePlot_TEST.pdf"),
+#'     # Should be something like: #paste0(OutPath_Figures, "/duplicatePlot_TEST.pdf"),
+#'   outpath = paste0(tempdir(), "/duplicatePlot_TEST.pdf"), 
 #'   # Colours in order: duplicate, kept duplicate, unique
 #'   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
 #'   # Plot size and height
@@ -47,21 +53,24 @@ dupePlotR <- function(
       # Colours in order: duplicate, kept duplicate, unique
     dupeColours = c("#F2D2A2","#B9D6BC", "#349B90")
 ){
+  # locally bind variables to the function
+  database_id <- duplicateStatus <- dataSource <- simpleSource <- NULL 
+  
     # Load dependencies
-  require(ggplot2)
-  require(forcats)
-  require(dplyr)
-  require(cowplot)
-  require(stringr)
+  requireNamespace("ggspatial")
+  requireNamespace("forcats")
+  requireNamespace("dplyr")
+  requireNamespace("cowplot")
+  requireNamespace("bdc")
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
   if(is.null(Data)){
-    stop(" — Please provide an argument for Data I'm a program not a magician.")
+    stop(" - Please provide an argument for Data I'm a program not a magician.")
   }
   if(is.null(outpath)){
-    stop(" — Please provide an argument for outpath Seems reckless to let me just guess.")
+    stop(" - Please provide an argument for outpath Seems reckless to let me just guess.")
   }
   
   
@@ -87,12 +96,12 @@ dupePlotR <- function(
       # Turn into a tibble
     tibble::tibble() %>%
       # Name the single column
-    set_names(c("simpleSource")) %>%
+    rlang::set_names(c("simpleSource")) %>%
       # Group by this column and then count the number of occurrences for each level
     dplyr::group_by(simpleSource) %>%
     dplyr::mutate(count = n()) %>%
       # Name these columns
-    set_names(c("simpleSource", "count")) 
+    rlang::set_names(c("simpleSource", "count")) 
     # Now re-order the factor by this count and then feed back into dupeTibble
   dupeTibble$simpleSource <-  forcats::fct_reorder(factorised$simpleSource, 
                                                     factorised$count, .desc = TRUE)
@@ -126,7 +135,7 @@ dupePlotR <- function(
   # plot the figures together
   (dupPlot <- cowplot::plot_grid(dupHist + 
                                    theme(legend.position = legend.position,
-                                         legend.title = element_blank()),
+                                         legend.title = ggplot2::element_blank()),
                                  dupeBar, 
                                  labels = c("(a)","(b)"),
                                  ncol = 1, align = 'v', axis = 'l'))

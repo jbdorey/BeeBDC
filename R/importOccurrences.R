@@ -2,17 +2,19 @@
 #### importOccurrences ####
 #' Imports the most-recent repo_merge data
 #' 
-#' Looks for and imports the most-recent version of the data created by the [BeeDC::repo_merge()] 
-#' function
+#' Looks for and imports the most-recent version of the occurrence data created by the [BeeDC::repo_merge()] 
+#' function.
 #'
 #' @param path A directory as a character. The directory to recursively look in for the above data.
 #' @param fileName Character. A String of text to look for the most-recent dataset. 
-#' Default = "^BeeData_". Find faults by modifying [BeeDC::file_finder(path = path, fileName = fileName)]
+#' Default = "^BeeData_". Find faults by modifying [BeeDC::file_finder()]
 #' and logic-checking the file that's found.
 #'
 #' @return A list with a data frame of merged occurrence records, "Data_WebDL", and a list of EML 
 #' files contained in "eml_files". 
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' \dontrun{
@@ -21,12 +23,11 @@
 importOccurrences <- function(path = path,
            fileName = "^BeeData_" #occurrence file name. If not provided, R will search to match "BeeData_"
            ){ #spatial reference system as epsg code
+  . <- NULL
   # Load required packages
-    require(readr)
-    require(dplyr)
-    require(magrittr)
-    require(lubridate)
-    require(stringr)
+  requireNamespace("dplyr")
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
   # if the fileName is not provided...
   if(!exists("fileName")){
     fileName = "^BeeData"
@@ -34,10 +35,10 @@ importOccurrences <- function(path = path,
   
   #### Find files ####
   # Find all of the previously-produced data files
-  most_recent <- file_finder(path = path, fileName = fileName)
+  most_recent <- BeeDC::file_finder(path = path, fileName = fileName)
   
   # Return information to user
-  writeLines(paste(" — Great, R has detected file(s), including... ", "\n",
+  writeLines(paste(" - Great, R has detected file(s), including... ", "\n",
                    paste(most_recent, collapse = "\n") ), sep = "")
   
   #### Detect format ####
@@ -53,7 +54,7 @@ importOccurrences <- function(path = path,
   # IF their is a complete .rds file among the most-recent files AND a .csv version...
   if(rdata_query == TRUE && csv_query == TRUE){
     writeLines(paste("\n", 
-                     " — Oh boy, it looks like there are both .csv and .rds versions of your data!", 
+                     " - Oh boy, it looks like there are both .csv and .rds versions of your data!", 
                      "\n", "R will preferentially use the .rds file.", "\n",
                      "NOTE: the .rds file can be very slow to load"))
     # File to read:
@@ -70,7 +71,7 @@ importOccurrences <- function(path = path,
   #### RData present ####
   # IF their is ONLY a complete .rds file among the most-recent files...
   if(rdata_query == TRUE && csv_query == FALSE){
-    writeLines(paste(" — .rds export version found. Loading this file...", "\n",
+    writeLines(paste(" - .rds export version found. Loading this file...", "\n",
                      "NOTE: the .rds file can be very slow to load"))
     # File to read:
     fileLoc <- most_recent[intersect(grep(".*\\.rds{1}", most_recent),
@@ -88,7 +89,7 @@ importOccurrences <- function(path = path,
   #### CSV present ####
   # IF their is ONLY a complete .csv file among the most-recent files...
   if(csv_query == TRUE && rdata_query == FALSE){
-    writeLines(paste(" — .csv exported version found. Loading this file..."))
+    writeLines(paste(" - .csv exported version found. Loading this file..."))
     ColTypes <- ColTypeR()
     # Find the most-recent .csv occurrence file
     occurDF <- most_recent[intersect(grep(".*\\.csv", most_recent),
@@ -110,7 +111,7 @@ importOccurrences <- function(path = path,
       # Find the folder that the attributes file is in.
     EML_home <- stringr::str_replace(attr_loc, pattern = "\\/[a-zA-Z0-9-_]+\\.rds$", "")
       # Find the .xml file in the same location as the attribute's folder
-    EML_loc <- file_finder(path = EML_home, fileName = "eml.*\\.rds")
+    EML_loc <- BeeDC::file_finder(path = EML_home, fileName = "eml.*\\.rds")
       # Read in the EML file
     EML_file <- readRDS(EML_loc)
   } #END IF .csv
@@ -136,7 +137,7 @@ importOccurrences <- function(path = path,
   # Return the Data_WebDL
   return(Data_WebDL)
   # Return end product and print completion note
-  writeLines(paste(" — Fin.", praise::praise(), sep = "\n"))
+  writeLines(paste(" - Fin.", praise::praise(), sep = "\n"))
 } # END data_importer
 
 

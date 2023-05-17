@@ -18,39 +18,42 @@ jbd_coordinates_transposed(
 )
 }
 \arguments{
-\item{data}{data.frame. Containing a unique identifier for each record,
+\item{data}{A data frame or tibble. Containing a unique identifier for each record,
 geographical coordinates, and country names. Coordinates must be expressed
 in decimal degrees and WGS84.}
 
-\item{id}{character string. The column name with a unique record identifier.
+\item{id}{A character string. The column name with a unique record identifier.
 Default = "database_id".}
 
-\item{sci_names}{character string. The column name with species scientific
-name. Default = "scientificName".}
+\item{sci_names}{A character string. The column name with species' scientific
+names. Default = "scientificName".}
 
-\item{lat}{character string. The column name with latitude. Coordinates must
+\item{lat}{A character string. The column name with latitudes. Coordinates must
 be expressed in decimal degrees and WGS84. Default = "decimalLatitude".}
 
-\item{lon}{character string. The column with longitude. Coordinates must be
+\item{lon}{A character string. The column name with longitudes. Coordinates must be
 expressed in decimal degrees and WGS84. Default = "decimalLongitude".}
 
-\item{country}{character string. The column name with the country
-assignment of each record. Default = "country".}
+\item{country}{A character string. The column name with the country
+assignment of each occurrence record. Default = "country".}
 
-\item{countryCode}{character string. The column name with an ISO-2 country
-code.}
+\item{countryCode}{A character string. The column name containing an ISO-2 country code for
+each record.}
 
-\item{border_buffer}{numeric >= 0. A distance in decimal degrees used to
-created a buffer around the country. Records within a given country and at
+\item{border_buffer}{Numeric. Must have value greater than or equal to 0.
+A distance in decimal degrees used to
+created a buffer around each country. Records within a given country and at
 a specified distance from the border will be not be corrected.
 Default = 0.2 (~22 km at the equator).}
 
-\item{save_outputs}{logical. Should a table containing transposed coordenates
-saved for further inspection? Default = FALSE.}
+\item{save_outputs}{Logical. Indicates if a table containing transposed coordinates should be
+saved for further inspection. Default = FALSE.}
+
+\item{fileName}{A character string. The out file's name.}
 }
 \value{
-A data.frame containing the column "coordinates_transposed"
-indicating if verbatim coordinates were not transposed (TRUE). Otherwise
+A tibble containing the column "coordinates_transposed" which indicates if
+verbatim coordinates were not transposed (TRUE). Otherwise
 records are flagged as (FALSE) and, in this case, verbatim coordinates are
 replaced by corrected coordinates.
 }
@@ -59,8 +62,8 @@ This function flags and corrects records when latitude and longitude appear
 to be transposed.
 }
 \details{
-This test identifies transposed coordinates resulted from mismatches
-between the country informed for a record and coordinates. Transposed
+This test identifies transposed coordinates based on mismatches between the
+country provided for a record and the record’s latitude and longitude coordinates. Transposed
 coordinates often fall outside of the indicated country (i.e., in other
 countries or in the sea). Different coordinate transformations are
 performed to correct country/coordinates mismatches. Importantly, verbatim
@@ -86,7 +89,7 @@ x <- data.frame(
   decimalLongitude, country
 )
 
-# Get country code
+# Get country codes
 x <- bdc_country_standardized(data = x, country = "country")
 
 bdc_coordinates_transposed(
@@ -102,5 +105,9 @@ bdc_coordinates_transposed(
 ) 
 }
 
+}
+\seealso{
+Other prefilter: 
+\code{\link{bdc_coord_trans}()}
 }
 \concept{prefilter}

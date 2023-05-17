@@ -13,27 +13,29 @@ countryOutlieRs(
 )
 }
 \arguments{
-\item{checklist}{A data frame or tibble. The formatted checklist built based on the Discover Life website.}
+\item{checklist}{A data frame or tibble. The formatted checklist which was built based on the Discover Life website.}
 
 \item{occData}{A data frame or tibble. The a Darwin Core occurrence dataset.}
 
 \item{keepAdjacentCountry}{Logical. If TRUE, occurrences in countries that are adjacent to checklist countries will be
 kept. If FALSE, they will be flagged.}
 
-\item{pointBuffer}{Numeric. The buffer around points beyond which if they are outside of a
-checklist country they will be flagged as FALSE. This provides a good way to maintian points that
-occur right along the coast of the rnaturalearth maps.}
+\item{pointBuffer}{Numeric. A buffer around points to help them align with a country or coastline.
+This provides a good way to retain points that occur right along the coast or borders of the
+maps in rnaturalearth}
 
-\item{rnearthScale}{Numeric. The map scale fed into \code{\link[rnaturalearth:ne_countries]{rnaturalearth::ne_countries()}}'s scale parameter:
+\item{rnearthScale}{Numeric. The value fed into the map scale parameter for
+\code{\link[rnaturalearth:ne_countries]{rnaturalearth::ne_countries()}}'s scale parameter:
 Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large', where smaller numbers
 are higher resolution. WARNING: This function is tested on 110 and 50.}
 }
 \value{
-The input data with a new column, .countryOutlier. TRUE == passed, FALSE == failed,
-NA == did not overlap with rnaturalearth map.
+The input data with a new column, .countryOutlier. There are three possible values for
+the new column: TRUE == passed, FALSE == failed, NA == did not overlap with rnaturalearth map.
 }
 \description{
-Flag country-level outliers with a provided checklist.
+This function flags country-level outliers using the checklist provided with this package.
+For additional context and column names, see \code{\link[=beesChecklist]{beesChecklist()}}.
 }
 \examples{
 

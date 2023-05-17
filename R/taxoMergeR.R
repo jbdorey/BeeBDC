@@ -1,8 +1,11 @@
 # This function, written by James Dorey merges the Ascher and other datasets with the columns:
   # "Original" and "Correct"
-# For queries, please contact James Dorey at jbdorey@me.com
+# For queries, please contact James Dorey at jbdorey[at]me.com
 # This function was started on 13th May 2022 and last updated 17th May 2022
-
+#' @importFrom dplyr %>%
+#' @importFrom stats complete.cases 
+#' @importFrom dplyr row_number
+#' 
 taxoMergeR <- function(currentNames = NULL,
                              newNames = NULL,
                              HigherNameList = NULL,
@@ -15,15 +18,19 @@ taxoMergeR <- function(currentNames = NULL,
                        simpleNames = NULL,
                        problemStrings = NULL
                        ){
-  require(dplyr)
-  require(tibble)
-  require(readr)
+  # locally bind variables to the function
+  Original <- Correct <- accid <- id <- validName <- canonical <- canonical_withFlags <- NULL
+  genus <- species <- . <- tempIndex <- authorship <- taxonomic_status <- 
+    authorship_nameSplit <- NULL
+  
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
   
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
   if(is.null(simpleNames)){
-    stop(" — Please provide an argument for simpleNames. This should be TRUE if using 'Genus species'",
+    stop(" - Please provide an argument for simpleNames. This should be TRUE if using 'Genus species'",
          " format and FALSE if a more complex format like 'Genus (Subgenus) species Authority'")
   }
   
@@ -210,7 +217,7 @@ taxoMergeR <- function(currentNames = NULL,
   )
   
   ###### b. synonyms ####
-  # For those that match SYNONYM names, use the accid as the accid — MATCH the actual accepted name.
+  # For those that match SYNONYM names, use the accid as the accid - MATCH the actual accepted name.
   SOM_syn <- Single_newMatched %>% 
     dplyr::filter(taxonomic_status == "synonym")
   # Merge these into a single tibble with the correct data 
@@ -266,7 +273,7 @@ taxoMergeR <- function(currentNames = NULL,
     # Sort in order of waht you want to keep
     dplyr::arrange(accid,
                    .by_group = TRUE) %>%
-    # Filter for the first row only — this will direct to the accepted name hopefully
+    # Filter for the first row only - this will direct to the accepted name hopefully
     dplyr::filter(row_number() == 1)
   
   ###### a. find accepted (if needed) ####
@@ -283,7 +290,7 @@ taxoMergeR <- function(currentNames = NULL,
   # re-combine with the new accepted name's data
   synMatched <- synMatched_reduced %>% 
     dplyr::left_join(., currentNames, by = c("accid" = "id"))
-  # These will need to have their accid become id — and changed back in a later step
+  # These will need to have their accid become id - and changed back in a later step
   synMatched <- synMatched %>%
     dplyr::mutate(id = accid)
   
@@ -451,7 +458,7 @@ taxoMergeR <- function(currentNames = NULL,
     )
 
     ###### b. synonyms ####
-  # For those that match SYNONYM names, use the accid as the accid — MATCH the actual accepted name.
+  # For those that match SYNONYM names, use the accid as the accid - MATCH the actual accepted name.
   SOM_syn <- Single_newMatched %>% 
     dplyr::filter(taxonomic_status == "synonym")
   # Merge these into a single tibble with the correct data 
@@ -523,7 +530,7 @@ taxoMergeR <- function(currentNames = NULL,
       # Sort in order of waht you want to keep
     dplyr::arrange(accid,
                    .by_group = TRUE) %>%
-      # Filter for the first row only — this will direct to the accepted name hopefully
+      # Filter for the first row only - this will direct to the accepted name hopefully
     dplyr::filter(row_number() == 1)
   
   ###### a. find accepted (if needed) ####
@@ -539,7 +546,7 @@ taxoMergeR <- function(currentNames = NULL,
   # re-combine with the new accepted name's data
   synMatched <- synMatched_reduced %>% 
     dplyr::left_join(., currentNames, by = c("accid" = "id"))
-    # These will need to have their accid become id — and changed back in a later step
+    # These will need to have their accid become id - and changed back in a later step
   synMatched <- synMatched %>%
     dplyr::mutate(id = accid)
   
@@ -664,7 +671,7 @@ taxoMergeR <- function(currentNames = NULL,
   
     # Write user output
   writeLines(paste(
-   " — Names merged. ","\n",
+   " - Names merged. ","\n",
    "We removed ", format(Original_newNames_Count - Original_unNew_Count, big.mark = ","), " duplicate new synonyms ",
    "\n ", "We successfuly matched: ", "\n ",
    format(nrow(SOM_acc_final), big.mark = ","), " new names to the current accepted names;", "\n ",
@@ -678,30 +685,30 @@ taxoMergeR <- function(currentNames = NULL,
 
   #### 3.0 Clean data ####  
   writeLines(paste(
-    " — Cleaning new data...", sep = ""
+    " - Cleaning new data...", sep = ""
   ))
   ## manage new data ##
   writeLines(paste(
-    " — Adding higher names with the HigherNamer function...", sep = ""
+    " - Adding higher names with the HigherNamer function...", sep = ""
   ))
     # Add higher order names
   merged_names_cl <- HigherNamer(HigherNameList = HigherNameList,
                       InSynList = merged_names)
     # manage flags 
   writeLines(paste(
-    " — Managing flags with the FlagManager function...", sep = ""
+    " - Managing flags with the FlagManager function...", sep = ""
   ))
   merged_names_cl <- FlagManager(InSynList = merged_names_cl,
                            flagCol = "notes")
 
   #### 4.0 Save ####
     writeLines(paste(
-    " — Saving the matched new component of the data to the file ",
+    " - Saving the matched new component of the data to the file ",
     getwd(), "/", outName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
   ))
   # Save the  current-matched new dataset
   readr::write_csv(merged_names_cl, file = paste(outName, "_", Sys.Date(), ".csv", sep = ""))
-  writeLines(paste(" — ", nrow(failed_names), 
+  writeLines(paste(" - ", nrow(failed_names), 
     " names from the new list did not have an accepted or synonym match to the current list. They ",
     "will be removed. ", "\n",
     "Saving these no-match names to ",

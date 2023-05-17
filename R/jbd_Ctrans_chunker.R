@@ -1,23 +1,23 @@
 # This function was written by James Dorey to chunk the bdc_coordinates_transposed function
 # to allow bigger datasets to be analysed without consuming too much RAM.
-# This function was written on the 31st of May 2022. For questions, please email jbdorey@me.com
-
+# This function was written on the 31st of May 2022. For questions, please email jbdorey[at]me.com
 #' Wraps jbd_coordinates_transposed to identify  and fix transposed occurrences
 #' 
 #' Because the [BeeDC::jbd_coordinates_transposed()] function is very RAM-intensive, this wrapper 
 #' allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a 
-#' time. The prefix jbd_ is used to highlight the difference between that function and the related
+#' time. The prefix jbd_ is used to highlight the difference between this function and the related
 #' [bdc::bdc_coordinates_transposed()].
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
-#' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
-#' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
-#' @param country Character. The name of the column containing country names. Default = "country'.
-#' @param id Character. Default = "database_id".
-#' @param countryCode Character. Identifies the countryCode column. Default = "countryCode".
-#' @param sci_names Character. The columns containing scientific names. Default = "scientificName".
+#' @param lat Character. The column with latitude in decimal degrees. Default = "decimalLatitude".
+#' @param lon Character. The column with longitude in decimal degrees. Default = "decimalLongitude".
+#' @param country Character. The name of the column containing country names. Default = "country".
+#' @param id Character. The column name with a unique record identifier. Default = "database_id".
+#' @param countryCode Character. Identifies the column containing ISO-2 country codes 
+#' Default = "countryCode".
+#' @param sci_names Character. The column containing scientific names. Default = "scientificName".
 #' @param border_buffer Numeric. The buffer, in decimal degrees, around points to help match them
-#' to countries. Default = 0.2 | ~22 km at equator.
+#' to countries. Default = 0.2 (~22 km at equator).
 #' @param save_outputs Logical. If TRUE, transposed occurrences will be saved to their own file.
 #' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #' @param chunkStart Numeric. The chunk number to start from. This can be > 1 when you need to restart 
@@ -28,23 +28,34 @@
 #' @return Returns the input data frame with a new column, coordinates_transposed, where FALSE = columns
 #' that had coordinates transposed.
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
+#' library(dplyr)
+#'   # Import and prepare the data
+#' data(beesFlagged)
+#' beesFlagged <- beesFlagged %>% dplyr::select(!c(.val, .sea))
+#'   # Run the function
 #' beesFlagged_out <- jbd_Ctrans_chunker(
 #' # bdc_coordinates_transposed inputs
-#' data = BeeDC::beesFlagged,
+#' data = beesFlagged,
 #' id = "database_id",
 #' lat = "decimalLatitude",
 #' lon = "decimalLongitude",
 #' country = "country_suggested",
 #' countryCode = "countryCode",
-#' border_buffer = 0.2, # in decimal degrees (~22 km at the equator)
+#' # in decimal degrees (~22 km at the equator)
+#' border_buffer = 0.2, 
 #' save_outputs = TRUE,
 #' sci_names = "scientificName",
 #' # chunker inputs
-#' stepSize = 1000000,  # How many rows to process at a time
-#' chunkStart = 1,  # Start row
-#' append = FALSE  # If FALSE it may overwrite existing dataset
+#' # How many rows to process at a time
+#' stepSize = 1000000,  
+#' # Start row
+#' chunkStart = 1,  
+#' # If FALSE it may overwrite existing dataset
+#' append = FALSE  
 #' ) 
 #' table(beesFlagged_out$coordinates_transposed, useNA = "always")
 
@@ -66,12 +77,10 @@ jbd_Ctrans_chunker <- function(
     chunkStart = 1,
      # If FALSE it may overwrite existing dataset
     append = TRUE){
+  database_id <- NULL
   
-  require(bdc)
-  require(dplyr)
-  require(magrittr)
-  require(readr)
-  require(tibble)
+  requireNamespace("bdc")
+  requireNamespace("dplyr")
   
   #### 0.0 Prep ####
   startTime <- Sys.time()
@@ -97,7 +106,7 @@ jbd_Ctrans_chunker <- function(
   
   #### 0.3 User text ####
   # Write user output
-  writeLines(paste(" — Running chunker with:", "\n",
+  writeLines(paste(" - Running chunker with:", "\n",
                    "stepSize = ", 
                    format(stepSize, big.mark=",",scientific=FALSE), "\n",
                    "chunkStart = ", 
@@ -107,7 +116,7 @@ jbd_Ctrans_chunker <- function(
                    "append = ", append, 
                    sep = ""))
   #### 1.0 Function Loop ####
-  # Loop — from chunkStart to the end, process rows in batches of chunkEnd
+  # Loop - from chunkStart to the end, process rows in batches of chunkEnd
   for(i in 1:nChunks){
     # Select rows from chunkStart to chunkEnd
     loop_check_pf = data[chunkStart:chunkEnd,] %>%
@@ -115,7 +124,7 @@ jbd_Ctrans_chunker <- function(
       base::droplevels()
 
     # User output
-    writeLines(paste(" — Starting chunk ", i, "...", "\n",
+    writeLines(paste(" - Starting chunk ", i, "...", "\n",
                      "From ",  
                      format(chunkStart, big.mark=",",scientific=FALSE), " to ", 
                      format(chunkEnd, big.mark=",",scientific=FALSE),
@@ -153,12 +162,12 @@ jbd_Ctrans_chunker <- function(
     # Make room on the RAM by cleaning up the garbage
     # user output
       #### 1.3 Clear RAM ####
-    writeLines(paste(" — Cleaning RAM.", sep = ""))
+    writeLines(paste(" - Cleaning RAM.", sep = ""))
     gc()
     
       #### 1.4 User text ####
     # Print use output
-    writeLines(paste(" — Finished chunk ", i, " with ", nChunks,
+    writeLines(paste(" - Finished chunk ", i, " with ", nChunks,
                      " remaining",
                      ". ","Records examined: ", 
                      format(nrow(Tranps_tibble), big.mark=",",scientific=FALSE),
@@ -174,7 +183,7 @@ jbd_Ctrans_chunker <- function(
   endTime <- Sys.time()
   
   message(paste(
-    " — Completed in ", 
+    " - Completed in ", 
     round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
     " minutes.",
     sep = ""))

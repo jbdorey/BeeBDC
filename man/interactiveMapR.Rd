@@ -2,7 +2,7 @@
 % Please edit documentation in R/interactiveMapR.R
 \name{interactiveMapR}
 \alias{interactiveMapR}
-\title{Creates interactive .html maps for species}
+\title{Creates interactive html maps for species}
 \usage{
 interactiveMapR(
   database = NULL,
@@ -21,7 +21,7 @@ interactiveMapR(
 )
 }
 \arguments{
-\item{database}{A data frame or tibble. Occurrence records as input.}
+\item{database}{A data frame or tibble. Occurrence records to use as input.}
 
 \item{dir}{A directory as character. Directory where to save output maps.}
 
@@ -32,46 +32,47 @@ interactiveMapR(
 \item{speciesColumn}{Character. The name of the column containing species names (or another factor)
 to build individual maps from. Default = "scientificName".}
 
-\item{speciesList}{A character vector. A character vector of species names, as they appear in the
-speciesColumn, to make maps of. Or "ALL" to make maps of all species present in the database. Hence,
-a user may first filter their database and then use "ALL".}
+\item{speciesList}{A character vector. Should contain species names as they appear in the
+speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all
+species present in the database. Hence, a user may first filter their database and then use "ALL".}
 
-\item{countryList}{A character vector. Country names to map, or NULL for ALL.}
+\item{countryList}{A character vector. Country names to map, or NULL for to map ALL countries.}
 
-\item{jitterValue}{Numeric. The amount, in decimal degrees, to jitter the map points by — important
-for separating stacked points with the same coords.}
+\item{jitterValue}{Numeric. The amount, in decimal degrees, to jitter the map points by - this
+is important for separating stacked points with the same coordinates.}
 
-\item{onlySummary}{Logical. If TRUE, will not look to plot country or expert outliers in
-different colours.}
+\item{onlySummary}{Logical. If TRUE, the function will not look to plot country or
+expert-identified outliers in different colours.}
 
 \item{overWrite}{Logical. If TRUE, the function will overwrite existing files in the provided
 directory that have the same name.
 Default = TRUE.}
 
-\item{TrueAlwaysTop}{If TRUE, the "TRUE" points will always be displayed on top of other points.
+\item{TrueAlwaysTop}{If TRUE, the quality (TRUE) points will always be displayed on top of other points.
 If FALSE, then whichever layer was turned on most-recently will be displayed on top.}
 
-\item{excludeApis_mellifera}{Logical. If TRUE, will not map Apis mellifera. Note: in most cases
-A. mellifera has too many points and the resultign map will take a long time to make and be difficult to open.
+\item{excludeApis_mellifera}{Logical. If TRUE, will not map records for Apis mellifera. Note: in most cases
+A. mellifera has too many points, and the resulting map will take a long time to make and be difficult to open.
 Default = TRUE.}
 
 \item{pointColours}{A character vector of colours. In order provide colour for TRUE, FALSE, countryOutlier, and customOutlier.
 Default = c("blue", "darkred","#ff7f00", "black").}
 }
 \value{
-Exports .html interactive maps to the specified directory.
+Exports .html interactive maps of bee occurrences to the specified directory.
 }
 \description{
 Uses the occurrence data (preferably uncleaned) and outputs interactive .html maps that can be opened
 in your browser to a specific directory. The maps can highlight if an occurrence has passed all filtering
 (.summary == TRUE) or failed at least one filter (.summary == FALSE). This can be modified by first running
 \code{\link[=summaryFun]{summaryFun()}} to set the columns that you want to be highlighted. It can also highlight occurrences
-flagged as expert or country outliers.
+flagged as expert-identified or country outliers.
 }
 \examples{
+OutPath_Figures <- tempdir()
 
 interactiveMapR(
-# occurrence data — start with entire dataset, filter down to these species
+# occurrence data - start with entire dataset, filter down to these species
 database = BeeDC::bees3sp, # \%>\%
   # Select only those species in the 100 randomly chosen
   # dplyr::filter(scientificName \%in\% beeData_interactive$scientificName),
@@ -84,18 +85,19 @@ longitude = "decimalLongitude",
 latitude = "decimalLatitude",
 # Occurrence dataset column with species names
 speciesColumn = "scientificName",
-# Which species to map — a character vector of names or "ALL"
+# Which species to map - a character vector of names or "ALL"
 # Note: "ALL" is defined AFTER filtering for country
 speciesList = "ALL",
-countryList = NULL, # studyArea
-# Point jitter to see stacked points — jitters an amount in decimal degrees
+# studyArea
+countryList = NULL, 
+# Point jitter to see stacked points - jitters an amount in decimal degrees
 jitterValue = 0.01,
 # If TRUE, it will only map the .summary column. Otherwise, it will map .summary
 # which will be over-written by countryOutliers and manualOutliers
 onlySummary = TRUE,
 excludeApis_mellifera = TRUE,
 overWrite = TRUE,
-# TRUE, FALSE, countryOutlier, customOutlier
+  # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 pointColours = c("blue", "darkred","#ff7f00", "black")
 )
 }

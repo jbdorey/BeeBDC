@@ -1,22 +1,32 @@
 # This function was created by James Dorey on the 26th of May 2022. It will attempt to find dates
   # that dont occur in the EventDate column and restore them to avoid losing those occurrences in 
   # filtering. 
-# For questions, ask James Dorey at jbdorey@me.com
+# For questions, ask James Dorey at jbdorey[at]me.com
 
 #' Find dates in other columns
 #' 
 #' A function made to search other columns for dates and add them to the eventDate column. 
-#' Searches the columns: locality, fieldNotes, locationRemarks, and verbatimEventDate.
+#' The function searches the columns locality, fieldNotes, locationRemarks, and verbatimEventDate 
+#' for the relevant information.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
-#' @param maxYear Numeric. The maximum year considered reasonable to find. Default = lubridate::year(Sys.Date()).
+#' @param maxYear Numeric. The maximum year considered reasonable to find. 
+#' Default = lubridate::year(Sys.Date()).
 #' @param minYear Numeric. The minimum year considered reasonable to find. Default = 1700.
 #'
-#' @return The input data with updated eventDate, year, month, and day columns.
+#' @importFrom stats complete.cases setNames
+#'
+#' @return The function results in the input occurrence data with but with updated eventDate, year, 
+#' month, and day columns for occurrences where this data was a) missing and b) located in one of the 
+#' searched columns.
+#' 
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
-#' # Run the example dataset... depending on the version you may not find any missing eventDates are rescued.
+#' # Using the example dataset, you may not find any missing eventDates are rescued (dependent on 
+#' # which version of the example dataset the user inputs.
 #' beesRaw_out <- dateFindR(data = beesRaw,
 #'                          # Years above this are removed (from the recovered dates only)
 #'                          maxYear = lubridate::year(Sys.Date()),
@@ -27,21 +37,26 @@ dateFindR <-
   function(data = NULL,
            maxYear = lubridate::year(Sys.Date()),
            minYear = 1700) {
+    # locally bind variables to the function
+    eventDate<-database_id<-.<-verbatimEventDate<-fieldNotes<-locationRemarks<-ymd_vEV<-
+      ymd_fieldNotes<-ymd_locationRemarks<-locality<-dmy_vEV<-dmy_locality<-dmy_fieldNotes<-
+      dmy_locationRemarks<-mdy_vEV<-mdy_locality<-mdy_fieldNotes<-mdy_locationRemarks<-my_vEV<-
+      my_locality<-my_fieldNotes<-my_locationRemarks<-amb_vEV<-amb_locality<-amb_fieldNotes<-
+      amb_locationRemarks<-year <- NULL
+    
       # load required pacakges
-    require(dplyr)
-    require(lubridate)
-    require(stringr)
-    require(tidyr)
-    require(mgsub)
-    require(readr)
+    requireNamespace("dplyr")
+    requireNamespace("lubridate")
+    requireNamespace("bdc")
+    requireNamespace("mgsub")
     timeStart <- Sys.time()
     
     #### 0.0 prep ####
-    writeLines(" — Preparing data...")
+    writeLines(" - Preparing data...")
       # Create a new running dataset
     noDATEa <- data
       # Convert eventDate to date format 
-        # — might also lose some records
+        # - might also lose some records
     noDATEa$eventDate <- lubridate::ymd_hms(noDATEa$eventDate,
                                             truncated = 5, quiet = TRUE)
       # Find all of the records without dates
@@ -51,7 +66,7 @@ dateFindR <-
     
     #### 1.0 easyDates ####
       # Retrieve dates that are much easier to recover...
-    writeLines(" — Extracting dates from year, month, day columns...")
+    writeLines(" - Extracting dates from year, month, day columns...")
     ##### 1.1 year month day ####
       # Some records have date information in the dmy columns
     noDATEa$eventDate <- lubridate::ymd(paste(noDATEa$year, noDATEa$month, noDATEa$day, sep = "-"),
@@ -92,7 +107,7 @@ dateFindR <-
 
     #### 2.0 unAmb. str. dates ####
     writeLines(paste(
-      " — Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate ",
+      " - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate ",
       "columns in unambiguous ymd, dmy, mdy, and my formats...", sep = ""))
       # Filter down to the records that again have no eventDate
     noDATEa <- noDATEa %>%
@@ -177,7 +192,7 @@ dateFindR <-
     paste("[0-9]{1,2}[\\s-/ ]+", monthStrings,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
       # 12-XII-2022; 12 XII 2022; 12 xii 2022;
     paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
-      # >12 <12 1992 — dmy
+      # >12 <12 1992 - dmy
     "([1][3-9]|[2-3][0-9])[\\s-/ ]+([1-9]|1[0-2])[\\s-/ ]+[0-9]{4}")
     
         # Extract the matching strings
@@ -417,15 +432,16 @@ dateFindR <-
                         complete.cases(my_fieldNotes)) %>%
         tidyr::unite(col = date, 
                      my_vEV, my_locality, my_locationRemarks, my_fieldNotes, 
-                     na.rm = TRUE, sep = "—") 
+                     na.rm = TRUE, sep = "-") 
           # Remove double-ups
       my_keepers_24$date <- stringr::str_replace(my_keepers_24$date,
-                                                 pattern = "—[0-9]+-[0-9]+-[0-9]+", replacement = "")
+                                                 pattern = "-[0-9]+-[0-9]+-[0-9]+", 
+                                                 replacement = "")
 
       
       #### 3.0 Amb. str. dates ####
       writeLines(paste(
-        " — Extracting year from fieldNotes, locationRemarks, and verbatimEventDate ",
+        " - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate ",
         "columns in ambiguous formats...", sep = ""))
       ambiguousDateStrings <- c(
         # dmy or mdy; 10 02 1946
@@ -508,7 +524,7 @@ dateFindR <-
       
       #### 4.0 Format+combine ####
       writeLines(paste(
-        " — Formating and combining the new data..", sep = ""))
+        " - Formating and combining the new data..", sep = ""))
         ##### 4.1 formatting... ####
         # Extract only the date from occYr_2
       occYr_2$date <- as.character(occYr_2$date) %>% lubridate::ymd_hms() %>% lubridate::date()
@@ -587,12 +603,12 @@ dateFindR <-
 
     #### 5.0 Merge ####
       writeLines(paste(
-        " — Merging all data, nearly there...", sep = ""))
+        " - Merging all data, nearly there...", sep = ""))
         # Get all of the changed rows together
       datesMerged <- dplyr::bind_rows(
         datesOut_full, datesOut_noDay, datesOut_noMonth)
         
-        # Format the original eventDate column into a new sheet — datesOut
+        # Format the original eventDate column into a new sheet - datesOut
       datesOut <- data
       datesOut$eventDate <- lubridate::ymd_hms(datesOut$eventDate,
                                  truncated = 5, quiet = TRUE)
@@ -650,7 +666,7 @@ dateFindR <-
                          truncated = 5, quiet = TRUE)
       
       # Plot the dates
-      hist(dates_complete$eventDate, breaks = 100,
+      graphics::hist(dates_complete$eventDate, breaks = 100,
            main = "Histogram of eventDate output")
       
       timeEnd <- Sys.time()
@@ -658,22 +674,23 @@ dateFindR <-
     # Return user output
     writeLines(
       paste(
-        " — Finished. \n",
+        " - Finished. \n",
         "We rescued: \n",
         format(nrow(datesMerged), big.mark = ","), " occurrences with missing eventDate.\n",
-        " — As it stands, there are ", 
+        " - As it stands, there are ", 
         format( sum(complete.cases(dates_complete$eventDate)), big.mark = ","),
         " complete eventDates and ", 
         format( sum(is.na(dates_complete$eventDate)), big.mark = ","), 
         " missing dates.\n", 
-        " — There are also ", 
+        " - There are also ", 
         format( sum(complete.cases(dates_complete$year)), big.mark = ","), 
         " complete year occurrences to filter from. This is up from an initial count of ",
         format( sum(complete.cases(data$year)), big.mark = ","),
         " At this rate, you will stand to lose ",
-        format( sum(is.na(dates_complete$year)), big.mark = ","), " occurrences on the basis of missing",
+        format( sum(is.na(dates_complete$year)), big.mark = ","), 
+        " occurrences on the basis of missing",
         " year",
-        " — Operation time: ", (timeEnd - timeStart),
+        " - Operation time: ", (timeEnd - timeStart),
       sep = "")
     )
     return(dates_complete)

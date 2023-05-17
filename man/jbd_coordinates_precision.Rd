@@ -18,23 +18,26 @@ jbd_coordinates_precision(
 
 \item{lon}{Character. The name of the column to use as longitude. Default = "decimalLongitude".}
 
-\item{ndec}{Numeric. The number of decimal places to flag in decimal degrees. Hence, 2 = 0.01.}
+\item{ndec}{Numeric. The number of decimal places to flag in decimal degrees. For example,
+argument value of 2 would flag occurrences with nothing in the hundredths place (0.0x).}
 }
 \value{
 Returns the input data frame with a new column, .rou, where FALSE indicates occurrences
 that failed the test.
 }
 \description{
-This function flags occurrences where BOTH lat and lon are rounded. This contrasts with
-\code{\link[bdc:bdc_coordinates_precision]{bdc::bdc_coordinates_precision()}} that will flag occurrences where only one of lat OR lon are rounded.
-The BeeDC approach saves occurrences that may have had terminal zeros rounded.
+This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with
+\code{\link[bdc:bdc_coordinates_precision]{bdc::bdc_coordinates_precision()}} that will flag occurrences where only one of latitude OR
+longitude are rounded. The BeeDC approach saves occurrences that may have had terminal zeros rounded
+in one coordinate column.
 }
 \examples{
 beesRaw_out <- jbd_coordinates_precision(
   data = BeeDC::beesRaw,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
-  ndec = 2 # number of decimals to be tested
+    # number of decimals to be tested
+  ndec = 2
 )
 table(beesRaw_out$.rou, useNA = "always")
 }

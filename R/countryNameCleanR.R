@@ -3,40 +3,54 @@
   # Country names in occurrence records and extract country names from ISO2 codes
 
 
-#' A simple function to fix a user-input list of country name issues.
+#' Fix country name issues using a user-input list
 #' 
 #' This function is basic for a user to manually fix some country name inconsistencies.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
-#' @param ISO2_table A data frame or tibble with the columns ISO2 and FullName for country names. Default 
+#' @param ISO2_table A data frame or tibble with the columns ISO2 and long names for country names. Default 
 #' is a static version from Wikipedia.
-#' @param commonProblems A data frame or tibble with the columns problem and fix.
+#' @param commonProblems A data frame or tibble. It must have two columns: 
+#' one containing the user-identified problem and one with a user-defined fix
 #'
-#' @return Returns the input data but with the countries occurring in the problem column replaced 
-#' with those in the fix column.
+#' @return Returns the input data, but with countries occurring in the user-supplied problem 
+#' column ("commonProblems") replaced with those in the user-supplied fix column
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom stats complete.cases
 #'
 #' @examples
 #' beesFlagged_out <- countryNameCleanR(
 #' data = BeeDC::beesFlagged,
-#' commonProblems = commonProblems)
+#' commonProblems = tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+#'                         'United States','U.S.A','MX','CA','Bras.','Braz.',
+#'                         'Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
+#'                         fix = c('United States of America','United States of America',
+#'                                 'United States of America','United States of America',
+#'                                 'United States of America','United States of America',
+#'                                 'United States of America','Mexico','Canada','Brazil',
+#'                                 'Brazil','Brazil','Northern Mariana Islands','PUERTO.RICO')))
 
 countryNameCleanR <- function(
     data = NULL,
     ISO2_table = NULL,
     commonProblems = NULL){
+  # locally bind variables to the function
+  database_id <- decimalLatitude <- decimalLongitude <- country <- countryCode <- scientificName <-
+    dataSource <- FullName <- . <- fix <- NULL
   
   #### 0.0 Prep ####
   
   ##### 0.1 warnings ####
   if(is.null(data)){
-    stop(" — Please provide input data.")
+    stop(" - Please provide input data.")
   }
   
   ##### 0.2 Data defaults ####
   if(is.null(ISO2_table)){
-    writeLines(" — Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 — static version from July 2022.")
-    # Use countryCode to extract country name using the Wikipedia table — https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+    writeLines(" - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.")
+    # Use countryCode to extract country name using the Wikipedia table - https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     # Make a tibble with 
     ISO2_table <- tibble::tibble(
       ISO2 = c("AD","AE","AF","AG","AI","AL","AM","AO","AQ","AR","AS","AT","AU","AW","AX","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BL","BM","BN","BO","BQ","BR","BS","BT","BV","BW","BY","BZ","CA","CC","CD","CF","CG","CH","CI","CK","CL","CM","CN","CO","CR","CU","CV","CW","CX","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","EH","ER","ES","ET","FI","FJ","FK","FM","FO","FR","GA","GB","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","HK","HM","HN","HR","HT","HU","ID","IE","IL","IM","IN","IO","IQ","IR","IS","IT","JE","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN","PR","PS","PT","PW","PY","QA","RE","RO","RS","RU","RW","SA","SB","SC","SD","SE","SG","SH","SI","SJ","SK","SL","SM","SN","SO","SR","SS","ST","SV","SX","SY","SZ","TC","TD","TF","TG","TH","TJ","TK","TL","TM","TN","TO","TR","TT","TV","TW","TZ","UA","UG","UM","US","UY","UZ","VA","VC","VE","VG","VI","VN","VU","WF","WS","YE","YT","ZA","ZM","ZW"),

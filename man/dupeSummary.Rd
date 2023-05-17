@@ -7,8 +7,6 @@
 dupeSummary(
   data = NULL,
   path = NULL,
-  maxYear = lubridate::year(Sys.Date()),
-  minYear = 1700,
   duplicatedBy = NULL,
   completeness_cols = NULL,
   idColumns = NULL,
@@ -32,85 +30,90 @@ dupeSummary(
 
 \item{path}{A character path to the location where the duplicateRun_ file will be saved.}
 
-\item{duplicatedBy}{A character vector. Options are c("ID", "collectionInfo", "both"). "ID" columns
-runs through a series of ID-only columns defined by idColumns. "collectionInfo" runs through a series
-of columns defined by collectInfoColumns, which are checked in combination with collectionCols. "both"
-runs both of the above.}
+\item{duplicatedBy}{A character vector. Options are c("ID", "collectionInfo", "both"). "ID"
+columns runs through a series of ID-only columns defined by idColumns. "collectionInfo" runs
+through a series of columns defined by collectInfoColumns, which are checked in combination
+with collectionCols. "both" runs both of the above.}
 
 \item{completeness_cols}{A character vector. A set of columns that are used to order and select
 duplicates by. For each occurrence, this function will calculate the sum of \code{\link[=complete.cases]{complete.cases()}}.
-Within duplicate clusters occurrences with a greater number of the completeness_cols filled in will
-be kept over those with fewer.}
+Within duplicate clusters occurrences with a greater number of the completeness_cols filled
+in will be kept over those with fewer.}
 
-\item{idColumns}{A character vector. The columns to be checked individually for internal duplicates.
-Intended for use with ID columns only.}
+\item{idColumns}{A character vector. The columns to be checked individually for internal
+duplicates. Intended for use with ID columns only.}
 
-\item{collectionCols}{A character vector. The columns to be checked in combination with each of the
-completeness_cols.}
+\item{collectionCols}{A character vector. The columns to be checked in combination with each
+of the completeness_cols.}
 
-\item{collectInfoColumns}{A character vector. The columns to be checked in combinatino with all of
-the collectionCols columns.}
+\item{collectInfoColumns}{A character vector. The columns to be checked in combinatino with
+all of the collectionCols columns.}
 
-\item{CustomComparisonsRAW}{A list of character vectors. Custom comparisons — as a list of
-columns to iteratively compare for duplicates. These differ from the CustomComparisons in that they
-ignore the minimum number and character thresholds for IDs.}
+\item{CustomComparisonsRAW}{A list of character vectors. Custom comparisons - as a list of
+columns to iteratively compare for duplicates. These differ from the CustomComparisons in
+that they ignore the minimum number and character thresholds for IDs.}
 
-\item{CustomComparisons}{A list of character vectors. Custom comparisons — as a list of
-columns to iteratively compare for duplicates. These comparisons are made after character and number
-thresholds are accounted for in ID columns.}
+\item{CustomComparisons}{A list of character vectors. Custom comparisons - as a list of
+columns to iteratively compare for duplicates. These comparisons are made after character
+and number thresholds are accounted for in ID columns.}
 
-\item{sourceOrder}{A character vector. The order in which you want to KEEP duplicated based on the
-dataSource column. NOTE: These dataSources are simplified to the string prior to the first "_".
-Hence, "GBIF_Anthophyla" becomes "GBIF."}
+\item{sourceOrder}{A character vector. The order in which you want to KEEP duplicated
+based on the dataSource column (i.e. what order to prioritize data sources).
+NOTE: These dataSources are simplified to the string prior
+to the first "_". Hence, "GBIF_Anthophyla" becomes "GBIF."}
 
-\item{PaigeSort}{Logical. If TRUE, Paige's data will be preferred over the raw GBIF/SCAN/iDigBio data.
-To preference Paige's data over the RAW GBIF data, use the below. See 1. Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography.
-default = FALSE.}
+\item{PaigeSort}{Logical. If TRUE, Paige's data will be preferred over the raw
+GBIF/SCAN/iDigBio data. To preference Paige's data over the RAW GBIF data.
+See 1. Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J.,
+. . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species
+identifies persistent data gaps. Ecography. default = FALSE.}
 
 \item{PaigeOrder}{A character vector. Like sourceOrder, except based on the database_id prefix,
 rather than the dataSource. Additionally, this is only examined if PaigeSort == TRUE.}
 
-\item{dontFilterThese}{A character vector of flag columns to be ignored in the creation or updating
-of the .summary column. Passed to \code{\link[=summaryFun]{summaryFun()}}.}
+\item{dontFilterThese}{A character vector. This should contain the flag columns to be ignored
+in the creation or updating of the .summary column. Passed to  \code{\link[=summaryFun]{summaryFun()}}.}
 
 \item{characterThreshold}{Numeric. The complexity threshold for ID letter length. This is the
-minimum number of characters that need to be present in ADDITION TO the numberThreshold for an ID
-number to be tested for duplicates. Ignored by CustomComparisonsRAW. The columns that are checked
-are occurrenceID, recordId, id, catalogNumber, and otherCatalogNumbers. Default = 2.}
+minimum number of characters that need to be present in ADDITION TO the numberThreshold for an
+ID number to be tested for duplicates. Ignored by CustomComparisonsRAW. The columns that are
+checked are occurrenceID, recordId, id, catalogNumber, and otherCatalogNumbers. Default = 2.}
 
 \item{numberThreshold}{Numeric. The complexity threshold for ID number length. This is the
-minimum amount of number that need to be present in ADDITION TO the characterThreshold for an ID
-number to be tested for duplicates. Ignored by CustomComparisonsRAW. The columns that are checked
-are occurrenceID, recordId, id, catalogNumber, and otherCatalogNumbers. Default = 3.}
+minimum number of numeric characters that need to be present in ADDITION TO the
+characterThreshold for an ID number to be tested for duplicates. Ignored by
+CustomComparisonsRAW. The columns that are checked are occurrenceID, recordId, id,
+catalogNumber, and otherCatalogNumbers. Default = 3.}
 
 \item{numberOnlyThreshold}{Numeric. As numberThreshold except the characterThreshold is ignored.
 Default = 5.}
 
 \item{catalogSwitch}{Logical. If TRUE, and the catalogNumber is empty the function will copy over
-the otherCatalogNumbers into catalogNumber and visa versa. Hence, the function will attempt to match
-more catalog numbers as both of these functions can be problematic. Default = TRUE.}
+the otherCatalogNumbers into catalogNumber and visa versa. Hence, the function will attempt
+to matchmore catalog numbers as both of these functions can be problematic. Default = TRUE.}
 }
 \value{
 Returns data with an additional column called .duplicates where FALSE occurrences are
-duplicates and TRUE occurrences are either kept duplicates or unique. Also exports a .csv to the user-specified
-location with information about duplicate matching. This file is used by other functions including
+duplicates and TRUE occurrences are either kept duplicates or unique. Also exports a .csv to
+the user-specified location with information about duplicate matching. This file is used by
+other functions including
 \code{\link[=manualOutlierFindeR]{manualOutlierFindeR()}} and \code{\link[=chordDiagramR]{chordDiagramR()}}
 }
 \description{
 This function uses user-specified inputs and columns to identify duplicate occurrence records.
-Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted
-at the end of the function.
-The function is designed to work with Darwin Core data with a database_id column, but is also
-modifiable.
+Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and
+sorted at the end of the function.
+The function is designed to work with Darwin Core data with a database_id column,
+but it is also modifiable to work with other columns.
 }
 \examples{
-
-
 beesFlagged_out <- dupeSummary(
 data = BeeDC::beesFlagged,
-path = paste0(DataPath, "/Output/Report/"),
+  # Should start with paste0(DataPath, "/Output/Report/"), instead of tempdir():
+path = paste0(tempdir(), "/"),
 # options are "ID","collectionInfo", or "both"
-duplicatedBy = "collectionInfo", # I'm only running ID for the first lot because we might recover other info later
+duplicatedBy = "collectionInfo", # I'm only running ID for the first lot because we might 
+# recover other info later
 # The columns to generate completeness info from
 completeness_cols = c("decimalLatitude",  "decimalLongitude",
                       "scientificName", "eventDate"),
@@ -120,7 +123,7 @@ collectionCols = c("decimalLatitude", "decimalLongitude", "scientificName", "eve
                    "recordedBy"),
 # The columns to combine, one-by-one with the collectionCols
 collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),
-# Custom comparisons — as a list of columns to compare
+# Custom comparisons - as a list of columns to compare
 # RAW custom comparisons do not use the character and number thresholds
 CustomComparisonsRAW = tibble::lst(c("catalogNumber", "institutionCode", "scientificName")),
 # Other custom comparisons use the character and number thresholds

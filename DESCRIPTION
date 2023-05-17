@@ -1,49 +1,79 @@
 Package: BeeDC
-Title: BeeDC: a bee and other occurrence data cleaning package
-Version: 0.0.1
-Authors@R: 
-    person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-2721-3842"))
-Description: Cleans occurrence data that are in Darwin Core format
-License: FALSE
+Title: BeeDC: an Occurrence Data Cleaning Package
+Version: 0.0.2
+Authors@R: c(
+    person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0003-2721-3842")),
+    person("Robert", "O'Reilly", , "robert.oreilly@flinders.edu.au", role = "aut",
+           comment = c(ORCID = "0000-0001-5291-7396")),
+    person("Silas", "Bossert", , "silas.bossert@wsu.edu", role = "aut",
+           comment = c(ORCID = "0000-0002-3620-5468")),
+    person("Fischer", "Fischer", , "fischeer@mail.gvsu.edu", role = "aut")
+  )
+Description: Flags and checks occurrence data that are in Darwin Core
+    format.  The package includes generic functions and data as well as
+    some that are specific to bees.
+License: GPL-3 + file LICENSE
+Depends: 
+    R (>= 2.10)
 Imports: 
     bdc,
-    BiocManager,
     circlize,
+    ComplexHeatmap,
+    CoordinateCleaner,
     cowplot,
     dplyr,
     EML,
-    emld,
     forcats,
+    fs,
+    galah (>= 1.5.1),
     ggplot2,
     ggspatial,
+    here,
     igraph,
-    janitor,
     lubridate,
-    magrittr,
     mgsub,
     paletteer,
-    R.utils,
     readr,
     readxl,
-    rlist,
     rnaturalearth,
-    rnaturalearthdata,
+    sf,
     stringr,
     tibble,
-    tidyr,
-    tidyselect
+    tidyselect,
+    vroom
 Suggests: 
+    chorddiag,
+    classInt,
     countrycode,
-    galah,
+    DT,
+    emld,
     hexbin,
+    htmlwidgets,
+    httr,
+    janitor,
+    leaflet,
+    plotly,
     praise,
+    purrr,
+    R.utils,
     rangeBuilder,
     rlang,
+    rnaturalearthdata,
+    rnaturalearthhires,
     rvest,
     rworldmap,
+    sp,
+    terra,
+    testthat,
+    tidyr,
+    xlsx,
     xml2
+Remotes: 
+    AtlasOfLivingAustralia/galah
 Encoding: UTF-8
+LazyData: TRUE
+LazyDataCompression: xz
 roxygen: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

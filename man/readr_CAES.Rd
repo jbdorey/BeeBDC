@@ -2,8 +2,12 @@
 % Please edit documentation in R/additionalData_readRs.R
 \name{readr_CAES}
 \alias{readr_CAES}
+\alias{readr_MABC}
 \alias{readr_Col}
+\alias{readr_Bal}
 \alias{readr_Arm}
+\alias{readr_MEPB}
+\alias{readr_MPUJ}
 \title{Reads specific data files into Darwin Core format}
 \usage{
 readr_CAES(
@@ -14,6 +18,14 @@ readr_CAES(
   sheet = "Sheet1"
 )
 
+readr_MABC(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = "Hoja1"
+)
+
 readr_Col(
   path = NULL,
   inFile = NULL,
@@ -22,6 +34,8 @@ readr_Col(
   sheet = sheet
 )
 
+readr_Bal(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
 readr_Arm(
   path = NULL,
   inFile = NULL,
@@ -29,43 +43,64 @@ readr_Arm(
   dataLicense = NULL,
   sheet = "Sheet1"
 )
+
+readr_MEPB(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = NULL
+)
+
+readr_MPUJ(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = sheet
+)
 }
 \arguments{
-\item{path}{The path to the directory containing the data.}
+\item{path}{A character path. The path to the directory containing the data.}
 
-\item{inFile}{The name of the file itself (can also be the remainder of a path including the file name).}
+\item{inFile}{Character or character path. The name of the file itself (can also be the
+remainder of a path including the file name).}
 
-\item{outFile}{The name of the Darwin Core format file to produce.}
+\item{outFile}{Character or character path. The name of the Darwin Core format file to be saved.}
 
-\item{dataLicense}{The license to accompany each record in the Darwin Core 'license' column.}
+\item{dataLicense}{Character. The license to accompany each record in the Darwin Core 'license' column.}
 
 \item{sheet}{A character String. For those datasets read from an .xlsx format, provide the
 sheet name.}
 }
 \value{
-A data frame that's in Darwin Core format.
+A data frame that is in Darwin Core format.
 }
 \description{
 Data files are specific to various data providers and users may examine code function-by-function.
 }
 \section{Functions}{
 \itemize{
+\item \code{readr_MABC()}: Reads specific data files into Darwin Core format
+
 \item \code{readr_Col()}: Reads specific data files into Darwin Core format
+
+\item \code{readr_Bal()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_Arm()}: Reads specific data files into Darwin Core format
 
+\item \code{readr_MEPB()}: Reads specific data files into Darwin Core format
+
+\item \code{readr_MPUJ()}: Reads specific data files into Darwin Core format
+
 }}
 \examples{
-An example using a .csv file
-EPEL_Data <- readr_EPEL(path = paste0(DataPath, "/Additional_Datasets"),
-inFile = "/InputDatasets/bee_data_canada.csv",
-outFile = "jbd_EPEL_data.csv",
-dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
-
-An example using a .xlsx file
-    Arm_Data <- readr_Arm(path = paste0(DataPath, "/Additional_Datasets"),
+\dontrun{
+# An example using a .xlsx file
+    Arm_Data <- readr_Arm(path = paste0(tempdir(), "/Additional_Datasets"),
 inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
 outFile = "jbd_Arm_Data.csv",
 sheet = "Sheet1",
 dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+}
 }

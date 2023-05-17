@@ -1,130 +1,143 @@
   # This function was written by James Dorey on the 20th of May 2022 in ored to define the columns
     # used during occurrence record cleaning
-  # For help you may email James at jbdorey@me.com
+  # For help you may email James at jbdorey[at]me.com
 
 #' Sets up column names and types
 #' 
-#' Uses [readr::cols_only()] to assign a column name and the type of data (e.g., [readr::col_character()], 
-#' and [readr::col_integer()]). To see the default columns simply run [BeeDC::ColTypeR()]. Intended
-#' to be used with [readr::read_csv()]. Columns that are not present will NOT be included in the resulting 
-#' tibble unless they are specified using [...].
+#' This function uses [vroom::cols_only()] to assign a column name and the type of data 
+#' (e.g., [vroom::col_character()], 
+#' and [vroom::col_integer()]). To see the default columns simply run [BeeDC::ColTypeR()]. 
+#' This is intended for use with [readr::read_csv()]. Columns that are not present will NOT be included 
+#' in the resulting tibble unless they are specified using [...].
 #'
-#' @param ... Arguments that are additional to those default to the function. For example:
-#' * newCharacterColumn = col_character(),
-#' * newNumericColumn = col_integer(),
-#' * newLogicalColumn = col_logical()
+#' @param ... Additional arguments. These can be specified in addition to the ones default to the 
+#' function.  For example:
+#' * newCharacterColumn = [vroom::col_character()],
+#' * newNumericColumn = [vroom::col_integer()],
+#' * newLogicalColumn = [vroom::col_logical()]
+#' 
+#' @importFrom vroom col_character col_double col_factor col_integer col_logical col_datetime
+#' @importFrom dplyr %>%
 #'
-#' @return An object of class col_spec. See [readr::as.col_spec()]
+#' @return Returns an object of class col_spec. 
+#' See [readr::as.col_spec()] for additional context and explication.
 #' @export
 #'
-#' @examples
-#' You can simply return the below for default values
-#' ColTypeR() 
+#' @examples 
+#'   # You can simply return the below for default values
+#'   library(dplyr)
+#' BeeDC::ColTypeR() 
 #' 
-#' To add new columns you can write
-#' ColTypeR(newCharacterColumn = col_character(), newNumericColumn = col_integer(), newLogicalColumn = col_logical()) 
+#'   # To add new columns you can write
+#' ColTypeR(newCharacterColumn = vroom::col_character(), 
+#'          newNumericColumn = vroom::col_integer(), 
+#'          newLogicalColumn = vroom::col_logical()) 
 #' 
-#' Try reading in one of the test datasets as an example:
-#' beesFlagged %>% tibble::as_tibble(col_types = ColTypeR())
-#' OR
-#' beesRaw %>% tibble::as_tibble(col_types = ColTypeR())
+#' # Try reading in one of the test datasets as an example:
+#' beesFlagged %>% tibble::as_tibble(col_types = BeeDC::ColTypeR())
+#'   # OR
+#' beesRaw %>% tibble::as_tibble(col_types = BeeDC::ColTypeR())
 #' 
 #' 
 ColTypeR <- function(...){
-  require(readr)
+  requireNamespace("bdc")
   ColTypes <- readr::cols_only(
     # Character Strings
     # CHR — taxonomy
-    database_id  = col_character(), scientificName = col_character(), 
-    family = col_character(), subfamily = col_character(), genus = col_character(), 
-    subgenus = col_character(), subspecies = col_character(), species = col_character(), 
-    specificEpithet = col_character(), infraspecificEpithet = col_character(), 
-    acceptedNameUsage = col_character(), taxonRank = col_character(),
-    scientificNameAuthorship = col_character(), 
-    identificationQualifier = col_character(), higherClassification = col_character(), 
-    identificationReferences = col_character(), typeStatus = col_character(), 
-    previousIdentifications = col_character(), verbatimIdentification = col_character(), 
-    identifiedBy = col_character(), dateIdentified = col_character(),
+    database_id  = vroom::col_character(), scientificName = vroom::col_character(), 
+    family = vroom::col_character(), subfamily = vroom::col_character(), genus = vroom::col_character(), 
+    subgenus = vroom::col_character(), subspecies = vroom::col_character(), species = vroom::col_character(), 
+    specificEpithet = vroom::col_character(), infraspecificEpithet = vroom::col_character(), 
+    acceptedNameUsage = vroom::col_character(), taxonRank = vroom::col_character(),
+    scientificNameAuthorship = vroom::col_character(), 
+    identificationQualifier = vroom::col_character(), higherClassification = vroom::col_character(), 
+    identificationReferences = vroom::col_character(), typeStatus = vroom::col_character(), 
+    previousIdentifications = vroom::col_character(), verbatimIdentification = vroom::col_character(), 
+    identifiedBy = vroom::col_character(), dateIdentified = vroom::col_character(),
     # DBL — Locality info
-    decimalLatitude = col_double(), decimalLongitude = col_double(),
-    verbatimLatitude = col_character(), verbatimLongitude = col_character(),
-    verbatimElevation = col_character(),
+    decimalLatitude = vroom::col_double(), decimalLongitude = vroom::col_double(),
+    verbatimLatitude = vroom::col_character(), verbatimLongitude = vroom::col_character(),
+    verbatimElevation = vroom::col_character(),
     # CHR/Factor — Locality info
-    stateProvince = col_character(), country = col_character(), continent = col_factor(), 
-    locality = col_character(), island = col_character(),
-    county = col_character(), municipality = col_character(),
+    stateProvince = vroom::col_character(), country = vroom::col_character(), continent = vroom::col_factor(), 
+    locality = vroom::col_character(), island = vroom::col_character(),
+    county = vroom::col_character(), municipality = vroom::col_character(),
     # CHR/Factor — Country codes
-    countryCode = col_factor(), level0Gid = col_factor(), level0Name = col_factor(), 
-    level1Gid = col_factor(), level1Name = col_factor(), license = col_factor(), 
-    issue = col_character(), 
+    countryCode = vroom::col_factor(), level0Gid = vroom::col_factor(), level0Name = vroom::col_factor(), 
+    level1Gid = vroom::col_factor(), level1Name = vroom::col_factor(), license = vroom::col_factor(), 
+    issue = vroom::col_character(), 
     # Date/Time — Collection time
-    eventDate = col_character(), 
-    eventTime = col_character(), 
+    eventDate = vroom::col_character(), 
+    eventTime = vroom::col_character(), 
     # Int — Collection time
-    day = col_integer(), month = col_integer(), year = col_integer(),
+    day = vroom::col_integer(), month = vroom::col_integer(), year = vroom::col_integer(),
     # Factor — Collection info
-    basisOfRecord = col_factor(), type = col_factor(), occurrenceStatus = col_factor(), 
+    basisOfRecord = vroom::col_factor(), type = vroom::col_factor(), occurrenceStatus = vroom::col_factor(), 
     # CHR — Collection info
-    recordNumber = col_character(), recordedBy = col_character(), eventID = col_character(), 
-    Location = col_character(), samplingProtocol = col_character(), samplingEffort = col_character(),
+    recordNumber = vroom::col_character(), recordedBy = vroom::col_character(), eventID = vroom::col_character(), 
+    Location = vroom::col_character(), samplingProtocol = vroom::col_character(), 
+    samplingEffort = vroom::col_character(),
     # Int — Collection info
-    individualCount = col_double(), organismQuantity = col_double(), 
+    individualCount = vroom::col_double(), organismQuantity = vroom::col_double(), 
     # mixed — Information uncertainty
-    coordinatePrecision = col_double(), coordinateUncertaintyInMeters = col_double(), 
-    spatiallyValid = col_logical(),
+    coordinatePrecision = vroom::col_double(), coordinateUncertaintyInMeters = vroom::col_double(), 
+    spatiallyValid = vroom::col_logical(),
     # CHR — Database information
-    catalogNumber = col_character(), gbifID = col_character(), datasetID = col_character(),
-    institutionCode = col_character(), datasetName = col_character(), 
-    otherCatalogNumbers = col_character(), occurrenceID = col_character(), 
-    taxonKey = col_character(), coreid = col_character(), 
-    recordId = col_character(), collectionID = col_character(),
+    catalogNumber = vroom::col_character(), gbifID = vroom::col_character(), datasetID = vroom::col_character(),
+    institutionCode = vroom::col_character(), datasetName = vroom::col_character(), 
+    otherCatalogNumbers = vroom::col_character(), occurrenceID = vroom::col_character(), 
+    taxonKey = vroom::col_character(), coreid = vroom::col_character(), 
+    recordId = vroom::col_character(), collectionID = vroom::col_character(),
     # CHR — Verbatim information
-    verbatimScientificName = col_character(), verbatimEventDate = col_character(),
+    verbatimScientificName = vroom::col_character(), verbatimEventDate = vroom::col_character(),
     # CHR/Factor — Aux info
-    associatedTaxa = col_character(), associatedOrganisms = col_character(), 
-    fieldNotes = col_character(), sex = col_character(),
+    associatedTaxa = vroom::col_character(), associatedOrganisms = vroom::col_character(), 
+    fieldNotes = vroom::col_character(), sex = vroom::col_character(),
     # CHR — Rights info
-    rights = col_character(), rightsHolder = col_character(), accessRights = col_character(), 
-    dctermsLicense = col_character(), dctermsType = col_character(), 
-    dctermsAccessRights = col_character(), associatedReferences = col_character(), 
-    bibliographicCitation = col_character(), dctermsBibliographicCitation = col_character(), 
-    references = col_character(),
+    rights = vroom::col_character(), rightsHolder = vroom::col_character(), accessRights = vroom::col_character(), 
+    dctermsLicense = vroom::col_character(), dctermsType = vroom::col_character(), 
+    dctermsAccessRights = vroom::col_character(), associatedReferences = vroom::col_character(), 
+    bibliographicCitation = vroom::col_character(), dctermsBibliographicCitation = vroom::col_character(), 
+    references = vroom::col_character(),
     # Record notes
     # CHR
-    flags = col_character(), informationWithheld = col_character(), isDuplicateOf = col_character(),
+    flags = vroom::col_character(), informationWithheld = vroom::col_character(), 
+    isDuplicateOf = vroom::col_character(),
     # Logical
-    hasCoordinate = col_logical(), hasGeospatialIssues = col_logical(), 
+    hasCoordinate = vroom::col_logical(), hasGeospatialIssues = vroom::col_logical(), 
     # Factor
-    assertions = col_factor(),
+    assertions = vroom::col_factor(),
     # mix — ALA columns
-    occurrenceYear = col_datetime(), id = col_character(), duplicateStatus = col_factor(), 
-    associatedOccurrences = col_character(), 
+    occurrenceYear = vroom::col_datetime(), id = vroom::col_character(), duplicateStatus = vroom::col_factor(), 
+    associatedOccurrences = vroom::col_character(), 
     # CHR — SCAN column
-    locationRemarks = col_character(),
+    locationRemarks = vroom::col_character(),
     # CHR — dataset origin column
-    dataSource = col_character(),
+    dataSource = vroom::col_character(),
       # bdc columns
-     dataBase_scientificName = col_character(), .rou = col_logical(),                         
-    .val = col_logical(), .equ = col_logical(), .zer = col_logical(), .cap = col_logical(),                         
-    .cen = col_logical(), .sea = col_logical(), .otl = col_logical(), .gbf = col_logical(),                         
-    .inst = col_logical(), .dpl = col_logical(), .summary = col_logical(),
-    names_clean = col_character(), verbatim_scientificName = col_character(), 
-    .uncer_terms = col_logical(), .eventDate_empty = col_logical(), .year_outOfRange = col_logical(),
-    .duplicates = col_logical(), .lonFlag = col_logical(), .latFlag = col_logical(), 
-    .gridSummary = col_logical(), .basisOfRecords_notStandard = col_logical(),
-    .scientificName_empty = col_logical(), .coordinates_empty = col_logical(),
-    .coordinates_outOfRange = col_logical(), coordinates_transposed = col_logical(),
-    country_suggested = col_character(),  .countryOutlier = col_logical(),
-    countryMatch = col_character(), .expertOutlier = col_logical(),
+     dataBase_scientificName = vroom::col_character(), .rou = vroom::col_logical(),                         
+    .val = vroom::col_logical(), .equ = vroom::col_logical(), .zer = vroom::col_logical(), .cap = vroom::col_logical(),                         
+    .cen = vroom::col_logical(), .sea = vroom::col_logical(), .otl = vroom::col_logical(), .gbf = vroom::col_logical(),                         
+    .inst = vroom::col_logical(), .dpl = vroom::col_logical(), .summary = vroom::col_logical(),
+    names_clean = vroom::col_character(), verbatim_scientificName = vroom::col_character(), 
+    .uncer_terms = vroom::col_logical(), .eventDate_empty = vroom::col_logical(), 
+    .year_outOfRange = vroom::col_logical(),
+    .duplicates = vroom::col_logical(), .lonFlag = vroom::col_logical(), .latFlag = vroom::col_logical(), 
+    .gridSummary = vroom::col_logical(), .basisOfRecords_notStandard = vroom::col_logical(),
+    .scientificName_empty = vroom::col_logical(), .coordinates_empty = vroom::col_logical(),
+    .coordinates_outOfRange = vroom::col_logical(), coordinates_transposed = vroom::col_logical(),
+    country_suggested = vroom::col_character(),  .countryOutlier = vroom::col_logical(),
+    countryMatch = vroom::col_character(), .expertOutlier = vroom::col_logical(),
       # jbd flags
-    .occurrenceAbsent = col_logical(), .coordinates_country_inconsistent = col_logical(), 
-    .unLicensed = col_logical(), .invalidName = col_logical(),
-    .sequential = col_logical(), idContinuity = col_logical(), .uncertaintyThreshold = col_logical(),
-    .GBIFflags = col_logical(), 
+    .occurrenceAbsent = vroom::col_logical(), .coordinates_country_inconsistent = vroom::col_logical(), 
+    .unLicensed = vroom::col_logical(), .invalidName = vroom::col_logical(),
+    .sequential = vroom::col_logical(), idContinuity = vroom::col_logical(), 
+    .uncertaintyThreshold = vroom::col_logical(),
+    .GBIFflags = vroom::col_logical(), 
       # Paige columns
-    finalLatitude = col_double(), finalLongitude = col_double(), 
+    finalLatitude = vroom::col_double(), finalLongitude = vroom::col_double(), 
     
-    Source = col_character(),
+    Source = vroom::col_character(),
     # Dynamic dots for extra columns specified by the user
     ...
   ) # END ColTypes

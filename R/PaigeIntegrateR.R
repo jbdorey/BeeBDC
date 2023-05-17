@@ -1,17 +1,20 @@
   # This function was written by James Dorey on the 16th of June 2022 to join
     # Paige's cleaned dataset as best as possible.
 
-#' Integrate manually-cleaned data by Paige Chesshire
+#' Integrate manually-cleaned data from Paige Chesshire
 #' 
-#' Replaces publicly available data with data that has been manually cleaned and error-corrected in
+#' Replaces publicly available data with data that has been manually cleaned and error-corrected for use in
 #' the paper Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography. 
 #'
 #' @param db_standardized A data frame or tibble. Occurrence records as input.
 #' @param PaigeNAm A data frame or tibble. The Paige Chesshire dataset.
-#' @param columnStrings A list of character vectors. Each vector is a set of columns that will be used
-#' to iteratively match the Paige and public datasets with
+#' @param columnStrings A list of character vectors. Each vector is a set of columns that will be 
+#' used to iteratively match the public dataset against the Paige dataset.
 #'
-#' @return Returns db_standardized with the Chesshire data integrated.
+#' @importFrom dplyr %>%
+#' @importFrom stats complete.cases
+#'
+#' @return Returns db_standardized (input occurrence records) with the Paige Chesshire data integrated.
 #' @export
 #'
 #'
@@ -19,7 +22,7 @@
 #' \dontrun{
 #' # Integrate Paige Chesshire's cleaned dataset.
 # Import Paige's cleaned N. American data
-# IF you haven't figured out by now, dont worry about the column name warning — not all columns occur here.
+# IF you haven't figured out by now, dont worry about the column name warning - not all columns occur here.
 #'PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
 #'                                  sep = "/"), col_types = ColTypeR()) %>%
 #'  # Change the column name from Source to dataSource to match the rest of the data.
@@ -34,17 +37,17 @@
 #'  c("decimalLatitude", "decimalLongitude", 
 #'    "recordNumber", "recordedBy", "individualCount", "samplingProtocol",
 #'    "associatedTaxa", "sex", "catalogNumber", "institutionCode", "otherCatalogNumbers",
-#'    "recordId", "occurrenceID", "collectionID"),         # Iteration 1
+#'    "recordId", "occurrenceID", "collectionID"), # Iteration 1
 #'  c("catalogNumber", "institutionCode", "otherCatalogNumbers",
 #'    "recordId", "occurrenceID", "collectionID"), # Iteration 2
 #'  c("decimalLatitude", "decimalLongitude", 
-#'    "recordedBy", "genus", "specificEpithet"),# Iteration 3
-#'  c("id", "decimalLatitude", "decimalLongitude"),# Iteration 4
+#'    "recordedBy", "genus", "specificEpithet"), # Iteration 3
+#'  c("id", "decimalLatitude", "decimalLongitude"), # Iteration 4
 #'  c("recordedBy", "genus", "specificEpithet", "locality"), # Iteration 5
 #'  c("recordedBy", "institutionCode", "genus", 
 #'    "specificEpithet","locality"),# Iteration 6
-#'  c("occurrenceID","decimalLatitude", "decimalLongitude"),# Iteration 7
-#'  c("catalogNumber","decimalLatitude", "decimalLongitude"),# Iteration 8
+#'  c("occurrenceID","decimalLatitude", "decimalLongitude"), # Iteration 7
+#'  c("catalogNumber","decimalLatitude", "decimalLongitude"), # Iteration 8
 #'  c("catalogNumber", "locality") # Iteration 9
 #') 
 #'
@@ -61,9 +64,15 @@ PaigeIntegrater <- function(
     PaigeNAm = NULL,
     columnStrings = NULL){
   
-  require(dplyr)
-  require(tibble)
-  require(tidyselect)
+  # locally bind variables to the function
+  occurrenceID<-database_id<-database_id_p<-database_id_d<-finalLatitude<-finalLongitude<-
+    Dorey_match<-decimalLatitude<-decimalLongitude<-scientificName<-genus<-specificEpithet<-
+    infraspecificEpithet<-country<-coordinateUncertaintyInMeters<-decimalLatitude_m<-
+    database_id_m<-decimalLongitude_m<-scientificName_m<-genus_m<-specificEpithet_m<-
+    infraspecificEpithet_m<-country_m<-coordinateUncertaintyInMeters_m <- NULL
+  
+  requireNamespace("dplyr")
+  
 
 #### 1.0 occurrenceID ####
 # Make a temporary dataset
@@ -77,7 +86,7 @@ occMatched <- tibble::tibble(
   Paige_match = PaigeNAm$database_id)
 # User output
 writeLines(paste0(
-  " — INITIAL match with occurrenceID only ", 
+  " - INITIAL match with occurrenceID only ", 
   format(sum(complete.cases(occMatched$Dorey_match)), big.mark = ","), " of ",
   format(nrow(occMatched), big.mark = ","), " Paige occurrences.\n",
   "There are ", 
@@ -91,7 +100,7 @@ matchedPaige <- occMatched
 #### 2.0 Loop ####
   # loop through the number of column strings
 for(i in 1:length(columnStrings)){
-  message(paste0(" — Starting iteration ", i))
+  message(paste0(" - Starting iteration ", i))
   # Get the Paige occurrence records that are not matched above
   matchedPaige <- matchedPaige %>%
     dplyr::filter(complete.cases(matchedPaige$Dorey_match))
@@ -143,7 +152,7 @@ for(i in 1:length(columnStrings)){
 
 #### 3.0 Append #### 
   # Update the data from Paige
-  writeLines(" — Updating Paige datasheet to merge...")
+  writeLines(" - Updating Paige datasheet to merge...")
 matchedPaige <- PaigeNAm %>%
     # Select the matched records.
   dplyr::filter(database_id %in% matchedPaige$Paige_match) %>%
@@ -157,7 +166,7 @@ matchedPaige <- PaigeNAm %>%
     # Make sure that all Dorey_match's are unique
   dplyr::distinct(Dorey_match, .keep_all = TRUE)
 
-writeLines(" — Updating the final datasheet with new information from Paige...")
+writeLines(" - Updating the final datasheet with new information from Paige...")
   # Merge the new information
 db_standardized <- db_standardized %>%
         # Join select fields of the Paige data

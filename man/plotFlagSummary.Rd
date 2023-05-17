@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotFlagSummary.R
 \name{plotFlagSummary}
 \alias{plotFlagSummary}
-\title{Summary plot of all flags}
+\title{Generate a plot summarising flagged data}
 \usage{
 plotFlagSummary(
   plotData = NULL,
@@ -29,41 +29,45 @@ plotFlagSummary(
 \arguments{
 \item{plotData}{A data frame or tibble. Occurrence records as input.}
 
-\item{flagColours}{A character vector. Colours in order of pass (TRUE), fail (FALSE), and NA.}
+\item{flagColours}{A character vector. Colours in order of pass (TRUE), fail (FALSE), and NA.
+Default = c("#127852", "#A7002D", "#BDBABB").}
 
-\item{filename}{Character. The name of the file to be saved, ending in ".pdf".}
+\item{filename}{Character. The name of the file to be saved, ending in ".pdf".
+If saving as a different file type, change file type suffix - See \code{device}.}
 
-\item{outpath}{Character. The path to the directory in which the figure will be saved.
+\item{outpath}{A character path. The path to the directory in which the figure will be saved.
 Default = OutPath_Figures.}
 
 \item{width}{Numeric. The width of the output figure in user-defined units Default = 15.}
 
-\item{height}{Numeric. The height of the output figure in user-defined Default = 9.}
+\item{height}{Numeric. The height of the output figure in user-defined units Default = 9.}
 
 \item{units}{Character. The units for the figure width and height passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}
-("in", "cm", "mm", or "px").}
+("in", "cm", "mm", or "px"). Default = "in".}
 
-\item{dpi}{Passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}. Plot resolution. Also accepts a string input: "retina" (320), "print" (300), or
+\item{dpi}{Numeric. Passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}. Plot resolution. Also accepts a string input: "retina" (320), "print" (300), or
 "screen" (72). Applies only to raster output types. Default = 300.}
 
-\item{bg}{Passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}. Background colour. If NULL, uses the plot.background fill value from the plot theme.
+\item{bg}{Character. Passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}. Background colour. If NULL, uses the plot.background fill value from the plot theme.
 Default = "white."}
 
-\item{device}{Passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}. Device to use. Can either be a device function (e.g. png), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
-Default = "pdf".}
+\item{device}{Character. Passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}. Device to use. Can either be a device function (e.g. png), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
+Default = "pdf". If not using default, change file name suffix in filename argument.}
 
 \item{speciesName}{Optional. Character. A species name, as it occurs in the user-input nameColumn.
-If entered, the data will be filtered to this species for the plot.
-#' @param nameColumn Optional. Character. If speciesName is not NULL, enter the column to look
+If provided, the data will be filtered to this species for the plot.}
+
+\item{saveFiltered}{Optional. Logical. If TRUE, the filtered data will be saved to the computer
+as a .csv file.}
+
+\item{filterColumn}{Optional. The flag column to display on the map. Default = .summary.}
+
+\item{nameColumn}{Optional. Character. If speciesName is not NULL, enter the column to look
 for the species in. A User might realise that, combined with speciesName, figures can be made for
 a variety of factors.}
 
-\item{saveFiltered}{Optional. Logical. If TRUE, the filtered data will be saved to the computer
-as a .csv file.
-#' @param plotMap Logical. If TRUE, the function will produce a point map. Tested for use with one
+\item{plotMap}{Logical. If TRUE, the function will produce a point map. Tested for use with one
 species at a time; i.e., with speciesName is not NULL.}
-
-\item{filterColumn}{Optional. The flag column to display on the map. Default = .summary.}
 
 \item{mapAlpha}{Optional. Numeric. The opacity for the points on the map.}
 
@@ -72,20 +76,22 @@ compound bar plot.}
 
 \item{jitterValue}{Optional. Numeric. The value to jitter points by in the map in decimal degrees.}
 
-\item{...}{Optional. Extra variables can be fed into \code{\link[forcats:fct_recode]{forcats::fct_recode()}} to change names on plot.
+\item{...}{Optional. Extra variables to be fed into \code{\link[forcats:fct_recode]{forcats::fct_recode()}} to change names on plot.
 For example... 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd", Gaiarsa = "Gai"}
 }
 \value{
 Exports a compound bar plot that summarises all flag columns. Optionally can also return
-A point map for a particular species in tandem with the summary plot.
+a point map for a particular species in tandem with the summary plot.
 }
 \description{
 Creates a compound bar plot that shows the proportion of records that pass or fail each flag (rows)
-and for each data source (columns).
+and for each data source (columns). The function can also optionally return a point map for
+a user-specified species when plotMap = TRUE.
 }
 \examples{
 # import data
 data(beesFlagged)
+OutPath_Figures <- tempdir()
  # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 plotFlagSummary(
   plotData = beesFlagged,

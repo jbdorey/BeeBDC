@@ -1,21 +1,22 @@
 # This function is a modification of a bdc function and flags columns as FALSE when they have a  
 # coordiante uncertainty over a user-set threshold. 
 # This function was written on the 2nd of August 2022 by James Dorey. Email James at
-# jbdorey@me.com for help.
+# jbdorey[at]me.com for help.
 
 
 #' Flag occurrences with an uncertainty threshold
 #' 
-#' User chooses a column, probably "coordinateUncertaintyInMeters" and a threshold below which occurrences
-#' will be flagged for geographic uncertainty.
+#' To use this function, the user must choose a column, probably "coordinateUncertaintyInMeters" 
+#' and a threshold above which occurrences will be flagged for geographic uncertainty.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param uncerColumn Character. The column to flag uncertainty in.
-#' @param threshold Numeric. The uncertainty threshold. Values equal to, or less than, this threshold
-#' will be flagged.
+#' @param threshold Numeric. The uncertainty threshold. Values equal to, or greater than, this 
+#' threshold will be flagged.
 #'
 #' @return The input data with a new column, .uncertaintyThreshold.
 #' @export
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' # Run the function
@@ -29,7 +30,7 @@ coordUncerFlagR <-
            uncerColumn = "coordinateUncertaintyInMeters",
            threshold = NULL) {
     .data <- .occurrenceAbsent <- NULL
-    require(dplyr)
+    requireNamespace("dplyr")
     
     # Make a new column called .occurrenceAbsent to be TRUE when occurrenceStatus is "present" or NA
     data <-

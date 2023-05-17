@@ -1,14 +1,18 @@
 # This function, written by James Dorey builds flags from the Ascher notes column
-# For queries, please contact James Dorey at jbdorey@me.com
+# For queries, please contact James Dorey at jbdorey[at]me.com
 # This function was started on 13th May 2022 and last updated 17th May 2022
 
-
+#' @importFrom dplyr %>%
+#' 
+#' 
 # Build a function that finds flags in the notes column and standardizes them into the flags column
 flag_converter <- function(SynFile = DLdf){
-  require(tibble)
-  require(tidyr)
-  require(dplyr)
-  require(stringr)
+  # locally bind variables to the function
+  DLdf <- . <- Combined <- NULL
+  
+
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
   #### 1.1 doubtful ####
   # Doubtful species strings to find and matches
   doubt_sp_str <-c("nomen dubium","doubtful synonymy","doubtful synonym")

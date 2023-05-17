@@ -17,13 +17,14 @@ summaryMaps(
 \arguments{
 \item{mapData}{A data frame or tibble. Occurrence records as input.}
 
-\item{class_n}{The number of categories to break the data into.}
+\item{class_n}{Numeric. The number of categories to break the data into.}
 
-\item{class_Style}{The class style passed to \code{\link[classInt:classIntervals]{classInt::classIntervals()}}, options are chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails", or "maximum".
-Default = fisher}
+\item{class_Style}{Character. The class style passed to \code{\link[classInt:classIntervals]{classInt::classIntervals()}}. Options are chosen
+style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust",
+"fisher", "jenks", "dpih", "headtails", or "maximum". Default = "fisher"}
 
-\item{filename}{A character vector with both the path to the save location and the file name itself
-for the output figure.}
+\item{filename}{A character vector with both the path to the save location and the file name
+itself for the output figure.}
 
 \item{width}{Numeric. The width, in inches, of the resulting figure. Default = 10.}
 
@@ -32,18 +33,20 @@ for the output figure.}
 \item{dpi}{Numeric. The resolution of the resulting plot. Default = 300.}
 }
 \value{
-Saves a figure to the user-specified outpath and name with a global map of bee occurrence
-species and count data from the input dataset.
+Saves a figure to the user-specified outpath and name with a global map of bee
+occurrence species and count data from the input dataset.
 }
 \description{
-Builds an output figure that shows the number of species and the number of occurrences per country.
-Breaks the data into classes for visualisation. Users may filter mapData to their taxa of interest to produce
-figures of interest.
+Builds an output figure that shows the number of species and the number of occurrences per
+country. Breaks the data into classes for visualisation. Users may filter mapData to their taxa
+of interest to produce figures of interest.
 }
 \examples{
 # Read in data
 data(beesFlagged)
-# This simple example using the test data has very few classes due to the small amount of input data.
+OutPath_Figures <- tempdir()
+# This simple example using the test data has very few classes due to the small amount of input 
+# data.
 summaryMaps(
 mapData = beesFlagged,
 width = 10, height = 10,

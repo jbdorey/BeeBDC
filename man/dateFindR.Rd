@@ -9,19 +9,24 @@ dateFindR(data = NULL, maxYear = lubridate::year(Sys.Date()), minYear = 1700)
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
 
-\item{maxYear}{Numeric. The maximum year considered reasonable to find. Default = lubridate::year(Sys.Date()).}
+\item{maxYear}{Numeric. The maximum year considered reasonable to find.
+Default = lubridate::year(Sys.Date()).}
 
 \item{minYear}{Numeric. The minimum year considered reasonable to find. Default = 1700.}
 }
 \value{
-The input data with updated eventDate, year, month, and day columns.
+The function results in the input occurrence data with but with updated eventDate, year,
+month, and day columns for occurrences where this data was a) missing and b) located in one of the
+searched columns.
 }
 \description{
 A function made to search other columns for dates and add them to the eventDate column.
-Searches the columns: locality, fieldNotes, locationRemarks, and verbatimEventDate.
+The function searches the columns locality, fieldNotes, locationRemarks, and verbatimEventDate
+for the relevant information.
 }
 \examples{
-# Run the example dataset... depending on the version you may not find any missing eventDates are rescued.
+# Using the example dataset, you may not find any missing eventDates are rescued (dependent on 
+# which version of the example dataset the user inputs.
 beesRaw_out <- dateFindR(data = beesRaw,
                          # Years above this are removed (from the recovered dates only)
                          maxYear = lubridate::year(Sys.Date()),

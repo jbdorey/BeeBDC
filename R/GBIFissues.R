@@ -1,6 +1,6 @@
 # This function was written by James B Dorey to chose and flag some issues as listed by GBIF.
   # This function was written on the 30th of May 2022. For questions, please contact James at
-  # jbdorey@me.com
+  # jbdorey[at]me.com
 
 # Possible flags:
   # allDates: RECORDED_DATE_INVALID, RECORDED_DATE_UNLIKELY
@@ -18,11 +18,11 @@
 
 #' Flags records with GBIF issues
 #' 
-#' This function will flag a user-specified vector of GBIF issues.
+#' This function will flag records which are subject to a user-specified vector of GBIF issues.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
-#' @param issueColumn The column in which to look for GBIF issues. Default = "issue".
-#' @param GBIFflags The GBIF issues to flag. Users may choose their own vector of issues to flag or
+#' @param issueColumn Character. The column in which to look for GBIF issues. Default = "issue".
+#' @param GBIFflags Character vector. The GBIF issues to flag. Users may choose their own vector of issues to flag or
 #' use a pre-set vector or vectors, including c("allDates", "allMetadata", "allObservations", 
 #' "allSpatial", "allTaxo", or "all").
 #' 
@@ -31,6 +31,8 @@
 #' @return Returns the data with a new column, ".GBIFflags", where FALSE = records with any of the provided 
 #' GBIFflags.
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' # Import the example data
@@ -48,12 +50,12 @@ GBIFissues <- function (data = NULL,
   .data <- .GBIFflags <- NULL
   #### 0.0 Warnings ####
   if(is.null(data)){
-    stop("\n — Please provide an argument for data. I'm a program, not a magician.")
+    stop("\n - Please provide an argument for data. I'm a program, not a magician.")
   }
   if(is.null(GBIFflags)){
-    warning("\n — GBIFflags not provided. Please provide an argument. I'm a program, not a magician.")
+    warning("\n - GBIFflags not provided. Please provide an argument. I'm a program, not a magician.")
     writeLines(paste(
-      " — Possible options are:\n",
+      " - Possible options are:\n",
       paste("TAXON_MATCH_HIGHERRANK", "TYPE_STATUS_INVALID", "TAXON_MATCH_FUZZY",
       "GEODETIC_DATUM_ASSUMED_WGS84", "COORDINATE_ROUNDED", "COORDINATE_PRECISION_INVALID",
       "FOOTPRINT_WKT_INVALID", "PRESUMED_NEGATED_LONGITUDE", "CONTINENT_INVALID",
@@ -67,7 +69,7 @@ GBIFissues <- function (data = NULL,
       "AMBIGUOUS_INSTITUTION", "COLLECTION_MATCH_FUZZY", 
       "INSTITUTION_COLLECTION_MISMATCH", "INSTITUTION_MATCH_FUZZY",
       "RECORDED_DATE_INVALID", "RECORDED_DATE_UNLIKELY", collapse = "", sep = ", "), "\n",
-    " — Or:\n",
+    " - Or:\n",
     "allDates, allMetadata, allObservations, allTaxo, allSpatial, or all. ",
     "We recommend thinking about what is required.", sep = ""
     ))
@@ -125,7 +127,7 @@ GBIFissues <- function (data = NULL,
   data <- data %>% dplyr::mutate(.GBIFflags = !tolower(.data[[issueColumn]]) %in% 
                                    tolower(GBIFflags))
     # User output
-  message(paste(" — jbd_GBIFissues:\nFlagged", 
+  message(paste(" - jbd_GBIFissues:\nFlagged", 
                 format(sum(data$.GBIFflags == FALSE, na.rm = TRUE), big.mark = ","),
                        "\n ",
                 "The .GBIFflags column was added to the database.", "\n",

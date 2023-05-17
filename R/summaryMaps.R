@@ -1,32 +1,41 @@
 # This function was written by James B Dorey on the 29th of September 2022
 # Its purpose is to visualise some data spatially by country
-# Please contact jbdorey@me.com for help
+# Please contact jbdorey[at]me.com for help
 
 
 #' Create country-level summary maps of species and occurrence numbers
 #' 
-#' Builds an output figure that shows the number of species and the number of occurrences per country.
-#' Breaks the data into classes for visualisation. Users may filter mapData to their taxa of interest to produce
-#' figures of interest.
+#' Builds an output figure that shows the number of species and the number of occurrences per 
+#' country. Breaks the data into classes for visualisation. Users may filter mapData to their taxa 
+#' of interest to produce figures of interest.
 #'
 #' @param mapData A data frame or tibble. Occurrence records as input.
-#' @param class_n The number of categories to break the data into.
-#' @param class_Style The class style passed to [classInt::classIntervals()], options are chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails", or "maximum".
-#' Default = fisher
-#' @param filename A character vector with both the path to the save location and the file name itself
-#' for the output figure.
+#' @param class_n Numeric. The number of categories to break the data into.
+#' @param class_Style Character. The class style passed to [classInt::classIntervals()]. Options are chosen 
+#' style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", 
+#' "fisher", "jenks", "dpih", "headtails", or "maximum". Default = "fisher"
+#' @param filename A character vector with both the path to the save location and the file name 
+#' itself for the output figure.
 #' @param width Numeric. The width, in inches, of the resulting figure. Default = 10.
 #' @param height Numeric. The height, in inches, of the resulting figure. Default = 5.
 #' @param dpi Numeric. The resolution of the resulting plot. Default = 300.
 #'
-#' @return Saves a figure to the user-specified outpath and name with a global map of bee occurrence
-#' species and count data from the input dataset. 
+#' @return Saves a figure to the user-specified outpath and name with a global map of bee 
+#' occurrence species and count data from the input dataset. 
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom sf sf_use_s2
+#' @importFrom ggspatial north_arrow_fancy_orienteering
+#' @importFrom grDevices gray
+#' @importFrom ggplot2 xlab ylab ggtitle
 #'
 #' @examples
 #' # Read in data
 #' data(beesFlagged)
-#' # This simple example using the test data has very few classes due to the small amount of input data.
+#' OutPath_Figures <- tempdir()
+#' # This simple example using the test data has very few classes due to the small amount of input 
+#' # data.
 #' summaryMaps(
 #' mapData = beesFlagged,
 #' width = 10, height = 10,
@@ -44,24 +53,25 @@ summaryMaps <- function(
     width = 10, height = 5,
     dpi = 300
 ){
-  require(ggplot2)
-  require(dplyr)
-  require(stringr)
-  require(tidyr)
-  require(classInt)
-  require(rnaturalearth)
-  require(tibble)
-  require(ggspatial)
+  # locally bind variables to the function
+  name_long<-iso_a3<-name<-geometry<-decimalLongitude<-decimalLatitude<-database_id<-
+    scientificName<-species<-country<-stateProvince<-dataSource<-count<-class_count<-
+    class_count2<-occCount <- NULL
+  
+  requireNamespace("dplyr")
+  requireNamespace("classInt")
+  requireNamespace("rnaturalearth")
+  requireNamespace("ggspatial")
   
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
   if(is.null(mapData)){
-    stop(" — Please provide an argument for mapData I'm a program not a magician.")
+    stop(" - Please provide an argument for mapData I'm a program not a magician.")
   }
   if(is.null(filename)){
-    stop(" — No argument provided for filename. Please provide a filename in full path format.")
+    stop(" - No argument provided for filename. Please provide a filename in full path format.")
   }
   
   
@@ -93,7 +103,7 @@ summaryMaps <- function(
                   country, stateProvince, dataSource, geometry)
   
     ##### 1.3 Extraction ####
-  writeLines(" — Extracting country data from points...")
+  writeLines(" - Extracting country data from points...")
   #Extract polygon information to points
   mapData <- sf::st_intersection(worldMap,
                                         mapData) %>%
@@ -118,7 +128,8 @@ summaryMaps <- function(
   # make class intervals.
   # Class intervals from ?classIntervals: fixed", "sd", "equal", "pretty", "quantile", 
   # "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"
-  classes <- classInt::classIntervals(spMapData$count, n = class_n, style = class_Style, dig.lab=20,
+  classes <- classInt::classIntervals(spMapData$count, n = class_n, 
+                                      style = class_Style, dig.lab=20,
                                       dataPrecision=0)
   # Next we’ll create a new column in our sf object using the base R cut() function to cut up our 
   # percent variable into distinct groups:
@@ -132,8 +143,10 @@ summaryMaps <- function(
                     stringr::str_remove("\\]") %>%
                     stringr::str_replace(",", "-")) %>%
     tidyr::separate(col = class_count2, into = c("min", "max"), sep = "-") %>%
-    dplyr::mutate(min = min %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
-                  max = max %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
+    dplyr::mutate(min = min %>% as.numeric() %>% format(big.mark = ",") %>% 
+                    stringr::str_remove("\\s+"),
+                  max = max %>% as.numeric() %>% format(big.mark = ",") %>% 
+                    stringr::str_remove("\\s+"),
                   class_count2 = stringr::str_c(min, max, sep = "-") ) 
   
   # Join the map and occurrence data
@@ -155,14 +168,15 @@ summaryMaps <- function(
       # Add in the map's north arrow
       ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
                              pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
-                             style = north_arrow_fancy_orienteering) + # Add in NORTH ARROW
+                             style = north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
       ggplot2::theme(panel.grid.major = ggplot2::element_line(color = gray(.1, alpha = 0.1), 
                                             linetype = "dashed", linewidth = 0.5), # Add grid lines
             panel.border = ggplot2::element_rect(color = gray(.1, alpha = 1), 
                                         linetype = "solid", linewidth = 0.5,
                                         fill = NA), # add panel border
-            panel.background = ggplot2::element_rect(fill = "aliceblue") )+ # Add background — colour in the ocean
-      # Change map colour scheme — CHOOSE YOUR OWN ADVENTURE
+            # Add background - colour in the ocean
+            panel.background = ggplot2::element_rect(fill = "aliceblue") )+ 
+      # Change map colour scheme - CHOOSE YOUR OWN ADVENTURE
       # For Dorey colour scheme use the below
       ggplot2::scale_fill_viridis_d(option = "inferno",
                            na.value = "grey50",
@@ -170,7 +184,8 @@ summaryMaps <- function(
                            labels = fullMap %>%
                              dplyr::arrange(count) %>% 
                              dplyr::distinct(class_count2) %>%
-                             dplyr::pull(class_count2)) + # options = "magma", "inferno", "plasma", "cividis"
+                             # options = "magma", "inferno", "plasma", "cividis"
+                             dplyr::pull(class_count2)) + 
       # Add in X and Y labels
       xlab("Longitude") + ylab("Latitude") + 
       # Add in the title
@@ -202,7 +217,8 @@ summaryMaps <- function(
   # make class intervals.
   # Class intervals from ?classIntervals: fixed", "sd", "equal", "pretty", "quantile", 
   # "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih" or "headtails"
-  classes <- classInt::classIntervals(fullMap$occCount, n = class_n, style = class_Style, dig.lab=20,
+  classes <- classInt::classIntervals(fullMap$occCount, n = class_n, 
+                                      style = class_Style, dig.lab=20,
                                       dataPrecision=0)
   # Next we’ll create a new column in our sf object using the base R cut() function to cut up our 
   # percent variable into distinct groups:
@@ -216,8 +232,10 @@ summaryMaps <- function(
                   stringr::str_remove("\\]") %>%
                   stringr::str_replace(",", "-")) %>%
     tidyr::separate(col = class_count2, into = c("min", "max"), sep = "-") %>%
-    dplyr::mutate(min = min %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
-                  max = max %>% as.numeric() %>% format(big.mark = ",") %>% stringr::str_remove("\\s+"),
+    dplyr::mutate(min = min %>% as.numeric() %>% format(big.mark = ",") %>% 
+                    stringr::str_remove("\\s+"),
+                  max = max %>% as.numeric() %>% format(big.mark = ",") %>% 
+                    stringr::str_remove("\\s+"),
                   class_count2 = stringr::str_c(min, max, sep = "-") ) 
   
   ##### 2.3 Draw map ####
@@ -233,14 +251,16 @@ summaryMaps <- function(
       # Add in the map's north arrow
       ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
                                         pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
-                                        style = north_arrow_fancy_orienteering) + # Add in NORTH ARROW
+                                        style = north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
       ggplot2::theme(panel.grid.major = ggplot2::element_line(color = gray(.1, alpha = 0.1), 
-                                                              linetype = "dashed", linewidth = 0.5), # Add grid lines
+                                                              linetype = "dashed", 
+                                                              linewidth = 0.5), # Add grid lines
                      panel.border = ggplot2::element_rect(color = gray(.1, alpha = 1), 
                                                           linetype = "solid", linewidth = 0.5,
                                                           fill = NA), # add panel border
-                     panel.background = ggplot2::element_rect(fill = "aliceblue") )+ # Add background — colour in the ocean
-      # Change map colour scheme — CHOOSE YOUR OWN ADVENTURE
+                     # Add background - colour in the ocean
+                     panel.background = ggplot2::element_rect(fill = "aliceblue") )+ 
+      # Change map colour scheme - CHOOSE YOUR OWN ADVENTURE
       # For Dorey colour scheme use the below
       ggplot2::scale_fill_viridis_d(option = "inferno",
                                     na.value = "grey50",
@@ -248,7 +268,8 @@ summaryMaps <- function(
                                     labels = fullMap %>%
                                       dplyr::arrange(occCount) %>% 
                                       dplyr::distinct(class_count2) %>%
-                                      dplyr::pull(class_count2)) + # options = "magma", "inferno", "plasma", "cividis"
+                                      # options = "magma", "inferno", "plasma", "cividis"
+                                      dplyr::pull(class_count2)) + 
       # Add in X and Y labels
       xlab("Longitude") + ylab("Latitude") + 
       # Add in the title

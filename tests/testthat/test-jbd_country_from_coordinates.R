@@ -1,7 +1,6 @@
 data("beesFlagged")
 
 
-
 #### 1.0 prefilter ####
 figuresP <-
    BeeDC::jbd_create_figures(

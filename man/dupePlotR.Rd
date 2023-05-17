@@ -17,7 +17,8 @@ dupePlotR(
 \arguments{
 \item{Data}{A data frame or tibble. Occurrence records as input.}
 
-\item{outpath}{A directory as a character string. Where the plot should be saved and it's name.}
+\item{outpath}{A directory as a character string. Where the plot should be saved AND it's name.
+i.e. mypath/.../duplicatePlot.pdf}
 
 \item{legend.position}{The position of the legend as coordinates. Default = c(0.85, 0.8).}
 
@@ -34,16 +35,19 @@ Default = c("#F2D2A2","#B9D6BC", "#349B90").}
 Outputs a .pdf figure.
 }
 \description{
-Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each data source
+Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each
+data source
 while the other shows the proportion of records that are duplicated within each data source.
 }
 \examples{
 
-# This example will show a warning for the factor levels taht are not present in the specific test dataset
+# This example will show a warning for the factor levels taht are not present in the specific 
+# test dataset
 dupePlotR(
   Data = beesFlagged,
   # The outpath to save the plot as
-  outpath = paste0(OutPath_Figures, "/duplicatePlot_TEST.pdf"),
+    # Should be something like: #paste0(OutPath_Figures, "/duplicatePlot_TEST.pdf"),
+  outpath = paste0(tempdir(), "/duplicatePlot_TEST.pdf"), 
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height

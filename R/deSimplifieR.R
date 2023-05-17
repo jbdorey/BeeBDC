@@ -1,15 +1,15 @@
 # This function was written by James B Dorey on the 20th of February 2023 to remove too-simple
   # id codes from occurrences. It is intended to be used internal in the jbd_dupeSummary function
-
+#' @importFrom dplyr %>%
+#' 
 deSimplifieR <- function(inputData = NULL,
                          characterThreshold = 2,
                          numberThreshold = 3,
                          numberOnlyThreshold = 5)
 {
   
-  require(dplyr)
-  require(magrittr)
-  require(stringr)
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
   
   #### 1.0 Remove simple strings ####
     # Remove simple codes, only do for each column if that column exists

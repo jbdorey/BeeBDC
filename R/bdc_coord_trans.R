@@ -1,7 +1,7 @@
 #' Internal function. Correct transposed coordinates
 #'
 #' This functions used different transformations to correct transposed
-#' geographic coordinates
+#' geographic coordinates.
 #'
 #' @family prefilter
 #' @param data data data.frame. Containing an unique identifier for each
@@ -17,17 +17,25 @@
 #' @param worldmap polygon. Borders of the world.
 #' @param worldmap_cntr_code charterer sting. Iso2 code column of country
 #' polygon database.
+#' 
 #'
 #' @return Internal function
 #' @export
 #'
-#' @importFrom dplyr select bind_rows
+#' @importFrom dplyr select bind_rows  %>%
 #'
-#' @noRd
 #'
 #' @examples
 #' \dontrun{
-#'
+#'bdc_coord_trans(
+#'   data = occ_country[[i]],
+#'   x = x,
+#'   y = y,
+#'   country_code = cntr_iso2,
+#'   id = id,
+#'   worldmap = world_poly,
+#'   worldmap_cntr_code = world_poly_iso
+#'   )
 #' }
 bdc_coord_trans <-
   function(data,

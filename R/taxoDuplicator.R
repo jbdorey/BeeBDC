@@ -1,14 +1,16 @@
   # This function was written by James Dorey to remove duplicates from the combined Orr and Ascher
-    # synonym lists. For questions, please email jbdorey@me.com
+    # synonym lists. For questions, please email jbdorey[at]me.com
 # This function was started on 17th May 2022 and last updated 17th May 2022
-
+#' @importFrom dplyr %>%
+#' @importFrom dplyr row_number
 
 taxoDuplicator <- function(
     SynList = NULL){
+  # locally bind variables to the function
+  validName <- accid <- id <- flags <- taxonomic_status <- canonical_withFlags <- canonical <- NULL
   
     # Load required packages
-  require(dplyr)
-  require(tibble)
+  requireNamespace("dplyr")
   
   #### 0.0 Prep ####
   # Look for duplicated names in the DiscoverLife subset of data
@@ -17,7 +19,7 @@ taxoDuplicator <- function(
     dplyr::group_by(validName) %>%
     dplyr::filter(n() > 1)
   # User output
-  writeLines(paste(" — ", format(nrow(duplicates), big.mark = ","),
+  writeLines(paste(" - ", format(nrow(duplicates), big.mark = ","),
                                  " duplicates found in the data.", sep = ""))
   
     # Build subsetted datasets to examine 
@@ -38,7 +40,7 @@ taxoDuplicator <- function(
   # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
   if(nrow(DLIDmatch) > 0 ){
     return(DLIDmatch)
-    stop(paste(" — That's odd! There is an Orr accepted name that is referred to by another name.",
+    stop(paste(" - That's odd! There is an Orr accepted name that is referred to by another name.",
                "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                "I have returned the list of offending names."))
   }
@@ -54,7 +56,7 @@ taxoDuplicator <- function(
     # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
   if(nrow(OrrIDmatch) > 0 ){
     return(OrrIDmatch)
-    stop(paste(" — That's odd! There is an Orr synonym that is referred to as an accepted name.",
+    stop(paste(" - That's odd! There is an Orr synonym that is referred to as an accepted name.",
                "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                "I have returned the list of offending names."))
   } 
@@ -73,7 +75,7 @@ taxoDuplicator <- function(
   # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
   if(nrow(DLduplicates) > 0 ){
     return(DLduplicates)
-    stop(paste(" — That's odd! There is an internal DiscoverLife synonym.",
+    stop(paste(" - That's odd! There is an internal DiscoverLife synonym.",
                "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                "I have returned the list of offending names."))
   }
@@ -105,11 +107,11 @@ taxoDuplicator <- function(
        if(nrow(LoopTibble) == 2){
         # LOGICAL both duplicates match to the same accid
          logiTest <- all(duplicated(LoopTibble$accid) | duplicated(LoopTibble$accid, fromLast = TRUE))
-          # IF the duplicates match the same accid (accepted name) — NON-ambiguous
+          # IF the duplicates match the same accid (accepted name) - NON-ambiguous
          if(logiTest == TRUE){
            nonAmbiSyns <- nonAmbiSyns %>% dplyr::bind_rows(LoopTibble)
          } # END TRUE
-           # IF the duplicates match different accid (accepted name) — AMBIGUOUS
+           # IF the duplicates match different accid (accepted name) - AMBIGUOUS
          if(logiTest == FALSE){
            ambiSyns <- ambiSyns %>% dplyr::bind_rows(LoopTibble)
          } # END FALSE
@@ -166,7 +168,7 @@ taxoDuplicator <- function(
        # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
        if(nrow(OrrIDmatches) > 0 ){
          return(OrrIDmatches)
-         stop(paste(" — That's odd! There are accids matching to Orr synonym IDs.",
+         stop(paste(" - That's odd! There are accids matching to Orr synonym IDs.",
                     "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                     "I have returned the list of offending names. You're welcome."))
        }
@@ -207,7 +209,7 @@ taxoDuplicator <- function(
       dplyr::filter(accid != 0)
       # Stop if this is not half of the original (not all correspond to an Orr Syn)
     if(nrow(dupes2remove_UnVNcheck) != (nrow(UniqueVNcheck)/2)){
-      stop(paste(" — This is new! There is a problem at 4.1 ValSyn_clean. Please go and have a look.",
+      stop(paste(" - This is new! There is a problem at 4.1 ValSyn_clean. Please go and have a look.",
                  "\n", "Good luck, LOL."))
     }
       # Remove dupes2remove_UnVNcheck (duplicates) from the list to return, and then add the new names.
@@ -286,11 +288,11 @@ taxoDuplicator <- function(
         if(nrow(LoopTibble) == 2){
           # LOGICAL both duplicates match to the same accid
           logiTest <- all(duplicated(LoopTibble$accid) | duplicated(LoopTibble$accid, fromLast = TRUE))
-          # IF the duplicates match the same accid (accepted name) — NON-ambiguous
+          # IF the duplicates match the same accid (accepted name) - NON-ambiguous
           if(logiTest == TRUE){
             nonAmbiSyns_51 <- nonAmbiSyns_51 %>% dplyr::bind_rows(LoopTibble)
           } # END TRUE
-          # IF the duplicates match different accid (accepted name) — AMBIGUOUS
+          # IF the duplicates match different accid (accepted name) - AMBIGUOUS
           if(logiTest == FALSE){
               # If one of these matches the other, they are NOT ambiguous.
             accTEST <- any(LoopTibble$id %in% LoopTibble$accid)
@@ -314,7 +316,7 @@ taxoDuplicator <- function(
             ambiSyns_51 <- ambiSyns_51 %>% 
               dplyr::bind_rows(LoopTibble)
           }else{ # ALL of the others have been ambiguous so far
-            # Logical — if ALL but one accid matches an id, take the to mean they are all pointing at
+            # Logical - if ALL but one accid matches an id, take the to mean they are all pointing at
             # the same record. None shold match for now.
             accTest <- sum(LoopTibble$id %in% LoopTibble$accid) == nrow(LoopTibble)-1
                # Add these data to the ambiSyns_51 dataframe
@@ -322,7 +324,7 @@ taxoDuplicator <- function(
                ambiSyns_51 <- ambiSyns_51 %>% 
                  dplyr::bind_rows(LoopTibble)
                }else(
-                 stop(" — unique problem at 5.1. :(")
+                 stop(" - unique problem at 5.1. :(")
                )
           } # END else
         } # END n > 2
@@ -411,11 +413,11 @@ taxoDuplicator <- function(
         if(nrow(LoopTibble) == 2){
           # LOGICAL both duplicates match to the same accid
           logiTest <- all(duplicated(LoopTibble$accid) | duplicated(LoopTibble$accid, fromLast = TRUE))
-          # IF the duplicates match the same accid (accepted name) — NON-ambiguous
+          # IF the duplicates match the same accid (accepted name) - NON-ambiguous
           if(logiTest == TRUE){
             nonAmbiSyns_52 <- nonAmbiSyns_52 %>% dplyr::bind_rows(LoopTibble)
           } # END TRUE
-          # IF the duplicates match different accid (accepted name) — AMBIGUOUS
+          # IF the duplicates match different accid (accepted name) - AMBIGUOUS
           if(logiTest == FALSE){
             # If one of these matches the other, they are NOT ambiguous.
             accTEST <- any(LoopTibble$id %in% LoopTibble$accid)
@@ -439,7 +441,7 @@ taxoDuplicator <- function(
             ambiSyns_52 <- ambiSyns_52 %>% 
               dplyr::bind_rows(LoopTibble)
           }else{ # ALL of the others have been ambiguous so far
-            # Logical — if ALL but one accid matches an id, take the to mean they are all pointing at
+            # Logical - if ALL but one accid matches an id, take the to mean they are all pointing at
             # the same record. None shold match for now.
             accTest <- sum(LoopTibble$id %in% LoopTibble$accid) == nrow(LoopTibble)-1
             # Add these data to the ambiSyns_52 dataframe
@@ -447,7 +449,7 @@ taxoDuplicator <- function(
               ambiSyns_52 <- ambiSyns_52 %>% 
                 dplyr::bind_rows(LoopTibble)
             }else(
-              stop(" — unique problem at 5.2! :(")
+              stop(" - unique problem at 5.2! :(")
             )
           } # END else
         } # END n > 2
@@ -517,13 +519,13 @@ taxoDuplicator <- function(
 
     # What an adventure that was!
     # Now, lets try and return some user information 
-writeLines(paste(    " — Cleaning complete! From an initial dataset of ", 
+writeLines(paste(    " - Cleaning complete! From an initial dataset of ", 
                  format(nrow(SynList), big.mark = ","), " names, there ",
                  "remain ", format(nrow(deDuplicated_52), big.mark = ",")," names.",  "\n",
-                     " — We removed:", "\n"   ,
+                     " - We removed:", "\n"   ,
                  nrow(DLduplicates), " Ascher accepted names,", "\n"   ,
                  nrow(OrrAcc2remove), " Orr 'accepted' names,", "\n",
-                  # 2.2 — synonyms removed
+                  # 2.2 - synonyms removed
                  format(nrow(nonAmbiSyns)-nrow(nonAmbiSyns_deDuped), big.mark = ","),
                         " Ascher synonyms,", "\n"   ,
                  format(nrow(OrrSyns) - nrow(OrrUnique), big.mark = ",")
@@ -531,7 +533,7 @@ writeLines(paste(    " — Cleaning complete! From an initial dataset of ",
                  nrow(OrrDuplicates)-nrow(OrrOriginals), " Orr synonyms duplicated with the Ascher list,", "\n"   ,
                  nrow(dupes2remove_UnVNcheck), " subsequent duplicates after merging,", "\n",
                   # AMBIGUOUS flagged
-                    " — We flagged:", "\n"   ,
+                    " - We flagged:", "\n"   ,
                  sum(deDuplicated_52$flags %in% "ambiguous validName"), 
                   " ambiguous validName, ", "\n"   ,
                  sum(deDuplicated_52$flags %in% "ambiguous can_wFlags"), 
@@ -542,9 +544,9 @@ writeLines(paste(    " — Cleaning complete! From an initial dataset of ",
                  " NON-ambiguous, but duplicated, canonical_withFlags names, ", "\n",
                  sum(deDuplicated_52$flags %in% "non-ambiguous canonical"), 
                  " NON-ambiguous, but duplicated, canonical names, ", "\n",
-                     " — We removed: ", "\n",
+                     " - We removed: ", "\n",
                  ambiAccCount, " ambiguous synonyms associated with accepted names.", "\n",
-                    " — We re-assigned:", "\n"   ,
+                    " - We re-assigned:", "\n"   ,
                  nrow(dupID), " duplicated [non-duplicate] ids",
 sep = "")) 
   # Return the cleaned dataset

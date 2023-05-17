@@ -1,51 +1,52 @@
   # These functinos were written by James B Dorey around the 17th of June 2022 to read in,
     # Format and save varioues datasets.
-  # For questions, please email jbdorey@me.com
+  # For questions, please email jbdorey[at]me.com
 
 #### 1.0 EPEL ####
 #' Reads specific data files into Darwin Core format
 #' 
 #' Data files are specific to various data providers and users may examine code function-by-function.
 #' 
-#' @param path The path to the directory containing the data.
-#' @param inFile The name of the file itself (can also be the remainder of a path including the file name).
-#' @param outFile The name of the Darwin Core format file to produce.
-#' @param dataLicense The license to accompany each record in the Darwin Core 'license' column.
+#' @param path Character path. The path to the directory containing the data.
+#' @param inFile Character or character path. The name of the file itself (can also be the remainder of a path including the file name).
+#' @param outFile Character or character path. The name of the Darwin Core format file to produce.
+#' @param dataLicense Character. The license to accompany each record in the Darwin Core 'license' column.
+#' @param beeFilter Filters to only the bee families - for use in [BeeDC::readr_Lic()]
 #'
 #' @return A data frame that's in Darwin Core format.
 #' @export
 #' 
 #' @importFrom readr read_csv write_csv
-#' @importFrom dplyr rename mutate select if_else
+#' @importFrom dplyr rename mutate select if_else %>%
 #' @importFrom lubridate ymd month
 #' @importFrom stringr str_c
-#' @importFrom mgsub mgsub
 #'
 #' @examples
 #' \dontrun{
-#' An example using a .csv file
-#' EPEL_Data <- Ereadr_PEL(path = paste0(DataPath, "/Additional_Datasets"),
+#' # An example using a .csv file
+#' EPEL_Data <- Ereadr_PEL(path = paste0(tempdir(), "/Additional_Datasets"),
 #'inFile = "/InputDatasets/bee_data_canada.csv",
 #' outFile = "jbd_EPEL_data.csv",
 #' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 #' 
-#' An example using a .xlsx file
-#'     Arm_Data <- readr_Arm(path = paste0(DataPath, "/Additional_Datasets"),
-#' inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
-#' outFile = "jbd_Arm_Data.csv",
-#' sheet = "Sheet1",
-#' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+#' 
 #' }
 readr_EPEL <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  catalog_number<-pollinator_family<-pollinator_genus<-pollinator_species<-collection_method<-
+    day_collected<-month_collected<-year_collected<-location_description<-latitude<-longitude<-
+    basis_of_record<-genus<-specificEpithet<-year<-day<-eventDate<-collector_number<-
+    location_name<-habitat<-.<-catalogNumber <- NULL
+  
   #### 1.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   #### 1.2 Read+ ####
   EPEL_Data <- readr::read_csv(paste(path, inFile, sep = "/"),
                               trim_ws = TRUE) %>%
@@ -83,11 +84,11 @@ readr_EPEL <- function(path = NULL,
         dplyr::if_else(!is.na(habitat),
                        paste0("habitat: ", habitat), ""),
         sep = "|") %>%
-        # Remove extra bars.
-        mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                     replacement = c("\\|")) %>%
-        mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                     replacement = c("",""))) %>%
+        # Remove extra bars "|".
+        stringr::str_replace_all(pattern = "(\\|){2,9}",
+                                 replacement = "\\|") %>%
+        stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                                 replacement = "")) %>%
   # Remove these input columns
   dplyr::select(!c(collector_number, location_name, habitat)) %>%
   # add the database_id column
@@ -120,12 +121,15 @@ readr_ASP <- function(path = NULL,
                          inFile = NULL,
                          outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  Tribe <- Morphospecies <- Successional_Stage <- genus <- specificEpithet <- NULL
+  eventDate <- catalogNumber <- . <- NULL
   #### 2.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 2.2 Read+ ####
 ASP_data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -138,11 +142,11 @@ ASP_data <- readr::read_csv(paste(path, inFile, sep = "/"),
       dplyr::if_else(!is.na(Morphospecies),
                      paste0("Morphospecies: ", Morphospecies), ""),
       sep = "|") %>%
-      # Remove extra bars.
-      mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                   replacement = c("\\|")) %>%
-      mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                   replacement = c("",""))) %>%
+      # Remove extra bars "|".
+      stringr::str_replace_all(pattern = "(\\|){2,9}",
+                               replacement = "\\|") %>%
+      stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                               replacement = "")) %>%
   dplyr::mutate(
     # Add locationRemarks
     locationRemarks = paste0("Successional Stage:", Successional_Stage),
@@ -187,12 +191,21 @@ readr_BMin <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  eventDate <- . <- catalogNumber <- NULL
+  catalog_number <- pollinator_family <- pollinator_genus <- pollinator_species <- NULL
+  collection_method <- day_collected <- month_collected <- year_collected <- NULL
+  location_description <- latitude <- longitude <- basis_of_record <- genus <- NULL
+  specificEpithet <- year <- day <- eventDate <- collector_number <- location_name <- NULL
+  habitat <- . <- catalogNumber <- NULL
+  
+  
   #### 3.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   #### 3.2 Read+ ####
 BMin_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                                trim_ws = TRUE) %>%
@@ -231,12 +244,17 @@ readr_BMont <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  occurence_lsid <- fieldNotes <- GPS_device <- . <- catalogNumber <- eventDate <- dateTest <- NULL
+  tempDate <- mdy <- NULL
+  
+  
   #### 4.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 4.2 Read+ ####
 BMont_data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -251,11 +269,11 @@ BMont_data <- readr::read_csv(paste(path, inFile, sep = "/"),
       dplyr::if_else(!is.na(GPS_device),
                      paste0("GPS_device: ", GPS_device), ""),
       sep = "|") %>%
-      # Remove extra bars.
-      mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                   replacement = c("\\|")) %>%
-      mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                   replacement = c("",""))) %>%
+       # Remove extra bars "|".
+       stringr::str_replace_all(pattern = "(\\|){2,9}",
+                                replacement = "\\|") %>%
+       stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                                replacement = "")) %>%
     dplyr::mutate(dataSource = "BMont_Anthophila") %>%
   # add the database_id column
   dplyr::mutate(
@@ -308,12 +326,15 @@ readr_Ecd <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  year <- day <- institutionCode <- id <- . <- catalogNumber <- NULL
+  
   #### 5.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 5.2 Read+ ####
 Ecd_data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -353,12 +374,16 @@ readr_Gai <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  species<-subspecies<-SpecimenLocation<-eventTime<-EndTime<-TempStart<-TempEnd<-WindStart<-
+    WindEnd<-SkyStart<-SkyEnd<-Site<-siteLocality<-syd<-eventDate<-.<-institutionCode <- NULL
+  
   #### 6.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   #### 6.2 Read+ ####
 Gai_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                             trim_ws = TRUE) %>%
@@ -395,11 +420,11 @@ Gai_data <- readr::read_csv(paste(path, inFile, sep = "/"),
     dplyr::if_else(!is.na(syd),
                    paste0("syd: ", syd), ""),
     sep = "|") %>%
-  # Remove extra bars.
-  mgsub::mgsub(pattern = c("(\\|){2,9}"),
-               replacement = c("\\|")) %>%
-  mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-               replacement = c("",""))) %>% 
+      # Remove extra bars "|".
+      stringr::str_replace_all(pattern = "(\\|){2,9}",
+                               replacement = "\\|") %>%
+      stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                               replacement = "")) %>%
   dplyr::mutate(
     # Format eventDate
     eventDate = lubridate::mdy(eventDate,
@@ -428,54 +453,59 @@ return(Gai_data)
 #' 
 #' Data files are specific to various data providers and users may examine code function-by-function.
 #' 
-#' @param path The path to the directory containing the data.
-#' @param inFile The name of the file itself (can also be the remainder of a path including the file name).
-#' @param outFile The name of the Darwin Core format file to produce.
-#' @param dataLicense The license to accompany each record in the Darwin Core 'license' column.
+#' @param path A character path. The path to the directory containing the data.
+#' @param inFile Character or character path. The name of the file itself (can also be the 
+#' remainder of a path including the file name).
+#' @param outFile Character or character path. The name of the Darwin Core format file to be saved.
+#' @param dataLicense Character. The license to accompany each record in the Darwin Core 'license' column.
 #' @param sheet A character String. For those datasets read from an .xlsx format, provide the 
 #' sheet name.
 #'
-#' @return A data frame that's in Darwin Core format.
+#' @return A data frame that is in Darwin Core format.
 #' @export
 #' 
 #' @importFrom readr read_csv write_csv
-#' @importFrom dplyr rename mutate select if_else
+#' @importFrom dplyr rename mutate select if_else  %>%
 #' @importFrom lubridate ymd month
 #' @importFrom stringr str_c
-#' @importFrom mgsub mgsub
 #'
 #' @examples
-#' An example using a .csv file
-#' EPEL_Data <- readr_EPEL(path = paste0(DataPath, "/Additional_Datasets"),
-#'inFile = "/InputDatasets/bee_data_canada.csv",
-#' outFile = "jbd_EPEL_data.csv",
-#' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
-#' 
-#' An example using a .xlsx file
-#'     Arm_Data <- readr_Arm(path = paste0(DataPath, "/Additional_Datasets"),
+#' \dontrun{
+#' # An example using a .xlsx file
+#'     Arm_Data <- readr_Arm(path = paste0(tempdir(), "/Additional_Datasets"),
 #' inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
 #' outFile = "jbd_Arm_Data.csv",
 #' sheet = "Sheet1",
 #' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+#' }
 readr_CAES <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
                        sheet = "Sheet1"){
-    #### 7.1 Prep ####
-    # This will load the required packages. These packages may still need to be installed to 
-      # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  # locally bind variables to the function
+  Tribe <- Morphospecies <- Successional_Stage <- genus <- specificEpithet <- NULL
+  eventDate <- catalogNumber <- . <- NULL
+  .<-PBIUSI<-Family<-Subfamily<-Genus<-species<-Country<-State_Prov<-Sec_Subdiv<-Locality<-Lat<-
+    Lon<-Start_Date<-Collector<-Sex<-Inst_Code<-Det_By<-Det_Date<-Coll_Method<-Spec_Count<-
+    Elev_m<-Trip_Code<-Project<-Det_History<-Tribe<-Host_Genus<-Host_Common_Name<-
+    Host_Relation<-Host_Location<-Loc_Notes<-Lat_Lon_Method<-End_Date<-eventDate<-
+    Elev_Det<-Macro_Habitat<-Micro_Habitat<-Pres_Method<-Spec_Notes<-genus<-specificEpithet<-
+    Lat_Lon_Accuracy<-Host_species<-Host_Family<-catalogNumber <- NULL
   
+    #### 7.1 Prep ####
+    # This will load the requireNamespaced packages. These packages may still need to be installed to 
+      # R using install.packages("dplyr")... etc.
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   #### 7.2 Read+ ####
     # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
 CAES_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
                              trim_ws = TRUE, col_types = "text",
-                             progress = readxl_progress()) %>%
+                             progress = readxl::readxl_progress()) %>%
   # Turn spaces into "_" in column names
   dplyr::rename_with(., ~ gsub(" ", "_", .x, fixed = TRUE)) %>%
   # Make columns DarwinCore-compatible
@@ -507,7 +537,7 @@ CAES_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
     dplyr::mutate(
     # Add previousIdentifications
     previousIdentifications = paste0(
-        # ONLY do this IF there is something in the cell — is.na() finds "NA" values. the "!" reverses this to find complete.cases only.
+        # ONLY do this IF there is something in the cell - is.na() finds "NA" values. the "!" reverses this to find complete.cases only.
       dplyr::if_else(!is.na(Tribe), paste0("Tribe: ", Tribe),"")),
     # Add associatedTaxa
       # This will ONLY concatenate columns where they have a value.
@@ -521,10 +551,10 @@ CAES_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
                      paste0("Host_location: ", Host_Location), ""),
       sep = "|") %>%
       # Remove extra bars "|".
-      mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                   replacement = c("\\|")) %>%
-      mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                   replacement = c("",""))) %>%
+      stringr::str_replace_all(pattern = "(\\|){2,9}",
+                               replacement = "\\|") %>%
+      stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                               replacement = "")) %>%
     # Do the same as the last mutate, but for fieldNotes
   dplyr::mutate(
     fieldNotes = stringr::str_c(
@@ -545,11 +575,11 @@ CAES_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
       dplyr::if_else(!is.na(Spec_Notes),
                      paste0("Specimen_notes: ", Spec_Notes), ""),
       sep = "|") %>%
-      # Remove extra bars.
-      mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                   replacement = c("\\|")) %>%
-      mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                   replacement = c("",""))) %>%
+      # Remove extra bars "|".
+      stringr::str_replace_all(pattern = "(\\|){2,9}",
+                               replacement = "\\|") %>%
+      stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                               replacement = "")) %>%
         # Add scientificName
       dplyr::mutate(
         scientificName = stringr::str_c(
@@ -583,7 +613,7 @@ CAES_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
                    End_Date, Elev_Det, Macro_Habitat, Micro_Habitat, Pres_Method, Spec_Notes,
                    Lat_Lon_Accuracy)) %>%
   # Remove double white-spaces
-  apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+  apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
   # add the database_id column
   dplyr::mutate(
     database_id = paste("CAES_data_", 1:nrow(.), sep = ""),
@@ -617,14 +647,20 @@ readr_KP <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
                      dataLicense = NULL){
+  # locally bind variables to the function
+  .<-ID<-Family<-Subfamily<-Genus<-Det<-Number<-Collection_method<-Collector<-Order<-Suborder<-
+    subgenus<-species<-subspecies<-author<-whole_sci_name<-Country<-State<-County_Parish<-
+    Location<-Lat<-Long<-decimalLatitude<-decimalLongitude<-Tribe<-sp_group<-Male<-Female<-
+    genus<-specificEpithet<-infraspecificEpithet<-Collection_date<-catalogNumber <- NULL
+  
   #### 9.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 9.2 Read+ ####
   # Reads in the .xlsx file, trims the white spaces, and formats the columns to the correct type
@@ -669,11 +705,11 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
       dplyr::if_else(!is.na(sp_group),
                      paste0("sp_group: ", sp_group), ""),
       sep = "|") %>%
-      # Remove extra bars.
-      mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                   replacement = c("\\|")) %>%
-      mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                   replacement = c("",""))) %>%
+      # Remove extra bars "|".
+      stringr::str_replace_all(pattern = "(\\|){2,9}",
+                               replacement = "\\|") %>%
+      stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                               replacement = "")) %>%
     # Do the same as the last mutate, but for fieldNotes
     dplyr::mutate(
       sex = stringr::str_c(
@@ -682,11 +718,12 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
         dplyr::if_else(!is.na(Female) & Female != 0,
                        paste0(Female, " F"), ""),
         sep = "|") %>%
-        # Remove extra bars.
-        mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                     replacement = c("\\|")) %>%
-        mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                     replacement = c("",""))) %>%
+        # Remove extra bars "|".
+        # Remove extra bars "|".
+        stringr::str_replace_all(pattern = "(\\|){2,9}",
+                                 replacement = "\\|") %>%
+        stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                                 replacement = "")) %>%
     # Format eventDate and add dataSource
     dplyr::mutate(
       # Create scientificName
@@ -705,7 +742,7 @@ KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
     # Remove those now redundant columns
     dplyr::select(!c(Male, Female, sp_group, Tribe, Collection_date)) %>%
     # Remove double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("KP_data_", 1:nrow(.), sep = ""),
@@ -743,14 +780,18 @@ readr_EcoS <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
                      dataLicense = NULL){
+  # locally bind variables to the function
+  Species <- . <- scientificName <- Latitude <- Longitude <- Year <- catalogNumber <- NULL
+  Collection <- ID_project <- NULL
+  
   #### 11.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 11.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
@@ -780,7 +821,7 @@ readr_EcoS <- function(path = NULL,
       # Add dataset information
     dplyr::mutate(dataSource = "EcoS_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("EcoS_data_", 1:nrow(.), sep = ""),
@@ -819,14 +860,24 @@ readr_GeoL <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
+  # locally bind variables to the function
+  geolocate_Latitude<-geolocate_Longitude<-geolocate_UncertaintyRadiusMeters<-database_id<-
+    bels_decimallatitude<-bels_decimallongitude<-bels_coordinateuncertaintyinmeters<-datasource<-
+    scientificname<-infraspecificepithet<-specificepithet<-acceptednameusage<-taxonrank<-
+    scientificnameauthorship<-countrycode<-stateprovince<-eventdate<-basisofrecord<-
+    occurrencestatus<-recordnumber<-recordedby<-eventid<-samplingprotocol<-samplingeffort<-
+    individualcount<-catalognumber<-rightsholder<-institutioncode<-datasetname<-
+    othercatalognumbers<-occurrenceid<-coreid<-recordid<-collectionid<-
+    verbatimscientificname<-verbatimeventdate<-id <- NULL
+  
   #### 12.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 12.2 Read+ ####
     ###### a. GeoL_high ####
@@ -849,7 +900,7 @@ readr_GeoL <- function(path = NULL,
     )
   # User output
   writeLines(paste0(
-    " — We have read in ", 
+    " - We have read in ", 
     format(nrow(GeoL_data), big.mark = ","), " occurrence records from the 'GEOLOCATE HIGH' sheet." 
   ))
   
@@ -905,7 +956,7 @@ readr_GeoL <- function(path = NULL,
     )
   # User output
   writeLines(paste0(
-    " — We have read in ", 
+    " - We have read in ", 
     format(nrow(BELS_data), big.mark = ","), " occurrence records from the 'BELS High' sheet." 
   ))
   
@@ -920,7 +971,7 @@ readr_GeoL <- function(path = NULL,
     
     # User output
   writeLines(paste0(
-    " — We have kept ", 
+    " - We have kept ", 
     format(sum(GeoL_data$tempSource == "GeoL", na.rm = FALSE), big.mark = ","), 
     " occurrences from GeoLocate, and ",
     format(sum(GeoL_data$tempSource == "Bels", na.rm = FALSE), big.mark = ","),
@@ -954,14 +1005,19 @@ readr_EaCO <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
+  # locally bind variables to the function
+  County<-State<-Genus<-genus<-species<-dateRange<-dateSet<-dateCollected<-treatment<-
+    trapNumber<-samplingRound<-coordinates<-decimalLatitude<-decimalLongitude<-recordNumber<-
+    .<-catalogNumber <- NULL
+  
   #### 13.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 13.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
@@ -1010,10 +1066,10 @@ readr_EaCO <- function(path = NULL,
                        paste0("samplingRound: ", samplingRound), ""),
         sep = "|") %>%
         # Remove extra bars "|".
-        mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                     replacement = c("\\|")) %>%
-        mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                     replacement = c("",""))) %>%
+        stringr::str_replace_all(pattern = "(\\|){2,9}",
+                                 replacement = "\\|") %>%
+        stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                                 replacement = "")) %>%
       # Add samplingEffort
     dplyr::mutate(
       samplingEffort = dateCollected - dateSet
@@ -1031,7 +1087,7 @@ readr_EaCO <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "EaCO_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("EaCO_data_", 1:nrow(.), sep = ""),
@@ -1062,7 +1118,7 @@ readr_EaCO <- function(path = NULL,
 
 
 #### 14.0 MABC ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_CAES
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1070,22 +1126,27 @@ readr_EaCO <- function(path = NULL,
 readr_MABC <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
-                       dataLicense = NULL){
+                       dataLicense = NULL,
+                       sheet = "Hoja1"){
+  # locally bind variables to the function
+  genus <- specificEpithet <- collectionSite <- siteCode <- hour <- tribe <- eventDate <- NULL
+  . <- catalogNumber <- NULL
+  
   #### 14.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 14.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
   MABC_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
                                   trim_ws = TRUE,
                                   col_types = "text",
-                                  sheet = "Hoja1") %>%
+                                  sheet = sheet) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = 'Ejemplar',
@@ -1127,10 +1188,10 @@ readr_MABC <- function(path = NULL,
                        paste0("time: ", hour), ""),
         sep = "|") %>%
         # Remove extra bars "|".
-        mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                     replacement = c("\\|")) %>%
-        mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                     replacement = c("",""))) %>% 
+        stringr::str_replace_all(pattern = "(\\|){2,9}",
+                                 replacement = "\\|") %>%
+        stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                                 replacement = "")) %>%
     # Add identificationRemarks
     dplyr::mutate(
       identificationRemarks = stringr::str_c(
@@ -1140,7 +1201,7 @@ readr_MABC <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "MABC_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("MABC_data_", 1:nrow(.), sep = ""),
@@ -1178,14 +1239,18 @@ readr_Col <- function(path = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
                       sheet = sheet){
+  # locally bind variables to the function
+  day <- year <- eventDateInitial <- eventDate <- month2 <- day2 <- eventDate2 <- NULL
+  scientificName <- . <- catalogNumber <- NULL
+  
   #### 15.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 15.2 Read+ ####
     ###### a. Col_data ####
@@ -1295,7 +1360,7 @@ readr_Col <- function(path = NULL,
                     stringr::str_replace(pattern = "\\( ",
                                          replacement = "\\(")) %>%
     # Remove any double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("Col_data_", 1:nrow(.), sep = ""),
@@ -1305,7 +1370,7 @@ readr_Col <- function(path = NULL,
     dplyr::mutate(license = dataLicense)  %>%
     # add the database_id column
     dplyr::mutate(
-      datasetName = "Colombia — Diego Alexander Guevara Farias",
+      datasetName = "Colombia - Diego Alexander Guevara Farias",
       datasetID = "Col"
     )
   
@@ -1332,14 +1397,17 @@ readr_FSCA <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
+  # locally bind variables to the function
+  . <- catalogNumber <- NULL
+  
   #### 16.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 16.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
@@ -1348,7 +1416,7 @@ readr_FSCA <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "FSCA_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("FSCA_data_", 1:nrow(.), sep = ""),
@@ -1384,12 +1452,16 @@ readr_SMC <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  collectionMethod <- locale <- latitude <- longitude <- organismName <- scientificName <- NULL
+  observationDate <- eventDate <- . <- NULL
+  
   #### 17.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   #### 17.2 Read+ ####
   SMC_Data <- readr::read_csv(paste(path, inFile, sep = "/"),
                               trim_ws = TRUE, guess_max = 33000) %>%
@@ -1433,7 +1505,7 @@ readr_SMC <- function(path = NULL,
 
 
 #### 18.0 Bal ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_CAES
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1442,14 +1514,19 @@ readr_Bal <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  siteID<-year<-animalID<-abundance<-samplingMethod<-censusType<-decimalLatitude<-
+    decimalLongitude<-studyLocation<-siteDescription<-studyID<-locationID<-.<-
+    samplingIntensity<-eventDate<-catalogNumber <- NULL
+  
   #### 18.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 18.2 Read+ ####
   # Reads in the .xlsx file, trims the white spaces, and formats the columns to the correct type
@@ -1525,14 +1602,18 @@ readr_Lic <- function(path = NULL,
                       outFile = NULL,
                       dataLicense = NULL,
                       beeFilter = TRUE){
+  # locally bind variables to the function
+  Kingdom<-Order<-Family_or_grp<-Genus<-Species<-sex<-Collector<-Determiner<-genus<-species<-
+    occurrenceID<-eventID<-eventDate<-.<-catalogNumber<-family <- NULL
+  
   #### 19.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 19.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
@@ -1574,7 +1655,7 @@ readr_Lic <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "Lic_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("Lic_data_", 1:nrow(.), sep = ""),
@@ -1618,20 +1699,25 @@ readr_Arm <- function(path = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
                        sheet = "Sheet1"){
+  # locally bind variables to the function
+  fam<-genus<-sp<-species<-sex<-locality<-munic<-state<-y<-x<-elev<-specificEpithet<-ecoregion<-
+    veget<-g<-m<-s<-G<-M<-S<-day<-year<-.<-family <- NULL
+  
   #### 20.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 20.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
   Arm_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
                                  trim_ws = TRUE, col_types = "text",
-                                 progress = readxl_progress()) %>%
+                                 progress = 
+                                  readxl::readxl_progress()) %>%
     # Make columns DarwinCore-compatible
     dplyr::rename(
       family = fam,
@@ -1662,11 +1748,11 @@ readr_Arm <- function(path = NULL,
         dplyr::if_else(!is.na(veget),
                        paste0("vegetation: ", veget), ""),
         sep = "|") %>%
-        # Remove extra bars.
-        mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                     replacement = c("\\|")) %>%
-        mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                     replacement = c("",""))) %>%
+        # Remove extra bars "|".
+        stringr::str_replace_all(pattern = "(\\|){2,9}",
+                                 replacement = "\\|") %>%
+        stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                                 replacement = "")) %>%
     # Add scientificName
     dplyr::mutate(
       verbatimLatitude = stringr::str_c(
@@ -1696,14 +1782,14 @@ readr_Arm <- function(path = NULL,
       )), # 215 failed to parse. 
       dataSource = "Arm_Anthophila") %>%
     # Remove double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("Arm_data_", 1:nrow(.), sep = ""),
       .before = family)  %>%
     dplyr::mutate(license = dataLicense) %>%
       # Remove spent columns
-    dplyr::select(!c(veget, ecoregion, g, m, s, G, M, S,)) %>%
+    dplyr::select(!tidyselect::any_of(veget, ecoregion, g, m, s, G, M, S,)) %>%
     # add the database_id column
     dplyr::mutate(
       datasetName = "Armando Falcon-Brindis",
@@ -1734,12 +1820,15 @@ readr_Dor <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  . <- catalogNumber <- eventDate <- NULL
+  
   #### 21.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 21.2 Read+ ####
   Dor_data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -1772,7 +1861,7 @@ readr_Dor <- function(path = NULL,
 
 
 #### 22.0 MEPB ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_CAES
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1782,22 +1871,28 @@ readr_MEPB <- function(path = NULL,
                        outFile = NULL,
                        dataLicense = NULL,
                        sheet = NULL){
+  # locally bind variables to the function
+  catalog_number<-pollinator_family<-pollinator_genus<-pollinator_species<-collection_method<-
+    day_collected<-month_collected<-year_collected<-location_description<-latitude<-longitude<-
+    basis_of_record<-genus<-specificEpithet<-year<-day<-eventDate<-collector_number<-
+    location_name<-habitat<-.<-catalogNumber <- NULL
+  
   #### 22.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 22.2 Read+ ####
   MEPB_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
                                  trim_ws = TRUE, col_types = "text",
-                                 progress = readxl_progress())  %>%
+                                 progress = readxl::readxl_progress())  %>%
     # Fix broken encodings
-    mutate(
-      across(
-        .cols = everything(),
-        .fns = ~ str_replace_all(.,
+    dplyr:: mutate(
+      dplyr::across(
+        .cols = dplyr::everything(),
+        .fns = ~ stringr::str_replace_all(.,
                                  pattern = c("Ã³"="ó",  
                                              "Ã©"="é", 
                                              "Ã±"="ñ",
@@ -1839,12 +1934,16 @@ readr_BBD <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
+  # locally bind variables to the function
+  . <- catalogNumber <- year <- day <- dateLastModified <- dateLastModified2 <- NULL
+  identifiedBy <- Spcslink.identifiedby <- NULL
+  
   #### 23.1 Prep ####
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 23.2 Read+ ####
   lookupCols <- c(verbatimScientificName = "Scientificname_ORIGINAL",
@@ -1945,7 +2044,7 @@ readr_BBD <- function(path = NULL,
 
 
 #### 24.0 MPUJ ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_CAES
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1955,14 +2054,18 @@ readr_MPUJ <- function(path = NULL,
                       outFile = NULL,
                       dataLicense = NULL,
                       sheet = sheet){
+  # locally bind variables to the function
+  collector1stName <- collectorsLastName <- determined1stName <- determinedLastName <- NULL
+  day <- year <- eventDate <- endDate <- . <- catalogNumber <- NULL
+  
   #### 24.1 Prep ####
-  # This will load the required packages. These packages may still need to be installed to 
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
-  require(dplyr)
-  require(readr)
-  require(lubridate)
-  require(stringr)
-  require(mgsub)
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+
   
   #### 24.2 Read+ ####
   ###### a. MPUJ_data ####
@@ -2026,7 +2129,7 @@ readr_MPUJ <- function(path = NULL,
     ) %>%
     dplyr::mutate(basisOfRecord = "Preserved specimen") %>%
     # Remove any double white-spaces
-    apply(., 2, str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("MPUJ_data_", 1:nrow(.), sep = ""),
@@ -2036,7 +2139,7 @@ readr_MPUJ <- function(path = NULL,
     dplyr::mutate(license = dataLicense)  %>%
     # add the database_id column
     dplyr::mutate(
-      datasetName = "Colombia MPUJ — Diego Alexander Guevara Farias",
+      datasetName = "Colombia MPUJ - Diego Alexander Guevara Farias",
       datasetID = "MPUJ"
     )
   

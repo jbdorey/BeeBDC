@@ -1,37 +1,49 @@
 # This function was written by James Dorey to chunk the bdc_country_from_coordinates function
   # to allow bigger datasets to be analysed without consuming too much RAM.
-# This function was written on the 12th of May 2022. For questions, please email jbdorey@me.com
-
+# This function was written on the 12th of May 2022. For questions, please email jbdorey[at]me.com
 #' A wrapper around [BeeDC::jbd_country_from_coordinates()] to chunk analyses
 #' 
 #' Because the [BeeDC::jbd_country_from_coordinates()] function is very RAM-intensive, this wrapper 
 #' allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a 
-#' time. The prefix jbd_ is used to highlight the difference between that function and the related
+#' time. The prefix jbd_ is used to highlight the difference between this function and the related
 #' [bdc::bdc_country_from_coordinates()].
 #'
-#' @param data A data frame or tibble. Occurrence records as input.
+#' @param data A data frame or tibble. Occurrence records to use as input.
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
 #' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
 #' @param country Character. The name of the column containing country names. Default = "country.
 #' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
-#' @param chunkStart Numeric. The chunk number to start from. This can be > 1 when you need to restart 
-#' the function from a certain chunk; for example if R failed unexpectedly. 
+#' @param chunkStart Numeric. The chunk number to start from. This can be > 1 when you need to 
+#' restart the function from a certain chunk. For example, can be used if R failed unexpectedly.
 #' @param append Logical. If TRUE, the function will look to append an existing file.
 #'
 #' @return A data frame containing database_ids and a country column 
 #' that needs to be re-merged with the data input.
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' # Because this function iteratively adds to a save file in the background, for simplicity's sake
-#' and for the sake of transparency the output needs to be added to the data input
-#' outside of the main function.
+#' # and for the sake of transparency the output needs to be added to the data input
+#' # outside of the main function.
+#' library(dplyr)
+#' data(beesFlagged)
 #' # Tibble of common issues in country names and their replacements
-#' commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES','United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
-#'                                  fix = c('United States of America','United States of America','United States of America','United States of America','United States of America','United States of America','United States of America','Mexico','Canada','Brazil','Brazil','Brazil','Northern Mariana Islands','PUERTO.RICO'))
+#' commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+#' 'United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
+#'                                  fix = c('United States of America','United States of America',
+#'                                  'United States of America','United States of America',
+#'                                  'United States of America','United States of America',
+#'                                  'United States of America','Mexico','Canada','Brazil','Brazil',
+#'                                  'Brazil','Northern Mariana Islands','Puerto Rico'))
+#'                                  
+#' beesFlagged <- beesFlagged %>%
+#'       # Replace a name to test
+#'    dplyr::mutate(country = stringr::str_replace_all(country, "Brazil", "Brasil"))
 #' 
-#' beesFlagged_out <- jbd_countryNameCleanR(
-#'   data = BeeDC::beesFlagged,
+#' beesFlagged_out <- countryNameCleanR(
+#'   data = beesFlagged,
 #'   commonProblems = commonProblems)
 #' 
 #' suppressWarnings(
@@ -62,13 +74,7 @@
 #' beesFlagged_out$country <- beesFlagged_out$country %>%
 #'   stringr::str_replace(., pattern = paste("\\[", "\\]", "\\?",
 #'                                           sep=  "|"), replacement = "")
-#' # Replace the problems as they occur
-#' beesFlagged_out <- beesFlagged_out %>%
-#'   dplyr::left_join(commonProblems, by = c("country" = "problem")) %>%
-#'   dplyr::mutate(country = 
-#'                   dplyr::if_else(country %in% commonProblems$problem,
-#'                                  fix, country)) %>%
-#'   dplyr::select(!fix)
+
 
 
 jbd_CfC_chunker <- function(data = NULL,
@@ -96,7 +102,8 @@ jbd_CfC_chunker <- function(data = NULL,
     chunkStart = nrow(CountryList) + 1
     nChunks = ceiling((nrow(data)-chunkStart)/stepSize)
   } # END append IF statement
-  # The chunkEnd is the same as the stepSize initially, but the chunkEnd will change with each iteration
+  # The chunkEnd is the same as the stepSize initially, but the chunkEnd will change with each 
+    # iteration
   # It will also differ if append == true based on where the run is at.
     ##### 0.3 chunkEnd ####
   chunkEnd = (chunkStart + stepSize) - 1
@@ -104,7 +111,7 @@ jbd_CfC_chunker <- function(data = NULL,
   
   ##### 0.4 Text out ####
   # Write user output
-  message(paste(" — Running chunker with:", "\n",
+  message(paste(" - Running chunker with:", "\n",
                    "stepSize = ", 
                    format(stepSize, big.mark=",",scientific=FALSE), "\n",
                    "chunkStart = ", 
@@ -114,7 +121,7 @@ jbd_CfC_chunker <- function(data = NULL,
                    "append = ", append, 
                    sep = ""))
   #### 1.0 Function Loop ####
-  # Loop — from chunkStart to the end, process rows in batches of chunkEnd
+  # Loop - from chunkStart to the end, process rows in batches of chunkEnd
   for(i in 1:nChunks){
     # Select rows from chunkStart to chunkEnd
     loop_check_pf = data[chunkStart:chunkEnd,] %>%
@@ -122,7 +129,7 @@ jbd_CfC_chunker <- function(data = NULL,
       base::droplevels()
 
     # User output
-    writeLines(paste(" — Starting chunk ", i, "...", "\n",
+    writeLines(paste(" - Starting chunk ", i, "...", "\n",
                      "From ",  
                      format(chunkStart, big.mark=",",scientific=FALSE), " to ", 
                      format(chunkEnd, big.mark=",",scientific=FALSE),
@@ -156,11 +163,11 @@ jbd_CfC_chunker <- function(data = NULL,
       ###### 1.4 Text and gc ####
     # Make room on the RAM by cleaning up the garbage
     # user output
-    writeLines(paste(" — Cleaning RAM.", sep = ""))
+    writeLines(paste(" - Cleaning RAM.", sep = ""))
     gc()
     
     # Print use output
-    writeLines(paste(" — Finished chunk ", i, " of ", nChunks,
+    writeLines(paste(" - Finished chunk ", i, " of ", nChunks,
                      " chunks",
                      ". ","Records examined: ", 
                      format(nrow(CountryList), big.mark=",",scientific=FALSE),

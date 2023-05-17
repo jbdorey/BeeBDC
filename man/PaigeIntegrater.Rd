@@ -2,7 +2,7 @@
 % Please edit documentation in R/PaigeIntegrateR.R
 \name{PaigeIntegrater}
 \alias{PaigeIntegrater}
-\title{Integrate manually-cleaned data by Paige Chesshire}
+\title{Integrate manually-cleaned data from Paige Chesshire}
 \usage{
 PaigeIntegrater(db_standardized = NULL, PaigeNAm = NULL, columnStrings = NULL)
 }
@@ -11,14 +11,14 @@ PaigeIntegrater(db_standardized = NULL, PaigeNAm = NULL, columnStrings = NULL)
 
 \item{PaigeNAm}{A data frame or tibble. The Paige Chesshire dataset.}
 
-\item{columnStrings}{A list of character vectors. Each vector is a set of columns that will be used
-to iteratively match the Paige and public datasets with}
+\item{columnStrings}{A list of character vectors. Each vector is a set of columns that will be
+used to iteratively match the public dataset against the Paige dataset.}
 }
 \value{
-Returns db_standardized with the Chesshire data integrated.
+Returns db_standardized (input occurrence records) with the Paige Chesshire data integrated.
 }
 \description{
-Replaces publicly available data with data that has been manually cleaned and error-corrected in
+Replaces publicly available data with data that has been manually cleaned and error-corrected for use in
 the paper Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography.
 }
 \examples{
@@ -38,17 +38,17 @@ columnList <- list(
  c("decimalLatitude", "decimalLongitude", 
    "recordNumber", "recordedBy", "individualCount", "samplingProtocol",
    "associatedTaxa", "sex", "catalogNumber", "institutionCode", "otherCatalogNumbers",
-   "recordId", "occurrenceID", "collectionID"),         # Iteration 1
+   "recordId", "occurrenceID", "collectionID"), # Iteration 1
  c("catalogNumber", "institutionCode", "otherCatalogNumbers",
    "recordId", "occurrenceID", "collectionID"), # Iteration 2
  c("decimalLatitude", "decimalLongitude", 
-   "recordedBy", "genus", "specificEpithet"),# Iteration 3
- c("id", "decimalLatitude", "decimalLongitude"),# Iteration 4
+   "recordedBy", "genus", "specificEpithet"), # Iteration 3
+ c("id", "decimalLatitude", "decimalLongitude"), # Iteration 4
  c("recordedBy", "genus", "specificEpithet", "locality"), # Iteration 5
  c("recordedBy", "institutionCode", "genus", 
    "specificEpithet","locality"),# Iteration 6
- c("occurrenceID","decimalLatitude", "decimalLongitude"),# Iteration 7
- c("catalogNumber","decimalLatitude", "decimalLongitude"),# Iteration 8
+ c("occurrenceID","decimalLatitude", "decimalLongitude"), # Iteration 7
+ c("catalogNumber","decimalLatitude", "decimalLongitude"), # Iteration 8
  c("catalogNumber", "locality") # Iteration 9
 ) 
 

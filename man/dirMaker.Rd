@@ -20,50 +20,57 @@ dirMaker(
 )
 }
 \arguments{
-\item{RootPath}{character string. The \code{RootPath} is the path at the root of your project and in
-which all other paths should ideally
-be located. However, users may specify paths not contained in the \code{Rootpath.}}
+\item{RootPath}{A character String. The \code{RootPath} is the base path for your project, and all
+other paths should ideally be located within the \code{RootPath}. However, users may specify paths not
+contained in the RootPath}
 
-\item{ScriptPath}{character string. The \code{ScriptPath} is the path to any additional functions that
-you would like to read in.}
+\item{ScriptPath}{A character String. The \code{ScriptPath} is the path to any additional functions
+that you would like to read in for use with BeeDC.}
 
-\item{DataPath}{character string. The path to the folder that contains occurrence data.}
+\item{DataPath}{A character string. The path to the folder containing bee occurrence data
+to be flagged and/or cleaned}
 
-\item{DataSubPath}{character string. If a \code{DataPath} is not provided, this will be used as the \code{DataPath}
+\item{DataSubPath}{A character String. If a \code{DataPath} is not provided, this will be used as the \code{DataPath}
 folder name within the \code{RootPath.} Default is "/Data_acquisition_workflow"}
 
-\item{DiscLifePath}{character string. The path to the folder that contains data from Ascher
+\item{DiscLifePath}{A character String. The path to the folder which contains data from Ascher
 and Pcikering's Discover Life website.}
 
-\item{OutPath}{character string. The path to the folder where data will be saved.}
+\item{OutPath}{A character String. The path to the folder where output data will be saved.}
 
-\item{OutPathName}{character string. The name of the \code{OutPath} subfolder within the \code{RootPath.} Default is
-"Output".}
+\item{OutPathName}{A character String. The name of the \code{OutPath} subfolder located within the
+\code{RootPath.} Default is "Output".}
 
-\item{Report}{Logical. If True, create a "Report" folder within OutPath. Default = TRUE.}
+\item{Report}{Logical. If TRUE, function creates a "Report" folder within the OutPath-defined
+folder. Default = TRUE.}
 
-\item{Check}{Logical. If True, create a "Check" folder within OutPath. Default = TRUE.}
+\item{Check}{Logical. If TRUE, function creates a "Check" folder within the OutPath-defined
+folder. Default = TRUE.}
 
-\item{Figures}{Logical. If True, create a "Figures" folder within OutPath. Default = TRUE.}
+\item{Figures}{Logical. If TRUE, function creates a "Figures" folder within the OutPath-defined
+folder. Default = TRUE.}
 
-\item{Intermediate}{Logical. If True, create a "Intermediate" folder within OutPath. Default = TRUE.}
+\item{Intermediate}{Logical. If TRUE, function creates a "Intermediate" folder within the
+OutPath-defined folder in which to save intermediate datasets. Default = TRUE.}
 
-\item{RDoc}{character string. The path to the current script or report, relative to the project
+\item{RDoc}{A character String. The path to the current script or report, relative to the project
 root. Passing an absolute path raises an error. This argument is used by \code{\link[here:i_am]{here::i_am()}} and incorrectly
-setting this may result in bdc:: figures being saved to your computer's root directory}
+setting this may result in \code{bdc} figures being saved to your computer's root directory}
 }
 \value{
-A list containing the required directories in your global environment. This function should
-be run at the start of each session. This function will also create the requested folders,
-if they do not exist.
+Results in the generation of a list containing the BeeDC-required directories in your global
+environment. This function should be run at the start of each session. Additionally, this
+function will create the BeeDC-required folders if they do not already exist in the supplied
+directory
 }
 \description{
-If those folders do not exist, they will be created for you.
+This function sets up a directory for saving outputs (i.e. data, figures) generated through the
+use of the BeeDC package, if the required folders do not already exist.
 }
 \examples{
 \dontrun{
 # Standard/basic usage:
-RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
+RootPath <- tempdir()
 dirMaker(
 RootPath = RootPath,
 # Input the location of the workflow script RELATIVE to the RootPath
@@ -74,7 +81,6 @@ RDoc = "BDC_repo/BeeCleaning_SciData.R") \%>\%
 setwd(DataPath)
 
 # Custom OutPathName provided
-RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
   dirMaker(
  RootPath = RootPath,
  # Set some custom OutPath info
@@ -88,7 +94,6 @@ RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
  setwd(DataPath)
 
 # Further customisations are also possible
-RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
 dirMaker(
   RootPath = RootPath,
   ScriptPath = "...path/Bee_SDM_paper/BDC_repo/BeeDC/R",

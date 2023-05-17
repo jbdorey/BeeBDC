@@ -1,10 +1,13 @@
 # This function was written by James Dorey to match higher order names to species.genus names
-# For queries, please contact James Dorey at jbdorey@me.com
+# For queries, please contact James Dorey at jbdorey[at]me.com
 # This function was started on 15th May 2022 and last updated 17th May 2022
-
+#' @importFrom dplyr %>%
 
 HigherNamer <- function(HigherNameList = HigherOrders,
                         InSynList = DLdf){
+  # locally bind variables to the function
+  HigherOrders <- DLdf <- NULL
+  
   # Match and copy the Higher Order names across
   InSynList$family  <- HigherNameList$family[ cbind(match(InSynList$genus, HigherNameList$Genus ) )]
   InSynList$subfamily  <- HigherNameList$subfamily[ cbind(match(InSynList$genus, HigherNameList$Genus ) )]
@@ -13,7 +16,7 @@ HigherNamer <- function(HigherNameList = HigherOrders,
   
   #### START ProgBar ####
   # Initializes the progress bar
-  pb <- txtProgressBar(min = 0,      # Minimum value of the progress bar
+  pb <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
                        max = nrow(InSynList), # Maximum value of the progress bar
                        style = 3,    # Progress bar style (also available style = 1 and style = 2)
                        width = NA,   # Progress bar width. Defaults to getOption("width")
@@ -44,7 +47,7 @@ HigherNamer <- function(HigherNameList = HigherOrders,
       InSynList$subtribe[i] <- InSynList$subtribe[i-1]
     }
     # Sets the progress bar to the current state
-    setTxtProgressBar(pb, i)
+    utils::setTxtProgressBar(pb, i)
   } # END loop
   #### END progBar ####
   close(pb) # Close the connection

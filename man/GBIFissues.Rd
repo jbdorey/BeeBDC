@@ -9,9 +9,9 @@ GBIFissues(data = NULL, issueColumn = "issue", GBIFflags = NULL)
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
 
-\item{issueColumn}{The column in which to look for GBIF issues. Default = "issue".}
+\item{issueColumn}{Character. The column in which to look for GBIF issues. Default = "issue".}
 
-\item{GBIFflags}{The GBIF issues to flag. Users may choose their own vector of issues to flag or
+\item{GBIFflags}{Character vector. The GBIF issues to flag. Users may choose their own vector of issues to flag or
 use a pre-set vector or vectors, including c("allDates", "allMetadata", "allObservations",
 "allSpatial", "allTaxo", or "all").
 
@@ -22,7 +22,7 @@ Returns the data with a new column, ".GBIFflags", where FALSE = records with any
 GBIFflags.
 }
 \description{
-This function will flag a user-specified vector of GBIF issues.
+This function will flag records which are subject to a user-specified vector of GBIF issues.
 }
 \examples{
 # Import the example data

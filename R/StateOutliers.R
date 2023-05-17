@@ -1,5 +1,7 @@
 # This Function is designed to check state-level outliers of the t2t project.
 # It was written by James B Dorey from the 1st of August 2022.
+#' @importFrom dplyr %>%
+
 StateOutlieRs <- function(
     checklist = NULL,
     checklistColumns = NULL,
@@ -7,6 +9,13 @@ StateOutlieRs <- function(
     occData = NULL,
     findHawaii = FALSE
     ){
+    # locally bind variabls to the function
+  . <- SciPost <- neighbourMatch <- nAssignmentCertainty <- exactMatch <- matchType <- 
+    matchCertainty <- stateMatch <- jurisdiction_value<-stateValue<-adm1_code<-iso_3166_2<-name<-
+    region<-postal<- geometry<-longitude<-latitude<-database_id<-scientificName<-species<-family<-
+    subfamily<-genus<-specificEpithet<-country<-stateProvince<-eventDate<-institutionCode<-
+    recordNumber<-catalogNumber<-dataSource<-verbatim_scientificName<-neighbours<-rowNum<-state<-
+    neighboursText<-Genus<-Species<-assignmentCertainty <- NULL
   
 #### 0.0 Warnings ####
   if(is.null(checklist)){
@@ -87,7 +96,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
   
     ##### 2.2 Extraction ####
     ###### a. exactState ####
-  writeLines(" — Extracting state data from points...")
+  writeLines(" - Extracting state data from points...")
     #Extract polygon information to points
   points_extract <- sf::st_intersection(stateMap,
                               points)
@@ -184,7 +193,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
 
   
   #### 3.0 Merge ####
-  writeLines(" — Combining data...")
+  writeLines(" - Combining data...")
     # Merge both points_match datasets
   bpoints_match <- tibble::tibble(points_match) %>%
       # Join the two datasets togehter keeping only neighbourMatch and assignmentCertainty from the 
@@ -208,7 +217,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
   #### 4.0 Output ####
     ##### 4.1 User output ####
   writeLines(paste0(
-    " — Finished. \n",
+    " - Finished. \n",
     "We have matched ", 
     format(sum(bpoints_match$matchType == "exact", na.rm = TRUE), big.mark = ","),
     " records to their exact state and ", 

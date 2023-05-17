@@ -1,18 +1,23 @@
 # This function was written by James B Dorey to identify occurrence records with potential fill-down
   # errors in the decimalLatitude and decimalLongitude columns. This function was written between
-  # the 27th and 28th of May 2022. Please contact James at jbdorey@me.com with questions if needed.
+  # the 27th and 28th of May 2022. Please contact James at jbdorey[at]me.com with questions if needed.
 
 
 #' Find fill-down errors
 #' 
-#' A simple function that looks for potential lat/lon fill down errors by finding consecutive numbers.
+#' A simple function that looks for potential latitude and longitude fill-down errors by 
+#' identifying identical coordinates in a user-defined number of consecutive records.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
-#' @param minRepeats Numeric. The minimum number of lat or lon repeats to flag a record
+#' @param minRepeats Numeric. The minimum number of lat or lon repeats needed to flag a record
 #'
-#' @return Retrusn the data with a new column, .sequential, where FALSE = records that have consecutive 
-#' latitudes or longitudes.
+#' @return The function returns the input data with a new column, .sequential, where FALSE = 
+#' records that have consecutive latitudes or longitudes greater than or equal to the user-defined 
+#' threshold.
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom stats complete.cases
 #'
 #' @examples
 #' # Read in the example data
@@ -28,13 +33,17 @@ diagonAlley <- function(
   data = NULL,
   minRepeats = NULL
   ){
+  # locally bind variables to the function
+  eventDate<-recordedBy<-decimalLatitude<-decimalLongitude<-database_id<-.data<-leadingLat<-
+    laggingLat<-diffLead_Lat<-diffLag_Lat<-diffLat<-leadingLong<-laggingLong<-diffLead_long<-
+    diffLag_long<-diffLong <- NULL
   
   #### 0.0 Warnings ####
   if(is.null(data)){
-    stop("\n — Please provide an argument for data. I'm a program, not a magician.")
+    stop("\n - Please provide an argument for data. I'm a program, not a magician.")
   }
   if(is.null(minRepeats)){
-    warning("\n — minRepeats not provided. Using default value of four")
+    warning("\n - minRepeats not provided. Using default value of four")
     minRepeats = 4
   }
 
@@ -48,7 +57,7 @@ diagonAlley <- function(
       # Group the data by eventDate and recordedBy
     dplyr::group_by( eventDate, recordedBy) %>%
       # Arrange from biggest to lowest decimalLatitude and then decimalLongitude by grouping
-    dplyr::arrange(desc(decimalLatitude), desc(decimalLongitude), 
+    dplyr::arrange(dplyr::desc(decimalLatitude), dplyr::desc(decimalLongitude), 
                    .by_group = TRUE) %>%
       # Remove duplicate lat and longs
     dplyr::distinct(decimalLatitude, decimalLongitude, .keep_all = TRUE) %>%
@@ -60,7 +69,7 @@ diagonAlley <- function(
     # Return their database_id
   runningData_Lat <- runningData %>% 
     # Sort 
-    dplyr::arrange(desc(.data$decimalLatitude), .by_group = TRUE) %>%
+    dplyr::arrange(dplyr::desc(.data$decimalLatitude), .by_group = TRUE) %>%
     # Add leading columns with the value of the next one
     dplyr::mutate(leadingLat = dplyr::lag(decimalLatitude)) %>%
     dplyr::mutate(laggingLat = dplyr::lead(decimalLatitude)) %>%
@@ -84,7 +93,7 @@ diagonAlley <- function(
     # Return their database_id
   runningData_long <- runningData %>% 
       # Sort 
-    dplyr::arrange(desc(.data$decimalLongitude), .by_group = TRUE) %>%
+    dplyr::arrange(dplyr::desc(.data$decimalLongitude), .by_group = TRUE) %>%
      # Add leading columns with the value of the next one
     dplyr::mutate(leadingLong = dplyr::lag(decimalLongitude)) %>%
     dplyr::mutate(laggingLong = dplyr::lead(decimalLongitude)) %>%

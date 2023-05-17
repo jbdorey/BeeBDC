@@ -15,15 +15,15 @@ coordUncerFlagR(
 
 \item{uncerColumn}{Character. The column to flag uncertainty in.}
 
-\item{threshold}{Numeric. The uncertainty threshold. Values equal to, or less than, this threshold
-will be flagged.}
+\item{threshold}{Numeric. The uncertainty threshold. Values equal to, or greater than, this
+threshold will be flagged.}
 }
 \value{
 The input data with a new column, .uncertaintyThreshold.
 }
 \description{
-User chooses a column, probably "coordinateUncertaintyInMeters" and a threshold below which occurrences
-will be flagged for geographic uncertainty.
+To use this function, the user must choose a column, probably "coordinateUncertaintyInMeters"
+and a threshold above which occurrences will be flagged for geographic uncertainty.
 }
 \examples{
 # Run the function

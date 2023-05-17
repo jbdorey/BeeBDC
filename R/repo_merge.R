@@ -5,7 +5,7 @@
 #' metadata.
 #'
 #' @param path A directory as a character. The directory to recursively look in for the above data.
-#' @param save_type Character. The data type to save the resultign file as. Options are: 
+#' @param save_type Character. The data type to save the resulting file as. Options are: 
 #' csv_files" or "R_file".
 #' @param occ_paths A list of directories. Preferably produced using [BeeDC::data_finder()] the 
 #' function asks for a list of paths to the relevant input datasets. You can fault-find errors 
@@ -14,20 +14,24 @@
 #' @return A list with a data frame of merged occurrence records, "Data_WebDL", and a list of EML 
 #' files contained in "eml_files". Also saves these files in the requested format.
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom vroom col_character cols
+#' @importFrom stats setNames
 #'
 #' @examples
 #' \dontrun{
 #' DataImp <- repo_merge(path = DataPath, 
-#' # Find data — Many problems can be solved by running [BeeDC::data_finder(path = DataPath)]
+#' # Find data - Many problems can be solved by running [BeeDC::data_finder(path = DataPath)]
 #' # And looking for problems
 #' occ_paths = [BeeDC::data_finder(path = DataPath)],
 #' save_type = "R_file")
 #' }
 repo_merge <- function(path, save_type, occ_paths){
-  require(readr)
-  require(tibble)
-  require(dplyr)
-  require(EML)
+  . <- NULL
+  requireNamespace("bdc")
+  requireNamespace("dplyr")
+  requireNamespace("EML")
 
     # Remove empty elements
   occ_paths <- occ_paths[lapply(occ_paths,length)>0]
@@ -36,7 +40,7 @@ repo_merge <- function(path, save_type, occ_paths){
   ###### Loop prep. ####
   {startTime <- Sys.time()
   # print user information
-  writeLines( paste(" — Reading and joining ",length(unlist(occ_paths))," occurrence files.", "\n",
+  writeLines( paste(" - Reading and joining ",length(unlist(occ_paths))," occurrence files.", "\n",
                     "Depending on file size and number, this could take some time.","\n",
                     sep = ""))
   # Make an internal copy of the template for use in the loop as the template tibble
@@ -69,7 +73,7 @@ repo_merge <- function(path, save_type, occ_paths){
       
       ###### Attr. mangement ####
       # Use the custom function data_Attributes to extract attribute information from file
-      data_Attributes <- attr_builder(path = path_i,
+      data_Attributes <- attr_builder(path_i = path_i,
                                       occ_input = data_i)
       ## Source table ##  
       # Annotate the dataSource column with information to link the attributes to
@@ -90,12 +94,12 @@ repo_merge <- function(path, save_type, occ_paths){
       names(new_eml_file) <- data_Attributes$Source_tibble$dataSource
       # Append this to the running eml list file
       eml_files <- append(eml_files, new_eml_file) %>%
-        as_emld( from = "list")
+        emld::as_emld( from = "list")
       
       
       ###### Progress print ####
       # Print the progress and number of records (rows) to user
-      writeLines( paste(" — Completed", i,"of", length(unlist(occ_paths[j])), names(occ_paths[j]),
+      writeLines( paste(" - Completed", i,"of", length(unlist(occ_paths[j])), names(occ_paths[j]),
                         "files. ","\n",
                         counter, "of", length(unlist(occ_paths)), "total files processed","\n",
                         "Cumulative number of rows =", 
@@ -115,7 +119,7 @@ repo_merge <- function(path, save_type, occ_paths){
 
   # Completion message to user with endTime
   endTime <- Sys.time()
-  writeLines( paste(" — Completed in ", round(endTime - startTime, digits = 2), " minutes", sep = ""))
+  writeLines( paste(" - Completed in ", round(endTime - startTime, digits = 2), " minutes", sep = ""))
   } # END Data Loop
   return( dplyr::lst(Data_WebDL, eml_files))
 } # END repo_merge function

@@ -1,7 +1,7 @@
 #### 4. USGS formatter ####
 #' Find, import, and format USGS data to Darwin Core
 #' 
-#' The USGS_formatter will find, import, format and create metadata for the USGS dataset.
+#' The function finds, imports, formats, and creates metadata for the USGS dataset.
 #'
 #' @param path A character path to a directory that contains the USGS data, which will be found using
 #' [BeeDC::file_finder()]. The function will look for "USGS_DRO_flat".
@@ -9,18 +9,27 @@
 #'
 #' @return Returns a list with the occurrence data, "USGS_data", and the EML data, "EML_attributes".
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' \dontrun{
 #' USGS_data <- USGS_formatter(path = DataPath, pubDate = "19-11-2022")
 #' }
 #' 
-USGS_formatter <- function(path, pubDate){
+USGS_formatter <- function(
+    path, 
+    pubDate){
+  # locally bind variables to the function
+  . <-readr <- lubridate <- problems <- how0 <- how1 <- how2 <- how3 <- how4 <- days <- 
+    field_note <- note <- SpeciesNotes <- SpeciesNotes<-DateEntered<-DateScanned<-ip<-position<-
+    time1<-time2<- occurrenceID <- NULL
+  
   #### require and checks ####
   # Load required packages
-  require(R.utils, tibble, readr, lubridate)
-  require(dplyr)
-  require(praise)
+  requireNamespace("lubridate")
+  requireNamespace("dplyr")
+  requireNamespace("praise")
   # File name to search for
   USGS_fileName <- "USGS_DRO_flat"
   # Find the USGS data from the HomePath
@@ -30,11 +39,11 @@ USGS_formatter <- function(path, pubDate){
   
   # Check if the data are present
   if(is.null(USGS_loc) == TRUE){ # If there are no data matching the name...
-    stop(" — Oh dear, it looks like there are no USGS data in the HomePath. If you want to include such data, make sure that they exist.")
+    stop(" - Oh dear, it looks like there are no USGS data in the HomePath. If you want to include such data, make sure that they exist.")
   }
   # Check if the ddate has been enetered
   if(exists("pubDate") == FALSE){ # If there are no data matching the name...
-    stop(paste(" — Oh no! It looks like you have not provided pubDate = dd-mm-yyy. ",
+    stop(paste(" - Oh no! It looks like you have not provided pubDate = dd-mm-yyy. ",
                "Please include this as the date that Sam Droege passed on his data in the above format."))
   }
   
@@ -51,13 +60,13 @@ USGS_formatter <- function(path, pubDate){
       remove = FALSE) 
     USGS_loc <- stringr::str_remove(USGS_loc, ".gz")
     # User output
-    writeLines(paste(" — Unzipped file to: ", USGS_loc))
+    writeLines(paste(" - Unzipped file to: ", USGS_loc))
   }
   # If already extracted, use the extracted file
   if(stringr::str_detect(pattern = USGS_fileName, 
                          # Select the string that matches only (avoids a warning but works without)
                          string = USGS_loc)){
-    writeLines(paste(" — Reading in data file. This should not take too long.","\n",
+    writeLines(paste(" - Reading in data file. This should not take too long.","\n",
                      "There may be some errors upon reading in depending on the state of the data.",
                      "\n", "One might consider reporting errors to Sam Droege to improve the dataset."))
     # Read in the data file using "$" as the delimiter 
@@ -128,9 +137,9 @@ USGS_formatter <- function(path, pubDate){
   
   
   #### Format the data ####
-  writeLines(" — Formatting the USGS dataset...")
+  writeLines(" - Formatting the USGS dataset...")
   
-  writeLines(" — Formatting the dateTime...")
+  writeLines(" - Formatting the dateTime...")
   # Convert time1 and time2 to dateTime format
   # Convert time1
   USGS_data$time1 <- USGS_data$time1 %>% 
@@ -139,7 +148,7 @@ USGS_formatter <- function(path, pubDate){
   USGS_data$time2 <- USGS_data$time2 %>% 
     lubridate::ymd_hms(., truncated = 5)  
   
-  writeLines(" — Creating samplingProtocol and samplingEffort columns...")
+  writeLines(" - Creating samplingProtocol and samplingEffort columns...")
   # Create new columns with extra information that doesn't fit the established columns well
   # Merge all of the extra collection info
   USGS_data <- USGS_data %>% dplyr::mutate(
@@ -174,7 +183,7 @@ USGS_formatter <- function(path, pubDate){
     )
 
   
-  writeLines(" — Creating the fieldNotes and dataSource columns...")
+  writeLines(" - Creating the fieldNotes and dataSource columns...")
   # Enter these extra data into a new column.
   USGS_data <- USGS_data %>% dplyr::mutate(
     fieldNotes = stringr::str_c(
@@ -208,7 +217,7 @@ USGS_formatter <- function(path, pubDate){
   # Set the dataSource
   USGS_data$dataSource <- "USGS_data"
 
-  writeLines(" — Renaming and selecting columns...")
+  writeLines(" - Renaming and selecting columns...")
   # These data must be formatted to match the other data sets.
   # that we created at the top of the R-script
   USGS_data <- USGS_data %>%  # The data frame to match with
@@ -240,7 +249,7 @@ USGS_formatter <- function(path, pubDate){
   # Check for and create outpath if needed
   outPath <- outFile_maker(path = path)
   # Notfiy user that occurrence file is being written
-  writeLines( paste(" — Writing occurrence data file...", "\n",
+  writeLines( paste(" - Writing occurrence data file...", "\n",
                     "Number of rows (records): ", format(nrow(USGS_data), big.mark=",",scientific=FALSE), "\n",
                     "Written to file called ", paste("USGS_formatted_", Sys.Date(), ".csv", sep = ""),
                     " at location ", outPath,
@@ -248,7 +257,7 @@ USGS_formatter <- function(path, pubDate){
   # Write the occurence file
   write_csv(USGS_data, paste(outPath, "/USGS_formatted_", Sys.Date(), ".csv", sep = ""))
   # Notify user that the .eml file is being written
-  writeLines( paste(" — Writing attributes file...", "\n",
+  writeLines( paste(" - Writing attributes file...", "\n",
                     "Written to file called ", paste("USGS_attribute_files", Sys.Date(),".xml", sep="" ),
                     " at location ", outPath,
                     sep = "")) 
@@ -262,13 +271,13 @@ USGS_formatter <- function(path, pubDate){
                                                        Sys.Date(),".csv", sep="" ))
   # IF there were problems detected, write these to a .csv file and notify the user
   if(nrow(USGS_problems) > 0){
-    writeLines(" — Problems detected with the tibble. Saving to a .csv file...")
+    writeLines(" - Problems detected with the tibble. Saving to a .csv file...")
     write_csv(USGS_problems, file = paste(outPath, "/USGS_problems", 
                                           Sys.Date(),".csv", sep="" ))
   }
   
   # Return end product and print completion note
-  writeLines(paste(" — Fin.", praise::praise(), sep = "\n"))
+  writeLines(paste(" - Fin.", praise::praise(), sep = "\n"))
   return( dplyr::lst(USGS_data, EML_attributes) )
 } # END USGS_import
 

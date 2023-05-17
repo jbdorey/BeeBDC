@@ -11,15 +11,11 @@
 \alias{readr_EcoS}
 \alias{readr_GeoL}
 \alias{readr_EaCO}
-\alias{readr_MABC}
 \alias{readr_FSCA}
 \alias{readr_SMC}
-\alias{readr_Bal}
 \alias{readr_Lic}
 \alias{readr_Dor}
-\alias{readr_MEPB}
 \alias{readr_BBD}
-\alias{readr_MPUJ}
 \title{Reads specific data files into Darwin Core format}
 \usage{
 readr_EPEL(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
@@ -42,13 +38,9 @@ readr_GeoL(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
 readr_EaCO(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
-readr_MABC(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
-
 readr_FSCA(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
 readr_SMC(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
-
-readr_Bal(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
 readr_Lic(
   path = NULL,
@@ -60,32 +52,18 @@ readr_Lic(
 
 readr_Dor(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
-readr_MEPB(
-  path = NULL,
-  inFile = NULL,
-  outFile = NULL,
-  dataLicense = NULL,
-  sheet = NULL
-)
-
 readr_BBD(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
-
-readr_MPUJ(
-  path = NULL,
-  inFile = NULL,
-  outFile = NULL,
-  dataLicense = NULL,
-  sheet = sheet
-)
 }
 \arguments{
-\item{path}{The path to the directory containing the data.}
+\item{path}{Character path. The path to the directory containing the data.}
 
-\item{inFile}{The name of the file itself (can also be the remainder of a path including the file name).}
+\item{inFile}{Character or character path. The name of the file itself (can also be the remainder of a path including the file name).}
 
-\item{outFile}{The name of the Darwin Core format file to produce.}
+\item{outFile}{Character or character path. The name of the Darwin Core format file to produce.}
 
-\item{dataLicense}{The license to accompany each record in the Darwin Core 'license' column.}
+\item{dataLicense}{Character. The license to accompany each record in the Darwin Core 'license' column.}
+
+\item{beeFilter}{Filters to only the bee families - for use in \code{\link[=readr_Lic]{readr_Lic()}}}
 }
 \value{
 A data frame that's in Darwin Core format.
@@ -113,38 +91,25 @@ Data files are specific to various data providers and users may examine code fun
 
 \item \code{readr_EaCO()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_MABC()}: Reads specific data files into Darwin Core format
-
 \item \code{readr_FSCA()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_SMC()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Bal()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_Lic()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_Dor()}: Reads specific data files into Darwin Core format
 
-\item \code{readr_MEPB()}: Reads specific data files into Darwin Core format
-
 \item \code{readr_BBD()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_MPUJ()}: Reads specific data files into Darwin Core format
 
 }}
 \examples{
 \dontrun{
-An example using a .csv file
-EPEL_Data <- Ereadr_PEL(path = paste0(DataPath, "/Additional_Datasets"),
+# An example using a .csv file
+EPEL_Data <- Ereadr_PEL(path = paste0(tempdir(), "/Additional_Datasets"),
 inFile = "/InputDatasets/bee_data_canada.csv",
 outFile = "jbd_EPEL_data.csv",
 dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
-An example using a .xlsx file
-    Arm_Data <- readr_Arm(path = paste0(DataPath, "/Additional_Datasets"),
-inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
-outFile = "jbd_Arm_Data.csv",
-sheet = "Sheet1",
-dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
 }
 }

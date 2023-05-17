@@ -4,6 +4,7 @@
 #' (polygon) of world countries. Data from the package 'rnaturalearth'.
 #'
 #' @noRd
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' \dontrun{
@@ -13,8 +14,9 @@ bdc_get_world_map <- function() {
   name_en <- NULL
 
   check_require_cran("rnaturalearth")
-  check_require_github("ropensci/rnaturalearthdata")
-
+  # check_require_github("ropensci/rnaturalearthdata")
+  # loadNamespace("rnaturalearthdata")
+  
   suppressWarnings({
     worldmap <- rnaturalearth::ne_countries(scale = 10, returnclass = "sp")
 

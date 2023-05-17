@@ -17,26 +17,29 @@ idMatchR(
 
 \item{priorData}{A data frame or tibble. The PRIOR occurrence records as input.}
 
-\item{matchBy}{User-provided list of columns to iteratively compare.}
+\item{matchBy}{A list of character vectors Should contain the columns to iteratively compare.}
 
 \item{completeness_cols}{A character vector. The columns to check for completeness, arrange,
-and keep the relevant prior database_id.}
+and assign the relevant prior database_id.}
 
-\item{excludeDataset}{A character vector. The dataSources that are to be excluded from data matching.
-These should be static dataSources from minor providers.}
+\item{excludeDataset}{A character vector. The dataSources that are to be excluded from data
+matching. These should be static dataSources from minor providers.}
 }
 \value{
 The input data frame returned with a new column that shows the updated database_ids
 as in priorData where they could be matched
 }
 \description{
-Attempt to match database_ids from a prior run
+This function attempts to match database_ids from a prior bdc or BeeDC run in order to keep
+this column somewhat consistent between iterations. However, not all records contain sufficient
+information for this to work flawlessly.
 }
 \examples{
 
 # Which datasets are static and should be excluded from matching?
 excludeDataset <- c("BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
-                    "Gai", "KP", "EPEL", "USGS", "FSCA", "SMC", "Bal", "Lic", "Arm", "BBD", "MEPB")
+                    "Gai", "KP", "EPEL", "USGS", "FSCA", "SMC", "Bal", "Lic", "Arm", "BBD", 
+                    "MEPB")
   # Match the data to itself just as an example of running the code.
 beesRaw_out <- idMatchR(
   currentData = BeeDC::beesRaw,
@@ -47,8 +50,9 @@ beesRaw_out <- idMatchR(
                         c("occurrenceID", "dataSource"),
                         c("recordId", "dataSource"),
                         c("id"),
-                        # Because INHS was entered as it's own dataset but is now included in the GBIF download...
+                        # Because INHS was entered as it's own dataset but is now included in 
+                          # the GBIF download...
                         c("catalogNumber", "institutionCode")),
-  # You can exclude datasets from prior by matching their prefixs — before first underscore:
+  # You can exclude datasets from prior by matching their prefixs - before first underscore:
   excludeDataset = excludeDataset)
 }

@@ -15,7 +15,7 @@ jbd_CfC_chunker(
 )
 }
 \arguments{
-\item{data}{A data frame or tibble. Occurrence records as input.}
+\item{data}{A data frame or tibble. Occurrence records to use as input.}
 
 \item{lat}{Character. The name of the column to use as latitude. Default = "decimalLatitude".}
 
@@ -25,8 +25,8 @@ jbd_CfC_chunker(
 
 \item{stepSize}{Numeric. The number of occurrences to process in each chunk. Default = 1000000.}
 
-\item{chunkStart}{Numeric. The chunk number to start from. This can be > 1 when you need to restart
-the function from a certain chunk; for example if R failed unexpectedly.}
+\item{chunkStart}{Numeric. The chunk number to start from. This can be > 1 when you need to
+restart the function from a certain chunk. For example, can be used if R failed unexpectedly.}
 
 \item{append}{Logical. If TRUE, the function will look to append an existing file.}
 }
@@ -37,19 +37,30 @@ that needs to be re-merged with the data input.
 \description{
 Because the \code{\link[=jbd_country_from_coordinates]{jbd_country_from_coordinates()}} function is very RAM-intensive, this wrapper
 allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a
-time. The prefix jbd_ is used to highlight the difference between that function and the related
+time. The prefix jbd_ is used to highlight the difference between this function and the related
 \code{\link[bdc:bdc_country_from_coordinates]{bdc::bdc_country_from_coordinates()}}.
 }
 \examples{
 # Because this function iteratively adds to a save file in the background, for simplicity's sake
-and for the sake of transparency the output needs to be added to the data input
-outside of the main function.
+# and for the sake of transparency the output needs to be added to the data input
+# outside of the main function.
+library(dplyr)
+data(beesFlagged)
 # Tibble of common issues in country names and their replacements
-commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES','United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
-                                 fix = c('United States of America','United States of America','United States of America','United States of America','United States of America','United States of America','United States of America','Mexico','Canada','Brazil','Brazil','Brazil','Northern Mariana Islands','PUERTO.RICO'))
+commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+'United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
+                                 fix = c('United States of America','United States of America',
+                                 'United States of America','United States of America',
+                                 'United States of America','United States of America',
+                                 'United States of America','Mexico','Canada','Brazil','Brazil',
+                                 'Brazil','Northern Mariana Islands','Puerto Rico'))
+                                 
+beesFlagged <- beesFlagged \%>\%
+      # Replace a name to test
+   dplyr::mutate(country = stringr::str_replace_all(country, "Brazil", "Brasil"))
 
-beesFlagged_out <- jbd_countryNameCleanR(
-  data = BeeDC::beesFlagged,
+beesFlagged_out <- countryNameCleanR(
+  data = beesFlagged,
   commonProblems = commonProblems)
 
 suppressWarnings(
@@ -80,11 +91,4 @@ beesFlagged_out <- left_join(beesFlagged_out, countryOutput, by = "database_id")
 beesFlagged_out$country <- beesFlagged_out$country \%>\%
   stringr::str_replace(., pattern = paste("\\\\[", "\\\\]", "\\\\?",
                                           sep=  "|"), replacement = "")
-# Replace the problems as they occur
-beesFlagged_out <- beesFlagged_out \%>\%
-  dplyr::left_join(commonProblems, by = c("country" = "problem")) \%>\%
-  dplyr::mutate(country = 
-                  dplyr::if_else(country \%in\% commonProblems$problem,
-                                 fix, country)) \%>\%
-  dplyr::select(!fix)
 }

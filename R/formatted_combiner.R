@@ -6,7 +6,7 @@
 
 #' Combine the formatted USGS data with the main dataset
 #' 
-#' Merges the Darwin Core version of the USGS dataset that was created using [BeeDC:USGS_formatter()]
+#' Merges the Darwin Core version of the USGS dataset that was created using [BeeDC::USGS_formatter()]
 #' with the main dataset
 #'
 #' @param path A directory as character. The directory to look in for the formatted USGS data. 
@@ -14,8 +14,11 @@
 #' @param existingOccurrences A data frame. The existing occurrence dataset.
 #' @param existingEMLs An EML file. The existing EML data file to be appended.
 #'
-#' @return A list with the occurrence dataset and the EML file.
+#' @return A list with the combined occurrence dataset and the updated EML file.
 #' @export
+#' 
+#' @importFrom dplyr %>%
+#' @importFrom stats setNames
 #'
 #' @examples
 #' \dontrun{
@@ -32,16 +35,19 @@ formatted_combiner <- function(path,
                                strings, 
                                existingOccurrences,
                                existingEMLs){
-  require(praise)
-  require(dplyr)
-  require(stringr)
-  require(xml2)
+  # locally bind variables to the function
+  . <- NULL
+  
+  requireNamespace("praise")
+  requireNamespace("dplyr")
+  requireNamespace("bdc")
+  requireNamespace("xml2")
   # Find all of the previously-produced data files
   BeeData_Locs <- file.info(list.files(path, full.names = T, pattern = strings,
                                        recursive = TRUE))
   # Check if the data are present
   if(nrow(BeeData_Locs) == 0){ # If there are no data matching the name...
-    stop(" — Bugger it, R can't find any files produced by our package in the path provided :(")
+    stop(" - Bugger it, R can't find any files produced by our package in the path provided :(")
   }
   # Find the most-recent files based on date in file name
   file_dates <- stringr::str_extract(rownames(BeeData_Locs), 
@@ -52,14 +58,14 @@ formatted_combiner <- function(path,
   most_recent <- stringr::str_subset(rownames(BeeData_Locs), 
                                      pattern = file_dates[1]) 
   # Return information to user
-  writeLines(paste(" — Great, R has detected some files. These files include: ", "\n",
+  writeLines(paste(" - Great, R has detected some files. These files include: ", "\n",
                    paste(most_recent, collapse = "\n") ), sep = "")
   
   #### CSV import ####
   # IF there is ONLY a complete .csv file among the most-recent files...
   if(any(stringr::str_detect(most_recent, paste(strings,".csv", sep = ""))) == TRUE &&
      all(stringr::str_detect(most_recent, paste(strings,".rds", sep = ""))) == FALSE){
-    writeLines(paste(" — .csv export version found. Loading this file..."))
+    writeLines(paste(" - .csv export version found. Loading this file..."))
     ColTypes <- ColTypeR()
     # Find the most-recent .csv occurrence file
     # Find the file that deos NOT include "attribute" or "problems" in the string
@@ -100,7 +106,7 @@ formatted_combiner <- function(path,
   
   #### Merge ####
   # print user information
-  writeLines( paste(" — Merging occurrence and attribute files.", "\n",
+  writeLines( paste(" - Merging occurrence and attribute files.", "\n",
                     "Depending on file size, this could take some time...","\n",
                     sep = ""))
   ##### dataset and attrs ####
@@ -135,7 +141,7 @@ formatted_combiner <- function(path,
     setNames(c("Data_WebDL", "eml_files"))
 
   # Return end product and print completion note
-  writeLines(paste(" — Fin.", praise::praise(), sep = "\n"))
+  writeLines(paste(" - Fin.", praise::praise(), sep = "\n"))
   # Return the outfile
   return(existing_data)
 } # COMPLETE formatted_combiner

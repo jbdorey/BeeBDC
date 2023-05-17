@@ -1,47 +1,55 @@
 # This function was written by James B Dorey on the 5th of October 2022
 # Its purpose is to create a list of directories for beeData cleaning
-# Please contact jbdorey@me.com for help
+# Please contact jbdorey[at]me.com for help
 
 
 #' Set up global directory paths and create folders
 #' 
-#' If those folders do not exist, they will be created for you.
+#' This function sets up a directory for saving outputs (i.e. data, figures) generated through the 
+#' use of the BeeDC package, if the required folders do not already exist.
 #'
-#' @param RootPath character string. The `RootPath` is the path at the root of your project and in 
-#' which all other paths should ideally
-#' be located. However, users may specify paths not contained in the `Rootpath.`
-#' @param ScriptPath character string. The `ScriptPath` is the path to any additional functions that 
-#' you would like to read in.
-#' @param DataPath character string. The path to the folder that contains occurrence data.
-#' @param DataSubPath character string. If a `DataPath` is not provided, this will be used as the `DataPath`
+#' @param RootPath A character String. The `RootPath` is the base path for your project, and all 
+#' other paths should ideally be located within the `RootPath`. However, users may specify paths not 
+#' contained in the RootPath
+#' @param ScriptPath A character String. The `ScriptPath` is the path to any additional functions 
+#' that you would like to read in for use with BeeDC.
+#' @param DataPath A character string. The path to the folder containing bee occurrence data 
+#' to be flagged and/or cleaned
+#' @param DataSubPath A character String. If a `DataPath` is not provided, this will be used as the `DataPath`
 #' folder name within the `RootPath.` Default is "/Data_acquisition_workflow"
-#' @param DiscLifePath character string. The path to the folder that contains data from Ascher 
+#' @param DiscLifePath A character String. The path to the folder which contains data from Ascher 
 #' and Pcikering's Discover Life website.
-#' @param OutPath character string. The path to the folder where data will be saved.
-#' @param OutPathName character string. The name of the `OutPath` subfolder within the `RootPath.` Default is
-#' "Output".
-#' @param RDoc character string. The path to the current script or report, relative to the project 
+#' @param OutPath A character String. The path to the folder where output data will be saved.
+#' @param OutPathName A character String. The name of the `OutPath` subfolder located within the 
+#' `RootPath.` Default is "Output".
+#' @param RDoc A character String. The path to the current script or report, relative to the project 
 #' root. Passing an absolute path raises an error. This argument is used by [here::i_am()] and incorrectly
-#' setting this may result in bdc:: figures being saved to your computer's root directory
-#' @param Report Logical. If True, create a "Report" folder within OutPath. Default = TRUE.
-#' @param Check Logical. If True, create a "Check" folder within OutPath. Default = TRUE.
-#' @param Figures Logical. If True, create a "Figures" folder within OutPath. Default = TRUE.
-#' @param Intermediate Logical. If True, create a "Intermediate" folder within OutPath. Default = TRUE.
+#' setting this may result in `bdc` figures being saved to your computer's root directory
+#' @param Report Logical. If TRUE, function creates a "Report" folder within the OutPath-defined 
+#' folder. Default = TRUE.
+#' @param Check Logical. If TRUE, function creates a "Check" folder within the OutPath-defined 
+#' folder. Default = TRUE.
+#' @param Figures Logical. If TRUE, function creates a "Figures" folder within the OutPath-defined 
+#' folder. Default = TRUE.
+#' @param Intermediate Logical. If TRUE, function creates a "Intermediate" folder within the 
+#' OutPath-defined folder in which to save intermediate datasets. Default = TRUE.
 #' 
 #'
-#' @return A list containing the required directories in your global environment. This function should
-#' be run at the start of each session. This function will also create the requested folders, 
-#' if they do not exist.
+#' @return Results in the generation of a list containing the BeeDC-required directories in your global
+#'  environment. This function should be run at the start of each session. Additionally, this 
+#'  function will create the BeeDC-required folders if they do not already exist in the supplied 
+#'  directory
 #'
 #' @importFrom fs dir_exists dir_create
 #' @importFrom here i_am here
+#' @importFrom dplyr %>%
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Standard/basic usage:
-#' RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
+#' RootPath <- tempdir()
 #' dirMaker(
   #' RootPath = RootPath,
   #' # Input the location of the workflow script RELATIVE to the RootPath
@@ -52,7 +60,6 @@
   #' setwd(DataPath)
 #'
 #' # Custom OutPathName provided
-#' RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
 #'   dirMaker(
 #'  RootPath = RootPath,
 #'  # Set some custom OutPath info
@@ -66,7 +73,6 @@
 #'  setwd(DataPath)
 #'
 #' # Further customisations are also possible
-#' RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
 #' dirMaker(
 #'   RootPath = RootPath,
 #'   ScriptPath = "...path/Bee_SDM_paper/BDC_repo/BeeDC/R",
@@ -97,12 +103,12 @@ dirMaker <- function(
     RDoc = NULL
 ){
   # Package names
-  packages <- c("magrittr", "fs", "here")
+  packages <- c("dplyr", "bdc", "here")
   
   # Install packages not yet installed
-  installed_packages <-  rownames(installed.packages(packages))
+  installed_packages <-  rownames(utils::installed.packages(packages))
   if (any(installed_packages == FALSE)) {
-    install.packages(packages[!installed_packages])
+    utils::install.packages(packages[!installed_packages])
   }
   
   # Packages loading
@@ -112,11 +118,11 @@ dirMaker <- function(
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
   if(is.null(RootPath)){
-    stop(paste0(" — No RootPath was given. Please specifcy the root drectory that you want to use ",
+    stop(paste0(" - No RootPath was given. Please specifcy the root drectory that you want to use ",
                 "for your data-cleaning adventures. I'll do the rest."))
   }
   if(is.null(RDoc)){
-    stop(paste0(" — Please provide a path for RDoc. This path MUST be relative to the RootPath. ",
+    stop(paste0(" - Please provide a path for RDoc. This path MUST be relative to the RootPath. ",
                 "Hence, if the RootPath is '/user/home/', and the path to the RDoc is ", 
                 "'/user/home/beeData/cleaningWorkflow.R', then RDoc == 'beeData/cleaningWorkflow.R"))
   }
@@ -130,7 +136,7 @@ dirMaker <- function(
   if(is.null(ScriptPath)){
   if (!fs::dir_exists(paste0(RootPath, "/BDC_repo/BeeDC/R"))) {
     fs::dir_create(paste0(RootPath, "/BDC_repo/BeeDC/R"), recurse = TRUE)
-    warning(paste0(" — We created the ", 
+    warning(paste0(" - We created the ", 
                    paste0(RootPath, "/BDC_repo/BeeDC/R"),
                    "file. This file needs to have the NewFunctions added to it otherise things won't",
                    " work. These can be added from our GitHub"))
@@ -142,7 +148,7 @@ dirMaker <- function(
     if(ScriptPath != FALSE){
     if (!fs::dir_exists(ScriptPath)) {
       fs::dir_create(ScriptPath, recurse = TRUE)
-      warning(paste0(" — We created the ", 
+      warning(paste0(" - We created the ", 
                      ScriptPath,
                      "file. This file needs to have the NewFunctions added to it otherise things won't",
                      " work. These can be added from our GitHub"))
@@ -157,7 +163,7 @@ dirMaker <- function(
   if (!fs::dir_exists(paste0(RootPath, DataSubPath))) {
     fs::dir_create(paste0(RootPath, DataSubPath), recurse = TRUE)
     # User warning
-    warning(paste0(" — We created the ", 
+    warning(paste0(" - We created the ", 
                    paste0(RootPath, DataSubPath),
                    "file. This file needs to have the occurrence data that you want to use ",
                    "added to it otherise things won't",
@@ -170,7 +176,7 @@ dirMaker <- function(
     if (!fs::dir_exists(DataPath)) {
       fs::dir_create(DataPath, recurse = TRUE)
       # User warning
-      warning(paste0(" — We created the ", 
+      warning(paste0(" - We created the ", 
                      DataPath,
                      "file. This file needs to have the occurrence data that you want to use ",
                      "added to it otherise things won't",
@@ -188,7 +194,7 @@ dirMaker <- function(
     {
       fs::dir_create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recurse = TRUE)
         # User warning
-      warning(paste0(" — We created the ", 
+      warning(paste0(" - We created the ", 
                      paste0(RootPath, "/BDC_repo/DiscoverLife_Data"),
                      "file. This file needs to have the DiscoverLife_Data added to it otherise things won't",
                      " work. These can be added from our GitHub"))
@@ -204,7 +210,7 @@ dirMaker <- function(
       {
         fs::dir_create(DiscLifePath, recurse = TRUE)
         # User warning
-        warning(paste0(" — We created the ", 
+        warning(paste0(" - We created the ", 
                        DiscLifePath,
                        "file. This file needs to have the DiscoverLife_Data added to it otherise things won't",
                        " work. These can be added from our GitHub"))
@@ -223,7 +229,7 @@ dirMaker <- function(
       {
         fs::dir_create(paste0(DataPath, "/", OutPathName), recurse = TRUE)
         # User warning
-        warning(paste0(" — We created the ", 
+        warning(paste0(" - We created the ", 
                        paste0(DataPath,  "/", OutPathName),
                        "file."))
       }
@@ -237,7 +243,7 @@ dirMaker <- function(
       {
         fs::dir_create(OutPath, recurse = TRUE)
         # User warning
-        warning(paste0(" — We created the ", 
+        warning(paste0(" - We created the ", 
                        OutPath,
                        "file."))
     }}
@@ -277,7 +283,7 @@ dirMaker <- function(
   #### 4.0 Output ####
   return(list(ScriptPath, DataPath, DiscLifePath, OutPath,
               OutPath_Check, OutPath_Figures, OutPath_Intermediate, OutPath_Report) %>%
-           setNames(c("ScriptPath", "DataPath", "DiscLifePath", "OutPath",
+           stats::setNames(c("ScriptPath", "DataPath", "DiscLifePath", "OutPath",
                       "OutPath_Check", "OutPath_Figures", "OutPath_Intermediate",
                       "OutPath_Report")))
 } # END function

@@ -1,8 +1,12 @@
 #####  2.3 data_reader ####
+#' @importFrom dplyr %>%
 # Read in occurence data with the correct format to be merged
 data_reader <-  function(path_i, home_path){
-  require(readr, dplyr, mgsub, tibble)
-  require(stringr)
+    # locally bind variables to the function
+dplyr <- mgsub <- setNames <- . <- family <- day <- NULL
+  
+requireNamespace("bdc", "dplyr", "mgsub")
+
   #Set up bee family list
   Bee_Families <- c("Andrenidae","Apidae", "Colletidae","Halictidae","Megachilidae","Melittidae",
                     "Stenotritidae","andrenidae","apidae", "colletidae","halictidae","megachilidae",
@@ -14,15 +18,15 @@ data_reader <-  function(path_i, home_path){
   ColsToKeep <- names(ColTypes$cols)
   # Make an internal copy of the template for use in the loop as the template tibble
   data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
-    purrr::map_dfc(setNames, object = list(character())) %>%
-    readr::type_convert(col_types = cols(.default = col_character()))
+    purrr::map_dfc(stats::setNames(), object = list(character())) %>%
+    readr::type_convert(col_types = vroom::cols(.default = vroom::col_character()))
   
   #### ALA data ####
   if(grepl("ALA_data", names(path_i)) == "TRUE"){
     # Import these data
     data_i <- readr::read_csv(path_i, col_names = TRUE,
                               # read in all columns as character for now
-                              col_types = cols(.default = col_character()),
+                              col_types = vroom::cols(.default = vroom::col_character()),
                               name_repair = "minimal") %>% 
       # Suppress warnings from read_csv
       suppressWarnings(., classes = "warning") %>% 
@@ -60,7 +64,7 @@ data_reader <-  function(path_i, home_path){
     # Read in each file and then merge together
     data_i <- readr::read_tsv(path_i, 
                               quote = "", col_names = TRUE,
-                              col_types = cols(.default = col_character())) %>% 
+                              col_types = vroom::cols(.default = vroom::col_character())) %>% 
       # Supress warnings from read_tsv
       suppressWarnings(., classes = "warning") %>% 
       # Include all columns from original template file
@@ -76,7 +80,7 @@ data_reader <-  function(path_i, home_path){
     # Import these data
     data_i <- readr::read_csv(path_i, col_names = TRUE,
                               # read in all columns as character for now
-                              col_types = cols(.default = col_character()),
+                              col_types = vroom::cols(.default = vroom::col_character()),
                               # Do not keep the some columns
                                 col_select = !c("abcd:typifiedName",  "aec:associatedTaxa",
                                                 "ala:photographer","ala:species","ala:subfamily",
@@ -121,14 +125,14 @@ data_reader <-  function(path_i, home_path){
   if(grepl("SCAN_data", names(path_i)) == "TRUE"){ # Start SCAN IF statement
     data_i <- readr::read_csv(path_i, col_names = TRUE,
                               # read in all columns as character for now
-                              col_types = readr::cols(.default = col_character())) %>% 
+                              col_types = readr::cols(.default = vroom::col_character())) %>% 
       # Supress warnings from read_csv
       suppressWarnings(., classes = "warning") %>% 
       # Filter the columns to only those that we want to select, based on the ColsToKeep vector 
       # that we created at the top of the R-script
       dplyr::rename("fieldNotes" = "occurrenceRemarks") %>%
       # select columns that match the following string
-      dplyr::select( any_of(ColsToKeep)) %>%
+      dplyr::select( tidyselect::any_of(ColsToKeep)) %>%
       # Select only Bee families (in case )
       dplyr::filter(family %in% c(Bee_Families, "", "NA") ) %>%
     # Keep only the columns defined in ColTypeR

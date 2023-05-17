@@ -4,30 +4,32 @@
 #' to be transposed.
 #'
 #' @family prefilter
-#' @param data data.frame. Containing a unique identifier for each record,
+#' @param data A data frame or tibble. Containing a unique identifier for each record,
 #' geographical coordinates, and country names. Coordinates must be expressed
 #' in decimal degrees and WGS84.
-#' @param id character string. The column name with a unique record identifier.
+#' @param id A character string. The column name with a unique record identifier.
 #' Default = "database_id".
-#' @param sci_names character string. The column name with species scientific
-#' name. Default = "scientificName".
-#' @param lat character string. The column name with latitude. Coordinates must
+#' @param sci_names A character string. The column name with species' scientific
+#' names. Default = "scientificName".
+#' @param lat A character string. The column name with latitudes. Coordinates must
 #' be expressed in decimal degrees and WGS84. Default = "decimalLatitude".
-#' @param lon character string. The column with longitude. Coordinates must be
+#' @param lon A character string. The column name with longitudes. Coordinates must be
 #' expressed in decimal degrees and WGS84. Default = "decimalLongitude".
-#' @param country character string. The column name with the country
-#' assignment of each record. Default = "country".
-#' @param countryCode character string. The column name with an ISO-2 country
-#' code.
-#' @param border_buffer numeric >= 0. A distance in decimal degrees used to
-#' created a buffer around the country. Records within a given country and at
+#' @param country A character string. The column name with the country
+#' assignment of each occurrence record. Default = "country".
+#' @param countryCode A character string. The column name containing an ISO-2 country code for 
+#' each record.
+#' @param border_buffer Numeric. Must have value greater than or equal to 0. 
+#' A distance in decimal degrees used to
+#' created a buffer around each country. Records within a given country and at
 #' a specified distance from the border will be not be corrected.
 #' Default = 0.2 (~22 km at the equator).
-#' @param save_outputs logical. Should a table containing transposed coordenates
-#' saved for further inspection? Default = FALSE.
+#' @param save_outputs Logical. Indicates if a table containing transposed coordinates should be 
+#' saved for further inspection. Default = FALSE.
+#' @param fileName A character string. The out file's name.
 #
-#' @details This test identifies transposed coordinates resulted from mismatches
-#' between the country informed for a record and coordinates. Transposed
+#' @details This test identifies transposed coordinates based on mismatches between the 
+#' country provided for a record and the record’s latitude and longitude coordinates. Transposed
 #' coordinates often fall outside of the indicated country (i.e., in other
 #' countries or in the sea). Different coordinate transformations are
 #' performed to correct country/coordinates mismatches. Importantly, verbatim
@@ -37,8 +39,8 @@
 #' columns "country" and "countryCode" can be retrieved by using the function
 #' \code{\link{bdc_country_standardized}}.
 #'
-#' @return A data.frame containing the column "coordinates_transposed"
-#' indicating if verbatim coordinates were not transposed (TRUE). Otherwise
+#' @return A tibble containing the column "coordinates_transposed" which indicates if 
+#' verbatim coordinates were not transposed (TRUE). Otherwise
 #' records are flagged as (FALSE) and, in this case, verbatim coordinates are
 #' replaced by corrected coordinates.
 #'
@@ -47,6 +49,8 @@
 #' @importFrom here here
 #'
 #' @export
+#' 
+#' @importFrom dplyr %>%
 #'
 #' @examples
 #' \dontrun{
@@ -64,7 +68,7 @@
 #'   decimalLongitude, country
 #' )
 #'
-#' # Get country code
+#' # Get country codes
 #' x <- bdc_country_standardized(data = x, country = "country")
 #'
 #' bdc_coordinates_transposed(
@@ -92,15 +96,15 @@ jbd_coordinates_transposed <-
            save_outputs = FALSE,
            fileName = NULL) {
     decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
-    require(bdc)
-    require(dplyr)
-    require(magrittr)
+    requireNamespace("bdc")
+    requireNamespace("dplyr")
 
     suppressWarnings({
       check_require_cran("rnaturalearth")
       check_require_cran("readr")
-      check_require_github("ropensci/rnaturalearthdata")
+     #  check_require_github("ropensci/rnaturalearthdata")
     })
+    # loadNamespace("rnaturalearthdata")
 
     data <- dplyr::tibble(data)
     minimum_colnames <-

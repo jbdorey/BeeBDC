@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_finder.R
 \name{data_finder}
 \alias{data_finder}
-\title{Find GBIF, ALA, iDigBio, and SCAN files}
+\title{Find GBIF, ALA, iDigBio, and SCAN files in a directory}
 \usage{
 data_finder(path)
 }
@@ -14,7 +14,7 @@ iDigBio, and SCAN files.}
 Returns a list of directories to each of the above data downloads
 }
 \description{
-Find GBIF, ALA, iDigBio, and SCAN files
+Find GBIF, ALA, iDigBio, and SCAN files in a directory
 }
 \examples{
 \dontrun{

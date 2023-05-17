@@ -1,5 +1,6 @@
-
+requireNamespace("dplyr")
 data("bees3sp")
+requireNamespace("tribble")
 
 testOut <- BeeDC::jbd_Ctrans_chunker(
   # bdc_coordinates_transposed inputs
@@ -7,7 +8,7 @@ testOut <- BeeDC::jbd_Ctrans_chunker(
     dplyr::filter(complete.cases(decimalLatitude)) %>%
     dplyr::select(!c(".sea", ".val")) %>%
     dplyr::bind_rows(bees3sp %>%  dplyr::select(!c(".sea", ".val")) %>% 
-                       dplyr::filter(complete.cases(decimalLatitude)) %>% slice_head(n = 20) %>%
+                       dplyr::filter(complete.cases(decimalLatitude)) %>% dplyr::slice_head(n = 20) %>%
                         # Swap the first ten rows' lat and lon and then add to the dataset to test the function
                        dplyr::mutate(decimalLatitude2 = decimalLongitude,
                                      decimalLongitude2 = decimalLatitude,
