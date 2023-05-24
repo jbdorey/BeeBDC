@@ -18,11 +18,11 @@ nameSplitR <- function(NameInput,
                            "(\\s[:upper:])", "|", # Find a space then an upper-case letter (i.e., an author name after the species name)
                            "(\\([A-Z][a-z]+)(?=\\s)", "|", #, "|", # Find a capitalized word (with or without a bracket) - \\([A-Z][a-z]+) - that is followed by a space (not a bracket) - (?=\\s)
                            "(\\([A-Z]{1,2}[\\.]?)(?=\\s)", "|", # Find those few authorities that start with multiple capital letters - (SS Saunders, 1850), or with initials - (W. F. Kirby, 1900)
-                           "(\\([A-Z][a-zů\\u00c0-\\u017e]+\\-[A-Z]+)(?=[\\s\\,])","|", # Match as above, but with special characters
-                           "(\\([A-Z][a-zů\\u00c0-\\u017e]+)(?=[\\s\\,])","|", # Match as above, but with special characters
+                           "(\\([A-Z][a-z\\u016f\\u00c0-\\u017e]+\\-[A-Z]+)(?=[\\s\\,])","|", # Match as above, but with special characters
+                           "(\\([A-Z][a-z\\u016f\\u00c0-\\u017e]+)(?=[\\s\\,])","|", # Match as above, but with special characters
                            " \\(?de | \\(?van der | \\?van ", "|", # Finds the prefixs for last names "de Villers", "van der Zanden" etc.
-                           "(\\([A-Z][a-zů\\u00c0-\\u017e]+\\-[A-Z][a-zů\\u00c0-\\u017e]+)(?=[\\s\\,])", "|", # Matches European/African characters with a hyphen between
-                           "( not_\\(Cockerell)|ůoziů|auct \\,| sensu auct not| 1914| sensu auct") # Find other haphazard matches
+                           "(\\([A-Z][a-z\\u016f\\u00c0-\\u017e]+\\-[A-Z][a-z\\u016f\\u00c0-\\u017e]+)(?=[\\s\\,])", "|", # Matches European/African characters with a hyphen between
+                           "( not_\\(Cockerell)|\\u016fozi\\u016f|auct \\,| sensu auct not| 1914| sensu auct") # Find other haphazard matches
   }
   
   # Split the name based on Auth. Patterns

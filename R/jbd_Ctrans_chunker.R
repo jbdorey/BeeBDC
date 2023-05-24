@@ -22,6 +22,8 @@
 #' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #' @param chunkStart Numeric. The chunk number to start from. This can be > 1 when you need to restart 
 #' the function from a certain chunk; for example if R failed unexpectedly. 
+#' @param progressiveSave Logical. If TRUE then the country output list will be saved between
+#' each iteration so that `append` can be used if the function is stopped part way through.
 #' @param append Logical. If TRUE, the function will look to append an existing file.
 
 #'
@@ -54,6 +56,8 @@
 #' stepSize = 1000000,  
 #' # Start row
 #' chunkStart = 1,  
+#' # Progressively save the output between each iteration?
+#' progressiveSave = FALSE,
 #' # If FALSE it may overwrite existing dataset
 #' append = FALSE  
 #' ) 
@@ -75,6 +79,7 @@ jbd_Ctrans_chunker <- function(
     stepSize = 1000000,
      # Start row
     chunkStart = 1,
+    progressiveSave = TRUE,
      # If FALSE it may overwrite existing dataset
     append = TRUE){
   database_id <- NULL
@@ -95,7 +100,7 @@ jbd_Ctrans_chunker <- function(
   #### 0.2 Append ####
   if(append == TRUE){
       # Read in the Tranps_tibble csv
-    Tranps_tibble = readr::read_csv("Tranps_tibble")
+    Tranps_tibble = readr::read_csv("Tranps_tibble.csv")
      # set the chunkStart to the number of rows completed plus one
     chunkStart = nrow(Tranps_tibble) + 1
     nChunks = ceiling((nrow(data)-chunkStart)/stepSize)
@@ -173,7 +178,8 @@ jbd_Ctrans_chunker <- function(
                      format(nrow(Tranps_tibble), big.mark=",",scientific=FALSE),
                      sep = "") )
     # Save as a csv after each iteration
-    readr::write_csv(Tranps_tibble, file = "Tranps_tibble")
+    if(progressiveSave == TRUE){
+    readr::write_csv(Tranps_tibble, file = "Tranps_tibble.csv")}
   } # END loop
   # Remove NA values
   Tranps_tibble <- Tranps_tibble %>%

@@ -15,6 +15,8 @@
 #' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #' @param chunkStart Numeric. The chunk number to start from. This can be > 1 when you need to 
 #' restart the function from a certain chunk. For example, can be used if R failed unexpectedly.
+#' @param progressiveSave Logical. If TRUE then the country output list will be saved between
+#' each iteration so that `append` can be used if the function is stopped part way through.
 #' @param append Logical. If TRUE, the function will look to append an existing file.
 #'
 #' @return A data frame containing database_ids and a country column 
@@ -55,6 +57,8 @@
 #'                                    stepSize = 1000000,
 #'                                    # Start row
 #'                                    chunkStart = 1,
+#'                                     # Progressively save the country list between each iteration?
+#'                                    progressiveSave = FALSE,
 #'                                    append = FALSE),
 #'   classes = "warning")
 #' 
@@ -85,6 +89,7 @@ jbd_CfC_chunker <- function(data = NULL,
                             stepSize = 1000000,
                             # Start row
                             chunkStart = 1,
+                            progressiveSave = TRUE,
                             # If FALSE it may overwrite existing dataset
                             append = FALSE){
   #### 0.0 Prep ####
@@ -173,8 +178,9 @@ jbd_CfC_chunker <- function(data = NULL,
                      format(nrow(CountryList), big.mark=",",scientific=FALSE),
                      sep = "") )
       ##### 1.5 Save ####
+    if(progressiveSave == TRUE){
     # Save as a csv after each iteration
-    readr::write_csv(CountryList, file = "CountryList.csv")
+    readr::write_csv(CountryList, file = "CountryList.csv")}
   } # END loop
   colnames(CountryList) <- c("database_id", "country")
   

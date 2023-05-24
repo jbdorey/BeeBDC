@@ -39,6 +39,7 @@
 #' @param saveTable Optional. Logical. If TRUE, the function will save the data used to produce the 
 #' compound bar plot.
 #' @param jitterValue Optional. Numeric. The value to jitter points by in the map in decimal degrees.
+#' @param returnPlot Logical. If TRUE, return the plot to the environment. Default = FALSE.
 #' @param ... Optional. Extra variables to be fed into [forcats::fct_recode()] to change names on plot.
 #' For example... 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd", Gaiarsa = "Gai"
 #'
@@ -105,6 +106,7 @@ plotFlagSummary <- function(
     saveTable = FALSE,
     # Jitter map? enter jitter amount
     jitterValue = NULL,
+    returnPlot = FALSE,
     ...
 ){
   # locally bind variables to the function
@@ -397,4 +399,7 @@ plotFlagSummary <- function(
                   plot = plot, dpi = dpi, bg = bg, device = device,
                   width = width, height = height, units = units)}
  
+  if(returnPlot == TRUE){
+    return(plot)}
+  
 } # END function

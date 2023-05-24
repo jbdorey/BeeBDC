@@ -23,6 +23,7 @@ plotFlagSummary(
   mapAlpha = 0.5,
   saveTable = FALSE,
   jitterValue = NULL,
+  returnPlot = FALSE,
   ...
 )
 }
@@ -75,6 +76,8 @@ species at a time; i.e., with speciesName is not NULL.}
 compound bar plot.}
 
 \item{jitterValue}{Optional. Numeric. The value to jitter points by in the map in decimal degrees.}
+
+\item{returnPlot}{Logical. If TRUE, return the plot to the environment. Default = FALSE.}
 
 \item{...}{Optional. Extra variables to be fed into \code{\link[forcats:fct_recode]{forcats::fct_recode()}} to change names on plot.
 For example... 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd", Gaiarsa = "Gai"}

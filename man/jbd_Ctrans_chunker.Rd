@@ -16,6 +16,7 @@ jbd_Ctrans_chunker(
   save_outputs = TRUE,
   stepSize = 1e+06,
   chunkStart = 1,
+  progressiveSave = TRUE,
   append = TRUE
 )
 }
@@ -44,6 +45,9 @@ to countries. Default = 0.2 (~22 km at equator).}
 
 \item{chunkStart}{Numeric. The chunk number to start from. This can be > 1 when you need to restart
 the function from a certain chunk; for example if R failed unexpectedly.}
+
+\item{progressiveSave}{Logical. If TRUE then the country output list will be saved between
+each iteration so that \code{append} can be used if the function is stopped part way through.}
 
 \item{append}{Logical. If TRUE, the function will look to append an existing file.}
 }
@@ -80,6 +84,8 @@ sci_names = "scientificName",
 stepSize = 1000000,  
 # Start row
 chunkStart = 1,  
+# Progressively save the output between each iteration?
+progressiveSave = FALSE,
 # If FALSE it may overwrite existing dataset
 append = FALSE  
 ) 

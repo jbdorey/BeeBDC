@@ -11,7 +11,8 @@ dupePlotR(
   base_height = 7,
   base_width = 7,
   ...,
-  dupeColours = c("#F2D2A2", "#B9D6BC", "#349B90")
+  dupeColours = c("#F2D2A2", "#B9D6BC", "#349B90"),
+  returnPlot = FALSE
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ i.e. mypath/.../duplicatePlot.pdf}
 
 \item{dupeColours}{A vector of colours for the levels duplicate, kept duplicate, and unique.
 Default = c("#F2D2A2","#B9D6BC", "#349B90").}
+
+\item{returnPlot}{Logical. If TRUE, return the plot to the environment. Default = FALSE.}
 }
 \value{
 Outputs a .pdf figure.

@@ -11,6 +11,7 @@ jbd_CfC_chunker(
   country = "country",
   stepSize = 1e+06,
   chunkStart = 1,
+  progressiveSave = TRUE,
   append = FALSE
 )
 }
@@ -27,6 +28,9 @@ jbd_CfC_chunker(
 
 \item{chunkStart}{Numeric. The chunk number to start from. This can be > 1 when you need to
 restart the function from a certain chunk. For example, can be used if R failed unexpectedly.}
+
+\item{progressiveSave}{Logical. If TRUE then the country output list will be saved between
+each iteration so that \code{append} can be used if the function is stopped part way through.}
 
 \item{append}{Logical. If TRUE, the function will look to append an existing file.}
 }
@@ -72,6 +76,8 @@ suppressWarnings(
                                    stepSize = 1000000,
                                    # Start row
                                    chunkStart = 1,
+                                    # Progressively save the country list between each iteration?
+                                   progressiveSave = FALSE,
                                    append = FALSE),
   classes = "warning")
 

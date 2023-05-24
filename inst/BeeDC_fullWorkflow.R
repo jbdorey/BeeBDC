@@ -108,7 +108,7 @@ DataImp <- BeeDC::repo_merge(path = DataPath,
 # 1. the occurrence dataset with attributes and 
 # 2. the appended eml file
 DataImp <- BeeDC::importOccurrences(path = DataPath,
-                             fileName = "BeeData")
+                             fileName = "BeeData_")
 
 ##### 1.3 Import USGS Data ####
 # The USGS_formatter will find, import, format, and create metadata for the USGS dataset

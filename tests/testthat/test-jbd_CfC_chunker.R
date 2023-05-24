@@ -1,6 +1,5 @@
 requireNamespace("rnaturalearth")
 requireNamespace("BeeDC")
-requireNamespace("tribble")
 
 data("bees3sp")
 

@@ -17,6 +17,7 @@
 #' @param ... Other arguments to be used to change factor levels of data sources.
 #' @param dupeColours A vector of colours for the levels duplicate, kept duplicate, and unique.
 #' Default = c("#F2D2A2","#B9D6BC", "#349B90").
+#' @param returnPlot Logical. If TRUE, return the plot to the environment. Default = FALSE.
 #'
 #' @return Outputs a .pdf figure.
 #' @export
@@ -51,7 +52,8 @@ dupePlotR <- function(
     # Factor levels to be changed
     ...,
       # Colours in order: duplicate, kept duplicate, unique
-    dupeColours = c("#F2D2A2","#B9D6BC", "#349B90")
+    dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
+    returnPlot = FALSE
 ){
   # locally bind variables to the function
   database_id <- duplicateStatus <- dataSource <- simpleSource <- NULL 
@@ -145,6 +147,8 @@ dupePlotR <- function(
                      base_width = base_width,
                      base_height = base_height)
   
+  if(returnPlot == TRUE){
+    return(dupPlot)}
   
   
 } # END function

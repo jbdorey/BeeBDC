@@ -1,6 +1,5 @@
 requireNamespace("dplyr")
 data("bees3sp")
-requireNamespace("tribble")
 
 testOut <- BeeDC::jbd_Ctrans_chunker(
   # bdc_coordinates_transposed inputs

@@ -117,6 +117,9 @@ interactiveMapR <- function(
   }
   
   ##### 0.2 Packages ####
+  # Save the original directory 
+  olddir <- getwd()
+  
 # Package names
 packages <- c("leaflet", "htmlwidgets", "plotly", "dplyr")
 
@@ -462,6 +465,9 @@ for (x in 1:length(speciesList)){
                           selfcontained = TRUE,
                           title = paste0(speciesList[[x]]))
 } # END for
+
+# reset to original directory
+setwd(olddir)
 
 } # END function
 

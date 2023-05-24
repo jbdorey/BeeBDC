@@ -1,7 +1,5 @@
-requireNamespace("tibble")
-requireNamespace("tribble")
 requireNamespace("dplyr")
-requireNamespace("stringr")
+requireNamespace("bdc")
 
   # Read in a flagged test dataset
 data("beesFlagged")

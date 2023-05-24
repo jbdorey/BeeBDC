@@ -66,10 +66,10 @@ FlagManager <- function(InSynList = DLdf,
     # unsure flags
     " f ","^f "," m ","^m "," r ","^r "," ab ","^ab ",
     # Specific cases
-    "_Urban_not_Pasteels","_Friese_not_Megerle","_Friese_not_Hübner","_Friese_not_Stimpson",
+    "_Urban_not_Pasteels","_Friese_not_Megerle","_Friese_not_H\\u00fcbner","_Friese_not_Stimpson",
     # Author flags
     "Auctorum, sensu","sensu auct not","Auct non","Auct, not","auct, not","_auct not_",
-    "_auct","^auct ") %>%
+    "_auct","^auct ") %>% 
     paste(collapse="|")
   
   
@@ -181,7 +181,7 @@ FlagManager <- function(InSynList = DLdf,
       # unsure flags
       " f ","^f "," m ","^m "," r ","^r "," ab ","^ab ",
       # Specific cases
-      "_Urban_not_Pasteels","_Friese_not_Megerle","_Friese_not_Hübner","_Friese_not_Stimpson",
+      "_Urban_not_Pasteels","_Friese_not_Megerle","_Friese_not_H\\u00fcbner","_Friese_not_Stimpson",
       # Author flags
       "Auctorum, sensu","sensu auct not","Auct non","Auct, not","auct, not","_auct not_",
       "_auct","^auct ") %>%

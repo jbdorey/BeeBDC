@@ -11,7 +11,8 @@ summaryMaps(
   filename = NULL,
   width = 10,
   height = 5,
-  dpi = 300
+  dpi = 300,
+  returnPlot = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ itself for the output figure.}
 \item{height}{Numeric. The height, in inches, of the resulting figure. Default = 5.}
 
 \item{dpi}{Numeric. The resolution of the resulting plot. Default = 300.}
+
+\item{returnPlot}{Logical. If TRUE, return the plot to the environment. Default = FALSE.}
 }
 \value{
 Saves a figure to the user-specified outpath and name with a global map of bee

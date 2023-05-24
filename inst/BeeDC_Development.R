@@ -1,4 +1,9 @@
 # Development
+# Notes to fix:
+  # Checklist - include data sources in dataset
+  # Taxonomy check for no-species occurrences and for subgenus in species... have a general peak!
+  # Harmoniser, consider adding protection to avoid matching genus or subgenus-level taxa to valid names
+
 
 #### 0.0 Packages ####
 install.packages("devtools")
@@ -126,7 +131,7 @@ print(citation("BeeDC"), bibtex=TRUE)
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
-usethis::use_test("idMatchR")
+usethis::use_test("summaryMaps")
 
 
   ##### 2.5 Check package ####

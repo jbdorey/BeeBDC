@@ -272,7 +272,7 @@ dateFindR <-
       # Aug 2, 2019
     paste(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+[0-9]{4}", collapse = "|", sep = ""),
      # Aug 1-10 2019
-    paste(monthStrings,"[0-9]+[-–][0-9]+[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
+    paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
       # V. 17 1901
     paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
      # <12 >12 1992 - mdy

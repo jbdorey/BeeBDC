@@ -19,6 +19,7 @@
 #' @param width Numeric. The width, in inches, of the resulting figure. Default = 10.
 #' @param height Numeric. The height, in inches, of the resulting figure. Default = 5.
 #' @param dpi Numeric. The resolution of the resulting plot. Default = 300.
+#' @param returnPlot Logical. If TRUE, return the plot to the environment. Default = FALSE.
 #'
 #' @return Saves a figure to the user-specified outpath and name with a global map of bee 
 #' occurrence species and count data from the input dataset. 
@@ -51,7 +52,8 @@ summaryMaps <- function(
     class_Style = "fisher",
     filename = NULL,
     width = 10, height = 5,
-    dpi = 300
+    dpi = 300,
+    returnPlot = FALSE
 ){
   # locally bind variables to the function
   name_long<-iso_a3<-name<-geometry<-decimalLongitude<-decimalLatitude<-database_id<-
@@ -289,6 +291,8 @@ summaryMaps <- function(
                      plot = combinedPlot,
                      base_width = width,
                      base_height = height, dpi = dpi)
+  if(returnPlot == TRUE){
+  return(combinedPlot)}
   
   
 } # END function

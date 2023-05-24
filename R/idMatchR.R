@@ -123,10 +123,10 @@ idMatchR <- function(
     # Only select the columns that are called by the function
   priorData <- priorData %>%
       # Keep only the columns called for and the database_id
-    dplyr::select("database_id", tidyselect::all_of(c(unique(unlist(matchBy), completeness_cols))))
+    dplyr::select(tidyselect::all_of(c("database_id", unique(unlist(matchBy), completeness_cols))))
   currentData <- currentData %>%
     # Keep only the columns called for and the database_id
-    dplyr::select("database_id", tidyselect::all_of(c(unique(unlist(matchBy), completeness_cols))))
+    dplyr::select(tidyselect::all_of(c("database_id", unique(unlist(matchBy), completeness_cols))))
   
   ##### 0.4 Completeness and arrange ####
   ###### a. completeness ####
@@ -171,8 +171,8 @@ idMatchR <- function(
         # JOIN datasets
         dplyr::left_join(., 
                          # FORMAT MATCH
-                         currentData %>% dplyr::select(c(database_id, 
-                                                       tidyselect::all_of(currentMatch))) %>%
+                         currentData %>% dplyr::select(
+                           tidyselect::all_of(c("database_id", currentMatch))) %>%
                            # Remove NA values and get distinct
                            tidyr::drop_na(currentMatch) %>%
                            dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)),
@@ -180,7 +180,7 @@ idMatchR <- function(
                            by = tidyselect::all_of(currentMatch),
                          suffix = c("", "_current")) %>%
         # Extract only the matched ids
-        dplyr::select(c(database_id, "database_id_current")) %>%
+        dplyr::select(tidyselect::any_of(c("database_id", "database_id_current"))) %>%
         # Remove empty matches
         tidyr::drop_na()
       
@@ -207,8 +207,8 @@ idMatchR <- function(
         # JOIN datasets
       dplyr::left_join(., 
                        # FORMAT MATCH
-                       currentData %>% dplyr::select(c(database_id, 
-                                                   tidyselect::all_of(currentMatch))) %>%
+                       currentData %>% dplyr::select(
+                         tidyselect::all_of(c("database_id", currentMatch))) %>%
                          # Remove NA values and get distinct
                          tidyr::drop_na(currentMatch) %>%
                          dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)), 
@@ -218,7 +218,7 @@ idMatchR <- function(
                        by = "currentConcat",
                        suffix = c("", "_current")) %>%
         # Extract only the matched ids
-      dplyr::select(c(database_id, "database_id_current")) %>%
+      dplyr::select(tidyselect::any_of(c("database_id", "database_id_current"))) %>%
         # Remove empty matches
         tidyr::drop_na()
       
@@ -257,7 +257,7 @@ idMatchR <- function(
   
     # Change the database_id column for return
   checkedData <- returnData %>%
-    select(c(database_id, dataSource)) %>%
+    select(tidyselect::all_of(c("database_id", "dataSource"))) %>%
       # Filter to only the examined dataSources
     # Remove all text after the first "_"
     dplyr::mutate(dataSourceShort = stringr::str_remove(dataSource, "_.*")) %>%
@@ -337,7 +337,8 @@ idMatchR <- function(
     # Merge the new databse IDs with the returnData
   returnData <- returnData %>%
       # Join the checkedData dataset
-    dplyr::left_join(checkedData %>% dplyr::select(database_id, database_id_current),
+    dplyr::left_join(checkedData %>% dplyr::select(
+      tidyselect::any_of(c("database_id", "database_id_current"))),
                      by = c("database_id" = "database_id_current"),
                      suffix = c("", "_new")) %>%
     # Update the database_id column to include the new database_ids, or the old ones where
