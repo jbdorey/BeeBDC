@@ -15,8 +15,7 @@ dupeSummary(
   CustomComparisonsRAW = NULL,
   CustomComparisons = NULL,
   sourceOrder = NULL,
-  PaigeSort = FALSE,
-  PaigeOrder = c("Paige", "Dorey"),
+  prefixOrder = c("Paige", "Dorey"),
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
     ".uncertaintyThreshold", ".unLicensed"),
   characterThreshold = 2,
@@ -62,14 +61,8 @@ based on the dataSource column (i.e. what order to prioritize data sources).
 NOTE: These dataSources are simplified to the string prior
 to the first "_". Hence, "GBIF_Anthophyla" becomes "GBIF."}
 
-\item{PaigeSort}{Logical. If TRUE, Paige's data will be preferred over the raw
-GBIF/SCAN/iDigBio data. To preference Paige's data over the RAW GBIF data.
-See 1. Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J.,
-. . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species
-identifies persistent data gaps. Ecography. default = FALSE.}
-
-\item{PaigeOrder}{A character vector. Like sourceOrder, except based on the database_id prefix,
-rather than the dataSource. Additionally, this is only examined if PaigeSort == TRUE.}
+\item{prefixOrder}{A character vector. Like sourceOrder, except based on the database_id prefix,
+rather than the dataSource. Additionally, this is only examined if prefixOrder != NULL.}
 
 \item{dontFilterThese}{A character vector. This should contain the flag columns to be ignored
 in the creation or updating of the .summary column. Passed to  \code{\link[=summaryFun]{summaryFun()}}.}
@@ -137,8 +130,6 @@ sourceOrder = c("CAES", "Gai", "Ecd","BMont", "BMin", "EPEL", "ASP", "KP", "EcoS
                 "FSCA", "Bal", "SMC", "Lic", "Arm",
                 "USGS", "ALA", "GBIF","SCAN","iDigBio"),
 # !!!!!! BELS > GeoLocate
-# To preference Paige's data over the RAW GBIF data, use the below
-PaigeSort = TRUE,
 # Set the complexity threshold for id letter and number length
 # minimum number of characters when WITH the numberThreshold
 characterThreshold = 2,

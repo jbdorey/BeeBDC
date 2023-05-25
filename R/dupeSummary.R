@@ -36,13 +36,8 @@
 #' based on the dataSource column (i.e. what order to prioritize data sources). 
 #' NOTE: These dataSources are simplified to the string prior 
 #' to the first "_". Hence, "GBIF_Anthophyla" becomes "GBIF."
-#' @param PaigeSort Logical. If TRUE, Paige's data will be preferred over the raw 
-#' GBIF/SCAN/iDigBio data. To preference Paige's data over the RAW GBIF data.
-#' See 1. Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J.,
-#'  . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species 
-#'  identifies persistent data gaps. Ecography. default = FALSE.
-#' @param PaigeOrder A character vector. Like sourceOrder, except based on the database_id prefix,
-#' rather than the dataSource. Additionally, this is only examined if PaigeSort == TRUE.
+#' @param prefixOrder A character vector. Like sourceOrder, except based on the database_id prefix,
+#' rather than the dataSource. Additionally, this is only examined if prefixOrder != NULL.
 #' @param dontFilterThese A character vector. This should contain the flag columns to be ignored 
 #' in the creation or updating of the .summary column. Passed to  [BeeDC::summaryFun()].
 #' @param characterThreshold Numeric. The complexity threshold for ID letter length. This is the
@@ -102,8 +97,6 @@
 #'                 "FSCA", "Bal", "SMC", "Lic", "Arm",
 #'                 "USGS", "ALA", "GBIF","SCAN","iDigBio"),
 #' # !!!!!! BELS > GeoLocate
-#' # To preference Paige's data over the RAW GBIF data, use the below
-#' PaigeSort = TRUE,
 #' # Set the complexity threshold for id letter and number length
 #' # minimum number of characters when WITH the numberThreshold
 #' characterThreshold = 2,
@@ -129,9 +122,7 @@ dupeSummary <- function(
     CustomComparisons = NULL,
       # The order in which you want to KEEP duplicated based on data source
     sourceOrder = NULL,
-      # To preference Paige's data over the RAW GBIF data, use the below
-    PaigeSort = FALSE,
-    PaigeOrder = c("Paige", "Dorey"),
+    prefixOrder = c("Paige", "Dorey"),
       # Columns not to filter in .summary - default is below
     dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
                         ".uncertaintyThreshold", ".unLicensed"),
@@ -288,9 +279,9 @@ dupeSummary <- function(
         # Do the duplicate matching
         dupSummary <- Loop_data %>%
           # Select the columns to keep
-          dplyr::select(database_id, 
-                        tidyselect::all_of(currentColumn),
-                        dataSource, dupColumn_s, completeness,.summary) %>%
+          dplyr::select(tidyselect::all_of(c(currentColumn, "database_id",
+                                             "dataSource", "dupColumn_s", "completeness",".summary"))
+                        ) %>%
           # Drop any NA rows
           tidyr::drop_na( tidyselect::all_of(c(currentColumn))) %>%
           # Select the grouping (duplicate) columns
@@ -642,15 +633,15 @@ dupeSummary <- function(
     
     ##### 6.2 Arrange data ####
     # Prepare data order
-    if(PaigeSort == TRUE){
-      writeLines(" - Ordering Paige's updates...")
-      PaigeOrder = PaigeOrder
+    if(!is.null(prefixOrder)){
+      writeLines(" - Ordering prefixs...")
+      prefixOrder = prefixOrder
       clusteredDuplicates <- clusteredDuplicates %>%
         # Make a new column with the database_id SOURCE, not the full database_id with numbers
         dplyr::mutate(database_id_Main = stringr::str_replace(database_id,
                                                               pattern = "_.*",
                                                               replacement = "") %>%
-                        factor(levels = PaigeOrder, ordered = TRUE) ) %>%
+                        factor(levels = prefixOrder, ordered = TRUE) ) %>%
         # Sort so that certain datasets will be given preference over one another as user-defined.
         dplyr::arrange(database_id_Main) %>%
         # Remove this sorting column

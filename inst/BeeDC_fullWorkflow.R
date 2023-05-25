@@ -52,8 +52,7 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "readr",             #  Part of the tidyverse — reads files (e.g., .csv)
                       "cowplot",           # ggplot2 helper package
                       "igraph",
-                      "ggspatial",
-                      "galah")        #  Makes ggplot2 create north arrows or scale bars
+                      "ggspatial")        #  Makes ggplot2 create north arrows or scale bars
 # Install sf, terra, galah, and ComplexHeatMap seperately
 renv::install(c("sf","terra"), type = "binary")
 remotes::install_github("AtlasOfLivingAustralia/galah")
