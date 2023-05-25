@@ -1172,10 +1172,8 @@ check_time <- BeeDC::dupeSummary(
   sourceOrder = c("CAES", "Gai", "Ecd","BMont", "BMin", "EPEL", "ASP", "KP", "EcoS", "EaCO",
                   "FSCA", "Bal", "SMC", "Lic", "Arm",
                   "USGS", "ALA", "GBIF","SCAN","iDigBio"),
-  # To preference Paige's data over the RAW GBIF data, use the below
-  PaigeSort = TRUE,
     # Paige ordering is done using the database_id prefix, not the dataSource prefix.
-  PaigeOrder = c("Paige", "Dorey"),
+  prefixOrder = c("Paige", "Dorey"),
     # Set the complexity threshold for id letter and number length
      # minimum number of characters when WITH the numberThreshold
   characterThreshold = 2,

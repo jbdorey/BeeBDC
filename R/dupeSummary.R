@@ -37,7 +37,8 @@
 #' NOTE: These dataSources are simplified to the string prior 
 #' to the first "_". Hence, "GBIF_Anthophyla" becomes "GBIF."
 #' @param prefixOrder A character vector. Like sourceOrder, except based on the database_id prefix,
-#' rather than the dataSource. Additionally, this is only examined if prefixOrder != NULL.
+#' rather than the dataSource. Additionally, this is only examined if prefixOrder != NULL. 
+#' Default = NULL.
 #' @param dontFilterThese A character vector. This should contain the flag columns to be ignored 
 #' in the creation or updating of the .summary column. Passed to  [BeeDC::summaryFun()].
 #' @param characterThreshold Numeric. The complexity threshold for ID letter length. This is the
@@ -122,7 +123,7 @@ dupeSummary <- function(
     CustomComparisons = NULL,
       # The order in which you want to KEEP duplicated based on data source
     sourceOrder = NULL,
-    prefixOrder = c("Paige", "Dorey"),
+    prefixOrder = NULL,
       # Columns not to filter in .summary - default is below
     dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
                         ".uncertaintyThreshold", ".unLicensed"),
