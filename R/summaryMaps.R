@@ -42,7 +42,7 @@
 #' width = 10, height = 10,
 #' class_n = 4,
 #' class_Style = "fisher",
-#' filename = paste0(OutPath_Figures, "/CountryMaps_fisher_TEST.pdf")
+#' filename = paste0(tempdir(), "/CountryMaps_fisher_TEST.pdf")
 #' )
 #' 
 #' 
@@ -106,11 +106,13 @@ summaryMaps <- function(
   
     ##### 1.3 Extraction ####
   writeLines(" - Extracting country data from points...")
+    # Set geometries to constant for the sake of the map
+  sf::st_agr(worldMap) = "constant"
+  sf::st_agr(mapData) = "constant"
   #Extract polygon information to points
-  mapData <- sf::st_intersection(worldMap,
-                                        mapData) %>%
+  mapData <- sf::st_intersection(worldMap, mapData) %>%
     # drop geometry
-    sf::st_drop_geometry(mapData)
+    sf::st_drop_geometry() 
   writeLines("Extraction complete.")
   
 
@@ -152,7 +154,7 @@ summaryMaps <- function(
                   class_count2 = stringr::str_c(min, max, sep = "-") ) 
   
   # Join the map and occurrence data
-  fullMap <-  dplyr::full_join(worldMap,  spMapData,
+  fullMap <-  dplyr::full_join(worldMap,  spMapData %>% sf::st_drop_geometry(),
                                by = c("name_long" = "name_long")) %>%
     # Remove na rows
     tidyr::drop_na(count)
@@ -210,7 +212,7 @@ summaryMaps <- function(
     dplyr::select(name_long, occCount)
   
   # Join the map and occurrence data
-  fullMap <-  dplyr::full_join(worldMap,  mapTable,
+  fullMap <-  dplyr::full_join(worldMap,  mapTable  %>% sf::st_drop_geometry(),
                                by = c("name_long" = "name_long")) %>%
     # Remove na rows
     tidyr::drop_na(occCount)

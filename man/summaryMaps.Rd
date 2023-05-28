@@ -55,7 +55,7 @@ mapData = beesFlagged,
 width = 10, height = 10,
 class_n = 4,
 class_Style = "fisher",
-filename = paste0(OutPath_Figures, "/CountryMaps_fisher_TEST.pdf")
+filename = paste0(tempdir(), "/CountryMaps_fisher_TEST.pdf")
 )
 
 

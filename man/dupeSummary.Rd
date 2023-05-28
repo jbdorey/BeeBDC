@@ -15,7 +15,7 @@ dupeSummary(
   CustomComparisonsRAW = NULL,
   CustomComparisons = NULL,
   sourceOrder = NULL,
-  prefixOrder = c("Paige", "Dorey"),
+  prefixOrder = NULL,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
     ".uncertaintyThreshold", ".unLicensed"),
   characterThreshold = 2,
@@ -62,7 +62,8 @@ NOTE: These dataSources are simplified to the string prior
 to the first "_". Hence, "GBIF_Anthophyla" becomes "GBIF."}
 
 \item{prefixOrder}{A character vector. Like sourceOrder, except based on the database_id prefix,
-rather than the dataSource. Additionally, this is only examined if prefixOrder != NULL.}
+rather than the dataSource. Additionally, this is only examined if prefixOrder != NULL.
+Default = NULL.}
 
 \item{dontFilterThese}{A character vector. This should contain the flag columns to be ignored
 in the creation or updating of the .summary column. Passed to  \code{\link[=summaryFun]{summaryFun()}}.}

@@ -2,7 +2,7 @@
   #'
   #' This functions detects mismatches between country names informed coordinates.
   #' Once detects, transposed coordinates are corrected by the used of different
-  #' coordinates transformations by using the 'bdc_coord_trans' function.
+  #' coordinates transformations by using the 'jbd_coord_trans' function.
   #'
   #' @param data data.frame. Containing an unique identifier for each records,
   #' geographical coordinates, and country names. Coordinates must be expressed in
@@ -36,7 +36,7 @@
 #' \dontrun{
 #'
 #' }
-bdc_correct_coordinates <-
+jbd_correct_coordinates <-
   function(data,
            x,
            y,
@@ -53,7 +53,7 @@ bdc_correct_coordinates <-
     x_mod <- paste0(x, "_modified")
     y_mod <- paste0(y, "_modified")
     
-    occ_country <- data %>% dplyr::filter(!is.na(data[cntr_iso2]))
+    occ_country <- data %>% dplyr::filter(!is.na(data[[cntr_iso2]]))
     
     # Filter occurrences database to avoid error in clean_coordinates errors
     suppressWarnings({
@@ -81,10 +81,10 @@ bdc_correct_coordinates <-
           # testing records in the sea and outside georeferenced countries
           tests = c("seas", "countries"),
           # high-quality countries border database
-          country_ref = world_poly,
+          country_ref = world_poly %>% sf::as_Spatial(),
           # iso2 code column of country polygon database
           country_refcol = world_poly_iso,
-          seas_ref = world_poly,
+          seas_ref = world_poly %>% sf::as_Spatial(),
           value = "spatialvalid"
         )
       })
@@ -95,7 +95,7 @@ bdc_correct_coordinates <-
     occ_country <-
       occ_country %>%
       dplyr::as_tibble() %>%
-      dplyr::filter(!.summary, !is.na(occ_country[cntr_iso2]))
+      dplyr::filter(!.summary, !is.na(occ_country[[cntr_iso2]]))
     
     # now this database have all those records with potential error that be
     # corrected
@@ -114,7 +114,7 @@ bdc_correct_coordinates <-
     occ_country <- occ_country[sapply(occ_country, function(x) dim(x)[1]) > 0]
     
     
-    # bdc_coord_trans() function will try different coordinate transformations
+    # jbd_coord_trans() function will try different coordinate transformations
     # to correct georeferenced occurrences
     coord_test <- list()
     
@@ -125,7 +125,7 @@ bdc_correct_coordinates <-
         paste0(" (", nrow(occ_country[[i]]), ")")
       )
       try(coord_test[[i]] <-
-            bdc_coord_trans(
+            jbd_coord_trans(
               data = occ_country[[i]],
               x = x,
               y = y,
@@ -152,12 +152,15 @@ bdc_correct_coordinates <-
           unique() %>%
           dplyr::pull()
         
+        test <- world_poly %>%
+          dplyr::filter(iso2c %in% n)
+        
         # Here filter polygon based on your country iso2c code
         my_country2 <-
-          world_poly[which(world_poly@data[, world_poly_iso] == n), ] %>%
+          world_poly %>%
+          dplyr::filter(iso2c %in% n) %>%
           # JBD — France was failing to buffer using raster due to TopologyException. Use sf instead.
-          sf::st_as_sf() %>% sf::st_buffer(border_buffer) %>%
-          sf::as_Spatial()
+          sf::st_as_sf() %>% sf::st_buffer(border_buffer) 
         # JBD — turned off for above reason
         # 0.5 degree ~50km near to equator
         # my_country2 <- raster::buffer(my_country, width = border_buffer)
@@ -167,10 +170,11 @@ bdc_correct_coordinates <-
         #  extent      : -180, 180, -90, -60.51621  (xmin, xmax, ymin, ymax)
         #  crs         : NA 
         
-        coord_sp <- sp::SpatialPoints(coord_test[[i]] %>% dplyr::select({{ x }}, {{ y }}))
+        coord_sp <- sf::st_as_sf(coord_test[[i]] %>% dplyr::select({{ x }}, {{ y }}),
+                                 coords = c(x, y))
         
-        coord_sp@proj4string <- my_country2@proj4string
-        over_occ <- sp::over(coord_sp, my_country2) %>%
+        sf::st_crs(coord_sp) <- sf::st_crs(my_country2)
+        over_occ <- sf::st_join(coord_sp, my_country2) %>%
           dplyr::pull(iso2c) 
         
         # Eliminate as corrected those records too close to country border
@@ -178,9 +182,9 @@ bdc_correct_coordinates <-
           coord_test[[i]] %>% dplyr::filter(is.na(over_occ))
       }
       
-      # Elimination of those records with more than two possible correction
+      # Elimination of those records with more than two possible corrections
       coord_test <-
-        dplyr::bind_rows(dplyr::all_of(coord_test)) %>%
+        dplyr::bind_rows(coord_test) %>%
         dplyr::as_tibble() # binding dataframes allocated in the list in a single one
       
       coord_test <-

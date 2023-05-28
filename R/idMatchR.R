@@ -163,7 +163,7 @@ idMatchR <- function(
     if(length(currentMatch) == 1){
       matched <- priorData %>%
         # Remove NA values and get distinct
-        tidyr::drop_na(currentMatch) %>%
+        tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
         dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)),
                         .keep_all = TRUE) %>%
         # Add a new column with these values concatenated,
@@ -174,10 +174,10 @@ idMatchR <- function(
                          currentData %>% dplyr::select(
                            tidyselect::all_of(c("database_id", currentMatch))) %>%
                            # Remove NA values and get distinct
-                           tidyr::drop_na(currentMatch) %>%
+                           tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
                            dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)),
                                            .keep_all = TRUE),
-                           by = tidyselect::all_of(currentMatch),
+                           by = currentMatch,
                          suffix = c("", "_current")) %>%
         # Extract only the matched ids
         dplyr::select(tidyselect::any_of(c("database_id", "database_id_current"))) %>%
@@ -199,22 +199,22 @@ idMatchR <- function(
     if(length(currentMatch) > 1){
       matched <- priorData %>%
       # Remove NA values and get distinct
-      tidyr::drop_na(currentMatch) %>%
+      tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
       dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)),
                       .keep_all = TRUE) %>%
       # Add a new column with these values concatenated,
-      tidyr::unite(., c(currentMatch), col = currentConcat) %>% 
+      tidyr::unite(., tidyselect::all_of(currentMatch), col = currentConcat) %>% 
         # JOIN datasets
       dplyr::left_join(., 
                        # FORMAT MATCH
                        currentData %>% dplyr::select(
                          tidyselect::all_of(c("database_id", currentMatch))) %>%
                          # Remove NA values and get distinct
-                         tidyr::drop_na(currentMatch) %>%
+                         tidyr::drop_na(tidyselect::all_of(currentMatch)) %>%
                          dplyr::distinct(dplyr::across(tidyselect::all_of(currentMatch)), 
                                          .keep_all = TRUE) %>%
                          # Add a new column with these values concatenated,
-                         tidyr::unite(., c(currentMatch), col = currentConcat),
+                         tidyr::unite(., tidyselect::all_of(currentMatch), col = currentConcat),
                        by = "currentConcat",
                        suffix = c("", "_current")) %>%
         # Extract only the matched ids

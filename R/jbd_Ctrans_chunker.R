@@ -183,7 +183,7 @@ jbd_Ctrans_chunker <- function(
   } # END loop
   # Remove NA values
   Tranps_tibble <- Tranps_tibble %>%
-    dplyr::filter(!is.na(database_id)) %>%
+    dplyr::filter(!is.na("database_id")) %>%
     # Remove any duplicates that have been introduced
     dplyr::distinct()
   endTime <- Sys.time()

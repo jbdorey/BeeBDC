@@ -131,7 +131,7 @@ print(citation("BeeDC"), bibtex=TRUE)
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
-usethis::use_test("dupeSummary")
+usethis::use_test("filterSummary")
 
 
   ##### 2.5 Check package ####

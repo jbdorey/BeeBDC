@@ -69,9 +69,9 @@
 #' )
 #'
 #' # Get country codes
-#' x <- bdc_country_standardized(data = x, country = "country")
+#' x <- bdc::bdc_country_standardized(data = x, country = "country")
 #'
-#' bdc_coordinates_transposed(
+#' jbd_coordinates_transposed(
 #'   data = x,
 #'   id = "id",
 #'   sci_names = "scientificName",
@@ -105,7 +105,9 @@ jbd_coordinates_transposed <-
      #  check_require_github("ropensci/rnaturalearthdata")
     })
     # loadNamespace("rnaturalearthdata")
-
+    
+    sf::sf_use_s2(TRUE)
+    
     data <- dplyr::tibble(data)
     minimum_colnames <-
       c(id, sci_names, lat, lon, country, countryCode)
@@ -149,12 +151,12 @@ jbd_coordinates_transposed <-
         decimalLongitude = as.numeric(decimalLongitude)
       )
 
-    worldmap <- bdc_get_world_map()  # get world map and country iso
+    worldmap <- jbd_get_world_map()  # get world map and country iso
 
     # Correct latitude and longitude transposed
     message("Correcting latitude and longitude transposed\n")
     corrected_coordinates <-
-      bdc_correct_coordinates(
+      jbd_correct_coordinates(
         data = data,
         x = "decimalLongitude",
         y = "decimalLatitude",
@@ -174,7 +176,7 @@ jbd_coordinates_transposed <-
         dplyr::select(database_id, scientificName, dplyr::contains("decimal"))
       
       if (save_outputs) {
-        bdc_create_dir()
+        jbd_create_dir()
         corrected_coordinates %>%
           readr::write_csv(here::here(
             paste("Output/Check/", fileName, sep = "")),

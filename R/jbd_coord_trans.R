@@ -27,7 +27,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'bdc_coord_trans(
+#'jbd_coord_trans(
 #'   data = occ_country[[i]],
 #'   x = x,
 #'   y = y,
@@ -37,7 +37,7 @@
 #'   worldmap_cntr_code = world_poly_iso
 #'   )
 #' }
-bdc_coord_trans <-
+jbd_coord_trans <-
   function(data,
            x,
            y,
@@ -69,11 +69,13 @@ bdc_coord_trans <-
     })
     
     over_list <- list()
-    
+
+
     for (d in 1:length(d.list)) {
-      caluse <- sp::SpatialPoints(d.list[[d]])
-      caluse@proj4string <- worldmap@proj4string
-      overresult <- sp::over(caluse, worldmap)
+      caluse <- sf::st_as_sf(d.list[[d]], coords = c("x", "y"), crs = sf::st_crs(worldmap)) 
+      suppressWarnings({
+      overresult <- sf::st_join(caluse, worldmap) 
+      })
       colnames(d.list[[d]]) <-
         c(paste0(x, "_modified"), paste0(y, "_modified"))
       over_list[[d]] <- data.frame(d.list[[d]], data, overresult)

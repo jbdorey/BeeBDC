@@ -14,9 +14,9 @@
 
 #' @examples
 #' \dontrun{
-#' bdc_create_dir()
+#' jbd_create_dir()
 #' }
-bdc_create_dir <- function() {
+jbd_create_dir <- function() {
   fs::dir_create(here::here("Output/Check"))
   fs::dir_create(here::here("Output/Intermediate"))
   fs::dir_create(here::here("Output/Report"))

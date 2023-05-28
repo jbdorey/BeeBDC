@@ -90,9 +90,9 @@ x <- data.frame(
 )
 
 # Get country codes
-x <- bdc_country_standardized(data = x, country = "country")
+x <- bdc::bdc_country_standardized(data = x, country = "country")
 
-bdc_coordinates_transposed(
+jbd_coordinates_transposed(
   data = x,
   id = "id",
   sci_names = "scientificName",
@@ -108,6 +108,6 @@ bdc_coordinates_transposed(
 }
 \seealso{
 Other prefilter: 
-\code{\link{bdc_coord_trans}()}
+\code{\link{jbd_coord_trans}()}
 }
 \concept{prefilter}

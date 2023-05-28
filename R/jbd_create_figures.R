@@ -134,7 +134,7 @@ jbd_create_figures <-
       )
     }
     
-    bdc_create_dir()
+    jbd_create_dir()
     
     # Formatting y axis of ggplot bar
     fancy_scientific <- function(l) {

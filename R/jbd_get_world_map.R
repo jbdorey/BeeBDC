@@ -8,9 +8,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' worldmap <- bdc_get_world_map()
+#' worldmap <- jbd_get_world_map()
 #' }
-bdc_get_world_map <- function() {
+jbd_get_world_map <- function() {
   name_en <- NULL
 
   check_require_cran("rnaturalearth")
@@ -18,7 +18,7 @@ bdc_get_world_map <- function() {
   # loadNamespace("rnaturalearthdata")
   
   suppressWarnings({
-    worldmap <- rnaturalearth::ne_countries(scale = 10, returnclass = "sp")
+    worldmap <- rnaturalearth::ne_countries(scale = 10, returnclass = "sf")
 
     # Add some iso code to some countries polygons
     iso2c <- countrycode::countrycode(unique(worldmap$name_en),
@@ -31,12 +31,12 @@ bdc_get_world_map <- function() {
       destination = "iso3c"
     )
 
-    iso <- data.frame(
-      worldmap@data %>%
+    iso <- dplyr::bind_cols(
+      worldmap %>%
         dplyr::select(name_en, tidyselect::starts_with("iso")),
-      iso2c,
-      iso3c
-    )
+      "iso2c" = iso2c,
+      "iso3c" = iso3c
+    ) %>% dplyr::select(!"geometry") %>% sf::st_drop_geometry()
 
     filt <- !is.na(iso$iso_a2) & is.na(iso$iso2c)
     iso$iso2c[filt] <- iso$iso_a2[filt]
@@ -44,12 +44,15 @@ bdc_get_world_map <- function() {
     filt <- !is.na(iso$iso_a3) & is.na(iso$iso3c)
     iso$iso3c[filt] <- iso$iso_a3[filt]
 
-    worldmap@data <- iso
+    worldmap <-  worldmap %>%
+      dplyr::select(!c(name_en, tidyselect::starts_with("iso"))) %>%
+    dplyr::bind_cols(iso)
+      
     is.na(iso) %>% colSums() # number of polygons without isocode
 
-    worldmap@data <-
-      worldmap@data %>%
-      dplyr::select(iso2c, iso3c)
+    worldmap <- worldmap %>%
+      dplyr::select(iso2c, iso3c) %>%
+      sf::st_make_valid()
   })
   return(worldmap)
 }

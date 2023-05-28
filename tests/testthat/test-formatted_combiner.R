@@ -19,7 +19,7 @@ USGS_testData <- tibble::tribble(
 
 USGS_attrFile <- tibble::tribble(
                    ~dataSource, ~alternateIdentifier,              ~title,     ~pubDate,   ~dateStamp,           ~doi,                                          ~downloadLink, ~abstract,               ~citations,                                                     ~downloadCitation,                                                                          ~rights,
-                   "USGS_data",       "Not provided", "USGS_DRO database", "19/11/2022", "19/11/2022", "Not provided", "Not provided, contact Sam Droege at sdroege@usgs.gov",        NA, "Citations not provided", "Sam Droege. (2022-11-19). United States Geological Survey bee data.", "Rights are not provided. Please seek permission for data use from Same Droege."
+                   "USGS_data",       "Not provided", "USGS_DRO database", "2022/11/19", "2022/11/19", "Not provided", "Not provided, contact Sam Droege at sdroege@usgs.gov",        NA, "Citations not provided", "Sam Droege. (2022-11-19). United States Geological Survey bee data.", "Rights are not provided. Please seek permission for data use from Same Droege."
                    ) %>%
   readr::write_csv(., paste0(tempdir(), "/USGS_attribute_files2023-01-27.csv"))
 

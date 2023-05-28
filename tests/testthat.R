@@ -8,6 +8,5 @@
 
 requireNamespace("testthat")
 requireNamespace("BeeDC")
-requireNamespace("tribble")
 
 testthat::test_check("BeeDC")
