@@ -23,19 +23,19 @@
 #' # Load the toy flagged bee data
 #' data("beesFlagged")
 #'
-#' 
-#' filterTibble <- filterSummary(data = beesFlagged,
+#'   # Run the function and build the flag table
+#' flagTibble <- flagSummary(data = beesFlagged,
 #'                               column = "scientificName",
-#'                               outpath = paste0(tempdir(), "/filterTable.csv"))
+#'                               outpath = paste0(tempdir(), "/flagTable.csv"))
 #'                               
 #' 
-filterSummary <- function(
+flagSummary <- function(
     data = NULL,
     column = "scientificName",
     outpath = NULL){
   # locally bind variables to the function
-  filterColumns <- dataFilters <- speciesColumn <- loopCol <- summaryColumn <- . <- NULL
-  filterCol <- .summary <- totalFailed <- totalFailed <- total <-  NULL
+  flagColumns <- dataFlags <- speciesColumn <- loopCol <- summaryColumn <- . <- NULL
+  flagCol <- .summary <- totalFailed <- totalFailed <- total <-  NULL
   
   # Load required packages
   requireNamespace("dplyr")
@@ -55,37 +55,37 @@ filterSummary <- function(
 data <- data %>%
   BeeDC::summaryFun()
 
-  # Get a character vector of the filter columns 
-filterColumns <- data %>% dplyr::select(tidyselect::starts_with(".")) %>% colnames()
+  # Get a character vector of the flag columns 
+  flagColumns <- data %>% dplyr::select(tidyselect::starts_with(".")) %>% colnames()
 
-  # Select only the species name and filter columns
-dataFilters <- data %>%
-  dplyr::select(tidyselect::all_of( c(column, filterColumns))) 
+  # Select only the species name and flag columns
+dataflags <- data %>%
+  dplyr::select(tidyselect::all_of( c(column, flagColumns))) 
 
   # Create a column of only species names to add the summary of each column to below
-speciesColumn <- dataFilters %>%
+speciesColumn <- dataflags %>%
   dplyr::distinct(dplyr::across(column))
 
-  #### 2.0 Filter column loop ####
+  #### 2.0 Flag column loop ####
   # Loop through each column to get species level counts, starting from column two so as not to 
     # count the column
-for(i in 1:(ncol(dataFilters)-1) ){
+for(i in 1:(ncol(dataFlags)-1) ){
     # For the ith column, get a COUNT of the FALSE (failed) occurrences per species (or column) 
-  loopCol <- dataFilters %>%
+  loopCol <- dataFlags %>%
       # Select the relevant columns and group by them
-    dplyr::select(tidyselect::all_of( c(column, filterColumns[[i]]))) %>%
-    dplyr::group_by(dplyr::across( c(column, filterColumns[[i]]))) %>%
+    dplyr::select(tidyselect::all_of( c(column, flagColumns[[i]]))) %>%
+    dplyr::group_by(dplyr::across( c(column, flagColumns[[i]]))) %>%
       # Count the occurrences of both TRUE and FALSE
     dplyr::count(name = "n") %>%
       # Set the column names temporarily and then REMOVE the TRUE counts
-    stats::setNames(paste0( c(column, "filterCol", "n" ))) %>%
-    dplyr::filter(!filterCol == TRUE) %>%
+    stats::setNames(paste0( c(column, "flagCol", "n" ))) %>%
+    dplyr::filter(!flagCol == TRUE) %>%
      # ungroup
     dplyr::ungroup() %>%
       # select the relevant columns
     dplyr::select(tidyselect::all_of( c(column, "n"))) %>%
       # Rename the columns
-    stats::setNames(paste0( c(column, filterColumns[[i]]) )) 
+    stats::setNames(paste0( c(column, flagColumns[[i]]) )) 
   
     # Add the count to the speciesColumn tibble
   speciesColumn <- speciesColumn %>% 
@@ -97,7 +97,7 @@ for(i in 1:(ncol(dataFilters)-1) ){
   # Add in the totals and percentage to the last columns
 summaryColumn <- speciesColumn %>%
     # Add a count of total records
-  dplyr::left_join(dataFilters %>%
+  dplyr::left_join(dataFlags %>%
                      dplyr::group_by(dplyr::across(column)) %>%
                      dplyr::count(name = "total"),
                    by = column) %>%
