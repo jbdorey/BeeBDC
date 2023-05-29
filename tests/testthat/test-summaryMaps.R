@@ -18,6 +18,11 @@ testMap <- BeeDC::summaryMaps(
 testthat::test_that("summaryMaps expected class", {
   testthat::expect_type(testMap, "list")
 })
+testthat::test_that("summaryMaps expected class", {
+  testthat::expect_true(any(stringr::str_detect(attributes(testMap)$class, "gg|ggplot")))
+})
+
+
   # Test list size
 testthat::test_that("summaryMaps list size", {
   testthat::expect_equal(length(testMap), 9)

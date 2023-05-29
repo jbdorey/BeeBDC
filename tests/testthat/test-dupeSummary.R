@@ -8,7 +8,7 @@ testData <- tibble::tibble(
   eventDate = c("1988-10-13 00:00:00 UTC", "1930-06-06 00:00:00 UTC", "1994-01-01 00:00:00 UTC",
                 "1987-08-06 00:00:00 UTC", "1995-03-31 00:00:00 UTC", "2000-05-01 00:00:00 UTC",
                 "1998-01-01 00:00:00 UTC", "1994-01-01 00:00:00 UTC","1994-01-01 00:00:00 UTC",
-                "1994-01-01 00:00:00 UTC", "1997-01-01 00:00:00 UTC",
+                 NA,"1994-01-01 00:00:00 UTC",
                 "1972-04-28 00:00:00 UTC"),
   recordedBy = c("bee-er1, bee-er2", "bee-er3", "bee-er4", "bee-er5", "bee-er6","bee-er6",
                  "bee-er6", "bee-er6", "bee-er6", "bee-er7", "bee-er1", "bee-er2"),
@@ -23,7 +23,7 @@ testData <- tibble::tibble(
   gbifID = c("asdflgjkh11","asdflgjkh11",NA_character_,NA_character_,NA_character_,NA_character_,
              NA_character_,NA_character_,NA_character_,NA_character_,NA_character_,NA_character_),
   occurrenceID = c(NA_character_,NA_character_,NA_character_,NA_character_,NA_character_,NA_character_,
-                   NA_character_,NA_character_,NA_character_,NA_character_,NA_character_,NA_character_),
+                   NA_character_,NA_character_,"duplicatecode12345","duplicatecode12345",NA_character_,NA_character_),
   recordId = c(NA_character_,NA_character_,NA_character_,NA_character_,NA_character_,NA_character_,
                NA_character_,NA_character_,NA_character_,NA_character_,NA_character_,NA_character_),
   id = c("a","b","c","d","e","f","g","h","i","j","k","l"),
@@ -64,5 +64,30 @@ check_time <- BeeDC::dupeSummary(
   numberThreshold = 3,
   numberOnlyThreshold = 5
 )
+
+  # Get counts of the number of expected kept duplicates and duplicats
+test_keptDuplicates <-  sum(check_time$duplicateStatus == "Kept duplicate")
+test_duplicates <- sum(check_time$duplicateStatus == "Duplicate")
+
+# Test duplicate numbers
+testthat::test_that("dupeSummary kept duplicates", {
+  testthat::expect_equal(test_keptDuplicates, 2)
+})
+testthat::test_that("dupeSummary duplicates", {
+  testthat::expect_equal(test_duplicates, 3)
+})
+# Test concordance with TRUE/FALSE and number of duplicates
+testthat::test_that("dupeSummary duplicates", {
+  testthat::expect_equal(test_duplicates, sum(check_time$.duplicates == FALSE))
+})
+
+# Test class
+testthat::test_that("dupeSummary expected class - simple", {
+  testthat::expect_type(check_time, "list")
+})
+testthat::test_that("dupeSummary expected class - complex", {
+  testthat::expect_true(any(stringr::str_detect(attributes(check_time)$class, "tbl_df|tbl")))
+})
+
 
 

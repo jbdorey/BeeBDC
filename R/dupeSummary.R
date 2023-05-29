@@ -682,9 +682,10 @@ dupeSummary <- function(
       # Save the running 
     readr::write_csv(clusteredDuplicates, 
                      file = paste0(path, 
-                                  "duplicateRun_", paste(duplicatedBy, collapse = "_"),
+                                  "/duplicateRun_", paste(duplicatedBy, collapse = "_"),
                                   "_", Sys.Date(),
-                                  ".csv"))
+                                  ".csv") %>% 
+                       stringr::str_replace_all("//duplicateRun_", "/duplicateRun_"))
   writeLines(paste0(
     " - Duplicates have been saved in the file and location: ", 
     paste0(path, 
