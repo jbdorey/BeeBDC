@@ -16,6 +16,8 @@
 #' is TRUE, then 'checklistReport' will also be returned.
 #' @export
 #'
+#' @importFrom dplyr %>%
+#'
 #' @examples
 #' 
 #'   # Single entry example
@@ -40,12 +42,23 @@ BeeDCQuery <- function(
     beeName = NULL,
     searchChecklist = TRUE,
     printAllSynonyms = FALSE){
+  # locally bind variables to the function
+  data <- beesTaxonomy <- validName <- accid <- inputName <- id <- beesChecklist <- 
+    rowMatched <- NULL
+  
+  #### 0.0 Prep ####
+  ##### 0.1 Errors ####
+  ###### a. FATAL errors ####
+  if(is.null(beeName)){
+    stop(" - Please provide an argument for beeName. I'm a program not a magician.")
+  }
+
   
   #### 1.0 Data preperation ####
   # Read in the datasets
   if(searchChecklist == TRUE){
-  data("beesChecklist")}
-  data("beesTaxonomy")
+  data("beesChecklist", envir = environment())}
+  data("beesTaxonomy", envir = environment())
   
     # Change beeName to be matched exactly
   beeNameExact <- paste0("^",  beeName, "$")
@@ -83,7 +96,8 @@ BeeDCQuery <- function(
   synonyms <- report_beesTaxonomy %>%
     dplyr::filter(accid != 0) %>% 
   # Filter to the inputName and inputID
-    dplyr::select(inputName, accid) %>% dplyr::rename(inputID = accid)  %>%
+    dplyr::select(tidyselect::all_of(c("inputName", "accid"))) %>% 
+    dplyr::rename("inputID" = "accid") %>%
       # Rejoin with the beesTaxonomy, but ONLY have valid names
     dplyr::left_join(beesTaxonomy, by = c("inputID" = "id"), keep = TRUE) %>%
     dplyr::distinct()
@@ -111,7 +125,8 @@ BeeDCQuery <- function(
   # Find the synonyms for the entered species
   synonymsMatched <- beesTaxonomy %>%
     dplyr::filter(accid %in% report_beesTaxonomy$id) %>%
-    dplyr::left_join(report_beesTaxonomy %>% dplyr::select(inputName, id),
+    dplyr::left_join(report_beesTaxonomy %>% 
+                       dplyr::select(tidyselect::all_of(c("inputName", "id"))),
                      by = c("accid" = "id"), relationship = "many-to-many") %>%
     dplyr::relocate(inputName, .before = "flags") %>%
     dplyr::arrange(accid, inputName)
@@ -169,7 +184,7 @@ BeeDCQuery <- function(
     ##### 3.2 Return checklist ####
     # If searchChecklist is requested, then return the output as a list with it included
   if(searchChecklist == TRUE){
-    output <- dplyr::lst(rowMatched, synonymsMatched, checklistMatched) %>%
+    output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, checklistMatched) %>%
       stats::setNames(c("taxonomyReport", "SynonymReport", "checklistReport"))
     writeLines(paste0(
       "The output will be returned as a list with the elements: ",
@@ -177,7 +192,7 @@ BeeDCQuery <- function(
       " 'output'$taxonomyReport, 'output'$SynonymReport, or 'output'$checklistReport."
     ))
   }else{
-    output <- dplyr::lst(rowMatched, synonymsMatched) %>%
+    output <- dplyr::lst(report_beesTaxonomy, synonymsMatched) %>%
       stats::setNames(c("taxonomyReport", "SynonymReport"))
     writeLines(paste0(
       "The output will be returned as a list with the elements: ",
