@@ -39,7 +39,7 @@ use_github_actions()
   ##### 2.1 Descriptions ####
 # Write DESCRIPTION file inst
 packageDir <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeDC"
-packageVersion <- "0.0.2"
+packageVersion <- "0.0.3"
 setwd(packageDir)
 usethis::create_package(path = packageDir,
                         roxygen = TRUE,
