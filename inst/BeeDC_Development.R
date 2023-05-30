@@ -3,7 +3,8 @@
   # Checklist - include data sources in dataset
   # Taxonomy check for no-species occurrences and for subgenus in species... have a general peak!
   # Harmoniser, consider adding protection to avoid matching genus or subgenus-level taxa to valid names
-
+  # This will help show tidyverse warnings more than once every 8 hours...
+options(lifecycle_verbosity = "warning")
 
 #### 0.0 Packages ####
 install.packages("devtools")

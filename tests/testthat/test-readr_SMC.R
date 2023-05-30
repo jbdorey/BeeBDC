@@ -28,14 +28,14 @@ resultsF <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == 
 
 # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
   # tibbles are a special case of lists)
-testthat::test_that("readr_BBD results columns TRUE", {
+testthat::test_that("readr_SMC results columns TRUE", {
   testthat::expect_equal(resultsT, 20)
 })
-testthat::test_that("readr_BBD results columns FALSE", {
+testthat::test_that("readr_SMC results columns FALSE", {
   testthat::expect_equal(resultsF, 8)
 })
 
-testthat::test_that("readr_BBD expected class", {
+testthat::test_that("readr_SMC expected class", {
   testthat::expect_type(testOut1, "list")
 })
 

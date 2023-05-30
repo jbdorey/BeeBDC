@@ -59,12 +59,12 @@ data <- data %>%
   flagColumns <- data %>% dplyr::select(tidyselect::starts_with(".")) %>% colnames()
 
   # Select only the species name and flag columns
-dataflags <- data %>%
+  dataFlags <- data %>%
   dplyr::select(tidyselect::all_of( c(column, flagColumns))) 
 
   # Create a column of only species names to add the summary of each column to below
-speciesColumn <- dataflags %>%
-  dplyr::distinct(dplyr::across(column))
+speciesColumn <- dataFlags %>%
+  dplyr::distinct(dplyr::across(tidyselect::all_of(column)))
 
   #### 2.0 Flag column loop ####
   # Loop through each column to get species level counts, starting from column two so as not to 
@@ -74,7 +74,7 @@ for(i in 1:(ncol(dataFlags)-1) ){
   loopCol <- dataFlags %>%
       # Select the relevant columns and group by them
     dplyr::select(tidyselect::all_of( c(column, flagColumns[[i]]))) %>%
-    dplyr::group_by(dplyr::across( c(column, flagColumns[[i]]))) %>%
+    dplyr::group_by(dplyr::across( tidyselect::all_of(c(column, flagColumns[[i]])))) %>%
       # Count the occurrences of both TRUE and FALSE
     dplyr::count(name = "n") %>%
       # Set the column names temporarily and then REMOVE the TRUE counts
@@ -98,7 +98,7 @@ for(i in 1:(ncol(dataFlags)-1) ){
 summaryColumn <- speciesColumn %>%
     # Add a count of total records
   dplyr::left_join(dataFlags %>%
-                     dplyr::group_by(dplyr::across(column)) %>%
+                     dplyr::group_by(dplyr::across(tidyselect::all_of(column))) %>%
                      dplyr::count(name = "total"),
                    by = column) %>%
     # Change the .summary column to a total failed column
