@@ -260,7 +260,8 @@ readr_BMont <- function(path = NULL,
 BMont_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                               trim_ws = TRUE) %>%
   dplyr::rename(
-    occurrenceID = occurence_lsid) %>%
+    occurrenceID = occurence_lsid,
+    verbatimEventDate = VerbatimEventDate) %>%
   dplyr::mutate(
     # Add fieldNotes 
      fieldNotes = stringr::str_c(
