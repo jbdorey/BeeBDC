@@ -1834,6 +1834,7 @@ readr_Dor <- function(path = NULL,
   #### 21.2 Read+ ####
   Dor_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                               trim_ws = TRUE) %>%
+    dplyr::rename(stateProvince = stateOrProvince) %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("Dor_data_", 1:nrow(.), sep = ""),
