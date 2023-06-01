@@ -190,7 +190,7 @@ BeeDCQuery <- function(
     # If searchChecklist is requested, then return the output as a list with it included
   if(searchChecklist == TRUE){
     output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, checklistMatched, failedReport) %>%
-      stats::setNames(c("taxonomyReport", "SynonymReport", "checklistReport"))
+      stats::setNames(c("taxonomyReport", "SynonymReport", "checklistReport", "failedReport"))
     writeLines(paste0(
       "The output will be returned as a list with the elements: ",
       "'taxonomyReport', 'SynonymReport', and 'checklistReport'. \n", "These can be accessed using",
@@ -199,7 +199,7 @@ BeeDCQuery <- function(
     ))
   }else{
     output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, failedReport) %>%
-      stats::setNames(c("taxonomyReport", "SynonymReport"))
+      stats::setNames(c("taxonomyReport", "SynonymReport", "failedReport"))
     writeLines(paste0(
       "The output will be returned as a list with the elements: ",
       "'taxonomyReport' and 'SynonymReport'. \n", "These can be accessed using",
