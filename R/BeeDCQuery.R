@@ -181,23 +181,30 @@ BeeDCQuery <- function(
     
   } # END searchChecklist
   
-    ##### 3.2 Return checklist ####
+    #### 4.0 Return reports ####
+    # Make a report of the species that did not match
+  failedReport <- beeName %>%
+    setdiff(., report_beesTaxonomy$inputName) %>%
+    tibble::tibble(unmatchedSpecies = .)
+  
     # If searchChecklist is requested, then return the output as a list with it included
   if(searchChecklist == TRUE){
-    output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, checklistMatched) %>%
+    output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, checklistMatched, failedReport) %>%
       stats::setNames(c("taxonomyReport", "SynonymReport", "checklistReport"))
     writeLines(paste0(
       "The output will be returned as a list with the elements: ",
       "'taxonomyReport', 'SynonymReport', and 'checklistReport'. \n", "These can be accessed using",
-      " 'output'$taxonomyReport, 'output'$SynonymReport, or 'output'$checklistReport."
+      " 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or ",
+      "'output'$failedReport."
     ))
   }else{
-    output <- dplyr::lst(report_beesTaxonomy, synonymsMatched) %>%
+    output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, failedReport) %>%
       stats::setNames(c("taxonomyReport", "SynonymReport"))
     writeLines(paste0(
       "The output will be returned as a list with the elements: ",
       "'taxonomyReport' and 'SynonymReport'. \n", "These can be accessed using",
-      " 'output'$taxonomyReport or 'output'$SynonymReport."
+      " 'output'$taxonomyReport, 'output'$SynonymReport, or ",
+      "'output'$failedReport."
     ))
   }
  
