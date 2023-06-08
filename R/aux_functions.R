@@ -216,7 +216,8 @@ file_finder <- function(path, fileName){
                                     recursive = TRUE))
   # Check if the data are present
   if(nrow(locations) == 0){ # If there are no data matching the name...
-    stop(" - Bugger it, R can't find any files produced by our package in the path provided :(")
+    stop(paste0(" - Bugger it, R can't find the file that you're looking for :(\n",
+                "Please check that it exists in the provided directory."))
   }
   ##### Date from name ####
   # Extract only the file name to find the date from...

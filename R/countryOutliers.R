@@ -73,6 +73,7 @@ countryOutlieRs <- function(
 # Download world map using rnaturalearth packages
 countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
                                         type = "countries", scale = rnearthScale)  %>%
+    sf::st_make_valid() %>%
   # Select only a subset of the naturalearthdata columns to extract
   dplyr::select(iso_a2, iso_a3, name, name_long, continent, geometry) %>%
   # Replace some country codes to match the checklist
@@ -162,9 +163,10 @@ sf::sf_use_s2(FALSE)
   neighbouringCountries$neighboursText <- stringr::str_squish(neighbouringCountries$neighboursText)
     # Join the datasets together so that we can make a list of adjacent countries to match also
   neighbouringCountries <- checklist %>%
-    dplyr::left_join(dplyr::select(neighbouringCountries, c(country, neighboursText)),
+    dplyr::left_join(neighbouringCountries %>% 
+                       dplyr::select(tidyselect::any_of(c("country", "neighboursText"))),
                      by = c("Alpha-3" = "country"),
-                     multiple = "all")
+                     multiple = "all", relationship = "many-to-many")
     
 ###### c. Sea points ####
     # Find the points that did not overlap with contries but that had coordinates
