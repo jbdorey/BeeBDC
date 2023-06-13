@@ -73,6 +73,8 @@ countryOutlieRs <- function(
 # Download world map using rnaturalearth packages
 countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
                                         type = "countries", scale = rnearthScale)  %>%
+      # buffer by zero and make geometry valid to avoid potential issues with polygon intersection
+    sf::st_buffer(., dist = 0) %>%
     sf::st_make_valid() %>%
   # Select only a subset of the naturalearthdata columns to extract
   dplyr::select(iso_a2, iso_a3, name, name_long, continent, geometry) %>%

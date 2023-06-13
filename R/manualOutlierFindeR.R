@@ -110,7 +110,7 @@ manualOutlierFindeR <- function(
   # Read back in with the correct column classes
   outliersAll <- file_finder(path = DataPath,
                              fileName = "newOutliers.csv") %>%
-    readr::read_csv(col_types = ColTypeR()) %>%
+    readr::read_csv(col_types = ColTypeR(), lazy = FALSE) %>%
     dplyr::mutate(eventDate = eventDate %>%
                     lubridate::ymd_hms(truncated = 5)) %>%
     suppressWarnings()
