@@ -5,6 +5,12 @@ data("beesChecklist")
 # Load in the test dataset
 data("beesFlagged")
 
+  # Input a potentially difficult loction on the map to test into an NA lat/lon slot
+beesFlagged$decimalLatitude[[1]] <-  31.887646484374983
+beesFlagged$decimalLongitude[[1]] <- 78.719726562500085 
+beesFlagged$decimalLatitude[[2]] <-  78.719726562500085
+beesFlagged$decimalLongitude[[2]] <- 31.887646484374983 
+
 testOut <- BeeDC::countryOutlieRs(checklist = beesChecklist,
                                       occData = beesFlagged,
                                       keepAdjacentCountry = TRUE,
