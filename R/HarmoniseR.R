@@ -17,6 +17,7 @@
 #' @param path A directory as character. The path to a folder that the output can be saved.
 #' @param SynList A data frame or tibble. The bee taxonomy to use. Default = BeeDC::beesTaxonomy.
 #' @param occurrences A data frame or tibble. Occurrence records as input.
+#' @param speciesColumn Character. The name of the column containing species names. Default = "scientificName".
 #'
 #' @return The occurrences are returned with update taxonomy columns, including: scientificName, 
 #' species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and 
@@ -34,21 +35,22 @@
 #' path = tempdir(),
 #' # The formatted taxonomy file
 #' SynList = BeeDC::beesTaxonomy, 
-#' occurrences = BeeDC::beesFlagged)
+#' occurrences = BeeDC::beesFlagged,
+#' speciesColumn = "scientificName")
 #' table(beesRaw_out$.invalidName, useNA = "always")
 
 HarmoniseR <- function(
   occurrences = NULL,
   path = NULL, #The path to a folder that the output can be saved
-  SynList = BeeDC::beesTaxonomy # The formatted taxonomy file
-  
+  SynList = BeeDC::beesTaxonomy, # The formatted taxonomy file
+  speciesColumn = "scientificName"
   ) {  
   # locally bind variables to the function
   . <- id <- validName<-canonical<-canonical_withFlags<-family<-subfamily<-genus<-subgenus<-
     species<-infraspecies<-authorship<-taxonomic_status<-flags<-accid<-validName_valid<-
     family_valid<-subfamily_valid<-canonical_withFlags_valid<-genus_valid<-subgenus_valid<-
     species_valid<-infraspecies_valid<-authorship_valid<-database_id<-names_clean<-
-    scientificNameAuthorship<-scientificName<-taxonRank<-authorFound<-SciNameAuthorSimple<-
+    scientificNameAuthorship<-taxonRank<-authorFound<-SciNameAuthorSimple<-
     authorSimple<-united_SciName<-verbatimScientificName <- NULL
 
   
@@ -135,7 +137,7 @@ HarmoniseR <- function(
   
       ###### b. assign names ####
   # Clean up some illegal characters
-  occurrences$scientificName <- occurrences$scientificName %>%
+  occurrences[[speciesColumn]] <- occurrences[[speciesColumn]] %>%
     stringr::str_replace(pattern = "^\"", replacement = "") %>%
     stringr::str_replace(pattern = "\"$", replacement = "")
   
@@ -147,7 +149,7 @@ HarmoniseR <- function(
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
                                     species_valid, infraspecies_valid, authorship_valid)),
                         # Match scientific name with the valid synonym name
-                      by = c("scientificName" = "validName"),
+                      by = c(speciesColumn = "validName"),
                       suffix = c("", "_harmon"),
                      multiple = "all") 
    #   # Add a column to express the name-match quality - "high" IF there is a match at this point
@@ -363,7 +365,7 @@ HarmoniseR <- function(
   occs_26 <- occurrences %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
-    dplyr::mutate(scientificNameMatch = scientificName %>% 
+    dplyr::mutate(scientificNameMatch = speciesColumn %>% 
                     # Replace subgenus with nothing
                     stringr::str_replace_all("\\([A-Za-z]+\\)", "") %>%
                     stringr::str_squish())
@@ -416,7 +418,7 @@ HarmoniseR <- function(
   occs_27 <- occurrences %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
-    dplyr::mutate(scientificNameMatch = scientificName %>% 
+    dplyr::mutate(scientificNameMatch = speciesColumn %>% 
                     # Replace subgenus with nothing
                     stringr::str_replace_all("\\([A-Za-z]+\\)", "") %>%
                     stringr::str_squish())
@@ -493,7 +495,7 @@ HarmoniseR <- function(
     # Make a new column with the authorship extracted from scientificName
     dplyr::mutate(authorFound = stringr::str_extract(
       # Use a simplified scientificName string
-      string = stringr::str_remove_all(scientificName, 
+      string = stringr::str_remove_all(speciesColumn, 
                                        pattern = "[:punct:]") %>% tolower(),
       pattern = paste(ambiguousSynonyms$authorSimple, collapse = "|"))) %>%
     # Keep only matched names
@@ -522,9 +524,9 @@ HarmoniseR <- function(
     # Keep those with authorship recorded
     dplyr::filter(stats::complete.cases(scientificNameAuthorship)) %>%
     # Keep those that are in the ambiguous names list
-    dplyr::filter(scientificName %in% ambiguousSynonyms$validName |
-                    scientificName %in% ambiguousSynonyms$canonical_withFlags |
-                    scientificName %in% ambiguousSynonyms$canonical) %>%
+    dplyr::filter(speciesColumn %in% ambiguousSynonyms$validName |
+                    speciesColumn %in% ambiguousSynonyms$canonical_withFlags |
+                    speciesColumn %in% ambiguousSynonyms$canonical) %>%
     # Simplify scientificNameAuthorship to make easier matches
     dplyr::mutate(SciNameAuthorSimple = stringr::str_remove_all(scientificNameAuthorship, 
                                                                 pattern = "[:punct:]") %>% tolower())
@@ -535,7 +537,7 @@ HarmoniseR <- function(
   # Match names first with the validName column
   runningAmb_occs <- occurrences_amb %>%
     # Select only rows with both scientificName and SciNameAuthorSimple
-    dplyr::filter(stats::complete.cases(scientificName) & stats::complete.cases(SciNameAuthorSimple)) %>%
+    dplyr::filter(stats::complete.cases(speciesColumn) & stats::complete.cases(SciNameAuthorSimple)) %>%
     # Add taxonomy information to the occurrence data.
     dplyr::left_join(ambiguousSynonyms %>%
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
@@ -543,7 +545,7 @@ HarmoniseR <- function(
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
                                     species_valid, infraspecies_valid, authorship_valid, authorSimple)),
                       # Match scientific name with the valid synonym name
-                      by = c("scientificName" = "validName",
+                      by = c(speciesColumn = "validName",
                              "SciNameAuthorSimple" = "authorSimple"),
                       suffix = c("", "_harmon"),
                      multiple = "all") 
@@ -713,7 +715,7 @@ HarmoniseR <- function(
   occs_37 <- occurrences_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
-    dplyr::mutate(scientificNameMatch = scientificName %>% 
+    dplyr::mutate(scientificNameMatch = speciesColumn %>% 
                     # Replace subgenus with nothing
                     stringr::str_replace_all("\\([A-Za-z]+\\)", "") %>%
                     stringr::str_squish())
@@ -750,7 +752,7 @@ HarmoniseR <- function(
   occs_38 <- occurrences_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
-    dplyr::mutate(scientificNameMatch = scientificName %>% 
+    dplyr::mutate(scientificNameMatch = speciesColumn %>% 
                     # Replace subgenus with nothing
                     stringr::str_replace_all("\\([A-Za-z]+\\)", "") %>%
                     stringr::str_squish())
@@ -797,16 +799,16 @@ HarmoniseR <- function(
     # merge datasets
   runningOccurrences <- runningOccurrences %>%
       # Put the scientific name into a new column called verbatimScientificName
-    dplyr::mutate(verbatimScientificName = scientificName) %>%
+    dplyr::mutate(verbatimScientificName = speciesColumn) %>%
       # select the columns we want to keep
     dplyr::select( c(tidyselect::all_of(OG_colnames), validName_valid, verbatimScientificName,
                      family_valid, subfamily_valid,
                      canonical_withFlags_valid, genus_valid, subgenus_valid, 
                      species_valid, infraspecies_valid, authorship_valid)) %>%
       # REMOVE this column
-    dplyr::select(!scientificName) %>%
+    dplyr::select(!speciesColumn) %>%
       # rename validName_valid to scientificName and place it where it used to sit.
-    dplyr::mutate(scientificName = validName_valid, .after = database_id) %>%
+    dplyr::mutate(speciesColumn = validName_valid, .after = database_id) %>%
       # Add in the other taxonomic data
     dplyr::mutate(species = canonical_withFlags_valid,
                   family = family_valid, 
@@ -816,7 +818,7 @@ HarmoniseR <- function(
                   specificEpithet = species_valid,
                   infraspecificEpithet = infraspecies_valid,
                   scientificNameAuthorship = authorship_valid,
-                  .after = scientificName) %>%
+                  .after = speciesColumn) %>%
     # Remove extra columns
     dplyr::select(!c(canonical_withFlags_valid, family_valid, subfamily_valid, genus_valid,
                      subgenus_valid, species_valid, infraspecies_valid, authorship_valid,
@@ -872,9 +874,9 @@ HarmoniseR <- function(
     "records were flagged.\nThe column, '.invalidName' was added to the database.\n"))
   
   message(paste0(
-    " - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, ",
+    " - We updated the following columns: ", speciesColumn,", species, family, subfamily, genus, subgenus, ",
     "specificEpithet, infraspecificEpithet, and scientificNameAuthorship. ",
-    "The previous scientificName column was converted to verbatimScientificName"
+    "The previous ",speciesColumn," column was converted to verbatimScientificName"
   ))
   
     # End time message
