@@ -549,7 +549,7 @@ HarmoniseR <- function(
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
                                     species_valid, infraspecies_valid, authorship_valid, authorSimple)),
                       # Match scientific name with the valid synonym name
-                      by = c("scientificName" "validName",
+                      by = c("scientificName" = "validName",
                              "SciNameAuthorSimple" = "authorSimple"),
                       suffix = c("", "_harmon"),
                      multiple = "all") 
