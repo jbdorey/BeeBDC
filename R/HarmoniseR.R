@@ -216,7 +216,7 @@ HarmoniseR <- function(
     dplyr::bind_rows(occs_21) # 2,678
     # Remove this spent files
   rm(occs_21, occs_22)}else{
-    writeLines("The names_clean column was not found and is ignored. Skipping these parts.")
+    message("The names_clean column was not found and is ignored. Skipping these parts.")
     runningOccurrences <- occs_21
   }
 
@@ -873,7 +873,9 @@ HarmoniseR <- function(
     dplyr::filter(!taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
                                      "species", "Species", "SPECIES", "subsp.", "subspecies",
                                     "Subspecies", "SUBSPECIES", "syn", "var.", "variety",
-                                    "Variety", "VARIETY")) }
+                                    "Variety", "VARIETY")) }else{
+                                      message("taxonRank not found in data")
+                                    }
 
 
     ###### c. output ####
