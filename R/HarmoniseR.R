@@ -719,7 +719,7 @@ HarmoniseR <- function(
   occs_37 <- occurrences_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
-    dplyr::mutate(scientificNameMatch = speciesColumn %>% 
+    dplyr::mutate(scientificNameMatch = scientificName %>% 
                     # Replace subgenus with nothing
                     stringr::str_replace_all("\\([A-Za-z]+\\)", "") %>%
                     stringr::str_squish())
@@ -756,7 +756,7 @@ HarmoniseR <- function(
   occs_38 <- occurrences_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
-    dplyr::mutate(scientificNameMatch = speciesColumn %>% 
+    dplyr::mutate(scientificNameMatch = scientificName %>% 
                     # Replace subgenus with nothing
                     stringr::str_replace_all("\\([A-Za-z]+\\)", "") %>%
                     stringr::str_squish())
@@ -803,16 +803,16 @@ HarmoniseR <- function(
     # merge datasets
   runningOccurrences <- runningOccurrences %>%
       # Put the scientific name into a new column called verbatimScientificName
-    dplyr::mutate(verbatimScientificName = speciesColumn) %>%
+    dplyr::mutate(verbatimScientificName = scientificName) %>%
       # select the columns we want to keep
     dplyr::select( c(tidyselect::all_of(OG_colnames), validName_valid, verbatimScientificName,
                      family_valid, subfamily_valid,
                      canonical_withFlags_valid, genus_valid, subgenus_valid, 
                      species_valid, infraspecies_valid, authorship_valid)) %>%
       # REMOVE this column
-    dplyr::select(!speciesColumn) %>%
+    dplyr::select(!scientificName) %>%
       # rename validName_valid to scientificName and place it where it used to sit.
-    dplyr::mutate(speciesColumn = validName_valid, .after = database_id) %>%
+    dplyr::mutate(scientificName = validName_valid, .after = database_id) %>%
       # Add in the other taxonomic data
     dplyr::mutate(species = canonical_withFlags_valid,
                   family = family_valid, 
@@ -822,7 +822,7 @@ HarmoniseR <- function(
                   specificEpithet = species_valid,
                   infraspecificEpithet = infraspecies_valid,
                   scientificNameAuthorship = authorship_valid,
-                  .after = speciesColumn) %>%
+                  .after = scientificName) %>%
     # Remove extra columns
     dplyr::select(!c(canonical_withFlags_valid, family_valid, subfamily_valid, genus_valid,
                      subgenus_valid, species_valid, infraspecies_valid, authorship_valid,
