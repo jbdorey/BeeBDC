@@ -169,7 +169,7 @@ HarmoniseR <- function(
   ##### 2.2 validName_comb ####
     # Now we will try and match the valid name by combining the names_clean and scientificNameAuthorship columns
   ###### a. prep synonyms ####
-  if(names_clean %in% colnames(occurrences)){
+  if("names_clean" %in% colnames(occurrences)){
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
     ## SAME as 2.1 ##
@@ -270,7 +270,7 @@ HarmoniseR <- function(
         sep = "|"))) 
 
       ###### b. assign names ####
-  if(names_clean %in% colnames(occurrences)){
+  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_24 <- occurrences %>%
     # Keep the unmatched names
@@ -314,7 +314,7 @@ HarmoniseR <- function(
       "ambiguous validName")) 
   
   ###### b. assign names ####
-  if(names_clean %in% colnames(occurrences)){
+  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_25 <- occurrences %>%
     # remove already-matched names
@@ -565,7 +565,7 @@ HarmoniseR <- function(
 
 
   ###### a. assign names ####
-  if(names_clean %in% colnames(occurrences)){
+  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_33 <- occurrences_amb %>%
     # remove already-matched names
@@ -639,7 +639,7 @@ HarmoniseR <- function(
   
   
   ##### 3.5 canonical ####
-  if(names_clean %in% colnames(occurrences)){
+  if("names_clean" %in% colnames(occurrences)){
   ###### b. assign names ####
   # Match names first with the validName column
   occs_35 <- occurrences_amb %>%
@@ -677,7 +677,7 @@ HarmoniseR <- function(
   ##### 3.6 validName_comb ####
   # Now we will try and match the valid name by combining the names_clean and scientificNameAuthorship columns
   ###### a. assign names ####
-  if(names_clean %in% colnames(occurrences)){
+  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_36 <- occurrences_amb %>%
     # remove already-matched names
