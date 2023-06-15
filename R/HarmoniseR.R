@@ -163,6 +163,7 @@ HarmoniseR <- function(
   ##### 2.2 validName_comb ####
     # Now we will try and match the valid name by combining the names_clean and scientificNameAuthorship columns
   ###### a. prep synonyms ####
+  if(names_clean %in% colnames(occurrences)){
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
     ## SAME as 2.1 ##
@@ -201,7 +202,9 @@ HarmoniseR <- function(
       # Bind the previous rows
     dplyr::bind_rows(occs_21) # 2,678
     # Remove this spent files
-  rm(occs_21, occs_22)
+  rm(occs_21, occs_22)}else{
+    writeLines("The names_clean column was not found and is ignored. Skipping these parts.")
+  }
 
   
   ##### 2.3 canonical_wFlags ####
@@ -261,6 +264,7 @@ HarmoniseR <- function(
         sep = "|"))) 
 
       ###### b. assign names ####
+  if(names_clean %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_24 <- occurrences %>%
     # Keep the unmatched names
@@ -284,7 +288,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_24)
+  rm(occs_24)}
   
   gc()
   
@@ -304,6 +308,7 @@ HarmoniseR <- function(
       "ambiguous validName")) 
   
   ###### b. assign names ####
+  if(names_clean %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_25 <- occurrences %>%
     # remove already-matched names
@@ -333,7 +338,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_25)
+  rm(occs_25)}
 
   
   
@@ -554,6 +559,7 @@ HarmoniseR <- function(
 
 
   ###### a. assign names ####
+  if(names_clean %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_33 <- occurrences_amb %>%
     # remove already-matched names
@@ -585,7 +591,7 @@ HarmoniseR <- function(
     # Bind the previous rows
     dplyr::bind_rows(runningAmb_occs) # 2,678
   # Remove this spent files
-  rm(occs_33)
+  rm(occs_33)}
   
   
   ##### 3.4 canonical_wFlags ####
@@ -627,7 +633,7 @@ HarmoniseR <- function(
   
   
   ##### 3.5 canonical ####
-
+  if(names_clean %in% colnames(occurrences)){
   ###### b. assign names ####
   # Match names first with the validName column
   occs_35 <- occurrences_amb %>%
@@ -656,7 +662,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_35, SynList)
+  rm(occs_35, SynList)}
 
   gc()
   
@@ -665,6 +671,7 @@ HarmoniseR <- function(
   ##### 3.6 validName_comb ####
   # Now we will try and match the valid name by combining the names_clean and scientificNameAuthorship columns
   ###### a. assign names ####
+  if(names_clean %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_36 <- occurrences_amb %>%
     # remove already-matched names
@@ -696,7 +703,7 @@ HarmoniseR <- function(
     # Bind the previous rows
     dplyr::bind_rows(runningAmb_occs) # 2,678
   # Remove this spent files
-  rm(occs_36)
+  rm(occs_36)}
   
   
   ##### 3.7 No subgenus validName ####
