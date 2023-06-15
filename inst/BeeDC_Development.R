@@ -96,7 +96,7 @@ requiredPackages <- sort(c("bdc",
 lapply(requiredPackages,  usethis::use_package, type = "Imports")
 
   # Add suggested packages
-suggestedPackages <- sort(c("praise", "rlang", "xml2",  "rvest", "countrycode", "rangeBuilder",
+suggestedPackages <- sort(c("rlang", "xml2",  "rvest", "countrycode", "rangeBuilder",
                             "rworldmap", "hexbin", "janitor", "rnaturalearthdata",
                             "terra", "chorddiag", "rnaturalearthhires", "R.utils", "xlsx",
                             "testthat", "emld", "purrr", "tidyr",

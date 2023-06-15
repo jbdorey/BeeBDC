@@ -137,7 +137,7 @@ importOccurrences <- function(path = path,
   # Return the Data_WebDL
   return(Data_WebDL)
   # Return end product and print completion note
-  writeLines(paste(" - Fin.", praise::praise(), sep = "\n"))
+  writeLines(paste(" - Fin.", sep = "\n"))
 } # END data_importer
 
 

@@ -141,7 +141,7 @@ data_saver <- function(path = NULL,
       saveRDS(., file = paste(outPath, "/", file_prefix, "completeAttributes_", Sys.Date(), ".rds", sep = ""))
   }
   # Print completion note
-  writeLines(paste(" - data_saver. Fin.", praise::praise(), sep = "\n"))
+  writeLines(paste(" - data_saver. Fin.", sep = "\n"))
 } # END data_saver
 
 

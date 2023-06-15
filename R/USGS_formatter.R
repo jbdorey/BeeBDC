@@ -29,7 +29,6 @@ USGS_formatter <- function(
   # Load required packages
   requireNamespace("lubridate")
   requireNamespace("dplyr")
-  requireNamespace("praise")
   # File name to search for
   USGS_fileName <- "USGS_DRO_flat"
   # Find the USGS data from the HomePath
@@ -277,7 +276,7 @@ USGS_formatter <- function(
   }
   
   # Return end product and print completion note
-  writeLines(paste(" - Fin.", praise::praise(), sep = "\n"))
+  writeLines(paste(" - Fin.", sep = "\n"))
   return( dplyr::lst(USGS_data, EML_attributes) )
 } # END USGS_import
 

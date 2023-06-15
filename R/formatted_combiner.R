@@ -38,7 +38,6 @@ formatted_combiner <- function(path,
   # locally bind variables to the function
   . <- NULL
   
-  requireNamespace("praise")
   requireNamespace("dplyr")
   requireNamespace("bdc")
   requireNamespace("xml2")
@@ -141,7 +140,7 @@ formatted_combiner <- function(path,
     setNames(c("Data_WebDL", "eml_files"))
 
   # Return end product and print completion note
-  writeLines(paste(" - Fin.", praise::praise(), sep = "\n"))
+  writeLines(paste(" - Fin.", sep = "\n"))
   # Return the outfile
   return(existing_data)
 } # COMPLETE formatted_combiner

@@ -27,7 +27,6 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "tibble",            # To use tibbles
                       "forcats",           # tidyverse for working with factors
                       "rlist",             # Package to save lists
-                      "praise",            #  To whispers sweet nothings 
                       "EML",               #  To work with .eml files
                       "emld",              #  To work with .eml files
                       "rlang",             #  Part of the tidyverse — core functions

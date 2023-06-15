@@ -38,9 +38,10 @@
 #' table(beesRaw_out$.invalidName, useNA = "always")
 
 HarmoniseR <- function(
+  occurrences = NULL,
   path = NULL, #The path to a folder that the output can be saved
-  SynList = BeeDC::beesTaxonomy, # The formatted taxonomy file
-  occurrences = NULL
+  SynList = BeeDC::beesTaxonomy # The formatted taxonomy file
+  
   ) {  
   # locally bind variables to the function
   . <- id <- validName<-canonical<-canonical_withFlags<-family<-subfamily<-genus<-subgenus<-
@@ -53,7 +54,6 @@ HarmoniseR <- function(
   
   
     # Load required packages 
-  requireNamespace("praise")
   requireNamespace("rlang")
   requireNamespace("dplyr")
   requireNamespace("bdc")
