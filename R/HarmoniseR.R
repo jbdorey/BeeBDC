@@ -93,6 +93,7 @@ HarmoniseR <- function(
   if(!"scientificNameAuthorship" %in% colnames(occurrences)){
     occurrences <- occurrences %>%
       dplyr::mutate(scientificNameAuthorship = NA_character_)
+    message("scientificNameAuthorship not found, making this column full of NAs.")
   }
   
   
