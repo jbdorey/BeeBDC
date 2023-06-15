@@ -89,6 +89,13 @@ HarmoniseR <- function(
   occurrences <- occurrences %>%
     dplyr::rename("scientificName" = tidyselect::any_of(speciesColumn))
   
+  # If there is no scientificNameAuthorship, make all NA
+  if(!"scientificNameAuthorship" %in% colnames(occurrences)){
+    occurrences <- occurrences %>%
+      dplyr::mutate(scientificNameAuthorship = NA_character_)
+  }
+  
+  
     # Add a new column which has the canonical names matched to the synonyms
   SynList <- SynList %>%
     dplyr::left_join(x = ., 
@@ -155,7 +162,7 @@ HarmoniseR <- function(
                         # Match scientific name with the valid synonym name
                       by = c("scientificName" = "validName"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
    #   # Add a column to express the name-match quality - "high" IF there is a match at this point
    # dplyr::mutate(nameQuality = dplyr::if_else(stats::complete.cases(validName_valid),
    #   "high", "NA")) 3,703
@@ -199,7 +206,7 @@ HarmoniseR <- function(
                       # Match scientific name with the valid synonym name
                       by = c("united_SciName" = "validName"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
   # Return the matched occurrences
@@ -210,6 +217,7 @@ HarmoniseR <- function(
     # Remove this spent files
   rm(occs_21, occs_22)}else{
     writeLines("The names_clean column was not found and is ignored. Skipping these parts.")
+    runningOccurrences <- occs_21
   }
 
   
@@ -243,7 +251,7 @@ HarmoniseR <- function(
                       # Match scientific name with the valid synonym name
                       by = c("species" = "canonical_withFlags"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
   # Return the matched occurrences
@@ -283,7 +291,7 @@ HarmoniseR <- function(
                       # Match scientific name with the valid synonym name
                       by = c("names_clean" = "canonical"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
     ###### c. return Occs ####
   # Return the matched occurrences
@@ -333,7 +341,7 @@ HarmoniseR <- function(
                       # Match scientific name with the valid synonym name
                       by = c("united_SciName" = "validName"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
   # Return the matched occurrences
@@ -388,7 +396,7 @@ HarmoniseR <- function(
                      # Match scientific name with the valid synonym name
                      by = c("scientificNameMatch" = "validNameMatch"),
                      suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
   # Return the matched occurrences
@@ -441,7 +449,7 @@ HarmoniseR <- function(
                      # Match scientific name with the canonical synonym name
                      by = c("scientificNameMatch" = "canonicalMatch"),
                      suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
   # Return the matched occurrences
@@ -487,6 +495,7 @@ HarmoniseR <- function(
   
 
   ###### b. author in sciName  ####
+  if(!all(is.na(occurrences$scientificNameAuthorship))){
   # Create a list of scientificNameAuthorships that can be found in scientificName, where the former is empty
   ambiguousAuthorFound <- occurrences %>%
     # check only the occurrences without authorship
@@ -520,7 +529,7 @@ HarmoniseR <- function(
                                    scientificNameAuthorship))
   
   # Remove used data
-  rm(ambiguousAuthorFound)
+  rm(ambiguousAuthorFound)}
   
     ###### c. ambiguous occurrences ####
   # Filter occurrence dataset to those with ambiguous names AND authorship values
@@ -552,7 +561,7 @@ HarmoniseR <- function(
                       by = c("scientificName" = "validName",
                              "SciNameAuthorSimple" = "authorSimple"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all",relationship = "many-to-many") 
 
   ###### b. return Occs ####
   # Return the matched occurrences_amb
@@ -588,7 +597,7 @@ HarmoniseR <- function(
                       by = c("united_SciName" = "validName",
                              "SciNameAuthorSimple" = "authorSimple"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
   # Return the matched occurrences_amb
@@ -626,7 +635,7 @@ HarmoniseR <- function(
                       by = c("species" = "canonical_withFlags",
                              "SciNameAuthorSimple" = "authorSimple"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
   # Return the matched occurrences_amb
@@ -657,7 +666,7 @@ HarmoniseR <- function(
                       by = c("names_clean" = "canonical",
                              "SciNameAuthorSimple" = "authorSimple"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
 
   ###### c. return Occs ####
   # Return the matched occurrences_amb
@@ -700,7 +709,7 @@ HarmoniseR <- function(
                       by = c("united_SciName" = "validName",
                              "SciNameAuthorSimple" = "authorSimple"),
                       suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
   # Return the matched occurrences_amb
@@ -737,7 +746,7 @@ HarmoniseR <- function(
                        # Match scientific name with the valid synonym name
                      by = c("scientificNameMatch" = "validNameMatch"),
                      suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
   # Return the matched occurrences_amb
@@ -774,7 +783,7 @@ HarmoniseR <- function(
                      # Match scientific name with the valid synonym name
                      by = c("scientificNameMatch" = "canonicalMatch"),
                      suffix = c("", "_harmon"),
-                     multiple = "all") 
+                     multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
   # Return the matched occurrences_amb
@@ -854,16 +863,17 @@ HarmoniseR <- function(
     dplyr::distinct(database_id, .keep_all = TRUE)
   
   # Return the speciesColumn name to it's original state
-  names(occurrences)[names(occurrences) == "scientificName"] <- speciesColumn
+  names(runningOccurrences)[names(runningOccurrences) == "scientificName"] <- speciesColumn
   
 
   # Cut down the failed list...
+  if("taxonRank" %in% colnames(failedMatches)){
   failedMatches <- failedMatches %>%
-    dplyr::select(taxonRank) %>%
+    dplyr::select(tidyselect::any_of(taxonRank)) %>%
     dplyr::filter(!taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
                                      "species", "Species", "SPECIES", "subsp.", "subspecies",
                                     "Subspecies", "SUBSPECIES", "syn", "var.", "variety",
-                                    "Variety", "VARIETY")) 
+                                    "Variety", "VARIETY")) }
 
 
     ###### c. output ####
