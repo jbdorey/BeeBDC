@@ -691,7 +691,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_35, SynList)}
+  rm(occs_35, SynList)
 
   gc()
   
