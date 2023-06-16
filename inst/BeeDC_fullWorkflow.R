@@ -431,7 +431,7 @@ db_standardized <- db_standardized %>%
 
 #   # Save the dataset
 db_standardized %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "00_prefilter_database.csv",
                          sep = "/"))
 
@@ -552,12 +552,12 @@ check_pf <- dplyr::left_join(check_pf,
 
 # Save the dataset
 check_pf %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
                          sep = "/"))
 # Save the countryOutput dataset
 countryOutput %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "countryOutput.csv",
                          sep = "/"))
 # Read in IF needed
@@ -604,7 +604,7 @@ table(check_pf$coordinates_transposed, useNA = "always")
 
 # Save the dataset
 check_pf %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
                          sep = "/"))
 gc()
@@ -626,7 +626,7 @@ check_pf <- BeeDC::jbd_coordCountryInconsistent(
 
 # Save the dataset
 check_pf %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
                          sep = "/"))
 
@@ -641,7 +641,7 @@ xyFromLocality <- bdc::bdc_coordinates_from_locality(
   save_outputs = TRUE
 ) %>%
 # Save data if needed.
-  readr::write_csv(paste(OutPath_Check, "01_coordinates_from_locality.csv",
+  readr::write_excel_csv(paste(OutPath_Check, "01_coordinates_from_locality.csv",
                          sep = "/"))
 # Remove spent data
 rm(xyFromLocality)
@@ -708,7 +708,7 @@ figures$.coordinates_country_inconsistent
 ##### 3.14 save ####
 # Save the intermediate dataset
 check_pf %>%
-  readr::write_csv(., paste(OutPath_Intermediate, "01_prefilter_output.csv",
+  readr::write_excel_csv(., paste(OutPath_Intermediate, "01_prefilter_output.csv",
                             sep = "/"))
 
 
@@ -768,7 +768,7 @@ rm(beesTaxonomy)
 
 # Save the harmonised file.
 database %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "02_taxonomy_database.csv",
                          sep = "/"))
 
@@ -814,7 +814,7 @@ rm(database)
 
 # Save the harmonised file.
 check_space %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
 
@@ -867,7 +867,7 @@ rm(tempSpace)
 
   # Save the intermediate dataset
 check_space %>%
-  readr::write_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
+  readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
 
 
@@ -931,7 +931,7 @@ check_space <- check_space %>%
 
 # Save the gridded_datasets file for later examination
 gridded_datasets %>%
-  readr::write_csv(paste(OutPath_Intermediate, "03_space_griddedDatasets.csv",
+  readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_griddedDatasets.csv",
                          sep = "/"))
 # Now remove this file
 rm(gridded_datasets)
@@ -961,7 +961,7 @@ check_space %>%
   dplyr::group_by(scientificName) %>% 
   dplyr::mutate(count_scientificName = n()) %>%
   distinct(scientificName, country, .keep_all = TRUE) %>% 
-  readr::write_csv(paste(OutPath_Intermediate, "03_space_failedCountryChecklist.csv",
+  readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_failedCountryChecklist.csv",
                          sep = "/"))
 
 
@@ -1022,7 +1022,7 @@ figures$.rou
 
 # Save interim dataset
 check_space %>%
-  readr::write_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
+  readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
 
 ##### 5.9 Save flags ####
@@ -1038,7 +1038,7 @@ BeeDC::flagRecorder(
 ##### 5.10 Save ####
   # Save the intermediate dataset
 check_space %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_database.csv",
                          sep = "/"))
 
@@ -1119,7 +1119,7 @@ figures$year
 
 # Save the ~raw time dataset into the intermediate folder
 check_time %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "04_time_database.csv",
                          sep = "/"))
 
@@ -1185,7 +1185,7 @@ check_time <- BeeDC::dupeSummary(
 
 # Save the dataset into the intermediate folder
 check_time %>%
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "04_2_dup_database.csv",
                          sep = "/"))
 
@@ -1232,7 +1232,7 @@ check_time <- summaryFun(
   removeFilterColumns = FALSE,
   filterClean = FALSE)
 # Save the uncleaned dataset
-check_time %>% readr::write_csv(.,
+check_time %>% readr::write_excel_csv(.,
                                 paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                       sep = "/"))
 
@@ -1247,7 +1247,7 @@ BeeDC::summaryFun(
   # Filter to ONLY cleaned data?
   filterClean = TRUE) %>% 
 # Save this CLEANED dataset
-  readr::write_csv(.,
+  readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "05_cleaned_database.csv",
                          sep = "/"))
 # Dataset can be re-read here

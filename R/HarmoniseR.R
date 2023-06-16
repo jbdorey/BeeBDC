@@ -18,6 +18,8 @@
 #' @param SynList A data frame or tibble. The bee taxonomy to use. Default = BeeDC::beesTaxonomy.
 #' @param occurrences A data frame or tibble. Occurrence records as input.
 #' @param speciesColumn Character. The name of the column containing species names. Default = "scientificName".
+#' @param rm_names_clean Logical. If TRUE then the names_clean column will be removed at the end of
+#' this function to help reduce confusion about this column later. Default = TRUE
 #'
 #' @return The occurrences are returned with update taxonomy columns, including: scientificName, 
 #' species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and 
@@ -43,7 +45,8 @@ HarmoniseR <- function(
   occurrences = NULL,
   path = NULL, #The path to a folder that the output can be saved
   SynList = BeeDC::beesTaxonomy, # The formatted taxonomy file
-  speciesColumn = "scientificName"
+  speciesColumn = "scientificName",
+  rm_names_clean = TRUE
   ) {  
   # locally bind variables to the function
   . <- id <- validName<-canonical<-canonical_withFlags<-family<-subfamily<-genus<-subgenus<-
@@ -85,10 +88,28 @@ HarmoniseR <- function(
   # Save the original number of rows
   OG_rowNum <- nrow(occurrences)
   
+    ##### 1.1 Prepare columns ####
+    # To make the function more general, allow some column changing internally.
+      ###### a. rename to scientificName ####
     # Temporarily rename the speciesColumn to "scientificName" within the function
   occurrences <- occurrences %>%
     dplyr::rename("scientificName" = tidyselect::any_of(speciesColumn))
-  
+      ###### b. temp names_clean ####
+    # IF the names_clean column does not exist, temporarily add it to the dataset using the 
+  # scientificName column's data.
+  if(!"names_clean" %in% colnames(occurrences)){
+    occurrences <- occurrences %>%
+      dplyr::mutate(names_clean = scientificName)
+    message("The names_clean column was not found and will be temporarily removed.")
+  }
+    ###### c. database_id ####
+    # If the database_id column isn't in the dataset, then add it for internal use
+  if(!"database_id" %in% colnames(occurrences)){
+    occurrences <- occurrences %>%
+  dplyr::mutate(database_id = paste0("BeeDC_TempCode_", dplyr::row_number()), .before = 1)
+    message("database_id not found, making this column with 'BeeDC_TempCode_'...")
+  }
+    ###### d. scientificNameAuthorship ####
   # If there is no scientificNameAuthorship, make all NA
   if(!"scientificNameAuthorship" %in% colnames(occurrences)){
     occurrences <- occurrences %>%
@@ -177,7 +198,6 @@ HarmoniseR <- function(
   ##### 2.2 validName_comb ####
     # Now we will try and match the valid name by combining the names_clean and scientificNameAuthorship columns
   ###### a. prep synonyms ####
-  if("names_clean" %in% colnames(occurrences)){
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
     ## SAME as 2.1 ##
@@ -216,10 +236,7 @@ HarmoniseR <- function(
       # Bind the previous rows
     dplyr::bind_rows(occs_21) # 2,678
     # Remove this spent files
-  rm(occs_21, occs_22)}else{
-    message("The names_clean column was not found and is ignored. Skipping these parts.")
-    runningOccurrences <- occs_21
-  }
+  rm(occs_21, occs_22)
 
   
   ##### 2.3 canonical_wFlags ####
@@ -279,7 +296,6 @@ HarmoniseR <- function(
         sep = "|"))) 
 
       ###### b. assign names ####
-  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_24 <- occurrences %>%
     # Keep the unmatched names
@@ -303,7 +319,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_24)}
+  rm(occs_24)
   
   gc()
   
@@ -323,7 +339,6 @@ HarmoniseR <- function(
       "ambiguous validName")) 
   
   ###### b. assign names ####
-  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_25 <- occurrences %>%
     # remove already-matched names
@@ -353,7 +368,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_25)}
+  rm(occs_25)
 
   
   
@@ -575,7 +590,6 @@ HarmoniseR <- function(
 
 
   ###### a. assign names ####
-  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_33 <- occurrences_amb %>%
     # remove already-matched names
@@ -607,7 +621,7 @@ HarmoniseR <- function(
     # Bind the previous rows
     dplyr::bind_rows(runningAmb_occs) # 2,678
   # Remove this spent files
-  rm(occs_33)}
+  rm(occs_33)
   
   
   ##### 3.4 canonical_wFlags ####
@@ -649,7 +663,6 @@ HarmoniseR <- function(
   
   
   ##### 3.5 canonical ####
-  if("names_clean" %in% colnames(occurrences)){
   ###### b. assign names ####
   # Match names first with the validName column
   occs_35 <- occurrences_amb %>%
@@ -687,7 +700,6 @@ HarmoniseR <- function(
   ##### 3.6 validName_comb ####
   # Now we will try and match the valid name by combining the names_clean and scientificNameAuthorship columns
   ###### a. assign names ####
-  if("names_clean" %in% colnames(occurrences)){
   # Match names first with the validName column
   occs_36 <- occurrences_amb %>%
     # remove already-matched names
@@ -719,7 +731,7 @@ HarmoniseR <- function(
     # Bind the previous rows
     dplyr::bind_rows(runningAmb_occs) # 2,678
   # Remove this spent files
-  rm(occs_36)}
+  rm(occs_36)
   
   
   ##### 3.7 No subgenus validName ####
@@ -863,8 +875,14 @@ HarmoniseR <- function(
       # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   
+  ###### c. return columns states ####
   # Return the speciesColumn name to it's original state
   names(runningOccurrences)[names(runningOccurrences) == "scientificName"] <- speciesColumn
+  if(rm_names_clean == TRUE){
+    message("Removing the names_clean column...")
+    runningOccurrences <- runningOccurrences %>% 
+      dplyr::select(!tidyselect::any_of("names_clean"))
+  }
   
 
   # Cut down the failed list...
@@ -879,7 +897,7 @@ HarmoniseR <- function(
                                     }
 
 
-    ###### c. output ####
+    ###### d. output ####
   writeLines(paste(
     " - We matched valid names to ", format(nMatchedRows, big.mark = ","), " of ",
     format(OG_rowNum, big.mark = ","), " occurrence records. This leaves a total of ",
@@ -907,7 +925,7 @@ HarmoniseR <- function(
     round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
     " minutes.",
     sep = ""))
-
+  
     # Return this file
   return(runningOccurrences)
 }
