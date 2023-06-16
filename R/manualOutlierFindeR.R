@@ -106,9 +106,9 @@ manualOutlierFindeR <- function(
     dplyr::bind_rows(file_finder(path = DataPath,
                                  fileName = newOutliersName) %>%
                        readxl::read_xlsx("Outliers_SppInStatus3", col_types = "text")) %>%
-    readr::write_csv(paste(OutPath_Report, "newOutliers.csv", sep = "/"))
+    readr::write_csv(paste(tempdir(), "newOutliers.csv", sep = "/"))
   # Read back in with the correct column classes
-  outliersAll <- file_finder(path = DataPath,
+  outliersAll <- file_finder(path = tempdir(),
                              fileName = "newOutliers.csv") %>%
     readr::read_csv(col_types = ColTypeR(), lazy = FALSE) %>%
     dplyr::mutate(eventDate = eventDate %>%
