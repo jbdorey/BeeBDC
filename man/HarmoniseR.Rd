@@ -4,14 +4,25 @@
 \alias{HarmoniseR}
 \title{Harmonise taxonomy of bee occurrence data}
 \usage{
-HarmoniseR(path = NULL, SynList = BeeDC::beesTaxonomy, occurrences = NULL)
+HarmoniseR(
+  occurrences = NULL,
+  path = NULL,
+  SynList = BeeDC::beesTaxonomy,
+  speciesColumn = "scientificName",
+  rm_names_clean = TRUE
+)
 }
 \arguments{
+\item{occurrences}{A data frame or tibble. Occurrence records as input.}
+
 \item{path}{A directory as character. The path to a folder that the output can be saved.}
 
 \item{SynList}{A data frame or tibble. The bee taxonomy to use. Default = BeeDC::beesTaxonomy.}
 
-\item{occurrences}{A data frame or tibble. Occurrence records as input.}
+\item{speciesColumn}{Character. The name of the column containing species names. Default = "scientificName".}
+
+\item{rm_names_clean}{Logical. If TRUE then the names_clean column will be removed at the end of
+this function to help reduce confusion about this column later. Default = TRUE}
 }
 \value{
 The occurrences are returned with update taxonomy columns, including: scientificName,
@@ -31,6 +42,7 @@ beesRaw_out <- HarmoniseR(
 path = tempdir(),
 # The formatted taxonomy file
 SynList = BeeDC::beesTaxonomy, 
-occurrences = BeeDC::beesFlagged)
+occurrences = BeeDC::beesFlagged,
+speciesColumn = "scientificName")
 table(beesRaw_out$.invalidName, useNA = "always")
 }
