@@ -9,7 +9,6 @@
 taxoMergeR <- function(currentNames = NULL,
                              newNames = NULL,
                              HigherNameList = NULL,
-                       inSource = NULL,
                        inKingdom = "Animalia",
                        inPhylum = "Arthropoda",
                        inClass = "Insecta",
@@ -30,7 +29,8 @@ taxoMergeR <- function(currentNames = NULL,
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
   if(is.null(simpleNames)){
-    stop(" - Please provide an argument for simpleNames. This should be TRUE if using 'Genus species'",
+    stop(" - Please provide an argument for simpleNames. This should be TRUE if using ",
+         "'Genus species'",
          " format and FALSE if a more complex format like 'Genus (Subgenus) species Authority'")
   }
   
@@ -113,9 +113,12 @@ taxoMergeR <- function(currentNames = NULL,
     for(i in 1:nrow(newNames)){
       # Extract the ith original name
       loopName <- newNames$Original_cleaned[i]
+      loopSource <- newNames$Source[i]
       # Use nameSplitR to extract the information within
       loopData <- nameSplitR(loopName, #NameInput
-                             Authority_patterns = NULL)
+                             Authority_patterns = NULL) %>% 
+        as.data.frame(stringsAsFactors = FALSE, row.names = FALSE) %>% dplyr::tibble() %>%        
+        dplyr::mutate(Source = loopSource)
       # Add these data to loopTibble
       loopTibble <- loopTibble %>%
         dplyr::bind_rows(loopData)
@@ -144,7 +147,8 @@ taxoMergeR <- function(currentNames = NULL,
   ##### 2.1 Acc. match ####
   # find all of the matching columns between New and Ascher using the final and flagged name columns
   Correct_matched <- newNames %>%
-    dplyr::inner_join(currentNames, by = c("Correct" = "canonical_withFlags"), keep = TRUE )
+    dplyr::inner_join(currentNames, by = c("Correct" = "canonical_withFlags"), keep = TRUE,
+                      relationship = "many-to-many")
   ##### 2.2 single match ####
   # subset those names that matched a single Ascher name
   SingleMatch <- Correct_matched %>%
@@ -160,7 +164,8 @@ taxoMergeR <- function(currentNames = NULL,
   
   # Find out if the Original New name (synonym) has a match and authority
   Syn_matched <- newNames %>%
-    dplyr::inner_join(currentNames, by = c("Original" = "canonical_withFlags"), keep = TRUE ) %>%
+    dplyr::inner_join(currentNames, by = c("Original" = "canonical_withFlags"), keep = TRUE,
+                      relationship = "many-to-many") %>%
     # Keep only the current tempIndeces
     dplyr::filter(tempIndex %in% SingleMatch_split$tempIndex)%>%
     # Keep those with a single match
@@ -179,7 +184,7 @@ taxoMergeR <- function(currentNames = NULL,
   SOM_acc_final <- dplyr::bind_cols(
     flags = SOM_acc$flags,
     taxonomic_status = "synonym",
-    source = inSource,
+    source = SOM_acc$Source,
     accid = SOM_acc$id,  # Get the ACCEPTED name's id for accid
     id = NA,     # Enter later
     kingdom = inKingdom,
@@ -224,8 +229,9 @@ taxoMergeR <- function(currentNames = NULL,
   SOM_syn_final <- dplyr::bind_cols(
     flags = SOM_syn$flags,
     taxonomic_status = "synonym",
-    source = inSource,
-    accid = SOM_syn$accid,  # Get the accepted id for accid. Hence, find the accepted name from the synonym this matched to
+    source = SOM_syn$Source,
+    # Get the accepted id for accid. Hence, find the accepted name from the synonym this matched to
+    accid = SOM_syn$accid,  
     id = NA,     # Assign later
     kingdom = inKingdom,
     phylum = inPhylum,
@@ -314,18 +320,19 @@ taxoMergeR <- function(currentNames = NULL,
   Mult_newSyn <- MultiMatch %>%
     dplyr::filter(taxonomic_status == "synonym")
   
-  # IF there are synonyms that dont occur in the accepted names, STOP. Because this isn't a problem for me.
+  # IF there are synonyms that dont occur in the accepted names, STOP. Because this isn't a 
+  # problem for me.
   MULTSynTest <- Mult_newSyn %>%
     dplyr::filter(!Original %in% Mult_newAcc$Original)
   if(nrow(MULTSynTest) > 0){
-    stop("There are multiple-match synonyms that aren't in the mult.accepted list. This is new. Look for 'MULTSynTest'")
-  }
+    stop(paste0("There are multiple-match synonyms that aren't in the mult.accepted list. ",
+                "This is new. Look for 'MULTSynTest'"))}
   
   # Merge these into a single tibble with the correct data 
   MO_FINAL <- dplyr::bind_cols(
     flags = Mult_newAcc$flags,
     taxonomic_status = "synonym",
-    source = inSource,
+    source = Mult_newAcc$Source,
     accid = Mult_newAcc$id,  # Get the accepted id for accid
     id = NA,     # Get the new id from the number of rows plus i
     kingdom = inKingdom,
@@ -369,11 +376,12 @@ taxoMergeR <- function(currentNames = NULL,
   #### 3.0 Complex names ####
   if(simpleNames == FALSE){
   ##### 3.1 Acc. match ####
-    # find all of the matching columns between New and Ascher using the final and flagged name columns
+    # find all of the matching columns between New and Ascher using the final and flagged 
+      # name columns
   Correct_matched <- nameSplit %>%
       # Match with canonical_withFlags
     dplyr::inner_join(currentNames, by = c("Correct" = "canonical_withFlags"), keep = TRUE,
-                      suffix = c("_nameSplit", ""))
+                      suffix = c("_nameSplit", ""), relationship = "many-to-many")
       # Match with validName for those that FAILED with canonical_withFlags
   Correct_matched2 <- nameSplit %>%
       # remove already matched
@@ -406,7 +414,7 @@ taxoMergeR <- function(currentNames = NULL,
   SOM_acc_final <- dplyr::bind_cols(
     flags = SOM_acc$flags,
     taxonomic_status = "synonym",
-    source = inSource,
+    source = SOM_acc$Source,
     accid = SOM_acc$id,  # Get the ACCEPTED name's id for accid
     id = NA,     # Enter later
     kingdom = inKingdom,
@@ -421,11 +429,14 @@ taxoMergeR <- function(currentNames = NULL,
       dplyr::if_else(complete.cases(SOM_acc$genus_nameSplit) & SOM_acc$genus_nameSplit != "NA",
                      SOM_acc$genus_nameSplit, ""),
         # subgenus
-      dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & SOM_acc$subgenus_nameSplit != "NA",
+      dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & 
+                       SOM_acc$subgenus_nameSplit != "NA",
                      paste0("(",SOM_acc$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(SOM_acc$species_nameSplit) & SOM_acc$species_nameSplit != "NA",
+      dplyr::if_else(complete.cases(SOM_acc$species_nameSplit) & 
+                       SOM_acc$species_nameSplit != "NA",
                      SOM_acc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & SOM_acc$infraspecies_nameSplit != "NA",
+      dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & 
+                       SOM_acc$infraspecies_nameSplit != "NA",
                      SOM_acc$infraspecies_nameSplit, ""),
       dplyr::if_else(complete.cases(SOM_acc$authorship) & SOM_acc$authorship != "NA",
                      SOM_acc$authorship, ""),
@@ -436,22 +447,27 @@ taxoMergeR <- function(currentNames = NULL,
                      SOM_acc$genus_nameSplit, ""),
       dplyr::if_else(complete.cases(SOM_acc$species_nameSplit) & SOM_acc$species_nameSplit != "NA",
                      SOM_acc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & SOM_acc$infraspecies_nameSplit != "NA",
+      dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & 
+                       SOM_acc$infraspecies_nameSplit != "NA",
                      SOM_acc$infraspecies_nameSplit, ""),
       sep = " "),
     genus = SOM_acc$genus_nameSplit,
-    subgenus = dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & SOM_acc$subgenus_nameSplit != "NA",
+    subgenus = dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & 
+                                SOM_acc$subgenus_nameSplit != "NA",
                               SOM_acc$subgenus_nameSplit, ""),
     species = SOM_acc$species_nameSplit,
       # EDIT:
     infraspecies = SOM_acc$infraspecies_nameSplit,
     authorship = SOM_acc$authorship,
       # EDIT:
-    taxon_rank = dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & SOM_acc$infraspecies_nameSplit != "NA",
+    taxon_rank = dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & 
+                                  SOM_acc$infraspecies_nameSplit != "NA",
                                 "infraspecies", 
-                                dplyr::if_else(complete.cases(SOM_acc$species) & SOM_acc$species != "NA", 
+                                dplyr::if_else(complete.cases(SOM_acc$species) & 
+                                                 SOM_acc$species != "NA", 
                                                "species",
-                                               dplyr::if_else(complete.cases(SOM_acc$genus), "genus", "higher"))),
+                                               dplyr::if_else(complete.cases(SOM_acc$genus), 
+                                                              "genus", "higher"))),
     valid = FALSE,
     tempIndex = SOM_acc$tempIndex,
     notes = SOM_acc$notes
@@ -465,8 +481,9 @@ taxoMergeR <- function(currentNames = NULL,
   SOM_syn_final <- dplyr::bind_cols(
     flags = SOM_syn$flags,
     taxonomic_status = "synonym",
-    source = inSource,
-    accid = SOM_syn$accid,  # Get the accepted id for accid. Hence, find the accepted name from the synonym this matched to
+    source = SOM_syn$Source,
+    accid = SOM_syn$accid,  # Get the accepted id for accid. Hence, find the accepted name from 
+    # the synonym this matched to
     id = NA,     # Assign later
     kingdom = inKingdom,
     phylum = inPhylum,
@@ -480,11 +497,13 @@ taxoMergeR <- function(currentNames = NULL,
       dplyr::if_else(complete.cases(SOM_syn$genus_nameSplit) & SOM_syn$genus_nameSplit != "NA",
                      SOM_syn$genus_nameSplit, ""),
       # subgenus
-      dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & SOM_syn$subgenus_nameSplit != "NA",
+      dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & 
+                       SOM_syn$subgenus_nameSplit != "NA",
                      paste0("(",SOM_syn$subgenus_nameSplit ,")"), ""),
       dplyr::if_else(complete.cases(SOM_syn$species_nameSplit) & SOM_syn$species_nameSplit != "NA",
                      SOM_syn$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & SOM_syn$infraspecies_nameSplit != "NA",
+      dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & 
+                       SOM_syn$infraspecies_nameSplit != "NA",
                      SOM_syn$infraspecies_nameSplit, ""),
       dplyr::if_else(complete.cases(SOM_syn$authorship) & SOM_syn$authorship != "NA",
                      SOM_syn$authorship, ""),
@@ -496,22 +515,27 @@ taxoMergeR <- function(currentNames = NULL,
                      SOM_syn$genus_nameSplit, ""),
       dplyr::if_else(complete.cases(SOM_syn$species_nameSplit) & SOM_syn$species_nameSplit != "NA",
                      SOM_syn$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & SOM_syn$infraspecies_nameSplit != "NA",
+      dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & 
+                       SOM_syn$infraspecies_nameSplit != "NA",
                      SOM_syn$infraspecies_nameSplit, ""),
       sep = " "),
     genus = SOM_syn$genus_nameSplit,
-    subgenus = dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & SOM_syn$subgenus_nameSplit != "NA",
+    subgenus = dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & 
+                                SOM_syn$subgenus_nameSplit != "NA",
                               paste0(SOM_syn$subgenus_nameSplit), ""),
     species = SOM_syn$species_nameSplit,
     # EDIT:
     infraspecies = SOM_syn$infraspecies_nameSplit,
     authorship = SOM_syn$authorship,
     # EDIT:
-    taxon_rank = dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & SOM_syn$infraspecies_nameSplit != "NA",
+    taxon_rank = dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & 
+                                  SOM_syn$infraspecies_nameSplit != "NA",
                                 "infraspecies", 
-                                dplyr::if_else(complete.cases(SOM_syn$species) & SOM_syn$species != "NA",
+                                dplyr::if_else(complete.cases(SOM_syn$species) & 
+                                                 SOM_syn$species != "NA",
                                                "species",
-                                               dplyr::if_else(complete.cases(SOM_syn$genus) & SOM_syn$genus != "NA",
+                                               dplyr::if_else(complete.cases(SOM_syn$genus) & 
+                                                                SOM_syn$genus != "NA",
                                                               "genus", "higher"))),
     valid = FALSE,
     tempIndex = SOM_syn$tempIndex,
@@ -574,18 +598,19 @@ taxoMergeR <- function(currentNames = NULL,
        Mult_newSyn <- MultiMatch %>%
          dplyr::filter(taxonomic_status == "synonym")
        
-        # IF there are synonyms that dont occur in the accepted names, STOP. Because this isn't a problem for me.
+        # IF there are synonyms that dont occur in the accepted names, STOP. Because this isn't a 
+        # problem for me.
        MULTSynTest <- Mult_newSyn %>%
          dplyr::filter(!Original %in% Mult_newAcc$Original)
        if(nrow(MULTSynTest) > 0){
-         stop("There are multiple-match synonyms that aren't in the mult.accepted list. This is new. Look for 'MULTSynTest'")
-       }
+         stop(paste0("There are multiple-match synonyms that aren't in the mult.accepted list.",
+                     " This is new. Look for 'MULTSynTest'"))}
        
   # Merge these into a single tibble with the correct data 
   MO_FINAL <- dplyr::bind_cols(
     flags = Mult_newAcc$flags,
     taxonomic_status = "synonym",
-    source = inSource,
+    source = Mult_newAcc$Source,
     accid = Mult_newAcc$id,  # Get the accepted id for accid
     id = NA,     # Get the new id from the number of rows plus i
     kingdom = inKingdom,
@@ -597,40 +622,51 @@ taxoMergeR <- function(currentNames = NULL,
     tribe = Mult_newAcc$tribe,
     subtribe = Mult_newAcc$subtribe,
     validName = stringr::str_c(
-      dplyr::if_else(complete.cases(Mult_newAcc$genus_nameSplit) & Mult_newAcc$genus_nameSplit != "NA",
+      dplyr::if_else(complete.cases(Mult_newAcc$genus_nameSplit) & 
+                       Mult_newAcc$genus_nameSplit != "NA",
                      Mult_newAcc$genus_nameSplit, ""),
         #subgenus
-      dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & Mult_newAcc$subgenus_nameSplit != "NA",
+      dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & 
+                       Mult_newAcc$subgenus_nameSplit != "NA",
                      paste0("(",Mult_newAcc$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$species_nameSplit) & Mult_newAcc$species_nameSplit != "NA",
+      dplyr::if_else(complete.cases(Mult_newAcc$species_nameSplit) & 
+                       Mult_newAcc$species_nameSplit != "NA",
                      Mult_newAcc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$infraspecies_nameSplit) & Mult_newAcc$infraspecies_nameSplit != "NA",
+      dplyr::if_else(complete.cases(Mult_newAcc$infraspecies_nameSplit) & 
+                       Mult_newAcc$infraspecies_nameSplit != "NA",
                      Mult_newAcc$infraspecies_nameSplit, ""),
       dplyr::if_else(complete.cases(Mult_newAcc$authorship) & Mult_newAcc$authorship != "NA",
                      Mult_newAcc$authorship, ""),
       sep = " "),
     canonical_withFlags = "NA",
     canonical = stringr::str_c(
-      dplyr::if_else(complete.cases(Mult_newAcc$genus_nameSplit) & Mult_newAcc$genus_nameSplit != "NA",
+      dplyr::if_else(complete.cases(Mult_newAcc$genus_nameSplit) & 
+                       Mult_newAcc$genus_nameSplit != "NA",
                      Mult_newAcc$genus_nameSplit, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$species_nameSplit) & Mult_newAcc$species_nameSplit != "NA",
+      dplyr::if_else(complete.cases(Mult_newAcc$species_nameSplit) & 
+                       Mult_newAcc$species_nameSplit != "NA",
                      Mult_newAcc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$infraspecies_nameSplit) & Mult_newAcc$infraspecies_nameSplit != "NA",
+      dplyr::if_else(complete.cases(Mult_newAcc$infraspecies_nameSplit) & 
+                       Mult_newAcc$infraspecies_nameSplit != "NA",
                      Mult_newAcc$infraspecies_nameSplit, ""),
       sep = " "),
     genus = Mult_newAcc$genus_nameSplit,
-    subgenus = dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & Mult_newAcc$subgenus_nameSplit != "NA",
+    subgenus = dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & 
+                                Mult_newAcc$subgenus_nameSplit != "NA",
                               paste0(Mult_newAcc$subgenus_nameSplit), ""),
     species = Mult_newAcc$species_nameSplit,
     # EDIT:
     infraspecies = Mult_newAcc$infraspecies_nameSplit,
     authorship = Mult_newAcc$authorship,
     # EDIT:
-    taxon_rank = dplyr::if_else(complete.cases(Mult_newAcc$infraspecies_nameSplit) & Mult_newAcc$infraspecies_nameSplit != "NA",
+    taxon_rank = dplyr::if_else(
+      complete.cases(Mult_newAcc$infraspecies_nameSplit) & Mult_newAcc$infraspecies_nameSplit != "NA",
                                 "infraspecies", 
-                                dplyr::if_else(complete.cases(Mult_newAcc$species) & Mult_newAcc$species != "NA", 
+                                dplyr::if_else(complete.cases(Mult_newAcc$species) & 
+                                                 Mult_newAcc$species != "NA", 
                                                "species",
-                                               dplyr::if_else(complete.cases(Mult_newAcc$genus) & Mult_newAcc$genus != "NA", 
+                                               dplyr::if_else(complete.cases(Mult_newAcc$genus) & 
+                                                                Mult_newAcc$genus != "NA", 
                                                               "genus", "higher"))),
     valid = FALSE,
     tempIndex = Mult_newAcc$tempIndex
@@ -672,13 +708,17 @@ taxoMergeR <- function(currentNames = NULL,
     # Write user output
   writeLines(paste(
    " - Names merged. ","\n",
-   "We removed ", format(Original_newNames_Count - Original_unNew_Count, big.mark = ","), " duplicate new synonyms ",
+   "We removed ", format(Original_newNames_Count - Original_unNew_Count, big.mark = ","), 
+   " duplicate new synonyms ",
    "\n ", "We successfuly matched: ", "\n ",
    format(nrow(SOM_acc_final), big.mark = ","), " new names to the current accepted names;", "\n ",
-   format(nrow(SOM_syn_final), big.mark = ","), " new names to the current synonyms, and then their accepted name;",
-   "\n ",format(nrow(MO_FINAL), big.mark = ","), " new names that matched the current accepted and synonym names.",
+   format(nrow(SOM_syn_final), big.mark = ","), 
+   " new names to the current synonyms, and then their accepted name;",
+   "\n ",format(nrow(MO_FINAL), big.mark = ","), 
+   " new names that matched the current accepted and synonym names.",
    " These are matched to their accepted names;", "\n   ",
-   "!! There were a total of ", format(nrow(failed_names), big.mark = ","), " new names that failed",
+   "!! There were a total of ", format(nrow(failed_names), big.mark = ","), 
+   " new names that failed",
    " to find a match in the the current list !!", "\n ",
    "We kept a total of ", format(nrow(merged_names), big.mark = ","), " new synonyms.",
   sep = ""))

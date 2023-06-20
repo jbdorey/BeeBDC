@@ -1,11 +1,14 @@
-  # This function was written by James Dorey to remove duplicates from the combined Orr and Ascher
+  # This function was written by James Dorey to remove duplicates from the combined 
+  # source2 and source1 — user input, but originally Orr 2021 and Discover Life
     # synonym lists. For questions, please email jbdorey[at]me.com
 # This function was started on 17th May 2022 and last updated 17th May 2022
 #' @importFrom dplyr %>%
 #' @importFrom dplyr row_number
 
 taxoDuplicator <- function(
-    SynList = NULL){
+    SynList = NULL,
+    source1 = "DiscoverLife",
+    source2 = "Orr_et_al_2021_CurrBiol"){
   # locally bind variables to the function
   validName <- accid <- id <- flags <- taxonomic_status <- canonical_withFlags <- canonical <- NULL
   
@@ -23,85 +26,89 @@ taxoDuplicator <- function(
                                  " duplicates found in the data.", sep = ""))
   
     # Build subsetted datasets to examine 
-  DLaccepted <- duplicates %>% dplyr::filter(accid == 0 & source == "DiscoverLife")
-  OrrAccepted <- duplicates %>% dplyr::filter(accid == 0 & source == "Orr_et_al_2021_CurrBiol")
-  DLsynonyms <- duplicates %>% dplyr::filter(accid != 0 & source == "DiscoverLife")
-  OrrSyns <- duplicates %>% dplyr::filter(accid != 0 & source == "Orr_et_al_2021_CurrBiol")
+  S1accepted <- duplicates %>% dplyr::filter(accid == 0 & source %in% source1)
+  S2Accepted <- duplicates %>% dplyr::filter(accid == 0 & source %in% source2)
+  S1synonyms <- duplicates %>% dplyr::filter(accid != 0 & source %in% source1)
+  S2synonyms <- duplicates %>% dplyr::filter(accid != 0 & source %in% source2)
   
-  #### 1.0 DL_Orr #### 
+  #### 1.0 S1_S2 #### 
     ##### 1.1 acc. names ####
-    # Find all duplicated valid names that occur in the Orr list and the Ascher list. This looks like 
-      # All of them! These will later be REMOVED.
-  OrrAcc2remove <- OrrAccepted %>%
-    dplyr::filter(validName %in% DLaccepted$validName)
+    # Find all duplicated valid names that occur in the source2 list and the source1 list. 
+    # This looks  
+      # like All of them! These will later be REMOVED.
+  S2Acc2remove <- S2Accepted %>%
+    dplyr::filter(validName %in% S1accepted$validName)
   # Do any of the accids in the full list match these names' ids?
-  DLIDmatch <- OrrAcc2remove %>%
+  S1IDmatch <- S2Acc2remove %>%
     dplyr::filter(id %in% SynList$accid)
-  # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
-  if(nrow(DLIDmatch) > 0 ){
-    return(DLIDmatch)
-    stop(paste(" - That's odd! There is an Orr accepted name that is referred to by another name.",
+  # Stop here becuase I have no matches, but this might be important down the track if someone 
+    # finds them!
+  if(nrow(S1IDmatch) > 0 ){
+    return(S1IDmatch)
+    stop(paste(" - That's odd! There is an S2 accepted name that is referred to by another name.",
                "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                "I have returned the list of offending names."))
   }
   # For now, because these are all duplicates, I will not return these data.
   
     ##### 1.2 synonyms ####
-    # Find all duplicated SYNONYMS names that occur in the Orr list and the Ascher list. 
-  OrrDupeSyns <- OrrSyns %>%
-    dplyr::filter(validName %in% DLsynonyms$validName)
+    # Find all duplicated SYNONYMS names that occur in the source2 list and the source1 list. 
+  S2DupeSyns <- S2synonyms %>%
+    dplyr::filter(validName %in% S1synonyms$validName)
     # Do any of the accids in the full list match these names' ids?
-  OrrIDmatch <- OrrDupeSyns %>%
+  S2IDmatch <- S2DupeSyns %>%
     dplyr::filter(id %in% SynList$accid)
-    # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
-  if(nrow(OrrIDmatch) > 0 ){
-    return(OrrIDmatch)
-    stop(paste(" - That's odd! There is an Orr synonym that is referred to as an accepted name.",
+    # Stop here becuase I have no matches, but this might be important down the track if someone 
+    # finds them!
+  if(nrow(S2IDmatch) > 0 ){
+    return(S2IDmatch)
+    stop(paste(" - That's odd! There is an S2 synonym that is referred to as an accepted name.",
                "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                "I have returned the list of offending names."))
   } 
-    # Which names in the Orr list can we keep as unique synonyms?
-  OrrUnique <- OrrSyns %>%
-    dplyr::filter(!validName %in% DLsynonyms$validName)
+    # Which names in the source2 list can we keep as unique synonyms?
+  S2Unique <- S2synonyms %>%
+    dplyr::filter(!validName %in% S1synonyms$validName)
       # Pass these names onto 3.0
 
   
-  #### 2.0 DL duplicates ####
+  #### 2.0 S1 duplicates ####
     ##### 2.1 acc. names ####
-    # Look for internal DiscoverLife duplicated ACCEPTED names
-  DLduplicates <- DLaccepted %>%
+    # Look for internal source1 duplicated ACCEPTED names
+  S1duplicates <- S1accepted %>%
     dplyr::group_by(validName) %>%
     dplyr::filter(n() > 1)
-  # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
-  if(nrow(DLduplicates) > 0 ){
-    return(DLduplicates)
-    stop(paste(" - That's odd! There is an internal DiscoverLife synonym.",
+  # Stop here becuase I have no matches, but this might be important down the track if someone 
+    # finds them!
+  if(nrow(S1duplicates) > 0 ){
+    return(S1duplicates)
+    stop(paste(" - That's odd! There is an internal S1 synonym.",
                "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                "I have returned the list of offending names."))
   }
-  # Because none of these are duplicates, I will KEEP the original dataset DLaccepted.
+  # Because none of these are duplicates, I will KEEP the original dataset S1accepted.
   
     ##### 2.2 valName synonyms ####
   # Look for internal DiscoverLife duplicated SYNONYMS
-  DLduplicateSyns <- DLsynonyms %>%
+  S1duplicatesyns <- S1synonyms %>%
     dplyr::group_by(validName) %>%
     dplyr::filter(n() > 1)
   
- DLdupes_nest <- DLduplicateSyns %>%
+ S1dupes_nest <- S1duplicatesyns %>%
     # ungroup but nest the data by valid name instead
    dplyr::ungroup() %>%
    dplyr::nest_by(validName) 
  
- ###### a. DL loop ####
+ ###### a. source1 loop ####
  # Set up empty dataframes for loop
  ambiSyns <- tibble::tibble()
  nonAmbiSyns <- tibble::tibble()
     # Run a loop to examine each duplicate pair in the list
- for(i in 1:nrow(DLdupes_nest)){
+ for(i in 1:nrow(S1dupes_nest)){
    # Get the first tibble
-   LoopTibble <- DLdupes_nest$data[[i]] %>% 
+   LoopTibble <- S1dupes_nest$data[[i]] %>% 
      # add the validName column back in to each row
-   tibble::add_column(validName = DLdupes_nest$validName[[i]], .after = "subtribe")
+   tibble::add_column(validName = S1dupes_nest$validName[[i]], .after = "subtribe")
    
        # FOR n == 2
        if(nrow(LoopTibble) == 2){
@@ -139,6 +146,7 @@ taxoDuplicator <- function(
       } # END n > 2
  } # END Ambiguous loop
     ###### b. loop_clean ####
+ if(nrow(nonAmbiSyns) > 0){
     # Take only one of each non-ambiguous synonyms
  nonAmbiSyns_deDuped <- nonAmbiSyns %>%
    dplyr::group_by(validName) %>%
@@ -146,45 +154,45 @@ taxoDuplicator <- function(
     # For ambiguous accids, add this to the flags
  ambiSyns$flags <- "ambiguous validName"
     ###### c. merge ####
-  # Merge this back to the DLsynonyms data. This will have duplicates removed and 
+  # Merge this back to the S1synonyms data. This will have duplicates removed and 
     # internally-ambiguous names flagged.
- DLsynonyms <- DLsynonyms %>%
+ S1synonyms <- S1synonyms %>%
     # REMOVE the duplicated valid names
-   dplyr::filter(!validName %in% DLduplicateSyns$validName) %>%
+   dplyr::filter(!validName %in% S1duplicatesyns$validName) %>%
     # ADD the cleaned rows back into the dataset
-   dplyr::bind_rows(nonAmbiSyns_deDuped, ambiSyns) 
-  # KEEP DLsynonyms
+   dplyr::bind_rows(nonAmbiSyns_deDuped, ambiSyns) }
+  # KEEP S1synonyms
  
  
-  #### 3.0 Orr duplicates ####
-    # Look for internal DiscoverLife duplicates
-  OrrDuplicates <- OrrUnique %>%
+  #### 3.0 source2 duplicates ####
+    # Look for internal source1 duplicates
+  S2Duplicates <- S2Unique %>%
     dplyr::group_by(validName) %>%
     dplyr::filter(n() > 1)
-    # Yep, there are Orr synonym duplicates to deal with!
+    # Yep, there are source2 synonym duplicates to deal with!
   # Do any of the accids in the full list match these names' ids?
-  OrrIDmatches <- OrrDuplicates %>%
+  S2IDmatches <- S2Duplicates %>%
     dplyr::filter(id %in% SynList$accid)
        # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
-       if(nrow(OrrIDmatches) > 0 ){
-         return(OrrIDmatches)
-         stop(paste(" - That's odd! There are accids matching to Orr synonym IDs.",
+       if(nrow(S2IDmatches) > 0 ){
+         return(S2IDmatches)
+         stop(paste(" - That's odd! There are accids matching to source2 synonym IDs.",
                     "This hasn't happened before, but you'll need to sort it out, chump!", "\n",
                     "I have returned the list of offending names. You're welcome."))
        }
       # Take only the lowest id number match
-  OrrOriginals <- OrrDuplicates %>% 
+  S2Originals <- S2Duplicates %>% 
       # Sort by id number
     dplyr::arrange(id) %>%
       # Filter out ANY duplicated rows for validName
     dplyr::group_by(validName) %>%
       # take the first row
     dplyr::filter(row_number() == 1)
-    # KEEP OrrOriginals
+    # KEEP S2Originals
   
   
   #### 4.0 Merge ####
-  dupeMerge <- dplyr::bind_rows(DLaccepted, OrrOriginals, DLsynonyms) %>%
+  dupeMerge <- dplyr::bind_rows(S1accepted, S2Originals, S1synonyms) %>%
       # sort again by id
     dplyr::arrange(id)
   
@@ -201,13 +209,14 @@ taxoDuplicator <- function(
     dplyr::filter(n() > 1)
   
      ##### 4.1 ValSyn_clean ####
-      # look for matches between DiscoverLife accepted names and Orr synonyms
-      # At present, all of these represent an accepted Ascher name with a contradictory Orr name.
-        # Keep the Ascher name but warn the user if this changes...
+      # look for matches between source1 accepted names and source2 synonyms
+      # At present, all of these represent an accepted source1 name with a contradictory source2
+    # name.
+        # Keep the source1 name but warn the user if this changes...
      dupes2remove_UnVNcheck <- UniqueVNcheck %>%
       dplyr::group_by(validName) %>%
       dplyr::filter(accid != 0)
-      # Stop if this is not half of the original (not all correspond to an Orr Syn)
+      # Stop if this is not half of the original (not all correspond to an source2 Syn)
     if(nrow(dupes2remove_UnVNcheck) != (nrow(UniqueVNcheck)/2)){
       stop(paste(" - This is new! There is a problem at 4.1 ValSyn_clean. Please go and have a look.",
                  "\n", "Good luck, LOL."))
@@ -261,28 +270,31 @@ taxoDuplicator <- function(
     
     #### 5.0 Final Ambi ####
       ##### 5.1 can_wFl synonyms ####
-    # Look for internal DiscoverLife duplicated SYNONYMS
-    DLduplicateSyns_51 <- deDuplicated %>%
+    # Look for internal source1 duplicated SYNONYMS
+    S1duplicatesyns_51 <- deDuplicated %>%
       dplyr::group_by(canonical_withFlags) %>%
+      dplyr::filter(canonical_withFlags %>% stringr::str_detect(
+        "_"
+      )) %>%
       dplyr::filter(n() > 1) 
 
-    DLdupes_nest <- DLduplicateSyns_51 %>%
+    S1dupes_nest <- S1duplicatesyns_51 %>%
       # ungroup but nest the data by valid name instead
       dplyr::ungroup() %>%
       dplyr::nest_by(canonical_withFlags) 
     
-    ###### a. DL loop ####
+    ###### a. source1 loop ####
     # Set up empty dataframes for loop
     ambiSyns_51 <- tibble::tibble()
     nonAmbiSyns_51 <- tibble::tibble()
-    # IF DLduplicateSyns_51 is EMPTy, do not run.
-    if(nrow(DLduplicateSyns_51) > 0){
+    # IF S1duplicatesyns_51 is EMPTy, do not run.
+    if(nrow(S1duplicatesyns_51) > 0){
       # Run a loop to examine each duplicate pair in the list
-      for(i in 1:nrow(DLdupes_nest)){
+      for(i in 1:nrow(S1dupes_nest)){
         # Get the first tibble
-        LoopTibble <- DLdupes_nest$data[[i]] %>% 
+        LoopTibble <- S1dupes_nest$data[[i]] %>% 
           # add the canonical_withFlags column back in to each row
-          tibble::add_column(canonical_withFlags = DLdupes_nest$canonical_withFlags[[i]], .after = "canonical")
+          tibble::add_column(canonical_withFlags = S1dupes_nest$canonical_withFlags[[i]], .after = "canonical")
         
         # FOR n == 2
         if(nrow(LoopTibble) == 2){
@@ -333,14 +345,17 @@ taxoDuplicator <- function(
       ambiSyns_51 = tibble::tibble()
       nonAmbiSyns_51 = tibble::tibble()
     } # END big IF
+    
     ###### b. loop_clean ####
-      # NON-AMBIGUOUS
+      # NON-AMBIGUOUS — because accid matches
     if(nrow(nonAmbiSyns_51) > 0){
       nonAmbiSyns_51_nAmb <- nonAmbiSyns_51  %>%
         # Filter for ONLY the names that AREN'T already flagged as ambiguous
-        dplyr::filter(!flags %in% c("ambiguous validName")) 
+        dplyr::filter(!flags %in% c("ambiguous validName")) %>%
+        dplyr::filter(canonical_withFlags %>% stringr::str_detect("_homonym"))
       # For ambiguous accids, add this to the flags
-      nonAmbiSyns_51_nAmb$flags <- paste(nonAmbiSyns_51_nAmb$flags, "non-ambiguous can_wFlags", sep = ", ") %>%
+      nonAmbiSyns_51_nAmb$flags <- paste(nonAmbiSyns_51_nAmb$flags, "non-ambiguous can_wFlags", 
+                                         sep = ", ") %>%
         # REMOVE EMPTYS
         stringr::str_replace(pattern = "NA, ", "")
       
@@ -355,7 +370,7 @@ taxoDuplicator <- function(
       deDuplicated_51 <- deDuplicated
     }
     
-      # AMBIGUOUS
+      # AMBIGUOUS 2
     if(nrow(ambiSyns_51) > 0){
       ambiSyns_51_NavN <- ambiSyns_51 %>%
         # Filter for ONLY the names that AREN'T already flagged as ambiguous
@@ -386,28 +401,28 @@ taxoDuplicator <- function(
 
 
     ##### 5.2 canon synonyms ####
-    # Look for internal DiscoverLife duplicated SYNONYMS
-    DLduplicateSyns_52 <- deDuplicated_51 %>%
+    # Look for internal source1 duplicated SYNONYMS
+    S1duplicatesyns_52 <- deDuplicated_51 %>%
       dplyr::group_by(canonical) %>%
       dplyr::filter(n() > 1) 
     
-    DLdupes_nest <- DLduplicateSyns_52 %>%
+    S1dupes_nest <- S1duplicatesyns_52 %>%
       # ungroup but nest the data by valid name instead
       dplyr::ungroup() %>%
       dplyr::nest_by(canonical) 
     
-    ###### a. DL loop ####
+    ###### a. source1 loop ####
     # Set up empty dataframes for loop
     ambiSyns_52 <- tibble::tibble()
     nonAmbiSyns_52 <- tibble::tibble()
-    # IF DLduplicateSyns_52 is EMPTy, do not run.
-    if(nrow(DLduplicateSyns_52) > 0){
+    # IF S1duplicatesyns_52 is EMPTy, do not run.
+    if(nrow(S1duplicatesyns_52) > 0){
       # Run a loop to examine each duplicate pair in the list
-      for(i in 1:nrow(DLdupes_nest)){
+      for(i in 1:nrow(S1dupes_nest)){
         # Get the first tibble
-        LoopTibble <- DLdupes_nest$data[[i]] %>% 
+        LoopTibble <- S1dupes_nest$data[[i]] %>% 
           # add the canonical column back in to each row
-          tibble::add_column(canonical = DLdupes_nest$canonical[[i]], .after = "validName")
+          tibble::add_column(canonical = S1dupes_nest$canonical[[i]], .after = "validName")
         
         # FOR n == 2
         if(nrow(LoopTibble) == 2){
@@ -459,7 +474,7 @@ taxoDuplicator <- function(
       nonAmbiSyns_52 = tibble::tibble()
     } # END big IF
     ###### b. loop_clean ####
-    # NON-AMBIGUOUS
+    # NON-AMBIGUOUS because accids match
     if(nrow(nonAmbiSyns_52) > 0){
       # Take only one of each non-ambiguous synonyms
       nonAmbiSyns_deDuped_52 <- nonAmbiSyns_52 %>%
@@ -472,7 +487,7 @@ taxoDuplicator <- function(
       nonAmbiSyns_52_nAmb <- nonAmbiSyns_52  %>%
         # Filter for ONLY the names that AREN'T already flagged as ambiguous
         dplyr::filter(!flags %in% c("ambiguous validName", "ambiguous can_wFlags", 
-                                    "non-ambiguous can_wFlags")) 
+                                    "ambiguous can_wFlags")) 
       # For ambiguous accids, add this to the flags
       nonAmbiSyns_52_nAmb$flags <- paste(nonAmbiSyns_52_nAmb$flags, "non-ambiguous canonical", sep = ", ") %>%
         # REMOVE EMPTYS
@@ -515,7 +530,9 @@ taxoDuplicator <- function(
       ambiSyns_52 = tibble::tibble()
     } # END ambiSyns_52 IF
     # KEEP deDuplicated_52
-  
+    
+    
+    
 
     # What an adventure that was!
     # Now, lets try and return some user information 
@@ -523,14 +540,17 @@ writeLines(paste(    " - Cleaning complete! From an initial dataset of ",
                  format(nrow(SynList), big.mark = ","), " names, there ",
                  "remain ", format(nrow(deDuplicated_52), big.mark = ",")," names.",  "\n",
                      " - We removed:", "\n"   ,
-                 nrow(DLduplicates), " Ascher accepted names,", "\n"   ,
-                 nrow(OrrAcc2remove), " Orr 'accepted' names,", "\n",
+                 nrow(S1duplicates), " source1 accepted names,", "\n"   ,
+                 nrow(S2Acc2remove), " source2 'accepted' names,", "\n"))
                   # 2.2 - synonyms removed
+if(exists("nonAmbiSyns_deDuped")){
+                   writeLines(paste(
                  format(nrow(nonAmbiSyns)-nrow(nonAmbiSyns_deDuped), big.mark = ","),
-                        " Ascher synonyms,", "\n"   ,
-                 format(nrow(OrrSyns) - nrow(OrrUnique), big.mark = ",")
-                 , " Orr synonyms internally duplicated,", "\n"   ,
-                 nrow(OrrDuplicates)-nrow(OrrOriginals), " Orr synonyms duplicated with the Ascher list,", "\n"   ,
+                        " source1 synonyms,", "\n"   ))}
+writeLines(paste(
+                 format(nrow(S2synonyms) - nrow(S2Unique), big.mark = ",")
+                 , " source2 synonyms internally duplicated,", "\n"   ,
+                 nrow(S2Duplicates)-nrow(S2Originals), " source2 synonyms duplicated with the source1 list,", "\n"   ,
                  nrow(dupes2remove_UnVNcheck), " subsequent duplicates after merging,", "\n",
                   # AMBIGUOUS flagged
                     " - We flagged:", "\n"   ,
@@ -549,6 +569,54 @@ writeLines(paste(    " - Cleaning complete! From an initial dataset of ",
                     " - We re-assigned:", "\n"   ,
                  nrow(dupID), " duplicated [non-duplicate] ids",
 sep = "")) 
+
+  #### 6.0 Clean flags ####
+deDuplicated_52 <- deDuplicated_52 %>%
+  dplyr::mutate(flags = 
+                    # Fix non-ambiguous canonical repeat
+                  dplyr::if_else(flags %>% stringr::str_count("non-ambiguous canonical") > 1,
+                                 stringr::str_remove_all(flags, "non-ambiguous canonical") %>%
+                                   stringr::str_remove("^, |, $") %>%
+                                   stringr::str_replace(", , ", ", ") %>%
+                                   stringr::str_c("non-ambiguous canonical"), flags),
+                    # Fix contradictory non- and is-
+                flags = dplyr::if_else(stringr::str_detect(
+                  flags, "ambiguous canonical, non-ambiguous canonical") |
+                    stringr::str_detect(flags, "non-ambiguous canonical, ambiguous canonical"),
+                                   stringr::str_remove_all(flags, "ambiguous canonical") %>% 
+                                     stringr::str_remove_all("non-ambiguous canonical") %>% 
+                                     stringr::str_remove("^, |, $") %>%
+                                     stringr::str_replace(", , ", ", ") %>%
+                                     stringr::str_c(" ambiguous canonical "), flags),
+                flags = dplyr::if_else(stringr::str_detect(
+flags, 
+"non-ambiguous can_wFlags, ambiguous canonical, non-ambiguous can_wFlags, ambiguous canonical"),
+stringr::str_c(flags, " non-ambiguous can_wFlags, ambiguous canonical "), flags
+                ),
+### 3
+                flags = dplyr::if_else(stringr::str_detect(flags,
+"non-ambiguous can_wFlags, non-ambiguous can_wFlagsnon-ambiguous canonical"),
+"non-ambiguous can_wFlags, non-ambiguous canonical", flags),
+### 4
+                flags = dplyr::if_else(stringr::str_detect(flags,
+"non-ambiguous can_wFlags, ambiguous canonical, non-ambiguous can_wFlags, ambiguous canonical non-ambiguous can_wFlags, ambiguous canonical"),
+"non-ambiguous can_wFlags, ambiguous canonical", flags),
+### 5
+                flags = dplyr::if_else(stringr::str_detect(flags,
+"ambiguous can_wFlags, ambiguous can_wFlags, ambiguous canonical"),
+"ambiguous can_wFlags, ambiguous canonical", flags),
+### 6
+flags = dplyr::if_else(stringr::str_detect(flags,
+                                           "non- ambiguous canonical"),
+                       "non-ambiguous canonical", flags),
+### 7
+flags = dplyr::if_else(stringr::str_detect(flags,
+                                           "ambiguous canonical, ambiguous canonical"),
+                       "ambiguous canonical", flags),
+### cleanup
+                flags = flags %>% stringr::str_squish()
+  )
+
   # Return the cleaned dataset
 return(deDuplicated_52)
 }
