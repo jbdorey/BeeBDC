@@ -103,7 +103,9 @@ taxoMergeR <- function(currentNames = NULL,
     loopNames <- loopNames %>% stringr::str_squish()
     # Add this as a new column
     newNames$Original_cleaned <- loopNames
-  }# ENF if problemStrings
+  }else{# END if problemStrings
+    newNames$Original_cleaned <- newNames$Original
+  }
   
   # Match complex names
   if(simpleNames == FALSE){
@@ -198,13 +200,13 @@ taxoMergeR <- function(currentNames = NULL,
     validName = stringr::str_c(
       dplyr::if_else(complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
                      SOM_acc$genusNew, ""),
-      dplyr::if_else(complete.cases(SOM_acc$speciesNew) & SOM_acc$speciesNew != "NA",
-                     SOM_acc$speciesNew, ""),
       dplyr::if_else(complete.cases(SOM_acc$authorship.y) & SOM_acc$authorship.y != "NA",
                      SOM_acc$authorship.y, ""),
       sep = " "),
     canonical_withFlags = "NA",
     canonical = stringr::str_c(
+      dplyr::if_else(complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
+                     SOM_acc$genusNew, ""),
       dplyr::if_else(complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
                      SOM_acc$genusNew, ""),
       dplyr::if_else(complete.cases(SOM_acc$speciesNew) & SOM_acc$speciesNew != "NA",
@@ -445,6 +447,10 @@ taxoMergeR <- function(currentNames = NULL,
     canonical = stringr::str_c(
       dplyr::if_else(complete.cases(SOM_acc$genus_nameSplit) & SOM_acc$genus_nameSplit != "NA",
                      SOM_acc$genus_nameSplit, ""),
+      # subgenus
+      dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & 
+                       SOM_acc$subgenus_nameSplit != "NA",
+                     paste0("(",SOM_acc$subgenus_nameSplit ,")"), ""),
       dplyr::if_else(complete.cases(SOM_acc$species_nameSplit) & SOM_acc$species_nameSplit != "NA",
                      SOM_acc$species_nameSplit, ""),
       dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & 
@@ -513,6 +519,10 @@ taxoMergeR <- function(currentNames = NULL,
     canonical = stringr::str_c(
       dplyr::if_else(complete.cases(SOM_syn$genus_nameSplit) & SOM_syn$genus_nameSplit != "NA",
                      SOM_syn$genus_nameSplit, ""),
+      # subgenus
+      dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & 
+                       SOM_syn$subgenus_nameSplit != "NA",
+                     paste0("(",SOM_syn$subgenus_nameSplit ,")"), ""),
       dplyr::if_else(complete.cases(SOM_syn$species_nameSplit) & SOM_syn$species_nameSplit != "NA",
                      SOM_syn$species_nameSplit, ""),
       dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & 
@@ -643,6 +653,10 @@ taxoMergeR <- function(currentNames = NULL,
       dplyr::if_else(complete.cases(Mult_newAcc$genus_nameSplit) & 
                        Mult_newAcc$genus_nameSplit != "NA",
                      Mult_newAcc$genus_nameSplit, ""),
+      #subgenus
+      dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & 
+                       Mult_newAcc$subgenus_nameSplit != "NA",
+                     paste0("(",Mult_newAcc$subgenus_nameSplit ,")"), ""),
       dplyr::if_else(complete.cases(Mult_newAcc$species_nameSplit) & 
                        Mult_newAcc$species_nameSplit != "NA",
                      Mult_newAcc$species_nameSplit, ""),
