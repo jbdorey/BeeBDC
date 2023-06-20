@@ -16,6 +16,20 @@ taxoDuplicator <- function(
   requireNamespace("dplyr")
   
   #### 0.0 Prep ####
+  ##### 0.1 Remove existing flags ####
+  writeLines("Removing previous flags generated with this function")
+    # Remove the xisitng flags generated from this function
+  SynList <- SynList %>%
+    dplyr::mutate(flags = stringr::str_remove_all(flags, "non-ambiguous can_wFlags") %>%
+                    stringr::str_remove_all("non-ambiguous canonical") %>%
+                    stringr::str_remove_all("ambiguous canonical") %>%
+                    stringr::str_remove_all("ambiguous validName") %>%
+                    stringr::str_remove_all("ambiguous can_wFlags") %>%
+                    stringr::str_remove_all("ambiguous can_wFlags") %>%
+                    stringr::str_remove_all("^, $") %>%
+                    stringr::str_replace(", , ", ", ") )
+
+  ##### 0.2 Find duplciates ####
   # Look for duplicated names in the DiscoverLife subset of data
   duplicates <- SynList %>% 
     #dplyr::filter(source == "DiscoverLife") %>%
@@ -89,7 +103,7 @@ taxoDuplicator <- function(
   # Because none of these are duplicates, I will KEEP the original dataset S1accepted.
   
     ##### 2.2 valName synonyms ####
-  # Look for internal DiscoverLife duplicated SYNONYMS
+  # Look for internal source1 duplicated SYNONYMS
   S1duplicatesyns <- S1synonyms %>%
     dplyr::group_by(validName) %>%
     dplyr::filter(n() > 1)
@@ -160,7 +174,20 @@ taxoDuplicator <- function(
     # REMOVE the duplicated valid names
    dplyr::filter(!validName %in% S1duplicatesyns$validName) %>%
     # ADD the cleaned rows back into the dataset
-   dplyr::bind_rows(nonAmbiSyns_deDuped, ambiSyns) }
+   dplyr::bind_rows(nonAmbiSyns_deDuped, ambiSyns) }else{
+     
+      # IF there are no non-ambiguous names then...
+     # For ambiguous accids, add this to the flags
+     ambiSyns$flags <- "ambiguous validName"
+     
+     # Merge this back to the S1synonyms data. This will have duplicates removed and 
+     # internally-ambiguous names flagged.
+     S1synonyms <- S1synonyms %>%
+       # REMOVE the duplicated valid names
+       dplyr::filter(!validName %in% S1duplicatesyns$validName) %>%
+       # ADD the cleaned rows back into the dataset
+       dplyr::bind_rows(ambiSyns)
+   }
   # KEEP S1synonyms
  
  
@@ -173,7 +200,8 @@ taxoDuplicator <- function(
   # Do any of the accids in the full list match these names' ids?
   S2IDmatches <- S2Duplicates %>%
     dplyr::filter(id %in% SynList$accid)
-       # Stop here becuase I have no matches, but this might be important down the track if someone finds them!
+       # Stop here because I have no matches, but this might be important down the track if 
+    # someone finds them!
        if(nrow(S2IDmatches) > 0 ){
          return(S2IDmatches)
          stop(paste(" - That's odd! There are accids matching to source2 synonym IDs.",
@@ -202,7 +230,8 @@ taxoDuplicator <- function(
     dplyr::filter(!duplicated(id))
   # FIRST, for now remove ambiguous names
   ambi_VNcheck <- UniqueIDcheck %>% dplyr::filter(flags %in% "ambiguous validName")
-  NonAmbi_VNcheck <- UniqueIDcheck %>% dplyr::filter(!flags %in% "ambiguous validName")
+  NonAmbi_VNcheck <- UniqueIDcheck %>% dplyr::filter(!flags %in% "ambiguous validName") %>%
+    dplyr::ungroup()
     # Check to make sure that all validNames are unique
   UniqueVNcheck <- NonAmbi_VNcheck %>%
     dplyr::group_by(validName) %>%
@@ -576,8 +605,6 @@ deDuplicated_52 <- deDuplicated_52 %>%
                     # Fix non-ambiguous canonical repeat
                   dplyr::if_else(flags %>% stringr::str_count("non-ambiguous canonical") > 1,
                                  stringr::str_remove_all(flags, "non-ambiguous canonical") %>%
-                                   stringr::str_remove("^, |, $") %>%
-                                   stringr::str_replace(", , ", ", ") %>%
                                    stringr::str_c("non-ambiguous canonical"), flags),
                     # Fix contradictory non- and is-
                 flags = dplyr::if_else(stringr::str_detect(
@@ -614,7 +641,9 @@ flags = dplyr::if_else(stringr::str_detect(flags,
                                            "ambiguous canonical, ambiguous canonical"),
                        "ambiguous canonical", flags),
 ### cleanup
-                flags = flags %>% stringr::str_squish()
+                flags = flags %>% stringr::str_squish() %>%
+  stringr::str_remove("^, |, $") %>%
+  stringr::str_replace(", , ", ", ") 
   )
 
   # Return the cleaned dataset
