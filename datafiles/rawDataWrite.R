@@ -16,7 +16,7 @@ usethis::use_data(bees3sp)
 beesChecklist <- readr::read_csv("CheckL_combined2023-02-20.csv")
 usethis::use_data(beesChecklist)
 
-beesTaxonomy <- readr::read_csv("TaxonomyComplete_2023-06-20.csv")
+beesTaxonomy <- readr::read_csv("TaxonomyComplete_2023-06-22.csv")
 usethis::use_data(beesTaxonomy, overwrite = TRUE)
 
 
