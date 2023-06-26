@@ -1,7 +1,5 @@
 requireNamespace("readr")
 requireNamespace("tibble")
-requireNamespace("BeeDC")
-library(dplyr) ## could not use %>% without loading as library
 
 
 # make yourself some Fake Data - this is derived from SCAN data, but IT HAS BEEN EDITED FOR TESTING AND IS NOT USEFUL/REAL DATA
