@@ -2131,7 +2131,6 @@ readr_MPUJ <- function(path = NULL,
         stringr::str_c(
           dplyr::if_else(!is.na(fieldNotes),
                          paste0("fieldNotes: ", fieldNotes), ""),
-          stringr::str_c(
         dplyr::if_else(!is.na(eventDate),
                        paste0("startDate: ", eventDate), ""),
         dplyr::if_else(!is.na(endDate),
