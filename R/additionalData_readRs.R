@@ -2111,12 +2111,14 @@ readr_MPUJ <- function(path = NULL,
       month = 'Start Date (Month)',
       year = "Start Date (Year)",
       associatedTaxa = "Associated Taxa",
+      associatedOccurrences = "Associated Ocurrence",
       lifeStage = "Stage",
       collector1stName = 'Collectors/First Name',
       collectorsLastName = 'Collectors/Last Name',
       determined1stName = 'Determiner/First Name',
       determinedLastName = 'Determiner/Last Name',
-      endDate = "End Date"
+      endDate = "End Date",
+      verbatimEventDate = "Verbatim Date"
       ) %>%
     dplyr::mutate(recordedBy = stringr::str_c(collector1stName, collectorsLastName,
                                               sep = " "),
@@ -2125,7 +2127,11 @@ readr_MPUJ <- function(path = NULL,
     dplyr::mutate(eventDate = lubridate::dmy(stringr::str_c(day, month, year, sep = "/"), 
                                              truncated = 2)) %>%
     dplyr::mutate(
-      verbatimEventDate = stringr::str_c(
+      fieldNotes = 
+        stringr::str_c(
+          dplyr::if_else(!is.na(fieldNotes),
+                         paste0("fieldNotes: ", fieldNotes), ""),
+          stringr::str_c(
         dplyr::if_else(!is.na(eventDate),
                        paste0("startDate: ", eventDate), ""),
         dplyr::if_else(!is.na(endDate),
