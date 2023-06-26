@@ -6,7 +6,7 @@
 #' Find fill-down errors
 #' 
 #' A simple function that looks for potential latitude and longitude fill-down errors by 
-#' identifying identical coordinates in a user-defined number of consecutive records.
+#' identifying consecutive occurrences with coordinates at regular intervals.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param minRepeats Numeric. The minimum number of lat or lon repeats needed to flag a record
