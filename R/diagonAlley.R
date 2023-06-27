@@ -39,7 +39,7 @@
 diagonAlley <- function(
   data = NULL,
   minRepeats = NULL,
-  groupingColumns <- c("eventDate", "recordedBy", "datasetName")
+  groupingColumns = c("eventDate", "recordedBy", "datasetName")
   ){
   # locally bind variables to the function
   eventDate<-recordedBy<-decimalLatitude<-decimalLongitude<-database_id<-.data<-leadingLat<-
