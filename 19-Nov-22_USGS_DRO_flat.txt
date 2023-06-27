@@ -1,0 +1,14 @@
+ID.$name$sex$DeterminedBy$DeterminedWhen$WhoScanned$DateScanned$SpeciesNotes$DateEntered$COLLECTION.db$gmt$ip$latitude$longitude$accuracy$elevation$country$state$county$city$site$position$time1$time2$days$who$email$how0$how1$how2$how3$how4$habitat$field_note$note
+USGS_DRO000001$Lasioglossum imitatum$f$Sam Droege$2005-01-01$Unknown$1900-01-01$$2017-01-27 09:35:35.770000000$USGS_DRO337$20081107112006$134.192.250.22$35.5917$-83.0602$3$1530$USA$North Carolina$Swain$Great Smoky Mountains$Purchase Knob$23$200204021030xx$200204021630xx$$Harold W. Ikerd$sdroege@usgs.gov$pan trap$5$bowl 6.0oz$yellow-uv$soap dawn$Field$Field no blooms$
+
+USGS_DRO000002$Lasioglossum imitatum$f$Sam Droege$2005-01-01$Unknown$1900-01-01$$2017-01-27 09:35:35.770000000$USGS_DRO337$20081107112006$134.192.250.22$35.5917$-83.0602$3$1530$USA$North Carolina$Swain$Great Smoky Mountains$Purchase Knob$23$200204021030xx$200204021630xx$$Harold W. Ikerd$sdroege@usgs.gov$pan trap$5$bowl 6.0oz$yellow-uv$soap dawn$Field$Field no blooms$
+
+USGS_DRO000003$Augochlorella aurata$f$Sam Droege$2005-01-01$Unknown$1900-01-01$$2017-01-27 09:35:35.770000000$USGS_DRO337$20081107112006$134.192.250.22$35.5917$-83.0602$3$1530$USA$North Carolina$Swain$Great Smoky Mountains$Purchase Knob$23$200204021030xx$200204021630xx$$Harold W. Ikerd$sdroege@usgs.gov$pan trap$5$bowl 6.0oz$yellow-uv$soap dawn$Field$Field no blooms$
+
+USGS_DRO000004$Augochlorella aurata$f$Sam Droege$2005-01-01$Unknown$1900-01-01$$2017-01-27 09:35:35.770000000$USGS_DRO337$20081107112006$134.192.250.22$35.5917$-83.0602$3$1530$USA$North Carolina$Swain$Great Smoky Mountains$Purchase Knob$23$200204021030xx$200204021630xx$$Harold W. Ikerd$sdroege@usgs.gov$pan trap$5$bowl 6.0oz$yellow-uv$soap dawn$Field$Field no blooms$
+
+USGS_DRO000005$Halictus confusus$f$Sam Droege$2005-01-01$Unknown$1900-01-01$$2017-01-27 09:35:35.770000000$USGS_DRO337$20081107112006$134.192.250.22$35.5917$-83.0602$3$1530$USA$North Carolina$Swain$Great Smoky Mountains$Purchase Knob$23$200204021030xx$200204021630xx$$Harold W. Ikerd$sdroege@usgs.gov$pan trap$5$bowl 6.0oz$yellow-uv$soap dawn$Field$Field no blooms$
+
+USGS_DRO000006$Nomada maculata$m$Sam Droege$2005-01-01$Unknown$1900-01-01$$2017-01-27 09:35:35.770000000$USGS_DRO337$20081107112006$134.192.250.22$35.5917$-83.0602$3$1530$USA$North Carolina$Swain$Great Smoky Mountains$Purchase Knob$23$200204021030xx$200204021630xx$$Harold W. Ikerd$sdroege@usgs.gov$pan trap$5$bowl 6.0oz$yellow-uv$soap dawn$Field$Field no blooms$
+
+USGS_DRO000007$Lasioglossum pilosum$f$Sam Droege$2005-01-01$Unknown$1900-01-01$$2017-01-27 09:35:35.770000000$USGS_DRO337$20081107112006$134.192.250.22$35.5917$-83.0602$3$1530$USA$North Carolina$Swain$Great Smoky Mountains$Purchase Knob$23$200204021030xx$200204021630xx$$Harold W. Ikerd$sdroege@usgs.gov$pan trap$5$bowl 6.0oz$yellow-uv$soap dawn$Field$Field no blooms$

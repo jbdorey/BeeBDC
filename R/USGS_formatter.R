@@ -222,7 +222,7 @@ USGS_formatter <- function(
   USGS_data <- USGS_data %>%  # The data frame to match with
     dplyr::rename("occurrenceID" = "ID.",
                   "scientificName" = "name",
-                  "sex" = "Sex",
+                  "sex" = "sex",
                   "identifiedBy" = "DeterminedBy", 
                   "dateIdentified" = "DeterminedWhen", 
                   "eventID" = "COLLECTION.db", 

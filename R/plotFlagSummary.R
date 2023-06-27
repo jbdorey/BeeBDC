@@ -209,7 +209,7 @@ plotFlagSummary <- function(
                         names_to = "flags",
                         values_to = "value") %>%
     dplyr::group_by(database, flags, value) %>%
-    dplyr::summarise(count = n())
+    dplyr::summarise(count = dplyr::n())
   
   # Make flag type
   plotData$flagType <- plotData$flags %>%
@@ -293,7 +293,7 @@ plotFlagSummary <- function(
     # Set up the plot facets
     ggplot2::facet_grid( flagType~database, scales = "free", space= "free_y") + 
     # Make the bar plots
-    ggplot2::geom_bar(aes(y = flags, x = count, fill = as.factor(value)), 
+    ggplot2::geom_bar(ggplot2::aes(y = flags, x = count, fill = as.factor(value)), 
                       position="fill", stat='identity') +
     # Colour and label the plots
     ggplot2::scale_fill_manual(labels = c("TRUE" = "Pass",
@@ -308,7 +308,7 @@ plotFlagSummary <- function(
           #axis.text.y = element_text(colour = as.character(flagCols)),
           strip.placement = "outside",
           panel.background = ggplot2::element_rect(fill = "white"),
-          plot.title = element_text(size = 20, face = "bold"))  + 
+          plot.title = ggplot2::element_text(size = 20, face = "bold"))  + 
     ggplot2::labs(x ="Proportion flagged", y = "Flag columns", fill = "Filter") 
     
   ##### 2.2 Filtered title+map+save ####
@@ -321,39 +321,43 @@ plotFlagSummary <- function(
     ##### b. map ####
     if(plotMap == TRUE){
       # Download world map using rnaturalearth packages
-      WorldMap_layer <- ne_countries(scale = "medium", returnclass = "sf", 
+      WorldMap_layer <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf", 
                                      country = NULL, type="map_units") 
       # Create the checklist map
-      (PointMap <- ggplot(data = WorldMap_layer ) +
+      (PointMap <- ggplot2::ggplot(data = WorldMap_layer ) +
           # CORE plotting of map and data
           # Plot and colour the terrestrial base map
-          geom_sf(aes(fill = NULL), size = 0.15)+ 
+          ggplot2::geom_sf(aes(fill = NULL), size = 0.15)+ 
           # plot point data
             # POINTS IF IS NULL; i.e. DON'T jitter
           {if(is.null(jitterValue))
-          geom_point(data = mapData %>% dplyr::filter(.[[1]] == "FALSE"),
-                     mapping = aes(x = decimalLongitude, y = decimalLatitude,
+            ggplot2::geom_point(data = mapData %>% dplyr::filter(.[[1]] == "FALSE"),
+                     mapping = ggplot2::aes(x = decimalLongitude, y = decimalLatitude,
                                    colour = .data[[filterColumn]]),
                      alpha = mapAlpha)} +
           {if(is.null(jitterValue))
-            geom_point(data = mapData %>% dplyr::filter(.[[1]] == "TRUE"),
-                       mapping = aes(x = decimalLongitude, y = decimalLatitude,
+            ggplot2::geom_point(data = mapData %>% dplyr::filter(.[[1]] == "TRUE"),
+                       mapping = ggplot2::aes(x = decimalLongitude, y = decimalLatitude,
                                      colour = .data[[filterColumn]]),
                        alpha = mapAlpha)} +
         # POINTS IF IS NOT NULL; i.e. jitter
-          {if(!is.null(jitterValue))geom_jitter(mapData %>% dplyr::filter(.[[1]] == "FALSE"), 
-                           mapping = aes(x = decimalLongitude, y = decimalLatitude,
+          {if(!is.null(jitterValue))ggplot2::geom_jitter(mapData %>% 
+                                                           dplyr::filter(.[[1]] == "FALSE"), 
+                           mapping = ggplot2::aes(x = decimalLongitude, y = decimalLatitude,
                                          colour = .data[[filterColumn]]),
                            alpha = mapAlpha, width = jitterValue, height = jitterValue)}+ 
-          {if(!is.null(jitterValue))geom_jitter(mapData %>% dplyr::filter(.[[1]] == "TRUE"), 
-                                                mapping = aes(x = decimalLongitude, y = decimalLatitude,
+          {if(!is.null(jitterValue))ggplot2::geom_jitter(mapData %>% 
+                                                           dplyr::filter(.[[1]] == "TRUE"), 
+                                                mapping = ggplot2::aes(x = decimalLongitude, 
+                                                                       y = decimalLatitude,
                                                               colour = .data[[filterColumn]]),
-                                                alpha = mapAlpha, width = jitterValue, height = jitterValue)}+ 
-          scale_color_manual(values = c("FALSE" = "#ac0e28",
+                                                alpha = mapAlpha, width = jitterValue, 
+                                                height = jitterValue)}+ 
+          ggplot2::scale_color_manual(values = c("FALSE" = "#ac0e28",
                                         "TRUE" = "#013766"),
                              name = "Passed occ.") +
           # Set map limits, if wanted
-          coord_sf(expand = TRUE, 
+          ggplot2::coord_sf(expand = TRUE, 
                    ylim = c(min(mapData$decimalLatitude, na.rm = TRUE), 
                             max(mapData$decimalLatitude, na.rm = TRUE)),
                    xlim = c(min(mapData$decimalLongitude, na.rm = TRUE), 
@@ -361,22 +365,22 @@ plotFlagSummary <- function(
                    lims_method = "box") + 
           # Map formatting
           # Add in the map's north arrow
-          annotation_north_arrow(location = "tl", which_north = "true", 
+          ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
                                  pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
-                                 style = north_arrow_fancy_orienteering) + # Add in NORTH ARROW
-          theme(panel.grid.major = element_line(color = gray(.1, alpha = 0.1), 
+                                 style = ggspatial::north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
+          ggplot2::theme(panel.grid.major = ggplot2::element_line(color = gray(.1, alpha = 0.1), 
                                                 linetype = "dashed", linewidth = 0.5), # Add grid lines
-                panel.border = element_rect(color = gray(.1, alpha = 1), 
+                panel.border = ggplot2::element_rect(color = gray(.1, alpha = 1), 
                                             linetype = "solid", linewidth = 0.5,
                                             fill = NA), # add panel border
-                panel.background = element_rect(fill = "aliceblue") ,
-                plot.title = element_text(face = "italic"))+ # Add background - colour in the ocean
+                panel.background = ggplot2::element_rect(fill = "aliceblue") ,
+                plot.title = ggplot2::element_text(face = "italic"))+ # Add background - colour in the ocean
           # Change map colour scheme
-          scale_fill_viridis_d(option = "magma") + # options = "magma", "inferno", "plasma", "cividis"
+          ggplot2::scale_fill_viridis_d(option = "magma") + # options = "magma", "inferno", "plasma", "cividis"
           # Add in X and Y labels
-          xlab("Longitude") + ylab("Latitude") + 
+          ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
           # Add in the title
-          ggtitle( speciesName) )
+          ggplot2::ggtitle( speciesName) )
       # save as the map as 10*6"
       ggsave(paste0("/Map_FlagsPlot_", speciesName, ".pdf"), plot = PointMap, device = "pdf", 
               width = 10, height = 5, dpi = 300, path = outpath)
@@ -403,3 +407,4 @@ plotFlagSummary <- function(
     return(plot)}
   
 } # END function
+

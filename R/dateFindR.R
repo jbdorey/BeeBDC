@@ -61,7 +61,7 @@ dateFindR <-
                                             truncated = 5, quiet = TRUE)
       # Find all of the records without dates
     noDATEa <- data %>% 
-      dplyr::filter(is.na(eventDate))
+      dplyr::filter(is.na(eventDate) | eventDate == "")
 
     
     #### 1.0 easyDates ####
@@ -80,8 +80,9 @@ dateFindR <-
       # Filter down to the records that again have no eventDate
     noDATEa <- noDATEa %>%
       dplyr::filter(is.na(eventDate))
+    if("occurrenceYear" %in% colnames(noDATEa)){
       # Copy across the occurrenceYear column into the eventDate column
-    noDATEa$eventDate <- noDATEa$occurrenceYear
+    noDATEa$eventDate <- noDATEa$occurrenceYear}
       # Save this dataset to be merged at the end...
     occYr_2 <- noDATEa %>%
       dplyr::filter(complete.cases(eventDate))%>%
@@ -120,6 +121,9 @@ dateFindR <-
                       "January", "February", "March", "April",
                       "May", "June","July","August",
                       "September","October","November","December",
+                      "january", "february", "march", "april",
+                      "may", "june","july","august",
+                      "september","october","november","december",
                       "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
                       "JUL", "AUG", "SEP", "OCT","NOV", "DEC",
                       "JANUARY", "FEBRUARY", "MARCH", "APRIL",
@@ -190,9 +194,12 @@ dateFindR <-
     dmy_strings <- c(
       # 12-JUL-2002; 12 Jul 2002; 12/July/2002
     paste("[0-9]{1,2}[\\s-/ ]+", monthStrings,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
+    paste("[0-9]{1,2}[\\s-/ ]+", monthStrings,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
       # 12-XII-2022; 12 XII 2022; 12 xii 2022;
+    paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
       # >12 <12 1992 - dmy
+    "([1][3-9]|[2-3][0-9])[\\s-/ ]+([1-9]|1[0-2])[\\s-/ ]+[0-9]{2}",
     "([1][3-9]|[2-3][0-9])[\\s-/ ]+([1-9]|1[0-2])[\\s-/ ]+[0-9]{4}")
     
         # Extract the matching strings
@@ -271,12 +278,18 @@ dateFindR <-
     mdy_strings <- c(
       # Aug 2, 2019
     paste(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+[0-9]{4}", collapse = "|", sep = ""),
+    paste(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+[0-9]{2}", collapse = "|", sep = ""),
      # Aug 1-10 2019
+    paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
       # V. 17 1901
+    paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
      # <12 >12 1992 - mdy
-    "([1-9]|1[0-2])[\\s- /]+([1][3-9]|[2-3][0-9])[\\s- /]+[0-9]{4}")
+    "([1-9]|1[0-2])[\\s- /]+([1][3-9])[\\s- /]+[0-9]{2}",
+    "([1-9]|1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
+    "([1-9]|1[0-2])[\\s- /]+([1][3-9])[\\s- /]+[0-9]{4}",
+    "([1-9]|1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}")
       
       # Get the IDs to remove...
       id2remove_23 <- c(ymd_keepers_21$database_id, dmy_keepers_22$database_id)
@@ -353,10 +366,13 @@ dateFindR <-
       # VIII-1946
     paste(romanNumerals,"[\\s-/ \\.]+[0-9]{4}", collapse = "|", sep = ""),
       # July 1995; July, 1995
+    paste(monthStrings,"[\\s-/ \\.]+[0-9]{2}", collapse = "|", sep = ""),
     paste(monthStrings,"[\\s-/ \\.]+[0-9]{4}", collapse = "|", sep = ""),
       # April 1899
+    paste(monthStrings,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste(monthStrings,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
       # 1899 April 
+    paste("[\\s- /]+[0-9]{2}", monthStrings, collapse = "|", sep = ""),
     paste("[\\s- /]+[0-9]{4}", monthStrings, collapse = "|", sep = ""),
      # 4/1957
     "([1-9]|1[0-2])[\\s- /]+[0-9]{4}"
@@ -445,6 +461,8 @@ dateFindR <-
         "columns in ambiguous formats...", sep = ""))
       ambiguousDateStrings <- c(
         # dmy or mdy; 10 02 1946
+        "[0-9]{1,2}[\\s-/ ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}",
+        "[0-9]{2}[\\s-/ ]+[0-9]{2}[\\s-/ ]+[0-9]{2}",
         "[0-9]{1,2}[\\s-/ ]+[0-9]{1,2}[\\s-/ ]+[0-9]{4}",
         "[0-9]{2}[\\s-/ ]+[0-9]{2}[\\s-/ ]+[0-9]{4}"
       )
@@ -666,8 +684,8 @@ dateFindR <-
                          truncated = 5, quiet = TRUE)
       
       # Plot the dates
-      graphics::hist(dates_complete$eventDate, breaks = 100,
-           main = "Histogram of eventDate output")
+      # graphics::hist(dates_complete$eventDate, breaks = 100,
+      #      main = "Histogram of eventDate output")
       
       timeEnd <- Sys.time()
     

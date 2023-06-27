@@ -101,7 +101,7 @@ dupePlotR <- function(
     rlang::set_names(c("simpleSource")) %>%
       # Group by this column and then count the number of occurrences for each level
     dplyr::group_by(simpleSource) %>%
-    dplyr::mutate(count = n()) %>%
+    dplyr::mutate(count = dplyr::n()) %>%
       # Name these columns
     rlang::set_names(c("simpleSource", "count")) 
     # Now re-order the factor by this count and then feed back into dupeTibble
@@ -122,7 +122,7 @@ dupePlotR <- function(
       ggplot2::ylab("Proportion of records") + ggplot2::xlab("Data source")
   
   #### 3.0 Proportion of duplicates ####
-  dupHist <- ggplot2::ggplot(dupeTibble, aes(simpleSource, fill = duplicateStatus)) +
+  dupHist <- ggplot2::ggplot(dupeTibble, ggplot2::aes(simpleSource, fill = duplicateStatus)) +
       ggplot2::geom_bar() +
       ggplot2::scale_fill_manual("legend", values = c("Duplicate" = dupeColours[1],
                                              "Kept duplicate" = dupeColours[2],
@@ -136,7 +136,7 @@ dupePlotR <- function(
   #### 4.0 combine + save ####
   # plot the figures together
   (dupPlot <- cowplot::plot_grid(dupHist + 
-                                   theme(legend.position = legend.position,
+                                   ggplot2::theme(legend.position = legend.position,
                                          legend.title = ggplot2::element_blank()),
                                  dupeBar, 
                                  labels = c("(a)","(b)"),

@@ -530,7 +530,7 @@ HarmoniseR <- function(
     # Keep only matched names
     dplyr::filter(stats::complete.cases(authorFound)) %>%
     # Return only the database_id and authorFound for merging...
-    dplyr::select(database_id, authorFound)
+    dplyr::select(tidyselect::all_of(c("database_id", "authorFound")))
   
     # Add the author to those occurrences that were lacking
   occurrences <- occurrences %>%
@@ -827,12 +827,11 @@ HarmoniseR <- function(
       # Put the scientific name into a new column called verbatimScientificName
     dplyr::mutate(verbatimScientificName = scientificName) %>%
       # select the columns we want to keep
-    dplyr::select( c(tidyselect::all_of(OG_colnames), validName_valid, verbatimScientificName,
+    dplyr::select( c(tidyselect::any_of(OG_colnames), validName_valid, 
+                     verbatimScientificName,
                      family_valid, subfamily_valid,
                      canonical_withFlags_valid, genus_valid, subgenus_valid, 
                      species_valid, infraspecies_valid, authorship_valid)) %>%
-      # REMOVE this column
-    dplyr::select(!scientificName) %>%
       # rename validName_valid to scientificName and place it where it used to sit.
     dplyr::mutate(scientificName = validName_valid, .after = database_id) %>%
       # Add in the other taxonomic data
@@ -888,7 +887,7 @@ HarmoniseR <- function(
   # Cut down the failed list...
   if("taxonRank" %in% colnames(failedMatches)){
   failedMatches <- failedMatches %>%
-    dplyr::select(tidyselect::any_of(taxonRank)) %>%
+    dplyr::select(tidyselect::any_of("taxonRank")) %>%
     dplyr::filter(!taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
                                      "species", "Species", "SPECIES", "subsp.", "subspecies",
                                     "Subspecies", "SUBSPECIES", "syn", "var.", "variety",
