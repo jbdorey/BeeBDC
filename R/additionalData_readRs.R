@@ -134,6 +134,7 @@ readr_ASP <- function(path = NULL,
   #### 2.2 Read+ ####
 ASP_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                             trim_ws = TRUE) %>%
+    dplyr::mutate(verbatimElevation = elevation) %>%
   dplyr::mutate(
     # Add previousIdentifications
     previousIdentifications = stringr::str_c(
