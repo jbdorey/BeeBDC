@@ -84,6 +84,8 @@ diagonAlley <- function(
   runningData_Lat <- runningData %>% 
     # Sort 
     dplyr::arrange(dplyr::desc(.data$decimalLatitude), .by_group = TRUE) %>%
+    dplyr::distinct(dplyr::across(c(decimalLongitude, decimalLatitude,
+                                    tidyselect::all_of(groupingColumns))), .keep_all = TRUE) %>%
     # Add leading columns with the value of the next one
     dplyr::mutate(leadingLat = dplyr::lag(decimalLatitude)) %>%
     dplyr::mutate(laggingLat = dplyr::lead(decimalLatitude)) %>%
@@ -92,19 +94,31 @@ diagonAlley <- function(
     dplyr::mutate(diffLag_Lat = (decimalLatitude - laggingLat)) %>%
     # COMBINE these columns so that they are all complete from lead AND lag (no NAs)
     dplyr::mutate(diffLat = dplyr::if_else(is.na(diffLead_Lat),
-                                            -diffLag_Lat,
-                                            diffLead_Lat), 
+                                           -diffLag_Lat,
+                                           diffLead_Lat), 
                   diffLat = diffLat %>% round(digits = 9)) %>%
     # Remove extra columns
     dplyr::select(!c(leadingLat, laggingLat, diffLead_Lat, diffLag_Lat)) %>%
-      # Group by lat and lon and the groupingColumns
+    # Remove groups below the threshold
+    # Group by lat and lon and the groupingColumns
+    dplyr::group_by(dplyr::across(tidyselect::all_of(groupingColumns))) %>%
+    dplyr::filter(!dplyr::n() < minRepeats)
+  
+  
+  # Re-join with the runningData and match up duplicate lat/lon within groups and assign the same 
+  # diffLat values
+  runningData_Lat <- runningData_Lat %>% 
+    dplyr::bind_rows(runningData %>% 
+                       dplyr::filter(!database_id %in% runningData_Lat$database_id)) %>%
+    # Group by lat and lon and the groupingColumns
     dplyr::group_by(decimalLatitude, decimalLongitude, 
-                    dplyr::across(tidyselect::all_of(groupingColumns))) %>% 
-      # Assign matching occurrences to the same diffLat number so that they will also be flagged
-    dplyr::mutate(diffLat = diffLat[[1]]) %>% 
-    dplyr::ungroup() %>% 
-    # remove diffLat == zero
-    dplyr::filter(!diffLat == 0)
+                    dplyr::across(tidyselect::all_of(groupingColumns))) %>%
+    dplyr::arrange(decimalLatitude) %>% 
+    # Assign matching occurrences to the same diffLat number so that they will also be flagged
+    dplyr::mutate(diffLat = diffLat[[1]]) %>%
+    tidyr::drop_na(diffLat) %>%
+    dplyr::filter(!diffLat == 0) %>%
+    dplyr::ungroup()
   
     # Turn each of the groups into its own tibble within a list
   runningData_LatGrp <- runningData_Lat %>% 
@@ -146,6 +160,8 @@ diagonAlley <- function(
   runningData_Lon <- runningData %>% 
     # Sort 
     dplyr::arrange(dplyr::desc(.data$decimalLongitude), .by_group = TRUE) %>%
+    dplyr::distinct(dplyr::across(c(decimalLongitude, decimalLatitude,
+                                  tidyselect::all_of(groupingColumns))), .keep_all = TRUE) %>%
     # Add leading columns with the value of the next one
     dplyr::mutate(leadingLon = dplyr::lag(decimalLongitude)) %>%
     dplyr::mutate(laggingLon = dplyr::lead(decimalLongitude)) %>%
@@ -159,14 +175,26 @@ diagonAlley <- function(
                   diffLon = diffLon %>% round(digits = 9)) %>%
     # Remove extra columns
     dplyr::select(!c(leadingLon, laggingLon, diffLead_Lon, diffLag_Lon)) %>%
+      # Remove groups below the threshold
     # Group by lat and lon and the groupingColumns
+    dplyr::group_by(dplyr::across(tidyselect::all_of(groupingColumns))) %>%
+    dplyr::filter(!dplyr::n() < minRepeats)
+  
+  
+    # Re-join with the runningData and match up duplicate lat/lon within groups and assign the same 
+      # diffLon values
+  runningData_Lon <- runningData_Lon %>% 
+    dplyr::bind_rows(runningData %>% 
+                       dplyr::filter(!database_id %in% runningData_Lon$database_id)) %>%
+        # Group by lat and lon and the groupingColumns
     dplyr::group_by(decimalLatitude, decimalLongitude, 
-                    dplyr::across(tidyselect::all_of(groupingColumns))) %>% 
+                    dplyr::across(tidyselect::all_of(groupingColumns))) %>%
+    dplyr::arrange(decimalLongitude) %>% 
     # Assign matching occurrences to the same diffLon number so that they will also be flagged
-    dplyr::mutate(diffLon = diffLon[[1]]) %>% 
-    dplyr::ungroup() %>% 
-    # remove diffLon == zero
-    dplyr::filter(!diffLon == 0)
+    dplyr::mutate(diffLon = diffLon[[1]]) %>%
+    tidyr::drop_na(diffLon) %>%
+    dplyr::filter(!diffLon == 0) %>%
+    dplyr::ungroup()
   
   # Turn each of the groups into its own tibble within a list
   runningData_LonGrp <- runningData_Lon %>% 
