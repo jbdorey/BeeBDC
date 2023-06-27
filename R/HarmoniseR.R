@@ -897,8 +897,7 @@ HarmoniseR <- function(
     dplyr::filter(!taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
                                      "species", "Species", "SPECIES", "subsp.", "subspecies",
                                     "Subspecies", "SUBSPECIES", "syn", "var.", "variety",
-                                    "Variety", "VARIETY")) }else{
-                                      message("taxonRank not found in data")
+                                    "Variety", "VARIETY")) 
 
 
     ###### d. output ####
