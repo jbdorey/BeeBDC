@@ -14,34 +14,27 @@
 #' @format An object of class \code{"tibble"}
 #' \describe{
 #'  \item{validName}{The valid scientificName as it should occur in the scientificName column.}
-#'  \item{ISO}{The ISO country name as it occurs on Discover Life.}
-#'  \item{Long_country_name}{The full country name as it occurs on Discover Life.}
-#'  \item{Country_name}{A short version of the country name.}
+#'  \item{DiscoverLife_name}{The full country name as it occurs on Discover Life.}
+#'  \item{rNaturalEarth_name}{Country name from rnaturalearth's name_long.}
+#'  \item{shortName}{A short version of the country name.}
+#'  \item{DiscoverLife_ISO}{The ISO country name as it occurs on Discover Life.}
 #'  \item{Alpha-2}{Alpha-2 from rnaturalearth.}
 #'  \item{Alpha-3}{Alpha-3 from rnaturalearth.}
-#'  \item{ISO.y}{A longer-format ISO code.}
-#'  \item{database_id}{Another format of Alpha-3.}
 #'  \item{official}{Official country name = "yes" or only a Discover Life name = "no".}
-#'  \item{rNaturalEarth_name}{Country name from rnaturalearth's name_long.}
-#'  \item{Country_or_island}{Country or island name from Discover Life.}
-#'  \item{Notes}{Discover Life country name notes.}
-#'  \item{Freq}{The number of unique species names documented per country.}
-#'  \item{matchName}{A simplified validName/scientificName for matching to records and other datasets.}
-#'  \item{accid}{The accepted taxon id according to beesTaxonomy. For accepted taxa, accid == 0.}
-#'  \item{id}{The id number given to the species name in [BeeDC::beesTaxonomy()].}
-#'  \item{family}{Bee family.}
-#'  \item{subfamily}{Bee subfamily.}
-#'  \item{validName_taxonomy}{The valid species name (validName) from [BeeDC::beesTaxonomy()}
+#'  \item{Source}{A text strign denoting the source or author of the name-country pair.}
+#'  \item{matchCertainty}{Quality of the name's match to the Discover Life checklist.}
 #'  \item{canonical}{The valid species name without scientificNameAuthority.}
 #'  \item{canonical_withFlags}{The validName without the scientificNameAuthority but with Discover Life flags.}
+#'  \item{family}{Bee family.}
+#'  \item{subfamily}{Bee subfamily.}
 #'  \item{genus}{Bee genus.}
 #'  \item{subgenus}{Bee subgenus.}
-#'  \item{species}{Bee specificEpithet.}
 #'  \item{infraspecies}{Bee infraSpecificEpithet.}
-#'  \item{authorship}{Bee scientificNameAuthorship.}
+#'  \item{infraspecificEpithet}{Bee infraspecificEpithet.}
+#'  \item{species}{Bee specificEpithet.}
+#'  \item{scientificNameAuthorship}{Bee scientificNameAuthorship.}
 #'  \item{taxon_rank}{Rank of the taxon name.}
-#'  \item{matchCertainty}{Quality of the name's match to the Discover Life checklist.}
-#'  \item{sciName_country}{A simplified merger of validName and country for matching between tables or datasets.}
+#'  \item{Notes}{Discover Life country name notes.}
 #'  
 #' }
 #' @references This dataset was created using the Discover Life checklist and taxonomy. 
