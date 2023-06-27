@@ -56,7 +56,8 @@ data <- tibble::tribble( # even step coordinates (different for lat/long)
 # run the function!
 testOut <- BeeDC::diagonAlley(data = data, 
                               minRepeats = 3,
-                              groupingColumns = c("eventDate", "recordedBy", "datasetName")) %>%
+                              groupingColumns = c("eventDate", "recordedBy", "datasetName"),
+                              ndec = 3) %>%
   dplyr::select(c(database_id, "eventDate", "recordedBy", "datasetName", decimalLatitude, 
                   decimalLongitude, .sequential))
 table(testOut$.sequential)

@@ -132,7 +132,7 @@ print(citation("BeeDC"), bibtex=TRUE)
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
-usethis::use_test("beesChecklist")
+usethis::use_test("interactiveMapR")
 
 
   ##### 2.5 Check package ####
