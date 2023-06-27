@@ -1,6 +1,6 @@
 Package: BeeDC
 Title: BeeDC: an Occurrence Data Cleaning Package
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(
     person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-2721-3842")),
@@ -54,7 +54,6 @@ Suggests:
     janitor,
     leaflet,
     plotly,
-    praise,
     purrr,
     R.utils,
     rangeBuilder,
@@ -63,7 +62,6 @@ Suggests:
     rnaturalearthhires,
     rvest,
     rworldmap,
-    sp,
     terra,
     testthat,
     tidyr,

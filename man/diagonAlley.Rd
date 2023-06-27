@@ -4,12 +4,19 @@
 \alias{diagonAlley}
 \title{Find fill-down errors}
 \usage{
-diagonAlley(data = NULL, minRepeats = NULL)
+diagonAlley(
+  data = NULL,
+  minRepeats = NULL,
+  groupingColumns = c("eventDate", "recordedBy", "datasetName")
+)
 }
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
 
 \item{minRepeats}{Numeric. The minimum number of lat or lon repeats needed to flag a record}
+
+\item{groupingColumns}{Character. The column(s) to group the analysis by and search for fill-down
+errors within. Default = c("eventDate", "recordedBy", "datasetName").}
 }
 \value{
 The function returns the input data with a new column, .sequential, where FALSE =
@@ -18,7 +25,13 @@ threshold.
 }
 \description{
 A simple function that looks for potential latitude and longitude fill-down errors by
-identifying identical coordinates in a user-defined number of consecutive records.
+identifying consecutive occurrences with coordinates at regular intervals. This is accomplished
+by using a sliding window with the length determined by \link{minRepeats}
+}
+\details{
+The sliding window (and hence fill-down errors) will only be examined
+within the user-defined \link{groupingColumns}; if any of those
+columns are empty, that record will be excluded.
 }
 \examples{
 # Read in the example data

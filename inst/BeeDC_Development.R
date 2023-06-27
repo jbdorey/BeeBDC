@@ -40,7 +40,7 @@ use_github_actions()
   ##### 2.1 Descriptions ####
 # Write DESCRIPTION file inst
 packageDir <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeDC"
-packageVersion <- "0.0.3"
+packageVersion <- "0.0.4"
 setwd(packageDir)
 usethis::create_package(path = packageDir,
                         roxygen = TRUE,
@@ -101,7 +101,7 @@ suggestedPackages <- sort(c("rlang", "xml2",  "rvest", "countrycode", "rangeBuil
                             "terra", "chorddiag", "rnaturalearthhires", "R.utils", "xlsx",
                             "testthat", "emld", "purrr", "tidyr",
                             "classInt", "htmlwidgets", "httr", "leaflet", "plotly", 
-                            "sp", "DT"))
+                            "DT"))
 lapply(suggestedPackages,  usethis::use_package, type = "Suggests")
 
   # Add non-Cran packages

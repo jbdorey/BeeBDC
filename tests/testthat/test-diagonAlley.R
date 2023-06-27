@@ -2,11 +2,8 @@ requireNamespace("readr")
 requireNamespace("tibble")
 
 
-# make yourself some Fake Data - this is derived from SCAN data, but IT HAS BEEN EDITED FOR TESTING AND IS NOT USEFUL/REAL DATA
+# make yourself some Fake Data - this is derived from SCAN data, but IT HAS BEEN EDITED FOR TESTING AND IS NOT USEFUL/REAL DATA, but by all means go ahead and mine it
 # James - this is set up as a Choose Your Own Adventure Story so that you can manually run the function bit by bit 
-
-
-
 data <- tibble::tribble( # even step coordinates (different for lat/long)
           ~database_id, ~datasetName,       ~id, ~institutionCode, ~collectionCode,         ~ownerInstitutionCode,      ~basisOfRecord,                  ~occurrenceID,      ~catalogNumber, ~otherCatalogNumbers,   ~kingdom,      ~phylum,    ~class,        ~order,  ~family,  ~scientificName, ~taxonID, ~scientificNameAuthorship, ~genus, ~specificEpithet,        ~recordedBy, ~eventDate, ~year, ~month, ~day,        ~verbatimEventDate,        ~country, ~stateProvince,  ~locality,                  ~locationRemarks, ~decimalLatitude, ~decimalLongitude, ~minimumElevationInMeters,                                             ~rights,                                     ~rightsHolder, ~accessRights,                                       ~recordId,                                                                        ~references,
            "fake SCAN1", "fakeDataset",    13775122L,            "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",     "CAS:ANTWEB:casent0106100",     "casent0106100",                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "6/28/05", 2005L,     6L,  28L, "28 Jun 2005/29 Jun 2005", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.541,        -121.75667,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA, "urn:uuid:46a46727-6535-4e70-88e7-a42c98f806ed", "https://scan-bugs.org:443/portal/collections/individual/index.php?occid=13775122",
@@ -37,7 +34,7 @@ data <- tibble::tribble( # even step coordinates (different for lat/long)
 # run the function!
 testOut <- BeeDC::diagonAlley(data = data, 
                               minRepeats = 3,
-                              datasetColumn = "datasetName")
+                              groupingColumns = c("eventDate", "recordedBy", "datasetName"))
 table(testOut$.sequential)
 
 # f - no flags?
