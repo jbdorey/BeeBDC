@@ -17,6 +17,8 @@
 #' @param minRepeats Numeric. The minimum number of lat or lon repeats needed to flag a record
 #' @param groupingColumns Character. The column(s) to group the analysis by and search for fill-down
 #' errors within. Default = c("eventDate", "recordedBy", "datasetName").
+#' @param ndec Numeric. The number of decimal places below which records will not be considered
+#' in the diagonAlley function. This is fed into [BeeDC::jbd_coordinates_precision()]. Default = 3.
 #'
 #' @return The function returns the input data with a new column, .sequential, where FALSE = 
 #' records that have consecutive latitudes or longitudes greater than or equal to the user-defined 
@@ -33,13 +35,16 @@
 #'   beesRaw_out <- diagonAlley(
 #'     data = beesRaw,
 #'     # The minimum number of repeats needed to find a sequence in for flagging
-#'     minRepeats = 4)
+#'     minRepeats = 4,
+#'     groupingColumns = c("eventDate", "recordedBy", "datasetName"),
+#'     ndec = 3)
 #'   
 #' 
 diagonAlley <- function(
   data = NULL,
   minRepeats = NULL,
-  groupingColumns = c("eventDate", "recordedBy", "datasetName")
+  groupingColumns = c("eventDate", "recordedBy", "datasetName"),
+  ndec = 3
   ){
   # locally bind variables to the function
   eventDate<-recordedBy<-decimalLatitude<-decimalLongitude<-database_id<-.data<-leadingLat<-
@@ -61,7 +66,23 @@ diagonAlley <- function(
   }
 
   #### 1.0 prepare data ####
-  runningData <- data %>%
+    ##### 1.1 ndec ####
+    # If an ndec is provided, then filter to remove decimal places lower than ndec
+  if(!is.null(ndec)){
+    runningData <- data %>%
+    BeeDC::jbd_coordinates_precision(
+      data = .,
+      lon = "decimalLongitude",
+      lat = "decimalLatitude",
+      ndec = ndec) %>%
+      dplyr::filter(!.rou == FALSE) %>% 
+      dplyr::select(!.rou)
+  }else{
+    runningData <- data
+    }
+  
+    ##### 1.2 Initial filtering and prep ####
+  runningData <- runningData %>%
       # Remove incomplete values 
     tidyr::drop_na( tidyselect::all_of(groupingColumns)) %>%
     filter(complete.cases(decimalLatitude, decimalLongitude)) %>%
@@ -78,7 +99,8 @@ diagonAlley <- function(
       # Select those groups with four or more occurrences
     dplyr::filter(dplyr::n() >= minRepeats) 
   
-    ##### 1.1 Lat sequences ####
+  #### 2.0 Identify sequences ####
+    ##### 2.1 Lat sequences ####
   # Find the groups where ALL of the differences between values is the same (is.sequential)
     # Return their database_id
   runningData_Lat <- runningData %>% 
@@ -154,7 +176,7 @@ diagonAlley <- function(
   } # END I loop
   
   
-  ##### 1.2 Lon sequences ####
+  ##### 2.2 Lon sequences ####
   # Find the groups where ALL of the differences between values is the same (is.sequential)
     # Return their database_id
   runningData_Lon <- runningData %>% 
