@@ -116,6 +116,13 @@ HarmoniseR <- function(
       dplyr::mutate(scientificNameAuthorship = NA_character_)
     message("scientificNameAuthorship not found, making this column full of NAs.")
   }
+  ###### e. taxonRank ####
+  # If there is no taxonRank, make all NA
+  if(!"taxonRank" %in% colnames(occurrences)){
+    occurrences <- occurrences %>%
+      dplyr::mutate(taxonRank = NA_character_)
+    message("taxonRank not found, making this column full of NAs.")
+  }
   
   
     # Add a new column which has the canonical names matched to the synonyms
@@ -885,7 +892,6 @@ HarmoniseR <- function(
   
 
   # Cut down the failed list...
-  if("taxonRank" %in% colnames(failedMatches)){
   failedMatches <- failedMatches %>%
     dplyr::select(tidyselect::any_of("taxonRank")) %>%
     dplyr::filter(!taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
@@ -893,7 +899,6 @@ HarmoniseR <- function(
                                     "Subspecies", "SUBSPECIES", "syn", "var.", "variety",
                                     "Variety", "VARIETY")) }else{
                                       message("taxonRank not found in data")
-                                    }
 
 
     ###### d. output ####
