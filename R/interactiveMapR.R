@@ -143,9 +143,16 @@ setwd(dir) #directory of work
   # database$IDall <- paste0(1:nrow(database)) #to add an ID by row
 
   #### 1.0 Data prep ####
-    ##### 1.1 Remove na ####
+    ##### 1.1 Remove na+ ####
 database <- database %>%
-  tidyr::drop_na(tidyselect::any_of(c(longitude, latitude)))
+  tidyr::drop_na(tidyselect::any_of(c(longitude, latitude))) 
+
+# If there is no .expertOutlier then add one as all NA
+if(!".expertOutlier" %in% colnames(database)){
+  warning("The column .expertOutlier was not found. One will be created with all values = TRUE.")
+  database <- database %>% 
+    dplyr::mutate(.expertOutlier = TRUE)
+}
 
 ##### 1.2 Country list ####
 # Select only the countries user provides
@@ -365,7 +372,7 @@ for (x in 1:length(speciesList)){
                                             if(".countryOutlier" %in% colnames(databaseSpp)){
                                                            paste0("Country outliers: ", databaseSpp$.countryOutlier, 
                                                                   ";   ")},
-                                            if(".countryOutlier" %in% colnames(databaseSpp)){
+                                            if(".stateOutlier" %in% colnames(databaseSpp)){
                                               paste0("State outliers: ", databaseSpp$.stateOutlier, 
                                                      ";   ")},
                                            if(".expertOutlier" %in% colnames(databaseSpp)){
