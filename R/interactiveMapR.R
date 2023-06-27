@@ -181,7 +181,7 @@ if(excludeApis_mellifera == TRUE){
 
 
 ##### 1.5 Overwrite ####
-if(overWrite == FALSE){
+if(overWrite == TRUE){
     # Find completed species
   existingFiles <- list.files(path = dir) %>%
     stringr::str_remove("\\.html")
