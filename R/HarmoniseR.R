@@ -107,21 +107,21 @@ HarmoniseR <- function(
   if(!"database_id" %in% colnames(occurrences)){
     occurrences <- occurrences %>%
   dplyr::mutate(database_id = paste0("BeeDC_TempCode_", dplyr::row_number()), .before = 1)
-    message("database_id not found, making this column with 'BeeDC_TempCode_'...")
+    message("The database_idcolumn was not found, making this column with 'BeeDC_TempCode_'...")
   }
     ###### d. scientificNameAuthorship ####
   # If there is no scientificNameAuthorship, make all NA
   if(!"scientificNameAuthorship" %in% colnames(occurrences)){
     occurrences <- occurrences %>%
       dplyr::mutate(scientificNameAuthorship = NA_character_)
-    message("scientificNameAuthorship not found, making this column full of NAs.")
+    message("The scientificNameAuthorship column was not found, making this column full of NAs.")
   }
   ###### e. taxonRank ####
   # If there is no taxonRank, make all NA
   if(!"taxonRank" %in% colnames(occurrences)){
     occurrences <- occurrences %>%
       dplyr::mutate(taxonRank = NA_character_)
-    message("taxonRank not found, making this column full of NAs.")
+    message("The taxonRank column was not found, making this column full of NAs.")
   }
   
   
@@ -308,7 +308,8 @@ HarmoniseR <- function(
     # Keep the unmatched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
     dplyr::left_join(currentSynList %>% 
-                       dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
+                       dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, 
+                                       validName_valid,
                                     family_valid, subfamily_valid,
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
                                     species_valid, infraspecies_valid, authorship_valid)),
