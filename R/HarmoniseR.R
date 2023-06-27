@@ -84,7 +84,7 @@ HarmoniseR <- function(
   # Make a synonym index list
   writeLines(paste(" - Formatting SynList for matching..."))
   # save the original column names
-  OG_colnames <- colnames(occurrences)
+  OG_colnames <- unique(c("database_id", colnames(occurrences)))
   # Save the original number of rows
   OG_rowNum <- nrow(occurrences)
   
