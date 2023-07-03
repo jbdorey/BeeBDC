@@ -258,7 +258,7 @@ diagonAlley <- function(
     dplyr::mutate(.sequential = !database_id %in% flagRecords$database_id)
 
     # Use output
-  message("jbd_diagonAlley:\nFlagged ", 
+  message("\njbd_diagonAlley:\nFlagged ", 
           format(sum(data$.sequential == FALSE, na.rm = TRUE), big.mark = ","),
           " records\nThe .sequential column was added to the database.\n")
   
