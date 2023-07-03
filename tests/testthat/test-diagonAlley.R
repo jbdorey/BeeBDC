@@ -59,7 +59,7 @@ testOut <- BeeDC::diagonAlley(data = data,
                               groupingColumns = c("eventDate", "recordedBy", "datasetName"),
                               ndec = 3) %>%
   dplyr::select(c(database_id, "eventDate", "recordedBy", "datasetName", decimalLatitude, 
-                  decimalLongitude, .sequential))
+                  decimalLongitude, .sequential)) %>% invisible()
 table(testOut$.sequential)
 
 # f - no flags?

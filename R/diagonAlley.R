@@ -69,12 +69,14 @@ diagonAlley <- function(
     ##### 1.1 ndec ####
     # If an ndec is provided, then filter to remove decimal places lower than ndec
   if(!is.null(ndec)){
+    writeLines("Removing rounded coordinates with BeeDC::jbd_coordinates_precision...")
     runningData <- data %>%
     BeeDC::jbd_coordinates_precision(
       data = .,
       lon = "decimalLongitude",
       lat = "decimalLatitude",
-      ndec = ndec) %>%
+      ndec = ndec,
+      quieter = TRUE) %>%
       dplyr::filter(!.rou == FALSE) %>% 
       dplyr::select(!.rou)
   }else{
@@ -262,3 +264,4 @@ diagonAlley <- function(
   
   return(data)
 }# END function
+

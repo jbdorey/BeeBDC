@@ -15,6 +15,7 @@
 #' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
 #' @param ndec Numeric. The number of decimal places to flag in decimal degrees. For example, 
 #' argument value of 2 would flag occurrences with nothing in the hundredths place (0.0x).
+#' @param quieter Logical. If TRUE, the functino will run a little quieter. Default = FALSE.
 #'
 #' @return Returns the input data frame with a new column, .rou, where FALSE indicates occurrences 
 #' that failed the test.
@@ -36,7 +37,8 @@ jbd_coordinates_precision <-
   function(data,
            lat = "decimalLatitude",
            lon = "decimalLongitude",
-           ndec = NULL) {
+           ndec = NULL,
+           quieter = FALSE) {
     . <- .ndec_all <- NULL
     
     #### 0.0 Prep ####
@@ -79,9 +81,15 @@ jbd_coordinates_precision <-
       dplyr::select(.ndec_all) %>%
       dplyr::rename(.rou = .ndec_all)
     
+    if(quieter == FALSE){
     message("jbd_coordinates_precision:\nFlagged ", 
             format(sum(!ndec_list[".rou"]), big.mark = ","), 
-            " records\nThe '.rou' column was added to the database.\n")
+            " records\nThe '.rou' column was added to the database.\n")}else{
+                # QUIETER message
+              message("jbd_coordinates_precision:\nRemoved ", 
+                      format(sum(!ndec_list[".rou"]), big.mark = ","), 
+                      " records.")
+            }
     
     res <- dplyr::bind_cols(data, ndec_list)
     

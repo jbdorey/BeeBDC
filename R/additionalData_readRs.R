@@ -341,6 +341,7 @@ readr_Ecd <- function(path = NULL,
   #### 5.2 Read+ ####
 Ecd_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                             trim_ws = TRUE) %>%
+    dplyr::rename(recordId = recordID) %>%
   dplyr::mutate(
     # Format eventDate
     eventDate = lubridate::ymd(paste(year, month, day, sep = "-"),
@@ -1415,6 +1416,7 @@ readr_FSCA <- function(path = NULL,
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
   FSCA_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                                   trim_ws = TRUE, col_types = ColTypeR()) %>%
+    dplyr::rename(recordId = recordID) %>%
     # Add dataset information
     dplyr::mutate(dataSource = "FSCA_Anthophila") %>%
     # Remove any double white-spaces
