@@ -23,7 +23,7 @@ number of failed records, and (iii) the percentage of failed records.
 \description{
 Takes a flagged dataset and returns the total number of fails (FALSE) per flag (columns starting
 with ".") and per species.
-Users may define the column to take group the summary by. While it is intended to work with
+Users may define the column to group the summary by. While it is intended to work with
 the scientificName column, users may select any grouping column (e.g., country).
 }
 \examples{

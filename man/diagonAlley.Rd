@@ -7,7 +7,8 @@
 diagonAlley(
   data = NULL,
   minRepeats = NULL,
-  groupingColumns = c("eventDate", "recordedBy", "datasetName")
+  groupingColumns = c("eventDate", "recordedBy", "datasetName"),
+  ndec = 3
 )
 }
 \arguments{
@@ -17,6 +18,9 @@ diagonAlley(
 
 \item{groupingColumns}{Character. The column(s) to group the analysis by and search for fill-down
 errors within. Default = c("eventDate", "recordedBy", "datasetName").}
+
+\item{ndec}{Numeric. The number of decimal places below which records will not be considered
+in the diagonAlley function. This is fed into \code{\link[=jbd_coordinates_precision]{jbd_coordinates_precision()}}. Default = 3.}
 }
 \value{
 The function returns the input data with a new column, .sequential, where FALSE =
@@ -40,7 +44,9 @@ columns are empty, that record will be excluded.
   beesRaw_out <- diagonAlley(
     data = beesRaw,
     # The minimum number of repeats needed to find a sequence in for flagging
-    minRepeats = 4)
+    minRepeats = 4,
+    groupingColumns = c("eventDate", "recordedBy", "datasetName"),
+    ndec = 3)
   
 
 }

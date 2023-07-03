@@ -8,7 +8,8 @@ jbd_coordinates_precision(
   data,
   lat = "decimalLatitude",
   lon = "decimalLongitude",
-  ndec = NULL
+  ndec = NULL,
+  quieter = FALSE
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ jbd_coordinates_precision(
 
 \item{ndec}{Numeric. The number of decimal places to flag in decimal degrees. For example,
 argument value of 2 would flag occurrences with nothing in the hundredths place (0.0x).}
+
+\item{quieter}{Logical. If TRUE, the functino will run a little quieter. Default = FALSE.}
 }
 \value{
 Returns the input data frame with a new column, .rou, where FALSE indicates occurrences
