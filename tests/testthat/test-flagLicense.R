@@ -4,7 +4,7 @@ library(dplyr) # couldn't use %>% without this
 
 
 # make some test data - this is derived from GBIF data but it is HEAVILY EDITED and USELESS
-data <- tibble::tribble( # even step coordinates (different for lat/long)
+testData <- tibble::tribble( # even step coordinates (different for lat/long)
   ~database_id, ~datasetName,       ~id, ~institutionCode, ~collectionCode,         ~ownerInstitutionCode,                    ~basisOfRecord,                  ~occurrenceID,      ~catalogNumber, ~otherCatalogNumbers,   ~kingdom,      ~phylum,    ~class,        ~order,  ~family,  ~scientificName, ~taxonID, ~scientificNameAuthorship, ~genus, ~specificEpithet,        ~recordedBy, ~eventDate, ~year, ~month, ~day,        ~verbatimEventDate,        ~country, ~stateProvince,  ~locality,                  ~locationRemarks, ~decimalLatitude, ~decimalLongitude, ~minimumElevationInMeters,                                             ~rights,                                     ~rightsHolder, ~accessRights,                                       ~recordId,   ~occurrenceStatus,
   "fake SCAN1", "fakeDataset",    13775122L,                      "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",     "CAS:ANTWEB:casent0106100",     "casent0106100",                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "6/28/05", 2005L,     6L,  28L, "28 Jun 2005/29 Jun 2005", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.541,         -121.7567,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA, "urn:uuid:46a46727-6535-4e70-88e7-a42c98f806ed",           "PRESENT",
   "fake SCAN2", "fakeDataset",    13775123L,                      "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen", "CAS:ANTWEB:casent0106100-d01", "casent0106100-d01",                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "6/28/05", 2005L,     6L,  28L, "28 Jun 2005/29 Jun 2005", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.542,         -121.7568,                       15L,                               "All rights reserved", "The California Academy of Sciences - AntWeb.org",            NA, "urn:uuid:d6ff3ddb-4695-4aaf-ab89-c251ab2fc7e6",           "PRESENT",
@@ -39,8 +39,8 @@ testOut <- BeeDC::flagLicense(data = testData, strings_to_restrict = "all", excl
 
 
 # test number of TRUE and FALSE values in the flag column, .occurrenceAbsent
-resultsT <- length(testOut$.occurrenceAbsent[testOut$.occurrenceAbsent == TRUE])
-resultsF <- length(testOut$.occurrenceAbsent[testOut$.occurrenceAbsent == FALSE])
+resultsT <- length(testOut$.unLicensed[testOut$.unLicensed == TRUE])
+resultsF <- length(testOut$.unLicensed[testOut$.unLicensed == FALSE])
 
 testthat::test_that("flagLicense column .unLicensed results TRUE", {
   testthat::expect_equal(resultsT, 10)
@@ -51,7 +51,7 @@ testthat::test_that("flagLicense column .unLicensed results FALSE", {
 })
 
 
-# test the order of the TRUE and FALSE values in the flag column, .occurrenceAbsent
+# test the order of the TRUE and FALSE values in the flag column, .unLicensed
 correct <- c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE,
              TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE)
 
