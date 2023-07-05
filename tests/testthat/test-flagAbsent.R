@@ -74,7 +74,7 @@ correct <- c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, T
              TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
              TRUE, TRUE, TRUE, TRUE)
 
-testthat::test_that("diagonAlley column .sequential results correct series", {
+testthat::test_that("flagAbsent column .occurrenceAbsent results correct series", {
   testthat::expect_equal(correct, testOut$.occurrenceAbsent)
 })
 
