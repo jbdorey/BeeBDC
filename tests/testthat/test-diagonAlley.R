@@ -1,10 +1,10 @@
 requireNamespace("readr")
 requireNamespace("tibble")
 requireNamespace("magrittr")
+library(dplyr) # couldn't use %>% without this
 
 
-# make yourself some Fake Data - this is derived from SCAN data, but IT HAS BEEN EDITED FOR TESTING AND IS NOT USEFUL/REAL DATA, but by all means go ahead and mine it
-# James - this is set up as a Choose Your Own Adventure Story so that you can manually run the function bit by bit 
+# this data is derived from SCAN data, but IT HAS BEEN EDITED FOR TESTING AND IS NOT USEFUL/REAL DATA, but by all means go ahead and mine it
 data <- tibble::tribble( # even step coordinates (different for lat/long)
   ~database_id, ~datasetName,       ~id, ~institutionCode, ~collectionCode,         ~ownerInstitutionCode,      ~basisOfRecord,                  ~occurrenceID,      ~catalogNumber, ~otherCatalogNumbers,   ~kingdom,      ~phylum,    ~class,        ~order,  ~family,  ~scientificName, ~taxonID, ~scientificNameAuthorship, ~genus, ~specificEpithet,        ~recordedBy, ~eventDate, ~year, ~month, ~day,        ~verbatimEventDate,        ~country, ~stateProvince,  ~locality,                  ~locationRemarks, ~decimalLatitude, ~decimalLongitude, ~minimumElevationInMeters,                                             ~rights,                                     ~rightsHolder, ~accessRights,                                       ~recordId,                                                                        ~references,
   "fake SCAN1", "fakeDataset",    13775122L,                      "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",     "CAS:ANTWEB:casent0106100",     "casent0106100",                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "6/28/05", 2005L,     6L,  28L, "28 Jun 2005/29 Jun 2005", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.541,        -121.7567,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA, "urn:uuid:46a46727-6535-4e70-88e7-a42c98f806ed", "https://scan-bugs.org:443/portal/collections/individual/index.php?occid=13775122",
@@ -52,7 +52,6 @@ data <- tibble::tribble( # even step coordinates (different for lat/long)
   )
 
 
-
 # run the function!
 testOut <- BeeDC::diagonAlley(data = data, 
                               minRepeats = 3,
@@ -60,6 +59,27 @@ testOut <- BeeDC::diagonAlley(data = data,
                               ndec = 3) %>%
   dplyr::select(c(database_id, "eventDate", "recordedBy", "datasetName", decimalLatitude, 
                   decimalLongitude, .sequential)) %>% invisible()
-table(testOut$.sequential)
 
-# f - no flags?
+
+# Test the number of expected TRUE and FALSE values in the .sequential column
+resultsT <- length(testOut$.sequential[testOut$.sequential == TRUE])
+resultsF <- length(testOut$.sequential[testOut$.sequential == FALSE])
+
+testthat::test_that("diagonAlley column .sequential results TRUE", {
+  testthat::expect_equal(resultsT, 18)
+})
+
+testthat::test_that("diagonAlley column .sequential results FALSE", {
+  testthat::expect_equal(resultsF, 17)
+})
+
+
+# Check sequence of TRUE and FALSE values in the .sequential column
+correct <- c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+             TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, 
+             TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
+
+testthat::test_that("diagonAlley column .sequential results correct series", {
+  testthat::expect_equal(correct, testOut$.sequential)
+})
+
