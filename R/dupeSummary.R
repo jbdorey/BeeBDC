@@ -142,7 +142,6 @@ dupeSummary <- function(
   
   # Load required packages
   requireNamespace("dplyr")
-  requireNamespace("bdc")
   requireNamespace("lubridate")
   requireNamespace("igraph")
     # Record start time

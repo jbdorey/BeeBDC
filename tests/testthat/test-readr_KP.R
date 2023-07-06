@@ -17,7 +17,7 @@ testData <- tibble::tribble(
 
 # Be sure that the testData is not already in tempdir
 testDataPath <- file.info(list.files(tempdir(), full.names = T, 
-                                     pattern = "testData.xslx", recursive = TRUE))
+                                     pattern = "testData.xlsx", recursive = TRUE))
 unlink(rownames(testDataPath))
 
 # Save a temporary version of these data
@@ -42,7 +42,7 @@ testthat::test_that("readr_KP results columns TRUE", {
 })
 
 testthat::test_that("readr_KP results columns FALSE", {
-  testthat::expect_equal(resultsF, 3)
+  testthat::expect_equal(resultsF, 2)
 })
 
 testthat::test_that("readr_KP expected class", {

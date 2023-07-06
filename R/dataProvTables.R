@@ -7,7 +7,6 @@ dataProvTables <- function(
     institutionList = NULL
 ){
   requireNamespace("dplyr")
-  requireNamespace("bdc")
   
   #### 0.0 Warnings ####
   if(is.null(occData)){

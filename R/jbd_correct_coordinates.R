@@ -48,8 +48,6 @@ jbd_correct_coordinates <-
            border_buffer = border_buffer) {
     . <- decimalLatitude <- decimalLongitude <- .summary <- iso2c <- NULL
     
-    requireNamespace("bdc")
-    
     x_mod <- paste0(x, "_modified")
     y_mod <- paste0(y, "_modified")
     

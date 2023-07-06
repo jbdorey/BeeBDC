@@ -40,7 +40,7 @@
 #' database containing verbatim and corrected coordinates is created in
 #' "Output/Check/01_coordinates_transposed.csv" if save_outputs == TRUE. The
 #' columns "country" and "countryCode" can be retrieved by using the function
-#' \code{\link{bdc_country_standardized}}.
+#' [bdc::bdc_country_standardized].
 #'
 #' @return A tibble containing the column "coordinates_transposed" which indicates if 
 #' verbatim coordinates were not transposed (TRUE). Otherwise
@@ -100,7 +100,7 @@ jbd_coordinates_transposed <-
            fileName = NULL,
            path = NULL) {
     decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
-    requireNamespace("bdc")
+    
     requireNamespace("dplyr")
 
     suppressWarnings({

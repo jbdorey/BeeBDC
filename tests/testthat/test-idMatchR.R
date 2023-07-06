@@ -1,5 +1,4 @@
 requireNamespace("dplyr")
-requireNamespace("bdc")
 requireNamespace("stringr")
 
   # Read in a flagged test dataset

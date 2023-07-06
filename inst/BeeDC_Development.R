@@ -84,21 +84,27 @@ usethis::create_package(path = packageDir,
                           License = "GPL-3 + file LICENSE"
                         ))
   # Add required packages
-requiredPackages <- sort(c("bdc",
-                           'CoordinateCleaner', 'fs', 'ggplot2', 'readr', 'rnaturalearth', 'sf',
-                           'stringr', 'tibble', 'tidyselect', 'vroom',
-                           "dplyr","forcats","lubridate","EML","mgsub",
-                           "circlize", 
-                           "openxlsx","cowplot","igraph","ggspatial",  
-                            "here",  "paletteer",
-                           "ComplexHeatmap"))
+requiredPackages <- sort(c(
+    # File packages
+  "here", "openxlsx",'readr',
+  "EML",
+    # Tidyverse packages
+  'stringr', 'tibble','tidyselect', 
+  "dplyr","forcats","lubridate",
+    # Other
+  "mgsub", "igraph",
+    # GIS packages
+  'CoordinateCleaner', 'rnaturalearth', 'sf',
+    # Graphical packages
+  "ggspatial","ComplexHeatmap", "paletteer", 'ggplot2',  "circlize", "cowplot"
+                           ))
   # "R.utils","rlist",
 lapply(requiredPackages,  usethis::use_package, type = "Imports")
 
   # Add suggested packages
 suggestedPackages <- sort(c("rlang", "xml2",  "rvest", "countrycode", "rangeBuilder",
                             #"rworldmap", 
-                            "hexbin", "janitor", "rnaturalearthdata",
+                            "hexbin", "janitor", "rnaturalearthdata", "bdc",
                             "terra", "chorddiag", "rnaturalearthhires", "R.utils", "xlsx",
                             "testthat", "emld", "purrr", "tidyr",
                             "classInt", "htmlwidgets", "httr", "leaflet", "plotly", 

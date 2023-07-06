@@ -47,7 +47,6 @@ dateFindR <-
       # load required packages
     requireNamespace("dplyr")
     requireNamespace("lubridate")
-    requireNamespace("bdc")
     requireNamespace("mgsub")
     
     timeStart <- Sys.time()

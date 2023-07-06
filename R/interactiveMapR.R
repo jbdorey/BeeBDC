@@ -102,7 +102,6 @@ interactiveMapR <- function(
   requireNamespace("htmlwidgets")
   requireNamespace("leaflet")
   requireNamespace("DT")
-  requireNamespace("bdc")
   requireNamespace("dplyr")
   
 #### 0.0 Prep ####
@@ -135,8 +134,8 @@ invisible(lapply(packages, library, character.only = TRUE))
 
   ##### 0.3 Directories ####
   # Create directory if it does not exist
-if (!fs::dir_exists(dir)) {
-  fs::dir_create(dir, recurse = TRUE)}
+if (!dir.exists(dir)) {
+  dir.create(dir, recursive = TRUE)}
   # Set directory
 setwd(dir) #directory of work
 

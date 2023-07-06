@@ -16,7 +16,7 @@
 #' @export
 #' 
 #' @importFrom dplyr %>%
-#' @importFrom vroom col_character cols
+#' @importFrom readr col_character cols
 #' @importFrom stats setNames
 #'
 #' @examples
@@ -29,7 +29,7 @@
 #' }
 repo_merge <- function(path, save_type, occ_paths){
   . <- NULL
-  requireNamespace("bdc")
+  
   requireNamespace("dplyr")
   requireNamespace("EML")
 
@@ -46,7 +46,7 @@ repo_merge <- function(path, save_type, occ_paths){
   # Make an internal copy of the template for use in the loop as the template tibble
     data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
       purrr::map_dfc(setNames, object = list(character())) %>%
-      readr::type_convert(col_types = cols(.default = col_character()))
+      readr::type_convert(col_types = readr::cols(.default = readr::col_character()))
   # Copy the template
   Data_WebDL <- data_template
   # Make an empty eml file for the loop

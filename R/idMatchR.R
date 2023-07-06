@@ -62,7 +62,6 @@ idMatchR <- function(
     databaseNum <- missingNum <- database_id_new <- NULL
   
   requireNamespace("dplyr")
-  requireNamespace("bdc")
 
     #### 0.0 Prep ####
     ##### 0.1 Errors ####

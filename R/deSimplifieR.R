@@ -9,7 +9,6 @@ deSimplifieR <- function(inputData = NULL,
 {
   
   requireNamespace("dplyr")
-  requireNamespace("bdc")
   
   #### 1.0 Remove simple strings ####
     # Remove simple codes, only do for each column if that column exists

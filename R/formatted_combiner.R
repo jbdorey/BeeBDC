@@ -39,7 +39,6 @@ formatted_combiner <- function(path,
   . <- NULL
   
   requireNamespace("dplyr")
-  requireNamespace("bdc")
   requireNamespace("xml2")
   # Find all of the previously-produced data files
   BeeData_Locs <- file.info(list.files(path, full.names = T, pattern = strings,

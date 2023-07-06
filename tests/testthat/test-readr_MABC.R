@@ -15,7 +15,7 @@ testData <- tibble::tribble(
 
 # Be sure that the testData is not already in tempdir
 testDataPath <- file.info(list.files(tempdir(), full.names = T, 
-                                     pattern = "testData.xslx", recursive = TRUE))
+                                     pattern = "testData.xlsx", recursive = TRUE))
 unlink(rownames(testDataPath))
 
 # Save a temporary version of these data

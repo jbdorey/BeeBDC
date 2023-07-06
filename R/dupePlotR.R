@@ -63,7 +63,6 @@ dupePlotR <- function(
   requireNamespace("forcats")
   requireNamespace("dplyr")
   requireNamespace("cowplot")
-  requireNamespace("bdc")
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####

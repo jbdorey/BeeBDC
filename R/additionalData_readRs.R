@@ -43,9 +43,7 @@ readr_EPEL <- function(path = NULL,
   
   #### 1.1 Prep ####
   requireNamespace("dplyr")
-  
   requireNamespace("lubridate")
-  requireNamespace("bdc")
 
   #### 1.2 Read+ ####
   EPEL_Data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -128,7 +126,7 @@ readr_ASP <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 2.2 Read+ ####
@@ -205,7 +203,7 @@ readr_BMin <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   #### 3.2 Read+ ####
 BMin_data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -254,7 +252,7 @@ readr_BMont <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 4.2 Read+ ####
@@ -335,7 +333,7 @@ readr_Ecd <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 5.2 Read+ ####
@@ -385,7 +383,7 @@ readr_Gai <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   #### 6.2 Read+ ####
 Gai_data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -502,7 +500,7 @@ readr_CAES <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   #### 7.2 Read+ ####
     # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
@@ -660,7 +658,7 @@ readr_KP <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 9.2 Read+ ####
@@ -790,7 +788,7 @@ readr_EcoS <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 11.2 Read+ ####
@@ -869,6 +867,7 @@ readr_GeoL <- function(path = NULL,
     individualcount<-catalognumber<-rightsholder<-institutioncode<-datasetname<-
     othercatalognumbers<-occurrenceid<-coreid<-recordid<-collectionid<-
     verbatimscientificname<-verbatimeventdate<-id <- . <- NULL
+  rightsHolder <- continent <- type <- samplingProtocol <- NULL
   
   #### 12.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -876,7 +875,7 @@ readr_GeoL <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 12.2 Read+ ####
@@ -896,7 +895,8 @@ readr_GeoL <- function(path = NULL,
     tidyr::drop_na(database_id) %>%
       # Temporarily add an identifier column
     dplyr::mutate(
-      tempSource = "GeoL"
+      tempSource = "GeoL",
+      rightsHolder = rightsHolder  %>% as.character()
     )
   # User output
   writeLines(paste0(
@@ -944,6 +944,11 @@ readr_GeoL <- function(path = NULL,
       verbatimScientificName = verbatimscientificname,
       verbatimEventDate = verbatimeventdate,
       id = id) %>%
+      # Correct some formatting
+    dplyr::mutate(continent = continent %>% as.character(),
+                  type = type %>% as.character(),
+                  id = id %>% as.character(),
+                  samplingProtocol = samplingProtocol %>% as.character()) %>%
     # keep only valid columns
     dplyr::select( tidyselect::any_of(names(ColTypeR()[[1]]))) %>%
     # Remove blanks
@@ -1014,7 +1019,7 @@ readr_EaCO <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 13.2 Read+ ####
@@ -1137,7 +1142,7 @@ readr_MABC <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 14.2 Read+ ####
@@ -1248,7 +1253,7 @@ readr_Col <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 15.2 Read+ ####
@@ -1258,6 +1263,9 @@ readr_Col <- function(path = NULL,
                                  sheet = sheet) %>%
     # Return spaces in column names to keep the consistent with file before renaming
     setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+      # Fix some special cases that already involve "." in the column names
+    setNames(., stringr::str_replace_all(colnames(.), "  ", ". ")) %>%
+    setNames(., stringr::str_replace_all(colnames(.), " $", ".")) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = paste0('C\u00f3digo de Barras'),
@@ -1406,7 +1414,7 @@ readr_FSCA <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 16.2 Read+ ####
@@ -1460,7 +1468,7 @@ readr_SMC <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   #### 17.2 Read+ ####
   SMC_Data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -1525,7 +1533,7 @@ readr_Bal <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 18.2 Read+ ####
@@ -1613,7 +1621,7 @@ readr_Lic <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 19.2 Read+ ####
@@ -1710,7 +1718,7 @@ readr_Arm <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 20.2 Read+ ####
@@ -1825,7 +1833,7 @@ readr_Dor <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 21.2 Read+ ####
@@ -1880,7 +1888,7 @@ readr_MEPB <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 22.2 Read+ ####
@@ -1944,7 +1952,7 @@ readr_BBD <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 23.2 Read+ ####
@@ -2066,7 +2074,7 @@ readr_MPUJ <- function(path = NULL,
   # R using install.packages("dplyr")... etc.
   requireNamespace("dplyr")
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
 
   
   #### 24.2 Read+ ####
@@ -2185,7 +2193,7 @@ readr_STRI <- function(path = NULL,
   requireNamespace("dplyr")
   
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
   
   
   #### 25.2 Read+ ####
@@ -2253,7 +2261,7 @@ readr_PALA <- function(path = NULL,
   # R using install.packages("dplyr")... etc.
   requireNamespace("dplyr")
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
   requireNamespace("mgsub")
   
   
@@ -2354,7 +2362,7 @@ readr_JoLa <- function(path = NULL,
   # R using install.packages("dplyr")... etc.
   requireNamespace("dplyr")
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+
   
   
   

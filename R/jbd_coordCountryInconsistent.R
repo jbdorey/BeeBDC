@@ -152,7 +152,7 @@ data <- data %>%
   dplyr::mutate(.coordinates_country_inconsistent = !database_id %in% ids2remove$database_id)
 
     # return message
-message(paste("\nbdc_coordinates_country_inconsistent:\nFlagged", 
+message(paste("\njbd_coordinates_country_inconsistent:\nFlagged", 
               format(sum(data$.coordinates_country_inconsistent == FALSE, na.rm = TRUE), big.mark = ","),
               "records.\nThe column, '.coordinates_country_inconsistent',",
               "was added to the database.\n"), sep = "")

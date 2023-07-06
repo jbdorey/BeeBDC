@@ -5,7 +5,7 @@ data_reader <-  function(path_i, home_path){
     # locally bind variables to the function
 dplyr <- mgsub <- setNames <- . <- family <- day <- NULL
   
-requireNamespace("bdc", "dplyr", "mgsub")
+requireNamespace("dplyr", "mgsub")
 
   #Set up bee family list
   Bee_Families <- c("Andrenidae","Apidae", "Colletidae","Halictidae","Megachilidae","Melittidae",
@@ -19,14 +19,14 @@ requireNamespace("bdc", "dplyr", "mgsub")
   # Make an internal copy of the template for use in the loop as the template tibble
   data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
     purrr::map_dfc(stats::setNames(), object = list(character())) %>%
-    readr::type_convert(col_types = vroom::cols(.default = vroom::col_character()))
+    readr::type_convert(col_types = readr::cols(.default = readr::col_character()))
   
   #### ALA data ####
   if(grepl("ALA_data", names(path_i)) == "TRUE"){
     # Import these data
     data_i <- readr::read_csv(path_i, col_names = TRUE,
                               # read in all columns as character for now
-                              col_types = vroom::cols(.default = vroom::col_character()),
+                              col_types = readr::cols(.default = readr::col_character()),
                               name_repair = "minimal") %>% 
       # Suppress warnings from read_csv
       suppressWarnings(., classes = "warning") %>% 
@@ -64,7 +64,7 @@ requireNamespace("bdc", "dplyr", "mgsub")
     # Read in each file and then merge together
     data_i <- readr::read_tsv(path_i, 
                               quote = "", col_names = TRUE,
-                              col_types = vroom::cols(.default = vroom::col_character())) %>% 
+                              col_types = readr::cols(.default = readr::col_character())) %>% 
       # Supress warnings from read_tsv
       suppressWarnings(., classes = "warning") %>% 
       # Include all columns from original template file
@@ -80,7 +80,7 @@ requireNamespace("bdc", "dplyr", "mgsub")
     # Import these data
     data_i <- readr::read_csv(path_i, col_names = TRUE,
                               # read in all columns as character for now
-                              col_types = vroom::cols(.default = vroom::col_character()),
+                              col_types = readr::cols(.default = readr::col_character()),
                               # Do not keep the some columns
                                 col_select = !c("abcd:typifiedName",  "aec:associatedTaxa",
                                                 "ala:photographer","ala:species","ala:subfamily",
@@ -125,7 +125,7 @@ requireNamespace("bdc", "dplyr", "mgsub")
   if(grepl("SCAN_data", names(path_i)) == "TRUE"){ # Start SCAN IF statement
     data_i <- readr::read_csv(path_i, col_names = TRUE,
                               # read in all columns as character for now
-                              col_types = readr::cols(.default = vroom::col_character())) %>% 
+                              col_types = readr::cols(.default = readr::col_character())) %>% 
       # Supress warnings from read_csv
       suppressWarnings(., classes = "warning") %>% 
       # Filter the columns to only those that we want to select, based on the ColsToKeep vector 

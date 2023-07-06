@@ -100,7 +100,6 @@ chordDiagramR <- function(
   
     requireNamespace("circlize")
   requireNamespace("ComplexHeatmap")
-  requireNamespace("bdc")
   requireNamespace("dplyr")
   requireNamespace("paletteer")
   requireNamespace("grid")

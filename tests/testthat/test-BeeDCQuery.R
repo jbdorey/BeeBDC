@@ -1,7 +1,6 @@
 
 requireNamespace("dplyr")
 requireNamespace("lubridate")
-requireNamespace("bdc")
 requireNamespace("mgsub")
 
   # Run example queries

@@ -10,9 +10,9 @@ ColTypeR(...)
 \item{...}{Additional arguments. These can be specified in addition to the ones default to the
 function.  For example:
 \itemize{
-\item newCharacterColumn = \code{\link[vroom:cols]{vroom::col_character()}},
-\item newNumericColumn = \code{\link[vroom:cols]{vroom::col_integer()}},
-\item newLogicalColumn = \code{\link[vroom:cols]{vroom::col_logical()}}
+\item newCharacterColumn = \code{\link[readr:parse_atomic]{readr::col_character()}},
+\item newNumericColumn = \code{\link[readr:parse_atomic]{readr::col_integer()}},
+\item newLogicalColumn = \code{\link[readr:parse_atomic]{readr::col_logical()}}
 }}
 }
 \value{
@@ -20,9 +20,9 @@ Returns an object of class col_spec.
 See \code{\link[readr:as.col_spec]{readr::as.col_spec()}} for additional context and explication.
 }
 \description{
-This function uses \code{\link[vroom:cols]{vroom::cols_only()}} to assign a column name and the type of data
-(e.g., \code{\link[vroom:cols]{vroom::col_character()}},
-and \code{\link[vroom:cols]{vroom::col_integer()}}). To see the default columns simply run \code{\link[=ColTypeR]{ColTypeR()}}.
+This function uses \code{\link[readr:cols]{readr::cols_only()}} to assign a column name and the type of data
+(e.g., \code{\link[readr:parse_atomic]{readr::col_character()}},
+and \code{\link[readr:parse_atomic]{readr::col_integer()}}). To see the default columns simply run \code{\link[=ColTypeR]{ColTypeR()}}.
 This is intended for use with \code{\link[readr:read_delim]{readr::read_csv()}}. Columns that are not present will NOT be included
 in the resulting tibble unless they are specified using \link{...}.
 }
@@ -32,9 +32,9 @@ in the resulting tibble unless they are specified using \link{...}.
 BeeDC::ColTypeR() 
 
   # To add new columns you can write
-ColTypeR(newCharacterColumn = vroom::col_character(), 
-         newNumericColumn = vroom::col_integer(), 
-         newLogicalColumn = vroom::col_logical()) 
+ColTypeR(newCharacterColumn = readr::col_character(), 
+         newNumericColumn = readr::col_integer(), 
+         newLogicalColumn = readr::col_logical()) 
 
 # Try reading in one of the test datasets as an example:
 beesFlagged \%>\% tibble::as_tibble(col_types = BeeDC::ColTypeR())

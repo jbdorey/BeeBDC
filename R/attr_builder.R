@@ -7,7 +7,7 @@ attr_builder <- function(path_i, occ_input){
   # locally bind variables to the function
   lubridate <- stringr <- family <- NULL
   
-  requireNamespace("EML", "lubridate", "bdc")
+  requireNamespace("EML", "lubridate")
   requireNamespace("dplyr")
   requireNamespace("xml2")
   # This function behaves differently depending on the data source, but returns common outputs.

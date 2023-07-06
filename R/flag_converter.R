@@ -10,9 +10,8 @@ flag_converter <- function(SynFile = DLdf){
   # locally bind variables to the function
   DLdf <- . <- Combined <- NULL
   
-
-  requireNamespace("dplyr")
-  requireNamespace("bdc")
+requireNamespace("dplyr")
+  
   #### 1.1 doubtful ####
   # Doubtful species strings to find and matches
   doubt_sp_str <-c("nomen dubium","doubtful synonymy","doubtful synonym")

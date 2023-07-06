@@ -61,7 +61,7 @@ HarmoniseR <- function(
     # Load required packages 
   requireNamespace("rlang")
   requireNamespace("dplyr")
-  requireNamespace("bdc")
+  
   # Record start time
   startTime <- Sys.time()
   

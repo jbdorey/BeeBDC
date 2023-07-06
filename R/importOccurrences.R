@@ -27,7 +27,7 @@ importOccurrences <- function(path = path,
   # Load required packages
   requireNamespace("dplyr")
   requireNamespace("lubridate")
-  requireNamespace("bdc")
+  
   # if the fileName is not provided...
   if(!exists("fileName")){
     fileName = "^BeeData"

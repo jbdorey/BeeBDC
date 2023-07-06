@@ -8,7 +8,6 @@
 nameSplitR <- function(NameInput, 
                             Authority_patterns = NULL){
   requireNamespace("mgsub")
-  requireNamespace("bdc")
 
   if(is.null(Authority_patterns)){
   # split up the authority from the species name based on regular expressions

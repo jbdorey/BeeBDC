@@ -76,7 +76,7 @@ coordinates are replaced by the corrected ones in the returned database. A
 database containing verbatim and corrected coordinates is created in
 "Output/Check/01_coordinates_transposed.csv" if save_outputs == TRUE. The
 columns "country" and "countryCode" can be retrieved by using the function
-\code{\link{bdc_country_standardized}}.
+\link[bdc:bdc_country_standardized]{bdc::bdc_country_standardized}.
 }
 \examples{
 \dontrun{

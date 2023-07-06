@@ -23,14 +23,24 @@ testData2 <- tibble::tribble(
                "Dorey_data_15031296", "Lasioglossum sisymbrii (Cockerell, 1895)", "Halictidae", "Halictinae", "Lasioglossum",        NA,                    NA, "Lasioglossum sisymbrii",         "sisymbrii",                       NA,                 NA,         NA,       "(Cockerell, 1895)",                NA,         NA, "United states",    "United states",         "US",       "Arizona", "Mohave",            NA,                     "Topock",      NA,          NA,                                                                      NA, "1972-04-08T00:00:00Z",   8L,     4L, 1972L,  "PreservedSpecimen",    NA,                NA,            NA, "B. Apperson",       NA,                NA,              NA,               1L,                "HYM 95971",         "MNA",            "MNA",                NA,               NA,                NA,                NA,         NA,           NA,                   NA, "1154c20d-211a-47ba-8320-784b8e320e6f",      NA, "urn:uuid:ada6a97d-7d8e-4765-a607-289b4abcaa39", "48b700e0-fcdb-4196-b642-70fd7b8a71ef",                                             NA,         "8/4/1972", "Female", "http://creativecommons.org/licenses/by-nc/4.0/",                NA,              NA, 57139867L, "SCAN_Halictidae",                NA,                NA, "Lasioglossum sisymbrii (Cockerell, 1895)",                "US",                          "US",                "usarizonamohavetopock",                "usarizonamohavetopock",                "usarizonamohavetopock",            34.7183075,           -114.4871902,         "epsg:4326",                                 14L, "Gary W. Shugart (PSM)",              "3/8/2003", "MaNIS/HerpNET/ORNIS Georeferencing Guidelines, Guide to Best Practices for Georeferencing 2006.", "AZ GNIS downloaded March 2003",                        NA,                      30L,                   "ORNIS",                            1L, "match using verbatim coords"
                )
 
+
 # Be sure that the testData is not already in tempdir
 testDataPath <- file.info(list.files(tempdir(), full.names = T, 
-                                     pattern = "testData.xslx", recursive = TRUE))
+                                     pattern = "testData.xlsx", recursive = TRUE))
 unlink(rownames(testDataPath))
 
 # Save a temporary version of these data
-openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName="GEOLOCATE HIGH")
-openxlsx::write.xlsx(testData2, paste0(tempdir(), "/testData.xlsx"), sheetName="BELS High", append = TRUE)
+  # First create a workbook
+wb <- openxlsx::createWorkbook()
+  # Add sheets to it
+openxlsx::addWorksheet(wb, "GEOLOCATE HIGH")
+openxlsx::addWorksheet(wb, "BELS High")
+  # Fill those sheets with data
+openxlsx::writeData(wb, "GEOLOCATE HIGH", testData)
+openxlsx::writeData(wb, "BELS High", testData2)
+  # Save to file
+openxlsx::saveWorkbook(wb, file = paste0(tempdir(), "/testData.xlsx"), overwrite = TRUE)
+
 
 testOut1 <- BeeDC::readr_GeoL(path = paste0(tempdir()),
                               inFile = "/testData.xlsx",

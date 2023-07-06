@@ -88,7 +88,6 @@ jbd_Ctrans_chunker <- function(
     append = TRUE){
   database_id <- NULL
   
-  requireNamespace("bdc")
   requireNamespace("dplyr")
   
   #### 0.0 Prep ####

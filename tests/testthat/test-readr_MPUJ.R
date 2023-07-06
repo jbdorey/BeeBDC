@@ -22,7 +22,7 @@ colnames(testData) <- c("Catalog Number", "Collectors/First Name", "Collectors/L
 
 # Be sure that the testData is not already in tempdir
 testDataPath <- file.info(list.files(tempdir(), full.names = T, 
-                                     pattern = "testData.xslx", recursive = TRUE))
+                                     pattern = "testData.xlsx", recursive = TRUE))
 unlink(rownames(testDataPath))
 
 # Save a temporary version of these data
@@ -47,7 +47,7 @@ testthat::test_that("readr_MPUJ results columns TRUE", {
 })
 
 testthat::test_that("readr_MPUJ results columns FALSE", {
-  testthat::expect_equal(resultsF, 20)
+  testthat::expect_equal(resultsF, 19)
 })
 
 testthat::test_that("readr_MPUJ expected class", {
