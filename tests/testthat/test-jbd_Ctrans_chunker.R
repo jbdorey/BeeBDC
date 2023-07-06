@@ -24,6 +24,7 @@ testOut <- BeeDC::jbd_Ctrans_chunker(
   # chunker inputs
   stepSize = 55,  # How many rows to process at a time
   chunkStart = 1,  # Start row
+  path = tempdir(),
   append = FALSE  # If FALSE it may overwrite existing dataset
 ) 
 

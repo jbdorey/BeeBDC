@@ -6,7 +6,8 @@
 HigherNamer <- function(HigherNameList = HigherOrders,
                         InSynList = DLdf){
   # locally bind variables to the function
-  HigherOrders <- DLdf <- NULL
+  HigherOrders <- DLdf <- taxonomic_status <- validName <- family <- subfamily <- NULL
+  subfamily <- tribe <- subtribe <- id <- NULL
   
   # Drop the completely NA row at the top
   InSynList <- InSynList %>%

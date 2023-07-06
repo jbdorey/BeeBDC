@@ -1,6 +1,5 @@
 requireNamespace("dplyr")
 requireNamespace("tibble")
-requireNamespace("magrittr")
 
   # Load a test dataset
 data("beesRaw")

@@ -44,11 +44,12 @@ dateFindR <-
       my_locality<-my_fieldNotes<-my_locationRemarks<-amb_vEV<-amb_locality<-amb_fieldNotes<-
       amb_locationRemarks<-year <- NULL
     
-      # load required pacakges
+      # load required packages
     requireNamespace("dplyr")
     requireNamespace("lubridate")
     requireNamespace("bdc")
     requireNamespace("mgsub")
+    
     timeStart <- Sys.time()
     
     #### 0.0 prep ####
@@ -61,7 +62,7 @@ dateFindR <-
                                             truncated = 5, quiet = TRUE)
       # Find all of the records without dates
     noDATEa <- data %>% 
-      dplyr::filter(is.na(eventDate) | eventDate == "")
+      dplyr::filter(any(is.na(eventDate) | eventDate %>% as.character() == ""))
 
     
     #### 1.0 easyDates ####

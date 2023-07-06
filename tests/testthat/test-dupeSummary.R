@@ -1,3 +1,5 @@
+requireNamespace("tibble")
+
 
 testData <- tibble::tibble(
   database_id = c("fakeID1","fakeID2", "fakeID2", "fakeID4","fakeID5", "fakeID6", "fakeID7",

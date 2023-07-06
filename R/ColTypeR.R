@@ -69,6 +69,8 @@ ColTypeR <- function(...){
     # Date/Time — Collection time
     eventDate = vroom::col_character(), 
     eventTime = vroom::col_character(), 
+    startDayOfYear = vroom::col_integer(),
+    endDayOfYear = vroom::col_integer(),
     # Int — Collection time
     day = vroom::col_integer(), month = vroom::col_integer(), year = vroom::col_integer(),
     # Factor — Collection info
@@ -88,6 +90,7 @@ ColTypeR <- function(...){
     otherCatalogNumbers = vroom::col_character(), occurrenceID = vroom::col_character(), 
     taxonKey = vroom::col_character(), coreid = vroom::col_character(), 
     recordId = vroom::col_character(), collectionID = vroom::col_character(),
+    associatedSequences = vroom::col_character(),
     # CHR — Verbatim information
     verbatimScientificName = vroom::col_character(), verbatimEventDate = vroom::col_character(),
     # CHR/Factor — Aux info

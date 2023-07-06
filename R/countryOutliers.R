@@ -71,6 +71,7 @@ countryOutlieRs <- function(
 
   ##### 1.2 rNaturalEarth ####
 # Download world map using rnaturalearth packages
+  suppressWarnings({
 countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
                                         type = "countries", scale = rnearthScale)  %>%
       # buffer by zero and make geometry valid to avoid potential issues with polygon intersection
@@ -84,7 +85,7 @@ countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
     "ASM" = "WSM", # American Samoa == Samoa
     "HKG" = "CHN", # Hong Kong == China
     "MAF" = "SXM"))) # Saint-Martin == Sint Maarten
-
+})
   # Dont's use spherical geometry
 sf::sf_use_s2(FALSE)
 
@@ -108,7 +109,7 @@ sf::sf_use_s2(FALSE)
   writeLines(" - Extracting country data from points...")
     #Extract polygon information to points
   points_extract <- sf::st_intersection(countryMap,
-                              points)
+                              points) %>% suppressWarnings()
   
   if(!is.null(pointBuffer)){
   # Failed extractions
@@ -123,7 +124,7 @@ sf::sf_use_s2(FALSE)
       sf::st_buffer(dist = pointBuffer)
       # attempt to overlay these points
     points_failed <- sf::st_intersection(countryMap,
-                                         points_failed) 
+                                         points_failed) %>% suppressWarnings()
   })
   # Re-merge good with failed
   points_extract <- points_extract %>%
@@ -233,7 +234,7 @@ sf::sf_use_s2(FALSE)
                                               TRUE, FALSE)) %>%
     dplyr::left_join(dplyr::select(checklist_simple, SciCountry_noYear), 
                      by = "SciCountry_noYear",
-                     multiple = "all")
+                     multiple = "all", relationship = "many-to-many")
 
   
     ###### b. neighbouringCountries ####
@@ -275,7 +276,7 @@ sf::sf_use_s2(FALSE)
       # neighbour-joined dataset
     dplyr::left_join(dplyr::select(npoints_match, c(database_id, neighbourMatch_noYear)),
                      by = "database_id",
-                     multiple = "all") %>%
+                     multiple = "all", relationship = "many-to-many") %>%
       # Remove geometry column
     dplyr::select(!tidyselect::starts_with("geometry")) %>%
       # Combine exactMatch_noYear and neighbourMatch_noYear
@@ -343,7 +344,7 @@ sf::sf_use_s2(FALSE)
       # Merge with original dataset
     output <- occData %>%
       dplyr::left_join(bpoints_match, by = "database_id",
-                       multiple = "all") %>%
+                       multiple = "all", relationship = "many-to-many") %>%
         # Add in .sea usign the seaPoints
       dplyr::mutate(.sea = dplyr::if_else(database_id %in% seaPoints$database_id,
                                           FALSE, TRUE))

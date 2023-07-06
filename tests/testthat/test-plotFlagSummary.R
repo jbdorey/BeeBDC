@@ -1,5 +1,6 @@
 requireNamespace("dplyr")
 requireNamespace("ggplot2")
+requireNamespace("dplyr")
 
 # Load in the test data
 data("beesFlagged")

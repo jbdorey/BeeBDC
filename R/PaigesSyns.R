@@ -11,7 +11,7 @@ PaigesSyns <- function(PaigeSheet = Paige_sheet_loc,
   . <- Paige_sheet_loc <- SynL_AO <- canonical <- id <- NULL
   
   # Read in the relevant sheets from the excel file
-  SynChanges <- readxl::read_excel(PaigeSheet, sheet = "Synonym_changes")
+  SynChanges <- openxlsx::read.xlsx(PaigeSheet, sheet = "Synonym_changes")
   
   
 #### 2.0 Synonyms ####

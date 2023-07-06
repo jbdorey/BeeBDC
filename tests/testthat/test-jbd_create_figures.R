@@ -1,3 +1,5 @@
+requireNamespace("dplyr")
+
 data("beesFlagged")
 
 

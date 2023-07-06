@@ -1,6 +1,7 @@
 requireNamespace("readr")
 requireNamespace("tibble")
-requireNamespace("xlsx")
+requireNamespace("openxlsx")
+requireNamespace("dplyr")
 
 
 testData <- tibble::tribble(
@@ -13,12 +14,19 @@ testData <- tibble::tribble(
   )
 
 
+# Be sure that the testData is not already in tempdir
+testDataPath <- file.info(list.files(tempdir(), full.names = T, 
+                                     pattern = "testData.xslx", recursive = TRUE))
+unlink(rownames(testDataPath))
+
 # Save a temporary version of these data
-xlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName="Sheet1")
+openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"),
+                 sheetName = "Sheet1")
 
 testOut1 <- BeeDC::readr_CAES(path = paste0(tempdir()),
                              inFile = "/testData.xlsx",
                              outFile = "testDataOut.csv",
+                             sheet = "Sheet1",
                              dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 
@@ -33,7 +41,7 @@ testthat::test_that("readr_BBD results columns TRUE", {
   testthat::expect_equal(resultsT, 31)
 })
 testthat::test_that("readr_BBD results columns FALSE", {
-  testthat::expect_equal(resultsF, 17)
+  testthat::expect_equal(resultsF, 16)
 })
 
 testthat::test_that("readr_BBD expected class", {

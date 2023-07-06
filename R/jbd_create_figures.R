@@ -85,7 +85,7 @@ jbd_create_figures <-
     suppressWarnings({
       check_require_cran("cowplot")
       check_require_cran("readr")
-      check_require_cran("rworldmap")
+      # check_require_cran("rworldmap")
       check_require_cran("ggspatial")
       check_require_cran("hexbin")
       requireNamespace("bdc")
@@ -133,8 +133,6 @@ jbd_create_figures <-
         "Figures were not created.\nAt least one column 'starting with '.' containing results of data-quality tests must be provided"
       )
     }
-    
-    jbd_create_dir()
     
     # Formatting y axis of ggplot bar
     fancy_scientific <- function(l) {
@@ -422,7 +420,7 @@ jbd_create_figures <-
         }
         
         # Worldmap
-        m <- rnaturalearth::ne_countries(returnclass = "sp")
+        m <- rnaturalearth::ne_countries(returnclass = "sf")
         
         # new theme
         our_theme2 <-
@@ -445,23 +443,25 @@ jbd_create_figures <-
           
           d <-
             d %>%
-            dplyr::select({{ w_maps }}[i], decimalLongitude, decimalLatitude) %>%
+            dplyr::select(tidyselect::all_of(w_maps[i]), decimalLongitude, decimalLatitude) %>%
             dplyr::filter(.data[[w_maps[i]]] == FALSE)
           
           if (nrow(d) > 0){
             p <-
               ggplot2::ggplot() +
-              ggplot2::geom_polygon(
+              ggplot2::geom_sf(
                 data = m,
-                ggplot2::aes(x = long, y = lat, group = group),
+                ggplot2::aes(),
                 fill = "gray75", colour = "gray88"
               ) +
+              ggplot2::coord_sf() + 
               ggplot2::geom_hex(
                 data = d,
                 ggplot2::aes(x = decimalLongitude, y = decimalLatitude),
-                bins = 75
+                binwidth = 3
+                #bins = 75
               ) +
-              ggplot2::coord_quickmap() +
+              #ggplot2::coord_quickmap() +
               ggplot2::theme_void() +
               ggplot2::labs(fill = "# of Records",
                             title = convertNames[w_maps[i]][[1]]) +
@@ -543,6 +543,7 @@ jbd_create_figures <-
       }
     }) # suppresswarning
     
+      #### start IF ####
     if (save_figures == TRUE){
       
       for (i in seq_along(res)) {

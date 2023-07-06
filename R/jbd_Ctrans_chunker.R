@@ -24,6 +24,8 @@
 #' the function from a certain chunk; for example if R failed unexpectedly. 
 #' @param progressiveSave Logical. If TRUE then the country output list will be saved between
 #' each iteration so that `append` can be used if the function is stopped part way through.
+#' @param path Character. The path to a file in which to save the 01_coordinates_transposed_
+#' output.
 #' @param append Logical. If TRUE, the function will look to append an existing file.
 
 #'
@@ -58,6 +60,7 @@
 #' chunkStart = 1,  
 #' # Progressively save the output between each iteration?
 #' progressiveSave = FALSE,
+#' path = tempdir(),
 #' # If FALSE it may overwrite existing dataset
 #' append = FALSE  
 #' ) 
@@ -80,6 +83,7 @@ jbd_Ctrans_chunker <- function(
      # Start row
     chunkStart = 1,
     progressiveSave = TRUE,
+    path = tempdir(),
      # If FALSE it may overwrite existing dataset
     append = TRUE){
   database_id <- NULL
@@ -146,6 +150,7 @@ jbd_Ctrans_chunker <- function(
       id = id,
       border_buffer = border_buffer,
       save_outputs = save_outputs,
+      path = path,
       fileName = fileName)
     
     #### 1.2 Save + bind file ####

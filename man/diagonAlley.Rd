@@ -30,11 +30,11 @@ threshold.
 \description{
 A simple function that looks for potential latitude and longitude fill-down errors by
 identifying consecutive occurrences with coordinates at regular intervals. This is accomplished
-by using a sliding window with the length determined by \link{minRepeats}
+by using a sliding window with the length determined by minRepeats.
 }
 \details{
 The sliding window (and hence fill-down errors) will only be examined
-within the user-defined \link{groupingColumns}; if any of those
+within the user-defined groupingColumns; if any of those
 columns are empty, that record will be excluded.
 }
 \examples{

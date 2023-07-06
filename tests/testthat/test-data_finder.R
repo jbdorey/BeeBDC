@@ -1,5 +1,6 @@
 requireNamespace("readr")
 requireNamespace("tibble")
+requireNamespace("BeeDC")
 
 
 # make some data files for data_finder to search and save the files 

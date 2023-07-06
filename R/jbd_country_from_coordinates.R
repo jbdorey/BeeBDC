@@ -85,7 +85,7 @@ jbd_country_from_coordinates <-
       dplyr::mutate(decimalLatitude = as.numeric(.data[[lat]]),
                     decimalLongitude = as.numeric(.data[[lon]]))
     
-    worldmap <- rnaturalearth::ne_countries(scale = "large")
+    worldmap <- rnaturalearth::ne_countries(scale = "large", returnclass = "sf")
     
     # JBD edit - Remove empty elements from list before testing.
     # data <- data[sapply(data, function(x) dim(x)[1]) > 0]
@@ -108,14 +108,14 @@ jbd_country_from_coordinates <-
             lat = lat,
             verbose = FALSE
           ) %>%
-          CoordinateCleaner::cc_sea(
-            x = .,
-            lon = lon,
-            lat = lat,
-            verbose = FALSE,
-            speedup = TRUE,
-            ref = worldmap
-          ) %>%
+          # CoordinateCleaner::cc_sea(
+          #   x = .,
+          #   lon = lon,
+          #   lat = lat,
+          #   verbose = FALSE,
+          #   speedup = TRUE,
+          #   ref = worldmap
+          # ) %>%
           sf::st_as_sf(
             .,
             coords = c("decimalLongitude", "decimalLatitude"),

@@ -1,6 +1,7 @@
 requireNamespace("readr")
 requireNamespace("tibble")
-requireNamespace("xlsx")
+requireNamespace("openxlsx")
+requireNamespace("dplyr")
 
 
 testData <- tibble::tribble(
@@ -13,8 +14,13 @@ testData <- tibble::tribble(
   )
 
 
+# Be sure that the testData is not already in tempdir
+testDataPath <- file.info(list.files(tempdir(), full.names = T, 
+                                     pattern = "testData.xslx", recursive = TRUE))
+unlink(rownames(testDataPath))
+
 # Save a temporary version of these data
-xlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName="Sheet1")
+openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName="Sheet1")
 
 testOut1 <- BeeDC::readr_EaCO(path = paste0(tempdir()),
                               inFile = "/testData.xlsx",

@@ -1,4 +1,5 @@
-
+requireNamespace("dplyr")
+requireNamespace("readr")
 
 # Load in the checklis data
 data("beesChecklist")
@@ -26,7 +27,7 @@ testOut %>%
   dplyr::group_by(scientificName) %>% 
   dplyr::mutate(count_scientificName = n()) %>%
   distinct(scientificName, country, .keep_all = TRUE) %>% 
-  readr::write_csv(paste(OutPath_Intermediate, "03_space_failedCountryChecklist.csv",
+  readr::write_csv(paste(tempdir(), "03_space_failedCountryChecklist.csv",
                          sep = "/"))
 
 

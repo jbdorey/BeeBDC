@@ -17,6 +17,8 @@
 #' restart the function from a certain chunk. For example, can be used if R failed unexpectedly.
 #' @param progressiveSave Logical. If TRUE then the country output list will be saved between
 #' each iteration so that `append` can be used if the function is stopped part way through.
+#' @param path Character. The directory path to a folder in which to save the running countrylist
+#' csv file.
 #' @param append Logical. If TRUE, the function will look to append an existing file.
 #'
 #' @return A data frame containing database_ids and a country column 
@@ -31,6 +33,7 @@
 #' # outside of the main function.
 #' library(dplyr)
 #' data(beesFlagged)
+#' HomePath = tempdir()
 #' # Tibble of common issues in country names and their replacements
 #' commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
 #' 'United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
@@ -59,6 +62,7 @@
 #'                                    chunkStart = 1,
 #'                                     # Progressively save the country list between each iteration?
 #'                                    progressiveSave = FALSE,
+#'                                    path = HomePath,
 #'                                    append = FALSE),
 #'   classes = "warning")
 #' 
@@ -91,7 +95,8 @@ jbd_CfC_chunker <- function(data = NULL,
                             chunkStart = 1,
                             progressiveSave = TRUE,
                             # If FALSE it may overwrite existing dataset
-                            append = FALSE){
+                            append = FALSE,
+                            path = tempdir()){
   #### 0.0 Prep ####
     ##### 0.1 nChunks ####
   # Find the number of chunks needed to complete the run
@@ -180,7 +185,7 @@ jbd_CfC_chunker <- function(data = NULL,
       ##### 1.5 Save ####
     if(progressiveSave == TRUE){
     # Save as a csv after each iteration
-    readr::write_csv(CountryList, file = "CountryList.csv")}
+    readr::write_csv(CountryList, file = paste0(path, "/CountryList.csv"))}
   } # END loop
   colnames(CountryList) <- c("database_id", "country")
   

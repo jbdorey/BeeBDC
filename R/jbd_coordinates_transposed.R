@@ -27,6 +27,9 @@
 #' @param save_outputs Logical. Indicates if a table containing transposed coordinates should be 
 #' saved for further inspection. Default = FALSE.
 #' @param fileName A character string. The out file's name.
+#' @param path A character string. A path as a character vector for where to create the directories
+#' and save the figures. If 
+#' no path is provided (the default), the directories will be created using [here::here()].
 #
 #' @details This test identifies transposed coordinates based on mismatches between the 
 #' country provided for a record and the record’s latitude and longitude coordinates. Transposed
@@ -94,7 +97,8 @@ jbd_coordinates_transposed <-
            countryCode = "countryCode",
            border_buffer = 0.2,
            save_outputs = FALSE,
-           fileName = NULL) {
+           fileName = NULL,
+           path = NULL) {
     decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
     requireNamespace("bdc")
     requireNamespace("dplyr")
@@ -105,6 +109,8 @@ jbd_coordinates_transposed <-
      #  check_require_github("ropensci/rnaturalearthdata")
     })
     # loadNamespace("rnaturalearthdata")
+    # Copy original wd
+    OGwd <- getwd()
     
     sf::sf_use_s2(TRUE)
     
@@ -176,10 +182,11 @@ jbd_coordinates_transposed <-
         dplyr::select(database_id, scientificName, dplyr::contains("decimal"))
       
       if (save_outputs) {
-        jbd_create_dir()
+        jbd_create_dir(path = path)
+        setwd(path)
         corrected_coordinates %>%
-          readr::write_csv(here::here(
-            paste("Output/Check/", fileName, sep = "")),
+          readr::write_csv(
+            paste(path, "/Output/Check/", fileName, sep = ""),
                            append = TRUE)
         message(
           paste(
@@ -229,4 +236,5 @@ jbd_coordinates_transposed <-
       message("No latitude and longitude were transposed\n")
       return(data)
     }
+    setwd(OGwd)
   }

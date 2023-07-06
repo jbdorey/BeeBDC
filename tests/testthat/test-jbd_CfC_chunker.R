@@ -1,19 +1,21 @@
 requireNamespace("rnaturalearth")
 requireNamespace("BeeDC")
+requireNamespace("dplyr")
 
 data("bees3sp")
 
 
 countryOutput <- BeeDC::jbd_CfC_chunker(data = bees3sp %>%
                                      tidyr::drop_na(decimalLatitude),
-                                        lat = "decimalLatitude",
-                                        lon = "decimalLongitude",
-                                        country = "country",
-                                        # How many rows to process at a time
-                                        stepSize = 50,
-                                        # Start row
-                                        chunkStart = 1,
-                                        append = FALSE)
+                                     lat = "decimalLatitude",
+                                     lon = "decimalLongitude",
+                                     country = "country",
+                                     # How many rows to process at a time
+                                     stepSize = 50,
+                                     # Start row
+                                     chunkStart = 1,
+                                     path = tempdir(),
+                                     append = FALSE)
 
 
   # Test expected number of rows

@@ -1,4 +1,8 @@
 
+requireNamespace("dplyr")
+requireNamespace("lubridate")
+requireNamespace("bdc")
+requireNamespace("mgsub")
 
   # Run example queries
 # Single entry example
@@ -41,13 +45,13 @@
  
  # Test output lengths
  testthat::test_that("BeeDCQuery list size", {
-   testthat::expect_equal(length(testQuerySing), 3)
+   testthat::expect_equal(length(testQuerySing), 4)
  })
  testthat::test_that("BeeDCQuery list size", {
-   testthat::expect_equal(length(testQueryMult), 3)
+   testthat::expect_equal(length(testQueryMult), 4)
  })
  testthat::test_that("BeeDCQuery list size", {
-   testthat::expect_equal(length(testQuerySimple), 2)
+   testthat::expect_equal(length(testQuerySimple), 3)
  })
  
  

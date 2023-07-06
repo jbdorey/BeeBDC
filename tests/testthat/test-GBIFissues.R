@@ -1,5 +1,5 @@
 requireNamespace("tibble")
-requireNamespace("magrittr")
+requireNamespace("dplyr")
 library(dplyr) # couldn't use %>% without this
 
 
@@ -35,7 +35,9 @@ testData <- tibble::tribble( # even step coordinates (different for lat/long)
 
 
 # Run the function
-testOut <- BeeDC::GBIFissues(data = testData, issueColumn = "issue")
+testOut <- BeeDC::GBIFissues(data = testData, 
+                             issueColumn = "issue",
+                             GBIFflags = c("COORDINATE_INVALID", "ZERO_COORDINATE"))
 
 
 # test number of TRUE and FALSE values in the flag column, .GBIFflags
@@ -43,17 +45,17 @@ resultsT <- length(testOut$.GBIFflags[testOut$.GBIFflags == TRUE])
 resultsF <- length(testOut$.GBIFflags[testOut$.GBIFflags == FALSE])
 
 testthat::test_that("GBIFissues column .GBIFflags results TRUE", {
-  testthat::expect_equal(resultsT, 11)
+  testthat::expect_equal(resultsT, 16)
 })
 
 testthat::test_that("GBIFissues column .GBIFflags results FALSE", {
-  testthat::expect_equal(resultsF, 10)
+  testthat::expect_equal(resultsF, 5)
 })
 
 
 # test the order of the TRUE and FALSE values in the flag column, .GBIFflags
-correct <- c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE,  
-             TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE)
+correct <- c(FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, 
+             TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE)
 
 
 testthat::test_that("flag column .GBIFflags results correct series", {

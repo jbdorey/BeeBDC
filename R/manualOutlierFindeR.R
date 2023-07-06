@@ -96,16 +96,16 @@ manualOutlierFindeR <- function(
   # Find the new outliers from the three sheets concatenates by Angela
   outliersAll <- file_finder(path = DataPath,
                              fileName = newOutliersName) %>%
-    readxl::read_xlsx("Outliers_FromCanadaToPanama_ANB", col_types = "text") %>%
+    openxlsx::read.xlsx("Outliers_FromCanadaToPanama_ANB") %>%
     dplyr::bind_rows(file_finder(path = DataPath,
                                  fileName = newOutliersName) %>%
-                       readxl::read_xlsx("Tracys_outliers", col_types = "text")) %>%
+                       openxlsx::read.xlsx("Tracys_outliers")) %>%
     dplyr::bind_rows(file_finder(path = DataPath,
                                  fileName = newOutliersName) %>%
-                       readxl::read_xlsx("Colombian_outliers", col_types = "text")) %>%
+                       openxlsx::read.xlsx("Colombian_outliers")) %>%
     dplyr::bind_rows(file_finder(path = DataPath,
                                  fileName = newOutliersName) %>%
-                       readxl::read_xlsx("Outliers_SppInStatus3", col_types = "text")) %>%
+                       ("Outliers_SppInStatus3")) %>%
     readr::write_csv(paste(tempdir(), "newOutliers.csv", sep = "/"))
   # Read back in with the correct column classes
   outliersAll <- file_finder(path = tempdir(),

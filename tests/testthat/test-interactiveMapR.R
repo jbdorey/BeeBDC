@@ -1,4 +1,5 @@
-
+requireNamespace("xml2")
+requireNamespace("dplyr")
 
 
 # Load in a test dataset

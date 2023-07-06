@@ -7,10 +7,10 @@
 #' 
 #' A simple function that looks for potential latitude and longitude fill-down errors by 
 #' identifying consecutive occurrences with coordinates at regular intervals. This is accomplished
-#' by using a sliding window with the length determined by [minRepeats]
+#' by using a sliding window with the length determined by minRepeats.
 #' 
 #' The sliding window (and hence fill-down errors) will only be examined 
-#' within the user-defined [groupingColumns]; if any of those 
+#' within the user-defined groupingColumns; if any of those 
 #' columns are empty, that record will be excluded.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
@@ -48,8 +48,8 @@ diagonAlley <- function(
   ){
   # locally bind variables to the function
   eventDate<-recordedBy<-decimalLatitude<-decimalLongitude<-database_id<-.data<-leadingLat<-
-    laggingLat<-diffLead_Lat<-diffLag_Lat<-diffLat<-leadingLong<-laggingLong<-diffLead_long<-
-    diffLag_long<-diffLong <- NULL
+    laggingLat<-diffLead_Lat<-diffLag_Lat<-diffLat<- . <- NULL
+  .rou <- leadingLon <- laggingLon <- diffLead_Lon <- diffLag_Lon <- diffLon <- NULL
   
   #### 0.0 Warnings ####
   if(is.null(data)){
@@ -87,7 +87,7 @@ diagonAlley <- function(
   runningData <- runningData %>%
       # Remove incomplete values 
     tidyr::drop_na( tidyselect::all_of(groupingColumns)) %>%
-    filter(complete.cases(decimalLatitude, decimalLongitude)) %>%
+    tidyr::drop_na(decimalLatitude, decimalLongitude) %>%
       # Select fewer columns to make it easier on the old computer
     dplyr::select(database_id, decimalLatitude, decimalLongitude, 
                   tidyselect::all_of(groupingColumns)) %>%
@@ -102,6 +102,7 @@ diagonAlley <- function(
     dplyr::filter(dplyr::n() >= minRepeats) 
   
   #### 2.0 Identify sequences ####
+  if(nrow(runningData) > 0){
     ##### 2.1 Lat sequences ####
   # Find the groups where ALL of the differences between values is the same (is.sequential)
     # Return their database_id
@@ -250,6 +251,9 @@ diagonAlley <- function(
     flagRecords <- flagRecords %>%
       dplyr::distinct()
   } # END I loop
+  }else{
+    flagRecords = tibble::tibble(database_id = NA_character_)
+  } # END nrow(runningData) > 0
   
   
   #### 2.0 Merge ####

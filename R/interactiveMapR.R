@@ -149,7 +149,7 @@ database <- database %>%
 
 # If there is no .expertOutlier then add one as all NA
 if(!".expertOutlier" %in% colnames(database)){
-  warning("The column .expertOutlier was not found. One will be created with all values = TRUE.")
+  message("The column .expertOutlier was not found. One will be created with all values = TRUE.")
   database <- database %>% 
     dplyr::mutate(.expertOutlier = TRUE)
 }

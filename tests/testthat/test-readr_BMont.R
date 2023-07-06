@@ -1,6 +1,7 @@
 requireNamespace("readr")
 requireNamespace("tibble")
-requireNamespace("tidyverse")
+requireNamespace("dplyr")
+
 library(dplyr) ## could not use %>% without loading as library - namespace is inadequate, apparently
 
 

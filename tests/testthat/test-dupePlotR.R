@@ -1,5 +1,6 @@
 requireNamespace("dplyr")
 requireNamespace("ggplot2")
+requireNamespace("BeeDC")
 
 
 data("beesFlagged")

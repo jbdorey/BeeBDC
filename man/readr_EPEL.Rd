@@ -16,6 +16,8 @@
 \alias{readr_Lic}
 \alias{readr_Dor}
 \alias{readr_BBD}
+\alias{readr_STRI}
+\alias{readr_PALA}
 \title{Reads specific data files into Darwin Core format}
 \usage{
 readr_EPEL(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
@@ -53,6 +55,10 @@ readr_Lic(
 readr_Dor(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 
 readr_BBD(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_STRI(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_PALA(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
 }
 \arguments{
 \item{path}{Character path. The path to the directory containing the data.}
@@ -100,6 +106,10 @@ Data files are specific to various data providers and users may examine code fun
 \item \code{readr_Dor()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_BBD()}: Reads specific data files into Darwin Core format
+
+\item \code{readr_STRI()}: Reads specific data files into Darwin Core format
+
+\item \code{readr_PALA()}: Reads specific data files into Darwin Core format
 
 }}
 \examples{

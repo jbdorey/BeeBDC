@@ -14,7 +14,8 @@ jbd_coordinates_transposed(
   countryCode = "countryCode",
   border_buffer = 0.2,
   save_outputs = FALSE,
-  fileName = NULL
+  fileName = NULL,
+  path = NULL
 )
 }
 \arguments{
@@ -50,6 +51,10 @@ Default = 0.2 (~22 km at the equator).}
 saved for further inspection. Default = FALSE.}
 
 \item{fileName}{A character string. The out file's name.}
+
+\item{path}{A character string. A path as a character vector for where to create the directories
+and save the figures. If
+no path is provided (the default), the directories will be created using \code{\link[here:here]{here::here()}}.}
 }
 \value{
 A tibble containing the column "coordinates_transposed" which indicates if

@@ -1,5 +1,6 @@
 requireNamespace("readr")
 requireNamespace("tibble")
+requireNamespace("BeeDC")
 
 
 # make us some data - this is FAKE DATA derived from records from SCAN

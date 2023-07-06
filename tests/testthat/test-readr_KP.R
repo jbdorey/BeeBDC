@@ -1,6 +1,8 @@
 requireNamespace("readr")
 requireNamespace("tibble")
 requireNamespace("BeeDC")
+requireNamespace("openxlsx")
+requireNamespace("dplyr")
 library(dplyr) ## could not use %>% without loading as library
 
 
@@ -13,6 +15,10 @@ testData <- tibble::tribble(
               "discoverlife fake4 USGS-DRO. fake4",           "USGS",      "S. Droege",      1L,    1L,      0L,              "Net", "2016-03-25 00:00:00 UTC", "S. Droege", "Hymenoptera", "Anthophila",       "Apidae",             NA,            NA,         "Apis",                NA,        NA,   "mellifera",          NA,   "Linnaeus, 1758",             "Apis mellifera Linnaeus, 1758",    "USA",       "NY",            "Kings Co.",           "Brooklyn Bridge Park",              "40.69",                 -73
               )
 
+# Be sure that the testData is not already in tempdir
+testDataPath <- file.info(list.files(tempdir(), full.names = T, 
+                                     pattern = "testData.xslx", recursive = TRUE))
+unlink(rownames(testDataPath))
 
 # Save a temporary version of these data
 openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"))
@@ -36,7 +42,7 @@ testthat::test_that("readr_KP results columns TRUE", {
 })
 
 testthat::test_that("readr_KP results columns FALSE", {
-  testthat::expect_equal(resultsF, 2)
+  testthat::expect_equal(resultsF, 3)
 })
 
 testthat::test_that("readr_KP expected class", {

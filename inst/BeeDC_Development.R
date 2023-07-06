@@ -40,7 +40,7 @@ use_github_actions()
   ##### 2.1 Descriptions ####
 # Write DESCRIPTION file inst
 packageDir <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeDC"
-packageVersion <- "0.0.4"
+packageVersion <- "0.0.5"
 setwd(packageDir)
 usethis::create_package(path = packageDir,
                         roxygen = TRUE,
@@ -89,7 +89,7 @@ requiredPackages <- sort(c("bdc",
                            'stringr', 'tibble', 'tidyselect', 'vroom',
                            "dplyr","forcats","lubridate","EML","mgsub",
                            "circlize", 
-                           "readxl","cowplot","igraph","ggspatial",  
+                           "openxlsx","cowplot","igraph","ggspatial",  
                             "here",  "paletteer",
                            "ComplexHeatmap"))
   # "R.utils","rlist",
@@ -97,7 +97,8 @@ lapply(requiredPackages,  usethis::use_package, type = "Imports")
 
   # Add suggested packages
 suggestedPackages <- sort(c("rlang", "xml2",  "rvest", "countrycode", "rangeBuilder",
-                            "rworldmap", "hexbin", "janitor", "rnaturalearthdata",
+                            #"rworldmap", 
+                            "hexbin", "janitor", "rnaturalearthdata",
                             "terra", "chorddiag", "rnaturalearthhires", "R.utils", "xlsx",
                             "testthat", "emld", "purrr", "tidyr",
                             "classInt", "htmlwidgets", "httr", "leaflet", "plotly", 

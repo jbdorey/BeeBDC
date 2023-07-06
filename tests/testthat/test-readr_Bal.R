@@ -1,6 +1,8 @@
 requireNamespace("readr")
 requireNamespace("tibble")
 requireNamespace("openxlsx")
+requireNamespace("dplyr")
+
 library(dplyr) ## could not use %>% without loading as library
 
 
@@ -23,6 +25,10 @@ testData <- testData %>%
 testData <- testDataCols %>%
   rbind(testData)
 
+# Be sure that the testData is not already in tempdir
+testDataPath <- file.info(list.files(tempdir(), full.names = T, 
+                                     pattern = "testData.xslx", recursive = TRUE))
+unlink(rownames(testDataPath))
 
 # Save a temporary version of these data
 openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName = "animal_data")

@@ -1,5 +1,6 @@
 requireNamespace("readr")
 requireNamespace("tibble")
+requireNamespace("dplyr")
 library(dplyr) ## could not use %>% without loading as library
 
 

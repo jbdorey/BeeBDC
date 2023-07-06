@@ -38,6 +38,8 @@ flagLicense <- function(data = NULL,
     requireNamespace("dplyr")
     requireNamespace("rlang") 
 
+    #### 1.0 Preperation ####
+      ##### 1.1 strings_to_restrict ####
       # Flag if these strigns are present for NO USE!
     if (strings_to_restrict[1] == "all") {
       strings_to_restrict <-
@@ -47,6 +49,39 @@ flagLicense <- function(data = NULL,
           "ND", # noDerivatives to be distributed
           "Not for public") # I fear this has been uploaded in error?
     }
+      ##### 1.2 Missing columns ####
+        ###### a. dataSource ####
+      # If the dataSource column is not in the dataset, fill it in with "NA"s
+    if(!any(colnames(data) %in% "dataSource")){
+    data <- data %>%
+      dplyr::mutate(dataSource = NA_character_)
+    message("No dataSource provided. Filling this column with NAs...")
+    }
+    ###### b. rights ####
+    # If the rights column is not in the dataset, fill it in with "NA"s
+    if(!any(colnames(data) %in% "rights")){
+      data <- data %>%
+        dplyr::mutate(rights = NA_character_)
+      message("No rights provided. Filling this column with NAs...")
+    }
+    
+    ###### c. license ####
+    # If the license column is not in the dataset, fill it in with "NA"s
+    if(!any(colnames(data) %in% "license")){
+      data <- data %>%
+        dplyr::mutate(license = NA_character_)
+      message("No license provided. Filling this column with NAs...")
+    }
+    
+    ###### a. accessRights ####
+    # If the accessRights column is not in the dataset, fill it in with "NA"s
+    if(!any(colnames(data) %in% "accessRights")){
+      data <- data %>%
+        dplyr::mutate(accessRights = NA_character_)
+      message("No accessRights provided. Filling this column with NAs...")
+    }
+    
+    
     
     # Make a new column called .unLicensed to be TRUE when ... the restricted flags are present in 
       # any of the rights, license, or accessRights columns.

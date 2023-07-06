@@ -17,6 +17,7 @@ jbd_Ctrans_chunker(
   stepSize = 1e+06,
   chunkStart = 1,
   progressiveSave = TRUE,
+  path = tempdir(),
   append = TRUE
 )
 }
@@ -48,6 +49,9 @@ the function from a certain chunk; for example if R failed unexpectedly.}
 
 \item{progressiveSave}{Logical. If TRUE then the country output list will be saved between
 each iteration so that \code{append} can be used if the function is stopped part way through.}
+
+\item{path}{Character. The path to a file in which to save the 01_coordinates_transposed_
+output.}
 
 \item{append}{Logical. If TRUE, the function will look to append an existing file.}
 }
@@ -86,6 +90,7 @@ stepSize = 1000000,
 chunkStart = 1,  
 # Progressively save the output between each iteration?
 progressiveSave = FALSE,
+path = tempdir(),
 # If FALSE it may overwrite existing dataset
 append = FALSE  
 ) 

@@ -1,5 +1,5 @@
 requireNamespace("tibble")
-requireNamespace("magrittr")
+requireNamespace("dplyr")
 library(dplyr) # couldn't use %>% without this
 
 

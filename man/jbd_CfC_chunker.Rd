@@ -12,7 +12,8 @@ jbd_CfC_chunker(
   stepSize = 1e+06,
   chunkStart = 1,
   progressiveSave = TRUE,
-  append = FALSE
+  append = FALSE,
+  path = tempdir()
 )
 }
 \arguments{
@@ -33,6 +34,9 @@ restart the function from a certain chunk. For example, can be used if R failed 
 each iteration so that \code{append} can be used if the function is stopped part way through.}
 
 \item{append}{Logical. If TRUE, the function will look to append an existing file.}
+
+\item{path}{Character. The directory path to a folder in which to save the running countrylist
+csv file.}
 }
 \value{
 A data frame containing database_ids and a country column
@@ -50,6 +54,7 @@ time. The prefix jbd_ is used to highlight the difference between this function 
 # outside of the main function.
 library(dplyr)
 data(beesFlagged)
+HomePath = tempdir()
 # Tibble of common issues in country names and their replacements
 commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
 'United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
@@ -78,6 +83,7 @@ suppressWarnings(
                                    chunkStart = 1,
                                     # Progressively save the country list between each iteration?
                                    progressiveSave = FALSE,
+                                   path = HomePath,
                                    append = FALSE),
   classes = "warning")
 

@@ -18,13 +18,13 @@ citEntry(
 
 citEntry(
   entry    = "Manual",
-  title    = "BeeDC: an Occurrence Data Cleaning Package",
+  title    = "BeeDC: an occurrence data cleaning package",
   author   = person("Dorey, James B [aut],O’Reilly, Robert L [aut],Bossert, Silas [aut],Fischer, Erica [aut]"),
   year     = "2023",
   note    = "R package version 0.0.1",
   url      = "https://github.com/jbdorey/BeeDC",
   textVersion = paste(
-"Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer, E. (2023). BeeDC: a bee and other occurrence data cleaning package. R package version 0.0.1. url: https://github.com/jbdorey/BeeDC"
+"Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer, E. (2023). BeeDC: an occurrence data cleaning package. R package version 0.0.5. url: https://github.com/jbdorey/BeeDC"
   )
 )
 

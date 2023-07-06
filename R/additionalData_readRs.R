@@ -123,7 +123,7 @@ readr_ASP <- function(path = NULL,
                       dataLicense = NULL){
   # locally bind variables to the function
   Tribe <- Morphospecies <- Successional_Stage <- genus <- specificEpithet <- NULL
-  eventDate <- catalogNumber <- . <- NULL
+  eventDate <- catalogNumber <- . <- elevation <- NULL
   #### 2.1 Prep ####
   requireNamespace("dplyr")
   
@@ -247,7 +247,7 @@ readr_BMont <- function(path = NULL,
                       dataLicense = NULL){
   # locally bind variables to the function
   occurence_lsid <- fieldNotes <- GPS_device <- . <- catalogNumber <- eventDate <- dateTest <- NULL
-  tempDate <- mdy <- NULL
+  tempDate <- mdy <- VerbatimEventDate <- NULL
   
   
   #### 4.1 Prep ####
@@ -329,7 +329,7 @@ readr_Ecd <- function(path = NULL,
                        outFile = NULL,
                       dataLicense = NULL){
   # locally bind variables to the function
-  year <- day <- institutionCode <- id <- . <- catalogNumber <- NULL
+  year <- day <- institutionCode <- id <- . <- catalogNumber <- recordID <- NULL
   
   #### 5.1 Prep ####
   requireNamespace("dplyr")
@@ -506,9 +506,7 @@ readr_CAES <- function(path = NULL,
 
   #### 7.2 Read+ ####
     # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-CAES_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
-                             trim_ws = TRUE, col_types = "text",
-                             progress = readxl::readxl_progress()) %>%
+CAES_data <- openxlsx::read.xlsx(paste(path, inFile, sep = ""), sheet = sheet) %>%
   # Turn spaces into "_" in column names
   dplyr::rename_with(., ~ gsub(" ", "_", .x, fixed = TRUE)) %>%
   # Make columns DarwinCore-compatible
@@ -667,8 +665,7 @@ readr_KP <- function(path = NULL,
   
   #### 9.2 Read+ ####
   # Reads in the .xlsx file, trims the white spaces, and formats the columns to the correct type
-KP_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                               trim_ws = TRUE, guess_max = 33000) %>%
+KP_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/")) %>%
     # Turn spaces into "_" in column names
     dplyr::rename_with(., ~ gsub(" ", "_", .x, fixed = TRUE)) %>%
     # Make columns DarwinCore-compatible
@@ -871,7 +868,7 @@ readr_GeoL <- function(path = NULL,
     occurrencestatus<-recordnumber<-recordedby<-eventid<-samplingprotocol<-samplingeffort<-
     individualcount<-catalognumber<-rightsholder<-institutioncode<-datasetname<-
     othercatalognumbers<-occurrenceid<-coreid<-recordid<-collectionid<-
-    verbatimscientificname<-verbatimeventdate<-id <- NULL
+    verbatimscientificname<-verbatimeventdate<-id <- . <- NULL
   
   #### 12.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -885,10 +882,10 @@ readr_GeoL <- function(path = NULL,
   #### 12.2 Read+ ####
     ###### a. GeoL_high ####
   # Reads in the .xlsx file, trims the white spaces, and formats the columns to the correct type
-  GeoL_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                               trim_ws = TRUE, 
-                               sheet = "GEOLOCATE HIGH",
-                               col_types = "text") %>%
+  GeoL_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                               sheet = "GEOLOCATE HIGH") %>%
+    # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
       # Convert GeoLocate columns into dwc columns
     dplyr::rename(
       decimalLatitude = geolocate_Latitude, decimalLongitude = geolocate_Longitude,
@@ -909,10 +906,8 @@ readr_GeoL <- function(path = NULL,
   
   ###### b. BELS_high ####
   # Reads in the .xlsx file, trims the white spaces, and formats the columns to the correct type
-  BELS_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                                  trim_ws = TRUE, 
-                                  sheet = "BELS High",
-                                  col_types = "text") %>%
+  BELS_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                                  sheet = "BELS High") %>%
     # Convert GeoLocate columns into dwc columns
     dplyr::rename(
       decimalLatitude = bels_decimallatitude, 
@@ -1024,8 +1019,9 @@ readr_EaCO <- function(path = NULL,
   
   #### 13.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-  EaCO_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                               trim_ws = TRUE, guess_max = 33000) %>%
+  EaCO_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/")) %>%
+    # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Rename columns
     dplyr::rename(
       recordNumber = 'Specimen Number',
@@ -1146,10 +1142,10 @@ readr_MABC <- function(path = NULL,
   
   #### 14.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-  MABC_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                                  trim_ws = TRUE,
-                                  col_types = "text",
+  MABC_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                   sheet = sheet) %>%
+    # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = 'Ejemplar',
@@ -1258,10 +1254,10 @@ readr_Col <- function(path = NULL,
   #### 15.2 Read+ ####
     ###### a. Col_data ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-  Col_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                                 sheet = sheet,
-                                  trim_ws = TRUE, 
-                                 col_types = "text") %>%
+  Col_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                                 sheet = sheet) %>%
+    # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = paste0('C\u00f3digo de Barras'),
@@ -1325,7 +1321,8 @@ readr_Col <- function(path = NULL,
       month = dplyr::if_else(month == "0" | month == "00",
                            "", month) %>%
         stringr::str_remove("^0") %>%
-        as.numeric(na.rm = TRUE)
+        as.numeric(na.rm = TRUE),
+      year = year %>% as.numeric()
     ) %>%
     dplyr::mutate(
       eventDate = lubridate::ymd(paste(year, month, day, sep = "/"), 
@@ -1401,7 +1398,7 @@ readr_FSCA <- function(path = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
   # locally bind variables to the function
-  . <- catalogNumber <- NULL
+  . <- catalogNumber <- recordID <- NULL
   
   #### 16.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -1415,8 +1412,7 @@ readr_FSCA <- function(path = NULL,
   #### 16.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
   FSCA_data <- readr::read_csv(paste(path, inFile, sep = "/"),
-                                  trim_ws = TRUE, col_types = ColTypeR()) %>%
-    dplyr::rename(recordId = recordID) %>%
+                                  trim_ws = TRUE) %>%
     # Add dataset information
     dplyr::mutate(dataSource = "FSCA_Anthophila") %>%
     # Remove any double white-spaces
@@ -1424,7 +1420,7 @@ readr_FSCA <- function(path = NULL,
     # add the database_id column
     dplyr::mutate(
       database_id = paste("FSCA_data_", 1:nrow(.), sep = ""),
-      .before = catalogNumber)  %>%
+      .before = 1)  %>%
     dplyr::mutate(license = dataLicense) %>%
     # keep only valid columns
     dplyr::select( tidyselect::any_of(names(ColTypeR()[[1]]))) %>%
@@ -1534,9 +1530,10 @@ readr_Bal <- function(path = NULL,
   
   #### 18.2 Read+ ####
   # Reads in the .xlsx file, trims the white spaces, and formats the columns to the correct type
-  Bal_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                                 trim_ws = TRUE, guess_max = 33000,
-                                 sheet = "animal_data", skip = 1) %>%
+  Bal_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                                 sheet = "animal_data", startRow = 2) %>%
+    # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Make columns DarwinCore-compatible
     dplyr::rename(
       locationID = siteID,
@@ -1718,10 +1715,7 @@ readr_Arm <- function(path = NULL,
   
   #### 20.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-  Arm_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
-                                 trim_ws = TRUE, col_types = "text",
-                                 progress = 
-                                  readxl::readxl_progress()) %>%
+  Arm_data <- openxlsx::read.xlsx(paste(path, inFile, sep = ""), sheet = sheet) %>%
     # Make columns DarwinCore-compatible
     dplyr::rename(
       family = fam,
@@ -1825,7 +1819,7 @@ readr_Dor <- function(path = NULL,
                       outFile = NULL,
                       dataLicense = NULL){
   # locally bind variables to the function
-  . <- catalogNumber <- eventDate <- NULL
+  . <- catalogNumber <- eventDate <- stateOrProvince <- NULL
   
   #### 21.1 Prep ####
   requireNamespace("dplyr")
@@ -1890,9 +1884,9 @@ readr_MEPB <- function(path = NULL,
 
   
   #### 22.2 Read+ ####
-  MEPB_data <- readxl::read_xlsx(paste(path, inFile, sep = ""), sheet = sheet,
-                                 trim_ws = TRUE, col_types = "text",
-                                 progress = readxl::readxl_progress())  %>%
+  MEPB_data <- openxlsx::read.xlsx(paste(path, inFile, sep = ""), sheet = sheet)  %>%
+    # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Fix broken encodings
     dplyr:: mutate(
       dplyr::across(
@@ -1911,7 +1905,10 @@ readr_MEPB <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "MEPB_Anthophila") %>%
     # Format date
-    dplyr::mutate(eventDate = lubridate::ymd(stringr::str_c(year, month, day, sep = "/"),
+    dplyr::mutate(eventDate = lubridate::ymd(stringr::str_c(year %>% as.numeric(), 
+                                                            month %>% as.numeric(), 
+                                                            day %>% as.numeric(), 
+                                                            sep = "/"),
                                              truncated = 2)) %>%
     # Pick up dates of different formats and format together.
     dplyr::mutate(license = dataLicense) %>%
@@ -2061,13 +2058,13 @@ readr_MPUJ <- function(path = NULL,
                       sheet = sheet){
   # locally bind variables to the function
   collector1stName <- collectorsLastName <- determined1stName <- determinedLastName <- NULL
-  day <- year <- eventDate <- endDate <- . <- catalogNumber <- NULL
+  day <- year <- eventDate <- endDate <- . <- catalogNumber <- fieldNotes <- NULL
+  `Start Date (Year)` <- `Start Date (Month)` <- `Start Date (Day)` <- NULL
   
   #### 24.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
   # R using install.packages("dplyr")... etc.
   requireNamespace("dplyr")
-  
   requireNamespace("lubridate")
   requireNamespace("bdc")
 
@@ -2075,10 +2072,10 @@ readr_MPUJ <- function(path = NULL,
   #### 24.2 Read+ ####
   ###### a. MPUJ_data ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-  MPUJ_data <- readxl::read_excel(paste(path, inFile, sep = "/"),
-                                 sheet = sheet,
-                                 trim_ws = TRUE, 
-                                 col_types = "text") %>%
+  MPUJ_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                                 sheet = sheet) %>%
+      # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = 'Catalog Number',
@@ -2110,9 +2107,9 @@ readr_MPUJ <- function(path = NULL,
       specificEpithet = "Species",
       infraspecificEpithet = "Subspecies",
       scientificNameAuthorship = "Species Author",
-      day = 'Start Date (Day)',
-      month = 'Start Date (Month)',
-      year = "Start Date (Year)",
+      day = `Start Date (Day)`,
+      month = `Start Date (Month)`,
+      year = `Start Date (Year)`,
       associatedTaxa = "Associated Taxa",
       associatedOccurrences = "Associated Ocurrence",
       lifeStage = "Stage",
@@ -2123,6 +2120,9 @@ readr_MPUJ <- function(path = NULL,
       endDate = "End Date",
       verbatimEventDate = "Verbatim Date"
       ) %>%
+    dplyr::mutate(year = year %>% as.numeric(),
+                  month = month %>% as.numeric(),
+                  day = day %>% as.numeric()) %>%
     dplyr::mutate(recordedBy = stringr::str_c(collector1stName, collectorsLastName,
                                               sep = " "),
                   identifiedBy = stringr::str_c(determined1stName, determinedLastName,
@@ -2163,3 +2163,244 @@ readr_MPUJ <- function(path = NULL,
   return(MPUJ_data)
 } # END readr_MPUJ
 
+
+
+#### 25.0 STRI ####
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
+#' @export
+#' 
+readr_STRI <- function(path = NULL,
+                       inFile = NULL,
+                       outFile = NULL,
+                       dataLicense = NULL){
+  # locally bind variables to the function
+  fieldNotes <- Catalognumber <- . <- day <- year <- catalogNumber <-  NULL
+  
+  #### 25.1 Prep ####
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
+  # R using install.packages("dplyr")... etc.
+  requireNamespace("dplyr")
+  
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+  
+  
+  #### 25.2 Read+ ####
+  ###### a. STRI_data ####
+  # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
+  STRI_data <- readr::read_csv(paste(path, inFile, sep = "/"),
+                                  trim_ws = TRUE) %>% 
+    # Rename columns
+    dplyr::mutate(
+      fieldNotes = stringr::str_c(
+        dplyr::if_else(!is.na(Catalognumber),
+                       paste0("secondary catalog #: ", Catalognumber), ""),
+                       sep = "|"),
+      species = "scientificName") %>%
+      # Format dates
+    dplyr::mutate(
+        # If day is not recorded, set to first day of month
+      day = dplyr::if_else(day == 0, 1, day),
+      eventDate = lubridate::dmy(stringr::str_c(day, month, year, sep = "/"), 
+                                             truncated = 2)) %>%
+    # Remove any double white-spaces
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    # add the database_id column
+    dplyr::mutate(
+      database_id = paste("STRI_data_", 1:nrow(.), sep = ""),
+      .before = catalogNumber)  %>%
+    # Add dataset information
+    dplyr::mutate(dataSource = "STRI_Anthophila") %>%
+    dplyr::mutate(license = dataLicense)  %>%
+    # add the database_id column
+    dplyr::mutate(
+      datasetName = "STRI",
+      datasetID = "STRI"
+    )
+  
+  #### 25.3 Out ####
+  # Save the dataset
+  readr::write_csv(STRI_data, file = paste(path, outFile, sep = "/"))
+  # Return the data from the function to the user
+  return(STRI_data)
+} # END readr_STRI
+
+
+
+
+#### 26.0 PALA ####
+#' @describeIn readr_EPEL
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
+#' @export
+#' 
+readr_PALA <- function(path = NULL,
+                       inFile = NULL,
+                       outFile = NULL,
+                       dataLicense = NULL){
+  # locally bind variables to the function
+  romanNumerals <- numeralConversion <- catalogNumber <- type <- country <- municipality <- NULL
+  locality <- decimalLatitude <- decimalLongitude <- verbatimElevation <- verbatimEventDate <- NULL
+  recordedBy <- collectionCode <- otherCatalogNumbers <- associatedTaxa <- taxonRemarks <- NULL
+  family <- genus <- references <- specificEpithet <- scientificName <- . <- eventDate <- NULL
+  
+  #### 26.1 Prep ####
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
+  # R using install.packages("dplyr")... etc.
+  requireNamespace("dplyr")
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+  requireNamespace("mgsub")
+  
+  
+  #### 26.2 Read+ ####
+  ###### a. month strings ####
+    # Prepare month strings to convert from roman numerals
+  romanNumerals <- c("i","ii","iii","iv","v","vi","vii","viii","ix","x","xi","xii",
+                     "I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII")
+  numeralConversion <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                         "Jul", "Aug", "Sep", "Oct","Nov", "Dec",
+                         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                         "Jul", "Aug", "Sep", "Oct","Nov", "Dec")
+  
+  ###### b. PALA_data ####
+  # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
+  PALA_data <- readr::read_csv(paste(path, inFile, sep = "/"),
+                               trim_ws = TRUE) %>%
+  # Rename columns
+    dplyr::rename(
+      catalogNumber = "catalogNumber",
+      type = "Type",
+      country = "Country",
+      municipality = "Muninciplaity",
+      locality = "Site",
+      decimalLatitude = "Latitud",
+      decimalLongitude = "Longitude",
+      verbatimElevation = "elevation",
+      verbatimEventDate = "date",
+      recordedBy = "recordedby",
+      collectionCode = "Collection",
+      otherCatalogNumbers = "othercatalognumber",
+      associatedTaxa = "AssociatedTaxa",
+      taxonRemarks = "taxonremarks",
+      family = "Family",
+      genus = "Genus",
+      specificEpithet = "species",
+      references = "Citation"
+    ) %>%
+      # Add in sciName
+    dplyr::mutate(scientificName = stringr::str_c(genus, specificEpithet, sep = " ")) %>%
+      # Format date
+    dplyr::mutate(eventDate = verbatimEventDate %>%
+                    mgsub::mgsub(
+                      pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
+                      replacement = numeralConversion) %>%
+                    lubridate::dmy(truncated = 2, quiet = TRUE),
+                  .after = verbatimEventDate) %>% 
+      # Add day, month, year
+    dplyr::mutate(
+      day = lubridate::day(eventDate),
+      month = lubridate::month(eventDate),
+      year = lubridate::year(eventDate),
+      .after = eventDate
+    ) %>%
+    # Remove any double white-spaces
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    # add the database_id column
+    dplyr::mutate(
+      database_id = paste("PALA_data_", 1:nrow(.), sep = ""),
+      .before = catalogNumber)  %>%
+    # Add dataset information
+    dplyr::mutate(dataSource = "PALA_Anthophila") %>%
+    dplyr::mutate(license = dataLicense)  %>%
+    # add the database_id column
+    dplyr::mutate(
+      datasetName = "PALA",
+      datasetID = "PALA"
+    )
+  
+  #### 26.3 Out ####
+  # Save the dataset
+  readr::write_csv(PALA_data, file = paste(path, outFile, sep = "/"))
+  # Return the data from the function to the user
+  return(PALA_data)
+} # END readr_PALA
+
+
+
+
+#### 27.0 JoLa ####
+#' @describeIn readr_CAES
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
+#' @export
+#' 
+readr_JoLa <- function(path = NULL,
+                       inFile = NULL,
+                       outFile = NULL,
+                       dataLicense = NULL,
+                       sheet = c("pre-1950", "post-1950")){
+  # locally bind variables to the function
+  fieldNotes <- Catalognumber <-`Start Date (Year)` <- genus <- specificEpithet <-  NULL
+  year <- . <- NULL
+  
+  #### 27.1 Prep ####
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
+  # R using install.packages("dplyr")... etc.
+  requireNamespace("dplyr")
+  requireNamespace("lubridate")
+  requireNamespace("bdc")
+  
+  
+  
+  #### 27.2 Read+ ####
+  ###### a. JoLa_data ####
+  # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
+    # Read in both sheets and bind them together
+  JoLa_data <-  openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                                   sheet = sheet[1]) %>% 
+    dplyr::bind_rows(openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                                        sheet = sheet[2])) %>%
+      # Rename the columns
+    dplyr::rename(
+      specificEpithet = "Species",
+      decimalLatitude = "Latitude1",
+      decimalLongitude = "Longitude1",
+      year = `Start Date (Year)`
+    ) %>%
+    # Add in higher taxonomic information
+    dplyr::mutate(
+      genus = "Lasioglossum",
+      family = "Halictidae",
+      order = "Hymenoptera",
+      scientificName = stringr::str_c(genus, specificEpithet, sep = " ")
+    ) %>%
+    dplyr::mutate(
+      eventDate = lubridate::ymd(year, truncated = 2)
+    ) %>%
+    # Remove any double white-spaces
+    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    # add the database_id column
+    dplyr::mutate(
+      database_id = paste("JoLa_data_", 1:nrow(.), sep = ""),
+      .before = 1)  %>%
+    # Add dataset information
+    dplyr::mutate(dataSource = "JoLa_Anthophila") %>%
+    dplyr::mutate(license = dataLicense)  %>%
+    # add the database_id column
+    dplyr::mutate(
+      datasetName = "JoLa",
+      datasetID = "JoLa"
+    )
+  
+  #### 27.3 Out ####
+  # Save the dataset
+  readr::write_csv(JoLa_data, file = paste(path, outFile, sep = "/"))
+  # Return the data from the function to the user
+  return(JoLa_data)
+} # END readr_JoLa

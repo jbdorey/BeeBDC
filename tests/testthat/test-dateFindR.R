@@ -1,6 +1,5 @@
 requireNamespace("dplyr")
 requireNamespace("tibble")
-requireNamespace("magrittr")
 
 
 testData <- tibble::tribble( # even step coordinates (different for lat/long)
@@ -13,7 +12,8 @@ testData <- tibble::tribble( # even step coordinates (different for lat/long)
   "fake SCAN6", "fakeDataset", "",                                      NA,                   "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",                             NA,                  NA,                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "", 2005L,     6L,  28L, "28 Jun 2005/29 Jun 2005", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.546,        -121.75672,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA,                                              NA,                                                                                 NA,
   "fake SCAN7", "fakeDataset", "",                                      NA,                   "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",                             NA,                  NA,                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "", NA,     NA,  NA, "28 IX 2005", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.546,        -121.75672,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA,                                              NA,                                                                                 NA,
   "fake SCAN8", "fakeDataset", "",                                      NA,                   "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",                             NA,                  NA,                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "", NA,     NA,  NA, "I 2022", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.546,        -121.75672,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA,                                              NA,                                                                                 NA,
-  "fake SCAN10", "fakeDataset", "",                                      NA,                   "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",                             NA,                  NA,                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "", NA,     NA,  NA, "2022", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.546,        -121.75672,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA,                                              NA,                                                                                 NA
+  "fake SCAN10", "fakeDataset", "",                                      NA,                   "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",                             NA,                  NA,                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "", NA,     NA,  NA, "2022", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.546,        -121.75672,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA,                                              NA,                                                                                 NA,
+  "fake SCAN11", "fakeDataset", "",                                      NA,                   "CAS",        "ANTWEB",        "UCDC, Davis, CA, USA", "PreservedSpecimen",                             NA,                  NA,                   NA, "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera",        "P.S. Ward",  "2005-05-05", NA,     NA,  NA, "2022", "United States",   "California",    "Davis", "coordinates obtained from Label",           38.546,        -121.75672,                       15L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",            NA,                                              NA,                                                                                 NA
   
   )
 
@@ -29,7 +29,7 @@ testOut <- BeeDC::dateFindR(data = testData,
 
 # Test the expected results
 testthat::test_that("dateFindR results successfuly matched", {
-  testthat::expect_equal(sum(complete.cases(testOut$eventDate) ), 8)
+  testthat::expect_equal(sum(complete.cases(testOut$eventDate) ), 9)
 })
 testthat::test_that("dateFindR results unsuccessfuly matched", {
   testthat::expect_equal(sum(is.na(testOut$eventDate) ), 1)
@@ -39,7 +39,7 @@ testthat::test_that("dateFindR output dates match", {
   testthat::expect_equal(testOut$eventDate %>% as.character(),
                          c("2005-06-28", "2022-03-03", "2005-06-28", "2022-02-01", 
                            "2005-06-28", "2005-06-28", "2020-09-28", "2022-01-01",
-                          NA))
+                          NA, "2005-05-05"))
 })
 
   # Test classes

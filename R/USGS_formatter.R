@@ -72,7 +72,7 @@ USGS_formatter <- function(
     USGS_data <- readr::read_delim(USGS_loc[[1]],
                                    delim = "$")
     # Make a copy of the problems, if they exist
-    USGS_problems <- problems(USGS_data)
+    USGS_problems <- readr::problems(USGS_data)
   }
   
   #### Metadata building ####

@@ -8,6 +8,7 @@
 \alias{readr_Arm}
 \alias{readr_MEPB}
 \alias{readr_MPUJ}
+\alias{readr_JoLa}
 \title{Reads specific data files into Darwin Core format}
 \usage{
 readr_CAES(
@@ -59,6 +60,14 @@ readr_MPUJ(
   dataLicense = NULL,
   sheet = sheet
 )
+
+readr_JoLa(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = c("pre-1950", "post-1950")
+)
 }
 \arguments{
 \item{path}{A character path. The path to the directory containing the data.}
@@ -92,6 +101,8 @@ Data files are specific to various data providers and users may examine code fun
 \item \code{readr_MEPB()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_MPUJ()}: Reads specific data files into Darwin Core format
+
+\item \code{readr_JoLa()}: Reads specific data files into Darwin Core format
 
 }}
 \examples{

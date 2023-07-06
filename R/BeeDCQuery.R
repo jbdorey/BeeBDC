@@ -44,7 +44,7 @@ BeeDCQuery <- function(
     printAllSynonyms = FALSE){
   # locally bind variables to the function
   data <- beesTaxonomy <- validName <- accid <- inputName <- id <- beesChecklist <- 
-    rowMatched <- NULL
+    rowMatched <- . <- NULL
   
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
@@ -175,7 +175,7 @@ BeeDCQuery <- function(
         writeLines(paste0(
           " - ", checklistMatched$validName[[i]],
           " is reportedly found in: \n",
-          paste0(unique(loopSpecies$Country_name), collapse = ", ")
+          paste0(unique(loopSpecies$rNaturalEarth_name), collapse = ", ")
         ))
       }
     

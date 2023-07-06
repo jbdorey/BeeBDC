@@ -1,4 +1,4 @@
-
+requireNamespace("dplyr")
 
 
   # Read in the test data

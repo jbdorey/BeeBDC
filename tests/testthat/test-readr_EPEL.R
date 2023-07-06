@@ -1,6 +1,5 @@
-
 requireNamespace("readr")
-requireNamespace("tibble")
+requireNamespace("dplyr")
 
 
 testData <- tibble::tribble(

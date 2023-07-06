@@ -1,7 +1,8 @@
 requireNamespace("readr")
 requireNamespace("tibble")
-requireNamespace("openxlsx")
+requireNamespace("xlsx")
 requireNamespace("BeeDC")
+requireNamespace("openxlsx")
 library(dplyr) ## could not use %>% without loading as library
 
 
@@ -16,6 +17,11 @@ testData <- tibble::tribble(
 
 # need to change column names, function requires spaces to work 
 colnames(testData) <- c("Código de Barras", "institutionCode", "Colectores [Aggregated]", "Colectores asociados", "Fecha colección inicial", "Ano", "mes", "dia", "Orden", "Familia", "Género", "Especie", "Especie Author", "Tipo", "Determinador [Formatted]", "Fecha determinación", "País", "Departamento", "Municipio", "Corregimiento Departamental", "Localidad", "Latitud georref. dec.", "Longitud georref. dec.", "Nombre Completo")
+
+# Be sure that the testData is not already in tempdir
+testDataPath <- file.info(list.files(tempdir(), full.names = T, 
+                                     pattern = "testData.xslx", recursive = TRUE))
+unlink(rownames(testDataPath))
 
 # Save a temporary version of these data
 openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName = "Spanish headers")
@@ -46,3 +52,4 @@ testthat::test_that("readr_Col results columns FALSE", {
 testthat::test_that("readr_Col expected class", {
   testthat::expect_type(testOut1, "list")
 })
+
