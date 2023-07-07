@@ -90,7 +90,7 @@ readr_BeeDC <- function(
   
   ##### x.2 Data types ####
   # Create the lists of potential data types for .xlsx or .csv inputs
-  excelTypes <- c("CAES", "MABC", "Col", "Bal", "MEPB", "MPUJ")
+  excelTypes <- c("CAES", "MABC", "Col", "Bal", "MEPB", "MPUJ", "Arm")
   csvTypes <- c("EPEL", "ASP", "BMin", "BMont", "Ecd", "Gai", "KP", "EcoS", "GeoL",
                 "EaCo", "FSCA", "SMC", "Lic", "Dor", "BBD")
   
