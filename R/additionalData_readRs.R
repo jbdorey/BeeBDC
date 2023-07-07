@@ -1998,21 +1998,20 @@ readr_Arm <- function(path = NULL,
     dplyr::mutate(
       verbatimLatitude = stringr::str_c(
         dplyr::if_else(!is.na(g),
-                       g, NA_character_),
+                       as.character(g), ""),
         dplyr::if_else(!is.na(m),
-                       m, NA_character_),
+                       as.character(m), ""),
         
         dplyr::if_else(!is.na(s),
-                       s, NA_character_),
+                       as.character(s), ""),
         sep = " "),
       verbatimLongitude = stringr::str_c(
         dplyr::if_else(!is.na(G),
-                       G, NA_character_),
+                       as.character(G), ""),
         dplyr::if_else(!is.na(M),
-                       M, NA_character_),
-        
+                       as.character(M), ""),
         dplyr::if_else(!is.na(S),
-                       S, NA_character_),
+                       as.character(S), ""),
         sep = " ")) %>%
     # Get the coordinateUncertaintyInMeters by taking the UPPER uncertainty limit from the provided 
     # ranges. I.e., "100-1000" becomes "1000"
