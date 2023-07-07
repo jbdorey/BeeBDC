@@ -2029,7 +2029,7 @@ readr_Arm <- function(path = NULL,
       .before = family)  %>%
     dplyr::mutate(license = dataLicense) %>%
       # Remove spent columns
-    dplyr::select(!tidyselect::any_of(veget, ecoregion, g, m, s, G, M, S,)) %>%
+    dplyr::select(!tidyselect::any_of(c("veget", "ecoregion", "g", "m", "s", "G", "M", "S"))) %>%
     # add the database_id column
     dplyr::mutate(
       datasetName = "Armando Falcon-Brindis",
