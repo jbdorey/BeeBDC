@@ -23,7 +23,7 @@ taxoMergeR <- function(currentNames = NULL,
     authorship_nameSplit <- NULL
   
   requireNamespace("dplyr")
-  requireNamespace("bdc")
+
   
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
@@ -110,7 +110,7 @@ taxoMergeR <- function(currentNames = NULL,
   # Match complex names
   if(simpleNames == FALSE){
     # create an empty tibble to populate
-    loopTibble <- tibble::tibble()
+    loopTibble <- dplyr::tibble()
     # loop through each name to extract the relevant information
     for(i in 1:nrow(newNames)){
       # Extract the ith original name
@@ -131,7 +131,7 @@ taxoMergeR <- function(currentNames = NULL,
                                        loopTibble$flags,
                                        "")
     # create a temporary tibble to populate
-    matchTibble <- tibble::tibble(
+    matchTibble <- dplyr::tibble(
       tempIndex = newNames$tempIndex) %>%
       dplyr::bind_cols(loopTibble)
     ### END loop section
@@ -773,7 +773,7 @@ taxoMergeR <- function(currentNames = NULL,
                    file = paste(outName, "_failed_", Sys.Date(), ".csv",  sep = ""))
 
     # Add this dataset to the Ascher dataset
-  merged_names_cl <- tibble::tibble(merged_names_cl)
+  merged_names_cl <- dplyr::tibble(merged_names_cl)
       # Convert some column types to merge with Ascher data
     merged_names_cl$id <- as.numeric(merged_names_cl$id)
     merged_names_cl$accid <- as.numeric(merged_names_cl$accid)

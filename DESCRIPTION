@@ -37,10 +37,10 @@ Imports:
     rnaturalearth,
     sf,
     stringr,
-    tibble,
     tidyselect
 Suggests: 
     bdc,
+    BiocManager,
     chorddiag,
     classInt,
     countrycode,
@@ -66,6 +66,7 @@ Suggests:
     xml2
 Remotes: 
     AtlasOfLivingAustralia/galah
+Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: TRUE
 LazyDataCompression: xz

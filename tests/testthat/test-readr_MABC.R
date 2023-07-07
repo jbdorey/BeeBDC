@@ -1,10 +1,9 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("openxlsx")
 requireNamespace("dplyr")
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
                       ~Ejemplar, ~'Fecha colecta',    ~País, ~`Estado/Provincia`, ~Municipio,       ~Localidad,            ~'Sitio Colecta', ~'Código sitio', ~'Metodo colecta', ~Hora, ~'Coordenadas Lat', ~'Coordenadas Long', ~Altitud, ~'Datos georeferenciación',         ~Colector,   ~Identificador,     ~Familia,      ~Subfamilia,          ~Tribu,      ~Genero, ~Subgenero,      ~Especie, ~Subespecie,       ~'Nombre especie', ~'Código especie', ~Sexo,
               "MABC-04-0000001",   "10/10/1982", "México",           "Jalisco",         NA,        "Chamela", "Estacion Biológica UNAM",            NA,              NA,    2,               NA,                NA,       NA,                       NA, "Stephen Bullock", "R. R. Snelling", "Colletidae", "Diphaglossinae", "Dissoglossini", "Secret",         NA,     "species",          NA,  "Secret species",              NA,   "M",
               "MABC-04-0000002",   "23/10/1982", "México",           "Jalisco",         NA,        "Chamela", "Estacion Biológica UNAM",            NA,              NA,    7,               NA,                NA,       NA,                       NA, "Stephen Bullock", "R. R. Snelling", "Colletidae", "Diphaglossinae", "Dissoglossini", "Secret",         NA,     "species",          NA,  "Secret species",              NA,   "H",

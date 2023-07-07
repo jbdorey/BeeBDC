@@ -69,18 +69,18 @@ BeeDCQuery <- function(
   # Get a report of the queried names and their matched rows in beesTaxonomy 
   report_beesTaxonomy <- 
     # Make a tibble with the input name(s)
-    tibble::tibble(inputName = beeName) %>%
+    dplyr::tibble(inputName = beeName) %>%
     dplyr::left_join(beesTaxonomy, relationship = "many-to-many", keep = TRUE,
                      by = c("inputName" = "validName")) %>%
     # Do the same and bind using canonical
     dplyr::bind_rows(
-      tibble::tibble(inputName = beeName) %>%
+      dplyr::tibble(inputName = beeName) %>%
         dplyr::left_join(beesTaxonomy, relationship = "many-to-many", keep = TRUE,
                          by = c("inputName" = "canonical"))
     ) %>%
     # Do the same and bind using canonical_withFlags
     dplyr::bind_rows(
-      tibble::tibble(inputName = beeName) %>%
+      dplyr::tibble(inputName = beeName) %>%
         dplyr::left_join(beesTaxonomy, relationship = "many-to-many", keep = TRUE,
                          by = c("inputName" = "canonical_withFlags"))) %>%
     # Drop rows that did not match
@@ -185,7 +185,7 @@ BeeDCQuery <- function(
     # Make a report of the species that did not match
   failedReport <- beeName %>%
     setdiff(., report_beesTaxonomy$inputName) %>%
-    tibble::tibble(unmatchedSpecies = .)
+    dplyr::tibble(unmatchedSpecies = .)
   
     # If searchChecklist is requested, then return the output as a list with it included
   if(searchChecklist == TRUE){

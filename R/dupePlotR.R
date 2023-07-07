@@ -95,7 +95,7 @@ dupePlotR <- function(
       # Recode the factors as the user requests
     forcats::fct_recode(...) %>%
       # Turn into a tibble
-    tibble::tibble() %>%
+    dplyr::tibble() %>%
       # Name the single column
     rlang::set_names(c("simpleSource")) %>%
       # Group by this column and then count the number of occurrences for each level

@@ -1,5 +1,4 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("xlsx")
 requireNamespace("BeeDC")
 requireNamespace("openxlsx")
@@ -7,7 +6,7 @@ library(dplyr) ## could not use %>% without loading as library
 
 
 # this is FAKE DATA BECAUSE THE REAL DATA IS UNDER RESTRCTIVE LICENSE
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
               ~Código.de.Barras, ~institutionCode, ~`Colectores.[Aggregated]`, ~Colectores.asociados, ~Fecha.colección.inicial,  ~Ano, ~mes, ~dia,        ~Orden, ~Familia,         ~Género,    ~Especie,            ~Especie.Author, ~Tipo, ~`Determinador.[Formatted]`, ~Fecha.determinación,            ~País,        ~Departamento, ~Municipio, ~Corregimiento.Departamental,                                              ~Localidad, ~Latitud.georref..dec., ~Longitud.georref..dec.,          ~Nombre.Completo,
                  "ICN_butfake1",            "ICN",              "anonymous a",                    NA,             "01/01/2010", 2010L, "01", "01", "Hymenoptera", "Apidae",          "Apis", "mellifera",           "Linneaus, 1758",    NA,                          NA,                   NA, "ESTADOS UNIDOS",            "ARIZONA",   "COCHISE", "1 milla above nion saddle",      "USA. Arizona. Cochise. 1 milla above nion saddle",             32.1139688,            -109.9211756,          "Apis mellifera",
                  "ICN_butfake2",            "ICN",              "anonymous b",                    NA,             "01/01/2010", 2010L, "01", "01", "Hymenoptera", "Apidae",          "Apis", "mellifera",           "Linneaus, 1758",    NA,               "anonymous e",                   NA, "ESTADOS UNIDOS",            "ARIZONA",   "COCHISE", "1 milla above nion saddle",      "USA. Arizona. Cochise. 1 milla above nion saddle",             32.1139688,            -109.9211756,          "Apis mellifera",

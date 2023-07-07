@@ -79,7 +79,7 @@ PaigeIntegrater <- function(
 tempData <- db_standardized %>%
   dplyr::filter(complete.cases(occurrenceID))
 # Find the matches for occurrenceID
-occMatched <- tibble::tibble(
+occMatched <- dplyr::tibble(
   Dorey_match = tempData$database_id[cbind(
     match(PaigeNAm$occurrenceID, tempData$occurrenceID )
   )], # Match by occurrenceID

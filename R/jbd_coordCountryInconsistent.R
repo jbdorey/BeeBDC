@@ -86,7 +86,7 @@ failed_extract <- country_extracted %>%
   dplyr::filter(!tolower(iso_a2) %in% tolower(country)) %>%
     # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
-  tibble::tibble() %>%
+  dplyr::tibble() %>%
   sf::st_as_sf(crs = terra::crs(vectEarth))
     # Replace some country names as needed and re-remove
 failed_extract$country <-
@@ -101,7 +101,7 @@ failed_extract <- failed_extract %>%
   dplyr::filter(!tolower(iso_a2) %in% tolower(country)) %>%
   # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
-  tibble::tibble() %>%
+  dplyr::tibble() %>%
   sf::st_as_sf(crs = terra::crs(vectEarth))
 
   # Find the unique combination of failures

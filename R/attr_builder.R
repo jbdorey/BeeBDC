@@ -24,7 +24,7 @@ attr_builder <- function(path_i, occ_input){
       rvest::read_html() %>%
       rvest::html_text2()
     # Combine all of these attributes into a tibble
-    Attributes_i <- tibble::tibble(dataSource = paste("ALA_", 
+    Attributes_i <- dplyr::tibble(dataSource = paste("ALA_", 
                                                       galahDL_i$taxon, 
                                                       sep = ""),
                                    alternateIdentifier = if("search_url" %in% colnames(galahDL_i)){
@@ -59,18 +59,18 @@ attr_builder <- function(path_i, occ_input){
     # Find and take the citations file - convert into a list
     citations_i <- gsub("/occurrence.txt", "/citations.txt", path_i) %>% 
       readr::read_lines() %>%
-      tibble::lst()
+      dplyr::lst()
     # Find and take the rights file - convert into a list
     rights_i <- gsub("/occurrence.txt", "/rights.txt", path_i) %>% 
       readr::read_lines() %>%
-      tibble::lst()
+      dplyr::lst()
     # Find the download name
     fam_name <- tidyr::drop_na(
       occ_input, tidyselect::any_of("family")) %>%
       dplyr::pull(family) %>%
       unique()
     # Combine all of these attributes int o tibble
-    Attributes_i <- tibble::tibble(dataSource = paste("GBIF_", 
+    Attributes_i <- dplyr::tibble(dataSource = paste("GBIF_", 
                                                       fam_name, 
                                                       sep = ""),
                                    alternateIdentifier =  sourceEML_i$dataset$alternateIdentifier,
@@ -107,9 +107,9 @@ attr_builder <- function(path_i, occ_input){
     # Find and take the citations file - convert into a list
     citations_i <- gsub("/occurrence_raw.csv", "/records.citation.txt", path_i) %>% 
       readr::read_lines() %>%
-      tibble::lst()
+      dplyr::lst()
     # Combine all of these attributes int o tibble
-    Attributes_i <- tibble::tibble(dataSource = paste("iDigBio_", citations_i$.[2] %>% 
+    Attributes_i <- dplyr::tibble(dataSource = paste("iDigBio_", citations_i$.[2] %>% 
                                                         stringr::str_match_all("[A-Za-z]+") %>%
                                                         unlist() %>% 
                                                         dplyr::last(), sep = ""),
@@ -156,7 +156,7 @@ path_i %>%
     sourceEML_i <- xml2::read_xml(gsub("/occurrences.csv", "/eml.xml", path_i), from = "xml" ) %>% 
       EML::read_eml()
     # Combine all of these attributes int o tibble
-    Attributes_i <- tibble::tibble(dataSource = paste("SCAN_", 
+    Attributes_i <- dplyr::tibble(dataSource = paste("SCAN_", 
                                                       unique(stringr::str_to_sentence(occ_input$family)), 
                                                       sep = ""),
 alternateIdentifier =  sourceEML_i$additionalMetadata$metadata$symbiota$citation$identifier,

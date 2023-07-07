@@ -39,7 +39,7 @@
 #'   currentData = BeeDC::beesRaw,
 #'   priorData = BeeDC::beesRaw,
 #'   # First matches will be given preference over later ones
-#'   matchBy = tibble::lst(c("gbifID"),
+#'   matchBy = dplyr::lst(c("gbifID"),
 #'                         c("catalogNumber", "institutionCode", "dataSource"),
 #'                         c("occurrenceID", "dataSource"),
 #'                         c("recordId", "dataSource"),
@@ -152,7 +152,7 @@ idMatchR <- function(
   
   writeLines(" - Starting core loop...")
     # Set up al oop dataframe to enter into
-  loopDF <- tibble::tibble()
+  loopDF <- dplyr::tibble()
   # Create a dataset to put unique vaules into
   for(i in 1:length(matchBy)){
     # Select the ith CustomComparisons to match with

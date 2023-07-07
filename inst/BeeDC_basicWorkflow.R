@@ -34,9 +34,7 @@ renv::init()
 # Homebrew in the terminal and the command "brew install gdal"
 list.of.packages <- c("R.utils",           # To use gunzip
                       "magrittr",          # to use pipes
-                      #"ggVennDiagram",     # Extends ggplot2 to make venn diagrams
                       "dplyr",             #  Part of the tidyverse
-                      "tibble",            # To use tibbles
                       "forcats",           # tidyverse for working with factors
                       "tidyr",             #  Part of the tidyverse
                       "rlist",             # Package to save lists

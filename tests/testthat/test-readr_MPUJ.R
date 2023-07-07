@@ -1,13 +1,12 @@
 requireNamespace("readr")
 requireNamespace("openxlsx")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
                 ~Catalog.Number, ~`Collectors/First.Name`, ~`Collectors/Last.Name`, ~Count, ~Sex, ~Stage, ~Reproductive.Condition, ~Behavior,             ~Name, ~Alt.Cat.Number, ~Associated.Taxa, ~Associated.Ocurrence, ~Method,  ~Start.Date,    ~End.Date, ~`Start.Date.(Year)`, ~`Start.Date.(Month)`, ~`Start.Date.(Day)`, ~Start.Time, ~End.Time, ~Verbatim.Date, ~Habitat,      ~Continent,   ~Country,         ~State,                      ~County,                                               ~Locality.Name, ~Min.Elevation, ~Max.Elevation, ~Locality.and.Habitat.Notes,   ~Latitude1, ~Latitude2,     ~Lat1text,    ~Longitude1, ~Longitude2,     ~Long1text,               ~Full.Name,   ~Kingdom,        ~Order,  ~Family,    ~Subfamily,         ~Genus,      ~Species, ~Subspecies,     ~Species.Author, ~Type.Status, ~Qualifier, ~`Determiner/Last.Name`, ~`Determiner/First.Name`,
               "MPUJ_ENT0046822",                       NA,                      NA,     1L,   NA,     NA,                      NA,        NA, "Montado en seco",              NA,               NA,                    NA,      NA, "29-08-1987",           NA,                1987L,                    8L,                 29L,          NA,        NA,             NA,       NA, "South America", "Colombia",       "Tolima", "San Sebastián de Mariquita",                                                  "Mariquita",             NA,             NA,                          NA,     5.198894,         NA, "5.198894° N",      -74.89295,          NA,  "74.89295° W",   "Xylocopa aeneipennis", "Animalia", "Hymenoptera", "Apidae", "Xylocopinae",     "Xylocopa", "aeneipennis",          NA,    "(DeGeer, 1773)",           NA,         NA,               "Zanella",               "Fernando",
               "MPUJ_ENT0046821",                      "N",                 "Novoa",     1L,   NA,     NA,                      NA,        NA, "Montado en seco",              NA,               NA,                    NA,      NA, "27-03-2009",           NA,                2009L,                    3L,                 27L,          NA,        NA,             NA,       NA, "South America", "Colombia",        "Chocó",                     "Acandi",                      "Capurganá, Jardín Botánico del Darién",             90,             90,                          NA,     8.639755,         NA, "8.639755° N",     -77.350424,          NA, "77.350424° W",   "Xylocopa aeneipennis", "Animalia", "Hymenoptera", "Apidae", "Xylocopinae",     "Xylocopa", "aeneipennis",          NA,    "(DeGeer, 1773)",           NA,         NA,        "Guevara Farias",        "Diego Alexander",

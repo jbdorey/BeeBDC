@@ -35,7 +35,7 @@
 #' data(beesFlagged)
 #' HomePath = tempdir()
 #' # Tibble of common issues in country names and their replacements
-#' commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+#' commonProblems <- dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
 #' 'United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
 #'                                  fix = c('United States of America','United States of America',
 #'                                  'United States of America','United States of America',
@@ -155,10 +155,10 @@ jbd_CfC_chunker <- function(data = NULL,
     # Save a smaller csv file with the database_id and country name to be matched later
     # For the first instance in the loop...
     if(i == 1 && append == FALSE){
-      CountryList = tibble::tibble(loop_check_pf$database_id, loop_check_pf$country)
+      CountryList = dplyr::tibble(loop_check_pf$database_id, loop_check_pf$country)
     }else{
       CountryList = dplyr::bind_rows(CountryList, 
-                                     tibble::tibble(loop_check_pf$database_id,
+                                     dplyr::tibble(loop_check_pf$database_id,
                                                     loop_check_pf$country))
     }# END else
     

@@ -1,12 +1,11 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
     ~institutionCode,	~Collection.Code,	~collection.var,	     ~catalogNumber,	   ~Other.Catalog.Number,	~sex,	~identifiedBy,	~dateIdentified,	~recordedBy,	~SpecimenLocation,	~BeeNonbee,	~order,	       ~family,	   ~genus,      	~subgenus,	          ~species,	     ~subspecies,	     ~scientificName,            	    ~associatedTaxa,	~locality,	          ~country,	~eventDate,	~SampleRound,	~SiteStatus,	~samplingProtocol,	~eventTime,	~EndTime,	~TempStart,	~TempEnd,	~WindStart,	~WindEnd,	~SkyStart,	~SkyEnd,	~Site,	~siteLocality,	~countryCode,	~stateProvince,	~county,	~decimalLatitude,	~decimalLongitude,	~year,	       ~syd,	       ~verbatimIdentification,	                   ~SiteStatusBACI,	~ypr,	~syd.veg,        	~associatedTaxa2,	~basisOfRecord,
       "EMEC-UTB",       "ENT",            "kremen-baci",   "M2006SR3DQU_30015", 30015L,                 NA, "C. Kremen",      "7/6/06",        "C. Kremen",    "UBC",             "bee",  "Hymenoptera",  "Apidae",   "Bombus",          NA,              "californicus",      NA,          "Bombus californicus",            "Rubus discolor",  "North America",  "United States", "7/6/06",   3L,         "control",       "net",        "10:41:00", "12:36:00",    29.2,    31.6,      0,           1,      "clear",  "clear",     "DQU",  "C5a",            "US",  "California",  "Yolo",              38.33687, -121.53191,            2006L,   "DQU;2006;187",    "Bombus californicus",                        "control",      0L,   "DQU;2006;187",  "Rubus discolor",  "preserved specimen",
        "EMEC-UTB",      "ENT",           "kremen-baci",  "M2006SR3DQU_30016",   30016L,                 NA, "C. Kremen",     "7/6/06",         "C. Kremen",   "UBC",              "bee", "Hymenoptera",     "Apidae",   "Bombus",         NA,          "californicus",        NA,          "Bombus californicus",            "Rubus discolor", "North America",    "United States",  "7/6/06",   3L,       "control",        "net",        "10:41:00",  "12:36:00",   29.2,    31.6,       0,          1,      "clear", "clear",    "DQU", "C5a",               "US", "California", "Yolo",                38.33687,    -121.53191,         2006L,    "DQU;2006;187",    "Bombus californicus",                     "control",        0L,    "DQU;2006;187", "Rubus discolor", "preserved specimen",

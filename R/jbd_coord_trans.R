@@ -99,7 +99,7 @@ jbd_coord_trans <-
       over_list <- dplyr::bind_rows(over_list)
       
     } else{
-      over_list <- tibble(
+      over_list <- dplyr::tibble(
         decimalLongitude = double(),
         decimalLatitude = double(),
         countryCode = character(),

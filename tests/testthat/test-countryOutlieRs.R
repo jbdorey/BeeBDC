@@ -13,22 +13,49 @@ beesFlagged$decimalLatitude[[2]] <-  78.719726562500085
 beesFlagged$decimalLongitude[[2]] <- 31.887646484374983 
 
 testOut <- BeeDC::countryOutlieRs(checklist = beesChecklist,
-                                      occData = beesFlagged,
+                                      occData = beesFlagged %>% 
+                                    dplyr::select(!tidyselect::any_of(c("countryMatch", 
+                                                                      ".countryOutlier",
+                                                                      "iso_a3"))),
                                       keepAdjacentCountry = TRUE,
                                       pointBuffer = 0.05,
                                       # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
                                       # Smaller numbers will result in much longer calculation times. 
                                       # We have not attempted a scale of 10.
                                       rnearthScale = 50)
-# A list of failed species-country combinations and their numbers can be output here
-testOut %>%
-  dplyr::filter(.countryOutlier == FALSE) %>%
-  dplyr::select(database_id, scientificName, country) %>%
-  dplyr::group_by(scientificName) %>% 
-  dplyr::mutate(count_scientificName = n()) %>%
-  distinct(scientificName, country, .keep_all = TRUE) %>% 
-  readr::write_csv(paste(tempdir(), "03_space_failedCountryChecklist.csv",
-                         sep = "/"))
+
+
+# Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
+# tibbles are a special case of lists)
+testthat::test_that("countryOutlieRs results TRUE/passed", {
+  testthat::expect_equal(sum(testOut$.countryOutlier == TRUE, na.rm = TRUE), 77)
+})
+testthat::test_that("countryOutlieRs results FALSE/failed", {
+  testthat::expect_equal(sum(testOut$.countryOutlier == FALSE, na.rm = TRUE), 1)
+})
+testthat::test_that("countryOutlieRs results NA/could not assess", {
+  testthat::expect_equal(sum(is.na(testOut$.countryOutlier)), 22)
+})
+
+  # Test format
+testthat::test_that("countryOutlieRs expected class", {
+  testthat::expect_type(testOut, "list")
+})
+testthat::test_that("countryOutlieRs results NA/could not assess", {
+  testthat::expect_true( all(stringr::str_detect(attributes(testOut)$class, 
+                                             c("tbl_df","tbl","data.frame"))))
+})
+
+# Expected number of columns matches input data
+testthat::test_that("countryOutlieRs number of columns", {
+    # Remove the three columns that will be updated by this function and then test that they are
+      # added back in.
+  testthat::expect_equal(ncol(beesFlagged %>% 
+                                dplyr::select(!tidyselect::any_of(c("countryMatch", 
+                                                                    ".countryOutlier",
+                                                                    "iso_a3")))) + 3,
+                         ncol(testOut))
+})
 
 
 

@@ -156,7 +156,7 @@ jbd_Ctrans_chunker <- function(
     # Save a smaller csv file with the database_id and country name to be matched later
     # For the first instance in the loop...
     if(i == 1 && append == FALSE){
-      Tranps_tibble = tibble::tibble(loop_check_pf)
+      Tranps_tibble = dplyr::tibble(loop_check_pf)
     }else{
       Tranps_tibble = dplyr::bind_rows(Tranps_tibble, 
                                        loop_check_pf)

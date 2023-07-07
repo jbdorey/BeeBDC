@@ -1,12 +1,11 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
               ~catalogNumber,      ~Phylum, ~higherClassification,        ~Order,      ~family,        ~genus, ~specificEpithet,        ~scientificName, ~scientificNameAuthorship,     ~sex,         ~associatedTaxa,    ~identifiedBy, ~dateIdentified, ~recordedBy,   ~eventDate,      ~continent,    ~country,           ~stateProvince, ~county,                                              ~locality, ~decimalLatitude, ~decimalLongitude,             ~collectionID,       ~basisOfRecord,
               "RLMC00005185", "Arthropoda",             "Insecta", "Hymenoptera", "Colletidae",   "Cadeguala",     "albopilosa", "Cadeguala albopilosa",         "(Spinola, 1851)",   "Male",                      NA,       "L Packer",              NA,  "L Packer", "31/10/2001", "South America",     "Chile", "Region de la Araucania",      NA, "Parque Nacional Nahuelbuta, Piedra del Aguilla trail",         -37.8251,           -73.037, "University of Rochester", "preserved specimen",
               "RLMC00005186", "Arthropoda",             "Insecta", "Hymenoptera", "Colletidae",   "Cadeguala",     "albopilosa", "Cadeguala albopilosa",         "(Spinola, 1851)", "Female", "Aristotelia chilensis",       "L Packer",              NA, "A-I Gavel",     "2/7/05", "South America", "Argentina",   "Provincia del Chubut",      NA,                                "INTA Trevelin, site 2",     -43.09925833,         -71.54235, "University of Rochester", "preserved specimen",

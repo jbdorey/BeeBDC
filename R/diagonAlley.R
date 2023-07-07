@@ -252,7 +252,7 @@ diagonAlley <- function(
       dplyr::distinct()
   } # END I loop
   }else{
-    flagRecords = tibble::tibble(database_id = NA_character_)
+    flagRecords = dplyr::tibble(database_id = NA_character_)
   } # END nrow(runningData) > 0
   
   

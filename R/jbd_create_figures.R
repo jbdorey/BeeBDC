@@ -34,7 +34,7 @@
 #' scale_fill_viridis_c geom_histogram
 #' @importFrom here here
 #' @importFrom stats reorder
-#' @importFrom tibble as_tibble
+#' @importFrom dplyr as_tibble
 #' @importFrom tidyselect starts_with
 #' @importFrom dplyr %>%
 #' @export
@@ -99,7 +99,7 @@ jbd_create_figures <-
     
     temp <- data %>% dplyr::select(tidyselect::starts_with("."))
     
-    convertNames <- tibble::tibble(
+    convertNames <- dplyr::tibble(
       # Space
       .cap = "Records around country capital centroid"	,
       .cen = "Records around country or province centroids",
@@ -266,7 +266,7 @@ jbd_create_figures <-
             dplyr::mutate_if(is.character, ~ as.logical(as.character(.))) %>%
             dplyr::summarise_all(., .funs = sum) %>%
             t() %>%
-            tibble::as_tibble(rownames = "NA", .name_repair = "unique") %>%
+            dplyr::as_tibble(rownames = "NA", .name_repair = "unique") %>%
             setNames(c('NA', "V1")) %>%
             dplyr::mutate(V1 = nrow(data) - V1) %>%
             dplyr::mutate(

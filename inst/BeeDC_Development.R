@@ -76,6 +76,7 @@ usethis::create_package(path = packageDir,
                           The package includes generic functions and data as well as some that are
                           specific to bees.",
                           Encoding = "UTF-8",
+                          "Config/testthat/edition" = 3,
                           roxygen = TRUE,
                           LazyData = TRUE,
                           LazyDataCompression = "xz",
@@ -89,7 +90,7 @@ requiredPackages <- sort(c(
   "here", "openxlsx",'readr',
   "EML",
     # Tidyverse packages
-  'stringr', 'tibble','tidyselect', 
+  'stringr', 'tidyselect', 
   "dplyr","forcats","lubridate",
     # Other
   "mgsub", "igraph",
@@ -108,6 +109,7 @@ suggestedPackages <- sort(c("rlang", "xml2",  "rvest", "countrycode", "rangeBuil
                             "terra", "chorddiag", "rnaturalearthhires", "R.utils", "xlsx",
                             "testthat", "emld", "purrr", "tidyr",
                             "classInt", "htmlwidgets", "httr", "leaflet", "plotly", 
+                            "BiocManager",
                             "DT"))
 lapply(suggestedPackages,  usethis::use_package, type = "Suggests")
 
@@ -139,7 +141,7 @@ print(citation("BeeDC"), bibtex=TRUE)
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
-usethis::use_test("interactiveMapR")
+usethis::use_test("countryOutlieRs")
 
 
   ##### 2.5 Check package ####

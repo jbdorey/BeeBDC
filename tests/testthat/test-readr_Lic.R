@@ -1,12 +1,11 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
               ~eventID, ~occurrenceID,      ~basisOfRecord,  ~eventDate,   ~Kingdom,        ~Order, ~Family_or_grp,      ~Tribe,         ~Genus, ~Species, ~Morphospecies, ~adult, ~sex,    ~Collector,          ~Determiner, ~individualCount, ~samplingProtocol, ~samplingEffort, ~sampleSizeValue, ~sampleSizeUnit, ~decimalLatitude, ~decimalLongitude, ~geodeticDatum, ~countryCode,                   ~country,
                "Be2:b",        "EML1", "PreservedSpecimen", "24/6/2014", "Animalia", "Hymenoptera",   "Andrenidae",          NA,             NA,       NA,            38L,   TRUE,   NA, "L. Rafferty", "Ivan Milosavljevic",               1L,   "blue pan trap",      "24 hours",               2L,         "traps",            46.52,           -116.87,        "WGS84",         "US", "United States of America",
                "Be2:b",        "EML2", "PreservedSpecimen", "24/6/2014", "Animalia", "Hymenoptera",   "Andrenidae",          NA,             NA,       NA,            77L,   TRUE,   NA, "L. Rafferty", "Ivan Milosavljevic",               2L,   "blue pan trap",      "24 hours",               2L,         "traps",            46.52,           -116.87,        "WGS84",         "US", "United States of America",

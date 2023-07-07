@@ -105,7 +105,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
   statesBordering <- sf::st_intersects(stateMap, stateMap) %>%
     paste(., sep = ";")
     # Make a new tibble with these information
-  neighbouringStates <- tibble::tibble(
+  neighbouringStates <- dplyr::tibble(
     rowNum = 1:nrow(stateMap),
     state = stateMap$postal,
     neighbours = statesBordering,
@@ -195,7 +195,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
   #### 3.0 Merge ####
   writeLines(" - Combining data...")
     # Merge both points_match datasets
-  bpoints_match <- tibble::tibble(points_match) %>%
+  bpoints_match <- dplyr::tibble(points_match) %>%
       # Join the two datasets togehter keeping only neighbourMatch and assignmentCertainty from the 
       # neighbour-joined dataset
     dplyr::left_join(dplyr::select(npoints_match, c(database_id, neighbourMatch, 

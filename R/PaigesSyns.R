@@ -16,7 +16,7 @@ PaigesSyns <- function(PaigeSheet = Paige_sheet_loc,
   
 #### 2.0 Synonyms ####
 # Set up an empty tibble...
-SynAnnotate_df <- tibble::tibble()
+SynAnnotate_df <- dplyr::tibble()
 # Run a loop
 for(i in 1:nrow(SynChanges)){
   # Find the ith name to change
@@ -36,13 +36,13 @@ for(i in 1:nrow(SynChanges)){
     taxaCurrentTest <- any(acc_SLAO_row$canonical %in% loopName_Final)
     # . note this gives a TRUE or FALSE to see if the names match the current taxonomy.
     if(taxaCurrentTest == TRUE){
-      SynAnnotate_df <- tibble::tibble(
+      SynAnnotate_df <- dplyr::tibble(
         FinalName <- loopName_Final, originalName = loopName_ori, DisLifeName = loopName_DL,
         PotentialMatches = nrow(SLAO_row), iteration = i,
         Correct = TRUE, note = "One name provided, VALID") %>%
         dplyr::bind_rows(SynAnnotate_df, .)
     }else{
-      SynAnnotate_df <- tibble::tibble(
+      SynAnnotate_df <- dplyr::tibble(
         FinalName <- loopName_Final, originalName = loopName_ori, DisLifeName = loopName_DL,
         PotentialMatches = nrow(SLAO_row), iteration = i,
         Correct = FALSE, note = "One name provided, INVALID")%>%
@@ -62,13 +62,13 @@ for(i in 1:nrow(SynChanges)){
     taxaCurrentTest <- any(acc_SLAO_row$canonical %in% loopName_Final)
     # . note this gives a TRUE or FALSE to see if the names match the current taxonomy.
     if(taxaCurrentTest == TRUE){
-      SynAnnotate_df <- tibble::tibble(
+      SynAnnotate_df <- dplyr::tibble(
         FinalName <- loopName_Final, originalName = loopName_ori, DisLifeName = loopName_DL,
         PotentialMatches = nrow(SLAO_row), iteration = i,
         Correct = TRUE, note = "Two names provided, VALID") %>%
         dplyr::bind_rows(SynAnnotate_df, .)
     }else{
-      SynAnnotate_df <- tibble::tibble(
+      SynAnnotate_df <- dplyr::tibble(
         FinalName <- loopName_Final, originalName = loopName_ori, DisLifeName = loopName_DL,
         PotentialMatches = nrow(SLAO_row), iteration = i,
         Correct = FALSE, note = "Two names provided, INVALID")%>%

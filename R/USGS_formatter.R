@@ -76,7 +76,7 @@ USGS_formatter <- function(
   }
   
   #### Metadata building ####
-  Attributes_USGS <- tibble::tibble(
+  Attributes_USGS <- dplyr::tibble(
     dataSource = "USGS_data",
     alternateIdentifier = "Not provided",
     title = "USGS_DRO database",

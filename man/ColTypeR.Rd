@@ -37,9 +37,9 @@ ColTypeR(newCharacterColumn = readr::col_character(),
          newLogicalColumn = readr::col_logical()) 
 
 # Try reading in one of the test datasets as an example:
-beesFlagged \%>\% tibble::as_tibble(col_types = BeeDC::ColTypeR())
+beesFlagged \%>\% dplyr::as_tibble(col_types = BeeDC::ColTypeR())
   # OR
-beesRaw \%>\% tibble::as_tibble(col_types = BeeDC::ColTypeR())
+beesRaw \%>\% dplyr::as_tibble(col_types = BeeDC::ColTypeR())
 
 
 }

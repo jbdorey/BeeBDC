@@ -141,7 +141,7 @@ sf::sf_use_s2(FALSE)
   countriesBordering <- sf::st_intersects(countryMap, countryMap) %>%
     paste(., sep = ";")
     # Make a new tibble with these information
-  neighbouringCountries <- tibble::tibble(
+  neighbouringCountries <- dplyr::tibble(
     rowNum = 1:nrow(countryMap),
     country = countryMap$iso_a3,
     neighbours = countriesBordering,
@@ -271,7 +271,7 @@ sf::sf_use_s2(FALSE)
   #### 3.0 Merge ####
   writeLines(" - Combining data...")
     # Merge both points_match datasets
-  bpoints_match <- tibble::tibble(points_match) %>%
+  bpoints_match <- dplyr::tibble(points_match) %>%
       # Join the two datasets togehter keeping only neighbourMatch and assignmentCertainty from the 
       # neighbour-joined dataset
     dplyr::left_join(dplyr::select(npoints_match, c(database_id, neighbourMatch_noYear)),

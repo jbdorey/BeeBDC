@@ -125,10 +125,10 @@ classes = "message")
 #    width = width, height = height, bg = bg)
   # Create tables of the counts of kept source and duplicate source
 keptSource <- table(dupeData$dataSource) %>%
-  as.data.frame() %>% tibble::tibble() %>% 
+  as.data.frame() %>% dplyr::tibble() %>% 
   stats::setNames(c("sourceName", "Frequency")) 
 dupeSource <- table(dupeData$dataSource_keep) %>%
-  as.data.frame() %>% tibble::tibble() %>% 
+  as.data.frame() %>% dplyr::tibble() %>% 
   stats::setNames(c("sourceName", "Frequency_dupe")) 
   # Merge the sources and get their sum (for a total frequency count to order by)
 colourTable <- dplyr::full_join(keptSource, dupeSource, by = "sourceName") %>%

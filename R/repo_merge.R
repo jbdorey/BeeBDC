@@ -50,7 +50,7 @@ repo_merge <- function(path, save_type, occ_paths){
   # Copy the template
   Data_WebDL <- data_template
   # Make an empty eml file for the loop
-  eml_files <- tibble::tibble()
+  eml_files <- dplyr::tibble()
   # Set up a counter to keep track of the number of files processed
   counter = 1
   

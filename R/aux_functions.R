@@ -57,11 +57,11 @@ data_saver <- function(path = NULL,
   # Find the empty columns
   colTest <- occurrences %>% 
     summarise(dplyr::across(tidyselect::everything(), ~ sum(complete.cases(.)))) 
-  colKeeps <- tibble(column = colnames(colTest),
+  colKeeps <- dplyr::tibble(column = colnames(colTest),
                  countComplete = t(colTest)[,1]) %>%
     dplyr::filter(countComplete > 0)
   # Cols to remove:
-  colRemoves <- tibble(column = colnames(colTest),
+  colRemoves <- dplyr::tibble(column = colnames(colTest),
          countComplete = t(colTest)[,1]) %>%
     dplyr::filter(countComplete == 0)
     # Discard empty columns
@@ -225,7 +225,7 @@ file_finder <- function(path, fileName){
     # Remove additional text
     stringr::str_replace(., "[a-zA-Z\\/\\_]+[a-zA-Z\\/\\_]+", "") %>%
     # Find those files with dates in their name in d-m-y format
-    tibble::tibble(
+    dplyr::tibble(
       # Extract the dates from the file path rownames and supress the warning from non-matches
       suppressWarnings(lubridate::dmy(.), classes = "warning")) %>%
     # Set the column names of this new tibble
@@ -236,7 +236,7 @@ file_finder <- function(path, fileName){
          # Remove additional text
          stringr::str_replace(., "[a-zA-Z\\/\\_]+[a-zA-Z\\/\\_]+", "") %>%
          # Find those files with dates in their name in d-m-y format
-         tibble::tibble(
+         dplyr::tibble(
            # Extract the dates from the file path rownames and supress the warning from non-matches
            suppressWarnings(lubridate::ymd(.), classes = "warning")) %>%
          # Set the column names of this new tibble

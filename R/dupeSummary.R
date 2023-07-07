@@ -86,9 +86,9 @@
 #' collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),
 #' # Custom comparisons - as a list of columns to compare
 #' # RAW custom comparisons do not use the character and number thresholds
-#' CustomComparisonsRAW = tibble::lst(c("catalogNumber", "institutionCode", "scientificName")),
+#' CustomComparisonsRAW = dplyr::lst(c("catalogNumber", "institutionCode", "scientificName")),
 #' # Other custom comparisons use the character and number thresholds
-#' CustomComparisons = tibble::lst(c("gbifID", "scientificName"),
+#' CustomComparisons = dplyr::lst(c("gbifID", "scientificName"),
 #'                                 c("occurrenceID", "scientificName"),
 #'                                 c("recordId", "scientificName"),
 #'                                 c("id", "scientificName")),
@@ -260,7 +260,7 @@ dupeSummary <- function(
   Loop_data$dupColumn_s <- NA
 
     # Create a datset to put duplicates into
-    runningDuplicates = tibble::tibble()
+    runningDuplicates = dplyr::tibble()
 
     
     
@@ -597,7 +597,7 @@ dupeSummary <- function(
       # Extract the id and the group only
     clusteredDuplicates <- clusteredDuplicates$membership %>% as.data.frame() %>%
       setNames("group") %>%
-      dplyr::mutate(database_id = rownames(.)) %>% as_tibble()
+      dplyr::mutate(database_id = rownames(.)) %>% dplyr::as_tibble()
       
       # Re-merge the relevant columns
     clusteredDuplicates <- clusteredDuplicates %>%

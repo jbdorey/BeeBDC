@@ -1,11 +1,10 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("dplyr")
 library(dplyr) ## could not use %>% without loading as library
 
 
 # make yourself some test data which has common problem names for the USA and one row that is already correct
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
               ~database_id, ~decimalLatitude, ~decimalLongitude,                  ~country, ~countryCode,                 ~scientificName, ~dataSource, ~recordedBy,        ~order,  ~family, ~genus, ~specificEpithet, ~scientificNameAuthorship,
                "fake SCAN",            38.54,        -121.75667,           "United States",           NA, "Apis mellifera Linneaus, 1758",      "fake",          NA, "Hymenoptera", "apidae", "Apis",      "mellifera",          "Linnaeus, 1758",
                "fake SCAN",            38.54,        -121.75667,                  "U.S.A.",           NA, "Apis mellifera Linneaus, 1759",      "fake",          NA, "Hymenoptera", "apidae", "Apis",      "mellifera",          "Linnaeus, 1758",
@@ -19,7 +18,7 @@ testData <- tibble::tribble(
               )
 
 # common problem table from the function documentation
-commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+commonProblems <- dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
                                             'United States','U.S.A','MX','CA','Bras.','Braz.',
                                             'Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
                                  fix = c('United States of America','United States of America',

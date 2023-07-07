@@ -1,7 +1,7 @@
-requireNamespace("tibble")
+requireNamespace("dplyr")
 
 
-testData <- tibble::tibble(
+testData <- dplyr::tibble(
   database_id = c("fakeID1","fakeID2", "fakeID2", "fakeID4","fakeID5", "fakeID6", "fakeID7",
                   "fakeID8","fakeID9", "fakeID10","fakeID11","fakeID12"),
   decimalLatitude = c(1.111, 2.111, 3.111, 4.111, 5.111, 6.111, 6.111, 6.111, 7.111, 7.111, 7.111, 7.111),
@@ -49,9 +49,9 @@ check_time <- BeeDC::dupeSummary(
   collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),
   # Custom comparisons — as a list of columns to compare
   # RAW custom comparisons do not use the character and number thresholds
-  CustomComparisonsRAW = tibble::lst(c("catalogNumber", "institutionCode", "scientificName")),
+  CustomComparisonsRAW = dplyr::lst(c("catalogNumber", "institutionCode", "scientificName")),
   # Other custom comparisons use the character and number thresholds
-  CustomComparisons = tibble::lst(c("gbifID", "scientificName"),
+  CustomComparisons = dplyr::lst(c("gbifID", "scientificName"),
                                   c("occurrenceID", "scientificName"),
                                   c("recordId", "scientificName"),
                                   c("id", "scientificName")),

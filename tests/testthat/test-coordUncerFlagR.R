@@ -1,10 +1,9 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 
 
 # make us some data - this is FAKE DATA derived from records from SCAN
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
                    ~basisOfRecord,   ~kingdom,      ~phylum,    ~class,        ~order,  ~family,  ~scientificName, ~taxonID, ~scientificNameAuthorship, ~genus, ~specificEpithet, ~recordedBy, ~eventDate, ~year, ~month, ~day,        ~verbatimEventDate,        ~country, ~stateProvince, ~locality,                  ~locationRemarks, ~decimalLatitude, ~decimalLongitude, ~coordinateUncertaintyInMeters,                                             ~rights,                                     ~rightsHolder,
               "PreservedSpecimen", "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera", "P.S. Ward",  "6/28/05", 2005L,     6L,  28L, "28 Jun 2005/29 Jun 2005", "United States",   "California",   "Davis", "coordinates obtained from Label",            38.54,        -121.75667,                           200L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",
               "PreservedSpecimen", "Animalia", "Arthropoda", "Insecta", "Hymenoptera", "apidae", "apis mellifera",  235783L,          "Linnaeus, 1758", "Apis",      "mellifera", "P.S. Ward",  "6/28/05", 2005L,     6L,  28L, "28 Jun 2005/29 Jun 2005", "United States",   "California",   "Davis", "coordinates obtained from Label",            38.54,        -121.75667,                            10L, "http://creativecommons.org/publicdomain/zero/1.0/", "The California Academy of Sciences - AntWeb.org",

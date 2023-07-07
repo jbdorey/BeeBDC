@@ -1,12 +1,11 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("openxlsx")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
                 ~studyID,           ~siteID, ~year,     ~date,                           ~animalID, ~abundance, ~abundanceMethod, ~samplingMethod, ~numCensus, ~samplingIntensity,                                                                                                                                                                                   ~censusType,     ~fieldDist,  ~flowering, ~decimalLatitude, ~decimalLongitude,                ~studyLocation, ~habitatType,                ~siteDescription,
                 "Ball01", "Bastrop Gardens", 2013L, "2013/5/22",             "Agapostemon angelicus",         1L,      "Abundance",      "Pan Trap",         1L,                24L, "50 pan traps (painted blue, yellow or left white as in LeBuhn et al) placed in x formation 1 m apart from center of the 50 m2 plot, vegetation measured as described for blue vane trapped.", "not measured", "flowering",        30.157397,        -97.491703, "Bastrop, Bastrop County, TX",           NA, "Agriculture. Community garden",
                 "Ball01", "Bastrop Gardens", 2013L, "2013/5/22",               "Agapostemon texanus",         1L,      "Abundance",      "Pan Trap",         1L,                24L, "50 pan traps (painted blue, yellow or left white as in LeBuhn et al) placed in x formation 1 m apart from center of the 50 m2 plot, vegetation measured as described for blue vane trapped.", "not measured", "flowering",        30.157397,        -97.491703, "Bastrop, Bastrop County, TX",           NA, "Agriculture. Community garden",

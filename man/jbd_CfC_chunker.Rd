@@ -56,7 +56,7 @@ library(dplyr)
 data(beesFlagged)
 HomePath = tempdir()
 # Tibble of common issues in country names and their replacements
-commonProblems <- tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+commonProblems <- dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
 'United States','U.S.A','MX','CA','Bras.','Braz.','Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
                                  fix = c('United States of America','United States of America',
                                  'United States of America','United States of America',

@@ -114,7 +114,7 @@ atlas_downloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, a
   
   #### Save data ####
   # Save some download information
-  tibble(
+  dplyr::tibble(
     downloaders_email = userEmail,
     taxon = ALA_taxon,
     doi = attrs_ALA_Occurence_download$doi,

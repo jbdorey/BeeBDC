@@ -115,14 +115,14 @@ taxoDuplicator <- function(
  
  ###### a. source1 loop ####
  # Set up empty dataframes for loop
- ambiSyns <- tibble::tibble()
- nonAmbiSyns <- tibble::tibble()
+ ambiSyns <- dplyr::tibble()
+ nonAmbiSyns <- dplyr::tibble()
     # Run a loop to examine each duplicate pair in the list
  for(i in 1:nrow(S1dupes_nest)){
    # Get the first tibble
    LoopTibble <- S1dupes_nest$data[[i]] %>% 
      # add the validName column back in to each row
-   tibble::add_column(validName = S1dupes_nest$validName[[i]], .after = "subtribe")
+   dplyr::mutate(validName = S1dupes_nest$validName[[i]], .after = "subtribe")
    
        # FOR n == 2
        if(nrow(LoopTibble) == 2){
@@ -314,8 +314,8 @@ taxoDuplicator <- function(
     
     ###### a. source1 loop ####
     # Set up empty dataframes for loop
-    ambiSyns_51 <- tibble::tibble()
-    nonAmbiSyns_51 <- tibble::tibble()
+    ambiSyns_51 <- dplyr::tibble()
+    nonAmbiSyns_51 <- dplyr::tibble()
     # IF S1duplicatesyns_51 is EMPTy, do not run.
     if(nrow(S1duplicatesyns_51) > 0){
       # Run a loop to examine each duplicate pair in the list
@@ -323,7 +323,7 @@ taxoDuplicator <- function(
         # Get the first tibble
         LoopTibble <- S1dupes_nest$data[[i]] %>% 
           # add the canonical_withFlags column back in to each row
-          tibble::add_column(canonical_withFlags = S1dupes_nest$canonical_withFlags[[i]], .after = "canonical")
+          dplyr::mutate(canonical_withFlags = S1dupes_nest$canonical_withFlags[[i]], .after = "canonical")
         
         # FOR n == 2
         if(nrow(LoopTibble) == 2){
@@ -371,8 +371,8 @@ taxoDuplicator <- function(
         } # END n > 2
       } # END Ambiguous loop
     }else{
-      ambiSyns_51 = tibble::tibble()
-      nonAmbiSyns_51 = tibble::tibble()
+      ambiSyns_51 = dplyr::tibble()
+      nonAmbiSyns_51 = dplyr::tibble()
     } # END big IF
     
     ###### b. loop_clean ####
@@ -422,7 +422,7 @@ taxoDuplicator <- function(
         # ADD the cleaned rows back into the dataset
         dplyr::bind_rows(ambiSyns_51_all) 
     }else{
-      ambiSyns_51 = tibble::tibble()
+      ambiSyns_51 = dplyr::tibble()
       # If not, pass this new name onto the next section
       deDuplicated_51 <- deDuplicated
     } # END ambiSyns_51 IF
@@ -442,8 +442,8 @@ taxoDuplicator <- function(
     
     ###### a. source1 loop ####
     # Set up empty dataframes for loop
-    ambiSyns_52 <- tibble::tibble()
-    nonAmbiSyns_52 <- tibble::tibble()
+    ambiSyns_52 <- dplyr::tibble()
+    nonAmbiSyns_52 <- dplyr::tibble()
     # IF S1duplicatesyns_52 is EMPTy, do not run.
     if(nrow(S1duplicatesyns_52) > 0){
       # Run a loop to examine each duplicate pair in the list
@@ -451,7 +451,7 @@ taxoDuplicator <- function(
         # Get the first tibble
         LoopTibble <- S1dupes_nest$data[[i]] %>% 
           # add the canonical column back in to each row
-          tibble::add_column(canonical = S1dupes_nest$canonical[[i]], .after = "validName")
+          dplyr::mutate(canonical = S1dupes_nest$canonical[[i]], .after = "validName")
         
         # FOR n == 2
         if(nrow(LoopTibble) == 2){
@@ -499,8 +499,8 @@ taxoDuplicator <- function(
         } # END n > 2
       } # END Ambiguous loop
     }else{
-      ambiSyns_52 = tibble::tibble()
-      nonAmbiSyns_52 = tibble::tibble()
+      ambiSyns_52 = dplyr::tibble()
+      nonAmbiSyns_52 = dplyr::tibble()
     } # END big IF
     ###### b. loop_clean ####
     # NON-AMBIGUOUS because accids match
@@ -556,7 +556,7 @@ taxoDuplicator <- function(
         # ADD the cleaned rows back into the dataset
         dplyr::bind_rows(ambiSyns_52_all) 
     }else{
-      ambiSyns_52 = tibble::tibble()
+      ambiSyns_52 = dplyr::tibble()
     } # END ambiSyns_52 IF
     # KEEP deDuplicated_52
     

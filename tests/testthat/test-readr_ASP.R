@@ -1,12 +1,11 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
               ~catalogNumber,        ~family,     ~subfamily,       ~Tribe,         ~genus,      ~subgenus, ~Morphospecies, ~specificEpithet,   ~locality, ~Successional_Stage, ~decimalLatitude, ~decimalLongitude, ~coordinateUncertaintyInMeters, ~elevation, ~eventTime, ~samplingProtocol,   ~eventDate, ~sex, ~associatedTaxa,      ~continent,         ~recordedBy,
                           2L, "Megachilidae", "Megachilinae", "Anthidiini", "Anthodioctes", "Nananthidium",        "Msp 1",            "m16", "Calandria",                "RA",            6.773,          -75.1036,                           100L,      1019L,     "p.m.",               "J",     "3/6/97",  "H",              NA, "South America", "Allan Smith-Pardo",
                           8L, "Megachilidae", "Megachilinae", "Anthidiini", "Anthodioctes", "Anthodioctes",        "Msp 2",      "mapirense", "Calandria",                "RA",            6.773,          -75.1036,                           100L,      1019L,       "m.",               "J",  "23/9/1997",  "H",              NA, "South America", "Allan Smith-Pardo",

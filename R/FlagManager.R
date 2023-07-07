@@ -17,7 +17,7 @@ FlagManager <- function(InSynList = DLdf,
                     classes = "warning")
   if(is.null(CWFtest) == TRUE){
     canonical_withFlags <- InSynList$canonical
-    InSynList <- tibble::add_column(InSynList, canonical_withFlags, .after = "canonical")
+    InSynList <- dplyr::mutate(InSynList, canonical_withFlags, .after = "canonical")
   }
     # IF all of the canonical_withFlags column is empty, replace it with the canonical valuse
   if(all(CWFtest == "NA") == TRUE){
@@ -119,7 +119,7 @@ FlagManager <- function(InSynList = DLdf,
   if(is.null(CanTest) == FALSE){
     InSynList$canonical <- TempCols$canonical
   }else{
-    InSynList <- tibble::add_column(InSynList, TempCols$canonical, .after = "canonical")
+    InSynList <- dplyr::mutate(InSynList, TempCols$canonical, .after = "canonical")
   }
   #  Clean up double spaces in data frame
   InSynList <- as.data.frame(apply(InSynList, 2, FUN = stringr::str_squish ), stringsAsFactors = FALSE)
@@ -133,7 +133,7 @@ FlagManager <- function(InSynList = DLdf,
                       classes = "warning")
     if(is.null(CWFtest) == TRUE){
       canonical_withFlags <- InSynList$canonical
-      InSynList <- tibble::add_column(InSynList, canonical_withFlags, .after = "canonical")
+      InSynList <- dplyr::mutate(InSynList, canonical_withFlags, .after = "canonical")
     }
     # IF all of the canonical_withFlags column is empty, replace it with the canonical valuse
     if(all(CWFtest == "NA") == TRUE){
@@ -234,7 +234,7 @@ FlagManager <- function(InSynList = DLdf,
     if(is.null(CanTest) == FALSE){
       InSynList$canonical <- TempCols$canonical
     }else{
-      InSynList <- tibble::add_column(InSynList, TempCols$canonical, .after = "canonical")
+      InSynList <- dplyr::mutate(InSynList, TempCols$canonical, .after = "canonical")
     }
     #  Clean up double spaces in data frame
     InSynList <- as.data.frame(apply(InSynList, 2, FUN = stringr::str_squish ), stringsAsFactors = FALSE)

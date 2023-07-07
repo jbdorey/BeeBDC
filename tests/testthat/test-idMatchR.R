@@ -16,7 +16,7 @@ testOut <- BeeDC::idMatchR(
                                                 paste0(., dplyr::row_number())),
   priorData = priorRun,
   # First matches will be given preference over later ones
-  matchBy = tibble::lst(c("gbifID"),
+  matchBy = dplyr::lst(c("gbifID"),
                         c("catalogNumber", "institutionCode", "dataSource"),
                         c("occurrenceID", "dataSource"),
                         c("recordId", "dataSource"),
@@ -62,7 +62,7 @@ testOut2 <- BeeDC::idMatchR(
                                                 paste0(., dplyr::row_number())),
   priorData = priorRun,
   # First matches will be given preference over later ones
-  matchBy = tibble::lst(c("gbifID"),
+  matchBy = dplyr::lst(c("gbifID"),
                         c("catalogNumber", "institutionCode", "dataSource"),
                         c("occurrenceID", "dataSource"),
                         c("recordId", "dataSource"),

@@ -1,12 +1,11 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
               ~Collection, ~ID_project,                    ~Species, ~Longitude, ~Latitude, ~Year,
                   "CECON",          1L, "Agapostemon_atrocaeruleus",    -89.439,    16.357, 2006L,
                   "CECON",          2L,     "Agapostemon_leunculus",    -89.377,     14.62, 2003L,

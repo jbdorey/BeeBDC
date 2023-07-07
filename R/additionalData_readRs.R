@@ -612,7 +612,7 @@ CAES_data <- openxlsx::read.xlsx(paste(path, inFile, sep = ""), sheet = sheet) %
                    End_Date, Elev_Det, Macro_Habitat, Micro_Habitat, Pres_Method, Spec_Notes,
                    Lat_Lon_Accuracy)) %>%
   # Remove double white-spaces
-  apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+  apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
   # add the database_id column
   dplyr::mutate(
     database_id = paste("CAES_data_", 1:nrow(.), sep = ""),
@@ -740,7 +740,7 @@ KP_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/")) %>%
     # Remove those now redundant columns
     dplyr::select(!c(Male, Female, sp_group, Tribe, Collection_date)) %>%
     # Remove double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("KP_data_", 1:nrow(.), sep = ""),
@@ -819,7 +819,7 @@ readr_EcoS <- function(path = NULL,
       # Add dataset information
     dplyr::mutate(dataSource = "EcoS_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("EcoS_data_", 1:nrow(.), sep = ""),
@@ -1091,7 +1091,7 @@ readr_EaCO <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "EaCO_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("EaCO_data_", 1:nrow(.), sep = ""),
@@ -1205,7 +1205,7 @@ readr_MABC <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "MABC_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("MABC_data_", 1:nrow(.), sep = ""),
@@ -1368,7 +1368,7 @@ readr_Col <- function(path = NULL,
                     stringr::str_replace(pattern = "\\( ",
                                          replacement = "\\(")) %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("Col_data_", 1:nrow(.), sep = ""),
@@ -1424,7 +1424,7 @@ readr_FSCA <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "FSCA_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("FSCA_data_", 1:nrow(.), sep = ""),
@@ -1664,7 +1664,7 @@ readr_Lic <- function(path = NULL,
     # Add dataset information
     dplyr::mutate(dataSource = "Lic_Anthophila") %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("Lic_data_", 1:nrow(.), sep = ""),
@@ -1788,7 +1788,7 @@ readr_Arm <- function(path = NULL,
       )), # 215 failed to parse. 
       dataSource = "Arm_Anthophila") %>%
     # Remove double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("Arm_data_", 1:nrow(.), sep = ""),
@@ -2150,7 +2150,7 @@ readr_MPUJ <- function(path = NULL,
     ) %>%
     dplyr::mutate(basisOfRecord = "Preserved specimen") %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("MPUJ_data_", 1:nrow(.), sep = ""),
@@ -2215,7 +2215,7 @@ readr_STRI <- function(path = NULL,
       eventDate = lubridate::dmy(stringr::str_c(day, month, year, sep = "/"), 
                                              truncated = 2)) %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("STRI_data_", 1:nrow(.), sep = ""),
@@ -2317,7 +2317,7 @@ readr_PALA <- function(path = NULL,
       .after = eventDate
     ) %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("PALA_data_", 1:nrow(.), sep = ""),
@@ -2392,7 +2392,7 @@ readr_JoLa <- function(path = NULL,
       eventDate = lubridate::ymd(year, truncated = 2)
     ) %>%
     # Remove any double white-spaces
-    apply(., 2, stringr::str_squish) %>% tibble::as_tibble() %>% 
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
     # add the database_id column
     dplyr::mutate(
       database_id = paste("JoLa_data_", 1:nrow(.), sep = ""),

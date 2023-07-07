@@ -22,9 +22,7 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "tidyr",             #  Part of the tidyverse
                       "magrittr",          # to use pipes
                       "ggplot2",           #  Creates many easthetic plots
-                      #"ggVennDiagram",     # Extends ggplot2 to make venn diagrams
                       "dplyr",             #  Part of the tidyverse
-                      "tibble",            # To use tibbles
                       "forcats",           # tidyverse for working with factors
                       "rlist",             # Package to save lists
                       "EML",               #  To work with .eml files
@@ -189,7 +187,7 @@ db_standardized <- readr::read_csv(occPath,
     currentData = db_standardized,
     priorData = priorRun,
     # First matches will be given preference over later ones
-    matchBy = tibble::lst(c("gbifID"),
+    matchBy = dplyr::lst(c("gbifID"),
                           c("catalogNumber", "institutionCode", "dataSource"),
                           c("occurrenceID", "dataSource"),
                           c("recordId", "dataSource"),
@@ -510,7 +508,7 @@ check_pf <- bdc::bdc_basisOfRecords_notStandard(
 check_pf_noNa <- BeeDC::countryNameCleanR(
   data = check_pf,
   # Create a Tibble of common issues in country names and their replacements
-  commonProblems = tibble::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
+  commonProblems = dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
                                               'United States','U.S.A','MX','CA','Bras.','Braz.',
                                               'Brasil','CNMI','USA TERRITORY: PUERTO RICO'),
                                   fix = c('United States of America','United States of America',
@@ -912,7 +910,7 @@ gridded_datasets <- CoordinateCleaner::cd_round(
   reg_dist_min = 0.1,
   reg_dist_max = 2
 ) %>% 
-  tibble::tibble()
+  dplyr::tibble()
 # The griddingDF is no longer needed. remove it.
 rm(griddingDF)
 
@@ -989,7 +987,7 @@ check_space %>%
 # Create the report
 (report <-
    bdc::bdc_create_report(
-     data = tibble::tibble(check_space %>% dplyr::select(!.uncer_terms)),
+     data = dplyr::tibble(check_space %>% dplyr::select(!.uncer_terms)),
      database_id = "database_id",
      workflow_step = "space",
      save_report = TRUE)
@@ -1000,7 +998,7 @@ check_space %>%
 # Create figures of spacial data filtering
 (figures <-
     BeeDC::jbd_create_figures(
-      data = tibble::tibble(check_space %>% dplyr::select(!.uncer_terms)),
+      data = dplyr::tibble(check_space %>% dplyr::select(!.uncer_terms)),
       path = DataPath,
       database_id = "database_id",
       workflow_step = "space",
@@ -1161,9 +1159,9 @@ check_time <- BeeDC::dupeSummary(
   collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),
     # Custom comparisons — as a list of columns to compare
      # RAW custom comparisons do not use the character and number thresholds
-  CustomComparisonsRAW = tibble::lst(c("catalogNumber", "institutionCode", "scientificName")),
+  CustomComparisonsRAW = dplyr::lst(c("catalogNumber", "institutionCode", "scientificName")),
      # Other custom comparisons use the character and number thresholds
-  CustomComparisons = tibble::lst(c("gbifID", "scientificName"),
+  CustomComparisons = dplyr::lst(c("gbifID", "scientificName"),
                                   c("occurrenceID", "scientificName"),
                                   c("recordId", "scientificName"),
                                   c("id", "scientificName")),
@@ -1182,7 +1180,7 @@ check_time <- BeeDC::dupeSummary(
      # Minimum number of numbers WITHOUT any characters
   numberOnlyThreshold = 5
 ) %>% # END dupeSummary
-  tibble::as_tibble(col_types = BeeDC::ColTypeR())
+  dplyr::as_tibble(col_types = BeeDC::ColTypeR())
 
 # Save the dataset into the intermediate folder
 check_time %>%

@@ -1,10 +1,9 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("openxlsx")
 requireNamespace("dplyr")
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
   ~'Specimen Number', ~`Farmers (names redacted)`, ~'Date Blue vane traps were active', ~'Date Range for collection', ~'Sampling Round', ~'Treatment type', ~'Trap number',          ~County, ~State, ~'GPS Coordinates of Traps',         ~Genus, ~`Species (if available)`, ~`other (example coleoptera)`, ~`notes (example hymenoptera-ant)`, ~comment,
              6376L,                          3L,                                NA,              "05/24-06/01",              1L,        "Grazed",         "S7", "Kit Carson Co.",   "CO",      "39.210N, -102.884W", "Species",                     "135",                            NA,                                 NA,       NA,
              6051L,                          3L,                                NA,              "05/24-06/01",              1L,      "Ungrazed",         "S6", "Kit Carson Co.",   "CO",      "39.210N, -102.883W", "Species",                     "165",                            NA,                                 NA,       NA,

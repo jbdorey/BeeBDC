@@ -1,5 +1,4 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("BeeDC")
 requireNamespace("openxlsx")
 requireNamespace("dplyr")
@@ -7,7 +6,7 @@ library(dplyr) ## could not use %>% without loading as library
 
 
 # data below is FAKE
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
                                                ~ID, ~institutionCode,             ~Det, ~Number, ~Male, ~Female, ~Collection_method,          ~Collection_date,  ~Collector,        ~Order,    ~Suborder,        ~Family,     ~Subfamily,        ~Tribe,         ~Genus,         ~subgenus, ~sp_group,      ~species, ~subspecies,            ~author,                             ~whole_sci_name, ~Country,     ~State,         ~County_Parish,                        ~Location,                 ~Lat,               ~Long,
               "discoverlife fake1 USGS-DRO. fake1",           "USGS",      "S. Droege",      1L,    0L,      1L,              "Net", "2019-08-07 00:00:00 UTC", "J. Fowler", "Hymenoptera", "Anthophila",       "Apidae",             NA,            NA,         "Apis",                NA,        NA,   "mellifera",          NA,   "Linnaeus, 1758",             "Apis mellifera Linnaeus, 1758",    "USA",       "NY",            "Kings Co.",           "Brooklyn Bridge Park",              "40.69",                 -73,
               "discoverlife fake2 USGS-DRO. fake2",           "USGS",      "S. Droege",      1L,    1L,      0L,              "Net", "2019-09-06 00:00:00 UTC", "J. Fowler", "Hymenoptera", "Anthophila",       "Apidae",             NA,            NA,         "Apis",                NA,        NA,   "mellifera",          NA,   "Linnaeus, 1758",             "Apis mellifera Linnaeus, 1758",    "USA",       "NY",            "Kings Co.",           "Brooklyn Bridge Park",              "40.69",                 -73,

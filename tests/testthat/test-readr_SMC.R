@@ -1,9 +1,8 @@
 requireNamespace("readr")
-requireNamespace("tibble")
 requireNamespace("dplyr")
 
 
-testData <- tibble::tribble(
+testData <- dplyr::tribble(
                                 ~organismName, ~individualCount,  ~county, ~stateProvince,                             ~locale, ~observationDate, ~collectionMethod,            ~references, ~institutionCode, ~latitude, ~longitude, ~georeferenceMethod, ~georeferenceMethodNotes,  ~georeferencedBy, ~determiner, ~lifeStage,                                                 ~Data.Source.Link, ~Notes,
               "Agapostemon_angelicus/texanus",               2L, "Bailey",        "Texas", "Muleshoe National Wildlife Refuge",      "3/17/2013",       "pan_traps", "Auerbach et al, 2019",            "TTU",  33.96377,  -102.7508,       "Digital Map",           "Google Earth", "Shannon Collins",          NA,    "Adult", "https://academic.oup.com/ee/article/48/4/968/5494819?login=true",     NA,
                    "Agapostemon_melliventris",               2L, "Bailey",        "Texas", "Muleshoe National Wildlife Refuge",      "3/17/2013",       "pan_traps", "Auerbach et al, 2019",            "TTU",  33.96377,  -102.7508,       "Digital Map",           "Google Earth", "Shannon Collins",          NA,    "Adult", "https://academic.oup.com/ee/article/48/4/968/5494819?login=true",     NA,
