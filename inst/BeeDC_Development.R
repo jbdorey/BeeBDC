@@ -141,7 +141,7 @@ print(citation("BeeDC"), bibtex=TRUE)
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
-usethis::use_test("countryOutlieRs")
+usethis::use_test("readr_BeeDC")
 
 
   ##### 2.5 Check package ####
@@ -155,6 +155,12 @@ usethis::use_news_md()
 usethis::use_cran_comments()
 
 
+
+testOut1 <- BeeDC::readr_BeeDC(dataset = "EPEL",
+                               path = tempdir(),
+                               inFile = "testData.csv",
+                               outFile = "testDataOut.csv",
+                               dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 
 

@@ -1,36 +1,298 @@
-  # These functinos were written by James B Dorey around the 17th of June 2022 to read in,
-    # Format and save varioues datasets.
+  # These functions were written by James B Dorey beginning on the 17th of June 2022 to read in,
+    # Format and save various datasets.
   # For questions, please email jbdorey[at]me.com
 
-#### 1.0 EPEL ####
-#' Reads specific data files into Darwin Core format
+
+#### x.0 readr_BeeDC function ####
+# A single function that wraps all of the readr_functions
+#' Read in specific bee datasets
 #' 
-#' Data files are specific to various data providers and users may examine code function-by-function.
+#' Reads in a variety of data files that are specific to certain data providers. These functions 
+#' are internal to readr_BeeDC but are displayed here for clarity.
 #' 
-#' @param path Character path. The path to the directory containing the data.
-#' @param inFile Character or character path. The name of the file itself (can also be the remainder of a path including the file name).
-#' @param outFile Character or character path. The name of the Darwin Core format file to produce.
-#' @param dataLicense Character. The license to accompany each record in the Darwin Core 'license' column.
-#' @param beeFilter Filters to only the bee families - for use in [BeeDC::readr_Lic()]
+#' This function wraps several internal readr functions. Users may call
+#' readr_BeeDC and select the dataset name to import a certain dataset. These datasets include:
+#' 
+#' Excel formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, and JoLa.
+#' 
+#' CSV formatted datasets: EPEL, ASP, BMin, BMont, Ecd, Gai, KP, EcoS, GeoL, EaCo, FSCA, SMC,
+#' Lic, Dor, BBD, STRI, and PALA
+#' 
+#' See Dorey et al. 2023 BeeDC... for further details.
 #'
-#' @return A data frame that's in Darwin Core format.
+#' @param dataset Character. The name of the dataset to be read in. For example readr_CAES can
+#' be called as "readr_CAES" or "CAES". This is not caps sensitive.
+#' @param path A character path. The path to the directory containing the data.
+#' @param inFile Character or character path. The name of the file itself (can also be the 
+#' remainder of a path including the file name).
+#' @param outFile Character or character path. The name of the Darwin Core format file to be saved.
+#' @param dataLicense Character. The license to accompany each record in the Darwin Core 'license' 
+#' column.
+#' @param sheet A character String. For those datasets read from an .xlsx format, provide the 
+#' sheet name. 
+#' NOTE: This will be ignored for .csv readr_ functions and required for .xlsx readr_ functions.
+#'
+#' @return A data frame that is in Darwin Core format.
 #' @export
 #' 
 #' @importFrom readr read_csv write_csv
-#' @importFrom dplyr rename mutate select if_else %>%
+#' @importFrom dplyr rename mutate select if_else  %>%
 #' @importFrom lubridate ymd month
 #' @importFrom stringr str_c
+#' 
 #'
 #' @examples
 #' \dontrun{
-#' # An example using a .csv file
-#' EPEL_Data <- Ereadr_PEL(path = paste0(tempdir(), "/Additional_Datasets"),
-#'inFile = "/InputDatasets/bee_data_canada.csv",
-#' outFile = "jbd_EPEL_data.csv",
-#' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
-#' 
-#' 
+#' # An example using a .xlsx file
+#'Arm_Data <- readr_BeeDC(
+#'     dataset = "Arm",
+#'     path = paste0(tempdir(), "/Additional_Datasets"),
+#'     inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
+#'     outFile = "jbd_Arm_Data.csv",
+#'     sheet = "Sheet1",
+#'     dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+#'     
+#'     
+#'     # An example using a .csv file
+#'EPEL_Data <- readr_BeeDC(
+#'   dataset = "readr_EPEL",
+#'   path = paste0(tempdir(), "/Additional_Datasets"),
+#'   inFile = "/InputDatasets/bee_data_canada.csv",
+#'   outFile = "jbd_EPEL_data.csv",
+#'   dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 #' }
+readr_BeeDC <- function(
+    dataset = NULL,
+    path = NULL,
+    inFile = NULL,
+    outFile = NULL,
+    dataLicense = NULL,
+    sheet = NULL){
+  
+  #### x.0 Prep ####
+  ##### x.1 Errors ####
+  ###### a. FATAL errors ####
+  if(is.null(dataset)){
+    stop(" - Please provide an argument for dataset. This can be from any of the readr_ functions")
+  }
+  if(is.null(path)){
+    stop(" - Please provide an argument for the path to a folder containing your file.")
+  }
+  if(is.null(inFile)){
+    stop(" - Please provide an argument for the inFile name to find.")
+  }
+  if(is.null(outFile)){
+    stop(" - Please provide an argument for outFile to save as.")
+  }
+  if(is.null(dataLicense)){
+    stop(" - Please provide an argument for dataLicense.")
+  }
+  
+  ##### x.2 Data types ####
+  # Create the lists of potential data types for .xlsx or .csv inputs
+  excelTypes <- c("CAES", "MABC", "Col", "Bal", "MEPB", "MPUJ")
+  csvTypes <- c("EPEL", "ASP", "BMin", "BMont", "Ecd", "Gai", "KP", "EcoS", "GeoL",
+                "EaCo", "FSCA", "SMC", "Lic", "Dor", "BBD")
+  
+  # Wrong entry test
+  if(!tolower(dataset) %in% tolower(c(paste0("readr_",csvTypes), csvTypes,
+                              paste0("readr_",excelTypes), excelTypes)) ){
+    stop("The dataset does not match a readr_ function")
+  }
+  
+  
+  #### x.0 Choose function ####
+  ##### x.1 Excel functions ####
+  # EXCEL test
+  if(tolower(dataset) %in% tolower(c(paste0("readr_",excelTypes), excelTypes)) ){
+    message("A .xlsx data type was chosen...")
+    # If no sheet is provided
+    if(is.null(sheet)){
+      stop(" - No sheet argument was provided. Please check for the sheet name to import.")
+    }
+    ###### a. CAES ####
+    if(tolower(dataset) %in% tolower(c("readr_CAES", "CAES")) ){
+      dataOut <- readr_CAES(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense,
+                        sheet = sheet)}
+    ##### b. MABC ####
+    if(tolower(dataset) %in% tolower(c("readr_MABC", "MABC")) ){
+      dataOut <- readr_MABC(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense,
+                        sheet = sheet)}
+    ##### c. Col ####
+    if(tolower(dataset) %in% tolower(c("readr_Col", "Col")) ){
+      dataOut <- readr_Col(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense,
+                       sheet = sheet)}
+    ##### d. Bal ####
+    if(tolower(dataset) %in% tolower(c("readr_Bal", "Bal")) ){
+      dataOut <- readr_Bal(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense,
+                       sheet = sheet)}
+    ##### e. MEPB ####
+    if(tolower(dataset) %in% tolower(c("readr_MEPB", "MEPB")) ){
+      dataOut <- readr_MEPB(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense,
+                        sheet = sheet)}
+    ##### f. MPUJ ####
+    if(tolower(dataset) %in% tolower(c("readr_MPUJ", "MPUJ")) ){
+      dataOut <- readr_MPUJ(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense,
+                        sheet = sheet)}
+    ##### f. Arm ####
+    if(tolower(dataset) %in% tolower(c("readr_Arm", "Arm")) ){
+      dataOut <- readr_Arm(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense,
+                       sheet = sheet)}
+    ##### g. JoLa ####
+    if(tolower(dataset) %in% tolower(c("readr_JoLa", "JoLa")) ){
+      dataOut <- readr_JoLa(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense,
+                        sheet = sheet)}
+  }# END Excel functions
+  
+  ##### x.2 CSV functions ####
+  # CSV test
+  if(tolower(dataset) %in% tolower(c(paste0("readr_",csvTypes), csvTypes)) ){
+    message("A .csv data type was chosen...")
+    
+    ###### a. EPEL ####
+    if(tolower(dataset) %in% tolower(c("readr_EPEL", "EPEL")) ){
+      dataOut <- readr_EPEL(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    ##### b. ASP ####
+    if(tolower(dataset) %in% tolower(c("readr_ASP", "ASP")) ){
+      dataOut <- readr_ASP(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense)}
+    ##### c. BMin ####
+    if(tolower(dataset) %in% tolower(c("readr_BMin", "BMin")) ){
+      dataOut <- readr_BMin(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    ##### d. BMont ####
+    if(tolower(dataset) %in% tolower(c("readr_BMont", "BMont")) ){
+      dataOut <- readr_BMont(path = path,
+                         inFile = inFile,
+                         outFile = outFile,
+                         dataLicense = dataLicense)}
+    ##### e. Ecd ####
+    if(tolower(dataset) %in% tolower(c("readr_Ecd", "Ecd")) ){
+      dataOut <- readr_Ecd(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense)}
+    ##### f. Gai ####
+    if(tolower(dataset) %in% tolower(c("readr_Gai", "Gai")) ){
+      dataOut <- readr_Gai(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense)}
+    ##### g. KP ####
+    if(tolower(dataset) %in% tolower(c("readr_KP", "KP")) ){
+      dataOut <- readr_KP(path = path,
+                      inFile = inFile,
+                      outFile = outFile,
+                      dataLicense = dataLicense)}
+    ##### h. EcoS ####
+    if(tolower(dataset) %in% tolower(c("readr_EcoS", "EcoS")) ){
+      dataOut <- readr_EcoS(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    ##### i. GeoL ####
+    if(tolower(dataset) %in% tolower(c("readr_GeoL", "GeoL")) ){
+      dataOut <- readr_GeoL(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    ##### j. EaCO ####
+    if(tolower(dataset) %in% tolower(c("readr_EaCO", "EaCo")) ){
+      dataOut <- readr_EaCO(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    ##### k. FSCA ####
+    if(tolower(dataset) %in% tolower(c("readr_FSCA", "FSCA")) ){
+      dataOut <- readr_FSCA(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    ##### l. SMC ####
+    if(tolower(dataset) %in% tolower(c("readr_SMC", "SMC")) ){
+      dataOut <- readr_SMC(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense)}
+    ##### m. Lic ####
+    if(tolower(dataset) %in% tolower(c("readr_Lic", "Lic")) ){
+      dataOut <- readr_Lic(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense)}
+    ##### n. Dor ####
+    if(tolower(dataset) %in% tolower(c("readr_Dor", "Dor")) ){
+      dataOut <- readr_Dor(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense)}
+    ##### o. BBD ####
+    if(tolower(dataset) %in% tolower(c("readr_BBD", "BBD")) ){
+      dataOut <- readr_BBD(path = path,
+                       inFile = inFile,
+                       outFile = outFile,
+                       dataLicense = dataLicense)}
+    ##### p. STRI ####
+    if(tolower(dataset) %in% tolower(c("readr_STRI", "STRI")) ){
+      dataOut <- readr_STRI(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    ##### g. PALA ####
+    if(tolower(dataset) %in% tolower(c("readr_PALA", "PALA")) ){
+      dataOut <- readr_PALA(path = path,
+                        inFile = inFile,
+                        outFile = outFile,
+                        dataLicense = dataLicense)}
+    
+    
+    
+  } #END csv
+  
+  return(dataOut)
+} # END readr_BeeDC
+
+
+
+
+
+#### 1.0 EPEL ####
+#' @describeIn readr_BeeDC
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
+#'
 readr_EPEL <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -110,11 +372,11 @@ return(EPEL_Data)
 
 
 #### 2.0 ASP ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_ASP <- function(path = NULL,
                          inFile = NULL,
                          outFile = NULL,
@@ -180,11 +442,11 @@ return(ASP_data)
 
 #### 3.0 BMin ####
  
- #' @describeIn readr_EPEL
+ #' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 
 readr_BMin <- function(path = NULL,
                       inFile = NULL,
@@ -234,11 +496,11 @@ return(BMin_data)
 
 
 #### 4.0 BMont ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_BMont <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -317,11 +579,11 @@ return(BMont_data)
 
 
 #### 5.0 Ecd ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_Ecd <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -366,11 +628,11 @@ return(Ecd_data)
 } # END readr_Ecd
 
 ###### 6.0 Gai ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_Gai <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -449,36 +711,11 @@ return(Gai_data)
 } # END readr_Gai
 
 #### 7.0 CAES ####
-
+#' @describeIn readr_BeeDC
+#' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' Data files are specific to various data providers and users may examine code function-by-function.
-#' 
-#' @param path A character path. The path to the directory containing the data.
-#' @param inFile Character or character path. The name of the file itself (can also be the 
-#' remainder of a path including the file name).
-#' @param outFile Character or character path. The name of the Darwin Core format file to be saved.
-#' @param dataLicense Character. The license to accompany each record in the Darwin Core 'license' column.
-#' @param sheet A character String. For those datasets read from an .xlsx format, provide the 
-#' sheet name.
 #'
-#' @return A data frame that is in Darwin Core format.
-#' @export
-#' 
-#' @importFrom readr read_csv write_csv
-#' @importFrom dplyr rename mutate select if_else  %>%
-#' @importFrom lubridate ymd month
-#' @importFrom stringr str_c
-#'
-#' @examples
-#' \dontrun{
-#' # An example using a .xlsx file
-#'     Arm_Data <- readr_Arm(path = paste0(tempdir(), "/Additional_Datasets"),
-#' inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
-#' outFile = "jbd_Arm_Data.csv",
-#' sheet = "Sheet1",
-#' dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
-#' }
 readr_CAES <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -504,7 +741,7 @@ readr_CAES <- function(path = NULL,
 
   #### 7.2 Read+ ####
     # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-CAES_data <- openxlsx::read.xlsx(paste(path, inFile, sep = ""), sheet = sheet) %>%
+CAES_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"), sheet = sheet) %>%
   # Turn spaces into "_" in column names
   dplyr::rename_with(., ~ gsub(" ", "_", .x, fixed = TRUE)) %>%
   # Make columns DarwinCore-compatible
@@ -637,11 +874,11 @@ return(CAES_data)
 
 
 #### 9.0 KP ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_KP <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
@@ -769,11 +1006,11 @@ KP_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/")) %>%
 
 
 #### 11.0 EcoS ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_EcoS <- function(path = NULL,
                      inFile = NULL,
                      outFile = NULL,
@@ -849,11 +1086,11 @@ readr_EcoS <- function(path = NULL,
 
 
 #### 12.0 GeoL ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_GeoL <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -999,11 +1236,11 @@ readr_GeoL <- function(path = NULL,
 
 
 #### 13.0 EaCO ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_EaCO <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1122,11 +1359,11 @@ readr_EaCO <- function(path = NULL,
 
 
 #### 14.0 MABC ####
-#' @describeIn readr_CAES
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_MABC <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1233,11 +1470,11 @@ readr_MABC <- function(path = NULL,
 
 
 #### 15.0 Col ####
-#' @describeIn readr_CAES
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_Col <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1396,11 +1633,11 @@ readr_Col <- function(path = NULL,
 
 
 #### 16.0 FSCA ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_FSCA <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1451,11 +1688,11 @@ readr_FSCA <- function(path = NULL,
 
 
 #### 17.0 SMC ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_SMC <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -1513,15 +1750,16 @@ readr_SMC <- function(path = NULL,
 
 
 #### 18.0 Bal ####
-#' @describeIn readr_CAES
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_Bal <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
-                      dataLicense = NULL){
+                      dataLicense = NULL,
+                      sheet = "animal_data"){
   # locally bind variables to the function
   siteID<-year<-animalID<-abundance<-samplingMethod<-censusType<-decimalLatitude<-
     decimalLongitude<-studyLocation<-siteDescription<-studyID<-locationID<-.<-
@@ -1539,7 +1777,7 @@ readr_Bal <- function(path = NULL,
   #### 18.2 Read+ ####
   # Reads in the .xlsx file, trims the white spaces, and formats the columns to the correct type
   Bal_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
-                                 sheet = "animal_data", startRow = 2) %>%
+                                 sheet = sheet, startRow = 2) %>%
     # Return spaces in column names to keep the consistent with file before renaming
     setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Make columns DarwinCore-compatible
@@ -1601,16 +1839,15 @@ readr_Bal <- function(path = NULL,
 
 
 #### 19.0 Lic ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_Lic <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
-                      dataLicense = NULL,
-                      beeFilter = TRUE){
+                      dataLicense = NULL){
   # locally bind variables to the function
   Kingdom<-Order<-Family_or_grp<-Genus<-Species<-sex<-Collector<-Determiner<-genus<-species<-
     occurrenceID<-eventID<-eventDate<-.<-catalogNumber<-family <- NULL
@@ -1677,12 +1914,10 @@ readr_Lic <- function(path = NULL,
     )
   
   # filter to bee families only
-  if(beeFilter == TRUE){
     Lic_data <- Lic_data %>%
       dplyr::filter(tolower(family) %in% 
                       tolower(c("Andrenidae","Apidae","Colletidae","Halictidae","Megachilidae",
                                 "Melittidae","Stenotritidae")))
-  } # END beeFilter
   
   
   #### 19.3 Out ####
@@ -1698,11 +1933,11 @@ readr_Lic <- function(path = NULL,
 
 
 #### 20.0 Arm ####
-#' @describeIn readr_CAES
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_Arm <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1723,7 +1958,7 @@ readr_Arm <- function(path = NULL,
   
   #### 20.2 Read+ ####
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
-  Arm_data <- openxlsx::read.xlsx(paste(path, inFile, sep = ""), sheet = sheet) %>%
+  Arm_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"), sheet = sheet) %>%
     # Make columns DarwinCore-compatible
     dplyr::rename(
       family = fam,
@@ -1817,11 +2052,11 @@ readr_Arm <- function(path = NULL,
 
 
 #### 21.0 Dorey ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_Dor <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -1868,11 +2103,11 @@ readr_Dor <- function(path = NULL,
 
 
 #### 22.0 MEPB ####
-#' @describeIn readr_CAES
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_MEPB <- function(path = NULL,
                        inFile = NULL,
                        outFile = NULL,
@@ -1892,7 +2127,7 @@ readr_MEPB <- function(path = NULL,
 
   
   #### 22.2 Read+ ####
-  MEPB_data <- openxlsx::read.xlsx(paste(path, inFile, sep = ""), sheet = sheet)  %>%
+  MEPB_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"), sheet = sheet)  %>%
     # Return spaces in column names to keep the consistent with file before renaming
     setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Fix broken encodings
@@ -1935,11 +2170,11 @@ readr_MEPB <- function(path = NULL,
 
 
 #### 23.0 Brazil ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_BBD <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -2054,11 +2289,11 @@ readr_BBD <- function(path = NULL,
 
 
 #### 24.0 MPUJ ####
-#' @describeIn readr_CAES
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 readr_MPUJ <- function(path = NULL,
                       inFile = NULL,
                       outFile = NULL,
@@ -2174,11 +2409,11 @@ readr_MPUJ <- function(path = NULL,
 
 
 #### 25.0 STRI ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 #' 
 readr_STRI <- function(path = NULL,
                        inFile = NULL,
@@ -2240,11 +2475,11 @@ readr_STRI <- function(path = NULL,
 
 
 #### 26.0 PALA ####
-#' @describeIn readr_EPEL
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 #' 
 readr_PALA <- function(path = NULL,
                        inFile = NULL,
@@ -2342,11 +2577,11 @@ readr_PALA <- function(path = NULL,
 
 
 #### 27.0 JoLa ####
-#' @describeIn readr_CAES
+#' @describeIn readr_BeeDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
-#' @export
+#'
 #' 
 readr_JoLa <- function(path = NULL,
                        inFile = NULL,
@@ -2412,3 +2647,6 @@ readr_JoLa <- function(path = NULL,
   # Return the data from the function to the user
   return(JoLa_data)
 } # END readr_JoLa
+
+
+
