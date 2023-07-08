@@ -2419,7 +2419,7 @@ readr_STRI <- function(path = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
   # locally bind variables to the function
-  fieldNotes <- Catalognumber <- . <- day <- year <- catalogNumber <-  NULL
+  fieldNotes <- Catalognumber <- . <- day <- year <- catalogNumber <-  recordId <- NULL
   
   #### 25.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -2435,6 +2435,7 @@ readr_STRI <- function(path = NULL,
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
   STRI_data <- readr::read_csv(paste(path, inFile, sep = "/"),
                                   trim_ws = TRUE) %>% 
+    dplyr::rename(recordId = "recordID") %>%
     # Rename columns
     dplyr::mutate(
       fieldNotes = stringr::str_c(
