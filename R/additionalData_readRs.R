@@ -2609,6 +2609,8 @@ readr_JoLa <- function(path = NULL,
                                    sheet = sheet[1]) %>% 
     dplyr::bind_rows(openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                         sheet = sheet[2])) %>%
+    # Return spaces in column names to keep the consistent with file before renaming
+    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
       # Rename the columns
     dplyr::rename(
       specificEpithet = "Species",
