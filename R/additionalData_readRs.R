@@ -7,21 +7,23 @@
 # A single function that wraps all of the readr_functions
 #' Read in specific bee datasets
 #' 
-#' Reads in a variety of data files that are specific to certain data providers. These functions 
-#' are internal to readr_BeeDC but are displayed here for clarity.
+#' Read in a variety of data files that are specific to certain smaller data providers. 
+#' There is an internal readr function for each dataset and each one of these functions is called
+#' by readr_BeeDC. While these functions are internal, they are displayed in the documentation of 
+#' readr_BeeDC for clarity.
 #' 
 #' This function wraps several internal readr functions. Users may call
 #' readr_BeeDC and select the dataset name to import a certain dataset. These datasets include:
 #' 
-#' Excel formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, and JoLa.
+#' Excel (.xlsx) formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, and JoLa.
 #' 
-#' CSV formatted datasets: EPEL, ASP, BMin, BMont, Ecd, Gai, KP, EcoS, GeoL, EaCo, FSCA, SMC,
+#' CSV (.csv) formatted datasets: EPEL, ASP, BMin, BMont, Ecd, Gai, KP, EcoS, GeoL, EaCo, FSCA, SMC,
 #' Lic, Dor, BBD, STRI, and PALA
 #' 
 #' See Dorey et al. 2023 BeeDC... for further details.
 #'
 #' @param dataset Character. The name of the dataset to be read in. For example readr_CAES can
-#' be called as "readr_CAES" or "CAES". This is not caps sensitive.
+#' be called using "readr_CAES" or "CAES". This is not caps sensitive.
 #' @param path A character path. The path to the directory containing the data.
 #' @param inFile Character or character path. The name of the file itself (can also be the 
 #' remainder of a path including the file name).
