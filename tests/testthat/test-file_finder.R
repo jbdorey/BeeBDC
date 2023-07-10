@@ -1,7 +1,6 @@
 requireNamespace("readr")
 requireNamespace("BeeDC")
 requireNamespace("dplyr")
-requireNamespace("openxlsx")
 
 library(dplyr) ## could not use %>% without loading as library
 
