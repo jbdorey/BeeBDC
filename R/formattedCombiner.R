@@ -24,14 +24,14 @@
 #' \dontrun{
 #' strings = c("USGS_DRO_flat_27-Apr-2022")
 #'     # Combine the USGS data and the existing big dataset
-#' Complete_data <- formatted_combiner(path = DataPath, 
+#' Complete_data <- formattedCombiner(path = DataPath, 
 #'                                     strings = strings, 
 #'                                     # This should be the list-format with eml attached
 #'                                     existingOccurrences = DataImp$Data_WebDL,
 #'                                     existingEMLs = DataImp$eml_files) 
 #'                                     }
 
-formatted_combiner <- function(path, 
+formattedCombiner <- function(path, 
                                strings, 
                                existingOccurrences,
                                existingEMLs){
@@ -142,6 +142,6 @@ formatted_combiner <- function(path,
   writeLines(paste(" - Fin.", sep = "\n"))
   # Return the outfile
   return(existing_data)
-} # COMPLETE formatted_combiner
+} # COMPLETE formattedCombiner
 
 

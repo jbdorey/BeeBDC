@@ -1,8 +1,8 @@
 
 #### importOccurrences ####
-#' Imports the most-recent repo_merge data
+#' Imports the most-recent repoMerge data
 #' 
-#' Looks for and imports the most-recent version of the occurrence data created by the [BeeDC::repo_merge()] 
+#' Looks for and imports the most-recent version of the occurrence data created by the [BeeDC::repoMerge()] 
 #' function.
 #'
 #' @param path A directory as a character. The directory to recursively look in for the above data.

@@ -8,12 +8,12 @@ data("bees3sp")
 
 interactiveMapR(
   # occurrence data — start with entire dataset, filter down to these species
-  database = bees3sp,
+  data = bees3sp,
   # Directory where to save files
-  dir = paste0(tempdir(), "/interactiveMaps"),
+  outPath = paste0(tempdir(), "/interactiveMaps"),
   # lat long columns
-  longitude = "decimalLongitude",
-  latitude = "decimalLatitude",
+  lon = "decimalLongitude",
+  lat = "decimalLatitude",
   # Occurrence dataset column with species names
   speciesColumn = "scientificName",
   # Which species to map — a character vector of names or "ALL"

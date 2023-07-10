@@ -2,14 +2,14 @@
 # It was written by James B Dorey from the 20th of January 2023.
 #' @importFrom dplyr %>%
 dataProvTables <- function(
-    occData = NULL,
+    data = NULL,
     runBeeDataChecks = FALSE,
     institutionList = NULL
 ){
   requireNamespace("dplyr")
   
   #### 0.0 Warnings ####
-  if(is.null(occData)){
+  if(is.null(data)){
     stop("You must provide a checklist of countries")
   }
   # locally bind variables to the function
@@ -21,7 +21,7 @@ dataProvTables <- function(
   if(runBeeDataChecks == TRUE){
       ##### 1.1 Find codes ####
     # Find institutionCodes using other information
-    temp <- occData %>%
+    temp <- data %>%
         # Select ALA as data source and only those missing institutionCode
       dplyr::filter(stringr::str_detect(dataSource, "ALA|GBIF|iDigBio") & 
                       is.na(institutionCode)) %>%
@@ -174,19 +174,19 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
       dplyr::select(!institutionCodeNew)
     
     # Combine
-    occData <- occData %>%
+    data <- data %>%
       # Remove the occs from temp and then add them in again
       dplyr::filter(!database_id %in% temp$database_id) %>%
       dplyr::bind_rows(temp) 
     
       ##### 1.2 Make edits ####
-    occData <- occData %>%
+    data <- data %>%
         # Make sure USGS is included
       dplyr::mutate(institutionCode = dplyr::if_else(
         is.na(institutionCode) & stringr::str_detect(id, "USGS_DRO"),
         "USGS", institutionCode)) 
     
-    occData <- occData %>%
+    data <- data %>%
         # Make some corrections for consistency
     dplyr::mutate(institutionCode = dplyr::if_else(
       stringr::str_detect(institutionCode, "C\\.A\\. Triplehorn Insect Collection, Ohio State University"),
@@ -223,7 +223,7 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
   #### 2.0 Table ####
   ##### 2.1 occCount ####
     # Get a count of the number of occurrences per institutionCode
-  occCount <- occData %>%
+  occCount <- data %>%
       # Group by institutionCode
     dplyr::group_by(institutionCode) %>%
       # Get a tally of occurrences for each institutionCode
@@ -236,7 +236,7 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
   
   ##### 2.2 spCount ####
     # Get a count of the number of species per institutionCode
-  spCount <- occData %>%
+  spCount <- data %>%
     # Keep only distinct institutionCode, scientificName combinations 
     dplyr::distinct(institutionCode, scientificName,.keep_all = TRUE) %>%
     # Group by institutionCode

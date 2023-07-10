@@ -8,10 +8,10 @@ data("beesFlagged")
 
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 testOut <- plotFlagSummary(
-  plotData = beesFlagged,
+  data = beesFlagged,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-  filename = paste0("FlagsPlot_", Sys.Date(),".pdf"),
+  fileName = paste0("FlagsPlot_", Sys.Date(),".pdf"),
   outpath = tempdir(),
   width = 15, height = 9,
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 

@@ -6,16 +6,17 @@
 #' Create country-level summary maps of species and occurrence numbers
 #' 
 #' Builds an output figure that shows the number of species and the number of occurrences per 
-#' country. Breaks the data into classes for visualisation. Users may filter mapData to their taxa 
+#' country. Breaks the data into classes for visualisation. Users may filter data to their taxa 
 #' of interest to produce figures of interest.
 #'
-#' @param mapData A data frame or tibble. Occurrence records as input.
+#' @param data A data frame or tibble. Occurrence records as input.
 #' @param class_n Numeric. The number of categories to break the data into.
 #' @param class_Style Character. The class style passed to [classInt::classIntervals()]. Options are chosen 
 #' style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", 
 #' "fisher", "jenks", "dpih", "headtails", or "maximum". Default = "fisher"
-#' @param filename A character vector with both the path to the save location and the file name 
-#' itself for the output figure.
+#' @param fileName A character vector with file name 
+#' for the output figure, ending with '.pdf'.
+#' @param outpath A character vector the path to the save location for the output figure.
 #' @param width Numeric. The width, in inches, of the resulting figure. Default = 10.
 #' @param height Numeric. The height, in inches, of the resulting figure. Default = 5.
 #' @param dpi Numeric. The resolution of the resulting plot. Default = 300.
@@ -38,19 +39,21 @@
 #' # This simple example using the test data has very few classes due to the small amount of input 
 #' # data.
 #' summaryMaps(
-#' mapData = beesFlagged,
+#' data = beesFlagged,
 #' width = 10, height = 10,
 #' class_n = 4,
 #' class_Style = "fisher",
-#' filename = paste0(tempdir(), "/CountryMaps_fisher_TEST.pdf")
+#' fileName = paste0("CountryMaps_fisher_TEST.pdf"),
+#' outPath = tempdir()
 #' )
 #' 
 #' 
 summaryMaps <- function(
-    mapData = NULL,
+    data = NULL,
     class_n = 15,
     class_Style = "fisher",
-    filename = NULL,
+    fileName = NULL,
+    outPath = NULL,
     width = 10, height = 5,
     dpi = 300,
     returnPlot = FALSE
@@ -69,11 +72,14 @@ summaryMaps <- function(
   #### 0.0 Prep ####
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
-  if(is.null(mapData)){
-    stop(" - Please provide an argument for mapData I'm a program not a magician.")
+  if(is.null(data)){
+    stop(" - Please provide an argument for data I'm a program not a magician.")
   }
-  if(is.null(filename)){
-    stop(" - No argument provided for filename. Please provide a filename in full path format.")
+  if(is.null(fileName)){
+    stop(" - No argument provided for fileName. Please provide a fileName.")
+  }
+  if(is.null(outPath)){
+    stop(" - No argument provided for outPath Please provide an outPath.")
   }
   
   
@@ -92,10 +98,10 @@ summaryMaps <- function(
   
     ###### 1.2 occurrences ####
   # Make all of the US virgin islands species into US species
-    #  mapData$countryCode <- stringr::str_replace(string = mapData$countryCode, 
+    #  data$countryCode <- stringr::str_replace(string = data$countryCode, 
     #                                              pattern = "VI", replacement = "US")
   # Turn occData into a simple point feature
-  mapData <- sf::st_as_sf(mapData %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+  data <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
                          coords = c("decimalLongitude", "decimalLatitude"),
                          na.fail = TRUE,
                          # Assign the CRS from the rnaturalearth map to the point data
@@ -108,9 +114,9 @@ summaryMaps <- function(
   writeLines(" - Extracting country data from points...")
     # Set geometries to constant for the sake of the map
   sf::st_agr(worldMap) = "constant"
-  sf::st_agr(mapData) = "constant"
+  sf::st_agr(data) = "constant"
   #Extract polygon information to points
-  mapData <- sf::st_intersection(worldMap, mapData) %>%
+  data <- sf::st_intersection(worldMap, data) %>%
     # drop geometry
     sf::st_drop_geometry() 
   writeLines("Extraction complete.")
@@ -119,7 +125,7 @@ summaryMaps <- function(
   #### 2.0 Species map ####
     ##### 2.1 Data prep ####
   # Get the unique country-species pairs
-  spMapData <- mapData %>%
+  spMapData <- data %>%
     dplyr::distinct(scientificName, name_long, .keep_all = TRUE) %>%
     # Group by the country
     dplyr::group_by(name_long) %>%
@@ -201,7 +207,7 @@ summaryMaps <- function(
   #### 3.0 occurrence map ####
   ##### 2.1 data prep ####
   # Get the unique county-database_id pairs
-  mapTable <- mapData %>%
+  mapTable <- data %>%
       # Group by the country
     dplyr::group_by(name_long) %>%
       # Get a count of the records per country
@@ -289,7 +295,7 @@ summaryMaps <- function(
                                   labels = c("(a)","(b)"),
                                  ncol = 1, align = 'v', axis = 'l'))
   # Save the plot
-  cowplot::save_plot(filename = filename,
+  cowplot::save_plot(fileName = paste0(outPath, "/", fileName),
                      plot = combinedPlot,
                      base_width = width,
                      base_height = height, dpi = dpi)

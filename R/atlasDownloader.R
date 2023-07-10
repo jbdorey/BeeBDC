@@ -1,5 +1,5 @@
 
-##### 1. atlas_downloader ####
+##### 1. atlasDownloader ####
 #' Download occurrence data from the Atlas of Living Australia (ALA)
 #'
 #'
@@ -26,12 +26,12 @@
 #' @examples
 #' \dontrun{
 #' remotes::install_github("AtlasOfLivingAustralia/galah")
-#' atlas_downloader(path = DataPath,
+#' atlasDownloader(path = DataPath,
 #'                userEmail = "InsertYourEmail",
 #'                ALA_taxon = "Apiformes",
 #'                DL_reason = 4)
 #'                }
-atlas_downloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, atlas = "ALA"){
+atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, atlas = "ALA"){
   # locally bind variabls to the function
   . <- NULL
   

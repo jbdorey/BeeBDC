@@ -4,7 +4,7 @@
 #' The function finds, imports, formats, and creates metadata for the USGS dataset.
 #'
 #' @param path A character path to a directory that contains the USGS data, which will be found using
-#' [BeeDC::file_finder()]. The function will look for "USGS_DRO_flat".
+#' [BeeDC::fileFinder()]. The function will look for "USGS_DRO_flat".
 #' @param pubDate Character. The publication date of the dataset to update the metadata and citation.
 #'
 #' @return Returns a list with the occurrence data, "USGS_data", and the EML data, "EML_attributes".
@@ -32,7 +32,7 @@ USGS_formatter <- function(
   # File name to search for
   USGS_fileName <- "USGS_DRO_flat"
   # Find the USGS data from the HomePath
-  USGS_loc <- file_finder(path, USGS_fileName)
+  USGS_loc <- fileFinder(path, USGS_fileName)
   # Define ColsToKeep
   ColsToKeep <- ColTypeR()[[1]] %>% names()
   
@@ -52,7 +52,7 @@ USGS_formatter <- function(
     # unzip the file
     R.utils::gunzip(
       # File to unzip
-      filename = USGS_loc, 
+      fileName = USGS_loc, 
       # Where to put the extracted file
       destname = stringr::str_remove(USGS_loc, ".gz"),
       overwrite = FALSE,

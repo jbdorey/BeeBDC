@@ -7,7 +7,7 @@ data("beesFlagged")
   # Run the function
 flagTibble <- flagSummary(data = beesFlagged,
                               column = "scientificName",
-                              outpath = paste0(tempdir(), "/filterTable.csv"))
+                              outPath = paste0(tempdir(), "/filterTable.csv"))
 
    # Get the number of 100% fails and 0% fails
 fails100 <- sum(flagTibble$percentFailed == 100)

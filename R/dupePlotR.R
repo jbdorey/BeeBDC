@@ -8,8 +8,8 @@
 #' data source
 #' while the other shows the proportion of records that are duplicated within each data source.
 #'
-#' @param Data A data frame or tibble. Occurrence records as input.
-#' @param outpath A directory as a character string. Where the plot should be saved AND it's name.
+#' @param data A data frame or tibble. Occurrence records as input.
+#' @param outPath A directory as a character string. Where the plot should be saved AND it's name.
 #' i.e. mypath/.../duplicatePlot.pdf 
 #' @param legend.position The position of the legend as coordinates. Default = c(0.85, 0.8).
 #' @param base_height Numeric. The height of the plot in inches. Default = 7.
@@ -29,10 +29,10 @@
 #' # This example will show a warning for the factor levels taht are not present in the specific 
 #' # test dataset
 #' dupePlotR(
-#'   Data = beesFlagged,
-#'   # The outpath to save the plot as
+#'   data = beesFlagged,
+#'   # The outPath to save the plot as
 #'     # Should be something like: #paste0(OutPath_Figures, "/duplicatePlot_TEST.pdf"),
-#'   outpath = paste0(tempdir(), "/duplicatePlot_TEST.pdf"), 
+#'   outPath = paste0(tempdir(), "/duplicatePlot_TEST.pdf"), 
 #'   # Colours in order: duplicate, kept duplicate, unique
 #'   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
 #'   # Plot size and height
@@ -44,8 +44,8 @@
 #'   Gaiarsa = "Gai", EPEL = "EPEL", Lic = "Lic", Bal = "Bal", Arm = "Arm"
 #'   )
 dupePlotR <- function(
-    Data = NULL,
-    outpath = NULL,
+    data = NULL,
+    outPath = NULL,
     legend.position = c(0.85, 0.8),
     base_height = 7,
     base_width = 7,
@@ -67,18 +67,18 @@ dupePlotR <- function(
   #### 0.0 Prep ####
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
-  if(is.null(Data)){
-    stop(" - Please provide an argument for Data I'm a program not a magician.")
+  if(is.null(data)){
+    stop(" - Please provide an argument for data I'm a program not a magician.")
   }
-  if(is.null(outpath)){
-    stop(" - Please provide an argument for outpath Seems reckless to let me just guess.")
+  if(is.null(outPath)){
+    stop(" - Please provide an argument for outPath Seems reckless to let me just guess.")
   }
   
   
-  #### 1.0 Data prep. ####
+  #### 1.0 data prep. ####
   # Create the formatted file to create the figure
   # Add duplicates
-  dupeTibble <- Data %>%
+  dupeTibble <- data %>%
     # Select relevant columns
     dplyr::select(database_id, duplicateStatus, dataSource) %>%
     # Simplify the dataSources
@@ -88,7 +88,7 @@ dupePlotR <- function(
   dupeTibble$duplicateStatus <- dupeTibble$duplicateStatus %>%
     forcats::fct_relevel("Duplicate","Kept duplicate","Unique")
   
-  rm(Data)
+  rm(data)
   
   # Recode the simpleSource to be consistent with elsewhere and then order it
   factorised <- dupeTibble$simpleSource %>% 
@@ -118,7 +118,7 @@ dupePlotR <- function(
                      panel.background = ggplot2::element_rect(fill = "white", colour = NA),
                      axis.line = ggplot2::element_line(colour = "black"),
                      legend.position="none") +
-      ggplot2::ylab("Proportion of records") + ggplot2::xlab("Data source")
+      ggplot2::ylab("Proportion of records") + ggplot2::xlab("data source")
   
   #### 3.0 Proportion of duplicates ####
   dupHist <- ggplot2::ggplot(dupeTibble, ggplot2::aes(simpleSource, fill = duplicateStatus)) +
@@ -130,7 +130,7 @@ dupePlotR <- function(
             axis.title.x= ggplot2::element_blank(),
             panel.background = ggplot2::element_rect(fill = "white", colour = NA),
             axis.line = ggplot2::element_line(colour = "black")) +
-      ggplot2::ylab("Number of records") + ggplot2::xlab("Data source")
+      ggplot2::ylab("Number of records") + ggplot2::xlab("data source")
   
   #### 4.0 combine + save ####
   # plot the figures together
@@ -141,7 +141,7 @@ dupePlotR <- function(
                                  labels = c("(a)","(b)"),
                                  ncol = 1, align = 'v', axis = 'l'))
   # Save the plot
-  cowplot::save_plot(filename = outpath,
+  cowplot::save_plot(fileName = outPath,
                      plot = dupPlot,
                      base_width = base_width,
                      base_height = base_height)

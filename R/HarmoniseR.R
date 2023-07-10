@@ -15,8 +15,8 @@
 #' [BeeDC::beesTaxonomy] file.
 #'
 #' @param path A directory as character. The path to a folder that the output can be saved.
-#' @param SynList A data frame or tibble. The bee taxonomy to use. Default = BeeDC::beesTaxonomy.
-#' @param occurrences A data frame or tibble. Occurrence records as input.
+#' @param taxonomy A data frame or tibble. The bee taxonomy to use. Default = BeeDC::beesTaxonomy.
+#' @param data A data frame or tibble. Occurrence records as input.
 #' @param speciesColumn Character. The name of the column containing species names. Default = "scientificName".
 #' @param rm_names_clean Logical. If TRUE then the names_clean column will be removed at the end of
 #' this function to help reduce confusion about this column later. Default = TRUE
@@ -32,19 +32,19 @@
 #'
 #' @examples
 #' 
-#' beesRaw_out <- HarmoniseR(
+#' beesRaw_out <- harmoniseR(
 #'   #The path to a folder that the output can be saved
 #' path = tempdir(),
 #' # The formatted taxonomy file
-#' SynList = BeeDC::beesTaxonomy, 
-#' occurrences = BeeDC::beesFlagged,
+#' taxonomy = BeeDC::beesTaxonomy, 
+#' data = BeeDC::beesFlagged,
 #' speciesColumn = "scientificName")
 #' table(beesRaw_out$.invalidName, useNA = "always")
 
-HarmoniseR <- function(
-  occurrences = NULL,
+harmoniseR <- function(
+  data = NULL,
   path = NULL, #The path to a folder that the output can be saved
-  SynList = BeeDC::beesTaxonomy, # The formatted taxonomy file
+  taxonomy = BeeDC::beesTaxonomy, # The formatted taxonomy file
   speciesColumn = "scientificName",
   rm_names_clean = TRUE
   ) {  
@@ -68,11 +68,11 @@ HarmoniseR <- function(
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
-  if(is.null(occurrences)){
-    stop(" - Please provide an argument for occurrences. I'm a program not a magician.")
+  if(is.null(data)){
+    stop(" - Please provide an argument for data. I'm a program not a magician.")
   }
-  if(is.null(SynList)){
-    stop(" - Please provide an argument for SynList I'm a program not a magician.")
+  if(is.null(taxonomy)){
+    stop(" - Please provide an argument for taxonomy I'm a program not a magician.")
   }
   if(is.null(path)){
     stop(" - Please provide an argument for path I'm a program not a magician.")
@@ -82,60 +82,60 @@ HarmoniseR <- function(
 
   #### 1.0  _match columns ####
   # Make a synonym index list
-  writeLines(paste(" - Formatting SynList for matching..."))
+  writeLines(paste(" - Formatting taxonomy for matching..."))
   # save the original column names
-  OG_colnames <- unique(c("database_id", colnames(occurrences)))
+  OG_colnames <- unique(c("database_id", colnames(data)))
   # Save the original number of rows
-  OG_rowNum <- nrow(occurrences)
+  OG_rowNum <- nrow(data)
   
     ##### 1.1 Prepare columns ####
     # To make the function more general, allow some column changing internally.
       ###### a. rename to scientificName ####
     # Temporarily rename the speciesColumn to "scientificName" within the function
-  occurrences <- occurrences %>%
+  data <- data %>%
     dplyr::rename("scientificName" = tidyselect::any_of(speciesColumn))
       ###### b. temp names_clean ####
     # IF the names_clean column does not exist, temporarily add it to the dataset using the 
   # scientificName column's data.
-  if(!"names_clean" %in% colnames(occurrences)){
-    occurrences <- occurrences %>%
+  if(!"names_clean" %in% colnames(data)){
+    data <- data %>%
       dplyr::mutate(names_clean = scientificName)
     message("The names_clean column was not found and will be temporarily removed.")
   }
     ###### c. database_id ####
     # If the database_id column isn't in the dataset, then add it for internal use
-  if(!"database_id" %in% colnames(occurrences)){
-    occurrences <- occurrences %>%
+  if(!"database_id" %in% colnames(data)){
+    data <- data %>%
   dplyr::mutate(database_id = paste0("BeeDC_TempCode_", dplyr::row_number()), .before = 1)
     message("The database_idcolumn was not found, making this column with 'BeeDC_TempCode_'...")
   }
     ###### d. scientificNameAuthorship ####
   # If there is no scientificNameAuthorship, make all NA
-  if(!"scientificNameAuthorship" %in% colnames(occurrences)){
-    occurrences <- occurrences %>%
+  if(!"scientificNameAuthorship" %in% colnames(data)){
+    data <- data %>%
       dplyr::mutate(scientificNameAuthorship = NA_character_)
     message("The scientificNameAuthorship column was not found, making this column full of NAs.")
   }
   ###### e. taxonRank ####
   # If there is no taxonRank, make all NA
-  if(!"taxonRank" %in% colnames(occurrences)){
-    occurrences <- occurrences %>%
+  if(!"taxonRank" %in% colnames(data)){
+    data <- data %>%
       dplyr::mutate(taxonRank = NA_character_)
     message("The taxonRank column was not found, making this column full of NAs.")
   }
   
   
     # Add a new column which has the canonical names matched to the synonyms
-  SynList <- SynList %>%
+  taxonomy <- taxonomy %>%
     dplyr::left_join(x = ., 
                       # left join ONLY the validName, canonical, and canonical_withFlags
-                     y = dplyr::select(SynList, c(id, validName, canonical, canonical_withFlags,
+                     y = dplyr::select(taxonomy, c(id, validName, canonical, canonical_withFlags,
                                                   family, subfamily,
                                                   genus, subgenus, species, infraspecies, authorship)), 
                      by = c("accid" = "id"), suffix = c("", "_valid"),
                      multiple = "all")
     # Now, also duplicate the accepted names into the ._matched columns  
-  AccMatched <- SynList %>% 
+  AccMatched <- taxonomy %>% 
       # select only the ACCEPTED NAMES
     dplyr::filter(taxonomic_status == "accepted") %>%
       # duplicate the valid columns into the matched column locations
@@ -151,7 +151,7 @@ HarmoniseR <- function(
                   authorship_valid = authorship)
   
     # Merge these datasets
-  SynList <- SynList %>%
+  taxonomy <- taxonomy %>%
       # First filter for the reverse of above - SYNONYM NAMES
     dplyr::filter(taxonomic_status == "synonym") %>%
       # combine
@@ -168,7 +168,7 @@ HarmoniseR <- function(
     ##### 2.1 Valid Name ####
       ###### a. prep synonyms ####
   # Filter out the AMBIGUOUS validNames prior to matching
-  currentSynList <- SynList %>%
+  currenttaxonomy <- taxonomy %>%
     # REMOVE ambiguous validNames
     dplyr::filter(!stringr::str_detect(
         # Replace NA in flags with "" to allow matching
@@ -177,13 +177,13 @@ HarmoniseR <- function(
   
       ###### b. assign names ####
   # Clean up some illegal characters
-  occurrences$scientificName <- occurrences$scientificName %>%
+  data$scientificName <- data$scientificName %>%
     stringr::str_replace(pattern = "^\"", replacement = "") %>%
     stringr::str_replace(pattern = "\"$", replacement = "")
   
   # Match names first with the validName column
-  occs_21 <- occurrences %>%
-    dplyr::left_join(currentSynList %>%
+  occs_21 <- data %>%
+    dplyr::left_join(currenttaxonomy %>%
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
                                     family_valid, subfamily_valid,
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
@@ -197,7 +197,7 @@ HarmoniseR <- function(
    #   "high", "NA")) 3,703
 
   ###### c. return Occs ####
-  # Return the matched occurrences
+  # Return the matched data
   occs_21 <- occs_21 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) # 1,927
   
@@ -208,7 +208,7 @@ HarmoniseR <- function(
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
     ## SAME as 2.1 ##
-  currentSynList <- SynList %>%
+  currenttaxonomy <- taxonomy %>%
     # REMOVE ambiguous validNames
     dplyr::filter(!stringr::str_detect(
       # Replace NA in flags with "" to allow matching
@@ -217,7 +217,7 @@ HarmoniseR <- function(
   
   ###### b. assign names ####
   # Match names first with the validName column
-  occs_22 <- occurrences %>%
+  occs_22 <- data %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% occs_21$database_id) %>%
       # Make a new column by combining names_clean and scientificNameAuthorship
@@ -226,7 +226,7 @@ HarmoniseR <- function(
   
   # Match names first with the validName column
   occs_22 <- occs_22 %>%
-    dplyr::left_join(currentSynList %>%
+    dplyr::left_join(currenttaxonomy %>%
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
                                     family_valid, subfamily_valid,
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
@@ -237,7 +237,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
-  # Return the matched occurrences
+  # Return the matched data
   runningOccurrences <- occs_22 %>%
     dplyr::filter(stats::complete.cases(validName_valid) & validName_valid != "NA") %>%
       # Bind the previous rows
@@ -250,7 +250,7 @@ HarmoniseR <- function(
       ###### a. prep synonyms ####
     # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
-  currentSynList <- SynList %>%
+  currenttaxonomy <- taxonomy %>%
     # REMOVE ambiguous validNames and can_wFlags
     dplyr::filter(!stringr::str_detect(
       # Replace NA in flags with "" to allow matching
@@ -265,10 +265,10 @@ HarmoniseR <- function(
     
     ###### b. assign names ####
   # Match names first with the validName column
-  occs_23 <- occurrences %>%
+  occs_23 <- data %>%
       # remove already-matched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
-    dplyr::left_join(currentSynList %>% 
+    dplyr::left_join(currenttaxonomy %>% 
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
                                     family_valid, subfamily_valid,
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
@@ -279,7 +279,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
-  # Return the matched occurrences
+  # Return the matched data
   runningOccurrences <- occs_23 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
       # Bind the previous rows
@@ -292,7 +292,7 @@ HarmoniseR <- function(
       ###### a. prep synonyms ####
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
-  currentSynList <- SynList %>%
+  currenttaxonomy <- taxonomy %>%
     # REMOVE ambiguous names
     dplyr::filter(!stringr::str_detect(
       # Replace NA in flags with "" to allow matching
@@ -304,10 +304,10 @@ HarmoniseR <- function(
 
       ###### b. assign names ####
   # Match names first with the validName column
-  occs_24 <- occurrences %>%
+  occs_24 <- data %>%
     # Keep the unmatched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
-    dplyr::left_join(currentSynList %>% 
+    dplyr::left_join(currenttaxonomy %>% 
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, 
                                        validName_valid,
                                     family_valid, subfamily_valid,
@@ -319,7 +319,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
     ###### c. return Occs ####
-  # Return the matched occurrences
+  # Return the matched data
   runningOccurrences <- occs_24 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
       # Bind the previous rows
@@ -339,7 +339,7 @@ HarmoniseR <- function(
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
   ## SAME as 2.1 ##
-  currentSynList <- SynList %>%
+  currenttaxonomy <- taxonomy %>%
     # REMOVE ambiguous validNames
     dplyr::filter(!stringr::str_detect(
       # Replace NA in flags with "" to allow matching
@@ -348,7 +348,7 @@ HarmoniseR <- function(
   
   ###### b. assign names ####
   # Match names first with the validName column
-  occs_25 <- occurrences %>%
+  occs_25 <- data %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
     # Make a new column by combining names_clean and scientificNameAuthorship
@@ -357,7 +357,7 @@ HarmoniseR <- function(
   
   # Match names first with the validName column
   occs_25 <- occs_25 %>%
-    dplyr::left_join(currentSynList %>% 
+    dplyr::left_join(currenttaxonomy %>% 
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
                                     family_valid, subfamily_valid,
                                     canonical_withFlags_valid, genus_valid, subgenus_valid, 
@@ -368,7 +368,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
-  # Return the matched occurrences
+  # Return the matched data
   runningOccurrences <- occs_25 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -387,7 +387,7 @@ HarmoniseR <- function(
   # Filter out the AMBIGUOUS validNames prior to matching
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
-  currentSynList <- SynList %>%
+  currenttaxonomy <- taxonomy %>%
     # REMOVE ambiguous names
     dplyr::filter(!stringr::str_detect(
       # Replace NA in flags with "" to allow matching
@@ -398,7 +398,7 @@ HarmoniseR <- function(
 
   ###### b. assign names ####
   # Match names first with the validName column
-  occs_26 <- occurrences %>%
+  occs_26 <- data %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
     dplyr::mutate(scientificNameMatch = scientificName %>% 
@@ -408,7 +408,7 @@ HarmoniseR <- function(
   
   # Match names first with the validName column
   occs_26 <- occs_26 %>%
-    dplyr::left_join(currentSynList %>% 
+    dplyr::left_join(currenttaxonomy %>% 
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
                                        family_valid, subfamily_valid,
                                        canonical_withFlags_valid, genus_valid, subgenus_valid, 
@@ -423,7 +423,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
-  # Return the matched occurrences
+  # Return the matched data
   runningOccurrences <- occs_26 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -431,7 +431,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_26, currentSynList)
+  rm(occs_26, currenttaxonomy)
   
   ##### 2.7 No subgenus canonical ####
   # Match scientificName with canonical; remove subgenus from both
@@ -440,7 +440,7 @@ HarmoniseR <- function(
   # Filter out the AMBIGUOUS validNames prior to matching
   # For those that did not match, attempt to match them with the Canonical with flags column...
   # Filter out the AMBIGUOUS validNames prior to matching
-  currentSynList <- SynList %>%
+  currenttaxonomy <- taxonomy %>%
     # REMOVE ambiguous names
     dplyr::filter(!stringr::str_detect(
       # Replace NA in flags with "" to allow matching
@@ -451,7 +451,7 @@ HarmoniseR <- function(
   
   ###### b. assign names ####
   # Match names first with the canonical column
-  occs_27 <- occurrences %>%
+  occs_27 <- data %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
     dplyr::mutate(scientificNameMatch = scientificName %>% 
@@ -461,7 +461,7 @@ HarmoniseR <- function(
   
   # Match names first with the canonical column
   occs_27 <- occs_27 %>%
-    dplyr::left_join(currentSynList %>% 
+    dplyr::left_join(currenttaxonomy %>% 
                        dplyr::select(c(id, accid, validName, canonical_withFlags, canonical, validName_valid,
                                        family_valid, subfamily_valid,
                                        canonical_withFlags_valid, genus_valid, subgenus_valid, 
@@ -476,7 +476,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
-  # Return the matched occurrences
+  # Return the matched data
   runningOccurrences <- occs_27 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -484,7 +484,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_27, currentSynList)
+  rm(occs_27, currenttaxonomy)
   
   #### 3.0 Ambiguous names ####
   writeLines(paste("\n",
@@ -494,7 +494,7 @@ HarmoniseR <- function(
   ###### a. prep synonyms ####
   # Synonym list of ambiguous names
   # Filter TO the AMBIGUOUS validNames prior to matching
-  ambiguousSynonyms <- SynList %>%
+  ambiguousSynonyms <- taxonomy %>%
     # Keep only ambiguous validNames
     dplyr::filter(stringr::str_detect(
       # Replace NA in flags with "" to allow matching
@@ -519,10 +519,10 @@ HarmoniseR <- function(
   
 
   ###### b. author in sciName  ####
-  if(!all(is.na(occurrences$scientificNameAuthorship))){
+  if(!all(is.na(data$scientificNameAuthorship))){
   # Create a list of scientificNameAuthorships that can be found in scientificName, where the former is empty
-  ambiguousAuthorFound <- occurrences %>%
-    # check only the occurrences without authorship
+  ambiguousAuthorFound <- data %>%
+    # check only the data without authorship
     dplyr::filter(is.na(scientificNameAuthorship)) %>%
     # Select only UNDER genus-level IDs
     dplyr::filter(taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
@@ -540,8 +540,8 @@ HarmoniseR <- function(
     # Return only the database_id and authorFound for merging...
     dplyr::select(tidyselect::all_of(c("database_id", "authorFound")))
   
-    # Add the author to those occurrences that were lacking
-  occurrences <- occurrences %>%
+    # Add the author to those data that were lacking
+  data <- data %>%
     # Add authorFound to original dataset
     dplyr::left_join(ambiguousAuthorFound, by = "database_id",multiple = "all") %>%
     # If scientificNameAuthorship is empty, use authorFound from ambiguousAuthorFound
@@ -555,9 +555,9 @@ HarmoniseR <- function(
   # Remove used data
   rm(ambiguousAuthorFound)}
   
-    ###### c. ambiguous occurrences ####
+    ###### c. ambiguous data ####
   # Filter occurrence dataset to those with ambiguous names AND authorship values
-  occurrences_amb <- occurrences %>%
+  data_amb <- data %>%
     # Keep those with authorship recorded
     dplyr::filter(stats::complete.cases(scientificNameAuthorship)) %>%
     # Keep those that are in the ambiguous names list
@@ -572,7 +572,7 @@ HarmoniseR <- function(
   ##### 3.2 Valid Name ####
   ###### a. assign names ####
   # Match names first with the validName column
-  runningAmb_occs <- occurrences_amb %>%
+  runningAmb_occs <- data_amb %>%
     # Select only rows with both scientificName and SciNameAuthorSimple
     dplyr::filter(stats::complete.cases(scientificName) & stats::complete.cases(SciNameAuthorSimple)) %>%
     # Add taxonomy information to the occurrence data.
@@ -588,7 +588,7 @@ HarmoniseR <- function(
                      multiple = "all",relationship = "many-to-many") 
 
   ###### b. return Occs ####
-  # Return the matched occurrences_amb
+  # Return the matched data_amb
   runningAmb_occs <- runningAmb_occs %>%
     dplyr::filter(stats::complete.cases(validName_valid)) # 1,927
   
@@ -599,7 +599,7 @@ HarmoniseR <- function(
 
   ###### a. assign names ####
   # Match names first with the validName column
-  occs_33 <- occurrences_amb %>%
+  occs_33 <- data_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
     # Make a new column by combining names_clean and scientificNameAuthorship
@@ -623,7 +623,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
-  # Return the matched occurrences_amb
+  # Return the matched data_amb
   runningAmb_occs <- occs_33 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -643,7 +643,7 @@ HarmoniseR <- function(
   
   ###### b. assign names ####
   # Match names first with the validName column
-  occs_34 <- occurrences_amb %>%
+  occs_34 <- data_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
     # Select only rows with both species and SciNameAuthorSimple
@@ -661,7 +661,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### c. return Occs ####
-  # Return the matched occurrences_amb
+  # Return the matched data_amb
   runningAmb_occs <- occs_34 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -673,7 +673,7 @@ HarmoniseR <- function(
   ##### 3.5 canonical ####
   ###### b. assign names ####
   # Match names first with the validName column
-  occs_35 <- occurrences_amb %>%
+  occs_35 <- data_amb %>%
     # Keep the unmatched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
     # Select only rows with both names_clean and SciNameAuthorSimple
@@ -691,7 +691,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
 
   ###### c. return Occs ####
-  # Return the matched occurrences_amb
+  # Return the matched data_amb
   runningAmb_occs <- occs_35 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -699,7 +699,7 @@ HarmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_35, SynList)
+  rm(occs_35, taxonomy)
 
   gc()
   
@@ -709,7 +709,7 @@ HarmoniseR <- function(
   # Now we will try and match the valid name by combining the names_clean and scientificNameAuthorship columns
   ###### a. assign names ####
   # Match names first with the validName column
-  occs_36 <- occurrences_amb %>%
+  occs_36 <- data_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
     # Make a new column by combining names_clean and scientificNameAuthorship
@@ -733,7 +733,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
-  # Return the matched occurrences_amb
+  # Return the matched data_amb
   runningAmb_occs <- occs_36 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -746,7 +746,7 @@ HarmoniseR <- function(
   # Match scientificName with validName; remove subgenus from both
   ###### a. assign names ####
   # Match names first with the validName column
-  occs_37 <- occurrences_amb %>%
+  occs_37 <- data_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
     dplyr::mutate(scientificNameMatch = scientificName %>% 
@@ -770,7 +770,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
-  # Return the matched occurrences_amb
+  # Return the matched data_amb
   runningAmb_occs <- occs_37 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
       # Bind the previous rows
@@ -783,7 +783,7 @@ HarmoniseR <- function(
   # Match scientificName with canonical; remove subgenus from both
   ###### a. assign names ####
   # Match names first with the canonical column
-  occs_38 <- occurrences_amb %>%
+  occs_38 <- data_amb %>%
     # remove already-matched names
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
     dplyr::mutate(scientificNameMatch = scientificName %>% 
@@ -807,7 +807,7 @@ HarmoniseR <- function(
                      multiple = "all", relationship = "many-to-many") 
   
   ###### b. return Occs ####
-  # Return the matched occurrences_amb
+  # Return the matched data_amb
   runningAmb_occs <- occs_38 %>%
     dplyr::filter(stats::complete.cases(validName_valid)) %>%
     # Bind the previous rows
@@ -818,13 +818,13 @@ HarmoniseR <- function(
   ##### 3.6 Combine 2.x & 3.x ####
     # Merge the results from 2.x and 3.x 
   runningOccurrences <- runningOccurrences %>%
-      # Remove the ambiguous occurrences from the prior-matched data
+      # Remove the ambiguous data from the prior-matched data
     dplyr::filter(!database_id %in% runningAmb_occs$database_id) %>%
       # Add in the ambiguous data again.
     dplyr::bind_rows(runningAmb_occs)
   
     # Remove the spent runningAmb_occs data
-  rm(runningAmb_occs, occurrences_amb, ambiguousSynonyms)
+  rm(runningAmb_occs, data_amb, ambiguousSynonyms)
 
   
   
@@ -862,17 +862,17 @@ HarmoniseR <- function(
   
     ##### 4.1 User output ####
   nMatchedRows <- nrow(runningOccurrences)
-  nUnmatchedRows <- nrow(occurrences) -  nrow(runningOccurrences)
+  nUnmatchedRows <- nrow(data) -  nrow(runningOccurrences)
   
       ###### a. genus-level ####
-  # Find the occurrences that did not match
-  failedMatches <- occurrences %>%
+  # Find the data that did not match
+  failedMatches <- data %>%
     # Remove the matched names from the OG dataset
     dplyr::filter(!database_id %in% runningOccurrences$database_id) %>%
     # Add the .invalidName columns as TRUE (not flagged)
     dplyr::mutate(.invalidName = FALSE) 
     # Remove this spent file
-  rm(occurrences)
+  rm(data)
   
 
     ###### b. Add column ####
@@ -911,7 +911,7 @@ HarmoniseR <- function(
      " are only identified to genus rank or higher.",
   sep = ""))
   
-  writeLines(paste("\nHarmoniseR:"))
+  writeLines(paste("\nharmoniseR:"))
   message(paste(format(sum(runningOccurrences$.invalidName == FALSE), big.mark = ","))) 
   writeLines(paste(
     "records were flagged.\nThe column, '.invalidName' was added to the database.\n"))

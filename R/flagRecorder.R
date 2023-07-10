@@ -10,8 +10,8 @@
 #' file itself automatically.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
-#' @param outpath A character path. Where the file should be saved.
-#' @param filename Character. The name of the file to be saved
+#' @param outPath A character path. Where the file should be saved.
+#' @param fileName Character. The name of the file to be saved
 #' @param idColumns A character vector. The names of the columns that are to be kept along with the
 #' flag columns. These columns should be useful for identifying unique records with flags.
 #' Default = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource").
@@ -32,8 +32,8 @@
 #'   OutPath_Report <- tempdir()
 #' flagFile <- flagRecorder(
 #'   data = beesFlagged,
-#'   outpath = paste(OutPath_Report, sep =""),
-#'   filename = paste0("flagsRecorded_", Sys.Date(), ".csv"),
+#'   outPath = paste(OutPath_Report, sep =""),
+#'   fileName = paste0("flagsRecorded_", Sys.Date(), ".csv"),
 #'   # These are the columns that will be kept along with the flags
 #'   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
 #'   # TRUE if you want to find a file from a previous part of the script to append to
@@ -42,8 +42,8 @@
  
 flagRecorder <- function(
     data = NULL,
-    outpath = NULL,
-    filename = NULL,
+    outPath = NULL,
+    fileName = NULL,
     idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
     append = NULL,
     printSummary = FALSE){
@@ -58,8 +58,8 @@ flagRecorder <- function(
   if(is.null(data)){
     warning(" - Please provide a dataset.")
   }
-  if(is.null(outpath)){
-    warning(" - Please provide an outpath to where the bdc folders are dataset.")
+  if(is.null(outPath)){
+    warning(" - Please provide an outPath to where the bdc folders are dataset.")
   }
   if(is.null(idColumns)){
     warning(paste(" - No ID columns were selected! We will keep the following id columns intact:\n",
@@ -81,7 +81,7 @@ flagRecorder <- function(
       ###### b. Existing data ####
   if(append == TRUE){
     # Find an existing file
-  flagPath <- file_finder(path = outpath, fileName = "flagsRecorded_")
+  flagPath <- fileFinder(path = outPath, fileName = "flagsRecorded_")
     # Read it in
   flagColumns <- readr::read_csv(flagPath)
     # Find the new columns that need adding in
@@ -147,10 +147,10 @@ flagRecorder <- function(
   #### 3.0 Save ####
     # Save this information as the csv flagsRecorded_DATE.csv
   readr::write_csv(data,
-                   paste0(outpath, "/", filename, sep = ""))
+                   paste0(outPath, "/", fileName, sep = ""))
     # User output
   message(paste(
-    " - Data saved to ", paste0(outpath, "/", filename, sep = ""), 
+    " - Data saved to ", paste0(outPath, "/", fileName, sep = ""), 
     sep = ""))
   
     # User output

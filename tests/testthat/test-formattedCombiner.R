@@ -58,7 +58,7 @@ test_eml <- emld::template("creator")
   
 
   # Run the function
-Complete_data <- BeeDC::formatted_combiner(path = paste0(tempdir()), 
+Complete_data <- BeeDC::formattedCombiner(path = paste0(tempdir()), 
                                            strings = c("USGS_[a-zA-Z_]+[0-9]{4}-[0-9]{2}-[0-9]{2}"), 
                                            # This should be the list-format with eml attached
                                            existingOccurrences = existingTestdb,
@@ -66,27 +66,27 @@ Complete_data <- BeeDC::formatted_combiner(path = paste0(tempdir()),
 
 
   # Test class expectations
-testthat::test_that("formatted_combiner expected class", {
+testthat::test_that("formattedCombiner expected class", {
   testthat::expect_type(Complete_data, "list")
 })
-testthat::test_that("formatted_combiner expected class", {
+testthat::test_that("formattedCombiner expected class", {
   testthat::expect_type(Complete_data$Data_WebDL, "list")
 })
-testthat::test_that("formatted_combiner expected class", {
+testthat::test_that("formattedCombiner expected class", {
   testthat::expect_type(Complete_data$eml_files, "list")
 })
 
 
 # Test length of total
-testthat::test_that("formatted_combiner item length", {
+testthat::test_that("formattedCombiner item length", {
   testthat::expect_equal(length(Complete_data), 2)
 })
   # Test length of rows
-testthat::test_that("formatted_combiner item length", {
+testthat::test_that("formattedCombiner item length", {
   testthat::expect_equal(nrow(Complete_data$Data_WebDL), 28)
 })
     # Test against the sub-nrows from input datasets
-testthat::test_that("formatted_combiner item length", {
+testthat::test_that("formattedCombiner item length", {
   testthat::expect_equal(nrow(Complete_data$Data_WebDL), 
                          sum(nrow(USGS_testData), nrow(existingTestdb)))
 })

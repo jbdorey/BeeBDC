@@ -8,12 +8,12 @@
 #' and for each data source (columns). The function can also optionally return a point map for 
 #' a user-specified species when plotMap = TRUE.
 #'
-#' @param plotData A data frame or tibble. Occurrence records as input.
+#' @param data A data frame or tibble. Occurrence records as input.
 #' @param flagColours A character vector. Colours in order of pass (TRUE), fail (FALSE), and NA.
 #' Default = c("#127852", "#A7002D", "#BDBABB").
-#' @param filename Character. The name of the file to be saved, ending in ".pdf".
+#' @param fileName Character. The name of the file to be saved, ending in ".pdf".
 #' If saving as a different file type, change file type suffix - See `device`.
-#' @param outpath A character path. The path to the directory in which the figure will be saved.
+#' @param outPath A character path. The path to the directory in which the figure will be saved.
 #' Default = OutPath_Figures.
 #' @param width Numeric. The width of the output figure in user-defined units Default = 15.
 #' @param height Numeric. The height of the output figure in user-defined units Default = 9.
@@ -24,7 +24,7 @@
 #' @param bg Character. Passed to [ggplot2::ggsave()]. Background colour. If NULL, uses the plot.background fill value from the plot theme.
 #' Default = "white."
 #' @param device Character. Passed to [ggplot2::ggsave()]. Device to use. Can either be a device function (e.g. png), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
-#' Default = "pdf". If not using default, change file name suffix in filename argument.
+#' Default = "pdf". If not using default, change file name suffix in fileName argument.
 #' @param speciesName Optional. Character. A species name, as it occurs in the user-input nameColumn.
 #' If provided, the data will be filtered to this species for the plot.
 #' @param nameColumn Optional. Character. If speciesName is not NULL, enter the column to look 
@@ -60,11 +60,11 @@
 #' OutPath_Figures <- tempdir()
 #'  # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 #' plotFlagSummary(
-#'   plotData = beesFlagged,
+#'   data = beesFlagged,
 #'   # Colours in order of pass (TRUE), fail (FALSE), and NA
 #'   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-#'   filename = paste0("FlagsPlot_TEST_", Sys.Date(),".pdf"),
-#'   outpath = OutPath_Figures,
+#'   fileName = paste0("FlagsPlot_TEST_", Sys.Date(),".pdf"),
+#'   outPath = OutPath_Figures,
 #'   width = 15, height = 9,
 #'   # OPTIONAL:
 #'   #\   #  # Filter to species
@@ -89,10 +89,10 @@
 #' 
 #' 
 plotFlagSummary <- function(
-    plotData = NULL,
+    data = NULL,
     flagColours = c("#127852", "#A7002D", "#BDBABB"),
-    filename = NULL,
-    outpath = OutPath_Figures,
+    fileName = NULL,
+    outPath = OutPath_Figures,
     width = 15, height = 9, units = "in",
     dpi = 300,
     bg = "white", device = "pdf",
@@ -122,11 +122,11 @@ plotFlagSummary <- function(
   #### 0.0 Prep ####
   ##### 0.1 errors ####
   ###### a. FATAL errors ####
-  if(is.null(plotData)){
-    stop(" - Please provide an argument for plotData I'm a program not a magician.")
+  if(is.null(data)){
+    stop(" - Please provide an argument for data I'm a program not a magician.")
   }
-  if(is.null(outpath)){
-    stop(" - Please provide an argument for outpath Seems reckless to let me just guess.")
+  if(is.null(outPath)){
+    stop(" - Please provide an argument for outPath Seems reckless to let me just guess.")
   }
   if(is.null(speciesName) & saveFiltered == TRUE){
     stop(" - saveFiltered cannot be TRUE if no speciesName is provided to filter occurrences.\n",
@@ -138,9 +138,9 @@ plotFlagSummary <- function(
             "This functionality is provided to check the filtered dataset for examination and I fear ",
             "that this might result in an intense task to run... Maybe not... Enjoy!")
   }
-  if(is.null(filename)){
-    writeLines(" - No argument provided for filename. Using default of 'FlagsPlot_DATE.pdf'")
-    filename = paste0("FlagsPlot_", Sys.Date(),".pdf")
+  if(is.null(fileName)){
+    writeLines(" - No argument provided for fileName. Using default of 'FlagsPlot_DATE.pdf'")
+    fileName = paste0("FlagsPlot_", Sys.Date(),".pdf")
   }
   if(is.null(filterColumn)){
     writeLines(" - No argument provided for filterColumn Using default of '.summary'")
@@ -160,22 +160,22 @@ plotFlagSummary <- function(
     writeLines(" - Filtering to selected species...")
       ###### a. filter ####
       # Filter data
-    plotData <- plotData %>%
-      dplyr::filter( plotData[[nameColumn]] %in% speciesName)
+    data <- data %>%
+      dplyr::filter( data[[nameColumn]] %in% speciesName)
     writeLines(paste0(" - Selected species has ",
-               format(nrow(plotData), big.mark = ","),
+               format(nrow(data), big.mark = ","),
                " occurrences."))
     # OPTIONAL save filtered data
     ##### b. save ####
       # If a save location is provided, then save the filtered dataset
     if(saveFiltered == TRUE){
-      plotData %>%
-        readr::write_csv(paste0(outpath, "/FlagsPlot_", speciesName,".csv"))
+      data %>%
+        readr::write_csv(paste0(outPath, "/FlagsPlot_", speciesName,".csv"))
     }
     ##### c. map data ####
       # Save a version of the data for mapping, if asked by user
     if(plotMap == TRUE){
-      mapData <- plotData %>%
+      mapData <- data %>%
           # Select the columns to use
         dplyr::select(c(decimalLatitude, decimalLongitude,
                         tidyselect::all_of(nameColumn),
@@ -193,7 +193,7 @@ plotFlagSummary <- function(
   ##### 1.3 Prepare for plot ####
   writeLines(" - Preparing data to plot...")
   # Make a column with the dataSource without numbers
-  plotData <- plotData %>%
+  data <- data %>%
     # Make a new column with the dataSource names but not the specifics
     dplyr::mutate(database = stringr::str_replace(dataSource,
                                                   pattern = "_.*",
@@ -212,7 +212,7 @@ plotFlagSummary <- function(
     dplyr::summarise(count = dplyr::n())
   
   # Make flag type
-  plotData$flagType <- plotData$flags %>%
+  data$flagType <- data$flags %>%
     dplyr::recode(.coordinates_empty = "Initial", .coordinates_outOfRange = "Initial", 
                   .basisOfRecords_notStandard = "Initial", .coordinates_country_inconsistent = "Initial",
                   .occurrenceAbsent = "Initial", .unLicensed = "Initial", .GBIFflags = "Initial",
@@ -231,7 +231,7 @@ plotFlagSummary <- function(
     forcats::fct_relevel("Initial","Taxonomy","Space","Time","Summary")
   
   # You can turn the flag columns into factors and order them here
-  plotData$flags <- plotData$flags %>%
+  data$flags <- data$flags %>%
     dplyr::recode_factor(.coordinates_empty = "No coordinates", 
                          .coordinates_outOfRange = "Point off map", 
                          .basisOfRecords_notStandard = "Excluded basis of record", 
@@ -266,30 +266,30 @@ plotFlagSummary <- function(
     forcats::fct_rev() 
   
   # Factorise and order by database
-  plotData$database <- plotData$database %>%
+  data$database <- data$database %>%
     dplyr::recode_factor(...)
   
   ##### 1.4 Save table ####
     # If user choses to save the table that makes the plot, do so here.
   if(saveTable == TRUE){
-    plotData %>%
-      readr::write_csv(paste0(outpath, "/",
-                              stringr::str_replace(filename,
+    data %>%
+      readr::write_csv(paste0(outPath, "/",
+                              stringr::str_replace(fileName,
                                                    pattern = "\\.pdf",
                                                    replacement = ".csv")))
   }
 
-  # Make plotData$value into a character type
-  plotData$value <- as.character(plotData$value)
+  # Make data$value into a character type
+  data$value <- as.character(data$value)
   
   # NA levels may be removed from the plot here, but I prefer to keep them.
-    # plotData <- plotData %>%
+    # data <- data %>%
     #   tidyr::drop_na()
   
 #### 2.0 Plot ####
     ##### 2.1 Build plot ####
   writeLines(" - Building plot...")
-  plot <-  ggplot2::ggplot(data = plotData) +
+  plot <-  ggplot2::ggplot(data = data) +
     # Set up the plot facets
     ggplot2::facet_grid( flagType~database, scales = "free", space= "free_y") + 
     # Make the bar plots
@@ -383,14 +383,14 @@ plotFlagSummary <- function(
           ggplot2::ggtitle( speciesName) )
       # save as the map as 10*6"
       ggsave(paste0("/Map_FlagsPlot_", speciesName, ".pdf"), plot = PointMap, device = "pdf", 
-              width = 10, height = 5, dpi = 300, path = outpath)
+              width = 10, height = 5, dpi = 300, path = outPath)
     }
     
     ##### c. save ####
     # Filtered save plot
     if(!is.null(speciesName)){
-      ggplot2::ggsave(filename = paste0("/FlagsPlot_", speciesName,".pdf"),
-                      path = outpath,
+      ggplot2::ggsave(fileName = paste0("/FlagsPlot_", speciesName,".pdf"),
+                      path = outPath,
                       plot = plot, dpi = dpi, bg = bg, device = device,
                       width = width, height = height, units = units)}
   }
@@ -398,8 +398,8 @@ plotFlagSummary <- function(
   # Save the figure
   ##### 2.2 Save all option ####
   if(is.null(speciesName)){
-  ggplot2::ggsave(filename = filename,
-                  path = outpath,
+  ggplot2::ggsave(fileName = fileName,
+                  path = outPath,
                   plot = plot, dpi = dpi, bg = bg, device = device,
                   width = width, height = height, units = units)}
  

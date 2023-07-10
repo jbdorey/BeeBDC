@@ -1,4 +1,4 @@
-####  2. repo_merge ####
+####  2. repoMerge ####
 #' Import occurrences from GBIF, ALA, iDigBio, and SCAN downloads
 #' 
 #' Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its eml
@@ -21,13 +21,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' DataImp <- repo_merge(path = DataPath, 
+#' DataImp <- repoMerge(path = DataPath, 
 #' # Find data - Many problems can be solved by running [BeeDC::data_finder(path = DataPath)]
 #' # And looking for problems
 #' occ_paths = [BeeDC::data_finder(path = DataPath)],
 #' save_type = "R_file")
 #' }
-repo_merge <- function(path, save_type, occ_paths){
+repoMerge <- function(path, save_type, occ_paths){
   . <- NULL
   
   requireNamespace("dplyr")
@@ -109,7 +109,7 @@ repo_merge <- function(path, save_type, occ_paths){
   } # End path loop
   
   ##### Save data ####
-  # user-input includes the path and save_type, which are supplied from repo_merge()
+  # user-input includes the path and save_type, which are supplied from repoMerge()
   data_saver(path = path, # Path to HomeDirectory
              save_type = save_type, # save_type is either "csv_files" or "R_file"
              occurrences = Data_WebDL, # Input data file
@@ -121,5 +121,5 @@ repo_merge <- function(path, save_type, occ_paths){
   writeLines( paste(" - Completed in ", round(endTime - startTime, digits = 2), " minutes", sep = ""))
   } # END Data Loop
   return( dplyr::lst(Data_WebDL, eml_files))
-} # END repo_merge function
+} # END repoMerge function
 

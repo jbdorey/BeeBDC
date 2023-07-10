@@ -1,7 +1,7 @@
 
 #### Aux. functions ####
 
-##### a. data_saver ####
+##### a. dataSaver ####
 #' Simple function to save occurrence AND EML data as a list
 #' 
 #' Generally used at the end of 1.x in the example workflow.
@@ -21,14 +21,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' data_saver(path = tempdir(),# The main path to look for data in
+#' dataSaver(path = tempdir(),# The main path to look for data in
 #' save_type = "CSV_file", # "R_file" OR "CSV_file"
 #' occurrences = Complete_data$Data_WebDL, # The existing datasheet
 #' eml_files = Complete_data$eml_files, # The existing EML files
 #' file_prefix = "Fin_") # The prefix for the file name
 #' }
 #' 
-data_saver <- function(path = NULL,
+dataSaver <- function(path = NULL,
                        save_type = NULL,
                        occurrences = NULL,
                        eml_files = NULL,
@@ -141,8 +141,8 @@ data_saver <- function(path = NULL,
       saveRDS(., file = paste(outPath, "/", file_prefix, "completeAttributes_", Sys.Date(), ".rds", sep = ""))
   }
   # Print completion note
-  writeLines(paste(" - data_saver. Fin.", sep = "\n"))
-} # END data_saver
+  writeLines(paste(" - dataSaver. Fin.", sep = "\n"))
+} # END dataSaver
 
 
 
@@ -182,7 +182,7 @@ outFile_maker <- function(path = path, file2make = "out_file"){
 
 
 #### ++++++ ####
-#### d. file_finder ####
+#### d. fileFinder ####
 #' Finds files within a directory
 #' 
 #' A function which can be used to find files within a user-defined directory based on a 
@@ -203,11 +203,11 @@ outFile_maker <- function(path = path, file2make = "out_file"){
 #'
 #' @examples
 #' \dontrun{
-#' file_finder(path = RootPath, fileName = "beesRaw")
+#' fileFinder(path = RootPath, fileName = "beesRaw")
 #' # more specifically the .csv version
-#' file_finder(path = RootPath, fileName = "beesRaw.csv")
+#' fileFinder(path = RootPath, fileName = "beesRaw.csv")
 #' }
-file_finder <- function(path, fileName){
+fileFinder <- function(path, fileName){
   # locally bind variables to the function
   . <- dates <- NULL
   
@@ -269,4 +269,4 @@ file_finder <- function(path, fileName){
   ))
   # Return this file location
   return(most_recent[[1]])
-} # END file_finder
+} # END fileFinder

@@ -9,15 +9,15 @@
 #' [BeeDC::summaryFun()] to set the columns that you want to be highlighted. It can also highlight occurrences
 #' flagged as expert-identified or country outliers.
 #' 
-#' @param database A data frame or tibble. Occurrence records to use as input.
-#' @param dir A directory as character. Directory where to save output maps.
-#' @param longitude Character. The name of the longitude column. Default = "decimalLongitude".
-#' @param latitude Character. The name of the latitude column. Default = "decimalLatitude".
+#' @param data A data frame or tibble. Occurrence records to use as input.
+#' @param outPath A directory as character. Directory where to save output maps.
+#' @param lon Character. The name of the longitude column. Default = "decimalLongitude".
+#' @param lat Character. The name of the latitude column. Default = "decimalLatitude".
 #' @param speciesColumn Character. The name of the column containing species names (or another factor)
 #' to build individual maps from. Default = "scientificName".
 #' @param speciesList A character vector. Should contain species names as they appear in the 
 #' speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all 
-#' species present in the database. Hence, a user may first filter their database and then use "ALL".
+#' species present in the data. Hence, a user may first filter their data and then use "ALL".
 #' @param countryList A character vector. Country names to map, or NULL for to map ALL countries.
 #' @param jitterValue Numeric. The amount, in decimal degrees, to jitter the map points by - this 
 #' is important for separating stacked points with the same coordinates.
@@ -46,16 +46,16 @@
 #' 
 #' interactiveMapR(
 #' # occurrence data - start with entire dataset, filter down to these species
-#' database = BeeDC::bees3sp, # %>%
+#' data = BeeDC::bees3sp, # %>%
 #'   # Select only those species in the 100 randomly chosen
 #'   # dplyr::filter(scientificName %in% beeData_interactive$scientificName),
 #'   # Select only one species to map
 #'   # dplyr::filter(scientificName %in% "Agapostemon sericeus (Forster, 1771)"),
 #' # Directory where to save files
-#' dir = paste0(OutPath_Figures, "/interactiveMaps_TEST"),
+#' outPath = paste0(OutPath_Figures, "/interactiveMaps_TEST"),
 #' # lat long columns
-#' longitude = "decimalLongitude",
-#' latitude = "decimalLatitude",
+#' lon = "decimalLongitude",
+#' lat = "decimalLatitude",
 #' # Occurrence dataset column with species names
 #' speciesColumn = "scientificName",
 #' # Which species to map - a character vector of names or "ALL"
@@ -76,12 +76,12 @@
 
 interactiveMapR <- function(
       # occurrence data
-    database = NULL,
+    data = NULL,
       # Directory where to save files
-    dir = NULL,
+    outPath = NULL,
       # lat long columns
-    longitude = "decimalLongitude",
-    latitude = "decimalLatitude",
+    lon = "decimalLongitude",
+    lat = "decimalLatitude",
       # Occurrence dataset column with species names
     speciesColumn = "scientificName",
       # Which species to map - a character vector of names or "ALL"
@@ -107,12 +107,12 @@ interactiveMapR <- function(
 #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
-  if(is.null(database)){
-    stop(paste0(" - No database was given. Please specify the data that you want to map ",
+  if(is.null(data)){
+    stop(paste0(" - No data was given. Please specify the data that you want to map ",
                 "for your data-cleaning adventures. I'll do the rest."))
   }
-  if(is.null(dir)){
-    stop(paste0(" - No dir was given. Please specify the directory to save the maps to."))
+  if(is.null(outPath)){
+    stop(paste0(" - No outPath was given. Please specify the directory to save the maps to."))
   }
   
   ##### 0.2 Packages ####
@@ -134,46 +134,46 @@ invisible(lapply(packages, library, character.only = TRUE))
 
   ##### 0.3 Directories ####
   # Create directory if it does not exist
-if (!dir.exists(dir)) {
-  dir.create(dir, recursive = TRUE)}
+if (!dir.exists(outPath)) {
+  dir.create(outPath, recursive = TRUE)}
   # Set directory
-setwd(dir) #directory of work
+setwd(outPath) #directory of work
 
-  # database$IDall <- paste0(1:nrow(database)) #to add an ID by row
+  # data$IDall <- paste0(1:nrow(data)) #to add an ID by row
 
   #### 1.0 Data prep ####
     ##### 1.1 Remove na+ ####
-database <- database %>%
-  tidyr::drop_na(tidyselect::any_of(c(longitude, latitude))) 
+data <- data %>%
+  tidyr::drop_na(tidyselect::any_of(c(lon, lat))) 
 
 # If there is no .expertOutlier then add one as all NA
-if(!".expertOutlier" %in% colnames(database)){
+if(!".expertOutlier" %in% colnames(data)){
   message("The column .expertOutlier was not found. One will be created with all values = TRUE.")
-  database <- database %>% 
+  data <- data %>% 
     dplyr::mutate(.expertOutlier = TRUE)
 }
 
 ##### 1.2 Country list ####
 # Select only the countries user provides
 if(!is.null(countryList)){
-  database <- database %>%
+  data <- data %>%
     dplyr::filter(country %in% countryList)
 }
 
     ##### 1.3 Species list ####
 if(any(stringr::str_detect(speciesList, "ALL")) == FALSE){
 # Prepare the data for the loop
-  database <- database %>% 
+  data <- data %>% 
   # Select ONLY the species requested
   dplyr::filter(.data[[speciesColumn]] %in% speciesList)
 }else{
-  speciesList <- unique(database[[speciesColumn]])
+  speciesList <- unique(data[[speciesColumn]])
 } # END if else statement
 
 
 ##### 1.4 excludeApis_mellifera ####
 if(excludeApis_mellifera == TRUE){
-  database <- database %>%
+  data <- data %>%
     dplyr::filter(!scientificName == "Apis mellifera Linnaeus, 1758")
   speciesList <- setdiff(speciesList, "Apis mellifera Linnaeus, 1758")
 }
@@ -182,12 +182,12 @@ if(excludeApis_mellifera == TRUE){
 ##### 1.5 Overwrite ####
 if(overWrite == TRUE){
     # Find completed species
-  existingFiles <- list.files(path = dir) %>%
+  existingFiles <- list.files(path = outPath) %>%
     stringr::str_remove("\\.html")
     # remove them from the to-do list
   speciesList <- setdiff(speciesList, existingFiles)
-    # Re-filter the database to use only wanted species
-  database <- database %>% 
+    # Re-filter the data to use only wanted species
+  data <- data %>% 
     # Select ONLY the species requested
     dplyr::filter(.data[[speciesColumn]] %in% speciesList)
 }
@@ -195,23 +195,23 @@ if(overWrite == TRUE){
     ##### 1.6 Jitter ####
   # If the user specifies a jitter value, add that calue
 if(!is.null(jitterValue)){
-  database <- database %>%
+  data <- data %>%
     dplyr::mutate(
-      decimalLongitude = base::jitter(database[[longitude]], amount = jitterValue),
-      decimalLatitude = base::jitter(database[[latitude]], amount = jitterValue)
+      decimalLongitude = base::jitter(data[[lon]], amount = jitterValue),
+      decimalLatitude = base::jitter(data[[lat]], amount = jitterValue)
     )
 }else{
     # If no jitter, ensure that the lat lon columns are the same
-  database <- database %>%
+  data <- data %>%
     dplyr::mutate(
-      decimalLongitude = database[[longitude]],
-      decimalLatitude = database[[latitude]])
+      decimalLongitude = data[[lon]],
+      decimalLatitude = data[[lat]])
 } # END Jitter
 
 
   # Make a new column to colour by if onlySummary == FALSE
 if(onlySummary == FALSE){
-  database <- database %>% 
+  data <- data %>% 
     dplyr::mutate(mapLevels = dplyr::if_else(.expertOutlier == FALSE,
                                              "expertOutlier",
                     dplyr::if_else(.countryOutlier == FALSE | is.na(.countryOutlier),
@@ -236,7 +236,7 @@ if(onlySummary == FALSE){
 
 # ensure UTF-8 encoding
 options(encoding = "UTF-8")
-database <- database %>% mutate(across(where(is.character), 
+data <- data %>% mutate(across(where(is.character), 
                               function(x){iconv(x, 
                                                 to = "UTF-8",
                                                 sub = "")}))
@@ -245,12 +245,12 @@ database <- database %>% mutate(across(where(is.character),
 #function for leaflet maps
 for (x in 1:length(speciesList)){
     # Filter to the xth species
-  databaseLoop <- database %>% 
+  databaseLoop <- data %>% 
     dplyr::filter(.data[[speciesColumn]] == speciesList[[x]] %>% iconv(x,
                                                                        from = "UTF-8",
                                                                        to = "UTF-8",
                                                                        sub = ""))
-    # Split database into classes
+    # Split data into classes
   if(onlySummary == FALSE){
     databaseLoop <- split(databaseLoop, f= databaseLoop$mapLevels, drop = TRUE)
   }else{
@@ -271,7 +271,7 @@ for (x in 1:length(speciesList)){
       databaseSpp <<- databaseLoop[[walkName]]
       mdatabaseSpp <<- mdatabaseSpp %>%
     leaflet::addCircleMarkers(data = databaseSpp,
-                              lng = ~decimalLongitude, lat = ~decimalLatitude, ###then you can specify what do you want in the popup window from your database
+                              lng = ~decimalLongitude, lat = ~decimalLatitude, ###then you can specify what do you want in the popup window from your data
                               group = walkName,
                               if(TrueAlwaysTop == TRUE){
                               options = leaflet::leafletOptions(
@@ -281,7 +281,7 @@ for (x in 1:length(speciesList)){
                                 sep = "",
                                 ###### a. basic data ####
                                 "<b>Basic data </b> - ",
-                                "ID: ", databaseSpp$database_id, " ", #databaseSpp is the name of database and ID the name of the column
+                                "ID: ", databaseSpp$database_id, " ", #databaseSpp is the name of data and ID the name of the column
                                 if("family" %in% colnames(databaseSpp)){
                                   paste0("Family: ", databaseSpp$family, 
                                          ";   ")},
@@ -423,7 +423,7 @@ for (x in 1:length(speciesList)){
                                          "   ")}
    
                                 
-                                            ), #you can add what do you want from columns of your database
+                                            ), #you can add what do you want from columns of your data
                     
                   ###### i. colour ####
                               fillOpacity = if(walkName %in% c("TRUE", "FALSE")){0.4}else{0.7},
@@ -466,7 +466,7 @@ for (x in 1:length(speciesList)){
   ###### k. save ####
   #then, it is to save in html format
   htmlwidgets::saveWidget(plotly::as_widget(mdatabaseSpp), 
-                          file.path(dir, #directory to save files
+                          file.path(outPath, #directory to save files
                                     paste0(speciesList[[x]],".html")),
                           selfcontained = TRUE,
                           title = paste0(speciesList[[x]]))

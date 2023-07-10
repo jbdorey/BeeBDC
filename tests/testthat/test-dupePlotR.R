@@ -10,9 +10,9 @@ data("beesFlagged")
 # records for each datasource (simplified to the text before the first underscore) and
 # the proportion of the above for each data source
 testOut <- BeeDC::dupePlotR(
-  Data = beesFlagged,
-  # The outpath to save the plot as
-  outpath = paste0(tempdir(), "/duplicatePlot.pdf"),
+  data = beesFlagged,
+  # The outPath to save the plot as
+  outPath = paste0(tempdir(), "/duplicatePlot.pdf"),
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height

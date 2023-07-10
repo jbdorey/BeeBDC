@@ -86,14 +86,14 @@ BeeDC::dirMaker(
 #### 1.0 Data merge ####
 ##### 1.1 Download ALA data ####
 # Downloads ALA data and creates a new file in the HomePath to put those data
-BeeDC::atlas_downloader(path = DataPath,
+BeeDC::atlasDownloader(path = DataPath,
                userEmail = "jbdorey@me.com",
                ALA_taxon = "Apiformes")
 
 ##### 1.2 Import and merge ALA, SCAN, iDigBio and GBIF data ####
 # Supply the path to where the data are
 # save_type is either "csv_files" or "R_file"
-DataImp <- BeeDC::repo_merge(path = DataPath, 
+DataImp <- BeeDC::repoMerge(path = DataPath, 
                         # Find data — Many problems can be solved by running data_finder(path = DataPath)
                         # And looking for problems
                       occ_paths = BeeDC::data_finder(path = DataPath),
@@ -113,9 +113,9 @@ USGS_data <- BeeDC::USGS_formatter(path = DataPath, pubDate = "19-11-2022")
 
 ##### 1.4 Formatted Source Importer ####
 # Formatted source importer. Use this importer to find files that have been formatted and need to 
-# be added to the larger data file (e.g., made by repo_merge and USGS_formatter)
+# be added to the larger data file (e.g., made by repoMerge and USGS_formatter)
 # Combine the USGS data and the existing big dataset
-Complete_data <- BeeDC::formatted_combiner(path = DataPath, 
+Complete_data <- BeeDC::formattedCombiner(path = DataPath, 
                                     strings = c("USGS_[a-zA-Z_]+[0-9]{4}-[0-9]{2}-[0-9]{2}"), 
                                     # This should be the list-format with eml attached
                                     existingOccurrences = DataImp$Data_WebDL,
@@ -129,11 +129,11 @@ Complete_data$Data_WebDL <- Complete_data$Data_WebDL %>%
 
 ##### 1.5 Save data ####
 # Choose the type of data format you want
-BeeDC::data_saver(path = DataPath,# The main path to look for data in
+BeeDC::dataSaver(path = DataPath,# The main path to look for data in
            save_type = "CSV_file", # "R_file" OR "CSV_file"
            occurrences = Complete_data$Data_WebDL, # The existing datasheet
            eml_files = Complete_data$eml_files, # The existing EML files
-           file_prefix = "Fin_") # The prefix for the filenames
+           file_prefix = "Fin_") # The prefix for the fileNames
 rm(Complete_data, DataImp)
 
 
@@ -164,7 +164,7 @@ config_description <- readr::read_csv(paste(DataPath, "Output", "bdc_configDesc.
 ###### b. BeeDC import ####
 # You can also just read the data in using the below script. This will 
 # likely be quicker and more-reliable. Find the path
-occPath <- BeeDC::file_finder(path = DataPath, fileName = "Fin_BeeData_combined_")
+occPath <- BeeDC::fileFinder(path = DataPath, fileName = "Fin_BeeData_combined_")
 # read in the file
 db_standardized <- readr::read_csv(occPath, 
                                    # Use the basic ColTypeR function to determine types
@@ -178,7 +178,7 @@ db_standardized <- readr::read_csv(occPath,
   # you may use the below script
 # Try to match database IDs with prior runs.
   # read in a prior run of choice
-  priorRun <- BeeDC::file_finder(path = DataPath,
+  priorRun <- BeeDC::fileFinder(path = DataPath,
                           file = "01_prefilter_database_9Aug22.csv") %>%
     readr::read_csv(file = ., col_types = BeeDC::ColTypeR())
   
@@ -288,50 +288,59 @@ db_standardized <- db_standardized %>%
     # to parse. This is normal.
 source(paste(ScriptPath, "additionalData_readRs.R", sep = "/"))
 ###### a. EPEL ####
-EPEL_Data <- BeeDC::readr_EPEL(path = paste0(DataPath, "/Additional_Datasets"),
+EPEL_Data <- BeeDC::readr_BeeDC(dataset = "EPEL",
+                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/bee_data_canada.csv",
                       outFile = "jbd_EPEL_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### b. Allan Smith-Pardo ####
-ASP_Data <- BeeDC::readr_ASP(path = paste0(DataPath, "/Additional_Datasets"),
+ASP_Data <- BeeDC::readr_BeeDC(dataset = "ASP",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Allan_Smith-Pardo_Dorey_ready2.csv",
                       outFile = "jbd_ASP_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### c. Minckley ####
-BMin_Data <- BeeDC::readr_BMin(path = paste0(DataPath, "/Additional_Datasets"),
+BMin_Data <- BeeDC::readr_BeeDC(dataset = "BMin",
+                                path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/Bob_Minckley_6_1_22_ScanRecent-mod_Dorey.csv",
                         outFile = "jbd_BMin_data.csv",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### d. BMont ####
-BMont_Data <- BeeDC::readr_BMont(path = paste0(DataPath, "/Additional_Datasets"),
+BMont_Data <- BeeDC::readr_BeeDC(dataset = "BMont",
+                                 path = paste0(DataPath, "/Additional_Datasets"),
                           inFile = "/InputDatasets/Bombus_Montana_dorey.csv",
                           outFile = "jbd_BMont_data.csv",
                           dataLicense = "https://creativecommons.org/licenses/by-sa/4.0/")
 ###### e. Ecd ####
-Ecd_Data <- BeeDC::readr_Ecd(path = paste0(DataPath, "/Additional_Datasets"),
+Ecd_Data <- BeeDC::readr_BeeDC(dataset = "Ecd",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Ecdysis_occs.csv",
                       outFile = "jbd_Ecd_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### f. Gai ####
-Gai_Data <- BeeDC::readr_Gai(path = paste0(DataPath, "/Additional_Datasets"),
+Gai_Data <- BeeDC::readr_BeeDC(dataset = "Gai",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/upload_to_scan_Gaiarsa et al_Dorey.csv",
                       outFile = "jbd_Gai_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### g. CAES ####
 # This is a little slower and will have a few date warnings — 215 failed to parse. 
-CAES_Data <- BeeDC::readr_CAES(path = paste0(DataPath, "/Additional_Datasets"),
+CAES_Data <- BeeDC::readr_BeeDC(dataset = "CAES",
+                                path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/CT_BEE_DATA_FROM_PBI.xlsx",
                         outFile = "jbd_CT_Data.csv",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### h. GeoL ####
-GeoL_Data <- BeeDC::readr_GeoL(path = paste0(DataPath, "/Additional_Datasets"),
+GeoL_Data <- BeeDC::readr_BeeDC(dataset = "GeoL",
+                                path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/Geolocate and BELS_certain and accurate.xlsx",
                         outFile = "jbd_GeoL_Data.csv")
 
 
 ###### i. EaCO ####
-EaCO_Data <- BeeDC::readr_EaCO(path = paste0(DataPath, "/Additional_Datasets"),
+EaCO_Data <- BeeDC::readr_BeeDC(dataset = "EaCO",
+                                path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/Eastern Colorado bee 2017 sampling.xlsx",
                         outFile = "jbd_EaCo_Data.csv",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
@@ -339,7 +348,8 @@ EaCO_Data <- BeeDC::readr_EaCO(path = paste0(DataPath, "/Additional_Datasets"),
 
 ###### j. FSCA ####
   # Florida State Collection of Arthropods
-FSCA_Data <- BeeDC::readr_FSCA(path = paste0(DataPath, "/Additional_Datasets"),
+FSCA_Data <- BeeDC::readr_BeeDC(dataset = "FSCA",
+                                path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "InputDatasets/fsca_9_15_22_occurrences.csv",
                         outFile = "jbd_FSCA_Data.csv",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
@@ -348,7 +358,8 @@ FSCA_Data <- BeeDC::readr_FSCA(path = paste0(DataPath, "/Additional_Datasets"),
 # # Published or unpublished data from Texas literature not in an online database, usually copied 
 # into spreadsheet from document format, or otherwise copied from a very differently-formatted spreadsheet
 # # Unpublished or partially published data were obtained with express permission from the lead author
-SMC_Data <- BeeDC::readr_SMC(path = paste0(DataPath, "/Additional_Datasets"),
+SMC_Data <- BeeDC::readr_BeeDC(dataset = "SMC",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/TXbeeLitOccs_31Oct22.csv", 
                       outFile = "jbd_SMC_Data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
@@ -358,7 +369,8 @@ SMC_Data <- BeeDC::readr_SMC(path = paste0(DataPath, "/Additional_Datasets"),
 # The version on Dryad is missing site GPS coordinates (by accident). Kim is okay with these data 
 # being made public as long as her paper is referenced.
 # - Elinor Lichtenberg
-Bal_Data <- BeeDC::readr_Bal(path = paste0(DataPath, "/Additional_Datasets"),
+Bal_Data <- BeeDC::readr_BeeDC(dataset = "Bal",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Beedata_ballare.xlsx", 
                       outFile = "jbd_Bal_Data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
@@ -369,20 +381,23 @@ Bal_Data <- BeeDC::readr_Bal(path = paste0(DataPath, "/Additional_Datasets"),
 # https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2. 
 # These are the data I will be putting on SCAN. 
 # - Elinor Lichtenberg
-Lic_Data <- BeeDC::readr_Lic(path = paste0(DataPath, "/Additional_Datasets"),
+Lic_Data <- BeeDC::readr_BeeDC(dataset = "Lic",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Lichtenberg_canola_records.csv", 
                       outFile = "jbd_Lic_Data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### n. Arm ####
-Arm_Data <- BeeDC::readr_Arm(path = paste0(DataPath, "/Additional_Datasets"),
+Arm_Data <- BeeDC::readr_BeeDC(dataset = "Arm",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
                       outFile = "jbd_Arm_Data.csv",
                       sheet = "Sheet1",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### o. Dor #####
-Dor_Data <- BeeDC::readr_Dor(path = paste0(DataPath, "/Additional_Datasets"),
+Dor_Data <- BeeDC::readr_BeeDC(dataset = "Dor",
+                               path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/DoreyData.csv",
                       outFile = "jbd_Dor_Data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
@@ -671,8 +686,8 @@ check_pf <- BeeDC::GBIFissues(data = check_pf,
 # This will be updated throughout the script and accessed at the end, so be wary of moving files around manually.
 flagFile <- BeeDC::flagRecorder(
   data = check_pf,
-  outpath = paste(OutPath_Report, sep =""),
-  filename = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
+  outPath = paste(OutPath_Report, sep =""),
+  fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
     # These are the columns that will be kept along with the flags
   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
     # TRUE if you want to find a file from a previous part of the script to append to
@@ -758,9 +773,9 @@ data(beesTaxonomy, package = "BeeDC")
 # Harmonise the names in the occurrence tibble
 #   # This flags the occurrences without a matched name and matches names to their correct name 
   # according to DiscoverLife
-database <- BeeDC::HarmoniseR(path = DataPath, #The path to a folder that the output can be saved
-                       SynList = beesTaxonomy, # The formatted taxonomy file
-                       occurrences = database)
+database <- BeeDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
+                       taxonomy = beesTaxonomy, # The formatted taxonomy file
+                       data = database)
 
 # You don't need this file anymore...
 rm(beesTaxonomy)
@@ -778,8 +793,8 @@ database %>%
 # all data are intact. <3 
 flagFile <- BeeDC::flagRecorder(
   data = database,
-  outpath = paste(OutPath_Report, sep =""),
-  filename = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
+  outPath = paste(OutPath_Report, sep =""),
+  fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
   append = TRUE,
   printSummary = TRUE)
@@ -946,7 +961,7 @@ check_space <- BeeDC::coordUncerFlagR(data = check_space,
 data("beesChecklist", package = "BeeDC")
 
 check_space <- BeeDC::countryOutlieRs(checklist = beesChecklist,
-                        occData = check_space,
+                        data = check_space,
                         keepAdjacentCountry = TRUE,
                         pointBuffer = 0.05,
                           # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
@@ -1028,8 +1043,8 @@ check_space %>%
 # SAVE the flags so far
 BeeDC::flagRecorder(
   data = check_space,
-  outpath = paste(OutPath_Report, sep =""),
-  filename = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
+  outPath = paste(OutPath_Report, sep =""),
+  fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
   append = TRUE,
   printSummary = TRUE)
@@ -1126,8 +1141,8 @@ check_time %>%
 # SAVE the flags so far
 BeeDC::flagRecorder(
   data = check_time,
-  outpath = paste(OutPath_Report, sep =""),
-  filename = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
+  outPath = paste(OutPath_Report, sep =""),
+  fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
   append = TRUE,
   printSummary = TRUE)
@@ -1192,8 +1207,8 @@ check_time %>%
 # SAVE the flags so far
 BeeDC::flagRecorder(
   data = check_time,
-  outpath = paste(OutPath_Report, sep =""),
-  filename = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
+  outPath = paste(OutPath_Report, sep =""),
+  fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
   append = TRUE,
   printSummary = TRUE)
@@ -1208,12 +1223,12 @@ if(!exists("check_time")){
 ##### 8.1 rm Outliers ####
 # Read in the most-recent duplicates file as well
 if(!exists("duplicates")){
-  duplicates <- file_finder(path = DataPath,
+  duplicates <- fileFinder(path = DataPath,
                             fileName = "duplicateRun_") %>%
     readr::read_csv()}
 # identify the outliers and get a list of their database_ids
 check_time <- manualOutlierFindeR(
-  occData = check_time,
+  data = check_time,
   DataPath = DataPath,
   PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
   newOutliersName = "^All_outliers_ANB_14March.xlsx",
@@ -1264,7 +1279,7 @@ BiocManager::install("ComplexHeatmap")
 
 # Read in the most-RECENT file
 if(!exists("duplicates")){
-  duplicates <- file_finder(path = DataPath,
+  duplicates <- fileFinder(path = DataPath,
                             fileName = "duplicateRun_") %>%
     readr::read_csv()}
 
@@ -1311,9 +1326,9 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 # records for each data source (simplified to the text before the first underscore) and
 # the proportion of the above for each data source
 BeeDC::dupePlotR(
-  Data = beeData,
-  # The outpath to save the plot as
-  outpath = paste0(OutPath_Figures, "duplicatePlot.pdf", sep = "/"),
+  data = beeData,
+  # The outPath to save the plot as
+  outPath = paste0(OutPath_Figures, "duplicatePlot.pdf", sep = "/"),
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height
@@ -1329,11 +1344,11 @@ BeeDC::dupePlotR(
 ##### 9.3 Flags by source ####
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 BeeDC::plotFlagSummary(
-  plotData = beeData,
+  data = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-  filename = paste0("FlagsPlot_", Sys.Date(),".pdf"),
-  outpath = paste0(OutPath_Figures),
+  fileName = paste0("FlagsPlot_", Sys.Date(),".pdf"),
+  outPath = paste0(OutPath_Figures),
   width = 15, height = 9,
     # OPTIONAL:
       #   # Filter to species
@@ -1367,11 +1382,11 @@ mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv"
   ###### a. Summary maps ####
   # Draw a global summary map for occurrence and species number by country
 BeeDC::summaryMaps(
-  mapData = mapData,
+  data = mapData,
   width = 10, height = 10,
   class_n = 15,
   class_Style = "fisher",
-  filename = paste0(OutPath_Figures, "CountryMaps_fisher.pdf", sep = "/")
+  fileName = paste0(OutPath_Figures, "CountryMaps_fisher.pdf", sep = "/")
 )
 
   ###### b. Interactive maps ####
@@ -1387,14 +1402,14 @@ beeData_interactive <- beeData %>%
 # Make the interactive maps
 BeeDC::interactiveMapR(
   # occurrence data
-  database = beeData %>%
+  data = beeData %>%
       # Select only those species
     dplyr::filter(scientificName %in% beeData_interactive),
   # Directory where to save files
-  dir = paste0(OutPath_Figures, "interactiveMaps", sep = "/"),
+  outPath = paste0(OutPath_Figures, "interactiveMaps", sep = "/"),
   # lat long columns
-  longitude = "decimalLongitude",
-  latitude = "decimalLatitude",
+  lon = "decimalLongitude",
+  lat = "decimalLatitude",
   # Occurrence dataset column with species names
   speciesColumn = "scientificName",
   # Which species to map — a character vector of names or "ALL"
@@ -1417,7 +1432,7 @@ institutionList_DL <- readxl::read_excel(paste(DiscLifePath, "Apoidea Bee Collec
                                                sep = "/"))
 source(paste(ScriptPath, "dataProvTables.R", sep = "/"))
 TEST <- BeeDC::dataProvTables(
-    occData = mapData,
+    data = mapData,
       # Some manual extractions of instutionCode for bee data
     runBeeDataChecks = TRUE,
     institutionList = institutionList_DL)

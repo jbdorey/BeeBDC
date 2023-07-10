@@ -7,7 +7,7 @@
 #'For additional context and column names, see [BeeDC::beesChecklist()].
 #'
 #' @param checklist A data frame or tibble. The formatted checklist which was built based on the Discover Life website.
-#' @param occData A data frame or tibble. The a Darwin Core occurrence dataset.
+#' @param data A data frame or tibble. The a Darwin Core occurrence dataset.
 #' @param keepAdjacentCountry Logical. If TRUE, occurrences in countries that are adjacent to checklist countries will be 
 #' kept. If FALSE, they will be flagged.
 #' @param pointBuffer Numeric. A buffer around points to help them align with a country or coastline.
@@ -27,7 +27,7 @@
 #' @examples
 #' 
 #' beesRaw_out <- countryOutlieRs(checklist = BeeDC::beesChecklist,
-#'                                occData = BeeDC::beesRaw,
+#'                                data = BeeDC::beesRaw,
 #'                                keepAdjacentCountry = TRUE,
 #'                                pointBuffer = 0.05,
 #'                                rnearthScale = 50)
@@ -35,7 +35,7 @@
 
 countryOutlieRs <- function(
     checklist = NULL,
-    occData = NULL,
+    data = NULL,
     keepAdjacentCountry = TRUE,
     pointBuffer = NULL,
     rnearthScale = 50
@@ -52,21 +52,21 @@ countryOutlieRs <- function(
     countryOutlieRs<-countryOutlieRs<-.countryOutlier <- NULL
   
   # REMOVE - TEST thinning
-   #  occData <- occData %>%
+   #  data <- data %>%
    #    filter(row_number() %% 100 == 1)
   startTime <- Sys.time()
 #### 0.0 Warnings ####
   if(is.null(checklist)){
     stop("You must provide a checklist of countries")
   }
-  if(is.null(occData)){
-    stop("You must provide occurrence data (occData). Honestly, what do you think I was gonna do without that?")
+  if(is.null(data)){
+    stop("You must provide occurrence data (data). Honestly, what do you think I was gonna do without that?")
   }
 
 #### 1.0 Data prep ####
-  ##### 1.1 occData ####
+  ##### 1.1 data ####
     # Drop .countryOutlier if its already present
-  occData <- occData %>%
+  data <- data %>%
     dplyr::select(!tidyselect::any_of(".countryOutlier"))
 
   ##### 1.2 rNaturalEarth ####
@@ -92,8 +92,8 @@ sf::sf_use_s2(FALSE)
 
   #### 2.0 Use occ. data ####
   ##### 2.1 Occ data ####
-  # Turn occData into a simple point feature
-  points <- sf::st_as_sf(occData %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+  # Turn data into a simple point feature
+  points <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
                          coords = c("decimalLongitude", "decimalLatitude"),
                          na.fail = TRUE,
                             # Assign the CRS from the rnaturalearth map to the point data
@@ -342,7 +342,7 @@ sf::sf_use_s2(FALSE)
   ))
   
       # Merge with original dataset
-    output <- occData %>%
+    output <- data %>%
       dplyr::left_join(bpoints_match, by = "database_id",
                        multiple = "all", relationship = "many-to-many") %>%
         # Add in .sea usign the seaPoints

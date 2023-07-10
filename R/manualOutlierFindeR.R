@@ -11,7 +11,7 @@
 #' The function will add a flagging column called `.expertOutlier` where records that are FALSE are
 #' the expert outliers.
 #'
-#' @param occData A data frame or tibble. Occurrence records as input.
+#' @param data A data frame or tibble. Occurrence records as input.
 #' @param DataPath A character path to the directory that contains the outlier spreadsheets.
 #' @param PaigeOutliersName A character patch. Should lead to outlier spreadsheet from Paige Chesshire (csv file).
 #' @param newOutliersName A character path. Should lead to appropriate outlier spreadsheet (xlsx file).
@@ -23,7 +23,7 @@
 #' @param NearTRUE_threshold Numeric. The threshold (in km) for the distance to TRUE points to 
 #' keep expert outliers.
 #'
-#' @return Returns the occData with a new column, `.expertOutlier` where records that are FALSE are
+#' @return Returns the data with a new column, `.expertOutlier` where records that are FALSE are
 #' the expert outliers.
 #' @export
 #' 
@@ -35,12 +35,12 @@
 #'   data(beesFlagged)
 #' # Read in the most-recent duplicates file as well
 #' if(!exists("duplicates")){
-#'   duplicates <- file_finder(path = DataPath,
+#'   duplicates <- fileFinder(path = DataPath,
 #'                             fileName = "duplicateRun_") %>%
 #'     readr::read_csv()}
 #' # identify the outliers and get a list of their database_ids
 #' beesFlagged_out <- manualOutlierFindeR(
-#'   occData = beesFlagged,
+#'   data = beesFlagged,
 #'   DataPath = DataPath,
 #'   PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
 #'   newOutliersName = "^All_outliers_ANB_14March.xlsx",
@@ -49,7 +49,7 @@
 #' }
 #' 
 manualOutlierFindeR <- function(
-    occData = NULL,
+    data = NULL,
     DataPath = NULL,
     PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
     newOutliersName = "All_outliers_ANB.xlsx",
@@ -65,8 +65,8 @@ manualOutlierFindeR <- function(
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
-  if(is.null(occData)){
-    stop(paste0(" - No occData was given. Please specify the occurrence data."))
+  if(is.null(data)){
+    stop(paste0(" - No data was given. Please specify the occurrence data."))
   }
   if(is.null(DataPath)){
     stop(paste0(" - No DataPath was given. Please specify the directory that contains the outliers."))
@@ -87,28 +87,28 @@ manualOutlierFindeR <- function(
   writeLines(" - Looking for the datasets...")
       ###### a. Paige outliers ####
   # Find the outliers from chesshire et al. 2023
-  PaigeOutliers <- file_finder(path = DataPath,
+  PaigeOutliers <- fileFinder(path = DataPath,
                                fileName = PaigeOutliersName) %>%
     readr::read_csv( col_types = ColTypeR()) %>%
     suppressWarnings()
   
       ###### b. new outliers ####
   # Find the new outliers from the three sheets concatenates by Angela
-  outliersAll <- file_finder(path = DataPath,
+  outliersAll <- fileFinder(path = DataPath,
                              fileName = newOutliersName) %>%
     openxlsx::read.xlsx("Outliers_FromCanadaToPanama_ANB") %>%
-    dplyr::bind_rows(file_finder(path = DataPath,
+    dplyr::bind_rows(fileFinder(path = DataPath,
                                  fileName = newOutliersName) %>%
                        openxlsx::read.xlsx("Tracys_outliers")) %>%
-    dplyr::bind_rows(file_finder(path = DataPath,
+    dplyr::bind_rows(fileFinder(path = DataPath,
                                  fileName = newOutliersName) %>%
                        openxlsx::read.xlsx("Colombian_outliers")) %>%
-    dplyr::bind_rows(file_finder(path = DataPath,
+    dplyr::bind_rows(fileFinder(path = DataPath,
                                  fileName = newOutliersName) %>%
                        ("Outliers_SppInStatus3")) %>%
     readr::write_csv(paste(tempdir(), "newOutliers.csv", sep = "/"))
   # Read back in with the correct column classes
-  outliersAll <- file_finder(path = tempdir(),
+  outliersAll <- fileFinder(path = tempdir(),
                              fileName = "newOutliers.csv") %>%
     readr::read_csv(col_types = ColTypeR(), lazy = FALSE) %>%
     dplyr::mutate(eventDate = eventDate %>%
@@ -116,7 +116,7 @@ manualOutlierFindeR <- function(
     suppressWarnings()
   
   ###### c. Colombia ####
-  ColombiaOutliers <- file_finder(path = DataPath,
+  ColombiaOutliers <- fileFinder(path = DataPath,
                                   fileName = ColombiaOutliers_all) %>%
     readr::read_csv( col_types = ColTypeR()) %>%
     suppressWarnings()
@@ -125,7 +125,7 @@ manualOutlierFindeR <- function(
   # If user provies a NearTRUE input
   if(!is.null(NearTRUE)){
     # Find and read the csv
-    NearTRUE_data <- file_finder(path = DataPath,
+    NearTRUE_data <- fileFinder(path = DataPath,
                                  fileName = NearTRUE) %>% 
       readr::read_csv() %>% 
       dplyr::filter(near_truepoints_KM >= NearTRUE_threshold)
@@ -140,8 +140,8 @@ manualOutlierFindeR <- function(
   }
   
   ###### e. eventDate ####
-    # format occData eventDate
-  occData <- occData %>%
+    # format data eventDate
+  data <- data %>%
     dplyr::mutate(eventDate = eventDate %>%
                     lubridate::ymd_hms(truncated = 5))
   
@@ -150,12 +150,12 @@ manualOutlierFindeR <- function(
   writeLines(" - Processing the Paige outliers...")
   
   # Find PaigeOutliers in the occurrence data by occurrenceID and institutionCode
-  Outl_occID <- occData %>%
+  Outl_occID <- data %>%
     tidyr::drop_na(occurrenceID) %>%
     dplyr::filter(occurrenceID %in% PaigeOutliers$occurrenceID &
                     institutionCode %in% PaigeOutliers$institutionCode) 
   # Find PaigeOutliers by occurrenceID and institutionCode
-  Outliers_matched <- occData %>%
+  Outliers_matched <- data %>%
     # Remove matched IDs
     dplyr::filter(!occurrenceID %in% Outl_occID$occurrenceID) %>%
     tidyr::drop_na(catalogNumber, institutionCode) %>%
@@ -186,7 +186,7 @@ manualOutlierFindeR <- function(
   
   #### 3.0 Flag records ####
   # Find the occurrences that did not match
-  occData <- occData %>%
+  data <- data %>%
     # Add the .expertOutlier columns as TRUE (not flagged)
     dplyr::mutate(.expertOutlier = dplyr::if_else(
       database_id %in% outList,
@@ -196,14 +196,14 @@ manualOutlierFindeR <- function(
     paste(
       "\\manualOutlierFindeR:\n",
       "Flagged",
-      format(sum(occData$.expertOutlier == FALSE, na.rm = TRUE), big.mark = ","),
+      format(sum(data$.expertOutlier == FALSE, na.rm = TRUE), big.mark = ","),
       "expert-identified outliers:\n",
       "The column '.expertOutlier' was added to the database.\n"
     )
   )
   
   # Return data
-return(occData)
+return(data)
   
 }
 

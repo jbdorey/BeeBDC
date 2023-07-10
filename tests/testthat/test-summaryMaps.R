@@ -5,11 +5,11 @@ data("beesFlagged")
 
 # Draw a global summary map for occurrence and species number by country
 testMap <- BeeDC::summaryMaps(
-  mapData = beesFlagged,
+  data = beesFlagged,
   width = 10, height = 10,
   class_n = 3,
   class_Style = "fisher",
-  filename = paste0(tempdir(), "/CountryMaps_fisher.pdf", sep = ""),
+  fileName = paste0(tempdir(), "/CountryMaps_fisher.pdf", sep = ""),
   returnPlot = TRUE
 )
 

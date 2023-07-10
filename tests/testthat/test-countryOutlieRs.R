@@ -13,7 +13,7 @@ beesFlagged$decimalLatitude[[2]] <-  78.719726562500085
 beesFlagged$decimalLongitude[[2]] <- 31.887646484374983 
 
 testOut <- BeeDC::countryOutlieRs(checklist = beesChecklist,
-                                      occData = beesFlagged %>% 
+                                      data = beesFlagged %>% 
                                     dplyr::select(!tidyselect::any_of(c("countryMatch", 
                                                                       ".countryOutlier",
                                                                       "iso_a3"))),
