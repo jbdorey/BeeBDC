@@ -5,10 +5,10 @@
 \title{Creates interactive html maps for species}
 \usage{
 interactiveMapR(
-  database = NULL,
-  dir = NULL,
-  longitude = "decimalLongitude",
-  latitude = "decimalLatitude",
+  data = NULL,
+  outPath = NULL,
+  lon = "decimalLongitude",
+  lat = "decimalLatitude",
   speciesColumn = "scientificName",
   speciesList = NULL,
   countryList = NULL,
@@ -21,20 +21,20 @@ interactiveMapR(
 )
 }
 \arguments{
-\item{database}{A data frame or tibble. Occurrence records to use as input.}
+\item{data}{A data frame or tibble. Occurrence records to use as input.}
 
-\item{dir}{A directory as character. Directory where to save output maps.}
+\item{outPath}{A directory as character. Directory where to save output maps.}
 
-\item{longitude}{Character. The name of the longitude column. Default = "decimalLongitude".}
+\item{lon}{Character. The name of the longitude column. Default = "decimalLongitude".}
 
-\item{latitude}{Character. The name of the latitude column. Default = "decimalLatitude".}
+\item{lat}{Character. The name of the latitude column. Default = "decimalLatitude".}
 
 \item{speciesColumn}{Character. The name of the column containing species names (or another factor)
 to build individual maps from. Default = "scientificName".}
 
 \item{speciesList}{A character vector. Should contain species names as they appear in the
 speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all
-species present in the database. Hence, a user may first filter their database and then use "ALL".}
+species present in the data. Hence, a user may first filter their data and then use "ALL".}
 
 \item{countryList}{A character vector. Country names to map, or NULL for to map ALL countries.}
 
@@ -73,16 +73,16 @@ OutPath_Figures <- tempdir()
 
 interactiveMapR(
 # occurrence data - start with entire dataset, filter down to these species
-database = BeeDC::bees3sp, # \%>\%
+data = BeeDC::bees3sp, # \%>\%
   # Select only those species in the 100 randomly chosen
   # dplyr::filter(scientificName \%in\% beeData_interactive$scientificName),
   # Select only one species to map
   # dplyr::filter(scientificName \%in\% "Agapostemon sericeus (Forster, 1771)"),
 # Directory where to save files
-dir = paste0(OutPath_Figures, "/interactiveMaps_TEST"),
+outPath = paste0(OutPath_Figures, "/interactiveMaps_TEST"),
 # lat long columns
-longitude = "decimalLongitude",
-latitude = "decimalLatitude",
+lon = "decimalLongitude",
+lat = "decimalLatitude",
 # Occurrence dataset column with species names
 speciesColumn = "scientificName",
 # Which species to map - a character vector of names or "ALL"

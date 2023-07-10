@@ -4,7 +4,7 @@
 \alias{flagSummary}
 \title{Build a per-species summary for each and all flags}
 \usage{
-flagSummary(data = NULL, column = "scientificName", outpath = NULL)
+flagSummary(data = NULL, column = "scientificName", outPath = NULL)
 }
 \arguments{
 \item{data}{A data frame or tibble. The flagged dataset.}
@@ -12,8 +12,8 @@ flagSummary(data = NULL, column = "scientificName", outpath = NULL)
 \item{column}{Character. The name of the column to group by and summarise the failed occurrences.
 Default = "scientificName".}
 
-\item{outpath}{A character path. Optional. The path and file name in which to save the table as
-a .csv. If no outpath is provided, the table will not be saved. Default = NULL.}
+\item{outPath}{A character path. Optional. The path and file name in which to save the table as
+a .csv. If no outPath is provided, the table will not be saved. Default = NULL.}
 }
 \value{
 A tibble with a column for each flag column (starting with ".") showing the number of
@@ -33,7 +33,7 @@ data("beesFlagged")
   # Run the function and build the flag table
 flagTibble <- flagSummary(data = beesFlagged,
                               column = "scientificName",
-                              outpath = paste0(tempdir(), "/flagTable.csv"))
+                              outPath = paste0(tempdir(), "/flagTable.csv"))
                               
 
 }

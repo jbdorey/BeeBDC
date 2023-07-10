@@ -6,7 +6,7 @@
 \usage{
 countryOutlieRs(
   checklist = NULL,
-  occData = NULL,
+  data = NULL,
   keepAdjacentCountry = TRUE,
   pointBuffer = NULL,
   rnearthScale = 50
@@ -15,7 +15,7 @@ countryOutlieRs(
 \arguments{
 \item{checklist}{A data frame or tibble. The formatted checklist which was built based on the Discover Life website.}
 
-\item{occData}{A data frame or tibble. The a Darwin Core occurrence dataset.}
+\item{data}{A data frame or tibble. The a Darwin Core occurrence dataset.}
 
 \item{keepAdjacentCountry}{Logical. If TRUE, occurrences in countries that are adjacent to checklist countries will be
 kept. If FALSE, they will be flagged.}
@@ -40,7 +40,7 @@ For additional context and column names, see \code{\link[=beesChecklist]{beesChe
 \examples{
 
 beesRaw_out <- countryOutlieRs(checklist = BeeDC::beesChecklist,
-                               occData = BeeDC::beesRaw,
+                               data = BeeDC::beesRaw,
                                keepAdjacentCountry = TRUE,
                                pointBuffer = 0.05,
                                rnearthScale = 50)

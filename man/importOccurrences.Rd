@@ -2,7 +2,7 @@
 % Please edit documentation in R/importOccurrences.R
 \name{importOccurrences}
 \alias{importOccurrences}
-\title{Imports the most-recent repo_merge data}
+\title{Imports the most-recent repoMerge data}
 \usage{
 importOccurrences(path = path, fileName = "^BeeData_")
 }
@@ -10,7 +10,7 @@ importOccurrences(path = path, fileName = "^BeeData_")
 \item{path}{A directory as a character. The directory to recursively look in for the above data.}
 
 \item{fileName}{Character. A String of text to look for the most-recent dataset.
-Default = "^BeeData_". Find faults by modifying \code{\link[=file_finder]{file_finder()}}
+Default = "^BeeData_". Find faults by modifying \code{\link[=fileFinder]{fileFinder()}}
 and logic-checking the file that's found.}
 }
 \value{
@@ -18,7 +18,7 @@ A list with a data frame of merged occurrence records, "Data_WebDL", and a list 
 files contained in "eml_files".
 }
 \description{
-Looks for and imports the most-recent version of the occurrence data created by the \code{\link[=repo_merge]{repo_merge()}}
+Looks for and imports the most-recent version of the occurrence data created by the \code{\link[=repoMerge]{repoMerge()}}
 function.
 }
 \examples{

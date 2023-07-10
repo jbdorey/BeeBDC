@@ -6,7 +6,8 @@
 \usage{
 chordDiagramR(
   dupeData = NULL,
-  savePath = NULL,
+  outPath = NULL,
+  fileName = NULL,
   width = 7,
   height = 6,
   bg = "white",
@@ -28,7 +29,9 @@ chordDiagramR(
 \arguments{
 \item{dupeData}{A tibble or data frame. The duplicate file produced by \code{\link[=dupeSummary]{dupeSummary()}}}
 
-\item{savePath}{A character directory. The directory in which the figure should be saved.}
+\item{outPath}{Character. The path to a directory (folder) in which the output should be saved.}
+
+\item{fileName}{Character. The name of the output file, ending in '.pdf'.}
 
 \item{width}{Numeric. The width of the figure to save (in inches). Default = 7.}
 
@@ -78,7 +81,8 @@ duplicated between data providers, such as, SCAN, GBIF, ALA, etc.
 \dontrun{
  chordDiagramR(
 dupeData = duplicates,
-savePath = paste0(tempdir(), "/ChordDiagram.pdf"),
+outPath = tempdir(),
+fileName = "ChordDiagram.pdf",
 # These can be modified to help fit the final pdf that's exported.
 width = 9,
 height = 7.5,

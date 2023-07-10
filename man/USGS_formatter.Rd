@@ -8,7 +8,7 @@ USGS_formatter(path, pubDate)
 }
 \arguments{
 \item{path}{A character path to a directory that contains the USGS data, which will be found using
-\code{\link[=file_finder]{file_finder()}}. The function will look for "USGS_DRO_flat".}
+\code{\link[=fileFinder]{fileFinder()}}. The function will look for "USGS_DRO_flat".}
 
 \item{pubDate}{Character. The publication date of the dataset to update the metadata and citation.}
 }

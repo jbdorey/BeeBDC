@@ -9,8 +9,8 @@
 #' while the other shows the proportion of records that are duplicated within each data source.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
-#' @param outPath A directory as a character string. Where the plot should be saved AND it's name.
-#' i.e. mypath/.../duplicatePlot.pdf 
+#' @param outPath Character. The path to a directory (folder) in which the output should be saved.
+#' @param fileName Character. The name of the output file, ending in '.pdf'.
 #' @param legend.position The position of the legend as coordinates. Default = c(0.85, 0.8).
 #' @param base_height Numeric. The height of the plot in inches. Default = 7.
 #' @param base_width Numeric. The width of the plot in inches. Default = 7.
@@ -32,7 +32,8 @@
 #'   data = beesFlagged,
 #'   # The outPath to save the plot as
 #'     # Should be something like: #paste0(OutPath_Figures, "/duplicatePlot_TEST.pdf"),
-#'   outPath = paste0(tempdir(), "/duplicatePlot_TEST.pdf"), 
+#'   outPath = tempdir(), 
+#'   fileName = "duplicatePlot_TEST.pdf",
 #'   # Colours in order: duplicate, kept duplicate, unique
 #'   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
 #'   # Plot size and height
@@ -46,6 +47,7 @@
 dupePlotR <- function(
     data = NULL,
     outPath = NULL,
+    fileName = NULL,
     legend.position = c(0.85, 0.8),
     base_height = 7,
     base_width = 7,
@@ -72,6 +74,9 @@ dupePlotR <- function(
   }
   if(is.null(outPath)){
     stop(" - Please provide an argument for outPath Seems reckless to let me just guess.")
+  }
+  if(is.null(fileName)){
+    stop(" - Please provide an argument for fileName Seems reckless to let me just guess.")
   }
   
   
@@ -141,7 +146,7 @@ dupePlotR <- function(
                                  labels = c("(a)","(b)"),
                                  ncol = 1, align = 'v', axis = 'l'))
   # Save the plot
-  cowplot::save_plot(fileName = outPath,
+  cowplot::save_plot(filename = paste(outPath, fileName, sep = "/"),
                      plot = dupPlot,
                      base_width = base_width,
                      base_height = base_height)

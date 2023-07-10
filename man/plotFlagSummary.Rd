@@ -5,10 +5,10 @@
 \title{Generate a plot summarising flagged data}
 \usage{
 plotFlagSummary(
-  plotData = NULL,
+  data = NULL,
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-  filename = NULL,
-  outpath = OutPath_Figures,
+  fileName = NULL,
+  outPath = OutPath_Figures,
   width = 15,
   height = 9,
   units = "in",
@@ -28,15 +28,15 @@ plotFlagSummary(
 )
 }
 \arguments{
-\item{plotData}{A data frame or tibble. Occurrence records as input.}
+\item{data}{A data frame or tibble. Occurrence records as input.}
 
 \item{flagColours}{A character vector. Colours in order of pass (TRUE), fail (FALSE), and NA.
 Default = c("#127852", "#A7002D", "#BDBABB").}
 
-\item{filename}{Character. The name of the file to be saved, ending in ".pdf".
+\item{fileName}{Character. The name of the file to be saved, ending in ".pdf".
 If saving as a different file type, change file type suffix - See \code{device}.}
 
-\item{outpath}{A character path. The path to the directory in which the figure will be saved.
+\item{outPath}{A character path. The path to the directory in which the figure will be saved.
 Default = OutPath_Figures.}
 
 \item{width}{Numeric. The width of the output figure in user-defined units Default = 15.}
@@ -53,7 +53,7 @@ Default = OutPath_Figures.}
 Default = "white."}
 
 \item{device}{Character. Passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}. Device to use. Can either be a device function (e.g. png), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
-Default = "pdf". If not using default, change file name suffix in filename argument.}
+Default = "pdf". If not using default, change file name suffix in fileName argument.}
 
 \item{speciesName}{Optional. Character. A species name, as it occurs in the user-input nameColumn.
 If provided, the data will be filtered to this species for the plot.}
@@ -97,11 +97,11 @@ data(beesFlagged)
 OutPath_Figures <- tempdir()
  # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 plotFlagSummary(
-  plotData = beesFlagged,
+  data = beesFlagged,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-  filename = paste0("FlagsPlot_TEST_", Sys.Date(),".pdf"),
-  outpath = OutPath_Figures,
+  fileName = paste0("FlagsPlot_TEST_", Sys.Date(),".pdf"),
+  outPath = OutPath_Figures,
   width = 15, height = 9,
   # OPTIONAL:
   #\   #  # Filter to species

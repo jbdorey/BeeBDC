@@ -5,10 +5,11 @@
 \title{Create country-level summary maps of species and occurrence numbers}
 \usage{
 summaryMaps(
-  mapData = NULL,
+  data = NULL,
   class_n = 15,
   class_Style = "fisher",
-  filename = NULL,
+  outPath = NULL,
+  fileName = NULL,
   width = 10,
   height = 5,
   dpi = 300,
@@ -16,7 +17,7 @@ summaryMaps(
 )
 }
 \arguments{
-\item{mapData}{A data frame or tibble. Occurrence records as input.}
+\item{data}{A data frame or tibble. Occurrence records as input.}
 
 \item{class_n}{Numeric. The number of categories to break the data into.}
 
@@ -24,8 +25,10 @@ summaryMaps(
 style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust",
 "fisher", "jenks", "dpih", "headtails", or "maximum". Default = "fisher"}
 
-\item{filename}{A character vector with both the path to the save location and the file name
-itself for the output figure.}
+\item{outPath}{A character vector the path to the save location for the output figure.}
+
+\item{fileName}{A character vector with file name
+for the output figure, ending with '.pdf'.}
 
 \item{width}{Numeric. The width, in inches, of the resulting figure. Default = 10.}
 
@@ -41,7 +44,7 @@ occurrence species and count data from the input dataset.
 }
 \description{
 Builds an output figure that shows the number of species and the number of occurrences per
-country. Breaks the data into classes for visualisation. Users may filter mapData to their taxa
+country. Breaks the data into classes for visualisation. Users may filter data to their taxa
 of interest to produce figures of interest.
 }
 \examples{
@@ -51,11 +54,12 @@ OutPath_Figures <- tempdir()
 # This simple example using the test data has very few classes due to the small amount of input 
 # data.
 summaryMaps(
-mapData = beesFlagged,
+data = beesFlagged,
 width = 10, height = 10,
 class_n = 4,
 class_Style = "fisher",
-filename = paste0(tempdir(), "/CountryMaps_fisher_TEST.pdf")
+outPath = OutPath_Figures,
+fileName = paste0("CountryMaps_fisher_TEST.pdf"),
 )
 
 

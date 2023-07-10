@@ -398,7 +398,7 @@ plotFlagSummary <- function(
   # Save the figure
   ##### 2.2 Save all option ####
   if(is.null(speciesName)){
-  ggplot2::ggsave(fileName = fileName,
+  ggplot2::ggsave(filename = fileName,
                   path = outPath,
                   plot = plot, dpi = dpi, bg = bg, device = device,
                   width = width, height = height, units = units)}

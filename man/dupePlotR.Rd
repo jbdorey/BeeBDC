@@ -5,8 +5,9 @@
 \title{Create a compound bar graph of duplicate data sources}
 \usage{
 dupePlotR(
-  Data = NULL,
-  outpath = NULL,
+  data = NULL,
+  outPath = NULL,
+  fileName = NULL,
   legend.position = c(0.85, 0.8),
   base_height = 7,
   base_width = 7,
@@ -16,10 +17,11 @@ dupePlotR(
 )
 }
 \arguments{
-\item{Data}{A data frame or tibble. Occurrence records as input.}
+\item{data}{A data frame or tibble. Occurrence records as input.}
 
-\item{outpath}{A directory as a character string. Where the plot should be saved AND it's name.
-i.e. mypath/.../duplicatePlot.pdf}
+\item{outPath}{Character. The path to a directory (folder) in which the output should be saved.}
+
+\item{fileName}{Character. The name of the output file, ending in '.pdf'.}
 
 \item{legend.position}{The position of the legend as coordinates. Default = c(0.85, 0.8).}
 
@@ -47,10 +49,11 @@ while the other shows the proportion of records that are duplicated within each 
 # This example will show a warning for the factor levels taht are not present in the specific 
 # test dataset
 dupePlotR(
-  Data = beesFlagged,
-  # The outpath to save the plot as
+  data = beesFlagged,
+  # The outPath to save the plot as
     # Should be something like: #paste0(OutPath_Figures, "/duplicatePlot_TEST.pdf"),
-  outpath = paste0(tempdir(), "/duplicatePlot_TEST.pdf"), 
+  outPath = tempdir(), 
+  fileName = "duplicatePlot_TEST.pdf",
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height

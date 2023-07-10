@@ -5,7 +5,7 @@
 \title{Finds outliers, and their duplicates, as determined by experts}
 \usage{
 manualOutlierFindeR(
-  occData = NULL,
+  data = NULL,
   DataPath = NULL,
   PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
   newOutliersName = "All_outliers_ANB.xlsx",
@@ -16,7 +16,7 @@ manualOutlierFindeR(
 )
 }
 \arguments{
-\item{occData}{A data frame or tibble. Occurrence records as input.}
+\item{data}{A data frame or tibble. Occurrence records as input.}
 
 \item{DataPath}{A character path to the directory that contains the outlier spreadsheets.}
 
@@ -36,7 +36,7 @@ Note: This implementation is only basic for now unless there is a greater need i
 keep expert outliers.}
 }
 \value{
-Returns the occData with a new column, \code{.expertOutlier} where records that are FALSE are
+Returns the data with a new column, \code{.expertOutlier} where records that are FALSE are
 the expert outliers.
 }
 \description{
@@ -52,12 +52,12 @@ the expert outliers.
   data(beesFlagged)
 # Read in the most-recent duplicates file as well
 if(!exists("duplicates")){
-  duplicates <- file_finder(path = DataPath,
+  duplicates <- fileFinder(path = DataPath,
                             fileName = "duplicateRun_") \%>\%
     readr::read_csv()}
 # identify the outliers and get a list of their database_ids
 beesFlagged_out <- manualOutlierFindeR(
-  occData = beesFlagged,
+  data = beesFlagged,
   DataPath = DataPath,
   PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
   newOutliersName = "^All_outliers_ANB_14March.xlsx",

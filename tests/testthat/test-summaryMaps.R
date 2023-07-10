@@ -9,7 +9,8 @@ testMap <- BeeDC::summaryMaps(
   width = 10, height = 10,
   class_n = 3,
   class_Style = "fisher",
-  fileName = paste0(tempdir(), "/CountryMaps_fisher.pdf", sep = ""),
+  outPath = tempdir(),
+  fileName = "CountryMaps_fisher.pdf",
   returnPlot = TRUE
 )
 

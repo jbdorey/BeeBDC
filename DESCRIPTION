@@ -1,6 +1,6 @@
 Package: BeeDC
 Title: BeeDC: an Occurrence Data Cleaning Package
-Version: 0.0.5
+Version: 0.1.0
 Authors@R: c(
     person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-2721-3842")),
@@ -16,11 +16,11 @@ Description: Flags and checks occurrence data that are in Darwin Core
     and be complimentary to other excellent occurrence cleaning packages,
     including 'bdc' and 'CoordinateCleaner'.  This package uses datasets
     from several sources and particularly from the Discove Life Website,
-    created by John Ascher and John Pickering: - ASCHER, J. S. &
-    PICKERING, J. 2020. Discover Life bee species guide and world
-    checklist (Hymenoptera: Apoidea: Anthophila).
+    created by John Ascher and John Pickering: ASCHER, J. S. & PICKERING,
+    J. 2020. Discover Life bee species guide and world checklist
+    (Hymenoptera: Apoidea: Anthophila).
     http://www.discoverlife.org/mp/20q?guide=Apoidea_species.  For further
-    information, please see the original publication of this package: -
+    information, please see the original publication of this package:
     DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L.,
     BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E.,
     SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R.,
@@ -30,8 +30,58 @@ Description: Flags and checks occurrence data that are in Darwin Core
     N. S. In review. BeeDC: An R package and globally synthesised and
     flagged bee occurrence dataset. Scientific Data.
 License: GPL-3 + file LICENSE
+BugReports: https://github.com/jbdorey/BeeDC/issues
 Depends: 
     R (>= 2.10)
+Imports: 
+    circlize,
+    ComplexHeatmap,
+    CoordinateCleaner,
+    cowplot,
+    dplyr,
+    forcats,
+    galah (>= 1.5.3),
+    ggplot2,
+    ggspatial,
+    here,
+    igraph,
+    lubridate,
+    mgsub,
+    openxlsx,
+    paletteer,
+    readr,
+    rnaturalearth,
+    sf,
+    stringr,
+    tidyselect
+Suggests: 
+    bdc,
+    BiocManager,
+    chorddiag,
+    classInt,
+    countrycode,
+    DT,
+    emld,
+    hexbin,
+    htmlwidgets,
+    httr,
+    janitor,
+    leaflet,
+    plotly,
+    purrr,
+    R.utils,
+    rangeBuilder,
+    rlang,
+    rnaturalearthdata,
+    rnaturalearthhires,
+    rvest,
+    terra,
+    testthat,
+    tidyr,
+    xlsx,
+    xml2
+Remotes: 
+    AtlasOfLivingAustralia/galah
 Config/testthat/edition: 3
 Encoding: UTF-8
 language: en-gb
@@ -39,4 +89,4 @@ LazyData: TRUE
 LazyDataCompression: xz
 roxygen: TRUE
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

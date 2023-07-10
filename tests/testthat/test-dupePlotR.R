@@ -12,7 +12,8 @@ data("beesFlagged")
 testOut <- BeeDC::dupePlotR(
   data = beesFlagged,
   # The outPath to save the plot as
-  outPath = paste0(tempdir(), "/duplicatePlot.pdf"),
+  outPath = tempdir(),
+  fileName = "duplicatePlot.pdf",
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height

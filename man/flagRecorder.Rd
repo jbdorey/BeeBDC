@@ -6,8 +6,8 @@
 \usage{
 flagRecorder(
   data = NULL,
-  outpath = NULL,
-  filename = NULL,
+  outPath = NULL,
+  fileName = NULL,
   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
   append = NULL,
   printSummary = FALSE
@@ -16,9 +16,9 @@ flagRecorder(
 \arguments{
 \item{data}{A data frame or tibble. Occurrence records as input.}
 
-\item{outpath}{A character path. Where the file should be saved.}
+\item{outPath}{A character path. Where the file should be saved.}
 
-\item{filename}{Character. The name of the file to be saved}
+\item{fileName}{Character. The name of the file to be saved}
 
 \item{idColumns}{A character vector. The names of the columns that are to be kept along with the
 flag columns. These columns should be useful for identifying unique records with flags.
@@ -45,8 +45,8 @@ data("beesFlagged")
   OutPath_Report <- tempdir()
 flagFile <- flagRecorder(
   data = beesFlagged,
-  outpath = paste(OutPath_Report, sep =""),
-  filename = paste0("flagsRecorded_", Sys.Date(), ".csv"),
+  outPath = paste(OutPath_Report, sep =""),
+  fileName = paste0("flagsRecorded_", Sys.Date(), ".csv"),
   # These are the columns that will be kept along with the flags
   idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
   # TRUE if you want to find a file from a previous part of the script to append to

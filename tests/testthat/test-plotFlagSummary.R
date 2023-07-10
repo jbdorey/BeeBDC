@@ -12,7 +12,7 @@ testOut <- plotFlagSummary(
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
   fileName = paste0("FlagsPlot_", Sys.Date(),".pdf"),
-  outpath = tempdir(),
+  outPath = tempdir(),
   width = 15, height = 9,
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
   ASP = "ASP", CAES = "CAES", 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd",

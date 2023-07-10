@@ -14,9 +14,9 @@
 #' @param class_Style Character. The class style passed to [classInt::classIntervals()]. Options are chosen 
 #' style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", 
 #' "fisher", "jenks", "dpih", "headtails", or "maximum". Default = "fisher"
+#' @param outPath A character vector the path to the save location for the output figure.
 #' @param fileName A character vector with file name 
 #' for the output figure, ending with '.pdf'.
-#' @param outpath A character vector the path to the save location for the output figure.
 #' @param width Numeric. The width, in inches, of the resulting figure. Default = 10.
 #' @param height Numeric. The height, in inches, of the resulting figure. Default = 5.
 #' @param dpi Numeric. The resolution of the resulting plot. Default = 300.
@@ -43,8 +43,8 @@
 #' width = 10, height = 10,
 #' class_n = 4,
 #' class_Style = "fisher",
+#' outPath = OutPath_Figures,
 #' fileName = paste0("CountryMaps_fisher_TEST.pdf"),
-#' outPath = tempdir()
 #' )
 #' 
 #' 
@@ -52,8 +52,8 @@ summaryMaps <- function(
     data = NULL,
     class_n = 15,
     class_Style = "fisher",
-    fileName = NULL,
     outPath = NULL,
+    fileName = NULL,
     width = 10, height = 5,
     dpi = 300,
     returnPlot = FALSE
@@ -295,7 +295,7 @@ summaryMaps <- function(
                                   labels = c("(a)","(b)"),
                                  ncol = 1, align = 'v', axis = 'l'))
   # Save the plot
-  cowplot::save_plot(fileName = paste0(outPath, "/", fileName),
+  cowplot::save_plot(filename = paste(outPath, fileName, sep = "/"),
                      plot = combinedPlot,
                      base_width = width,
                      base_height = height, dpi = dpi)

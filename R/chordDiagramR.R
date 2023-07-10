@@ -9,7 +9,8 @@
 #' 
 #'
 #' @param dupeData A tibble or data frame. The duplicate file produced by [BeeDC::dupeSummary()]
-#' @param savePath A character directory. The directory in which the figure should be saved.
+#' @param outPath Character. The path to a directory (folder) in which the output should be saved.
+#' @param fileName Character. The name of the output file, ending in '.pdf'.
 #' @param width Numeric. The width of the figure to save (in inches). Default = 7.
 #' @param height Numeric. The height of the figure to save (in inches). Default = 6.
 #' @param bg The plot's background colour. Default = "white".
@@ -53,7 +54,8 @@
 #'  chordDiagramR(
 # # The duplicate data from the dupeSummary function output  
 #' dupeData = duplicates,
-#' savePath = paste0(tempdir(), "/ChordDiagram.pdf"),
+#' outPath = tempdir(),
+#' fileName = "ChordDiagram.pdf",
 #' # These can be modified to help fit the final pdf that's exported.
 #' width = 9,
 #' height = 7.5,
@@ -75,7 +77,8 @@
 chordDiagramR <- function(
     # The duplicate data from the dupeSummary function output  
   dupeData = NULL,
-  savePath = NULL,
+  outPath = NULL,
+  fileName = NULL,
   width = 7,
   height = 6,
   bg = "white",
@@ -110,8 +113,11 @@ chordDiagramR <- function(
   if(is.null(dupeData)){
     stop(" - Please provide an argument for dupeData. I'm a program not a magician.")
   }
-  if(is.null(savePath)){
-    stop(" - Please provide an argument for savePath. Seems reckless to let me just guess.")
+  if(is.null(outPath)){
+    stop(" - Please provide an argument for outPath Seems reckless to let me just guess.")
+  }
+  if(is.null(fileName)){
+    stop(" - Please provide an argument for fileName Seems reckless to let me just guess.")
   }
   
 
@@ -121,8 +127,6 @@ chordData <- table(dplyr::bind_cols(dupeData$dataSource, dupeData$dataSource_kee
 classes = "message")
 
 
-#pdf(file = savePath,
-#    width = width, height = height, bg = bg)
   # Create tables of the counts of kept source and duplicate source
 keptSource <- table(dupeData$dataSource) %>%
   as.data.frame() %>% dplyr::tibble() %>% 
@@ -217,7 +221,8 @@ circlize::circos.clear()
 
 title(title)
 
-grDevices::dev.copy2pdf(file = savePath, height = height, width = width, bg = bg)
+grDevices::dev.copy2pdf(file = paste0(outPath, fileName, sep = "/"),
+                        height = height, width = width, bg = bg)
 
 #dev.off()
 } # END function

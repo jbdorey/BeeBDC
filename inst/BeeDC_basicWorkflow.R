@@ -225,7 +225,7 @@ library(paletteer)# Find palettes here
 renv::snapshot()
 
 # Read in the most-RECENT file
-duplicates <- file_finder(path = "PATH TO A FOLDER CONTAINING THE duplicateRun_ — could be supp. materials folder",
+duplicates <- fileFinder(path = "PATH TO A FOLDER CONTAINING THE duplicateRun_ — could be supp. materials folder",
                           fileName = "duplicateRun_") %>%
   readr::read_csv() %>%
   # Select only the stingless bee data
@@ -241,7 +241,8 @@ source(paste(ScriptPath, "chordDiagramR.R", sep = "/"))
 chordDiagramR(
   # The duplicate data from the dupeSummary function output  
   dupeData = duplicates,
-  savePath = paste0(DataPath, "/Output/Figures/", "ChordDiagram.pdf"),
+  outPath = OutPath_Figures,
+  fileName = "ChordDiagram.pdf",
   # These can be modified to help fit the final pdf that's exported.
   width = 9,
   height = 7.5,
@@ -265,7 +266,7 @@ chordDiagramR(
 
 ##### 5.2 Duplicate histogram ####
 # Find the existing flag file and read it in
-flagColumns <- file_finder(path = "PATH TO A FOLDER CONTAINING THE flagsRecorded_ — could be supp. materials folder",
+flagColumns <- fileFinder(path = "PATH TO A FOLDER CONTAINING THE flagsRecorded_ — could be supp. materials folder",
                            fileName = "flagsRecorded_") %>%
   readr::read_csv() %>%
     # WARNING: alternate path if wanting to produce figures for the selected taxonData (2.0 above)
@@ -279,8 +280,9 @@ source(paste(ScriptPath, "dupePlotR.R", sep = "/"))
 # the proportion of the above for each data source
 dupePlotR(
   flagColumns = flagColumns,
-  # The outpath to save the plot as
-  outpath = paste0(DataPath, "/Output", "/Figures", "/duplicatePlot.pdf"),
+  # The outPath to save the plot as
+  outPath = paste0(DataPath, "/Output", "/Figures"),
+  fileName = "duplicatePlot.pdf",
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height
@@ -303,8 +305,8 @@ plotFlagSummary(
   plotData = taxonData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-  filename = paste0("FlagsPlot_", Sys.Date(),".pdf"),
-  outpath = paste0(DataPath, "/Output/Figures"),
+  fileName = paste0("FlagsPlot_", Sys.Date(),".pdf"),
+  outPath = paste0(DataPath, "/Output/Figures"),
   width = 15, height = 9,
   # Extra variables can be fed into forcats::fct_recode() to change names on plot
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
@@ -321,8 +323,8 @@ plotFlagSummary(
   plotData = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-  filename = paste0("FlagsPlot_Lfijiense", Sys.Date(),".pdf"),
-  outpath = paste0(DataPath, "/Output/Figures"),
+  fileName = paste0("FlagsPlot_Lfijiense", Sys.Date(),".pdf"),
+  outPath = paste0(DataPath, "/Output/Figures"),
   width = 15, height = 9,
   # OPTIONAL:
          #  # Filter to species
@@ -363,7 +365,7 @@ summaryMaps(
   width = 10, height = 10,
   class_n = 15,
   class_Style = "jenks",
-  filename = paste0(DataPath, "/Output/Figures/", "CountryMaps_jenks.pdf")
+  fileName = paste0(DataPath, "/Output/Figures/", "CountryMaps_jenks.pdf")
 )
 
 

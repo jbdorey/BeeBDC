@@ -1290,7 +1290,8 @@ par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
 BeeDC::chordDiagramR(
   # The duplicate data from the dupeSummary function output  
   dupeData = duplicates,
-  savePath = paste0(OutPath_Figures, "ChordDiagram.pdf", sep = "/"),
+  outPath = OutPath_Figures,
+  fileName = "ChordDiagram.pdf",
   # These can be modified to help fit the final pdf that's exported.
   width = 9,
   height = 7.5,
@@ -1328,7 +1329,8 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 BeeDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
-  outPath = paste0(OutPath_Figures, "duplicatePlot.pdf", sep = "/"),
+  outPath = OutPath_Figures,
+  fileName = "duplicatePlot.pdf",
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height

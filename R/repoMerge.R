@@ -110,7 +110,7 @@ repoMerge <- function(path, save_type, occ_paths){
   
   ##### Save data ####
   # user-input includes the path and save_type, which are supplied from repoMerge()
-  data_saver(path = path, # Path to HomeDirectory
+  dataSaver(path = path, # Path to HomeDirectory
              save_type = save_type, # save_type is either "csv_files" or "R_file"
              occurrences = Data_WebDL, # Input data file
              eml_files = eml_files, # Input eml_files
