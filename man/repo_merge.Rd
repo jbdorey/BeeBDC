@@ -17,11 +17,11 @@ function asks for a list of paths to the relevant input datasets. You can fault-
 in this function by checking the output of \code{\link[=data_finder]{data_finder()}}.}
 }
 \value{
-A list with a data frame of merged occurrence records, "Data_WebDL", and a list of EML
+A list with a data frame of merged occurrence records, "Data_WebDL", and a list of eml
 files contained in "eml_files". Also saves these files in the requested format.
 }
 \description{
-Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its EML
+Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its eml
 metadata.
 }
 \examples{

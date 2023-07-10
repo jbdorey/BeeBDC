@@ -74,10 +74,19 @@ usethis::create_package(path = packageDir,
                           Description = 
                           "Flags and checks occurrence data that are in Darwin Core format.
                           The package includes generic functions and data as well as some that are
-                          specific to bees.",
+                          specific to bees. This package is meant to build upon and be complimentary
+                          to other excellent occurrence cleaning packages, including 'bdc' and
+                          'CoordinateCleaner'.
+                          This package uses datasets from several sources and particularly from the
+                          Discove Life Website, created by John Ascher and John Pickering:
+                          ASCHER, J. S. & PICKERING, J. 2020. Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species.
+                          For further information, please see the original publication of this
+                          package:
+                          DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. BeeDC: An R package and globally synthesised and flagged bee occurrence dataset. Scientific Data.",
                           language = "en-gb",
                           Encoding = "UTF-8",
                           "Config/testthat/edition" = 3,
+                          BugReports = "https://github.com/jbdorey/BeeDC/issues",
                           roxygen = TRUE,
                           LazyData = TRUE,
                           LazyDataCompression = "xz",
@@ -89,7 +98,6 @@ usethis::create_package(path = packageDir,
 requiredPackages <- sort(c(
     # File packages
   "here", "openxlsx",'readr',
-  "EML",
     # Tidyverse packages
   'stringr', 'tidyselect', 
   "dplyr","forcats","lubridate",

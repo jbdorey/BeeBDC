@@ -7,7 +7,7 @@ attr_builder <- function(path_i, occ_input){
   # locally bind variables to the function
   lubridate <- stringr <- family <- NULL
   
-  requireNamespace("EML", "lubridate")
+  requireNamespace("lubridate")
   requireNamespace("dplyr")
   requireNamespace("xml2")
   # This function behaves differently depending on the data source, but returns common outputs.
@@ -55,7 +55,7 @@ attr_builder <- function(path_i, occ_input){
   #### GBIF START ####
   if(grepl("occurrence.txt", path_i) == "TRUE"){
     # Find and take the metadata file
-    sourceEML_i <- EML::read_eml(gsub("/occurrence.txt", "/metadata.xml", path_i), from = "xml" )
+    sourceEML_i <- emld::as_emld(gsub("/occurrence.txt", "/metadata.xml", path_i), from = "xml" )
     # Find and take the citations file - convert into a list
     citations_i <- gsub("/occurrence.txt", "/citations.txt", path_i) %>% 
       readr::read_lines() %>%
@@ -154,7 +154,7 @@ path_i %>%
   if(grepl("occurrences.csv", path_i) == "TRUE"){
     # Find and take the metadata file
     sourceEML_i <- xml2::read_xml(gsub("/occurrences.csv", "/eml.xml", path_i), from = "xml" ) %>% 
-      EML::read_eml()
+      emld::as_emld()
     # Combine all of these attributes int o tibble
     Attributes_i <- dplyr::tibble(dataSource = paste("SCAN_", 
                                                       unique(stringr::str_to_sentence(occ_input$family)), 

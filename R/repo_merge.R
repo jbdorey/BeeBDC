@@ -1,7 +1,7 @@
 ####  2. repo_merge ####
 #' Import occurrences from GBIF, ALA, iDigBio, and SCAN downloads
 #' 
-#' Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its EML
+#' Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its eml
 #' metadata.
 #'
 #' @param path A directory as a character. The directory to recursively look in for the above data.
@@ -11,7 +11,7 @@
 #' function asks for a list of paths to the relevant input datasets. You can fault-find errors 
 #' in this function by checking the output of [BeeDC::data_finder()].
 #'
-#' @return A list with a data frame of merged occurrence records, "Data_WebDL", and a list of EML 
+#' @return A list with a data frame of merged occurrence records, "Data_WebDL", and a list of eml 
 #' files contained in "eml_files". Also saves these files in the requested format.
 #' @export
 #' 
@@ -31,7 +31,6 @@ repo_merge <- function(path, save_type, occ_paths){
   . <- NULL
   
   requireNamespace("dplyr")
-  requireNamespace("EML")
 
     # Remove empty elements
   occ_paths <- occ_paths[lapply(occ_paths,length)>0]
