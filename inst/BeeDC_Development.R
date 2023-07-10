@@ -75,6 +75,7 @@ usethis::create_package(path = packageDir,
                           "Flags and checks occurrence data that are in Darwin Core format.
                           The package includes generic functions and data as well as some that are
                           specific to bees.",
+                          language = "en-gb",
                           Encoding = "UTF-8",
                           "Config/testthat/edition" = 3,
                           roxygen = TRUE,
