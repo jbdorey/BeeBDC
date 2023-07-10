@@ -1,16 +1,59 @@
 # This Function is designed to produce a summary table of data sources.
 # It was written by James B Dorey from the 20th of January 2023.
+
+#' Build a table of data providers for bee occurrence records
+#' 
+#' This function will attempt to find and build a table of data providers that have contributed
+#' to the input data, especially using the 'institutionCode' column. It will also look for a 
+#' variety of other columns to find data providers using a an internally set sequence of if-else
+#' statements. Hence, this function is quite specific for bee data, but should work for other 
+#' taxa in similar institutions.
+#'
+#'
+#' @param data A data frame or tibble. Occurrence records as input.
+#' @param runBeeDataChecks Logical. If TRUE, will search in other columns for specific clues to
+#' determine the institution.
+#' @param outPath A character path. The path to the directory in which the figure will be saved.
+#' Default = OutPath_Report.
+#' @param fileName Character. The name of the file to be saved, ending in ".csv".
+#'
+#'
+#' @return Returns a table with the data providers, an specimen count, and a species count.
+#' @export
+#'
 #' @importFrom dplyr %>%
+#' 
+#' @examples
+#' 
+# import data
+#' data(beesFlagged)
+#' 
+#' testOut <- dataProvTables(
+#' data = beesFlagged,
+#' runBeeDataChecks = TRUE,
+#' outPath = tempdir(),
+#' fileName = "testFile.csv")
+#' 
 dataProvTables <- function(
     data = NULL,
     runBeeDataChecks = FALSE,
-    institutionList = NULL
+    outPath = OutPath_Report,
+    fileName = NULL
 ){
   requireNamespace("dplyr")
   
+  # locally bind variables to the function
+  OutPath_Report <- occurrenceCount <- NULL
+  
   #### 0.0 Warnings ####
   if(is.null(data)){
-    stop("You must provide a checklist of countries")
+    stop("You must provide an input dataset.")
+  }
+  if(is.null(outPath)){
+    stop("You must provide an outPath.")
+  }
+  if(is.null(data)){
+    stop("You must provide a fileName.")
   }
   # locally bind variables to the function
   dataSource<-institutionCode<-recordNumber<-institutionCodeNew<-recordedBy<-occurrenceID<-
@@ -251,12 +294,13 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
   
   ##### 2.3 Merge ####
   counts <- occCount %>%
-    dplyr::left_join(spCount, by = "institutionCode")
+    dplyr::left_join(spCount, by = "institutionCode") %>%
+    dplyr::arrange(occurrenceCount)
   
   
   #### 3.0 Save and return ####
   readr::write_csv(counts, 
-                   paste0(DataPath, "/Output/Report/", "dataProviders.csv"))
+                   paste(outPath, fileName, sep = "/"))
 
   
   return(counts)
