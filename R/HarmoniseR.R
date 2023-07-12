@@ -123,6 +123,13 @@ harmoniseR <- function(
       dplyr::mutate(taxonRank = NA_character_)
     message("The taxonRank column was not found, making this column full of NAs.")
   }
+  ###### e. species ####
+  # If there is no species, make all NA
+  if(!"species" %in% colnames(data)){
+    data <- data %>%
+      dplyr::mutate(species = scientificName)
+    message("The species column was not found, filling this column with scientificName.")
+  }
   
   
     # Add a new column which has the canonical names matched to the synonyms

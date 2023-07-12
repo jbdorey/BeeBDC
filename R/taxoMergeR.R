@@ -13,7 +13,8 @@ taxoMergeR <- function(currentNames = NULL,
                        inPhylum = "Arthropoda",
                        inClass = "Insecta",
                        inOrder = "Hymenoptera",
-                       outName = "taxonomy_taxoMergeR",
+                       outPath = getwd(),
+                       fileName = "taxonomy_taxoMergeR",
                        simpleNames = NULL,
                        problemStrings = NULL
                        ){
@@ -42,9 +43,13 @@ taxoMergeR <- function(currentNames = NULL,
     # remove duplicate rows
     dplyr::distinct() %>%
     # Remove rows where Original == Correct
-    dplyr::filter(Original != Correct)
+    dplyr::filter(Original != Correct) %>%
+    # Remove empty spaces
+    dplyr::mutate(Original = Original %>% stringr::str_squish(),
+                  Correct = Correct %>% stringr::str_squish())
     # Simply count how many rows there are to output later
   Original_unNew_Count <- nrow(newNames)
+
 
 
   # Make a temporary index
@@ -696,7 +701,8 @@ taxoMergeR <- function(currentNames = NULL,
       # Remove " NA" from end of validNames where there was no authority
   merged_names$validName <- stringr::str_replace(merged_names$validName, 
                                                  pattern = " NA$", 
-                                                 replacement = "")
+                                                 replacement = "") %>% 
+    stringr::str_squish()
     
     # Find those rows that did not match
   failed_names <- newNames %>%
@@ -758,19 +764,21 @@ taxoMergeR <- function(currentNames = NULL,
   #### 4.0 Save ####
     writeLines(paste(
     " - Saving the matched new component of the data to the file ",
-    getwd(), "/", outName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
+    outPath, "/", fileName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
   ))
   # Save the  current-matched new dataset
-  readr::write_csv(merged_names_cl, file = paste(outName, "_", Sys.Date(), ".csv", sep = ""))
+  readr::write_csv(merged_names_cl, file = paste(outPath,"/",
+    fileName, "_", Sys.Date(), ".csv", sep = ""))
   writeLines(paste(" - ", nrow(failed_names), 
     " names from the new list did not have an accepted or synonym match to the current list. They ",
     "will be removed. ", "\n",
     "Saving these no-match names to ",
-    getwd(), "/", outName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
+    outPath, "/", fileName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
   ))
   # Save noMatch_df
   readr::write_csv(failed_names, 
-                   file = paste(outName, "_failed_", Sys.Date(), ".csv",  sep = ""))
+                   file = paste(outPath, "/",
+                                fileName, "_failed_", Sys.Date(), ".csv",  sep = ""))
 
     # Add this dataset to the Ascher dataset
   merged_names_cl <- dplyr::tibble(merged_names_cl)
