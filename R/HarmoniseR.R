@@ -900,12 +900,12 @@ harmoniseR <- function(
   
 
   # Cut down the failed list...
-  failedMatches <- failedMatches %>%
-    dplyr::select(tidyselect::any_of("taxonRank")) %>%
-    dplyr::filter(!taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
-                                     "species", "Species", "SPECIES", "subsp.", "subspecies",
-                                    "Subspecies", "SUBSPECIES", "syn", "var.", "variety",
-                                    "Variety", "VARIETY")) 
+      # failedMatches <- failedMatches %>%
+      #   dplyr::select(tidyselect::any_of("taxonRank")) %>%
+      #   dplyr::filter(!taxonRank %in% c("Especie", "forma", "Infrasubspecies", "Race",
+      #                                    "species", "Species", "SPECIES", "subsp.", "subspecies",
+      #                                   "Subspecies", "SUBSPECIES", "syn", "var.", "variety",
+      #                                   "Variety", "VARIETY")) 
 
 
     ###### d. output ####
@@ -913,9 +913,9 @@ harmoniseR <- function(
     " - We matched valid names to ", format(nMatchedRows, big.mark = ","), " of ",
     format(OG_rowNum, big.mark = ","), " occurrence records. This leaves a total of ",
     format(nUnmatchedRows, big.mark = ","), " unmatched occurrence records.",
-    #  " Of the unmatched records, approximately ", 
-    # format( nrow(failedMatches), big.mark = ","), 
-    #  " are only identified to genus rank or higher.",
+        #  " Of the unmatched records, approximately ", 
+        # format( nrow(failedMatches), big.mark = ","), 
+        #  " are only identified to genus rank or higher.",
   sep = ""))
   
   writeLines(paste("\nharmoniseR:"))
