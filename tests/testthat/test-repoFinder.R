@@ -2,7 +2,7 @@ requireNamespace("readr")
 requireNamespace("BeeDC")
 
 
-# make some data files for data_finder to search and save the files 
+# make some data files for repoFinder to search and save the files 
 ## ALA data
 ALA_data <- dplyr::tribble(
               ~scientificName,  ~family, ~subfamily, ~genus, ~subgenus, ~subspecies, ~species, ~specificEpithet, ~infraspecificEpithet, ~acceptedNameUsage, ~taxonRank, ~scientificNameAuthorship, ~identificationQualifier, ~higherClassification, ~identificationReferences, ~typeStatus, ~previousIdentifications, ~identifiedBy, ~dateIdentified, ~decimalLatitude, ~decimalLongitude, ~verbatimLatitude, ~verbatimLongitude,       ~stateProvince,    ~country, ~continent,                        ~locality, ~island, ~county, ~municipality, ~countryCode, ~`dcterms:license`,             ~eventDate, ~eventTime, ~day, ~month, ~year,       ~basisOfRecord, ~`dcterms:type`, ~occurrenceStatus, ~recordNumber, ~recordedBy, ~eventID, ~samplingProtocol, ~samplingEffort, ~individualCount, ~organismQuantity, ~coordinatePrecision, ~coordinateUncertaintyInMeters, ~spatiallyValid, ~catalogNumber, ~datasetID, ~institutionCode, ~datasetName, ~otherCatalogNumbers,                                          ~occurrenceID, ~collectionID, ~verbatimEventDate, ~associatedTaxa, ~associatedOrganisms, ~fieldNotes,   ~sex, ~rights, ~rightsHolder, ~`dcterms:accessRights`, ~associatedReferences, ~`dcterms:bibliographicCitation`, ~references, ~informationWithheld, ~isDuplicateOf,                                                                                                                                                                                                                                      ~assertions,        ~occurrenceYear, ~duplicateStatus, ~associatedOccurrences, ~locationRemarks,
@@ -57,7 +57,7 @@ write.csv(SCAN_data, paste0(tempdir(), "/occurrences.csv"), row.names = FALSE)
 
 
 # path to the test files goes here - load the thing, run the function
-testOut <- BeeDC::data_finder(path = paste0(tempdir()))
+testOut <- BeeDC::repoFinder(path = paste0(tempdir()))
 
 
 # get variable type for each item in list
@@ -68,23 +68,23 @@ SCANout <- testOut[[4]]
 
 
 # expected results - should all be present and all character values
-testthat::test_that("data_finder ALA expected", {
+testthat::test_that("repoFinder ALA expected", {
   testthat::expect_type(ALAout, "character")
 })
 
-testthat::test_that("data_finder GBIF expected", {
+testthat::test_that("repoFinder GBIF expected", {
   testthat::expect_type(GBIFout, "character")
 })
 
-testthat::test_that("data_finder iDigBio expected", {
+testthat::test_that("repoFinder iDigBio expected", {
   testthat::expect_type(iDigBioout, "character")
 })
 
-testthat::test_that("data_finder SCAN expected", {
+testthat::test_that("repoFinder SCAN expected", {
   testthat::expect_type(SCANout, "character")
 })
 
-testthat::test_that("data_finder expected class", {
+testthat::test_that("repoFinder expected class", {
   testthat::expect_type(testOut, "list")
 })
 

@@ -1,7 +1,7 @@
-#####  2.3 data_reader ####
+#####  2.3 dataReader ####
 #' @importFrom dplyr %>%
 # Read in occurence data with the correct format to be merged
-data_reader <-  function(path_i, home_path){
+dataReader <-  function(path_i, home_path){
     # locally bind variables to the function
 dplyr <- mgsub <- setNames <- . <- family <- day <- NULL
   
@@ -11,7 +11,7 @@ requireNamespace("dplyr", "mgsub")
   Bee_Families <- c("Andrenidae","Apidae", "Colletidae","Halictidae","Megachilidae","Melittidae",
                     "Stenotritidae","andrenidae","apidae", "colletidae","halictidae","megachilidae",
                     "melittidae","stenotritidae")  # Find the paths
-  occ_paths <- data_finder(path = path_i)
+  occ_paths <- repoFinder(path = path_i)
   # Get the column types
   ColTypes <- ColTypeR()
   # Get the columns to keep

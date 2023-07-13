@@ -21,11 +21,11 @@ readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
 
 
 ## find file 
-testOut <- BeeDC::file_finder(path = paste0(tempdir()), fileName = "testData.csv")
+testOut <- BeeDC::fileFinder(path = paste0(tempdir()), fileName = "testData.csv")
 
 
 ## test
-testthat::test_that("file_finder expected class", {
+testthat::test_that("fileFinder expected class", {
   testthat::expect_type(testOut, "character")
 })
 

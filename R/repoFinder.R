@@ -1,4 +1,4 @@
-##### 2.1 data_finder ####
+##### 2.1 repoFinder ####
 #' Find GBIF, ALA, iDigBio, and SCAN files in a directory
 #'
 #' @param path A directory as character. The path within which to recursively look for GBIF, ALA, 
@@ -12,9 +12,9 @@
 #' @examples
 #' \dontrun{
 #' # Where DataPath is made by [BeeDC::dirMaker()]
-#' BeeDC::data_finder(path = DataPath)
+#' BeeDC::repoFinder(path = DataPath)
 #' }
-data_finder <- function(path){
+repoFinder <- function(path){
   . <- NULL
   requireNamespace("dplyr")
   # Find ALL occurrence file downloads contained within the HomePath and return their location and 
