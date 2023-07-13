@@ -190,11 +190,13 @@ db_standardized <- db_standardized %>%
                            genus),
     specificEpithet = dplyr::if_else(complete.cases(specificEpithet_m), specificEpithet_m,
                                      specificEpithet),
-    infraspecificEpithet = dplyr::if_else(complete.cases(infraspecificEpithet_m), infraspecificEpithet_m,
+    infraspecificEpithet = dplyr::if_else(complete.cases(infraspecificEpithet_m), 
+                                          infraspecificEpithet_m,
                                           infraspecificEpithet),
     country = dplyr::if_else(complete.cases(country_m), country_m,
                              country),
-    coordinateUncertaintyInMeters = dplyr::if_else(complete.cases(coordinateUncertaintyInMeters_m), coordinateUncertaintyInMeters_m,
+    coordinateUncertaintyInMeters = dplyr::if_else(complete.cases(coordinateUncertaintyInMeters_m),
+                                                   coordinateUncertaintyInMeters_m,
                                                    coordinateUncertaintyInMeters)) %>%
     # Remove the additional columns
   dplyr::select(!c(decimalLatitude_m, decimalLongitude_m,
