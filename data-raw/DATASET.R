@@ -21,7 +21,7 @@ beesChecklist <- readr::read_csv(paste0(dataPath, "/CheckL_combined2023-06-27.cs
                                  guess_max = 40000)
 usethis::use_data(beesChecklist, overwrite = TRUE)
 
-beesTaxonomy <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-06-27.csv"))
+beesTaxonomy <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-07-12.csv"))
 usethis::use_data(beesTaxonomy, overwrite = TRUE)
 
 
