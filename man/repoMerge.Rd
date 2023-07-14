@@ -12,9 +12,9 @@ repoMerge(path, save_type, occ_paths)
 \item{save_type}{Character. The data type to save the resulting file as. Options are:
 csv_files" or "R_file".}
 
-\item{occ_paths}{A list of directories. Preferably produced using \code{\link[=data_finder]{data_finder()}} the
+\item{occ_paths}{A list of directories. Preferably produced using \code{\link[=repoFinder]{repoFinder()}} the
 function asks for a list of paths to the relevant input datasets. You can fault-find errors
-in this function by checking the output of \code{\link[=data_finder]{data_finder()}}.}
+in this function by checking the output of \code{\link[=repoFinder]{repoFinder()}}.}
 }
 \value{
 A list with a data frame of merged occurrence records, "Data_WebDL", and a list of eml
@@ -27,9 +27,9 @@ metadata.
 \examples{
 \dontrun{
 DataImp <- repoMerge(path = DataPath, 
-# Find data - Many problems can be solved by running [BeeDC::data_finder(path = DataPath)]
+# Find data - Many problems can be solved by running [BeeDC::repoFinder(path = DataPath)]
 # And looking for problems
-occ_paths = [BeeDC::data_finder(path = DataPath)],
+occ_paths = [BeeDC::repoFinder(path = DataPath)],
 save_type = "R_file")
 }
 }
