@@ -108,7 +108,7 @@ failed_extract <- failed_extract %>%
 failed_unique <- failed_extract %>% dplyr::distinct(admin, country, iso_a2)
 
     ##### 2.3 Buffer fails ####
-writeLines(" - Buffering natualearth map by pointBuffer...")
+writeLines(" - Buffering naturalearth map by pointBuffer...")
   # Buffer the natural earth map
 suppressWarnings({
   vectEarth_buff <- vectEarth %>% 
