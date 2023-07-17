@@ -126,6 +126,7 @@ dataSaver <- function(path = NULL,
     names(occurrences_attributes$dataSource$abstract) <- paste(occurrences_attributes$dataSource$dataSource, "_abstract", sep = "")
     
     #### EML file ####
+    if(!is.null(eml_files)){
     # Notify user that the .eml file is being written
     writeLines( paste(" - Writing eml file in xml format...", "\n",
                       "The ", length(names(eml_files)), " eml sources are ", 
@@ -139,7 +140,7 @@ dataSaver <- function(path = NULL,
     # Write the .rds file with all attribute information - this file can then be read into R again later 
     occurrences_attributes %>%
       saveRDS(., file = paste(outPath, "/", file_prefix, "completeAttributes_", Sys.Date(), ".rds", sep = ""))
-  }
+  }}
   # Print completion note
   writeLines(paste(" - dataSaver. Fin.", sep = "\n"))
 } # END dataSaver
