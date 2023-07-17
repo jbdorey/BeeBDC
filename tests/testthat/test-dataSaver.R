@@ -25,60 +25,89 @@ testData <- dplyr::tribble(
  attributes(testData)$dataSource <- testAttributes
 
 
-## write file
-#BeeDC::dataSaver(path = tempdir(), save_type = "R_file", occurrences = testData)
+## test the R file save method 
+# write file
 BeeDC::dataSaver(path = tempdir(), 
-                 save_type = "CSV_file", 
+                 save_type = "R_file", 
                  occurrences = testData)
 
-
-
-## read files
+# read files
 list.files(tempdir(), full.names = T, pattern = "out_file",
            recursive = TRUE)
 
-  # Get a list of folders from the temp directory
+# Get a list of folders from the temp directory
 folderList <- list.dirs(tempdir(), full.names = T, recursive = TRUE)
-  # Check that the "out_file" folder exists
+
+# Check that the "out_file" folder exists
 testthat::test_that("dataSaver check that the out_file was created", {
   testthat::expect_true(any(stringr::str_detect(folderList, "out_file")))
 })
 
-
-  # Get the paths for the files in that folder
+# Get the paths for the files in that folder
 testOutFiles <- file.info(list.files(paste(tempdir(), "out_file", sep = "/"), full.names = T, 
                              recursive = TRUE)) %>% rownames()
-# Check the number of files == 4
-testthat::test_that("dataSaver check that there are four files", {
-  testthat::expect_true(length(testOutFiles) == 4)
+
+# Check the number of files == 1 (single .rds file)
+testthat::test_that("dataSaver check that there is one file", {
+  testthat::expect_true(length(testOutFiles) == 1)
 })
+
+testthat::test_that("dataSaver check that the one file is an .rds file", {
+  testthat::expect_true(stringr::str_count(testOutFiles, "\\.rds") %>% sum() == 1)
+})
+
+# Test the output itself
+testOut <- readRDS(paste0(tempdir(), "/out_file/BeeData_2023-07-17.rds"))
+
+testthat::test_that("dataSaver RDS expected class", {
+  testthat::expect_type(testOut, "list")
+})
+
+testOutData <- testOut[[1]]
+
+testthat::test_that("read in occurrence data same as original data because no columns removed", {
+  testthat::expect_equivalent(testData, testOutData)
+})
+
+
+
+## test the CSV save method
+# clear the temp directory - CAUTION THIS WILL COMPLETELY REMOVE ALL TEMP FILES FOR R SESSION
+unlink(tempdir())
+
+# save the data
+BeeDC::dataSaver(path = tempdir(), 
+                 save_type = "CSV_file", 
+                 occurrences = testData)
+
+# Get the paths for the files in that folder
+testOutFiles <- file.info(list.files(paste(tempdir(), "out_file", sep = "/"), full.names = T, 
+                                     recursive = TRUE)) %>% rownames()
 
 # Check the file types
 testthat::test_that("dataSaver check that there are two .csv files produced", {
   testthat::expect_true(stringr::str_count(testOutFiles, "\\.csv") %>% sum() == 2)
 })
-testthat::test_that("dataSaver check that there are two .rds files produced", {
-  testthat::expect_true(stringr::str_count(testOutFiles, "\\.rds") %>% sum() == 2)
-})
 
-
-# Read in the .csv file that has the string "BeeData_combined"
+# Test the output itself
 testOut2 <- readr::read_csv(file = testOutFiles[stringr::str_detect(testOutFiles, 
                                                                     "BeeData_combined")])
 
-
-## check that read in data is of the correct class
-testthat::test_that("dataSaver data same as original testData", {
-  testthat::expect_equal(attributes(testOut2)$class, 
-                         c("spec_tbl_df", "tbl_df", "tbl", "data.frame" ))
-})
-
-  # I HAVE NOT LOOKED FROM HERE
 testthat::test_that("dataSaver csv expected class", {
   testthat::expect_type(testOut2, "list")
 })
 
-testthat::test_that("dataSaver RDS expected class", {
-  testthat::expect_type(testOut2, "list")
+testthat::test_that("read in occurrence data same as original data because no columns removed", {
+  testthat::expect_equivalent(testData, testOut2)
 })
 
+testOut3 <- readr::read_csv(file = testOutFiles[stringr::str_detect(testOutFiles, 
+                                                                    "BeeData_attributes")])
+
+testthat::test_that("dataSaver csv expected class", {
+  testthat::expect_type(testOut3, "list")
+})
+
+testthat::test_that("read in occurrence data same as original data because no columns removed", {
+  testthat::expect_equivalent(testAttributes, testOut3)
+})
