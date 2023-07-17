@@ -121,7 +121,7 @@ for(i in 1:length(columnStrings)){
   # GET THE MATCHED occurrences
   matchedPaige <- unMatchedPaige %>%
     # Merge datasets
-    dplyr::left_join(temp_db, by = tidyselect::all_of(colOverlap),
+    dplyr::left_join(temp_db, by = c(colOverlap),
                      suffix = c("_p", "_d")) %>%
     # Select the id columns
     dplyr::select(database_id_p, database_id_d) %>%
@@ -170,11 +170,11 @@ writeLines(" - Updating the final datasheet with new information from Paige...")
   # Merge the new information
 db_standardized <- db_standardized %>%
         # Join select fields of the Paige data
-      dplyr::left_join(
-      dplyr::select(matchedPaige, c(Dorey_match, decimalLatitude, decimalLongitude,
-                                    scientificName, genus, specificEpithet,
-                                    infraspecificEpithet, database_id, country,
-                                    coordinateUncertaintyInMeters)),
+      dplyr::left_join(matchedPaige %>%
+                         dplyr::select(., c(Dorey_match, decimalLatitude, decimalLongitude,
+                                            scientificName, genus, specificEpithet,
+                                            infraspecificEpithet, database_id, country,
+                                            coordinateUncertaintyInMeters)),
       by = c("database_id" = "Dorey_match"), suffix = c("", "_m")) %>%
         # Rename those fields to replace existing fields 
   dplyr::mutate(
