@@ -1,11 +1,11 @@
-# Description of the BeeDC country checklist dataset
+# Description of the BeeBDC country checklist dataset
 # 16th of March 2023
 
 #' A country-level checklist of bees from Discover Life
 #'
 #'  
 #'  The table contains taxonomic and country information for the bees of the world based on 
-#'  data collated on Discover Life. See [BeeDC::beesTaxonomy()] for further context. 
+#'  data collated on Discover Life. See [BeeBDC::beesTaxonomy()] for further context. 
 #'
 #' @docType data
 #'

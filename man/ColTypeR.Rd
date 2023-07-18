@@ -29,7 +29,7 @@ in the resulting tibble unless they are specified using \link{...}.
 \examples{
   # You can simply return the below for default values
   library(dplyr)
-BeeDC::ColTypeR() 
+BeeBDC::ColTypeR() 
 
   # To add new columns you can write
 ColTypeR(newCharacterColumn = readr::col_character(), 
@@ -37,9 +37,9 @@ ColTypeR(newCharacterColumn = readr::col_character(),
          newLogicalColumn = readr::col_logical()) 
 
 # Try reading in one of the test datasets as an example:
-beesFlagged \%>\% dplyr::as_tibble(col_types = BeeDC::ColTypeR())
+beesFlagged \%>\% dplyr::as_tibble(col_types = BeeBDC::ColTypeR())
   # OR
-beesRaw \%>\% dplyr::as_tibble(col_types = BeeDC::ColTypeR())
+beesRaw \%>\% dplyr::as_tibble(col_types = BeeBDC::ColTypeR())
 
 
 }

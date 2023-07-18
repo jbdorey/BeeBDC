@@ -58,7 +58,7 @@ test_eml <- emld::template("creator")
   
 
   # Run the function
-Complete_data <- BeeDC::formattedCombiner(path = paste0(tempdir()), 
+Complete_data <- BeeBDC::formattedCombiner(path = paste0(tempdir()), 
                                            strings = c("USGS_[a-zA-Z_]+[0-9]{4}-[0-9]{2}-[0-9]{2}"), 
                                            # This should be the list-format with eml attached
                                            existingOccurrences = existingTestdb,

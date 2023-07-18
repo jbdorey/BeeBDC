@@ -1,4 +1,4 @@
-# Description of the BeeDC taxonomic dataset
+# Description of the BeeBDC taxonomic dataset
 # 16th of March 2023
 
 #' A nearly complete taxonomy of bees globally

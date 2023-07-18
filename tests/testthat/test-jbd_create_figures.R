@@ -5,7 +5,7 @@ data("beesFlagged")
 
 #### 1.0 prefilter ####
 figuresP <-
-   BeeDC::jbd_create_figures(
+   BeeBDC::jbd_create_figures(
      data = dplyr::tibble(beesFlagged %>% dplyr::select(!.uncer_terms)),
      path = paste0(tempdir()),
      database_id = "database_id",
@@ -28,7 +28,7 @@ testthat::test_that("jbd_create_figures expected class", {
 
 #### 2.0 space ####
 figuresS <-
-  BeeDC::jbd_create_figures(
+  BeeBDC::jbd_create_figures(
     data = dplyr::tibble(beesFlagged %>% dplyr::select(!.uncer_terms)),
     path = paste0(tempdir()),
     database_id = "database_id",
@@ -48,7 +48,7 @@ testthat::test_that("jbd_create_figures expected class", {
 
 #### 3.0 time ####
 figuresT <-
-    BeeDC::jbd_create_figures(
+    BeeBDC::jbd_create_figures(
       data = dplyr::tibble(beesFlagged %>% dplyr::select(!.uncer_terms)),
       path = paste0(tempdir()),
       database_id = "database_id",

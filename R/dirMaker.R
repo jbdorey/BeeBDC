@@ -6,13 +6,13 @@
 #' Set up global directory paths and create folders
 #' 
 #' This function sets up a directory for saving outputs (i.e. data, figures) generated through the 
-#' use of the BeeDC package, if the required folders do not already exist.
+#' use of the BeeBDC package, if the required folders do not already exist.
 #'
 #' @param RootPath A character String. The `RootPath` is the base path for your project, and all 
 #' other paths should ideally be located within the `RootPath`. However, users may specify paths not 
 #' contained in the RootPath
 #' @param ScriptPath A character String. The `ScriptPath` is the path to any additional functions 
-#' that you would like to read in for use with BeeDC.
+#' that you would like to read in for use with BeeBDC.
 #' @param DataPath A character string. The path to the folder containing bee occurrence data 
 #' to be flagged and/or cleaned
 #' @param DataSubPath A character String. If a `DataPath` is not provided, this will be used as the `DataPath`
@@ -35,9 +35,9 @@
 #' OutPath-defined folder in which to save intermediate datasets. Default = TRUE.
 #' 
 #'
-#' @return Results in the generation of a list containing the BeeDC-required directories in your global
+#' @return Results in the generation of a list containing the BeeBDC-required directories in your global
 #'  environment. This function should be run at the start of each session. Additionally, this 
-#'  function will create the BeeDC-required folders if they do not already exist in the supplied 
+#'  function will create the BeeBDC-required folders if they do not already exist in the supplied 
 #'  directory
 #'
 #' @importFrom here i_am here
@@ -74,7 +74,7 @@
 #' # Further customisations are also possible
 #' dirMaker(
 #'   RootPath = RootPath,
-#'   ScriptPath = "...path/Bee_SDM_paper/BDC_repo/BeeDC/R",
+#'   ScriptPath = "...path/Bee_SDM_paper/BDC_repo/BeeBDC/R",
 #'   DiscLifePath = "...path/BDC_repo/DiscoverLife_Data",
 #'   OutPathName = "AsianPerspective_Output",
 #'   # Input the location of the workflow script RELATIVE to the RootPath
@@ -133,16 +133,16 @@ dirMaker <- function(
     ##### 1.1 ScriptPath ####
   # Create the ScriptPath if it does not already exist
   if(is.null(ScriptPath)){
-  if (!dir.exists(paste0(RootPath, "/BDC_repo/BeeDC/R"))) {
-    dir.create(paste0(RootPath, "/BDC_repo/BeeDC/R"), recursive = TRUE)
+  if (!dir.exists(paste0(RootPath, "/BDC_repo/BeeBDC/R"))) {
+    dir.create(paste0(RootPath, "/BDC_repo/BeeBDC/R"), recursive = TRUE)
     warning(paste0(" - We created the ", 
-                   paste0(RootPath, "/BDC_repo/BeeDC/R"),
+                   paste0(RootPath, "/BDC_repo/BeeBDC/R"),
                    "file. This file needs to have the NewFunctions added to it otherise things won't",
                    " work. These can be added from our GitHub"))
   }
   # Choose the location of the script
   ScriptPath <- paste(RootPath,
-                      "/BDC_repo/BeeDC/R", sep = "")
+                      "/BDC_repo/BeeBDC/R", sep = "")
   }else{# If user provides an alternate ScriptRoot path
     if(ScriptPath != FALSE){
     if (!dir.exists(ScriptPath)) {

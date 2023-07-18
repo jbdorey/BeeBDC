@@ -2,9 +2,9 @@
 # Set up datasets
 library(readr)
 require(usethis)
-setwd("/Users/jamesdorey/Desktop/Uni/Packages/BeeDC/data-raw")
+setwd("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/data-raw")
 # Set data path
-dataPath <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeDC_datafiles"
+dataPath <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_datafiles"
 
 #### 1.0 Example occurrence data ####
 beesFlagged <- readr::read_csv(paste0(dataPath, "/beesFlagged.csv"))

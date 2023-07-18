@@ -14,7 +14,7 @@ USGS_DRO000007$Lasioglossum pilosum$f$Sam Droege$2005-01-01$Unknown$1900-01-01$$
 
 writeLines(testData, paste0(tempdir(), "/19-Nov-22_USGS_DRO_flat.txt"))
 
-testOut <- BeeDC::USGS_formatter(path = tempdir(), 
+testOut <- BeeBDC::USGS_formatter(path = tempdir(), 
                                  pubDate = "19-11-2022")
 
 

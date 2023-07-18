@@ -4,7 +4,7 @@
 #' The function finds, imports, formats, and creates metadata for the USGS dataset.
 #'
 #' @param path A character path to a directory that contains the USGS data, which will be found using
-#' [BeeDC::fileFinder()]. The function will look for "USGS_DRO_flat".
+#' [BeeBDC::fileFinder()]. The function will look for "USGS_DRO_flat".
 #' @param pubDate Character. The publication date of the dataset to update the metadata and citation.
 #'
 #' @return Returns a list with the occurrence data, "USGS_data", and the EML data, "EML_attributes".

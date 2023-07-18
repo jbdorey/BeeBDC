@@ -53,7 +53,7 @@ flagSummary <- function(
   #### 1.0 Data prep ####
   # Re-do the .summary column to be sure its up to date
 data <- data %>%
-  BeeDC::summaryFun()
+  BeeBDC::summaryFun()
 
   # Get a character vector of the flag columns 
   flagColumns <- data %>% dplyr::select(tidyselect::starts_with(".")) %>% colnames()

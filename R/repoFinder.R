@@ -11,8 +11,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Where DataPath is made by [BeeDC::dirMaker()]
-#' BeeDC::repoFinder(path = DataPath)
+#' # Where DataPath is made by [BeeBDC::dirMaker()]
+#' BeeBDC::repoFinder(path = DataPath)
 #' }
 repoFinder <- function(path){
   . <- NULL

@@ -33,7 +33,7 @@ tidyselect::starts_with(".")}
 Saves a file with id and flag columns and returns this as an object.
 }
 \description{
-This function is used to save the flag data for your occurrence data as you run the BeeDC script.
+This function is used to save the flag data for your occurrence data as you run the BeeBDC script.
 It will read and append existing files, if asked to. Your flags should also be saved in the occurrence
 file itself automatically.
 }

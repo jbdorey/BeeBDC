@@ -39,8 +39,8 @@ use_github_actions()
 #### 2.0 Create package ####
   ##### 2.1 Descriptions ####
 # Write DESCRIPTION file inst
-packageDir <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeDC"
-packageVersion <- "0.1.1"
+packageDir <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC"
+packageVersion <- "0.2.0"
 setwd(packageDir)
 usethis::create_package(path = packageDir,
                         roxygen = TRUE,
@@ -48,7 +48,7 @@ usethis::create_package(path = packageDir,
                         check_name = TRUE,
                         open = FALSE,
                         fields = list(
-                          Title = "BeeDC: an Occurrence Data Cleaning Package",
+                          Title = "BeeBDC: an Occurrence Data Cleaning Package",
                           Version = packageVersion,
                           `Authors@R` = c(person(given = "James B.",
                                                family = "Dorey",
@@ -82,11 +82,11 @@ usethis::create_package(path = packageDir,
                           ASCHER, J. S. & PICKERING, J. 2020. Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species.
                           For further information, please see the original publication of this
                           package:
-                          DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. BeeDC: An R package and globally synthesised and flagged bee occurrence dataset. Scientific Data.",
+                          DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. BeeBDC: An R package and globally synthesised and flagged bee occurrence dataset. Scientific Data.",
                           language = "en-gb",
                           Encoding = "UTF-8",
                           "Config/testthat/edition" = 3,
-                          BugReports = "https://github.com/jbdorey/BeeDC/issues",
+                          BugReports = "https://github.com/jbdorey/BeeBDC/issues",
                           roxygen = TRUE,
                           LazyData = TRUE,
                           LazyDataCompression = "xz",
@@ -142,15 +142,15 @@ devtools::load_all()
 devtools::document()
 
 
-citation("BeeDC")
-print(citation("BeeDC"), bibtex=TRUE)
+citation("BeeBDC")
+print(citation("BeeBDC"), bibtex=TRUE)
 
 
   ##### 2.4 Test package ####
 # Set up tests
 usethis::use_testthat(3)
 devtools::test(pkg = packageDir) 
-usethis::use_test("readr_BeeDC")
+usethis::use_test("readr_BeeBDC")
 
 
   ##### 2.5 Check package ####
@@ -165,7 +165,7 @@ usethis::use_cran_comments()
 
 
 
-testOut1 <- BeeDC::readr_BeeDC(dataset = "EPEL",
+testOut1 <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
                                path = tempdir(),
                                inFile = "testData.csv",
                                outFile = "testDataOut.csv",

@@ -40,7 +40,7 @@
 #' rather than the dataSource. Additionally, this is only examined if prefixOrder != NULL. 
 #' Default = NULL.
 #' @param dontFilterThese A character vector. This should contain the flag columns to be ignored 
-#' in the creation or updating of the .summary column. Passed to  [BeeDC::summaryFun()].
+#' in the creation or updating of the .summary column. Passed to  [BeeBDC::summaryFun()].
 #' @param characterThreshold Numeric. The complexity threshold for ID letter length. This is the
 #' minimum number of characters that need to be present in ADDITION TO the numberThreshold for an
 #'  ID number to be tested for duplicates. Ignored by CustomComparisonsRAW. The columns that are 
@@ -60,7 +60,7 @@
 #' duplicates and TRUE occurrences are either kept duplicates or unique. Also exports a .csv to 
 #' the user-specified location with information about duplicate matching. This file is used by 
 #' other functions including
-#' [BeeDC::manualOutlierFindeR()] and [BeeDC::chordDiagramR()]
+#' [BeeBDC::manualOutlierFindeR()] and [BeeBDC::chordDiagramR()]
 #'
 #' @importFrom stats complete.cases setNames
 #' @importFrom dplyr n_groups lst desc %>%
@@ -69,7 +69,7 @@
 #'
 #' @examples
 #' beesFlagged_out <- dupeSummary(
-#' data = BeeDC::beesFlagged,
+#' data = BeeBDC::beesFlagged,
 #'   # Should start with paste0(DataPath, "/Output/Report/"), instead of tempdir():
 #' path = paste0(tempdir(), "/"),
 #' # options are "ID","collectionInfo", or "both"

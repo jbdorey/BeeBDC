@@ -1,5 +1,5 @@
 requireNamespace("readr")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 requireNamespace("emld")
 
@@ -17,17 +17,19 @@ testData <- dplyr::tribble(
 )
 
   # Create a test attributes file
- testAttributes <- tibble::tribble(
+ testAttributes <- dplyr::tribble(
     ~dataSource, ~alternateIdentifier,              ~title,     ~pubDate,   ~dateStamp,           ~doi,                                          ~downloadLink, ~abstract,               ~citations,                                                     ~downloadCitation,                                                                          ~rights,
     "USGS_data",       "Not provided", "USGS_DRO database", "19/11/2022", "19/11/2022", "Not provided", "Not provided, contact Sam Droege at sdroege@usgs.gov",   "Empty", "Citations not provided", "Sam Droege. (2022-11-19). United States Geological Survey bee data.", "Rights are not provided. Please seek permission for data use from Same Droege."
     )
   # Add the attributes to the test data
  attributes(testData)$dataSource <- testAttributes
 
-
+ # clear the temp directory - CAUTION THIS WILL COMPLETELY REMOVE ALL TEMP FILES FOR R SESSION
+ file.remove(file.info(list.files(tempdir(), full.names = T, 
+                                  recursive = TRUE)) %>% rownames())
 ## test the R file save method 
 # write file
-BeeDC::dataSaver(path = tempdir(), 
+BeeBDC::dataSaver(path = tempdir(), 
                  save_type = "R_file", 
                  occurrences = testData)
 
@@ -57,7 +59,8 @@ testthat::test_that("dataSaver check that the one file is an .rds file", {
 })
 
 # Test the output itself
-testOut <- readRDS(paste0(tempdir(), "/out_file/BeeData_2023-07-17.rds"))
+testOut <- readRDS(testOutFiles[stringr::str_detect(testOutFiles,
+                                                    "BeeData_[0-9]+-[0-9]+-[0-9]+")])
 
 testthat::test_that("dataSaver RDS expected class", {
   testthat::expect_type(testOut, "list")
@@ -66,17 +69,18 @@ testthat::test_that("dataSaver RDS expected class", {
 testOutData <- testOut[[1]]
 
 testthat::test_that("read in occurrence data same as original data because no columns removed", {
-  testthat::expect_equivalent(testData, testOutData)
+  testthat::expect_equal(testData, testOutData)
 })
 
 
 
 ## test the CSV save method
 # clear the temp directory - CAUTION THIS WILL COMPLETELY REMOVE ALL TEMP FILES FOR R SESSION
-unlink(tempdir())
+file.remove(file.info(list.files(tempdir(), full.names = T, 
+                                 recursive = TRUE)) %>% rownames())
 
 # save the data
-BeeDC::dataSaver(path = tempdir(), 
+BeeBDC::dataSaver(path = tempdir(), 
                  save_type = "CSV_file", 
                  occurrences = testData)
 
@@ -98,7 +102,7 @@ testthat::test_that("dataSaver csv expected class", {
 })
 
 testthat::test_that("read in occurrence data same as original data because no columns removed", {
-  testthat::expect_equivalent(testData, testOut2)
+  testthat::expect_equal(testData, testOut2, ignore_attr = TRUE)
 })
 
 testOut3 <- readr::read_csv(file = testOutFiles[stringr::str_detect(testOutFiles, 
@@ -109,5 +113,6 @@ testthat::test_that("dataSaver csv expected class", {
 })
 
 testthat::test_that("read in occurrence data same as original data because no columns removed", {
-  testthat::expect_equivalent(testAttributes, testOut3)
+  testthat::expect_equal(testAttributes, testOut3, ignore_attr = TRUE)
 })
+

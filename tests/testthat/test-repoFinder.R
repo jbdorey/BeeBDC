@@ -1,5 +1,5 @@
 requireNamespace("readr")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 
 
 # make some data files for repoFinder to search and save the files 
@@ -57,7 +57,7 @@ write.csv(SCAN_data, paste0(tempdir(), "/occurrences.csv"), row.names = FALSE)
 
 
 # path to the test files goes here - load the thing, run the function
-testOut <- BeeDC::repoFinder(path = paste0(tempdir()))
+testOut <- BeeBDC::repoFinder(path = paste0(tempdir()))
 
 
 # get variable type for each item in list

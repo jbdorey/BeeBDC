@@ -7,7 +7,7 @@
 harmoniseR(
   data = NULL,
   path = NULL,
-  taxonomy = BeeDC::beesTaxonomy,
+  taxonomy = BeeBDC::beesTaxonomy,
   speciesColumn = "scientificName",
   rm_names_clean = TRUE
 )
@@ -17,7 +17,7 @@ harmoniseR(
 
 \item{path}{A directory as character. The path to a folder that the output can be saved.}
 
-\item{taxonomy}{A data frame or tibble. The bee taxonomy to use. Default = BeeDC::beesTaxonomy.}
+\item{taxonomy}{A data frame or tibble. The bee taxonomy to use. Default = BeeBDC::beesTaxonomy.}
 
 \item{speciesColumn}{Character. The name of the column containing species names. Default = "scientificName".}
 
@@ -41,8 +41,8 @@ beesRaw_out <- harmoniseR(
   #The path to a folder that the output can be saved
 path = tempdir(),
 # The formatted taxonomy file
-taxonomy = BeeDC::beesTaxonomy, 
-data = BeeDC::beesFlagged,
+taxonomy = BeeBDC::beesTaxonomy, 
+data = BeeBDC::beesFlagged,
 speciesColumn = "scientificName")
 table(beesRaw_out$.invalidName, useNA = "always")
 }

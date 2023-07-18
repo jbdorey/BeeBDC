@@ -102,7 +102,7 @@ but it is also modifiable to work with other columns.
 }
 \examples{
 beesFlagged_out <- dupeSummary(
-data = BeeDC::beesFlagged,
+data = BeeBDC::beesFlagged,
   # Should start with paste0(DataPath, "/Output/Report/"), instead of tempdir():
 path = paste0(tempdir(), "/"),
 # options are "ID","collectionInfo", or "both"

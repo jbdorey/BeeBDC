@@ -8,7 +8,7 @@
 #' duplicated between data providers, such as, SCAN, GBIF, ALA, etc.
 #' 
 #'
-#' @param dupeData A tibble or data frame. The duplicate file produced by [BeeDC::dupeSummary()]
+#' @param dupeData A tibble or data frame. The duplicate file produced by [BeeBDC::dupeSummary()]
 #' @param outPath Character. The path to a directory (folder) in which the output should be saved.
 #' @param fileName Character. The name of the output file, ending in '.pdf'.
 #' @param width Numeric. The width of the figure to save (in inches). Default = 7.

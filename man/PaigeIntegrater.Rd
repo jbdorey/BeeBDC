@@ -53,7 +53,7 @@ columnList <- list(
 ) 
 
 # Merge Paige's data with downloaded data
-db_standardized <- BeeDC::PaigeIntegrater(
+db_standardized <- BeeBDC::PaigeIntegrater(
  db_standardized = db_standardized,
  PaigeNAm = PaigeNAm,
  columnStrings = columnList)

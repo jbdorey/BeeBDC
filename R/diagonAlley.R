@@ -18,7 +18,7 @@
 #' @param groupingColumns Character. The column(s) to group the analysis by and search for fill-down
 #' errors within. Default = c("eventDate", "recordedBy", "datasetName").
 #' @param ndec Numeric. The number of decimal places below which records will not be considered
-#' in the diagonAlley function. This is fed into [BeeDC::jbd_coordinates_precision()]. Default = 3.
+#' in the diagonAlley function. This is fed into [BeeBDC::jbd_coordinates_precision()]. Default = 3.
 #'
 #' @return The function returns the input data with a new column, .sequential, where FALSE = 
 #' records that have consecutive latitudes or longitudes greater than or equal to the user-defined 
@@ -69,9 +69,9 @@ diagonAlley <- function(
     ##### 1.1 ndec ####
     # If an ndec is provided, then filter to remove decimal places lower than ndec
   if(!is.null(ndec)){
-    writeLines("Removing rounded coordinates with BeeDC::jbd_coordinates_precision...")
+    writeLines("Removing rounded coordinates with BeeBDC::jbd_coordinates_precision...")
     runningData <- data %>%
-    BeeDC::jbd_coordinates_precision(
+    BeeBDC::jbd_coordinates_precision(
       data = .,
       lon = "decimalLongitude",
       lat = "decimalLatitude",

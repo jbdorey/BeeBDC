@@ -56,7 +56,7 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
   requireNamespace("rvest")
   requireNamespace("httr")
   # Define ColsToKeep
-  ColsToKeep <- BeeDC::ColTypeR()[[1]] %>% names()
+  ColsToKeep <- BeeBDC::ColTypeR()[[1]] %>% names()
   # Create a new working directory for ALA data in the path provided
   dir.create(paste(path, atlas, "_galah_path", sep = "/"), showWarnings = FALSE)
   atlas_galah_path <- paste(path, "/", atlas, "_galah_path", sep = "")

@@ -27,9 +27,9 @@ metadata.
 \examples{
 \dontrun{
 DataImp <- repoMerge(path = DataPath, 
-# Find data - Many problems can be solved by running [BeeDC::repoFinder(path = DataPath)]
+# Find data - Many problems can be solved by running [BeeBDC::repoFinder(path = DataPath)]
 # And looking for problems
-occ_paths = [BeeDC::repoFinder(path = DataPath)],
+occ_paths = [BeeBDC::repoFinder(path = DataPath)],
 save_type = "R_file")
 }
 }

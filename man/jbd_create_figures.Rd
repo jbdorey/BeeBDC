@@ -2,7 +2,7 @@
 % Please edit documentation in R/jbd_create_figures.R
 \name{jbd_create_figures}
 \alias{jbd_create_figures}
-\title{Create figures reporting the results of the bdc/BeeDC packages}
+\title{Create figures reporting the results of the bdc/BeeBDC packages}
 \usage{
 jbd_create_figures(
   data,
@@ -30,12 +30,12 @@ use. Default = FALSE.}
 }
 \value{
 List containing figures showing the results of data quality tests
-implemented in one module of bdc/BeeDC. When save_figures = TRUE, figures are
+implemented in one module of bdc/BeeBDC. When save_figures = TRUE, figures are
 also saved locally in a .png format.
 }
 \description{
 Creates figures (i.e., bar plots, maps, and histograms) reporting the results
-of data quality tests implemented the bdc and BeeDC packages. Works like \code{\link[bdc:bdc_create_figures]{bdc::bdc_create_figures()}},
+of data quality tests implemented the bdc and BeeBDC packages. Works like \code{\link[bdc:bdc_create_figures]{bdc::bdc_create_figures()}},
 but it allows the user to specify a save path.
 }
 \details{

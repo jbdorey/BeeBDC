@@ -25,7 +25,7 @@ other paths should ideally be located within the \code{RootPath}. However, users
 contained in the RootPath}
 
 \item{ScriptPath}{A character String. The \code{ScriptPath} is the path to any additional functions
-that you would like to read in for use with BeeDC.}
+that you would like to read in for use with BeeBDC.}
 
 \item{DataPath}{A character string. The path to the folder containing bee occurrence data
 to be flagged and/or cleaned}
@@ -58,14 +58,14 @@ root. Passing an absolute path raises an error. This argument is used by \code{\
 setting this may result in \code{bdc} figures being saved to your computer's root directory}
 }
 \value{
-Results in the generation of a list containing the BeeDC-required directories in your global
+Results in the generation of a list containing the BeeBDC-required directories in your global
 environment. This function should be run at the start of each session. Additionally, this
-function will create the BeeDC-required folders if they do not already exist in the supplied
+function will create the BeeBDC-required folders if they do not already exist in the supplied
 directory
 }
 \description{
 This function sets up a directory for saving outputs (i.e. data, figures) generated through the
-use of the BeeDC package, if the required folders do not already exist.
+use of the BeeBDC package, if the required folders do not already exist.
 }
 \examples{
 \dontrun{
@@ -96,7 +96,7 @@ setwd(DataPath)
 # Further customisations are also possible
 dirMaker(
   RootPath = RootPath,
-  ScriptPath = "...path/Bee_SDM_paper/BDC_repo/BeeDC/R",
+  ScriptPath = "...path/Bee_SDM_paper/BDC_repo/BeeBDC/R",
   DiscLifePath = "...path/BDC_repo/DiscoverLife_Data",
   OutPathName = "AsianPerspective_Output",
   # Input the location of the workflow script RELATIVE to the RootPath

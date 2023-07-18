@@ -34,7 +34,7 @@ testData <- dplyr::tribble( # even step coordinates (different for lat/long)
 
 
 # Run the function
-testOut <- BeeDC::GBIFissues(data = testData, 
+testOut <- BeeBDC::GBIFissues(data = testData, 
                              issueColumn = "issue",
                              GBIFflags = c("COORDINATE_INVALID", "ZERO_COORDINATE"))
 

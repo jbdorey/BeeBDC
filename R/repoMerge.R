@@ -7,9 +7,9 @@
 #' @param path A directory as a character. The directory to recursively look in for the above data.
 #' @param save_type Character. The data type to save the resulting file as. Options are: 
 #' csv_files" or "R_file".
-#' @param occ_paths A list of directories. Preferably produced using [BeeDC::repoFinder()] the 
+#' @param occ_paths A list of directories. Preferably produced using [BeeBDC::repoFinder()] the 
 #' function asks for a list of paths to the relevant input datasets. You can fault-find errors 
-#' in this function by checking the output of [BeeDC::repoFinder()].
+#' in this function by checking the output of [BeeBDC::repoFinder()].
 #'
 #' @return A list with a data frame of merged occurrence records, "Data_WebDL", and a list of eml 
 #' files contained in "eml_files". Also saves these files in the requested format.
@@ -22,9 +22,9 @@
 #' @examples
 #' \dontrun{
 #' DataImp <- repoMerge(path = DataPath, 
-#' # Find data - Many problems can be solved by running [BeeDC::repoFinder(path = DataPath)]
+#' # Find data - Many problems can be solved by running [BeeBDC::repoFinder(path = DataPath)]
 #' # And looking for problems
-#' occ_paths = [BeeDC::repoFinder(path = DataPath)],
+#' occ_paths = [BeeBDC::repoFinder(path = DataPath)],
 #' save_type = "R_file")
 #' }
 repoMerge <- function(path, save_type, occ_paths){
@@ -43,7 +43,7 @@ repoMerge <- function(path, save_type, occ_paths){
                     "Depending on file size and number, this could take some time.","\n",
                     sep = ""))
   # Make an internal copy of the template for use in the loop as the template tibble
-    data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
+    data_template <- BeeBDC::ColTypeR()[[1]] %>% names() %>% 
       purrr::map_dfc(setNames, object = list(character())) %>%
       readr::type_convert(col_types = readr::cols(.default = readr::col_character()))
   # Copy the template
@@ -62,7 +62,7 @@ repoMerge <- function(path, save_type, occ_paths){
       ##### Data ####
       # Use the custom function dataReader to read in the occurrence data in the correct format
       data_i <- dataReader(path_i = path_i, home_path = path) #%>%
-        #readr::type_convert(col_types = BeeDC::ColTypeR())
+        #readr::type_convert(col_types = BeeBDC::ColTypeR())
         # If there is a date range of days, take only the first day
       data_i$day <- data_i$day %>% 
         stringr::str_replace(pattern = "-.*", replacement = "") %>% 

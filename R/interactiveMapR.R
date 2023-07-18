@@ -6,7 +6,7 @@
 #' Uses the occurrence data (preferably uncleaned) and outputs interactive .html maps that can be opened
 #' in your browser to a specific directory. The maps can highlight if an occurrence has passed all filtering
 #' (.summary == TRUE) or failed at least one filter (.summary == FALSE). This can be modified by first running
-#' [BeeDC::summaryFun()] to set the columns that you want to be highlighted. It can also highlight occurrences
+#' [BeeBDC::summaryFun()] to set the columns that you want to be highlighted. It can also highlight occurrences
 #' flagged as expert-identified or country outliers.
 #' 
 #' @param data A data frame or tibble. Occurrence records to use as input.
@@ -46,7 +46,7 @@
 #' 
 #' interactiveMapR(
 #' # occurrence data - start with entire dataset, filter down to these species
-#' data = BeeDC::bees3sp, # %>%
+#' data = BeeBDC::bees3sp, # %>%
 #'   # Select only those species in the 100 randomly chosen
 #'   # dplyr::filter(scientificName %in% beeData_interactive$scientificName),
 #'   # Select only one species to map

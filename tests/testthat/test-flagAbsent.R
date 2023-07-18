@@ -52,7 +52,7 @@ testData <- dplyr::tribble( # even step coordinates (different for lat/long)
 
 
 # Run the function
-testOut <- BeeDC::flagAbsent(data = testData, PresAbs = "occurrenceStatus")
+testOut <- BeeBDC::flagAbsent(data = testData, PresAbs = "occurrenceStatus")
 
 
 # test number of TRUE and FALSE values in the flag column, .occurrenceAbsent

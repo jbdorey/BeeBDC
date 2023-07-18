@@ -39,8 +39,8 @@ For additional context and column names, see \code{\link[=beesChecklist]{beesChe
 }
 \examples{
 
-beesRaw_out <- countryOutlieRs(checklist = BeeDC::beesChecklist,
-                               data = BeeDC::beesRaw,
+beesRaw_out <- countryOutlieRs(checklist = BeeBDC::beesChecklist,
+                               data = BeeBDC::beesRaw,
                                keepAdjacentCountry = TRUE,
                                pointBuffer = 0.05,
                                rnearthScale = 50)

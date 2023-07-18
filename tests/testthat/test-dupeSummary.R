@@ -33,7 +33,7 @@ testData <- dplyr::tibble(
 )
 
 
-check_time <- BeeDC::dupeSummary(
+check_time <- BeeBDC::dupeSummary(
   data = testData,
   path = tempdir(),
   # options are "ID","collectionInfo", or "both"

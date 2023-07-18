@@ -37,7 +37,7 @@ to distinguish this function from the similar \code{\link[bdc:bdc_coordinates_co
 \examples{
 
 beesRaw_out <- jbd_coordCountryInconsistent(
-  data = BeeDC::beesRaw,
+  data = BeeBDC::beesRaw,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
   mapResolution = 50,

@@ -18,7 +18,7 @@ testData <- dplyr::tribble( # even step coordinates (different for lat/long)
   )
 
 
-testOut <- BeeDC::dateFindR(data = testData,
+testOut <- BeeBDC::dateFindR(data = testData,
                         # Years above this are removed (from the recovered dates only)
                         maxYear = lubridate::year(Sys.Date()),
                         # Years below this are removed (from the recovered dates only)

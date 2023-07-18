@@ -73,7 +73,7 @@ OutPath_Figures <- tempdir()
 
 interactiveMapR(
 # occurrence data - start with entire dataset, filter down to these species
-data = BeeDC::bees3sp, # \%>\%
+data = BeeBDC::bees3sp, # \%>\%
   # Select only those species in the 100 randomly chosen
   # dplyr::filter(scientificName \%in\% beeData_interactive$scientificName),
   # Select only one species to map

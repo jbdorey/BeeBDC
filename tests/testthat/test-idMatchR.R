@@ -10,7 +10,7 @@ priorRun <- beesFlagged %>%
 
   #### 1.0 Exclude ASP ####
   # Run the function using the first fifty to be matched to their original database_id numbers
-testOut <- BeeDC::idMatchR(
+testOut <- BeeBDC::idMatchR(
   currentData = beesFlagged %>% dplyr::mutate(database_id = database_id %>%
                                                 stringr::str_replace("[0-9]+","") %>%
                                                 paste0(., dplyr::row_number())),
@@ -56,7 +56,7 @@ testthat::test_that("idMatchR expected class", {
 
   #### 2.0 Don't exclude ASP ####
 # Run the function using the first fifty to be matched to their original database_id numbers
-testOut2 <- BeeDC::idMatchR(
+testOut2 <- BeeBDC::idMatchR(
   currentData = beesFlagged %>% dplyr::mutate(database_id = database_id %>%
                                                 stringr::str_replace("[0-9]+","") %>%
                                                 paste0(., dplyr::row_number())),

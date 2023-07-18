@@ -1,7 +1,7 @@
 requireNamespace("dplyr")
 data("bees3sp")
 
-testOut <- BeeDC::jbd_Ctrans_chunker(
+testOut <- BeeBDC::jbd_Ctrans_chunker(
   # bdc_coordinates_transposed inputs
   data = bees3sp %>%
     dplyr::filter(complete.cases(decimalLatitude)) %>%

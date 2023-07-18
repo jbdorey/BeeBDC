@@ -1,4 +1,4 @@
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 
 
@@ -44,7 +44,7 @@ testData <- dplyr::tribble(
 
 
 # run the function
-testOut <- BeeDC::summaryFun(data = testData, dontFilterThese = NULL, removeFilterColumns = FALSE, filterClean = FALSE)
+testOut <- BeeBDC::summaryFun(data = testData, dontFilterThese = NULL, removeFilterColumns = FALSE, filterClean = FALSE)
 
 
 # test that function added a column

@@ -1,5 +1,5 @@
 requireNamespace("readr")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 
 
 # make us some data - this is FAKE DATA derived from records from SCAN
@@ -17,7 +17,7 @@ testData <- dplyr::tribble(
 
 
 # run the function
-testOut <- BeeDC::coordUncerFlagR(data = testData, uncerColumn = "coordinateUncertaintyInMeters", threshold = 500)
+testOut <- BeeBDC::coordUncerFlagR(data = testData, uncerColumn = "coordinateUncertaintyInMeters", threshold = 500)
 
 
 # number of FALSE values in new column, .uncertaintyThreshold

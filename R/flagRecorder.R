@@ -5,7 +5,7 @@
 
 #' Loads, appends, and saves occurrence flag data 
 #' 
-#' This function is used to save the flag data for your occurrence data as you run the BeeDC script. 
+#' This function is used to save the flag data for your occurrence data as you run the BeeBDC script. 
 #' It will read and append existing files, if asked to. Your flags should also be saved in the occurrence 
 #' file itself automatically.
 #'

@@ -33,7 +33,7 @@ testData <- dplyr::tribble( # even step coordinates (different for lat/long)
 
 
 # Run the function
-testOut <- BeeDC::flagLicense(data = testData, 
+testOut <- BeeBDC::flagLicense(data = testData, 
                               strings_to_restrict = "all", 
                               excludeDataSource = NULL)
 

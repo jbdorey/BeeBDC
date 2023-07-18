@@ -2,7 +2,7 @@
 
   # Load required packages
 requireNamespace("readr")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 requireNamespace("openxlsx")
 
@@ -27,7 +27,7 @@ unlink(rownames(testDataPath))
 # Save a temporary version of these data
 readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
 
-testOut1 <- BeeDC::readr_BeeDC(dataset = "EPEL",
+testOut1 <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
                                path = tempdir(),
                               inFile = "testData.csv",
                               outFile = "testDataOut.csv",
@@ -72,7 +72,7 @@ unlink(rownames(testDataPath))
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "ASP",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "ASP",
                                    path = tempdir(),
                                    inFile = "testData.csv",
                                    outFile = "testDataOut.csv",
@@ -122,7 +122,7 @@ unlink(rownames(testDataPath))
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "BMin",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "BMin",
                                    path = tempdir(),
                                   inFile = "testData.csv",
                                   outFile = "testDataOut.csv",
@@ -168,7 +168,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "BMont",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "BMont",
                                    path = tempdir(),
                                    inFile = "testData.csv",
                                    outFile = "testDataOut.csv",
@@ -216,7 +216,7 @@ unlink(rownames(testDataPath))
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "Ecd",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Ecd",
                                    path = tempdir(),
                                  inFile = "testData.csv",
                                  outFile = "testDataOut.csv",
@@ -265,7 +265,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "Gai",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Gai",
                                    path = tempdir(),
                                  inFile = "testData.csv",
                                  outFile = "testDataOut.csv",
@@ -315,7 +315,7 @@ unlink(rownames(testDataPath))
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"),
                          sheetName = "Sheet1")
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "CAES",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "CAES",
                                      path = tempdir(),
                                   inFile = "testData.xlsx",
                                   outFile = "testDataOut.csv",
@@ -365,7 +365,7 @@ unlink(rownames(testDataPath))
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"))
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "KP",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "KP",
                                    path = tempdir(),
                                 inFile = "testData.xlsx",
                                 outFile = "testDataOut.csv",
@@ -413,7 +413,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "EcoS",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "EcoS",
                                   path = tempdir(),
                                   inFile = "testData.csv",
                                   outFile = "testDataOut.csv",
@@ -481,7 +481,7 @@ unlink(rownames(testDataPath))
     openxlsx::saveWorkbook(wb, file = paste0(tempdir(), "/testData.xlsx"), overwrite = TRUE)
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "GeoL",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "GeoL",
                                    path = tempdir(),
                                   inFile = "testData.xlsx",
                                   outFile = "testDataOut.csv",
@@ -531,7 +531,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName="Sheet1")
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "EaCo",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "EaCo",
                                    path = tempdir(),
                                   inFile = "testData.xlsx",
                                   outFile = "testDataOut.csv",
@@ -579,7 +579,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName="Hoja1")
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "MABC",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "MABC",
                                    path = tempdir(),
                                   inFile = "testData.xlsx",
                                   outFile = "testDataOut.csv",
@@ -630,7 +630,7 @@ unlink(rownames(testDataPath))
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName = "Spanish headers")
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "Col",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Col",
                                    path = tempdir(),
                                  inFile = "testData.xlsx",
                                  outFile = "testDataOut.csv",
@@ -679,7 +679,7 @@ unlink(rownames(testDataPath))
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "FSCA",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "FSCA",
                                    path = tempdir(),
                                   inFile = "testData.csv",
                                   outFile = "testDataOut.csv",
@@ -725,7 +725,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "SMC",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "SMC",
                                    path = tempdir(),
                                  inFile = "testData.csv",
                                  outFile = "testDataOut.csv",
@@ -782,7 +782,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName = "animal_data")
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "Bal",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Bal",
                                    path = tempdir(),
                                  inFile = "testData.xlsx",
                                  outFile = "testDataOut.csv",
@@ -835,7 +835,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "Lic",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Lic",
                                    path = tempdir(),
                                  inFile = "testData.csv",
                                  outFile = "testDataOut.csv",
@@ -881,7 +881,7 @@ unlink(rownames(testDataPath))
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"),
                          sheetName = "Sheet1")
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "Arm",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Arm",
                                    path = tempdir(),
                                    inFile = "testData.xlsx",
                                    outFile = "testDataOut.csv",
@@ -890,8 +890,8 @@ unlink(rownames(testDataPath))
     
     
     # Get a count of TRUE and FALSE column name matches
-    resultsT <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == TRUE)
-    resultsF <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == FALSE)
+    resultsT <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == TRUE)
+    resultsF <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == FALSE)
     
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
@@ -928,7 +928,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "Dor",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Dor",
                                  path = paste0(tempdir()),
                                  inFile = "/testData.csv",
                                  outFile = "testDataOut.csv",
@@ -936,8 +936,8 @@ unlink(rownames(testDataPath))
     
     
     # Get a count of TRUE and FALSE column name matches
-    resultsT <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == TRUE)
-    resultsF <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == FALSE)
+    resultsT <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == TRUE)
+    resultsF <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == FALSE)
     
     
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
@@ -979,7 +979,7 @@ unlink(rownames(testDataPath))
                          sheetName = "PiedrasBalncas Bees Data")
     
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "MEPB",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "MEPB",
                                    path = tempdir(),
                                   inFile = "testData.xlsx",
                                   outFile = "testDataOut.csv",
@@ -1030,7 +1030,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "BBD",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "BBD",
                                    path = tempdir(),
                                  inFile = "testData.csv",
                                  outFile = "testDataOut.csv",
@@ -1082,7 +1082,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"), sheetName = "Sheet1")
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "MPUJ",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "MPUJ",
                                    path = tempdir(),
                                   inFile = "testData.xlsx",
                                   outFile = "testDataOut.csv",
@@ -1130,7 +1130,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "STRI",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "STRI",
                                    path = tempdir(),
                                    inFile = "testData.csv",
                                    outFile = "testDataOut.csv",
@@ -1138,8 +1138,8 @@ unlink(rownames(testDataPath))
     
     
     # Get a count of TRUE and FALSE column name matches
-    resultsT <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == TRUE)
-    resultsF <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == FALSE)
+    resultsT <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == TRUE)
+    resultsF <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == FALSE)
     
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
@@ -1175,7 +1175,7 @@ unlink(rownames(testDataPath))
     # Save a temporary version of these data
     readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "PALA",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "PALA",
                                    path = tempdir(),
                                    inFile = "testData.csv",
                                    outFile = "testDataOut.csv",
@@ -1183,8 +1183,8 @@ unlink(rownames(testDataPath))
     
     
     # Get a count of TRUE and FALSE column name matches
-    resultsT <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == TRUE)
-    resultsF <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == FALSE)
+    resultsT <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == TRUE)
+    resultsF <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == FALSE)
     
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
@@ -1231,7 +1231,7 @@ unlink(rownames(testDataPath))
     openxlsx::write.xlsx(testData, paste0(tempdir(), "/testData.xlsx"),
                          sheetName = c("pre-1950", "post-1950"))
     
-    testOut1 <- BeeDC::readr_BeeDC(dataset = "JoLa",
+    testOut1 <- BeeBDC::readr_BeeBDC(dataset = "JoLa",
                                    path = tempdir(),
                                    inFile = "testData.xlsx",
                                    outFile = "testDataOut.csv",
@@ -1241,8 +1241,8 @@ unlink(rownames(testDataPath))
     
     
     # Get a count of TRUE and FALSE column name matches
-    resultsT <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == TRUE)
-    resultsF <- sum(colnames(testOut1) %in% (BeeDC::ColTypeR()[[1]] %>% names()) == FALSE)
+    resultsT <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == TRUE)
+    resultsF <- sum(colnames(testOut1) %in% (BeeBDC::ColTypeR()[[1]] %>% names()) == FALSE)
     rows <- nrow(testData1) + nrow(testData2)
     
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and

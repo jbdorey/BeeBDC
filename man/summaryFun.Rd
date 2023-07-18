@@ -47,7 +47,7 @@ table(beesFlagged_out$.summary, useNA = "always")
 
 # Now filter to only the clean data and remove the flag columns
 beesFlagged_out <- summaryFun(
-  data = BeeDC::beesFlagged,
+  data = BeeBDC::beesFlagged,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms", ".unLicensed"),
   removeFilterColumns = TRUE,
   filterClean = TRUE)

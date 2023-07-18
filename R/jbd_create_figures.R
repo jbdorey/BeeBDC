@@ -1,7 +1,7 @@
-#' Create figures reporting the results of the bdc/BeeDC packages
+#' Create figures reporting the results of the bdc/BeeBDC packages
 #'
 #' Creates figures (i.e., bar plots, maps, and histograms) reporting the results
-#' of data quality tests implemented the bdc and BeeDC packages. Works like [bdc::bdc_create_figures()],
+#' of data quality tests implemented the bdc and BeeBDC packages. Works like [bdc::bdc_create_figures()],
 #' but it allows the user to specify a save path.
 #'
 #' @param data A data frame or tibble. Needs to contain the results of data quality tests; that
@@ -21,7 +21,7 @@
 #' saved in "Output/Figures" if save_figures = TRUE.
 #'
 #' @return List containing figures showing the results of data quality tests
-#' implemented in one module of bdc/BeeDC. When save_figures = TRUE, figures are
+#' implemented in one module of bdc/BeeBDC. When save_figures = TRUE, figures are
 #' also saved locally in a .png format.
 #'
 #' @importFrom CoordinateCleaner cc_val

@@ -22,7 +22,7 @@
 #'
 #' @examples
 #' beesFlagged_out <- countryNameCleanR(
-#' data = BeeDC::beesFlagged,
+#' data = BeeBDC::beesFlagged,
 #' commonProblems = dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
 #'                         'United States','U.S.A','MX','CA','Bras.','Braz.',
 #'                         'Brasil','CNMI','USA TERRITORY: PUERTO RICO'),

@@ -21,13 +21,13 @@
 #' @examples
 #' 
 #'   # Single entry example
-#' testQuery <- BeeDCQuery(
+#' testQuery <- BeeBDCQuery(
 #'   beeName = "Homalictus fijiensis",
 #'   searchChecklist = TRUE,
 #'   printAllSynonyms = TRUE)
 #' 
 #'   # Multiple entry example
-#' testQuery <- BeeDCQuery(
+#' testQuery <- BeeBDCQuery(
 #'   beeName = c("Homalictus fijiensis", "Homalictus urbanus",
 #'   "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
 #'   searchChecklist = TRUE,
@@ -38,7 +38,7 @@
 #' 
 #' 
 #' 
-BeeDCQuery <- function(
+BeeBDCQuery <- function(
     beeName = NULL,
     searchChecklist = TRUE,
     printAllSynonyms = FALSE){
@@ -210,6 +210,6 @@ BeeDCQuery <- function(
  
    # Return the matched data
   return(output)
-}  # END BeeDCQuery
+}  # END BeeBDCQuery
 
 

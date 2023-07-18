@@ -4,7 +4,7 @@
 #' Flag country-level outliers with a provided checklist.
 #'
 #'This function flags country-level outliers using the checklist provided with this package. 
-#'For additional context and column names, see [BeeDC::beesChecklist()].
+#'For additional context and column names, see [BeeBDC::beesChecklist()].
 #'
 #' @param checklist A data frame or tibble. The formatted checklist which was built based on the Discover Life website.
 #' @param data A data frame or tibble. The a Darwin Core occurrence dataset.
@@ -26,8 +26,8 @@
 #'
 #' @examples
 #' 
-#' beesRaw_out <- countryOutlieRs(checklist = BeeDC::beesChecklist,
-#'                                data = BeeDC::beesRaw,
+#' beesRaw_out <- countryOutlieRs(checklist = BeeBDC::beesChecklist,
+#'                                data = BeeBDC::beesRaw,
 #'                                keepAdjacentCountry = TRUE,
 #'                                pointBuffer = 0.05,
 #'                                rnearthScale = 50)

@@ -27,7 +27,7 @@
 #' @examples
 #' 
 #' beesRaw_out <- jbd_coordCountryInconsistent(
-#'   data = BeeDC::beesRaw,
+#'   data = BeeBDC::beesRaw,
 #'   lon = "decimalLongitude",
 #'   lat = "decimalLatitude",
 #'   mapResolution = 50,

@@ -1,5 +1,5 @@
 # This R script was written by James Dorey, starting on the 2nd of May 2022. The script serves
-# as a workflow for the BeeDC package to clean and flag bee, and other, occurrence data.
+# as a workflow for the BeeBDC package to clean and flag bee, and other, occurrence data.
 # It also uses functions from several sources and particularly from the "bdc" package.
 # For queries, please feel free to contact James Dorey at jbdorey@me.com
 
@@ -64,58 +64,58 @@ renv::init()
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above, with the addition of "rnaturalearthhires"
 lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra", "galah", "ComplexHeatmap",
-         "BeeDC"), 
+         "BeeBDC"), 
        library, character.only = TRUE)
 # Save a snapshot of the environment
 renv::snapshot()
 
-  ##### 0.4 BeeDC ####
-# Install BeeDC 
-remotes::install_github("https://github.com/jbdorey/BeeDC.git", user="jbdorey", ref = "main", 
+  ##### 0.4 BeeBDC ####
+# Install BeeBDC 
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", ref = "main", 
                         force = TRUE,
                         auth_token = "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")
 
 # Create file paths and prepare for what's to come
-BeeDC::dirMaker(
+BeeBDC::dirMaker(
   RootPath = RootPath,
   # Input the location of the workflow script RELATIVE to the RootPath
-  RDoc = "Packages/BeeDC/BeeDC_fullWorkflow.R") %>%
+  RDoc = "Packages/BeeBDC/BeeBDC_fullWorkflow.R") %>%
   # Add paths created by this function to the .GlobalEnv
   list2env(envir = .GlobalEnv)  
 
 #### 1.0 Data merge ####
 ##### 1.1 Download ALA data ####
 # Downloads ALA data and creates a new file in the HomePath to put those data
-BeeDC::atlasDownloader(path = DataPath,
+BeeBDC::atlasDownloader(path = DataPath,
                userEmail = "jbdorey@me.com",
                ALA_taxon = "Apiformes")
 
 ##### 1.2 Import and merge ALA, SCAN, iDigBio and GBIF data ####
 # Supply the path to where the data are
 # save_type is either "csv_files" or "R_file"
-DataImp <- BeeDC::repoMerge(path = DataPath, 
+DataImp <- BeeBDC::repoMerge(path = DataPath, 
                         # Find data — Many problems can be solved by running dataFinder(path = DataPath)
                         # And looking for problems
-                      occ_paths = BeeDC::dataFinder(path = DataPath),
+                      occ_paths = BeeBDC::dataFinder(path = DataPath),
                       save_type = "R_file")
 
 # Load in the most-recent version of these data if needed 
 # This will return a list with 
 # 1. the occurrence dataset with attributes and 
 # 2. the appended eml file
-DataImp <- BeeDC::importOccurrences(path = DataPath,
+DataImp <- BeeBDC::importOccurrences(path = DataPath,
                              fileName = "BeeData_")
 
 ##### 1.3 Import USGS Data ####
 # The USGS_formatter will find, import, format, and create metadata for the USGS dataset
 # pubDate must be in day-month-year format and must be supplied by the user here.
-USGS_data <- BeeDC::USGS_formatter(path = DataPath, pubDate = "19-11-2022")
+USGS_data <- BeeBDC::USGS_formatter(path = DataPath, pubDate = "19-11-2022")
 
 ##### 1.4 Formatted Source Importer ####
 # Formatted source importer. Use this importer to find files that have been formatted and need to 
 # be added to the larger data file (e.g., made by repoMerge and USGS_formatter)
 # Combine the USGS data and the existing big dataset
-Complete_data <- BeeDC::formattedCombiner(path = DataPath, 
+Complete_data <- BeeBDC::formattedCombiner(path = DataPath, 
                                     strings = c("USGS_[a-zA-Z_]+[0-9]{4}-[0-9]{2}-[0-9]{2}"), 
                                     # This should be the list-format with eml attached
                                     existingOccurrences = DataImp$Data_WebDL,
@@ -129,7 +129,7 @@ Complete_data$Data_WebDL <- Complete_data$Data_WebDL %>%
 
 ##### 1.5 Save data ####
 # Choose the type of data format you want
-BeeDC::dataSaver(path = DataPath,# The main path to look for data in
+BeeBDC::dataSaver(path = DataPath,# The main path to look for data in
            save_type = "CSV_file", # "R_file" OR "CSV_file"
            occurrences = Complete_data$Data_WebDL, # The existing datasheet
            eml_files = Complete_data$eml_files, # The existing EML files
@@ -141,13 +141,13 @@ rm(Complete_data, DataImp)
 ##### 2.1 Standardise datasets ####
   # You may either use 
     # (a) the bdc import method (works well with general datasets) or 
-    # (b) the BeeDC import method (works well with above data merge)
+    # (b) the BeeBDC import method (works well with above data merge)
   # The bdc import is NOT truly supported here, but provided as an example. Please go to section
     # 2.1b below.
 ###### a. bdc import ####
 warning(paste0("The bdc method here is not truly implemented and supported. If you use it you must do so alone.",
                " This is just a place-holder for people using the bdc package more heavily.",
-               "\nPreferably, go directly to 2.1b — BeeDC import."))
+               "\nPreferably, go directly to 2.1b — BeeBDC import."))
 # Read in the bdc metadata
 bdc_metadata <- readr::read_csv(paste(DataPath, "Output", "bdc_integration.csv", sep = "/"))
 # Standardise the dataset to bdc
@@ -161,14 +161,14 @@ config_description <- readr::read_csv(paste(DataPath, "Output", "bdc_configDesc.
                                             sep = "/"), 
                                       show_col_types = FALSE, trim_ws = TRUE)
 
-###### b. BeeDC import ####
+###### b. BeeBDC import ####
 # You can also just read the data in using the below script. This will 
 # likely be quicker and more-reliable. Find the path
-occPath <- BeeDC::fileFinder(path = DataPath, fileName = "Fin_BeeData_combined_")
+occPath <- BeeBDC::fileFinder(path = DataPath, fileName = "Fin_BeeData_combined_")
 # read in the file
 db_standardized <- readr::read_csv(occPath, 
                                    # Use the basic ColTypeR function to determine types
-                                   col_types = BeeDC::ColTypeR(), trim_ws = TRUE) %>%
+                                   col_types = BeeBDC::ColTypeR(), trim_ws = TRUE) %>%
   # add the database_id columns
   dplyr::mutate(database_id = paste("Dorey_data_", 1:nrow(db_standardized), sep = ""),
                 .before = family)
@@ -178,12 +178,12 @@ db_standardized <- readr::read_csv(occPath,
   # you may use the below script
 # Try to match database IDs with prior runs.
   # read in a prior run of choice
-  priorRun <- BeeDC::fileFinder(path = DataPath,
+  priorRun <- BeeBDC::fileFinder(path = DataPath,
                           file = "01_prefilter_database_9Aug22.csv") %>%
-    readr::read_csv(file = ., col_types = BeeDC::ColTypeR())
+    readr::read_csv(file = ., col_types = BeeBDC::ColTypeR())
   
   # This function will attempt to find the database_ids from prior runs
-  db_standardized <- BeeDC::idMatchR(
+  db_standardized <- BeeBDC::idMatchR(
     currentData = db_standardized,
     priorData = priorRun,
     # First matches will be given preference over later ones
@@ -214,7 +214,7 @@ db_standardized <- readr::read_csv(occPath,
 # Import Paige's cleaned N. American data
 # IF you haven't figured out by now, dont worry about the column name warning — not all columns occur here.
 PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
-                                  sep = "/"), col_types = BeeDC::ColTypeR()) %>%
+                                  sep = "/"), col_types = BeeBDC::ColTypeR()) %>%
   # Change the column name from Source to dataSource to match the rest of the data.
   dplyr::rename(dataSource = Source) %>%
   # add a NEW database_id column
@@ -223,7 +223,7 @@ PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only
     .before = scientificName)
 
 # Merge Paige's data with downloaded data
-db_standardized <- BeeDC::PaigeIntegrater(
+db_standardized <- BeeBDC::PaigeIntegrater(
   db_standardized = db_standardized,
   PaigeNAm = PaigeNAm,
   # This is a list of columns by which to match Paige's data to the most-recent download with. 
@@ -288,58 +288,58 @@ db_standardized <- db_standardized %>%
     # to parse. This is normal.
 source(paste(ScriptPath, "additionalData_readRs.R", sep = "/"))
 ###### a. EPEL ####
-EPEL_Data <- BeeDC::readr_BeeDC(dataset = "EPEL",
+EPEL_Data <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/bee_data_canada.csv",
                       outFile = "jbd_EPEL_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### b. Allan Smith-Pardo ####
-ASP_Data <- BeeDC::readr_BeeDC(dataset = "ASP",
+ASP_Data <- BeeBDC::readr_BeeBDC(dataset = "ASP",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Allan_Smith-Pardo_Dorey_ready2.csv",
                       outFile = "jbd_ASP_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### c. Minckley ####
-BMin_Data <- BeeDC::readr_BeeDC(dataset = "BMin",
+BMin_Data <- BeeBDC::readr_BeeBDC(dataset = "BMin",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/Bob_Minckley_6_1_22_ScanRecent-mod_Dorey.csv",
                         outFile = "jbd_BMin_data.csv",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### d. BMont ####
-BMont_Data <- BeeDC::readr_BeeDC(dataset = "BMont",
+BMont_Data <- BeeBDC::readr_BeeBDC(dataset = "BMont",
                                  path = paste0(DataPath, "/Additional_Datasets"),
                           inFile = "/InputDatasets/Bombus_Montana_dorey.csv",
                           outFile = "jbd_BMont_data.csv",
                           dataLicense = "https://creativecommons.org/licenses/by-sa/4.0/")
 ###### e. Ecd ####
-Ecd_Data <- BeeDC::readr_BeeDC(dataset = "Ecd",
+Ecd_Data <- BeeBDC::readr_BeeBDC(dataset = "Ecd",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Ecdysis_occs.csv",
                       outFile = "jbd_Ecd_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### f. Gai ####
-Gai_Data <- BeeDC::readr_BeeDC(dataset = "Gai",
+Gai_Data <- BeeBDC::readr_BeeBDC(dataset = "Gai",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/upload_to_scan_Gaiarsa et al_Dorey.csv",
                       outFile = "jbd_Gai_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### g. CAES ####
 # This is a little slower and will have a few date warnings — 215 failed to parse. 
-CAES_Data <- BeeDC::readr_BeeDC(dataset = "CAES",
+CAES_Data <- BeeBDC::readr_BeeBDC(dataset = "CAES",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/CT_BEE_DATA_FROM_PBI.xlsx",
                         outFile = "jbd_CT_Data.csv",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### h. GeoL ####
-GeoL_Data <- BeeDC::readr_BeeDC(dataset = "GeoL",
+GeoL_Data <- BeeBDC::readr_BeeBDC(dataset = "GeoL",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/Geolocate and BELS_certain and accurate.xlsx",
                         outFile = "jbd_GeoL_Data.csv")
 
 
 ###### i. EaCO ####
-EaCO_Data <- BeeDC::readr_BeeDC(dataset = "EaCO",
+EaCO_Data <- BeeBDC::readr_BeeBDC(dataset = "EaCO",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/Eastern Colorado bee 2017 sampling.xlsx",
                         outFile = "jbd_EaCo_Data.csv",
@@ -348,7 +348,7 @@ EaCO_Data <- BeeDC::readr_BeeDC(dataset = "EaCO",
 
 ###### j. FSCA ####
   # Florida State Collection of Arthropods
-FSCA_Data <- BeeDC::readr_BeeDC(dataset = "FSCA",
+FSCA_Data <- BeeBDC::readr_BeeBDC(dataset = "FSCA",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "InputDatasets/fsca_9_15_22_occurrences.csv",
                         outFile = "jbd_FSCA_Data.csv",
@@ -358,7 +358,7 @@ FSCA_Data <- BeeDC::readr_BeeDC(dataset = "FSCA",
 # # Published or unpublished data from Texas literature not in an online database, usually copied 
 # into spreadsheet from document format, or otherwise copied from a very differently-formatted spreadsheet
 # # Unpublished or partially published data were obtained with express permission from the lead author
-SMC_Data <- BeeDC::readr_BeeDC(dataset = "SMC",
+SMC_Data <- BeeBDC::readr_BeeBDC(dataset = "SMC",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/TXbeeLitOccs_31Oct22.csv", 
                       outFile = "jbd_SMC_Data.csv",
@@ -369,7 +369,7 @@ SMC_Data <- BeeDC::readr_BeeDC(dataset = "SMC",
 # The version on Dryad is missing site GPS coordinates (by accident). Kim is okay with these data 
 # being made public as long as her paper is referenced.
 # - Elinor Lichtenberg
-Bal_Data <- BeeDC::readr_BeeDC(dataset = "Bal",
+Bal_Data <- BeeBDC::readr_BeeBDC(dataset = "Bal",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Beedata_ballare.xlsx", 
                       outFile = "jbd_Bal_Data.csv",
@@ -381,14 +381,14 @@ Bal_Data <- BeeDC::readr_BeeDC(dataset = "Bal",
 # https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2. 
 # These are the data I will be putting on SCAN. 
 # - Elinor Lichtenberg
-Lic_Data <- BeeDC::readr_BeeDC(dataset = "Lic",
+Lic_Data <- BeeBDC::readr_BeeBDC(dataset = "Lic",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Lichtenberg_canola_records.csv", 
                       outFile = "jbd_Lic_Data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### n. Arm ####
-Arm_Data <- BeeDC::readr_BeeDC(dataset = "Arm",
+Arm_Data <- BeeBDC::readr_BeeBDC(dataset = "Arm",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
                       outFile = "jbd_Arm_Data.csv",
@@ -396,7 +396,7 @@ Arm_Data <- BeeDC::readr_BeeDC(dataset = "Arm",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### o. Dor #####
-Dor_Data <- BeeDC::readr_BeeDC(dataset = "Dor",
+Dor_Data <- BeeBDC::readr_BeeBDC(dataset = "Dor",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/DoreyData.csv",
                       outFile = "jbd_Dor_Data.csv",
@@ -412,33 +412,33 @@ rm(EPEL_Data, ASP_Data, BMin_Data, BMont_Data, Ecd_Data, Gai_Data, CAES_Data,
 db_standardized <- db_standardized %>%
   dplyr::bind_rows(
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_ASP_data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_ASP_data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_EPEL_data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_EPEL_data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_BMin_data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_BMin_data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_BMont_data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_BMont_data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Ecd_data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_Ecd_data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Gai_data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_Gai_data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_CT_Data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_CT_Data.csv"), col_types = BeeBDC::ColTypeR()),
      readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_GeoL_Data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_GeoL_Data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_EaCo_Data.csv"), col_types = BeeDC::ColTypeR()), 
+                           "/jbd_EaCo_Data.csv"), col_types = BeeBDC::ColTypeR()), 
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_SMC_Data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_SMC_Data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Bal_Data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_Bal_Data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Lic_Data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_Lic_Data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Arm_Data.csv"), col_types = BeeDC::ColTypeR()),
+                           "/jbd_Arm_Data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Dor_Data.csv"), col_types = BeeDC::ColTypeR())) %>% 
+                           "/jbd_Dor_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
   # END bind_rows
   suppressWarnings(classes = "warning") # End suppressWarnings — due to col_types
 
@@ -452,7 +452,7 @@ db_standardized %>%
   # Read this back in if needed.
 if(!exists("db_standardized")){
   db_standardized <- readr::read_csv(paste(OutPath_Intermediate, "00_prefilter_database.csv",
-                                    sep = "/"), col_types = BeeDC::ColTypeR())}
+                                    sep = "/"), col_types = BeeBDC::ColTypeR())}
 
 # See here for bdc prefilter tutorial — https://brunobrr.github.io/bdc/articles/prefilter.html
 ##### 3.1 SciName ####
@@ -520,7 +520,7 @@ check_pf <- bdc::bdc_basisOfRecords_notStandard(
   # Try to harmonise country names
 ###### a. prepare dataset ####
   # Fix up country names based on common problems above and extract ISO2 codes for occurrences
-check_pf_noNa <- BeeDC::countryNameCleanR(
+check_pf_noNa <- BeeBDC::countryNameCleanR(
   data = check_pf,
   # Create a Tibble of common issues in country names and their replacements
   commonProblems = dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED STATES',
@@ -539,7 +539,7 @@ check_pf_noNa <- BeeDC::countryNameCleanR(
   # Because our dataset is much larger than those used to design bdc, we have made it so that you
   # can analyse data in smaller pieces.
 suppressWarnings(
-  countryOutput <- BeeDC::jbd_CfC_chunker(data = check_pf_noNa,
+  countryOutput <- BeeBDC::jbd_CfC_chunker(data = check_pf_noNa,
                                    lat = "decimalLatitude",
                                    lon = "decimalLongitude",
                                    country = "country",
@@ -578,7 +578,7 @@ countryOutput %>%
 if(!exists("check_pf")){
 check_pf <- readr::read_csv(paste(DataPath, 
              "Output", "Intermediate", "01_prefilter_database.csv", sep = "/"),
-             col_types = BeeDC::ColTypeR())}
+             col_types = BeeBDC::ColTypeR())}
 # remove the interim datasets
 rm(check_pf_noNa, countryOutput)
 
@@ -596,7 +596,7 @@ check_pf <- bdc::bdc_country_standardized(
 ##### 3.7 TranspCoords ####
   # Flag and correct records when lat and long appear to be transposed. We have chunked 
     # this because it is too RAM-heavy to run on our large dataset
-check_pf <- BeeDC::jbd_Ctrans_chunker(
+check_pf <- BeeBDC::jbd_Ctrans_chunker(
   # bdc_coordinates_transposed inputs
   data = check_pf,
   id = "database_id",
@@ -631,7 +631,7 @@ if(!exists("check_pf")){
 # Collect all country names in the country column
 # rebuilt a bdc function to flag occurrences where the coordinates are inconsistent with the provided
   # country name
-check_pf <- BeeDC::jbd_coordCountryInconsistent(
+check_pf <- BeeBDC::jbd_coordCountryInconsistent(
   data = check_pf,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
@@ -662,19 +662,19 @@ rm(xyFromLocality)
 
 ##### 3.10 flag Absent ####
 # Flag the records marked as "absent"
-check_pf <- BeeDC::flagAbsent(data = check_pf,
+check_pf <- BeeBDC::flagAbsent(data = check_pf,
                    PresAbs = "occurrenceStatus")
 
 ##### 3.11 flag License ####
 # Flag the records that may not be used according to their license information
-check_pf <- BeeDC::flagLicense(data = check_pf,
+check_pf <- BeeBDC::flagLicense(data = check_pf,
                     strings_to_restrict = "all",
                     # DON'T flag if in the following dataSource(s)
                     excludeDataSource = NULL)
 
 ##### 3.12 GBIF issue ####
 # Flag select issues that are flagged by GBIF
-check_pf <- BeeDC::GBIFissues(data = check_pf, 
+check_pf <- BeeBDC::GBIFissues(data = check_pf, 
                    issueColumn = "issue", 
                    GBIFflags = c("COORDINATE_INVALID", "ZERO_COORDINATE")) 
 
@@ -684,7 +684,7 @@ check_pf <- BeeDC::GBIFissues(data = check_pf,
 # SAVE the flags so far
 # This function will make sure that you keep a copy of everything that has been flagged up until now.
 # This will be updated throughout the script and accessed at the end, so be wary of moving files around manually.
-flagFile <- BeeDC::flagRecorder(
+flagFile <- BeeBDC::flagRecorder(
   data = check_pf,
   outPath = paste(OutPath_Report, sep =""),
   fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
@@ -694,7 +694,7 @@ flagFile <- BeeDC::flagRecorder(
   append = FALSE)
 
 # produce the .summary column in main dataset — will be FALSE if ANY .filtering column is FALSE
-check_pf <- BeeDC::summaryFun(
+check_pf <- BeeBDC::summaryFun(
   data = check_pf,
     # Don't filter these columns (or NULL)
   dontFilterThese = NULL,
@@ -733,7 +733,7 @@ if(!exists("check_pf")){
 # Read in the filtered dataset
 database <-
   readr::read_csv( paste(OutPath_Intermediate, "01_prefilter_output.csv",
-                         sep = "/"), col_types = BeeDC::ColTypeR())
+                         sep = "/"), col_types = BeeBDC::ColTypeR())
 }else{
     # OR rename and remove
   database <- check_pf
@@ -768,12 +768,12 @@ rm(parse_names)
 
 ##### 4.2 Taxo harmonization ####
 # Read in the custom taxonomy file
-data(beesTaxonomy, package = "BeeDC")
+data(beesTaxonomy, package = "BeeBDC")
 
 # Harmonise the names in the occurrence tibble
 #   # This flags the occurrences without a matched name and matches names to their correct name 
   # according to DiscoverLife
-database <- BeeDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
+database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
                        taxonomy = beesTaxonomy, # The formatted taxonomy file
                        data = database)
 
@@ -791,7 +791,7 @@ database %>%
 # This will find the most-recent flag file and append your new data to it.
 # You can double-check the data and number of columns if you'd like to be thorough and sure that 
 # all data are intact. <3 
-flagFile <- BeeDC::flagRecorder(
+flagFile <- BeeBDC::flagRecorder(
   data = database,
   outPath = paste(OutPath_Report, sep =""),
   fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
@@ -806,7 +806,7 @@ flagFile <- BeeDC::flagRecorder(
 if(!exists("database")){
 database <-
   readr::read_csv(paste(OutPath_Intermediate, "02_taxonomy_database.csv", sep = "/"),
-                  col_types = BeeDC::ColTypeR())}
+                  col_types = BeeBDC::ColTypeR())}
 
 ##### 5.1 Coord precision ####
 # This function identifies records with a coordinate precision below a specified number of decimal 
@@ -817,7 +817,7 @@ database <-
 # This function differs from the bdc function by ONLY flagging occurrences where BOTH lat and lon
     # are rounded (having only one or the other rounded could be due to rounding in excel).
 check_space <-
-  BeeDC::jbd_coordinates_precision(
+  BeeBDC::jbd_coordinates_precision(
     data = database,
     lon = "decimalLongitude",
     lat = "decimalLatitude",
@@ -890,7 +890,7 @@ check_space %>%
 # groups by eventDate, recordedBy
 # This will ONLY find those where ALL records in a group are filled-down. missing occurrences
 # will break the chain
-check_space <- BeeDC::diagonAlley(
+check_space <- BeeBDC::diagonAlley(
   data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
   minRepeats = 4)
@@ -952,15 +952,15 @@ rm(gridded_datasets)
 
 ##### 5.4 Uncertainty ####
 # Flag records that exceed a coordinateUncertaintyInMeters threshold
-check_space <- BeeDC::coordUncerFlagR(data = check_space,
+check_space <- BeeBDC::coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 
 ##### 5.5 Country Checklist ####
 # Read in the country-level checklist
-data("beesChecklist", package = "BeeDC")
+data("beesChecklist", package = "BeeBDC")
 
-check_space <- BeeDC::countryOutlieRs(checklist = beesChecklist,
+check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                         data = check_space,
                         keepAdjacentCountry = TRUE,
                         pointBuffer = 0.05,
@@ -981,7 +981,7 @@ check_space %>%
 
 ##### 5.6 Map spatial errors ####
 #rebuild the .summary column
-check_space <- BeeDC::summaryFun(
+check_space <- BeeBDC::summaryFun(
   data = check_space,
   dontFilterThese = NULL,
   removeFilterColumns = FALSE,
@@ -1012,7 +1012,7 @@ check_space %>%
 # Sadly not a figure of outer space :( 
 # Create figures of spacial data filtering
 (figures <-
-    BeeDC::jbd_create_figures(
+    BeeBDC::jbd_create_figures(
       data = dplyr::tibble(check_space %>% dplyr::select(!.uncer_terms)),
       path = DataPath,
       database_id = "database_id",
@@ -1041,7 +1041,7 @@ check_space %>%
 
 ##### 5.9 Save flags ####
 # SAVE the flags so far
-BeeDC::flagRecorder(
+BeeBDC::flagRecorder(
   data = check_space,
   outPath = paste(OutPath_Report, sep =""),
   fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
@@ -1063,7 +1063,7 @@ check_space %>%
 if(!exists("check_space")){
   check_time <-
     readr::read_csv(paste(OutPath_Intermediate, "03_space_database.csv", sep = "/"),
-                    col_types = BeeDC::ColTypeR())
+                    col_types = BeeBDC::ColTypeR())
   }else{
   check_time <- check_space
       # Remove the spent file
@@ -1080,7 +1080,7 @@ check_time$day <- ifelse(check_time$day > 31 | check_time$day < 1,
                        NA, check_time$day)
 ##### 6.1 Recover dates ####
 # RESCUE some records with poor date data if possible — e.g., from other columns
-check_time <- BeeDC::dateFindR(data = check_time,
+check_time <- BeeBDC::dateFindR(data = check_time,
                         # Years above this are removed (from the recovered dates only)
                         maxYear = lubridate::year(Sys.Date()),
                         # Years below this are removed (from the recovered dates only)
@@ -1103,7 +1103,7 @@ check_time <-
 # Not all of it, just the time pertaining to our precise occurrence records. Obviously...
 # Create a .summary column with all of the time flags where TRUE == records that passed 
 # all filtering.
-check_time <- BeeDC::summaryFun(
+check_time <- BeeBDC::summaryFun(
   data = check_time,
   # Don't filter these columns (or NULL)
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms"),
@@ -1122,7 +1122,7 @@ check_time <- BeeDC::summaryFun(
 ##### 6.5 Time figures ####
 # Create figures
 figures <-
-  BeeDC::jbd_create_figures(data = check_time,
+  BeeBDC::jbd_create_figures(data = check_time,
                      path = DataPath,
                      database_id = "database_id",
                      workflow_step = "time",
@@ -1139,7 +1139,7 @@ check_time %>%
 
 ##### 6.6 Save flags ####
 # SAVE the flags so far
-BeeDC::flagRecorder(
+BeeBDC::flagRecorder(
   data = check_time,
   outPath = paste(OutPath_Report, sep =""),
   fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
@@ -1153,12 +1153,12 @@ if(!exists("check_time")){
   check_time <-
     readr::read_csv(paste(OutPath_Intermediate, "04_time_database.csv",
                           sep = "/"),
-                    col_types = BeeDC::ColTypeR())}
+                    col_types = BeeBDC::ColTypeR())}
 
 ##### 7.1 deDuplicate ####
 # We will FLAG duplicates here. 
 # These input columns can be hacked to de-duplicate as you wish.
-check_time <- BeeDC::dupeSummary(
+check_time <- BeeBDC::dupeSummary(
   data = check_time,
   path = paste0(DataPath, "/Output/Report/"),
   # options are "ID","collectionInfo", or "both"
@@ -1195,7 +1195,7 @@ check_time <- BeeDC::dupeSummary(
      # Minimum number of numbers WITHOUT any characters
   numberOnlyThreshold = 5
 ) %>% # END dupeSummary
-  dplyr::as_tibble(col_types = BeeDC::ColTypeR())
+  dplyr::as_tibble(col_types = BeeBDC::ColTypeR())
 
 # Save the dataset into the intermediate folder
 check_time %>%
@@ -1205,7 +1205,7 @@ check_time %>%
 
 ##### 7.2 Save flags ####
 # SAVE the flags so far
-BeeDC::flagRecorder(
+BeeBDC::flagRecorder(
   data = check_time,
   outPath = paste(OutPath_Report, sep =""),
   fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
@@ -1252,7 +1252,7 @@ check_time %>% readr::write_excel_csv(.,
 
 ##### 8.3 Save cleaned ####
 # Now clean the dataset of extra columns and failed rows and save it...
-BeeDC::summaryFun(
+BeeBDC::summaryFun(
   data = check_time,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
                       ".uncertaintyThreshold"),
@@ -1287,7 +1287,7 @@ if(!exists("duplicates")){
 par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
 # Create the chorDiagram. You can leave many of the below values out but we show here
 # the defaults
-BeeDC::chordDiagramR(
+BeeBDC::chordDiagramR(
   # The duplicate data from the dupeSummary function output  
   dupeData = duplicates,
   outPath = OutPath_Figures,
@@ -1318,7 +1318,7 @@ BeeDC::chordDiagramR(
 if(!exists("check_time")){
 beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                  sep = "/"),
-                           col_types = BeeDC::ColTypeR())
+                           col_types = BeeBDC::ColTypeR())
 }else{
   beeData <- check_time
   rm(check_time)
@@ -1326,7 +1326,7 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 # Create a figure shoring the total number of duplicates, kept duplicates, and unique
 # records for each data source (simplified to the text before the first underscore) and
 # the proportion of the above for each data source
-BeeDC::dupePlotR(
+BeeBDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
   outPath = OutPath_Figures,
@@ -1345,7 +1345,7 @@ BeeDC::dupePlotR(
 
 ##### 9.3 Flags by source ####
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
-BeeDC::plotFlagSummary(
+BeeBDC::plotFlagSummary(
   data = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
@@ -1379,11 +1379,11 @@ BeeDC::plotFlagSummary(
 # Import CLEANED dataset (you can change this option)
 mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                  sep = "/"),
-                           col_types = BeeDC::ColTypeR())
+                           col_types = BeeBDC::ColTypeR())
 
   ###### a. Summary maps ####
   # Draw a global summary map for occurrence and species number by country
-BeeDC::summaryMaps(
+BeeBDC::summaryMaps(
   data = mapData,
   width = 10, height = 10,
   class_n = 15,
@@ -1402,7 +1402,7 @@ beeData_interactive <- beeData %>%
   slice_sample(n = 100)
 
 # Make the interactive maps
-BeeDC::interactiveMapR(
+BeeBDC::interactiveMapR(
   # occurrence data
   data = beeData %>%
       # Select only those species
@@ -1428,12 +1428,12 @@ BeeDC::interactiveMapR(
 if(!exists("mapData")){
   mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                 sep = "/"),
-                          col_types = BeeDC::ColTypeR(),
+                          col_types = BeeBDC::ColTypeR(),
   locale = readr::locale(encoding = "UTF-8"))}
 institutionList_DL <- readxl::read_excel(paste(DiscLifePath, "Apoidea Bee Collections Master List jan 2023.xlsx",
                                                sep = "/"))
 source(paste(ScriptPath, "dataProvTables.R", sep = "/"))
-TEST <- BeeDC::dataProvTables(
+TEST <- BeeBDC::dataProvTables(
     data = mapData,
       # Some manual extractions of instutionCode for bee data
     runBeeDataChecks = TRUE,

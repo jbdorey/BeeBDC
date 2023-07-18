@@ -52,7 +52,7 @@ data <- dplyr::tribble( # even step coordinates (different for lat/long)
 
 
 # run the function!
-testOut <- BeeDC::diagonAlley(data = data, 
+testOut <- BeeBDC::diagonAlley(data = data, 
                               minRepeats = 3,
                               groupingColumns = c("eventDate", "recordedBy", "datasetName"),
                               ndec = 3) %>%

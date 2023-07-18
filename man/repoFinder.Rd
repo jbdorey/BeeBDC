@@ -18,7 +18,7 @@ Find GBIF, ALA, iDigBio, and SCAN files in a directory
 }
 \examples{
 \dontrun{
-# Where DataPath is made by [BeeDC::dirMaker()]
-BeeDC::repoFinder(path = DataPath)
+# Where DataPath is made by [BeeBDC::dirMaker()]
+BeeBDC::repoFinder(path = DataPath)
 }
 }

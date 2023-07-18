@@ -2,12 +2,12 @@
 #### importOccurrences ####
 #' Imports the most-recent repoMerge data
 #' 
-#' Looks for and imports the most-recent version of the occurrence data created by the [BeeDC::repoMerge()] 
+#' Looks for and imports the most-recent version of the occurrence data created by the [BeeBDC::repoMerge()] 
 #' function.
 #'
 #' @param path A directory as a character. The directory to recursively look in for the above data.
 #' @param fileName Character. A String of text to look for the most-recent dataset. 
-#' Default = "^BeeData_". Find faults by modifying [BeeDC::fileFinder()]
+#' Default = "^BeeData_". Find faults by modifying [BeeBDC::fileFinder()]
 #' and logic-checking the file that's found.
 #'
 #' @return A list with a data frame of merged occurrence records, "Data_WebDL", and a list of EML 
@@ -35,7 +35,7 @@ importOccurrences <- function(path = path,
   
   #### Find files ####
   # Find all of the previously-produced data files
-  most_recent <- BeeDC::fileFinder(path = path, fileName = fileName)
+  most_recent <- BeeBDC::fileFinder(path = path, fileName = fileName)
   
   # Return information to user
   writeLines(paste(" - Great, R has detected file(s), including... ", "\n",
@@ -111,7 +111,7 @@ importOccurrences <- function(path = path,
       # Find the folder that the attributes file is in.
     EML_home <- stringr::str_replace(attr_loc, pattern = "\\/[a-zA-Z0-9-_]+\\.rds$", "")
       # Find the .xml file in the same location as the attribute's folder
-    EML_loc <- BeeDC::fileFinder(path = EML_home, fileName = "eml.*\\.rds")
+    EML_loc <- BeeBDC::fileFinder(path = EML_home, fileName = "eml.*\\.rds")
       # Read in the EML file
     EML_file <- readRDS(EML_loc)
   } #END IF .csv

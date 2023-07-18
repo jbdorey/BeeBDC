@@ -7,7 +7,7 @@
 #' 
 #' This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with 
 #' [bdc::bdc_coordinates_precision()] that will flag occurrences where only one of latitude OR 
-#' longitude are rounded. The BeeDC approach saves occurrences that may have had terminal zeros rounded
+#' longitude are rounded. The BeeBDC approach saves occurrences that may have had terminal zeros rounded
 #' in one coordinate column.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
@@ -25,7 +25,7 @@
 #'
 #' @examples
 #' beesRaw_out <- jbd_coordinates_precision(
-#'   data = BeeDC::beesRaw,
+#'   data = BeeBDC::beesRaw,
 #'   lon = "decimalLongitude",
 #'   lat = "decimalLatitude",
 #'     # number of decimals to be tested

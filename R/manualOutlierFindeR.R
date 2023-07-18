@@ -6,7 +6,7 @@
 #' Finds outliers, and their duplicates, as determined by experts
 #' 
 #' Uses expert-identified outliers with source spreadsheets that may be edited by users. The function 
-#' will also use the duplicates file made using [BeeDC::dupeSummary()] to identify duplicates of the 
+#' will also use the duplicates file made using [BeeBDC::dupeSummary()] to identify duplicates of the 
 #' expert-identified outliers and flag those as well.
 #' The function will add a flagging column called `.expertOutlier` where records that are FALSE are
 #' the expert outliers.
@@ -16,7 +16,7 @@
 #' @param PaigeOutliersName A character patch. Should lead to outlier spreadsheet from Paige Chesshire (csv file).
 #' @param newOutliersName A character path. Should lead to appropriate outlier spreadsheet (xlsx file).
 #' @param ColombiaOutliers_all A character path. Should lead to spreadsheet of bee outliers from Colombia (csv file).
-#' @param duplicates A data frame or tibble. The duplicate file produced by [BeeDC::dupeSummary()].
+#' @param duplicates A data frame or tibble. The duplicate file produced by [BeeBDC::dupeSummary()].
 #' @param NearTRUE Optional. A character file name to the csv file. If you want to remove expert
 #' outliers that are too close to TRUE points, use the name of the NearTRUE.csv.
 #' Note: This implementation is only basic for now unless there is a greater need in the future.

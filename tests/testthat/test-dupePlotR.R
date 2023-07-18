@@ -1,6 +1,6 @@
 requireNamespace("dplyr")
 requireNamespace("ggplot2")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 
 
 data("beesFlagged")
@@ -9,7 +9,7 @@ data("beesFlagged")
 # Create a figure showing the total number of duplicates, kept duplicates, and unique
 # records for each datasource (simplified to the text before the first underscore) and
 # the proportion of the above for each data source
-testOut <- BeeDC::dupePlotR(
+testOut <- BeeBDC::dupePlotR(
   data = beesFlagged,
   # The outPath to save the plot as
   outPath = tempdir(),

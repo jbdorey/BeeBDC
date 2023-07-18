@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 requireNamespace("testthat")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 
-testthat::test_check("BeeDC")
+testthat::test_check("BeeBDC")

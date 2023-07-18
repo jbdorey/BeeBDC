@@ -3,7 +3,7 @@
 # This function was written on the 31st of May 2022. For questions, please email jbdorey[at]me.com
 #' Wraps jbd_coordinates_transposed to identify  and fix transposed occurrences
 #' 
-#' Because the [BeeDC::jbd_coordinates_transposed()] function is very RAM-intensive, this wrapper 
+#' Because the [BeeBDC::jbd_coordinates_transposed()] function is very RAM-intensive, this wrapper 
 #' allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a 
 #' time. The prefix jbd_ is used to highlight the difference between this function and the related
 #' [bdc::bdc_coordinates_transposed()].

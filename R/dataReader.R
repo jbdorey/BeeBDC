@@ -17,7 +17,7 @@ requireNamespace("dplyr", "mgsub")
   # Get the columns to keep
   ColsToKeep <- names(ColTypes$cols)
   # Make an internal copy of the template for use in the loop as the template tibble
-  data_template <- BeeDC::ColTypeR()[[1]] %>% names() %>% 
+  data_template <- BeeBDC::ColTypeR()[[1]] %>% names() %>% 
     purrr::map_dfc(stats::setNames(), object = list(character())) %>%
     readr::type_convert(col_types = readr::cols(.default = readr::col_character()))
   

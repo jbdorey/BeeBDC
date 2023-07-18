@@ -1,5 +1,5 @@
 requireNamespace("readr")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 
 library(dplyr) ## could not use %>% without loading as library
@@ -21,7 +21,7 @@ readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
 
 
 ## find file 
-testOut <- BeeDC::fileFinder(path = paste0(tempdir()), fileName = "testData.csv")
+testOut <- BeeBDC::fileFinder(path = paste0(tempdir()), fileName = "testData.csv")
 
 
 ## test

@@ -6,7 +6,7 @@
 
 #' Combine the formatted USGS data with the main dataset
 #' 
-#' Merges the Darwin Core version of the USGS dataset that was created using [BeeDC::USGS_formatter()]
+#' Merges the Darwin Core version of the USGS dataset that was created using [BeeBDC::USGS_formatter()]
 #' with the main dataset
 #'
 #' @param path A directory as character. The directory to look in for the formatted USGS data. 

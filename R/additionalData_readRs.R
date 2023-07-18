@@ -3,24 +3,24 @@
   # For questions, please email jbdorey[at]me.com
 
 
-#### x.0 readr_BeeDC function ####
+#### x.0 readr_BeeBDC function ####
 # A single function that wraps all of the readr_functions
 #' Read in specific bee datasets
 #' 
 #' Read in a variety of data files that are specific to certain smaller data providers. 
 #' There is an internal readr function for each dataset and each one of these functions is called
-#' by readr_BeeDC. While these functions are internal, they are displayed in the documentation of 
-#' readr_BeeDC for clarity.
+#' by readr_BeeBDC. While these functions are internal, they are displayed in the documentation of 
+#' readr_BeeBDC for clarity.
 #' 
 #' This function wraps several internal readr functions. Users may call
-#' readr_BeeDC and select the dataset name to import a certain dataset. These datasets include:
+#' readr_BeeBDC and select the dataset name to import a certain dataset. These datasets include:
 #' 
 #' Excel (.xlsx) formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, and JoLa.
 #' 
 #' CSV (.csv) formatted datasets: EPEL, ASP, BMin, BMont, Ecd, Gai, KP, EcoS, GeoL, EaCo, FSCA, SMC,
 #' Lic, Dor, BBD, STRI, and PALA
 #' 
-#' See Dorey et al. 2023 BeeDC... for further details.
+#' See Dorey et al. 2023 BeeBDC... for further details.
 #'
 #' @param dataset Character. The name of the dataset to be read in. For example readr_CAES can
 #' be called using "readr_CAES" or "CAES". This is not caps sensitive.
@@ -46,7 +46,7 @@
 #' @examples
 #' \dontrun{
 #' # An example using a .xlsx file
-#'Arm_Data <- readr_BeeDC(
+#'Arm_Data <- readr_BeeBDC(
 #'     dataset = "Arm",
 #'     path = paste0(tempdir(), "/Additional_Datasets"),
 #'     inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
@@ -56,14 +56,14 @@
 #'     
 #'     
 #'     # An example using a .csv file
-#'EPEL_Data <- readr_BeeDC(
+#'EPEL_Data <- readr_BeeBDC(
 #'   dataset = "readr_EPEL",
 #'   path = paste0(tempdir(), "/Additional_Datasets"),
 #'   inFile = "/InputDatasets/bee_data_canada.csv",
 #'   outFile = "jbd_EPEL_data.csv",
 #'   dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 #' }
-readr_BeeDC <- function(
+readr_BeeBDC <- function(
     dataset = NULL,
     path = NULL,
     inFile = NULL,
@@ -283,14 +283,14 @@ readr_BeeDC <- function(
   } #END csv
   
   return(dataOut)
-} # END readr_BeeDC
+} # END readr_BeeBDC
 
 
 
 
 
 #### 1.0 EPEL ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -374,7 +374,7 @@ return(EPEL_Data)
 
 
 #### 2.0 ASP ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -444,7 +444,7 @@ return(ASP_data)
 
 #### 3.0 BMin ####
  
- #' @describeIn readr_BeeDC
+ #' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -498,7 +498,7 @@ return(BMin_data)
 
 
 #### 4.0 BMont ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -581,7 +581,7 @@ return(BMont_data)
 
 
 #### 5.0 Ecd ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -630,7 +630,7 @@ return(Ecd_data)
 } # END readr_Ecd
 
 ###### 6.0 Gai ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -713,7 +713,7 @@ return(Gai_data)
 } # END readr_Gai
 
 #### 7.0 CAES ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -876,7 +876,7 @@ return(CAES_data)
 
 
 #### 9.0 KP ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1008,7 +1008,7 @@ KP_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/")) %>%
 
 
 #### 11.0 EcoS ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1088,7 +1088,7 @@ readr_EcoS <- function(path = NULL,
 
 
 #### 12.0 GeoL ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1238,7 +1238,7 @@ readr_GeoL <- function(path = NULL,
 
 
 #### 13.0 EaCO ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1361,7 +1361,7 @@ readr_EaCO <- function(path = NULL,
 
 
 #### 14.0 MABC ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1472,7 +1472,7 @@ readr_MABC <- function(path = NULL,
 
 
 #### 15.0 Col ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1635,7 +1635,7 @@ readr_Col <- function(path = NULL,
 
 
 #### 16.0 FSCA ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1690,7 +1690,7 @@ readr_FSCA <- function(path = NULL,
 
 
 #### 17.0 SMC ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1752,7 +1752,7 @@ readr_SMC <- function(path = NULL,
 
 
 #### 18.0 Bal ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1841,7 +1841,7 @@ readr_Bal <- function(path = NULL,
 
 
 #### 19.0 Lic ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -1935,7 +1935,7 @@ readr_Lic <- function(path = NULL,
 
 
 #### 20.0 Arm ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -2053,7 +2053,7 @@ readr_Arm <- function(path = NULL,
 
 
 #### 21.0 Dorey ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -2104,7 +2104,7 @@ readr_Dor <- function(path = NULL,
 
 
 #### 22.0 MEPB ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -2171,7 +2171,7 @@ readr_MEPB <- function(path = NULL,
 
 
 #### 23.0 Brazil ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -2290,7 +2290,7 @@ readr_BBD <- function(path = NULL,
 
 
 #### 24.0 MPUJ ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -2410,7 +2410,7 @@ readr_MPUJ <- function(path = NULL,
 
 
 #### 25.0 STRI ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -2477,7 +2477,7 @@ readr_STRI <- function(path = NULL,
 
 
 #### 26.0 PALA ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 
@@ -2579,7 +2579,7 @@ readr_PALA <- function(path = NULL,
 
 
 #### 27.0 JoLa ####
-#' @describeIn readr_BeeDC
+#' @describeIn readr_BeeBDC
 #' 
 #' Reads specific data files into Darwin Core format
 #' 

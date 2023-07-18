@@ -31,12 +31,12 @@ that failed the test.
 \description{
 This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with
 \code{\link[bdc:bdc_coordinates_precision]{bdc::bdc_coordinates_precision()}} that will flag occurrences where only one of latitude OR
-longitude are rounded. The BeeDC approach saves occurrences that may have had terminal zeros rounded
+longitude are rounded. The BeeBDC approach saves occurrences that may have had terminal zeros rounded
 in one coordinate column.
 }
 \examples{
 beesRaw_out <- jbd_coordinates_precision(
-  data = BeeDC::beesRaw,
+  data = BeeBDC::beesRaw,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
     # number of decimals to be tested

@@ -29,7 +29,7 @@ commonProblems <- dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED S
 
 
 # run the function!
-testOut <- BeeDC::countryNameCleanR(data = testData, commonProblems = commonProblems)
+testOut <- BeeBDC::countryNameCleanR(data = testData, commonProblems = commonProblems)
 
 
 # check that country column has only one value (correct value)

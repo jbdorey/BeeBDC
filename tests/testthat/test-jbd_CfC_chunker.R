@@ -1,11 +1,11 @@
 requireNamespace("rnaturalearth")
-requireNamespace("BeeDC")
+requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 
 data("bees3sp")
 
 
-countryOutput <- BeeDC::jbd_CfC_chunker(data = bees3sp %>%
+countryOutput <- BeeBDC::jbd_CfC_chunker(data = bees3sp %>%
                                      tidyr::drop_na(decimalLatitude),
                                      lat = "decimalLatitude",
                                      lon = "decimalLongitude",

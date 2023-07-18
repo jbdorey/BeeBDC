@@ -7,7 +7,7 @@
 
 #' Attempt to match database_ids from a prior run
 #' 
-#' This function attempts to match database_ids from a prior bdc or BeeDC run in order to keep 
+#' This function attempts to match database_ids from a prior bdc or BeeBDC run in order to keep 
 #' this column somewhat consistent between iterations. However, not all records contain sufficient
 #' information for this to work flawlessly.
 #'
@@ -36,8 +36,8 @@
 #'                     "MEPB")
 #'   # Match the data to itself just as an example of running the code.
 #' beesRaw_out <- idMatchR(
-#'   currentData = BeeDC::beesRaw,
-#'   priorData = BeeDC::beesRaw,
+#'   currentData = BeeBDC::beesRaw,
+#'   priorData = BeeBDC::beesRaw,
 #'   # First matches will be given preference over later ones
 #'   matchBy = dplyr::lst(c("gbifID"),
 #'                         c("catalogNumber", "institutionCode", "dataSource"),

@@ -12,10 +12,10 @@
 #' 
 #' Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match
 #' the checklist. This function could be hijacked to service other taxa if a user matched the format of the
-#' [BeeDC::beesTaxonomy] file.
+#' [BeeBDC::beesTaxonomy] file.
 #'
 #' @param path A directory as character. The path to a folder that the output can be saved.
-#' @param taxonomy A data frame or tibble. The bee taxonomy to use. Default = BeeDC::beesTaxonomy.
+#' @param taxonomy A data frame or tibble. The bee taxonomy to use. Default = BeeBDC::beesTaxonomy.
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param speciesColumn Character. The name of the column containing species names. Default = "scientificName".
 #' @param rm_names_clean Logical. If TRUE then the names_clean column will be removed at the end of
@@ -36,15 +36,15 @@
 #'   #The path to a folder that the output can be saved
 #' path = tempdir(),
 #' # The formatted taxonomy file
-#' taxonomy = BeeDC::beesTaxonomy, 
-#' data = BeeDC::beesFlagged,
+#' taxonomy = BeeBDC::beesTaxonomy, 
+#' data = BeeBDC::beesFlagged,
 #' speciesColumn = "scientificName")
 #' table(beesRaw_out$.invalidName, useNA = "always")
 
 harmoniseR <- function(
   data = NULL,
   path = NULL, #The path to a folder that the output can be saved
-  taxonomy = BeeDC::beesTaxonomy, # The formatted taxonomy file
+  taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
   speciesColumn = "scientificName",
   rm_names_clean = TRUE
   ) {  
@@ -106,8 +106,8 @@ harmoniseR <- function(
     # If the database_id column isn't in the dataset, then add it for internal use
   if(!"database_id" %in% colnames(data)){
     data <- data %>%
-  dplyr::mutate(database_id = paste0("BeeDC_TempCode_", dplyr::row_number()), .before = 1)
-    message("The database_idcolumn was not found, making this column with 'BeeDC_TempCode_'...")
+  dplyr::mutate(database_id = paste0("BeeBDC_TempCode_", dplyr::row_number()), .before = 1)
+    message("The database_idcolumn was not found, making this column with 'BeeBDC_TempCode_'...")
   }
     ###### d. scientificNameAuthorship ####
   # If there is no scientificNameAuthorship, make all NA
