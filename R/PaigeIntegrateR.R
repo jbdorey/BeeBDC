@@ -69,7 +69,7 @@ PaigeIntegrater <- function(
     Dorey_match<-decimalLatitude<-decimalLongitude<-scientificName<-genus<-specificEpithet<-
     infraspecificEpithet<-country<-coordinateUncertaintyInMeters<-decimalLatitude_m<-
     database_id_m<-decimalLongitude_m<-scientificName_m<-genus_m<-specificEpithet_m<-
-    infraspecificEpithet_m<-country_m<-coordinateUncertaintyInMeters_m <- NULL
+    infraspecificEpithet_m<-country_m<-coordinateUncertaintyInMeters_m <- . <- NULL
   
   requireNamespace("dplyr")
   
