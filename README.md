@@ -1,2 +1,2 @@
-# BeeDC
-Repo for the BeeDC package
+# BeeBDC
+Repo for the BeeBDC package
