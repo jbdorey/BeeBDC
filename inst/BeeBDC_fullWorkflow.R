@@ -63,8 +63,8 @@ renv::init()
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above, with the addition of "rnaturalearthhires"
-lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra", "galah", "ComplexHeatmap",
-         "BeeBDC"), 
+lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra", "galah", 
+         "ComplexHeatmap"), 
        library, character.only = TRUE)
 # Save a snapshot of the environment
 renv::snapshot()
