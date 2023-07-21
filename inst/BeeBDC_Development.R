@@ -165,14 +165,9 @@ usethis::use_cran_comments()
 
 
 
-testOut1 <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
-                               path = tempdir(),
-                               inFile = "testData.csv",
-                               outFile = "testDataOut.csv",
-                               dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+usethis::use_release_issue()
 
-
-
+usethis::use_github_action()
 
 
   
