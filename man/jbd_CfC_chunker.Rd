@@ -13,6 +13,7 @@ jbd_CfC_chunker(
   chunkStart = 1,
   progressiveSave = TRUE,
   append = FALSE,
+  scale = "large",
   path = tempdir()
 )
 }
@@ -35,6 +36,9 @@ each iteration so that \code{append} can be used if the function is stopped part
 
 \item{append}{Logical. If TRUE, the function will look to append an existing file.}
 
+\item{scale}{Passed to rnaturalearth's ne_countries().
+Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".}
+
 \item{path}{Character. The directory path to a folder in which to save the running countrylist
 csv file.}
 }
@@ -46,7 +50,7 @@ that needs to be re-merged with the data input.
 Because the \code{\link[=jbd_country_from_coordinates]{jbd_country_from_coordinates()}} function is very RAM-intensive, this wrapper
 allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a
 time. The prefix jbd_ is used to highlight the difference between this function and the related
-\code{\link[bdc:bdc_country_from_coordinates]{bdc::bdc_country_from_coordinates()}}.
+bdc::bdc_country_from_coordinates().
 }
 \examples{
 # Because this function iteratively adds to a save file in the background, for simplicity's sake
@@ -84,6 +88,7 @@ suppressWarnings(
                                     # Progressively save the country list between each iteration?
                                    progressiveSave = FALSE,
                                    path = HomePath,
+                                   scale = "large",
                                    append = FALSE),
   classes = "warning")
 

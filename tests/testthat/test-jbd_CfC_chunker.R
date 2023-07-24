@@ -15,6 +15,7 @@ countryOutput <- BeeBDC::jbd_CfC_chunker(data = bees3sp %>%
                                      # Start row
                                      chunkStart = 1,
                                      path = tempdir(),
+                                     scale = "medium", # Test at medium scale in this instance.
                                      append = FALSE)
 
 

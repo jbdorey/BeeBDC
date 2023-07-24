@@ -8,7 +8,8 @@ jbd_country_from_coordinates(
   data,
   lat = "decimalLatitude",
   lon = "decimalLongitude",
-  country = "country"
+  country = "country",
+  scale = "large"
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ WGS84. Default = "decimalLongitude".}
 \item{country}{A character string. The column name with the country assignment
 of each record. Default = "country". If no column name is provided a new
 column "country" is created.}
+
+\item{scale}{Passed to rnaturalearth's ne_countries().
+Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".}
 }
 \value{
 A tibble of the original input data with country names added for records missing

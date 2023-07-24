@@ -40,7 +40,6 @@ Imports:
     cowplot,
     dplyr,
     forcats,
-    galah (>= 1.5.3),
     ggplot2,
     ggspatial,
     here,
@@ -56,11 +55,10 @@ Imports:
     tidyselect
 Suggests: 
     bdc,
-    BiocManager,
     classInt,
     countrycode,
-    DT,
     emld,
+    galah,
     hexbin,
     htmlwidgets,
     httr,
@@ -69,7 +67,6 @@ Suggests:
     plotly,
     purrr,
     R.utils,
-    rangeBuilder,
     rlang,
     rnaturalearthdata,
     rvest,
@@ -77,8 +74,6 @@ Suggests:
     testthat,
     tidyr,
     xml2
-Remotes: 
-    AtlasOfLivingAustralia/galah
 Config/testthat/edition: 3
 Encoding: UTF-8
 language: en-gb

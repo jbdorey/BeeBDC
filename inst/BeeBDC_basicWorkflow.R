@@ -53,9 +53,7 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "rnaturalearth",     #  Global vector map data 
                       "rnaturalearthdata", #  To access the above global map data
                       "countrycode",       # Package to deal with country codes
-                      "rangeBuilder",
                       "rworldmap",
-                      "hexbin",
                       "readxl",
                       "cowplot",           # ggplot2 helper package
                       "ggspatial")         #  Makes ggplot2 create north arrows or scale bars

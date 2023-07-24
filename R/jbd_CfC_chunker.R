@@ -6,7 +6,7 @@
 #' Because the [BeeBDC::jbd_country_from_coordinates()] function is very RAM-intensive, this wrapper 
 #' allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a 
 #' time. The prefix jbd_ is used to highlight the difference between this function and the related
-#' [bdc::bdc_country_from_coordinates()].
+#' bdc::bdc_country_from_coordinates().
 #'
 #' @param data A data frame or tibble. Occurrence records to use as input.
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
@@ -20,6 +20,8 @@
 #' @param path Character. The directory path to a folder in which to save the running countrylist
 #' csv file.
 #' @param append Logical. If TRUE, the function will look to append an existing file.
+#' @param scale Passed to rnaturalearth's ne_countries().
+#' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
 #'
 #' @return A data frame containing database_ids and a country column 
 #' that needs to be re-merged with the data input.
@@ -63,6 +65,7 @@
 #'                                     # Progressively save the country list between each iteration?
 #'                                    progressiveSave = FALSE,
 #'                                    path = HomePath,
+#'                                    scale = "large",
 #'                                    append = FALSE),
 #'   classes = "warning")
 #' 
@@ -96,6 +99,7 @@ jbd_CfC_chunker <- function(data = NULL,
                             progressiveSave = TRUE,
                             # If FALSE it may overwrite existing dataset
                             append = FALSE,
+                            scale = "large",
                             path = tempdir()){
   #### 0.0 Prep ####
     ##### 0.1 nChunks ####
@@ -150,6 +154,7 @@ jbd_CfC_chunker <- function(data = NULL,
       data = loop_check_pf,
       lat = lat,
       lon = lon,
+      scale = scale,
       country = country)
     #### 1.2 Save file ####
     # Save a smaller csv file with the database_id and country name to be matched later

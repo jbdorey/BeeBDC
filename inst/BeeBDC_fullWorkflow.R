@@ -37,11 +37,9 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "rnaturalearth",     #  Global vector map data 
                       "rnaturalearthdata", #  To access the above global map data
                       "countrycode",       # Package to deal with country codes
-                      "rangeBuilder",
                       "renv",
                       "rworldmap",
                       "janitor",
-                      "hexbin",
                       "circlize", 
                       "BiocManager",
                       "paletteer",

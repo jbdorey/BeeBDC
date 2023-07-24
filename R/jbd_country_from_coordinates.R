@@ -13,6 +13,8 @@
 #' @param  country A character string. The column name with the country assignment
 #' of each record. Default = "country". If no column name is provided a new
 #' column "country" is created.
+#' @param scale Passed to rnaturalearth's ne_countries().
+#' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
 #'
 #' @details This function assigns a country name for records missing such
 #' information. Country names are extracted from valid geographic coordinates
@@ -49,7 +51,8 @@ jbd_country_from_coordinates <-
   function(data,
            lat = "decimalLatitude",
            lon = "decimalLongitude",
-           country = "country") {
+           country = "country",
+           scale = "large") {
     .data <- . <- name_long <- id_temp <- geometry <- NULL
     
     suppressWarnings({
@@ -85,7 +88,7 @@ jbd_country_from_coordinates <-
       dplyr::mutate(decimalLatitude = as.numeric(.data[[lat]]),
                     decimalLongitude = as.numeric(.data[[lon]]))
     
-    worldmap <- rnaturalearth::ne_countries(scale = "large", returnclass = "sf")
+    worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
     
     # JBD edit - Remove empty elements from list before testing.
     # data <- data[sapply(data, function(x) dim(x)[1]) > 0]

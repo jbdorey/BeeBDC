@@ -47,3 +47,9 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+          
+ - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+          install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
+        shell: Rscript {0}

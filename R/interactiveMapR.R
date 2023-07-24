@@ -101,7 +101,7 @@ interactiveMapR <- function(
   
   requireNamespace("htmlwidgets")
   requireNamespace("leaflet")
-  requireNamespace("DT")
+  #requireNamespace("DT")
   requireNamespace("dplyr")
   
 #### 0.0 Prep ####

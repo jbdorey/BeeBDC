@@ -112,18 +112,21 @@ requiredPackages <- sort(c(
 lapply(requiredPackages,  usethis::use_package, type = "Imports")
 
   # Add suggested packages
-suggestedPackages <- sort(c("rlang", "xml2",  "rvest", "countrycode", "rangeBuilder",
-                            #"rworldmap", 
-                            "hexbin", "janitor", "rnaturalearthdata", "bdc",
+suggestedPackages <- sort(c("rlang", "xml2",  "rvest", 
+                            "janitor", "rnaturalearthdata", 
                             "terra", "R.utils", 
-                            "testthat", "emld", "purrr", "tidyr",
-                            "classInt", "htmlwidgets", "httr", "leaflet", "plotly", 
-                            "BiocManager",
-                            "DT"))
+                            "testthat", "emld", "purrr", "tidyr", "galah",
+                            "classInt", "htmlwidgets",  "leaflet", "plotly", 
+                            "bdc","hexbin",
+                            # "BiocManager",
+                            # "DT",
+                            # Might be easy to remove
+                            "countrycode", "httr"))
 lapply(suggestedPackages,  usethis::use_package, type = "Suggests")
 
   # Add non-Cran packages
-usethis::use_dev_package("galah", type = "Imports", remote = "AtlasOfLivingAustralia/galah")
+#usethis::use_dev_package("galah", type = "Imports", remote = "AtlasOfLivingAustralia/galah")
+
 
 
 # In order to initialise a package citation file: (Don't re-run!)
