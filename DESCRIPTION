@@ -57,7 +57,6 @@ Imports:
 Suggests: 
     bdc,
     BiocManager,
-    chorddiag,
     classInt,
     countrycode,
     DT,
@@ -73,12 +72,10 @@ Suggests:
     rangeBuilder,
     rlang,
     rnaturalearthdata,
-    rnaturalearthhires,
     rvest,
     terra,
     testthat,
     tidyr,
-    xlsx,
     xml2
 Remotes: 
     AtlasOfLivingAustralia/galah

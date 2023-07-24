@@ -63,12 +63,12 @@ list.of.packages <- c("R.utils",           # To use gunzip
 # renv::install(c("sf","terra"), type = "binary")
 renv::install(c("sf","terra"), type = "binary")
 # List the new (not installed) packages and then if there are any, install them.
-renv::install(packages = c(list.of.packages, "ropensci/rnaturalearthhires", "mattflor/chorddiag"), 
+renv::install(packages = c(list.of.packages), 
               rebuild = FALSE) # try changing to TRUE if you're having package troubles
 
 ##### 0.3 Load packages ####
-# Load all packages from the list specified above, with the addition of "rnaturalearthhires"
-lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra"), 
+# Load all packages from the list specified above, 
+lapply(c(list.of.packages, "sf","terra"), 
        library, character.only = TRUE)
 ### Load in R scripts and character strings in our package
 sapply(list.files(file.path(ScriptPath), pattern = ".R$", full.names = TRUE), source)  # loads in all functions

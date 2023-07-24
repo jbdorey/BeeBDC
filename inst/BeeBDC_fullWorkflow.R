@@ -55,15 +55,15 @@ renv::install(c("sf","terra"), type = "binary")
 remotes::install_github("AtlasOfLivingAustralia/galah")
 BiocManager::install("ComplexHeatmap")
 # List the new (not installed) packages and then if there are any, install them.
-renv::install(packages = c(list.of.packages, "ropensci/rnaturalearthhires", "mattflor/chorddiag"), 
+renv::install(packages = c(list.of.packages), 
               rebuild = FALSE) # try changing to TRUE if you're having package troubles
 
 # Initialise renv the project
 renv::init() 
 
 ##### 0.3 Load packages ####
-# Load all packages from the list specified above, with the addition of "rnaturalearthhires"
-lapply(c(list.of.packages, "rnaturalearthhires", "chorddiag", "sf","terra", "galah", 
+# Load all packages from the list specified above,
+lapply(c(list.of.packages, "sf","terra", "galah", 
          "ComplexHeatmap"), 
        library, character.only = TRUE)
 # Save a snapshot of the environment

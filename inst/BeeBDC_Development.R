@@ -115,7 +115,7 @@ lapply(requiredPackages,  usethis::use_package, type = "Imports")
 suggestedPackages <- sort(c("rlang", "xml2",  "rvest", "countrycode", "rangeBuilder",
                             #"rworldmap", 
                             "hexbin", "janitor", "rnaturalearthdata", "bdc",
-                            "terra", "chorddiag", "rnaturalearthhires", "R.utils", "xlsx",
+                            "terra", "R.utils", 
                             "testthat", "emld", "purrr", "tidyr",
                             "classInt", "htmlwidgets", "httr", "leaflet", "plotly", 
                             "BiocManager",
@@ -168,6 +168,13 @@ usethis::use_cran_comments()
 usethis::use_release_issue()
 
 usethis::use_github_action()
+
+  #### 3.0 Further CRAN tests ####
+  ##### 3.1 Coverage ####
+devtools::test_coverage_active_file()
+
+  ##### 3.2 Package weights ####
+pak::pkg_deps_tree("BeeBDC")
 
 
   
