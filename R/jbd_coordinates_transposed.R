@@ -30,6 +30,8 @@
 #' @param path A character string. A path as a character vector for where to create the directories
 #' and save the figures. If 
 #' no path is provided (the default), the directories will be created using [here::here()].
+#' @param scale Passed to rnaturalearth's ne_countries().
+#' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
 #
 #' @details This test identifies transposed coordinates based on mismatches between the 
 #' country provided for a record and the record’s latitude and longitude coordinates. Transposed
@@ -157,7 +159,7 @@ jbd_coordinates_transposed <-
         decimalLongitude = as.numeric(decimalLongitude)
       )
 
-    worldmap <- jbd_get_world_map()  # get world map and country iso
+    worldmap <- jbd_get_world_map(scale = scale)  # get world map and country iso
 
     # Correct latitude and longitude transposed
     message("Correcting latitude and longitude transposed\n")

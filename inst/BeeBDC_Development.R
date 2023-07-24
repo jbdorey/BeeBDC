@@ -163,17 +163,20 @@ devtools::check()
   ##### 2.6 News and comments ####
   # Generate news file
 usethis::use_news_md()
-  # generate CRAN comments file
+
+  #### 3.0 GitHub actions ####
+  # generate CRAN comments file — communicate steps taken
 usethis::use_cran_comments()
-
-
 
 usethis::use_release_issue()
 
-usethis::use_github_action()
+  ##### 3.1 GitHub actions workflow ####
+usethis::use_github_action("check-standard")
+usethis::use_github_action("test-coverage")
+usethis::use_github_action("pkgdown")
 
-  #### 3.0 Further CRAN tests ####
-  ##### 3.1 Coverage ####
+  #### 4.0 Further CRAN tests ####
+  ##### 4.1 Coverage ####
 devtools::test_coverage_active_file()
 
   ##### 3.2 Package weights ####

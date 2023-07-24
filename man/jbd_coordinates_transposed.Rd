@@ -55,6 +55,9 @@ saved for further inspection. Default = FALSE.}
 \item{path}{A character string. A path as a character vector for where to create the directories
 and save the figures. If
 no path is provided (the default), the directories will be created using \code{\link[here:here]{here::here()}}.}
+
+\item{scale}{Passed to rnaturalearth's ne_countries().
+Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".}
 }
 \value{
 A tibble containing the column "coordinates_transposed" which indicates if

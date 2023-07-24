@@ -10,7 +10,7 @@
 #' \dontrun{
 #' worldmap <- jbd_get_world_map()
 #' }
-jbd_get_world_map <- function() {
+jbd_get_world_map <- function(scale = "large") {
   name_en <- NULL
 
   check_require_cran("rnaturalearth")
@@ -18,7 +18,7 @@ jbd_get_world_map <- function() {
   # loadNamespace("rnaturalearthdata")
   
   suppressWarnings({
-    worldmap <- rnaturalearth::ne_countries(scale = 10, returnclass = "sf")
+    worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
 
     # Add some iso code to some countries polygons
     iso2c <- countrycode::countrycode(unique(worldmap$name_en),
