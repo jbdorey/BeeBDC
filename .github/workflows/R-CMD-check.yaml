@@ -49,10 +49,9 @@ jobs:
           upload-snapshots: true
           
           
-- if: runner.os == 'macOS'
-  run: brew install --cask xquartz
+      - if: runner.os == 'macOS'
+        run: brew install --cask xquartz
 
-- name: Install dependencies
-  run:   install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
-  shell: Rscript {0}
-
+      - name: Install dependencies
+        run:   install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
+        shell: Rscript {0}
