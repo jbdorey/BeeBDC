@@ -165,7 +165,7 @@ that needs to be re-merged with the data input.</p>
 <span class="r-in"><span>                                    <span class="co"># Progressively save the country list between each iteration?</span></span></span>
 <span class="r-in"><span>                                   progressiveSave <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                                   path <span class="op">=</span> <span class="va">HomePath</span>,</span></span>
-<span class="r-in"><span>                                   scale <span class="op">=</span> <span class="st">"large"</span>,</span></span>
+<span class="r-in"><span>                                   scale <span class="op">=</span> <span class="st">"medium"</span>,</span></span>
 <span class="r-in"><span>                                   append <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - Running chunker with:</span>
@@ -177,11 +177,11 @@ that needs to be re-merged with the data input.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> From 1 to 1,000,000</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: rnaturalearth</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Support for Spatial objects (`sp`) will be deprecated in {rnaturalearth} and will be removed in a future release of the package. Please use `sf` objects with {rnaturalearth}. For example: `ne_download(returnclass = 'sf')`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The rnaturalearthhires package needs to be installed.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Installing the rnaturalearthhires package.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in value[[3L]](cond):</span> Failed to install the rnaturalearthhires package.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   Please try installing the package for yourself using the following command: </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>      devtools::install_github("ropensci/rnaturalearthhires")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_country_from_coordinates:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Country names were added to 5 records.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Cleaning RAM.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Finished chunk 1 of 1 chunks. Records examined: 1,000,000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Left join these datasets</span></span></span>
@@ -194,7 +194,6 @@ that needs to be re-merged with the data input.</p>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="co"># Remove duplicates if they arose!</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'countryOutput' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Remove illegal characters</span></span></span>
 <span class="r-in"><span><span class="va">beesFlagged_out</span><span class="op">$</span><span class="va">country</span> <span class="op">&lt;-</span> <span class="va">beesFlagged_out</span><span class="op">$</span><span class="va">country</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>

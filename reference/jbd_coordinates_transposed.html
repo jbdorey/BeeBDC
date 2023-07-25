@@ -66,6 +66,7 @@ to be transposed.</p>
 <span>  border_buffer <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>  save_outputs <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fileName <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scale <span class="op">=</span> <span class="st">"large"</span>,</span>
 <span>  path <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -125,15 +126,15 @@ saved for further inspection. Default = FALSE.</p></dd>
 <dd><p>A character string. The out file's name.</p></dd>
 
 
+<dt>scale</dt>
+<dd><p>Passed to rnaturalearth's ne_countries().
+Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".</p></dd>
+
+
 <dt>path</dt>
 <dd><p>A character string. A path as a character vector for where to create the directories
 and save the figures. If
 no path is provided (the default), the directories will be created using <code><a href="https://here.r-lib.org//reference/here.html" class="external-link">here::here()</a></code>.</p></dd>
-
-
-<dt>scale</dt>
-<dd><p>Passed to rnaturalearth's ne_countries().
-Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".</p></dd>
 
 </dl></div>
     <div id="value">
