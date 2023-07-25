@@ -18,7 +18,8 @@ jbd_Ctrans_chunker(
   chunkStart = 1,
   progressiveSave = TRUE,
   path = tempdir(),
-  append = TRUE
+  append = TRUE,
+  scale = "large"
 )
 }
 \arguments{
@@ -54,6 +55,9 @@ each iteration so that \code{append} can be used if the function is stopped part
 output.}
 
 \item{append}{Logical. If TRUE, the function will look to append an existing file.}
+
+\item{scale}{Passed to rnaturalearth's ne_countries().
+Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".}
 }
 \value{
 Returns the input data frame with a new column, coordinates_transposed, where FALSE = columns

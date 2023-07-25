@@ -1,6 +1,12 @@
 requireNamespace("dplyr")
 data("bees3sp")
 
+  # Install rnaturalearthhires if needed
+if(!any(installed.packages() %>% as.data.frame() %>% pull(Package) %in% "rnaturalearthhires")){
+  install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
+}
+
+
 testOut <- BeeBDC::jbd_Ctrans_chunker(
   # bdc_coordinates_transposed inputs
   data = bees3sp %>%

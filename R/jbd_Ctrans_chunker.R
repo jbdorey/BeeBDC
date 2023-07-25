@@ -27,7 +27,8 @@
 #' @param path Character. The path to a file in which to save the 01_coordinates_transposed_
 #' output.
 #' @param append Logical. If TRUE, the function will look to append an existing file.
-
+#' @param scale Passed to rnaturalearth's ne_countries().
+#' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
 #'
 #' @return Returns the input data frame with a new column, coordinates_transposed, where FALSE = columns
 #' that had coordinates transposed.
@@ -85,7 +86,8 @@ jbd_Ctrans_chunker <- function(
     progressiveSave = TRUE,
     path = tempdir(),
      # If FALSE it may overwrite existing dataset
-    append = TRUE){
+    append = TRUE,
+    scale = "large"){
   database_id <- NULL
   
   requireNamespace("dplyr")
@@ -150,7 +152,8 @@ jbd_Ctrans_chunker <- function(
       border_buffer = border_buffer,
       save_outputs = save_outputs,
       path = path,
-      fileName = fileName)
+      fileName = fileName,
+      scale = scale)
     
     #### 1.2 Save + bind file ####
     # Save a smaller csv file with the database_id and country name to be matched later
