@@ -22,36 +22,36 @@ jbd_get_world_map <- function(scale = "large") {
   
   suppressWarnings({
     worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
+    
+      # For large scales
+    if(scale %in% c("large", "10")){
+      worldmap <- worldmap %>%
+        dplyr::mutate(iso2c = countrycode::countrycode(worldmap$name_en,
+                                                       origin = "country.name.en",
+                                                       destination = "iso2c"),
+                      iso3c = countrycode::countrycode(worldmap$name_en,
+                                                       origin = "country.name.en",
+                                                       destination = "iso3c")
+        ) %>% # END mutate
+        dplyr::select(name_en, tidyselect::starts_with("iso")) 
+    }else{ # For other scales...
+      # Add some iso code to some countries polygons
+        # Also, add the name column to be used
+      worldmap <- worldmap %>%
+        dplyr::mutate(name_en = countrycode::countrycode(iso_n3 %>% as.numeric(),
+                                                         origin = "iso3n",
+                                                         destination = "country.name.en"),
+                      iso2c = countrycode::countrycode(worldmap$iso_n3 %>% as.numeric(),
+                                                       origin = "iso3n",
+                                                       destination = "iso2c"),
+                      iso3c = countrycode::countrycode(worldmap$iso_n3 %>% as.numeric(),
+                                                       origin = "iso3n",
+                                                       destination = "iso3c")
+                      ) %>%# END mutate
+        dplyr::select(name_en, tidyselect::starts_with("iso")) 
+    }# END else
 
-    # Add some iso code to some countries polygons
-    iso2c <- countrycode::countrycode(unique(worldmap$name_en),
-      origin = "country.name.en",
-      destination = "iso2c"
-    )
-
-    iso3c <- countrycode::countrycode(unique(worldmap$name_en),
-      origin = "country.name.en",
-      destination = "iso3c"
-    )
-
-    iso <- dplyr::bind_cols(
-      worldmap %>%
-        dplyr::select(name_en, tidyselect::starts_with("iso")),
-      "iso2c" = iso2c,
-      "iso3c" = iso3c
-    ) %>% dplyr::select(!"geometry") %>% sf::st_drop_geometry()
-
-    filt <- !is.na(iso$iso_a2) & is.na(iso$iso2c)
-    iso$iso2c[filt] <- iso$iso_a2[filt]
-
-    filt <- !is.na(iso$iso_a3) & is.na(iso$iso3c)
-    iso$iso3c[filt] <- iso$iso_a3[filt]
-
-    worldmap <-  worldmap %>%
-      dplyr::select(!c(name_en, tidyselect::starts_with("iso"))) %>%
-    dplyr::bind_cols(iso)
-      
-    is.na(iso) %>% colSums() # number of polygons without isocode
+    is.na(worldmap) %>% colSums() # number of polygons without isocode
 
     worldmap <- worldmap %>%
       dplyr::select(iso2c, iso3c) %>%
