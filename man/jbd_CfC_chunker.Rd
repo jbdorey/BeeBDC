@@ -88,7 +88,7 @@ suppressWarnings(
                                     # Progressively save the country list between each iteration?
                                    progressiveSave = FALSE,
                                    path = HomePath,
-                                   scale = "large",
+                                   scale = "medium",
                                    append = FALSE),
   classes = "warning")
 

@@ -100,6 +100,7 @@ jbd_coordinates_transposed <-
            border_buffer = 0.2,
            save_outputs = FALSE,
            fileName = NULL,
+           scale = "large",
            path = NULL) {
     decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
     
