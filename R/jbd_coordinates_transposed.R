@@ -85,7 +85,8 @@
 #'   country = "country_suggested",
 #'   countryCode = "countryCode",
 #'   border_buffer = 0.2,
-#'   save_outputs = FALSE 
+#'   save_outputs = FALSE,
+#'   scale = "medium"
 #' ) 
 #' }
 #'
