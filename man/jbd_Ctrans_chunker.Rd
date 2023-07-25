@@ -96,7 +96,9 @@ chunkStart = 1,
 progressiveSave = FALSE,
 path = tempdir(),
 # If FALSE it may overwrite existing dataset
-append = FALSE  
+append = FALSE,
+  # Users should select scale = "large" as it is more thoroughly tested
+scale = "medium"
 ) 
 table(beesFlagged_out$coordinates_transposed, useNA = "always")
 
