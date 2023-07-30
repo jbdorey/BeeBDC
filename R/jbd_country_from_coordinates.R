@@ -1,7 +1,8 @@
 #' Get country names from coordinates
 #'
 #' Country names derived from valid geographic coordinates are added to records
-#' missing country names.
+#' missing country names. The prefix, jbd_ is meant
+#' to distinguish this function from the original bdc::bdc_country_from_coordinates().
 #'
 #' @param data A data frame or tibble. This needs to contain, at a minimum, 
 #' columns with geographical coordinates and country names.

@@ -112,7 +112,7 @@ summaryColumn <- speciesColumn %>%
   # If user provided an outPath then save the file
 if(!is.null(outPath)){
   summaryColumn %>%
-    readr::write_csv(file = outPath)
+    readr::write_excel_csv(file = outPath)
 }
 
   # return the table as a tibble

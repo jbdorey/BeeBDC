@@ -1,7 +1,8 @@
 #' Internal function. Get a world map with country names and iso code
 #'
 #' This is a helper function used to obtain names, iso code, and the limits
-#' (polygon) of world countries. Data from the package 'rnaturalearth'.
+#' (polygon) of world countries. Data from the package 'rnaturalearth'. The prefix, jbd_ is meant
+#' to distinguish this function from the original bdc::bdc_get_world_map().
 #' 
 #' @param scale Passed to rnaturalearth's ne_countries().
 #' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".

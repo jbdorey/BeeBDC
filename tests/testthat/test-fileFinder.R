@@ -17,7 +17,7 @@ testData <- dplyr::tribble(
 
 
 ## write file
-readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
 
 
 ## find file 

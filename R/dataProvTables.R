@@ -299,7 +299,7 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
   
   
   #### 3.0 Save and return ####
-  readr::write_csv(counts, 
+  readr::write_excel_csv(counts, 
                    paste(outPath, fileName, sep = "/"))
 
   

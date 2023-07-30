@@ -106,7 +106,7 @@ manualOutlierFindeR <- function(
     dplyr::bind_rows(fileFinder(path = DataPath,
                                  fileName = newOutliersName) %>%
                        ("Outliers_SppInStatus3")) %>%
-    readr::write_csv(paste(tempdir(), "newOutliers.csv", sep = "/"))
+    readr::write_excel_csv(paste(tempdir(), "newOutliers.csv", sep = "/"))
   # Read back in with the correct column classes
   outliersAll <- fileFinder(path = tempdir(),
                              fileName = "newOutliers.csv") %>%

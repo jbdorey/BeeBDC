@@ -25,7 +25,7 @@ testDataPath <- file.info(list.files(tempdir(), full.names = T,
 unlink(rownames(testDataPath))
 
 # Save a temporary version of these data
-readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
 
 testOut1 <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
                                path = tempdir(),
@@ -69,7 +69,7 @@ testDataPath <- file.info(list.files(tempdir(), full.names = T,
 unlink(rownames(testDataPath))
 
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "ASP",
@@ -119,7 +119,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "BMin",
@@ -166,7 +166,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "BMont",
                                    path = tempdir(),
@@ -213,7 +213,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Ecd",
@@ -263,7 +263,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Gai",
                                    path = tempdir(),
@@ -411,7 +411,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "EcoS",
                                   path = tempdir(),
@@ -676,7 +676,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "FSCA",
@@ -723,7 +723,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "SMC",
                                    path = tempdir(),
@@ -833,7 +833,7 @@ unlink(rownames(testDataPath))
                                          pattern = "testData.csv", recursive = TRUE))
     unlink(rownames(testDataPath))
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Lic",
                                    path = tempdir(),
@@ -926,7 +926,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Dor",
                                  path = paste0(tempdir()),
@@ -1028,7 +1028,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "BBD",
                                    path = tempdir(),
@@ -1128,7 +1128,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "STRI",
                                    path = tempdir(),
@@ -1173,7 +1173,7 @@ unlink(rownames(testDataPath))
     unlink(rownames(testDataPath))
     
     # Save a temporary version of these data
-    readr::write_csv(testData, paste0(tempdir(), "/testData.csv"))
+    readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "PALA",
                                    path = tempdir(),

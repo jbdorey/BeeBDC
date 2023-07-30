@@ -767,7 +767,7 @@ taxoMergeR <- function(currentNames = NULL,
     outPath, "/", fileName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
   ))
   # Save the  current-matched new dataset
-  readr::write_csv(merged_names_cl, file = paste(outPath,"/",
+  readr::write_excel_csv(merged_names_cl, file = paste(outPath,"/",
     fileName, "_", Sys.Date(), ".csv", sep = ""))
   writeLines(paste(" - ", nrow(failed_names), 
     " names from the new list did not have an accepted or synonym match to the current list. They ",
@@ -776,7 +776,7 @@ taxoMergeR <- function(currentNames = NULL,
     outPath, "/", fileName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
   ))
   # Save noMatch_df
-  readr::write_csv(failed_names, 
+  readr::write_excel_csv(failed_names, 
                    file = paste(outPath, "/",
                                 fileName, "_failed_", Sys.Date(), ".csv",  sep = ""))
 

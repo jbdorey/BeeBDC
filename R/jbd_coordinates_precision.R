@@ -5,10 +5,10 @@
 
 #' Flags coordinates for imprecision
 #' 
-#' This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with 
-#' bdc::bdc_coordinates_precision() that will flag occurrences where only one of latitude OR 
-#' longitude are rounded. The BeeBDC approach saves occurrences that may have had terminal zeros rounded
-#' in one coordinate column.
+#' This function flags occurrences where BOTH latitude and longitude values are rounded. This 
+#' contrasts with the original function, bdc::bdc_coordinates_precision() that will flag 
+#' occurrences where only one of latitude OR longitude are rounded. The BeeBDC approach saves 
+#' occurrences that may have had terminal zeros rounded in one coordinate column.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".

@@ -5,7 +5,7 @@
 #' 
 #' Because the [BeeBDC::jbd_country_from_coordinates()] function is very RAM-intensive, this wrapper 
 #' allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a 
-#' time. The prefix jbd_ is used to highlight the difference between this function and the related
+#' time. The prefix jbd_ is used to highlight the difference between this function and the original
 #' bdc::bdc_country_from_coordinates().
 #'
 #' @param data A data frame or tibble. Occurrence records to use as input.
@@ -190,7 +190,7 @@ jbd_CfC_chunker <- function(data = NULL,
       ##### 1.5 Save ####
     if(progressiveSave == TRUE){
     # Save as a csv after each iteration
-    readr::write_csv(CountryList, file = paste0(path, "/CountryList.csv"))}
+    readr::write_excel_csv(CountryList, file = paste0(path, "/CountryList.csv"))}
   } # END loop
   colnames(CountryList) <- c("database_id", "country")
   

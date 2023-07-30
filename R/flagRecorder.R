@@ -146,7 +146,7 @@ flagRecorder <- function(
   
   #### 3.0 Save ####
     # Save this information as the csv flagsRecorded_DATE.csv
-  readr::write_csv(data,
+  readr::write_excel_csv(data,
                    paste0(outPath, "/", fileName, sep = ""))
     # User output
   message(paste(

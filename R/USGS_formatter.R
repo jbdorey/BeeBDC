@@ -254,7 +254,7 @@ USGS_formatter <- function(
                     " at location ", outPath,
                     sep = "")) 
   # Write the occurence file
-  write_csv(USGS_data, paste(outPath, "/USGS_formatted_", Sys.Date(), ".csv", sep = ""))
+  write_excel_csv(USGS_data, paste(outPath, "/USGS_formatted_", Sys.Date(), ".csv", sep = ""))
   # Notify user that the .eml file is being written
   writeLines( paste(" - Writing attributes file...", "\n",
                     "Written to file called ", paste("USGS_attribute_files", Sys.Date(),".xml", sep="" ),
@@ -265,13 +265,13 @@ USGS_formatter <- function(
   EML_attributes$Source_tibble$citations <- EML_attributes$Source_tibble$citations %>% unlist()
   EML_attributes$Source_tibble$rights <- EML_attributes$Source_tibble$rights %>% unlist()
   # Write the attribute file
-  write_csv(EML_attributes$Source_tibble, file = paste(outPath, 
+  write_excel_csv(EML_attributes$Source_tibble, file = paste(outPath, 
                                                        "/USGS_attribute_files", 
                                                        Sys.Date(),".csv", sep="" ))
   # IF there were problems detected, write these to a .csv file and notify the user
   if(nrow(USGS_problems) > 0){
     writeLines(" - Problems detected with the tibble. Saving to a .csv file...")
-    write_csv(USGS_problems, file = paste(outPath, "/USGS_problems", 
+    write_excel_csv(USGS_problems, file = paste(outPath, "/USGS_problems", 
                                           Sys.Date(),".csv", sep="" ))
   }
   

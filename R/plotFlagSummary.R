@@ -170,7 +170,7 @@ plotFlagSummary <- function(
       # If a save location is provided, then save the filtered dataset
     if(saveFiltered == TRUE){
       data %>%
-        readr::write_csv(paste0(outPath, "/FlagsPlot_", speciesName,".csv"))
+        readr::write_excel_csv(paste0(outPath, "/FlagsPlot_", speciesName,".csv"))
     }
     ##### c. map data ####
       # Save a version of the data for mapping, if asked by user
@@ -273,7 +273,7 @@ plotFlagSummary <- function(
     # If user choses to save the table that makes the plot, do so here.
   if(saveTable == TRUE){
     data %>%
-      readr::write_csv(paste0(outPath, "/",
+      readr::write_excel_csv(paste0(outPath, "/",
                               stringr::str_replace(fileName,
                                                    pattern = "\\.pdf",
                                                    replacement = ".csv")))

@@ -100,7 +100,7 @@ dataSaver <- function(path = NULL,
                       " at location ", outPath,"...",
                       sep = "")) 
     # Write the occurence file
-    readr::write_csv(occurrences, paste(outPath, "/", file_prefix, "combined_", Sys.Date(), ".csv", sep = ""))
+    readr::write_excel_csv(occurrences, paste(outPath, "/", file_prefix, "combined_", Sys.Date(), ".csv", sep = ""))
     
     #### Attr. file ####
     # Notfiy user that attribute data are being written
@@ -116,7 +116,7 @@ dataSaver <- function(path = NULL,
     #### DataSource file #####
     # Write the citations file
     # Write the occurrence file
-    readr::write_csv(occurrences_attributes$dataSource, paste(outPath, "/" ,file_prefix, "attributes_", 
+    readr::write_excel_csv(occurrences_attributes$dataSource, paste(outPath, "/" ,file_prefix, "attributes_", 
                                                       Sys.Date(), ".csv", sep = ""))
     
     #### All attributes ####

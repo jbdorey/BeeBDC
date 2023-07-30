@@ -370,7 +370,7 @@ summaryMaps(
 
 #### 6.0 Save data ####
 mapData %>%
-  readr::write_csv(paste0(DataPath, "/Output/Intermediate/", "cleanTaxon_",
+  readr::write_excel_csv(paste0(DataPath, "/Output/Intermediate/", "cleanTaxon_",
                           Sys.Date(), ".csv"))
 
 

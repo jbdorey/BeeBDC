@@ -679,7 +679,7 @@ dupeSummary <- function(
     
        ##### 6.4 Save ####
       # Save the running 
-    readr::write_csv(clusteredDuplicates, 
+    readr::write_excel_csv(clusteredDuplicates, 
                      file = paste0(path, 
                                   "/duplicateRun_", paste(duplicatedBy, collapse = "_"),
                                   "_", Sys.Date(),

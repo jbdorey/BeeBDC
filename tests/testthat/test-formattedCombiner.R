@@ -23,13 +23,13 @@ USGS_testData <- dplyr::tribble(
                                       "Epeolus scutellaris", "Rebekah Andrus Nelson",      "9/1/2007",          41.0704,          -71.8582,       "New York",    "USA",          "Suffolk",          "Montauk Point State Park", "2005-09-06T00:00:00Z", 2.00812e+13,      "Sam Droege", "USGS_DRO2169",              NA,                                                                                                                     "Technique used: hand net",              NA,                             4L, "USGS_DRO",           "USGS", "USGS_DRO database", "USGS_DRO039487", "USGS_DRO039487",                "field_note: sunny in the low 80's fair amount of wind;collected around the lighthouse on the point as well as on the bluff immediately adjacent on the Camp Hero Site.  Collected primarily off of goldenrod.|DateEntered: 1/27/2017 9:35:36|DateScanned: 10/9/200|ipAddress: 172.162.21.134|position: 09|time1: 2005-09-06 00:00:00|time2: 2005-09-06 00:00:00",  "m", "USGS_DRO039487", "USGS_data"
                        ) %>%
   # Save a temporary version of these data
-  readr::write_csv(., paste0(tempdir(), "/USGS_formatted_2023-01-27.csv"))
+  readr::write_excel_csv(., paste0(tempdir(), "/USGS_formatted_2023-01-27.csv"))
 
 USGS_attrFile <- dplyr::tribble(
                    ~dataSource, ~alternateIdentifier,              ~title,     ~pubDate,   ~dateStamp,           ~doi,                                          ~downloadLink, ~abstract,               ~citations,                                                     ~downloadCitation,                                                                          ~rights,
                    "USGS_data",       "Not provided", "USGS_DRO database", "2022/11/19", "2022/11/19", "Not provided", "Not provided, contact Sam Droege at sdroege@usgs.gov",        NA, "Citations not provided", "Sam Droege. (2022-11-19). United States Geological Survey bee data.", "Rights are not provided. Please seek permission for data use from Same Droege."
                    ) %>%
-  readr::write_csv(., paste0(tempdir(), "/USGS_attribute_files2023-01-27.csv"))
+  readr::write_excel_csv(., paste0(tempdir(), "/USGS_attribute_files2023-01-27.csv"))
 
   # Create a test database of occurrences
 existingTestdb <- dplyr::tribble(

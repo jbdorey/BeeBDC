@@ -49,7 +49,7 @@
 #' records are flagged as (FALSE) and, in this case, verbatim coordinates are
 #' replaced by corrected coordinates.
 #'
-#' @importFrom readr write_csv
+#' @importFrom readr write_excel_csv
 #' @importFrom dplyr tibble rename mutate select contains pull
 #' @importFrom here here
 #'
@@ -189,7 +189,7 @@ jbd_coordinates_transposed <-
         jbd_create_dir(path = path)
         setwd(path)
         corrected_coordinates %>%
-          readr::write_csv(
+          readr::write_excel_csv(
             paste(path, "/Output/Check/", fileName, sep = ""),
                            append = TRUE)
         message(

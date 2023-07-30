@@ -37,7 +37,7 @@
 #' @return A data frame that is in Darwin Core format.
 #' @export
 #' 
-#' @importFrom readr read_csv write_csv
+#' @importFrom readr read_csv write_excel_csv
 #' @importFrom dplyr rename mutate select if_else  %>%
 #' @importFrom lubridate ymd month
 #' @importFrom stringr str_c
@@ -367,7 +367,7 @@ readr_EPEL <- function(path = NULL,
   
   #### 1.3 Out ####
 # Save the dataset
-readr::write_csv(EPEL_Data, file = paste(path, outFile, sep = "/"))
+readr::write_excel_csv(EPEL_Data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(EPEL_Data)
 } # END readr_EPEL
@@ -436,7 +436,7 @@ ASP_data <- readr::read_csv(paste(path, inFile, sep = "/"),
 
   #### 2.3 Out ####
 # Save the dataset
-readr::write_csv(ASP_data, file = paste(path, outFile, sep = "/"))
+readr::write_excel_csv(ASP_data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(ASP_data)
 } # END readr_ASP
@@ -490,7 +490,7 @@ BMin_data <- readr::read_csv(paste(path, inFile, sep = "/"),
   )
   #### 3.3 Out ####
 # Save the dataset
-readr::write_csv(BMin_data, file = paste(path, outFile, sep = "/"))
+readr::write_excel_csv(BMin_data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(BMin_data)
 } # END readr_BMin
@@ -574,7 +574,7 @@ BMont_data <- readr::read_csv(paste(path, inFile, sep = "/"),
   )
   #### 4.3 Out ####
 # Save the dataset
-readr::write_csv(BMont_data, file = paste(path, outFile, sep = "/"))
+readr::write_excel_csv(BMont_data, file = paste(path, outFile, sep = "/"))
   # Return data
 return(BMont_data)
 } # END readr_BMont
@@ -624,7 +624,7 @@ Ecd_data <- readr::read_csv(paste(path, inFile, sep = "/"),
 
   #### 5.3 Out ####
 # Save the dataset
-readr::write_csv(Ecd_data, file = paste(path, outFile, sep = "/"))
+readr::write_excel_csv(Ecd_data, file = paste(path, outFile, sep = "/"))
 # Return data
 return(Ecd_data)
 } # END readr_Ecd
@@ -707,7 +707,7 @@ Gai_data <- readr::read_csv(paste(path, inFile, sep = "/"),
   )
   #### 6.3 Out ####
 # Save the dataset
-readr::write_csv(Gai_data, file =  paste(path, outFile, sep = "/"))
+readr::write_excel_csv(Gai_data, file =  paste(path, outFile, sep = "/"))
 # Return data
 return(Gai_data)
 } # END readr_Gai
@@ -865,7 +865,7 @@ CAES_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"), sheet = sheet) 
 
   #### 7.3 Out ####
 # Save the dataset
-readr::write_csv(CAES_data, file = paste(path, outFile, sep = "/"))
+readr::write_excel_csv(CAES_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
 return(CAES_data)
 } # END readr_CAES
@@ -993,7 +993,7 @@ KP_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/")) %>%
   
   #### 9.3 Out ####
   # Save the dataset
-  readr::write_csv(KP_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(KP_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(KP_data)
 } # END readr_KP
@@ -1075,7 +1075,7 @@ readr_EcoS <- function(path = NULL,
   
   #### 11.3 Out ####
   # Save the dataset
-  readr::write_csv(EcoS_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(EcoS_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(EcoS_data)
 } # END readr_EcoS
@@ -1224,7 +1224,7 @@ readr_GeoL <- function(path = NULL,
     
   #### 12.3 Out ####
   # Save the dataset
-  readr::write_csv(GeoL_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(GeoL_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(GeoL_data)
 } # END readr_GeoL
@@ -1348,7 +1348,7 @@ readr_EaCO <- function(path = NULL,
   
   #### 13.3 Out ####
   # Save the dataset
-  readr::write_csv(EaCO_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(EaCO_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(EaCO_data)
 } # END readr_EaCO
@@ -1461,7 +1461,7 @@ readr_MABC <- function(path = NULL,
   
   #### 14.3 Out ####
   # Save the dataset
-  readr::write_csv(MABC_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(MABC_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(MABC_data)
 } # END readr_MABC
@@ -1624,7 +1624,7 @@ readr_Col <- function(path = NULL,
   
   #### 15.3 Out ####
   # Save the dataset
-  readr::write_csv(Col_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(Col_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Col_data)
 } # END readr_Col
@@ -1681,7 +1681,7 @@ readr_FSCA <- function(path = NULL,
   
   #### 16.3 Out ####
   # Save the dataset
-  readr::write_csv(FSCA_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(FSCA_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(FSCA_data)
 } # END readr_FSCA
@@ -1743,7 +1743,7 @@ readr_SMC <- function(path = NULL,
       datasetID = "SMC"
     )
   # Save the dataset
-  readr::write_csv(SMC_Data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(SMC_Data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(SMC_Data)
 } # END readr_SMC
@@ -1829,7 +1829,7 @@ readr_Bal <- function(path = NULL,
   
   #### 18.3 Out ####
   # Save the dataset
-  readr::write_csv(Bal_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(Bal_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Bal_data)
 } # END readr_Bal
@@ -1924,7 +1924,7 @@ readr_Lic <- function(path = NULL,
   
   #### 19.3 Out ####
   # Save the dataset
-  readr::write_csv(Lic_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(Lic_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Lic_data)
 } # END readr_Lic
@@ -2040,7 +2040,7 @@ readr_Arm <- function(path = NULL,
   
   #### 20.3 Out ####
   # Save the dataset
-  readr::write_csv(Arm_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(Arm_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(Arm_data)
 } # END readr_Arm
@@ -2096,7 +2096,7 @@ readr_Dor <- function(path = NULL,
     )
   #### 21.3 Out ####
   # Save the dataset
-  readr::write_csv(Dor_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(Dor_data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(Dor_data)
 } # END readr_Dor
@@ -2162,7 +2162,7 @@ readr_MEPB <- function(path = NULL,
     )
   #### 22.3 Out ####
   # Save the dataset
-  readr::write_csv(MEPB_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(MEPB_data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(MEPB_data)
 } # END readr_MEPB
@@ -2281,7 +2281,7 @@ readr_BBD <- function(path = NULL,
   
   #### 23.3 Out ####
   # Save the dataset
-  readr::write_csv(BBD_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(BBD_data, file = paste(path, outFile, sep = "/"))
   # Return data
   return(BBD_data)
 } # END readr_BBD
@@ -2402,7 +2402,7 @@ readr_MPUJ <- function(path = NULL,
   
   #### 24.3 Out ####
   # Save the dataset
-  readr::write_csv(MPUJ_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(MPUJ_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(MPUJ_data)
 } # END readr_MPUJ
@@ -2468,7 +2468,7 @@ readr_STRI <- function(path = NULL,
   
   #### 25.3 Out ####
   # Save the dataset
-  readr::write_csv(STRI_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(STRI_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(STRI_data)
 } # END readr_STRI
@@ -2570,7 +2570,7 @@ readr_PALA <- function(path = NULL,
   
   #### 26.3 Out ####
   # Save the dataset
-  readr::write_csv(PALA_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(PALA_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(PALA_data)
 } # END readr_PALA
@@ -2647,7 +2647,7 @@ readr_JoLa <- function(path = NULL,
   
   #### 27.3 Out ####
   # Save the dataset
-  readr::write_csv(JoLa_data, file = paste(path, outFile, sep = "/"))
+  readr::write_excel_csv(JoLa_data, file = paste(path, outFile, sep = "/"))
   # Return the data from the function to the user
   return(JoLa_data)
 } # END readr_JoLa

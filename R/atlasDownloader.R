@@ -124,7 +124,7 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
     data_request = paste(dplyr::lst(attrs_ALA_Occurence_download$data_request)),
     ALA_download_reason = DL_reason,
     download_date = Sys.Date()) %>%
-    write_csv(file = paste(atlas_galah_path,
+    write_excel_csv(file = paste(atlas_galah_path,
                            "/galah_download_folder/", 
                            "galah_DL_info.csv", 
                            sep = ""))
