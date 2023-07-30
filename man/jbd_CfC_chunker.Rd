@@ -49,7 +49,7 @@ that needs to be re-merged with the data input.
 \description{
 Because the \code{\link[=jbd_country_from_coordinates]{jbd_country_from_coordinates()}} function is very RAM-intensive, this wrapper
 allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a
-time. The prefix jbd_ is used to highlight the difference between this function and the related
+time. The prefix jbd_ is used to highlight the difference between this function and the original
 bdc::bdc_country_from_coordinates().
 }
 \examples{

@@ -66,7 +66,7 @@ that had coordinates transposed.
 \description{
 Because the \code{\link[=jbd_coordinates_transposed]{jbd_coordinates_transposed()}} function is very RAM-intensive, this wrapper
 allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a
-time. The prefix jbd_ is used to highlight the difference between this function and the related
+time. The prefix jbd_ is used to highlight the difference between this function and the original
 \code{\link[bdc:bdc_coordinates_transposed]{bdc::bdc_coordinates_transposed()}}.
 }
 \examples{

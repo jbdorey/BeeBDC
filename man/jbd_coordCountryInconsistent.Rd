@@ -32,7 +32,7 @@ The input occurrence data with a new column, .coordinates_country_inconsistent
 \description{
 Compares stated country name in an occurrence record with record’s coordinates using
 rnaturalearth data. The prefix, jbd_ is meant
-to distinguish this function from the similar bdc::bdc_coordinates_country_inconsistent().
+to distinguish this function from the original bdc::bdc_coordinates_country_inconsistent().
 }
 \examples{
 

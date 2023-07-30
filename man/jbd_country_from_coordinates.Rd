@@ -36,7 +36,8 @@ such information and for which a country determination could be made.
 }
 \description{
 Country names derived from valid geographic coordinates are added to records
-missing country names.
+missing country names. The prefix, jbd_ is meant
+to distinguish this function from the original bdc::bdc_country_from_coordinates().
 }
 \details{
 This function assigns a country name for records missing such
