@@ -1135,7 +1135,10 @@ readr_GeoL <- function(path = NULL,
       # Temporarily add an identifier column
     dplyr::mutate(
       tempSource = "GeoL",
-      rightsHolder = rightsHolder  %>% as.character()
+      rightsHolder = rightsHolder  %>% as.character(),
+      island = island %>% as.character(),
+      municipality = municipality %>% as.character(),
+      verbatimEventDate = verbatimEventDate %>% as.character()
     )
   # User output
   writeLines(paste0(
@@ -1187,7 +1190,10 @@ readr_GeoL <- function(path = NULL,
     dplyr::mutate(continent = continent %>% as.character(),
                   type = type %>% as.character(),
                   id = id %>% as.character(),
-                  samplingProtocol = samplingProtocol %>% as.character()) %>%
+                  samplingProtocol = samplingProtocol %>% as.character(),
+                  island = island %>% as.character(),
+                  municipality = municipality %>% as.character(),
+                  verbatimEventDate = verbatimEventDate %>% as.character()) %>%
     # keep only valid columns
     dplyr::select( tidyselect::any_of(names(ColTypeR()[[1]]))) %>%
     # Remove blanks
@@ -1809,7 +1815,7 @@ readr_Bal <- function(path = NULL,
     # Format eventDate and add dataSource
     # Format eventDate
     dplyr::mutate(
-      eventDate = lubridate::ymd(eventDate,
+      eventDate = lubridate::dmy(eventDate,
                                  truncated = 2, quiet = FALSE),
       # Parse eventDate into day, month, and year
       month = lubridate::month(eventDate),
