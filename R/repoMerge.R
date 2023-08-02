@@ -43,7 +43,7 @@ repoMerge <- function(path, save_type, occ_paths){
                     "Depending on file size and number, this could take some time.","\n",
                     sep = ""))
   # Make an internal copy of the template for use in the loop as the template tibble
-  data_template <- matrix(ncol = length(data_template), nrow = 0) %>% as.data.frame() %>% 
+  data_template <- matrix(ncol = length(BeeBDC::ColTypeR()[[1]] %>% names()), nrow = 0) %>% as.data.frame() %>% 
       setNames(BeeBDC::ColTypeR()[[1]] %>% names()) %>% dplyr::tibble() %>%
     dplyr::mutate(across(everything(), as.character))
   # Copy the template
