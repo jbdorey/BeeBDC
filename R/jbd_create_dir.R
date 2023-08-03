@@ -29,7 +29,7 @@ jbd_create_dir <- function(path = NULL) {
   } # END option 1
   
   # Option 2 if a path is provided, create directories at that path
-  if(!is.null(path)){
+  if(!is.null(path) & !file.exists(path)){
     dir.create(paste0(path, "/Output/Check"), recursive = TRUE)
     dir.create(paste0(path, "/Output/Intermediate"), recursive = TRUE)
     dir.create(paste0(path, "/Output/Report"), recursive = TRUE)

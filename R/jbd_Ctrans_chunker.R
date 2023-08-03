@@ -12,7 +12,7 @@
 #' @param lat Character. The column with latitude in decimal degrees. Default = "decimalLatitude".
 #' @param lon Character. The column with longitude in decimal degrees. Default = "decimalLongitude".
 #' @param country Character. The name of the column containing country names. Default = "country".
-#' @param id Character. The column name with a unique record identifier. Default = "database_id".
+#' @param idcol Character. The column name with a unique record identifier. Default = "database_id".
 #' @param countryCode Character. Identifies the column containing ISO-2 country codes 
 #' Default = "countryCode".
 #' @param sci_names Character. The column containing scientific names. Default = "scientificName".
@@ -45,7 +45,7 @@
 #' beesFlagged_out <- jbd_Ctrans_chunker(
 #' # bdc_coordinates_transposed inputs
 #' data = beesFlagged,
-#' id = "database_id",
+#' idcol = "database_id",
 #' lat = "decimalLatitude",
 #' lon = "decimalLongitude",
 #' country = "country_suggested",
@@ -74,7 +74,7 @@ jbd_Ctrans_chunker <- function(
     data = NULL,
     lat = "decimalLatitude",
     lon = "decimalLongitude",
-    id = "databse_id",
+    idcol = "databse_id",
     country = "country_suggested",
     countryCode = "countryCode",
     sci_names = "scientificName",
@@ -150,7 +150,7 @@ jbd_Ctrans_chunker <- function(
       sci_names = sci_names,
       country = country,
       countryCode = countryCode,
-      id = id,
+      idcol = idcol,
       border_buffer = border_buffer,
       save_outputs = save_outputs,
       path = path,

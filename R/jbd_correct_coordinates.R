@@ -13,8 +13,8 @@
 #' "decimalLatitude".
 #' @param sp character string. The column name with species scientific name.
 #' Default = "scientificName".
-#' @param id id character string. The column name with an unique record
-#' identifier. #' Default = "id".
+#' @param idcol idcol character string. The column name with an unique record
+#' identifier. #' Default = "idcol".
 #' @param cntr_iso2 character string. The column name with the country code
 #' assignment of each record. Default = "country_code".
 #' @param world_poly polygon. Borders of the world.
@@ -41,7 +41,7 @@ jbd_correct_coordinates <-
            x,
            y,
            sp,
-           id,
+           idcol,
            cntr_iso2,
            world_poly,
            world_poly_iso,
@@ -128,7 +128,7 @@ jbd_correct_coordinates <-
               x = x,
               y = y,
               country_code = cntr_iso2,
-              id = id,
+              idcol = idcol,
               worldmap = world_poly,
               worldmap_cntr_code = world_poly_iso
             ))
@@ -186,14 +186,14 @@ jbd_correct_coordinates <-
         dplyr::as_tibble() # binding dataframes allocated in the list in a single one
       
       coord_test <-
-        coord_test[!duplicated(coord_test[id]), ] %>%
-        dplyr::relocate(dplyr::all_of(id), dplyr::all_of(x), dplyr::all_of(y))
+        coord_test[!duplicated(coord_test[idcol]), ] %>%
+        dplyr::relocate(dplyr::all_of(idcol), dplyr::all_of(x), dplyr::all_of(y))
       
       # Merge coord_test with other columns of occurrence database
       coord_test <-
         dplyr::left_join(coord_test,
                          data %>% dplyr::select(-c({{ x }}, {{ y }}, {{ cntr_iso2 }})),
-                         by = id
+                         by = idcol
         )
       
       return(coord_test)

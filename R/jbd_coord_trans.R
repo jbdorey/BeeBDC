@@ -13,7 +13,7 @@
 #' "decimalLatitude".
 #' @param country_code character string. The column name with the country code
 #' assignment of each record. Default = "country_code".
-#' @param id numeric. Dataset unique identifier. Default = "dabase_id".
+#' @param idcol numeric. Dataset unique identifier. Default = "dabase_id".
 #' @param worldmap polygon. Borders of the world.
 #' @param worldmap_cntr_code charterer sting. Iso2 code column of country
 #' polygon database.
@@ -32,7 +32,7 @@
 #'   x = x,
 #'   y = y,
 #'   country_code = cntr_iso2,
-#'   id = id,
+#'   idcol = idcol,
 #'   worldmap = world_poly,
 #'   worldmap_cntr_code = world_poly_iso
 #'   )
@@ -42,7 +42,7 @@ jbd_coord_trans <-
            x,
            y,
            country_code,
-           id,
+           idcol,
            worldmap,
            worldmap_cntr_code) {
     data <-
@@ -50,7 +50,7 @@ jbd_coord_trans <-
         dplyr::all_of(x),
         dplyr::all_of(y),
         dplyr::all_of(country_code),
-        dplyr::all_of(id)
+        dplyr::all_of(idcol)
       )
     
     d1 <- data.frame(x = data[, x], y = -data[, y])

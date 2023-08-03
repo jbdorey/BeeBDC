@@ -7,7 +7,7 @@
 #' @param data A data frame or tibble. Containing a unique identifier for each record,
 #' geographical coordinates, and country names. Coordinates must be expressed
 #' in decimal degrees and WGS84.
-#' @param id A character string. The column name with a unique record identifier.
+#' @param idcol A character string. The column name with a unique record identifier.
 #' Default = "database_id".
 #' @param sci_names A character string. The column name with species' scientific
 #' names. Default = "scientificName".
@@ -59,7 +59,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' id <- c(1, 2, 3, 4)
+#' idcol <- c(1, 2, 3, 4)
 #' scientificName <- c(
 #'   "Rhinella major", "Scinax ruber",
 #'   "Siparuna guianensis", "Psychotria vellosiana"
@@ -69,7 +69,7 @@
 #' country <- c("BOLIVIA", "bolivia", "Brasil", "Brazil")
 #'
 #' x <- data.frame(
-#'   id, scientificName, decimalLatitude,
+#'   idcol, scientificName, decimalLatitude,
 #'   decimalLongitude, country
 #' )
 #'
@@ -78,7 +78,7 @@
 #'
 #' jbd_coordinates_transposed(
 #'   data = x,
-#'   id = "id",
+#'   idcol = "idcol",
 #'   sci_names = "scientificName",
 #'   lat = "decimalLatitude",
 #'   lon = "decimalLongitude",
@@ -92,7 +92,7 @@
 #'
 jbd_coordinates_transposed <-
   function(data,
-           id = "database_id",
+           idcol = "database_id",
            sci_names = "scientificName",
            lat = "decimalLatitude",
            lon = "decimalLongitude",
@@ -120,10 +120,10 @@ jbd_coordinates_transposed <-
     
     data <- dplyr::tibble(data)
     minimum_colnames <-
-      c(id, sci_names, lat, lon, country, countryCode)
+      c(idcol, sci_names, lat, lon, country, countryCode)
     
     if (length(minimum_colnames) < 6) {
-      stop("Fill all function arguments: id, sci_names, lon, lat, and
+      stop("Fill all function arguments: idcol, sci_names, lon, lat, and
          country")
     }
     
@@ -146,7 +146,7 @@ jbd_coordinates_transposed <-
     data <-
       data %>%
       dplyr::rename(
-        database_id = {{ id }},
+        database_id = {{ idcol }},
         decimalLatitude = {{ lat }},
         decimalLongitude = {{ lon }},
         scientificName = {{ sci_names }},
@@ -171,7 +171,7 @@ jbd_coordinates_transposed <-
         x = "decimalLongitude",
         y = "decimalLatitude",
         sp = "scientificName",
-        id = "database_id",
+        idcol = "database_id",
         cntr_iso2 = "countryCode",
         world_poly = worldmap,
         world_poly_iso = "iso2c",

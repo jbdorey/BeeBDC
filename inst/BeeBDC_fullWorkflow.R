@@ -1420,7 +1420,6 @@ BeeBDC::interactiveMapR(
   jitterValue = 0.01
 )
 
-  # EXCLUDE THIS IN DOCUMENTATION, ROBBIE...
   ##### 9.5 Data providers ####
 # Read in the clean data if it's not already in the environment
 if(!exists("mapData")){
@@ -1431,36 +1430,18 @@ if(!exists("mapData")){
 institutionList_DL <- readxl::read_excel(paste(DiscLifePath, "Apoidea Bee Collections Master List jan 2023.xlsx",
                                                sep = "/"))
 source(paste(ScriptPath, "dataProvTables.R", sep = "/"))
-TEST <- BeeBDC::dataProvTables(
-    data = mapData,
-      # Some manual extractions of instutionCode for bee data
-    runBeeDataChecks = TRUE,
-    institutionList = institutionList_DL)
+dataProvTable <- BeeBDC::dataProvTables(data = mapData,
+                                        runBeeDataChecks = TRUE,
+                                        outPath = OutPath_Report,
+                                        fileName = "dataProvTable.csv")
 
-BISON <- mapData %>%
-  dplyr::filter(institutionCode == "BISON")
-
-TEST <- mapData %>%
-  dplyr::group_by(institutionCode) %>%
-  dplyr::add_tally() %>%
-  dplyr::select(c(institutionCode, n)) %>%
-  dplyr::distinct(institutionCode, .keep_all = TRUE)
-
-TEST2 <- occData %>%
-  dplyr::filter(is.na(institutionCode)) %>%
- # dplyr::filter(stringr::str_detect(dataSource, "GBIF|iDigBio")) %>%
-  dplyr::select(c(
-    database_id, dataSource, scientificName, family, genus, previousIdentifications, identifiedBy, 
-    decimalLatitude, decimalLongitude, stateProvince, country, eventDate, eventTime, year,
-    recordNumber, recordedBy, eventID, samplingProtocol, catalogNumber, gbifID, datasetID,
-    institutionCode, datasetName, otherCatalogNumbers, occurrenceID, coreid, recordId, rightsHolder,
-    bibliographicCitation, references, id, verbatim_scientificName
-  ))
-  
-table(TEST2$dataSource)
-
-mapData$bibliographicCitation %>% unique()
-
+  ##### 9.6 Flag summary ####
+  # Produce a summary table of flags per species
+summaryTable <- BeeBDC::flagSummaryTable(data = beeData, 
+                                         column = "scientificName", 
+                                         outPath = OutPath_Report,
+                                         fileName = "flagTable.csv")
+                                         
 
 
 

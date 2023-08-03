@@ -9,8 +9,11 @@
 #' @param data A data frame or tibble. The flagged dataset.
 #' @param column Character. The name of the column to group by and summarise the failed occurrences.
 #' Default = "scientificName".
-#' @param outPath A character path. Optional. The path and file name in which to save the table as 
-#' a .csv. If no outPath is provided, the table will not be saved. Default = NULL.
+#' 
+#' @param outPath A character path. The path to the directory in which the figure will be saved.
+#' Default = OutPath_Report.
+#' @param fileName Character. The name of the file to be saved, ending in ".csv". 
+#' Default = "flagTable.csv".
 #' 
 #' @importFrom dplyr %>%
 #'
@@ -24,15 +27,17 @@
 #' data("beesFlagged")
 #'
 #'   # Run the function and build the flag table
-#' flagTibble <- flagSummary(data = beesFlagged,
+#' flagTibble <- flagSummaryTable(data = beesFlagged,
 #'                               column = "scientificName",
-#'                               outPath = paste0(tempdir(), "/flagTable.csv"))
+#'                               outPath = paste0(tempdir()),
+#'                               fileName = "flagTable.csv")
 #'                               
 #' 
-flagSummary <- function(
+flagSummaryTable <- function(
     data = NULL,
     column = "scientificName",
-    outPath = NULL){
+    outPath = OutPath_Report,
+    fileName = "flagTable.csv"){
   # locally bind variables to the function
   flagColumns <- dataFlags <- speciesColumn <- loopCol <- summaryColumn <- . <- NULL
   flagCol <- .summary <- totalFailed <- totalFailed <- total <-  NULL
@@ -112,7 +117,7 @@ summaryColumn <- speciesColumn %>%
   # If user provided an outPath then save the file
 if(!is.null(outPath)){
   summaryColumn %>%
-    readr::write_excel_csv(file = outPath)
+    readr::write_excel_csv(file = paste(outPath, fileName, sep = "/"))
 }
 
   # return the table as a tibble
