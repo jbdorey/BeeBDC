@@ -104,7 +104,7 @@ jbd_correct_coordinates <-
       return(NULL)
     }
     
-    # Split database
+    # Split database by country code - cntr_iso2
     occ_country <-
       split(occ_country, occ_country[cntr_iso2])
     

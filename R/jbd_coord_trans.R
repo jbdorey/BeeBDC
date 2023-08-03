@@ -45,26 +45,28 @@ jbd_coord_trans <-
            idcol,
            worldmap,
            worldmap_cntr_code) {
+    . <- ':=' <- NULL
     data <-
       data %>% dplyr::select(
         dplyr::all_of(x),
         dplyr::all_of(y),
         dplyr::all_of(country_code),
         dplyr::all_of(idcol)
-      )
+      ) %>% 
+      dplyr::rename("idcol" = tidyselect::all_of(idcol))
     
-    d1 <- data.frame(x = data[, x], y = -data[, y])
-    d2 <- data.frame(x = -data[, x], y = data[, y])
-    d3 <- data.frame(x = -data[, x], y = -data[, y])
-    d4 <- data.frame(x = data[, y], y = data[, x])
-    d5 <- data.frame(x = data[, y], y = -data[, x])
-    d6 <- data.frame(x = -data[, y], y = data[, x])
-    d7 <- data.frame(x = -data[, y], y = -data[, x])
+    d1 <- data.frame(x = data[, x], y = -data[, y], idcol = data[, "idcol"])
+    d2 <- data.frame(x = -data[, x], y = data[, y], idcol = data[, "idcol"])
+    d3 <- data.frame(x = -data[, x], y = -data[, y], idcol = data[, "idcol"])
+    d4 <- data.frame(x = data[, y], y = data[, x], idcol = data[, "idcol"])
+    d5 <- data.frame(x = data[, y], y = -data[, x], idcol = data[, "idcol"])
+    d6 <- data.frame(x = -data[, y], y = data[, x], idcol = data[, "idcol"])
+    d7 <- data.frame(x = -data[, y], y = -data[, x], idcol = data[, "idcol"])
     
     d.list <- list(d1, d2, d3, d4, d5, d6, d7)
     rm(list = paste0("d", 1:7))
     d.list <- lapply(d.list, function(x) {
-      colnames(x) <- c("x", "y")
+      colnames(x) <- c("x", "y", "idcol")
       return(x)
     })
     
@@ -72,16 +74,23 @@ jbd_coord_trans <-
 
 
     for (d in 1:length(d.list)) {
-      caluse <- sf::st_as_sf(d.list[[d]], coords = c("x", "y"), crs = sf::st_crs(worldmap)) 
+      caluse <- d.list[[d]] %>% 
+        sf::st_as_sf(., coords = c("x", "y"), crs = sf::st_crs("WGS84")) 
       suppressWarnings({
-      overresult <- sf::st_join(caluse, worldmap) 
+      overresult <- sf::st_intersection(caluse, worldmap) 
       })
+      
+      if(nrow(overresult) > 0){
       colnames(d.list[[d]]) <-
-        c(paste0(x, "_modified"), paste0(y, "_modified"))
-      over_list[[d]] <- data.frame(d.list[[d]], data, overresult)
+        c(paste0(x, "_modified"), paste0(y, "_modified"), "idcol")
+      over_list[[d]] <- dplyr::left_join(d.list[[d]], data, by = "idcol") %>%
+        dplyr::left_join(overresult, by = "idcol")
       rm(caluse)
       filt <-
-        which(over_list[[d]][country_code] == over_list[[d]][worldmap_cntr_code])
+        which(over_list[[d]][country_code] == over_list[[d]][worldmap_cntr_code]) 
+      }else{
+          filt = dplyr::tibble()
+        }
       if (length(filt) > 0) {
         over_list[[d]] <- over_list[[d]][filt,]
       } else {
@@ -96,8 +105,7 @@ jbd_coord_trans <-
     
     if (any(non_empty_list_test)) {
       over_list <- over_list[non_empty_list_test]
-      over_list <- dplyr::bind_rows(over_list)
-      
+      over_list <- dplyr::bind_rows(over_list) 
     } else{
       over_list <- dplyr::tibble(
         decimalLongitude = double(),
@@ -106,5 +114,9 @@ jbd_coord_trans <-
         database_id = character()
       )
     }
+    # Return the database_id column to its correct name
+    over_list <- over_list %>%
+      dplyr::rename(!!idcol := idcol)
+    
     return(over_list)
   }

@@ -45,7 +45,7 @@ repoMerge <- function(path, save_type, occ_paths){
   # Make an internal copy of the template for use in the loop as the template tibble
   data_template <- matrix(ncol = length(BeeBDC::ColTypeR()[[1]] %>% names()), nrow = 0) %>% as.data.frame() %>% 
       setNames(BeeBDC::ColTypeR()[[1]] %>% names()) %>% dplyr::tibble() %>%
-    dplyr::mutate(across(everything(), as.character))
+    dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
   # Copy the template
   Data_WebDL <- data_template
   # Make an empty eml file for the loop

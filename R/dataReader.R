@@ -19,7 +19,7 @@ requireNamespace("dplyr", "mgsub")
   # Make an internal copy of the template for use in the loop as the template tibble
   data_template <- matrix(ncol = length(BeeBDC::ColTypeR()[[1]] %>% names()), nrow = 0) %>% as.data.frame() %>% 
     setNames(BeeBDC::ColTypeR()[[1]] %>% names()) %>% dplyr::tibble() %>%
-    dplyr::mutate(across(everything(), as.character))
+    dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
   
   #### ALA data ####
   if(grepl("ALA_data", names(path_i)) == "TRUE"){

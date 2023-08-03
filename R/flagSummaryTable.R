@@ -40,7 +40,7 @@ flagSummaryTable <- function(
     fileName = "flagTable.csv"){
   # locally bind variables to the function
   flagColumns <- dataFlags <- speciesColumn <- loopCol <- summaryColumn <- . <- NULL
-  flagCol <- .summary <- totalFailed <- totalFailed <- total <-  NULL
+  flagCol <- .summary <- totalFailed <- totalFailed <- total <- OutPath_Report <- NULL
   
   # Load required packages
   requireNamespace("dplyr")

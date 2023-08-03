@@ -608,7 +608,8 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
   # chunker inputs
   stepSize = 1000000,  # How many rows to process at a time
   chunkStart = 1,  # Start row
-  append = FALSE  # If FALSE it may overwrite existing dataset
+  append = FALSE,  # If FALSE it may overwrite existing dataset
+  path = OutPath_Check
 ) 
 
 # Get a summary of the number of transposed records

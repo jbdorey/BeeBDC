@@ -1107,6 +1107,7 @@ readr_GeoL <- function(path = NULL,
     othercatalognumbers<-occurrenceid<-coreid<-recordid<-collectionid<-
     verbatimscientificname<-verbatimeventdate<-id <- . <- NULL
   rightsHolder <- continent <- type <- samplingProtocol <- NULL
+  island <- municipality <- verbatimEventDate <- NULL
   
   #### 12.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 

@@ -22,7 +22,7 @@ jbd_get_world_map <- function(scale = "large") {
   # loadNamespace("rnaturalearthdata")
   
   suppressWarnings({
-    worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
+    worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf") 
     
       # For large scales
     if(scale %in% c("large", "10")){
@@ -56,7 +56,7 @@ jbd_get_world_map <- function(scale = "large") {
 
     worldmap <- worldmap %>%
       dplyr::select(iso2c, iso3c) %>%
-      sf::st_make_valid()
+      sf::st_make_valid() 
   })
   return(worldmap)
 }
