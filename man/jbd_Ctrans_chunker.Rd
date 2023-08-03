@@ -8,7 +8,7 @@ jbd_Ctrans_chunker(
   data = NULL,
   lat = "decimalLatitude",
   lon = "decimalLongitude",
-  id = "databse_id",
+  idcol = "databse_id",
   country = "country_suggested",
   countryCode = "countryCode",
   sci_names = "scientificName",
@@ -29,7 +29,7 @@ jbd_Ctrans_chunker(
 
 \item{lon}{Character. The column with longitude in decimal degrees. Default = "decimalLongitude".}
 
-\item{id}{Character. The column name with a unique record identifier. Default = "database_id".}
+\item{idcol}{Character. The column name with a unique record identifier. Default = "database_id".}
 
 \item{country}{Character. The name of the column containing country names. Default = "country".}
 
@@ -78,7 +78,7 @@ beesFlagged <- beesFlagged \%>\% dplyr::select(!c(.val, .sea))
 beesFlagged_out <- jbd_Ctrans_chunker(
 # bdc_coordinates_transposed inputs
 data = beesFlagged,
-id = "database_id",
+idcol = "database_id",
 lat = "decimalLatitude",
 lon = "decimalLongitude",
 country = "country_suggested",

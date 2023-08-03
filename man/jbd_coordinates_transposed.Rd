@@ -6,7 +6,7 @@
 \usage{
 jbd_coordinates_transposed(
   data,
-  id = "database_id",
+  idcol = "database_id",
   sci_names = "scientificName",
   lat = "decimalLatitude",
   lon = "decimalLongitude",
@@ -24,7 +24,7 @@ jbd_coordinates_transposed(
 geographical coordinates, and country names. Coordinates must be expressed
 in decimal degrees and WGS84.}
 
-\item{id}{A character string. The column name with a unique record identifier.
+\item{idcol}{A character string. The column name with a unique record identifier.
 Default = "database_id".}
 
 \item{sci_names}{A character string. The column name with species' scientific
@@ -84,7 +84,7 @@ columns "country" and "countryCode" can be retrieved by using the function
 }
 \examples{
 \dontrun{
-id <- c(1, 2, 3, 4)
+idcol <- c(1, 2, 3, 4)
 scientificName <- c(
   "Rhinella major", "Scinax ruber",
   "Siparuna guianensis", "Psychotria vellosiana"
@@ -94,7 +94,7 @@ decimalLongitude <- c(-17.90000, -67.91667, -13.25000, -13.82444)
 country <- c("BOLIVIA", "bolivia", "Brasil", "Brazil")
 
 x <- data.frame(
-  id, scientificName, decimalLatitude,
+  idcol, scientificName, decimalLatitude,
   decimalLongitude, country
 )
 
@@ -103,7 +103,7 @@ x <- bdc::bdc_country_standardized(data = x, country = "country")
 
 jbd_coordinates_transposed(
   data = x,
-  id = "id",
+  idcol = "idcol",
   sci_names = "scientificName",
   lat = "decimalLatitude",
   lon = "decimalLongitude",

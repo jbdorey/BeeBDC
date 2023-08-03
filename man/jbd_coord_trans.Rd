@@ -4,7 +4,7 @@
 \alias{jbd_coord_trans}
 \title{Internal function. Correct transposed coordinates}
 \usage{
-jbd_coord_trans(data, x, y, country_code, id, worldmap, worldmap_cntr_code)
+jbd_coord_trans(data, x, y, country_code, idcol, worldmap, worldmap_cntr_code)
 }
 \arguments{
 \item{data}{data data.frame. Containing an unique identifier for each
@@ -20,7 +20,7 @@ expressed in decimal degree and in WGS84.}
 \item{country_code}{character string. The column name with the country code
 assignment of each record. Default = "country_code".}
 
-\item{id}{numeric. Dataset unique identifier. Default = "dabase_id".}
+\item{idcol}{numeric. Dataset unique identifier. Default = "dabase_id".}
 
 \item{worldmap}{polygon. Borders of the world.}
 
@@ -41,7 +41,7 @@ jbd_coord_trans(
   x = x,
   y = y,
   country_code = cntr_iso2,
-  id = id,
+  idcol = idcol,
   worldmap = world_poly,
   worldmap_cntr_code = world_poly_iso
   )
