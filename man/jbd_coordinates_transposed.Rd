@@ -16,7 +16,8 @@ jbd_coordinates_transposed(
   save_outputs = FALSE,
   fileName = NULL,
   scale = "large",
-  path = NULL
+  path = NULL,
+  mc.cores = 1
 )
 }
 \arguments{
@@ -59,6 +60,10 @@ Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Defaul
 \item{path}{A character string. A path as a character vector for where to create the directories
 and save the figures. If
 no path is provided (the default), the directories will be created using \code{\link[here:here]{here::here()}}.}
+
+\item{mc.cores}{Numeric. If > 1, the jbd_correct_coordinates function will run in parallel
+using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Default = 1.}
 }
 \value{
 A tibble containing the column "coordinates_transposed" which indicates if

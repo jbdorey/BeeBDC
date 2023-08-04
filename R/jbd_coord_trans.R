@@ -52,8 +52,9 @@ jbd_coord_trans <-
         dplyr::all_of(y),
         dplyr::all_of(country_code),
         dplyr::all_of(idcol)
-      ) %>% 
-      dplyr::rename("idcol" = tidyselect::all_of(idcol))
+      ) 
+    
+    names(data)[names(data) == idcol] <- "idcol"
     
     d1 <- data.frame(x = data[, x], y = -data[, y], idcol = data[, "idcol"])
     d2 <- data.frame(x = -data[, x], y = data[, y], idcol = data[, "idcol"])

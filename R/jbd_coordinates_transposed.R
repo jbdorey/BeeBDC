@@ -32,7 +32,10 @@
 #' no path is provided (the default), the directories will be created using [here::here()].
 #' @param scale Passed to rnaturalearth's ne_countries().
 #' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
-#
+#' @param mc.cores Numeric. If > 1, the jbd_correct_coordinates function will run in parallel
+#' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Default = 1.
+#'
 #' @details This test identifies transposed coordinates based on mismatches between the 
 #' country provided for a record and the record’s latitude and longitude coordinates. Transposed
 #' coordinates often fall outside of the indicated country (i.e., in other
@@ -102,7 +105,8 @@ jbd_coordinates_transposed <-
            save_outputs = FALSE,
            fileName = NULL,
            scale = "large",
-           path = NULL) {
+           path = NULL,
+           mc.cores = 1) {
     decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
     
     requireNamespace("dplyr")

@@ -29,6 +29,9 @@
 #' @param append Logical. If TRUE, the function will look to append an existing file.
 #' @param scale Passed to rnaturalearth's ne_countries().
 #' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
+#' @param mc.cores Numeric. If > 1, the jbd_correct_coordinates function will run in parallel
+#' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Default = 1.
 #'
 #' @return Returns the input data frame with a new column, coordinates_transposed, where FALSE = columns
 #' that had coordinates transposed.
@@ -65,7 +68,8 @@
 #' # If FALSE it may overwrite existing dataset
 #' append = FALSE,
 #'   # Users should select scale = "large" as it is more thoroughly tested
-#' scale = "medium"
+#' scale = "medium",
+#' mc.cores = 1
 #' ) 
 #' table(beesFlagged_out$coordinates_transposed, useNA = "always")
 
@@ -89,7 +93,8 @@ jbd_Ctrans_chunker <- function(
     path = tempdir(),
      # If FALSE it may overwrite existing dataset
     append = TRUE,
-    scale = "large"){
+    scale = "large",
+    mc.cores = 1){
   database_id <- NULL
   
   requireNamespace("dplyr")
@@ -127,7 +132,7 @@ jbd_Ctrans_chunker <- function(
                    format(chunkEnd, big.mark=",",scientific=FALSE), "\n",
                    "append = ", append, 
                    sep = ""))
-  #### 1.0 Function Loop ####
+  #### 1.0 Run Loop ####
   # Loop - from chunkStart to the end, process rows in batches of chunkEnd
   for(i in 1:nChunks){
     # Select rows from chunkStart to chunkEnd
@@ -142,7 +147,7 @@ jbd_Ctrans_chunker <- function(
                      format(chunkEnd, big.mark=",",scientific=FALSE),
                      sep = ""))
       ##### 1.1 Function ####
-    # Run the bdc_country_from_coordinates function from the bdc package
+    # Run the bdc_country_from_coordinates function from the BeeBDC package
     loop_check_pf <- jbd_coordinates_transposed(
       data = loop_check_pf,
       lat = lat,
@@ -155,7 +160,8 @@ jbd_Ctrans_chunker <- function(
       save_outputs = save_outputs,
       path = path,
       fileName = fileName,
-      scale = scale)
+      scale = scale,
+      mc.cores = mc.cores)
     
     #### 1.2 Save + bind file ####
     # Save a smaller csv file with the database_id and country name to be matched later
@@ -190,11 +196,16 @@ jbd_Ctrans_chunker <- function(
     if(progressiveSave == TRUE){
     readr::write_excel_csv(Tranps_tibble, file = "Tranps_tibble.csv")}
   } # END loop
+  
+  
+  #### 2.0 Clean and return ####
   # Remove NA values
   Tranps_tibble <- Tranps_tibble %>%
     dplyr::filter(!is.na("database_id")) %>%
     # Remove any duplicates that have been introduced
     dplyr::distinct()
+  
+  
   endTime <- Sys.time()
   
   message(paste(

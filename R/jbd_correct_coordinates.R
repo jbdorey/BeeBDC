@@ -24,6 +24,9 @@
 #' buffer around the country. Records within a given country and at a specified
 #' distance from its coast will be not be corrected. Default = 0.2 (~20 km at
 #' the equator).
+#' @param mc.cores Numeric. If > 1, the jbd_correct_coordinates function will run in parallel
+#' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Default = 1.
 #'
 #' @return Internal function
 #'
@@ -45,14 +48,16 @@ jbd_correct_coordinates <-
            cntr_iso2,
            world_poly,
            world_poly_iso,
-           border_buffer = border_buffer) {
-    . <- decimalLatitude <- decimalLongitude <- .summary <- iso2c <- NULL
-    
+           border_buffer,
+           mc.cores = 1) {
+    . <- decimalLatitude <- decimalLongitude <- .summary <- iso2c <- funCoordTrans <- ':=' <- NULL
+      #### 1.0 data prep ####
     x_mod <- paste0(x, "_modified")
     y_mod <- paste0(y, "_modified")
     
     occ_country <- data %>% dplyr::filter(!is.na(data[[cntr_iso2]]))
     
+      #### 2.0 CoordinateCleaner ####
     # Filter occurrences database to avoid error in clean_coordinates errors
     suppressWarnings({
       suppressMessages({
@@ -116,24 +121,118 @@ jbd_correct_coordinates <-
     # to correct georeferenced occurrences
     coord_test <- list()
     
-    for (i in 1:length(occ_country)) {
-      message(
-        "Processing occurrences from: ",
-        occ_country[[i]][cntr_iso2] %>% unique(),
-        paste0(" (", nrow(occ_country[[i]]), ")")
-      )
-      try(coord_test[[i]] <-
-            jbd_coord_trans(
-              data = occ_country[[i]],
-              x = x,
-              y = y,
-              country_code = cntr_iso2,
-              idcol = idcol,
-              worldmap = world_poly,
-              worldmap_cntr_code = world_poly_iso
-            ))
-    }
+    #### 3.0 Serial #####
+      # If user does not specify for parallel operation
+    if(mc.cores < 2){
+      for (i in 1:length(occ_country)) {
+        message(
+          "Processing occurrences from: ",
+          occ_country[[i]][cntr_iso2] %>% unique(),
+          paste0(" (", nrow(occ_country[[i]]), ")")
+        )
+        try(coord_test[[i]] <-
+              jbd_coord_trans(
+                data = occ_country[[i]],
+                x = x,
+                y = y,
+                country_code = cntr_iso2,
+                idcol = idcol,
+                worldmap = world_poly,
+                worldmap_cntr_code = world_poly_iso
+              ))
+      }
+    } # END mc.cores < 2
     
+    #### 4.0 Parallel ####
+      ##### 4.1 Create funCoordTrans ####
+    if(mc.cores > 1){
+      # Create the function using the input variables to pass to mcapply
+    funCoordTrans <- function(data) {
+      . <- ':=' <- NULL
+      data <-
+        data %>% dplyr::select(
+          dplyr::all_of(x),
+          dplyr::all_of(y),
+          dplyr::all_of(cntr_iso2),
+          dplyr::all_of(idcol)
+        )
+        
+        names(data)[names(data) == idcol] <- "idcol"
+
+      d1 <- data.frame(x = data[, x], y = -data[, y], idcol = data[, "idcol"])
+      d2 <- data.frame(x = -data[, x], y = data[, y], idcol = data[, "idcol"])
+      d3 <- data.frame(x = -data[, x], y = -data[, y], idcol = data[, "idcol"])
+      d4 <- data.frame(x = data[, y], y = data[, x], idcol = data[, "idcol"])
+      d5 <- data.frame(x = data[, y], y = -data[, x], idcol = data[, "idcol"])
+      d6 <- data.frame(x = -data[, y], y = data[, x], idcol = data[, "idcol"])
+      d7 <- data.frame(x = -data[, y], y = -data[, x], idcol = data[, "idcol"])
+      
+      d.list <- list(d1, d2, d3, d4, d5, d6, d7)
+      rm(list = paste0("d", 1:7))
+      d.list <- lapply(d.list, function(x) {
+        colnames(x) <- c("x", "y", "idcol")
+        return(x)
+      })
+      
+      over_list <- list()
+      
+      
+      for (d in 1:length(d.list)) {
+        caluse <- d.list[[d]] %>% 
+          sf::st_as_sf(., coords = c("x", "y"), crs = sf::st_crs("WGS84")) 
+        suppressWarnings({
+          overresult <- sf::st_intersection(caluse, world_poly) 
+        })
+        
+        if(nrow(overresult) > 0){
+          colnames(d.list[[d]]) <-
+            c(paste0(x, "_modified"), paste0(y, "_modified"), "idcol")
+          over_list[[d]] <- dplyr::left_join(d.list[[d]], data, by = "idcol") %>%
+            dplyr::left_join(overresult, by = "idcol")
+          rm(caluse)
+          filt <-
+            which(over_list[[d]][cntr_iso2] == over_list[[d]][world_poly_iso]) 
+        }else{
+          filt = dplyr::tibble()
+        }
+        if (length(filt) > 0) {
+          over_list[[d]] <- over_list[[d]][filt,]
+        } else {
+          over_list[[d]] <- NULL
+        }
+        rm(list = c("overresult", "filt"))
+      }
+      
+      rm(d.list)
+      
+      non_empty_list_test <- !sapply(over_list <- over_list, is.null)
+      
+      if (any(non_empty_list_test)) {
+        over_list <- over_list[non_empty_list_test]
+        over_list <- dplyr::bind_rows(over_list) 
+      } else{
+        over_list <- dplyr::tibble(
+          decimalLongitude = double(),
+          decimalLatitude = double(),
+          countryCode = character(),
+          database_id = character()
+        )
+      }
+      
+      # Return the database_id column to its correct name
+      over_list <- over_list %>%
+        dplyr::rename(!!idcol := idcol)
+      
+      return(over_list)
+    }
+
+    ##### 4.2 Run mclapply ####
+      # Run the actual function
+coord_test <- parallel::mclapply(occ_country, funCoordTrans,
+                     mc.cores = mc.cores
+)
+} # END mc.cores > 1
+
     # elimination from the list those countries without correction
     filt <- sapply(coord_test, function(x) nrow(x) > 0)
     
@@ -150,12 +249,13 @@ jbd_correct_coordinates <-
           unique() %>%
           dplyr::pull()
         
-        test <- world_poly %>%
+          # Select only the relevant polygon to buffer
+        my_country2 <- world_poly %>%
           dplyr::filter(iso2c %in% n)
         
         # Here filter polygon based on your country iso2c code
         my_country2 <-
-          world_poly %>%
+          my_country2 %>%
           dplyr::filter(iso2c %in% n) %>%
           # JBD — France was failing to buffer using raster due to TopologyException. Use sf instead.
           sf::st_as_sf() %>% sf::st_buffer(border_buffer) 
