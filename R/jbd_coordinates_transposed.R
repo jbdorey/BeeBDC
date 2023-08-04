@@ -93,8 +93,7 @@
 #' ) 
 #' }
 #'
-jbd_coordinates_transposed <-
-  function(data,
+jbd_coordinates_transposed <- function(data,
            idcol = "database_id",
            sci_names = "scientificName",
            lat = "decimalLatitude",
@@ -179,7 +178,8 @@ jbd_coordinates_transposed <-
         cntr_iso2 = "countryCode",
         world_poly = worldmap,
         world_poly_iso = "iso2c",
-        border_buffer = border_buffer
+        border_buffer = border_buffer,
+        mc.cores = mc.cores
       )
     
     if (!is.null(corrected_coordinates)) {
