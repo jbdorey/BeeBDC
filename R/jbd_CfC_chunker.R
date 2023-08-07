@@ -22,6 +22,11 @@
 #' @param append Logical. If TRUE, the function will look to append an existing file.
 #' @param scale Passed to rnaturalearth's ne_countries().
 #' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
+#' @param mc.cores Numeric. If > 1, the function will run in parallel
+#' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+#' be aware that each thread can use large chunks of memory.
+#'  Default = 1.
 #'
 #' @return A data frame containing database_ids and a country column 
 #' that needs to be re-merged with the data input.
@@ -100,7 +105,8 @@ jbd_CfC_chunker <- function(data = NULL,
                             # If FALSE it may overwrite existing dataset
                             append = FALSE,
                             scale = "large",
-                            path = tempdir()){
+                            path = tempdir(),
+                            mc.cores = 1){
   #### 0.0 Prep ####
     ##### 0.1 nChunks ####
   # Find the number of chunks needed to complete the run
@@ -134,7 +140,8 @@ jbd_CfC_chunker <- function(data = NULL,
                    format(chunkEnd, big.mark=",",scientific=FALSE), "\n",
                    "append = ", append, 
                    sep = ""))
-  #### 1.0 Function Loop ####
+  #### 1.0 Serial Loop ####
+  if(mc.cores < 2){
   # Loop - from chunkStart to the end, process rows in batches of chunkEnd
   for(i in 1:nChunks){
     # Select rows from chunkStart to chunkEnd
@@ -192,9 +199,117 @@ jbd_CfC_chunker <- function(data = NULL,
     # Save as a csv after each iteration
     readr::write_excel_csv(CountryList, file = paste0(path, "/CountryList.csv"))}
   } # END loop
+  }# END mc.cores < 2
+  
+  #### 2.0 Parallel ####
+  if(mc.cores > 1){
+      ##### 2.1 Input function for parallel ####
+    funCoordCountry <-
+      function(data) {
+        .data <- . <- name_long <- id_temp <- geometry <- NULL
+        suppressWarnings({
+          check_require_cran("rnaturalearth")
+          # check_require_github("ropensci/rnaturalearthdata")
+        })
+        loadNamespace("bdc")
+        
+        # create an id_temp
+        data$id_temp <- 1:nrow(data)
+        minimum_colnames <- c(lat, lon)
+        if(!all(minimum_colnames %in% colnames(data))) {
+          stop(
+            "These columns names were not found in your database: ",
+            paste(minimum_colnames[!minimum_colnames %in% colnames(data)],
+                  collapse = ", "),
+            call. = FALSE
+          )}
+        # check if data has a country column
+        has_country <- any(colnames(data) == country)
+        
+        if(!has_country) {
+          data$country <- NA}
+        
+        # converts coordinates columns to numeric
+        data <-
+          data %>%
+          dplyr::mutate(decimalLatitude = as.numeric(.data[[lat]]),
+                        decimalLongitude = as.numeric(.data[[lon]]))
+        
+        worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
+        
+        data_no_country <-
+          data %>%
+          dplyr::filter(is.na(country) | country == "")
+        
+        if(nrow(data_no_country) == 0) {
+          data <- data %>% dplyr::select(-id_temp)
+        }else{
+          # converts coordinates columns to spatial points
+          suppressWarnings({
+            data_no_country <-
+              CoordinateCleaner::cc_val(
+                x = data_no_country,
+                lon = lon,
+                lat = lat,
+                verbose = FALSE
+              ) %>%
+              sf::st_as_sf(
+                .,
+                coords = c("decimalLongitude", "decimalLatitude"),
+                remove = FALSE
+              ) %>%
+              sf::st_set_crs(., sf::st_crs(worldmap))
+          })
+          
+          worldmap <-
+            sf::st_as_sf(worldmap) %>% dplyr::select(name_long)
+          
+          # Extract country names from coordinates
+          suppressWarnings({
+            suppressMessages({
+              ext_country <-
+                data_no_country %>%
+                dplyr::select(id_temp, geometry) %>%
+                sf::st_intersection(., worldmap)
+            })
+          })
+          
+          ext_country$geometry <- NULL
+          
+          res <-
+            dplyr::left_join(data_no_country, ext_country, by = "id_temp")
+          
+          id_replace <- res$id_temp
+          data[id_replace, "country"] <- res$name_long
+          data <- data %>% dplyr::select(-id_temp)
+        }
+        return(dplyr::as_tibble(data))
+      }
+    
+    #### 2.2 Run mclapply ####
+    # User output
+    writeLines(paste(" - Starting parallel operation. Unlike the serial operation (mc.cores = 1)",
+                     ", a parallel operation will not provide running feedback. Please be patient",
+                     " as this function may take some time to complete. Each chunk will be run on",
+                     " a seperate thread so also be aware of RAM usage."))
+    loop_check_pf = data %>%
+          # Make a new column with the ordering of rows
+      dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+          # Group by the row number and step size
+      dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+          # Split the dataset up into a list by group
+      dplyr::group_split(.keep = TRUE) %>%
+    # Run the actual function
+    coord_test <- parallel::mclapply(., funCoordCountry,
+                                     mc.cores = mc.cores
+    )
+    
+  } # END mc.cores > 1
+  
+  
+    #### 3.0 Return ####
   colnames(CountryList) <- c("database_id", "country")
   
-    #### 2.0 Return ####
   # Clean a little
   return(CountryList %>%
             # Drop na rows

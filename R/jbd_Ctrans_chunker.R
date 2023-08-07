@@ -31,8 +31,9 @@
 #' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
 #' @param mc.cores Numeric. If > 1, the jbd_correct_coordinates function will run in parallel
 #' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
-#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Default = 1.
-#'
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+#' be aware that each thread can use large chunks of memory.
+#'  Default = 1.#'
 #' @return Returns the input data frame with a new column, coordinates_transposed, where FALSE = columns
 #' that had coordinates transposed.
 #' @export
@@ -111,8 +112,10 @@ jbd_Ctrans_chunker <- function(
    # IF a run failed you can start again from the same spot using append = TRUE
   #### 0.2 Append ####
   if(append == TRUE){
+    suppressWarnings({
       # Read in the Tranps_tibble csv
-    Tranps_tibble = readr::read_csv("Tranps_tibble.csv")
+    Tranps_tibble = readr::read_csv("Tranps_tibble.csv", col_types = ColTypeR())
+    })
      # set the chunkStart to the number of rows completed plus one
     chunkStart = nrow(Tranps_tibble) + 1
     nChunks = ceiling((nrow(data)-chunkStart)/stepSize)
