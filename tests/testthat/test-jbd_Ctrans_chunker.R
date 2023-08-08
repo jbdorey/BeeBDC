@@ -30,7 +30,7 @@ testOut <- BeeBDC::jbd_Ctrans_chunker(
   path = tempdir(),
   append = FALSE,  # If FALSE it may overwrite existing dataset
   scale = "medium",
-  mc.cores = 4
+  mc.cores = 1
 ) 
 
 # Get a count of TRUE and FALSE column name matches
