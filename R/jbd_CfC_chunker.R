@@ -111,6 +111,7 @@ jbd_CfC_chunker <- function(data = NULL,
                             mc.cores = 1){
   BeeBDC_order <- . <- NULL
   #### 0.0 Prep ####
+  startTime <- Sys.time()
     ##### 0.1 nChunks ####
   # Find the number of chunks needed to complete the run
   nChunks = ceiling(nrow(data)/stepSize)
@@ -302,13 +303,22 @@ jbd_CfC_chunker <- function(data = NULL,
     # Run the actual function
       parallel::mclapply(., funCoordCountry,
                          mc.cores = mc.cores
-    )
+    ) %>%
+      # Combine the lists of tibbles
+      dplyr::bind_rows()
     CountryList = dplyr::tibble(loop_check_pf$database_id, loop_check_pf$country)
   } # END mc.cores > 1
   
   
     #### 3.0 Return ####
   colnames(CountryList) <- c("database_id", "country")
+  
+  endTime <- Sys.time()
+  message(paste(
+    " - Completed in ", 
+    round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
+    " minutes.",
+    sep = ""))
   
   # Clean a little
   return(CountryList %>%
