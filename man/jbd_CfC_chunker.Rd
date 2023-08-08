@@ -14,7 +14,8 @@ jbd_CfC_chunker(
   progressiveSave = TRUE,
   append = FALSE,
   scale = "large",
-  path = tempdir()
+  path = tempdir(),
+  mc.cores = 1
 )
 }
 \arguments{
@@ -41,6 +42,12 @@ Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Defaul
 
 \item{path}{Character. The directory path to a folder in which to save the running countrylist
 csv file.}
+
+\item{mc.cores}{Numeric. If > 1, the function will run in parallel
+using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+be aware that each thread can use large chunks of memory.
+Default = 1.}
 }
 \value{
 A data frame containing database_ids and a country column

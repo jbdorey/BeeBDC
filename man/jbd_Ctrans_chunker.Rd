@@ -62,7 +62,9 @@ Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Defaul
 
 \item{mc.cores}{Numeric. If > 1, the jbd_correct_coordinates function will run in parallel
 using mclapply using the number of cores specified. If = 1 then it will be run using a serial
-loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Default = 1.}
+loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+be aware that each thread can use large chunks of memory.
+Default = 1.#'}
 }
 \value{
 Returns the input data frame with a new column, coordinates_transposed, where FALSE = columns

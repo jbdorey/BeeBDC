@@ -63,7 +63,9 @@ no path is provided (the default), the directories will be created using \code{\
 
 \item{mc.cores}{Numeric. If > 1, the jbd_correct_coordinates function will run in parallel
 using mclapply using the number of cores specified. If = 1 then it will be run using a serial
-loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Default = 1.}
+loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+be aware that each thread can use large chunks of memory.
+Default = 1.#'}
 }
 \value{
 A tibble containing the column "coordinates_transposed" which indicates if
@@ -120,9 +122,5 @@ jbd_coordinates_transposed(
 ) 
 }
 
-}
-\seealso{
-Other prefilter: 
-\code{\link{jbd_coord_trans}()}
 }
 \concept{prefilter}
