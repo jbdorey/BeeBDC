@@ -154,9 +154,8 @@ jbd_correct_coordinates <-
           )
         }
         # Return the database_id column to its correct name
-        TEST <- over_list %>%
-          dplyr::rename(!!idcol := "idcol")
-        
+        colnames(over_list)[colnames(over_list) == "idcol"] = idcol
+  
         return(over_list)
       }
     
