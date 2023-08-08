@@ -17,9 +17,11 @@
 #' restart the function from a certain chunk. For example, can be used if R failed unexpectedly.
 #' @param progressiveSave Logical. If TRUE then the country output list will be saved between
 #' each iteration so that `append` can be used if the function is stopped part way through.
+#' Will not function if mc.cores > 1.
 #' @param path Character. The directory path to a folder in which to save the running countrylist
 #' csv file.
-#' @param append Logical. If TRUE, the function will look to append an existing file.
+#' @param append Logical. If TRUE, the function will look to append an existing file. Will not 
+#' function if mc.cores > 1.
 #' @param scale Passed to rnaturalearth's ne_countries().
 #' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
 #' @param mc.cores Numeric. If > 1, the function will run in parallel
@@ -107,6 +109,7 @@ jbd_CfC_chunker <- function(data = NULL,
                             scale = "large",
                             path = tempdir(),
                             mc.cores = 1){
+  BeeBDC_order <- . <- NULL
   #### 0.0 Prep ####
     ##### 0.1 nChunks ####
   # Find the number of chunks needed to complete the run
@@ -230,15 +233,13 @@ jbd_CfC_chunker <- function(data = NULL,
           data$country <- NA}
         
         # converts coordinates columns to numeric
-        data <-
-          data %>%
+        data <- data %>%
           dplyr::mutate(decimalLatitude = as.numeric(.data[[lat]]),
                         decimalLongitude = as.numeric(.data[[lon]]))
         
         worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
         
-        data_no_country <-
-          data %>%
+        data_no_country <- data %>%
           dplyr::filter(is.na(country) | country == "")
         
         if(nrow(data_no_country) == 0) {
@@ -276,8 +277,7 @@ jbd_CfC_chunker <- function(data = NULL,
           
           ext_country$geometry <- NULL
           
-          res <-
-            dplyr::left_join(data_no_country, ext_country, by = "id_temp")
+          res <- dplyr::left_join(data_no_country, ext_country, by = "id_temp")
           
           id_replace <- res$id_temp
           data[id_replace, "country"] <- res$name_long
@@ -300,10 +300,10 @@ jbd_CfC_chunker <- function(data = NULL,
           # Split the dataset up into a list by group
       dplyr::group_split(.keep = TRUE) %>%
     # Run the actual function
-    coord_test <- parallel::mclapply(., funCoordCountry,
-                                     mc.cores = mc.cores
+      parallel::mclapply(., funCoordCountry,
+                         mc.cores = mc.cores
     )
-    
+    CountryList = dplyr::tibble(loop_check_pf$database_id, loop_check_pf$country)
   } # END mc.cores > 1
   
   

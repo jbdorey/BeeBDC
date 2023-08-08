@@ -89,7 +89,8 @@ jbd_country_from_coordinates <-
       dplyr::mutate(decimalLatitude = as.numeric(.data[[lat]]),
                     decimalLongitude = as.numeric(.data[[lon]]))
     
-    worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
+    worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf") %>% 
+      sf::st_make_valid()
     
     # JBD edit - Remove empty elements from list before testing.
     # data <- data[sapply(data, function(x) dim(x)[1]) > 0]

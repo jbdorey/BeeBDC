@@ -33,7 +33,7 @@
 #' @return Internal function
 #'
 #' @importFrom CoordinateCleaner cc_val clean_coordinates
-#' @importFrom dplyr filter mutate as_tibble select all_of pull bind_rows distinct relocate left_join  %>%
+#' @importFrom dplyr filter mutate as_tibble select all_of pull bind_rows distinct relocate left_join %>%
 #'
 #' @noRd
 #'
@@ -53,7 +53,7 @@ jbd_correct_coordinates <-
            border_buffer,
            mc.cores = 1) {
     . <- decimalLatitude <- decimalLongitude <- .summary <- iso2c <- jbd_coord_trans <- ':=' <- NULL
-    
+    indexMatch <- countryCode <- countryMatch <- database_id <- NULL
     #### 0.0 Perperation ####
     ##### 0.1 Simplify map ####
       # Simplify the world map ONCE to be used later
@@ -64,7 +64,7 @@ jbd_correct_coordinates <-
       # Create the coord_trans function for internal use
     jbd_coord_trans <-
       function(data) {
-        . <- ':=' <- NULL
+        . <- ':=' <- indexMatch <- NULL
         data <-
           data %>% dplyr::select(
             dplyr::all_of(x),

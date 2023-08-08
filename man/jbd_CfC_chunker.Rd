@@ -33,9 +33,11 @@ jbd_CfC_chunker(
 restart the function from a certain chunk. For example, can be used if R failed unexpectedly.}
 
 \item{progressiveSave}{Logical. If TRUE then the country output list will be saved between
-each iteration so that \code{append} can be used if the function is stopped part way through.}
+each iteration so that \code{append} can be used if the function is stopped part way through.
+Will not function if mc.cores > 1.}
 
-\item{append}{Logical. If TRUE, the function will look to append an existing file.}
+\item{append}{Logical. If TRUE, the function will look to append an existing file. Will not
+function if mc.cores > 1.}
 
 \item{scale}{Passed to rnaturalearth's ne_countries().
 Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".}
