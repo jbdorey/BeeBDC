@@ -52,7 +52,116 @@ jbd_correct_coordinates <-
            world_poly_iso,
            border_buffer,
            mc.cores = 1) {
-    . <- decimalLatitude <- decimalLongitude <- .summary <- iso2c <- funCoordTrans <- ':=' <- NULL
+    . <- decimalLatitude <- decimalLongitude <- .summary <- iso2c <- jbd_coord_trans <- ':=' <- NULL
+    
+    #### 0.0 Perperation ####
+    ##### 0.1 Simplify map ####
+      # Simplify the world map ONCE to be used later
+    simplePoly <- world_poly %>% sf::st_drop_geometry() %>%
+      dplyr::mutate(indexMatch = dplyr::row_number())
+    
+    ##### 0.2 Create function ####
+      # Create the coord_trans function for internal use
+    jbd_coord_trans <-
+      function(data) {
+        . <- ':=' <- NULL
+        data <-
+          data %>% dplyr::select(
+            dplyr::all_of(x),
+            dplyr::all_of(y),
+            dplyr::all_of(cntr_iso2),
+            dplyr::all_of(idcol)
+          ) 
+        
+        names(data)[names(data) == idcol] <- "idcol"
+        
+        d1 <- data.frame(x = data[, x], y = -data[, y], idcol = data[, "idcol"])
+        d2 <- data.frame(x = -data[, x], y = data[, y], idcol = data[, "idcol"])
+        d3 <- data.frame(x = -data[, x], y = -data[, y], idcol = data[, "idcol"])
+        d4 <- data.frame(x = data[, y], y = data[, x], idcol = data[, "idcol"])
+        d5 <- data.frame(x = data[, y], y = -data[, x], idcol = data[, "idcol"])
+        d6 <- data.frame(x = -data[, y], y = data[, x], idcol = data[, "idcol"])
+        d7 <- data.frame(x = -data[, y], y = -data[, x], idcol = data[, "idcol"])
+        
+        d.list <- list(d1, d2, d3, d4, d5, d6, d7)
+        rm(list = paste0("d", 1:7))
+        d.list <- lapply(d.list, function(x) {
+          colnames(x) <- c("x", "y", "idcol")
+          return(x)
+        })
+        
+        over_list <- list()
+        
+        for (d in 1:length(d.list)) {
+            # Check for coordinate validity first
+          caluse <- d.list[[d]] %>% 
+              # Remove coordinates that dont land on [our] earth
+            dplyr::filter(!y > 90) %>% dplyr::filter(!y < -90) %>%
+            dplyr::filter(!x > 180) %>% dplyr::filter(!x < -180) 
+
+            # IF The coordinates do land on [our] earth, then turn them into sf objects and 
+          # check if they overlap with a country
+          if(nrow(caluse) > 0){
+            caluse <- caluse %>%
+            sf::st_as_sf(., coords = c("x", "y"), crs = sf::st_crs("WGS84")) %>%
+            sf::st_make_valid(s2_options = FALSE)
+          suppressWarnings({
+            overresult <- sf::st_intersects(caluse, world_poly) %>%
+              # return a tibble with the index of each match or NA where there was no match
+              dplyr::tibble(indexMatch = . ) %>%
+              # Convert to numeric
+              dplyr::mutate(indexMatch = indexMatch %>% as.numeric()) %>%
+              dplyr::left_join(simplePoly,
+                               by = "indexMatch") %>%
+                # Add in the database_id
+              dplyr::bind_cols(caluse %>% sf::st_drop_geometry())
+          })}else{
+            overresult = tibble()
+          }
+          
+          if(nrow(overresult) > 0){
+            colnames(d.list[[d]]) <-
+              c(paste0(x, "_modified"), paste0(y, "_modified"), "idcol")
+            over_list[[d]] <- dplyr::left_join(d.list[[d]], data, by = "idcol") %>%
+              dplyr::left_join(overresult, by = "idcol")
+            rm(caluse)
+            filt <-
+              which(over_list[[d]][cntr_iso2] == over_list[[d]][world_poly_iso]) 
+          }else{
+            filt = dplyr::tibble()
+          }
+          if (length(filt) > 0) {
+            over_list[[d]] <- over_list[[d]][filt,]
+          } else {
+            over_list[[d]] <- NULL
+          }
+          rm(list = c("overresult", "filt"))
+        }
+        
+        rm(d.list)
+        
+        non_empty_list_test <- !sapply(over_list <- over_list, is.null)
+        
+        if (any(non_empty_list_test)) {
+          over_list <- over_list[non_empty_list_test]
+          over_list <- dplyr::bind_rows(over_list) 
+        } else{
+          over_list <- dplyr::tibble(
+            decimalLongitude = double(),
+            decimalLatitude = double(),
+            countryCode = character(),
+            database_id = character()
+          )
+        }
+        # Return the database_id column to its correct name
+        over_list <- over_list %>%
+          dplyr::rename(!!idcol := tidyselect::all_of(idcol))
+        
+        return(over_list)
+      }
+    
+    
+    
       #### 1.0 data prep ####
     x_mod <- paste0(x, "_modified")
     y_mod <- paste0(y, "_modified")
@@ -74,33 +183,34 @@ jbd_correct_coordinates <-
     })
     
     # Detect records outside a country
-    suppressWarnings({
-      suppressMessages({
-        occ_country <- CoordinateCleaner::clean_coordinates(
-          x = occ_country,
-          lon = x,
-          lat = y,
-          species = sp,
-          countries = cntr_iso2,
-          # iso2 code column name
-          # testing records in the sea and outside georeferenced countries
-          tests = c("seas", "countries"),
-          # high-quality countries border database
-          country_ref = world_poly %>% sf::as_Spatial(),
-          # iso2 code column of country polygon database
-          country_refcol = world_poly_iso,
-          seas_ref = world_poly %>% sf::as_Spatial(),
-          value = "spatialvalid"
-        )
-      })
-    })
-    
+      # Convert to sf object
+    countryTest <- occ_country %>% 
+      sf::st_as_sf(coords = c(x, y), crs = sf::st_crs(world_poly)) %>%
+        # Perform intersect operation with world_poly
+      sf::st_intersects(., world_poly) %>% 
+        # return a tibble with the index of each match or NA where there was no match
+      dplyr::tibble(indexMatch = . ) %>%
+        # Convert to numeric
+      dplyr::mutate(indexMatch = indexMatch %>% as.numeric()) %>%
+      dplyr::left_join(simplePoly,
+                       by = "indexMatch")
+      # Join with the original dataset to find the database_ids of those occurrences that 1. do not
+        # match with their supplied country code and/or 2. fall in the ocean (are NA)
+    countryTest <- occ_country %>%
+        # Get a subset of columns
+      dplyr::select(tidyselect::all_of(c("database_id", cntr_iso2))) %>%
+        # Bind columns with the original data
+      dplyr::bind_cols(countryTest) %>%
+        # Make a column to test country matches by
+      dplyr::mutate(countryMatch = dplyr::if_else(countryCode == iso2c,
+                                                  TRUE, FALSE)) %>%
+        # Filter to failed and ocean occurrences
+      dplyr::filter(countryMatch == FALSE | is.na(countryMatch))
     
     # Separate those records outside their countries
     occ_country <-
       occ_country %>%
-      dplyr::as_tibble() %>%
-      dplyr::filter(!.summary, !is.na(occ_country[[cntr_iso2]]))
+      dplyr::filter(database_id %in% countryTest$database_id)
     
     # now this database have all those records with potential error that be
     # corrected
@@ -123,117 +233,14 @@ jbd_correct_coordinates <-
     # to correct georeferenced occurrences
     coord_test <- list()
     
-    #### 3.0 Serial #####
-      # If user does not specify for parallel operation
-    if(mc.cores < 2){
-      for (i in 1:length(occ_country)) {
-        message(
-          "Processing occurrences from: ",
-          occ_country[[i]][cntr_iso2] %>% unique(),
-          paste0(" (", nrow(occ_country[[i]]), ")")
-        )
-        try(coord_test[[i]] <-
-              jbd_coord_trans(
-                data = occ_country[[i]],
-                x = x,
-                y = y,
-                country_code = cntr_iso2,
-                idcol = idcol,
-                worldmap = world_poly,
-                worldmap_cntr_code = world_poly_iso
-              ))
-      }
-    } # END mc.cores < 2
     
-    #### 4.0 Parallel ####
-      ##### 4.1 Create funCoordTrans ####
-    if(mc.cores > 1){
-      # Create the function using the input variables to pass to mcapply
-    funCoordTrans <- function(data) {
-      . <- ':=' <- NULL
-      data <-
-        data %>% dplyr::select(
-          dplyr::all_of(x),
-          dplyr::all_of(y),
-          dplyr::all_of(cntr_iso2),
-          dplyr::all_of(idcol)
-        )
-        
-        names(data)[names(data) == idcol] <- "idcol"
-
-      d1 <- data.frame(x = data[, x], y = -data[, y], idcol = data[, "idcol"])
-      d2 <- data.frame(x = -data[, x], y = data[, y], idcol = data[, "idcol"])
-      d3 <- data.frame(x = -data[, x], y = -data[, y], idcol = data[, "idcol"])
-      d4 <- data.frame(x = data[, y], y = data[, x], idcol = data[, "idcol"])
-      d5 <- data.frame(x = data[, y], y = -data[, x], idcol = data[, "idcol"])
-      d6 <- data.frame(x = -data[, y], y = data[, x], idcol = data[, "idcol"])
-      d7 <- data.frame(x = -data[, y], y = -data[, x], idcol = data[, "idcol"])
-      
-      d.list <- list(d1, d2, d3, d4, d5, d6, d7)
-      rm(list = paste0("d", 1:7))
-      d.list <- lapply(d.list, function(x) {
-        colnames(x) <- c("x", "y", "idcol")
-        return(x)
-      })
-      
-      over_list <- list()
-      
-      
-      for (d in 1:length(d.list)) {
-        caluse <- d.list[[d]] %>% 
-          sf::st_as_sf(., coords = c("x", "y"), crs = sf::st_crs("WGS84")) 
-        suppressWarnings({
-          overresult <- sf::st_intersection(caluse, world_poly) 
-        })
-        
-        if(nrow(overresult) > 0){
-          colnames(d.list[[d]]) <-
-            c(paste0(x, "_modified"), paste0(y, "_modified"), "idcol")
-          over_list[[d]] <- dplyr::left_join(d.list[[d]], data, by = "idcol") %>%
-            dplyr::left_join(overresult, by = "idcol")
-          rm(caluse)
-          filt <-
-            which(over_list[[d]][cntr_iso2] == over_list[[d]][world_poly_iso]) 
-        }else{
-          filt = dplyr::tibble()
-        }
-        if (length(filt) > 0) {
-          over_list[[d]] <- over_list[[d]][filt,]
-        } else {
-          over_list[[d]] <- NULL
-        }
-        rm(list = c("overresult", "filt"))
-      }
-      
-      rm(d.list)
-      
-      non_empty_list_test <- !sapply(over_list <- over_list, is.null)
-      
-      if (any(non_empty_list_test)) {
-        over_list <- over_list[non_empty_list_test]
-        over_list <- dplyr::bind_rows(over_list) 
-      } else{
-        over_list <- dplyr::tibble(
-          decimalLongitude = double(),
-          decimalLatitude = double(),
-          countryCode = character(),
-          database_id = character()
-        )
-      }
-      
-      # Return the database_id column to its correct name
-      over_list <- over_list %>%
-        dplyr::rename(!!idcol := idcol)
-      
-      return(over_list)
-    }
-
-    ##### 4.2 Run mclapply ####
+    #### 3.0 Run function ####
+    ##### 3.1 Run mclapply ####
       # Run the actual function
-coord_test <- parallel::mclapply(occ_country, funCoordTrans,
+coord_test <- parallel::mclapply(occ_country, jbd_coord_trans,
                      mc.cores = mc.cores
 )
-} # END mc.cores > 1
+
 
     # elimination from the list those countries without correction
     filt <- sapply(coord_test, function(x) nrow(x) > 0)

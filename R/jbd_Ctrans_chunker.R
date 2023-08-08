@@ -140,6 +140,7 @@ jbd_Ctrans_chunker <- function(
   for(i in 1:nChunks){
     # Select rows from chunkStart to chunkEnd
     loop_check_pf = data[chunkStart:chunkEnd,] %>%
+      tidyr::drop_na(tidyselect::all_of(idcol)) %>%
         # Drop unused factors
       base::droplevels()
 
