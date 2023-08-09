@@ -66,6 +66,8 @@ diagonAlley <- function(
   }
 
   #### 1.0 prepare data ####
+  startTime <- Sys.time()
+  
     ##### 1.1 ndec ####
     # If an ndec is provided, then filter to remove decimal places lower than ndec
   if(!is.null(ndec)){
@@ -85,12 +87,12 @@ diagonAlley <- function(
   
     ##### 1.2 Initial filtering and prep ####
   runningData <- runningData %>%
+    # Select fewer columns to make it easier on the old computer
+    dplyr::select(database_id, decimalLatitude, decimalLongitude, 
+                  tidyselect::all_of(groupingColumns)) %>%
       # Remove incomplete values 
     tidyr::drop_na( tidyselect::all_of(groupingColumns)) %>%
     tidyr::drop_na(decimalLatitude, decimalLongitude) %>%
-      # Select fewer columns to make it easier on the old computer
-    dplyr::select(database_id, decimalLatitude, decimalLongitude, 
-                  tidyselect::all_of(groupingColumns)) %>%
       # Group the data by eventDate and recordedBy
     dplyr::group_by(  dplyr::across(tidyselect::all_of(groupingColumns))) %>%
       # Arrange from biggest to lowest decimalLatitude and then decimalLongitude by grouping
@@ -150,18 +152,23 @@ diagonAlley <- function(
       # Re-group by the groupingColumns and then filter to those that pass the minimum repeats
     dplyr::group_by( dplyr::across(tidyselect::all_of(groupingColumns)), .add = TRUE) %>%
     dplyr::filter(dplyr::n() >= minRepeats) %>%
+    dplyr::mutate(diffLat = diffLat %>% as.character()) %>%
       # Split groups into a list
     dplyr::group_split()
   
+    # Remove the spent dataset
+  rm(runningData_Lat)
+  # Remove excess columns from list
+  lapply(runningData_LatGrp, function(x) x[(names(x) %in% c("database_id", "diffLat"))])
+  
+  writeLines(" - Starting the latitude sequence...")
     # Run a loop where each list gets examined using a sliding window based on minRepeats
     # Set up a tibble for the flagged records
   flagRecords <- dplyr::tibble()
   for(i in 1:length(runningData_LatGrp)){
       # Select the ith list, get only the dataset and the miniumum columns required
     groupi <- runningData_LatGrp[i] %>%
-      .[[1]] %>%
-      dplyr::select(database_id, diffLat) %>%
-      dplyr::mutate(diffLat = diffLat %>% as.character())
+      .[[1]] 
       # Run the sliding window
     for(j in 1:(nrow(groupi) - minRepeats+1)){
         # select an amount of rows based on minRepeats
@@ -174,9 +181,14 @@ diagonAlley <- function(
         }  # END if statement
     } # END J loop
     # Keep distinct flagRecords
-    flagRecords <- flagRecords %>%
-      dplyr::distinct()
+    # Run distinct every 1000th iteration
+    if(i %in% seq(0, length(runningData_LatGrp), 1000)){
+      flagRecords <- flagRecords %>%
+        dplyr::distinct()}
+
   } # END I loop
+    # Remov ethe spent dataset
+  rm(runningData_LatGrp)
   
   
   ##### 2.2 Lon sequences ####
@@ -226,16 +238,22 @@ diagonAlley <- function(
     # Re-group by the groupingColumns and then filter to those that pass the minimum repeats
     dplyr::group_by( dplyr::across(tidyselect::all_of(groupingColumns)), .add = TRUE) %>%
     dplyr::filter(dplyr::n() >= minRepeats) %>%
+    dplyr::mutate(diffLon = diffLon %>% as.character()) %>%
     # Split groups into a list
     dplyr::group_split()
   
+    # Remove the spent dataset
+  rm(runningData_Lon)
+  # Remove excess columns from list
+  lapply(runningData_LonGrp, function(x) x[(names(x) %in% c("database_id", "diffLat"))])
+
+  
+  writeLines(" - Starting the longitude sequence...")
   # Run a loop where each list gets examined using a sliding window based on minRepeats
   for(i in 1:length(runningData_LonGrp)){
     # Select the ith list, get only the dataset and the miniumum columns required
     groupi <- runningData_LonGrp[i] %>%
-      .[[1]] %>%
-      dplyr::select(database_id, diffLon) %>%
-      dplyr::mutate(diffLon = diffLon %>% as.character())
+      .[[1]] 
     # Run the sliding window
     for(j in 1:(nrow(groupi) - minRepeats+1)){
       # select an amount of rows based on minRepeats
@@ -247,13 +265,17 @@ diagonAlley <- function(
                              dplyr::select(database_id) )
       }  # END if statement
     } # END J loop
-    # Keep distinct flagRecords
+    # Keep distinct flagRecords 
+      # Run distinct every 1000th iteration
+    if(i %in% seq(0, length(runningData_LonGrp), 1000)){
     flagRecords <- flagRecords %>%
-      dplyr::distinct()
+      dplyr::distinct()}
   } # END I loop
   }else{
     flagRecords = dplyr::tibble(database_id = NA_character_)
   } # END nrow(runningData) > 0
+    # Remove the spent dataset
+  rm(runningData_LonGrp)
   
   
   #### 2.0 Merge ####
@@ -266,6 +288,14 @@ diagonAlley <- function(
           format(sum(data$.sequential == FALSE, na.rm = TRUE), big.mark = ","),
           " records\nThe .sequential column was added to the database.\n")
   
+    # Return runtime
+  endTime <- Sys.time()
+  
+  message(paste(
+    " - Completed in ", 
+    round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
+    " minutes.",
+    sep = ""))
   return(data)
 }# END function
 
