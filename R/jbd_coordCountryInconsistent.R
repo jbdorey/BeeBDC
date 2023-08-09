@@ -64,6 +64,9 @@ requireNamespace("terra")
 vectEarth <- rnaturalearth::ne_countries(scale = mapResolution, type = "countries", 
                                     returnclass = "sf" )%>%
   dplyr::select(name_long, iso_a2, geometry, admin, sovereignt, name)
+# Simplify the world map ONCE to be used later
+simplePoly <- vectEarth %>% sf::st_drop_geometry() %>%
+  dplyr::mutate(indexMatch = dplyr::row_number())
   # Repair gemoetries
 sf::sf_use_s2(FALSE)
 
@@ -75,7 +78,17 @@ writeLines(" - Extracting initial country names without buffer...")
 sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
                    crs = terra::crs(vectEarth))
   # Extract the country for the points from the vectEarth map
-country_extracted <- sf::st_intersection(vectEarth, sp)
+suppressWarnings({
+country_extracted <- sf::st_intersects(sp, vectEarth) %>%
+  # return a tibble with the index of each match or NA where there was no match
+  dplyr::tibble(indexMatch = . ) %>%
+  # Convert to numeric
+  dplyr::mutate(indexMatch = indexMatch %>% as.numeric()) %>%
+  dplyr::left_join(simplePoly,
+                   by = "indexMatch") %>%
+  # Add in the database_id
+  dplyr::bind_cols(sp)
+})
   
     ##### 2.2 Failures ####
   # Find those records that don't match.
