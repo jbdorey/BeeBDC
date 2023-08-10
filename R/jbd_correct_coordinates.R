@@ -190,7 +190,7 @@ jbd_correct_coordinates <-
         # return a tibble with the index of each match or NA where there was no match
       dplyr::tibble(indexMatch = . ) %>%
         # Convert to numeric
-      dplyr::mutate(indexMatch = indexMatch %>% as.numeric()) %>%
+      dplyr::mutate(indexMatch = indexMatch %>% as.character() %>% as.numeric()) %>%
       dplyr::left_join(simplePoly,
                        by = "indexMatch")
       # Join with the original dataset to find the database_ids of those occurrences that 1. do not

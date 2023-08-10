@@ -49,17 +49,25 @@ jbd_coordinates_precision <-
                   " that the coordinates should have to be considered valid"))
     }
     
+    #### 1.0 Run function ####
+      ##### 1.1 Prepare data ####
+        # Remove a .rou column if it already exists
+    data <- data %>%
+      dplyr::select(!tidyselect::any_of(".rou"))
+    
+    
+      ##### 1.2 Tests ####
   # Select the columns that you want
     df <-
       data %>%
       dplyr::select({{ lon }}, {{ lat }}) %>%
       as.data.frame()
     
+      # get a character vector of the length (number of decimal places) for each lat or lon
     ndec_lat <- (df[, lat] %>%
                    as.character() %>%
                    stringr::str_split_fixed(., pattern = "[.]", n = 2))[, 2] %>%
       stringr::str_length()
-    
     ndec_lon <- (df[, lon] %>%
                    as.character() %>%
                    stringr::str_split_fixed(., pattern = "[.]", n = 2))[, 2] %>%
@@ -81,6 +89,8 @@ jbd_coordinates_precision <-
       dplyr::select(.ndec_all) %>%
       dplyr::rename(.rou = .ndec_all)
     
+    
+      #### 2.0 User output ####
     if(quieter == FALSE){
     message("jbd_coordinates_precision:\nFlagged ", 
             format(sum(!ndec_list[".rou"]), big.mark = ","), 

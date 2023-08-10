@@ -210,7 +210,6 @@ jbd_CfC_chunker <- function(data = NULL,
       ##### 2.1 Input function for parallel ####
     funCoordCountry <-
       function(data) {
-        .data <- . <- name_long <- id_temp <- geometry <- NULL
         suppressWarnings({
           check_require_cran("rnaturalearth")
           # check_require_github("ropensci/rnaturalearthdata")
@@ -306,7 +305,11 @@ jbd_CfC_chunker <- function(data = NULL,
     ) %>%
       # Combine the lists of tibbles
       dplyr::bind_rows()
-    CountryList = dplyr::tibble(loop_check_pf$database_id, loop_check_pf$country)
+    CountryList = dplyr::tibble(loop_check_pf$database_id, loop_check_pf$country) %>%
+      # Arrange these
+      dplyr::arrange(BeeBDC_order) %>%
+        # Remove extra columns
+      dplyr::select(!c(BeeBDC_order, BeeBDC_group))
   } # END mc.cores > 1
   
   

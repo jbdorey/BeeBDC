@@ -18,6 +18,12 @@
 #' Smaller values return higher-resolution maps.
 #' @param pointBuffer Numeric. Amount to buffer points, in decimal degrees. If the point is outside 
 #' of a country, but within this point buffer, it will not be flagged.
+#' @param mc.cores Numeric. If > 1, the st_intersects function will run in parallel
+#' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+#' be aware that each thread can use large chunks of memory.
+#'  Default = 1.
+#' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #'
 #' @return The input occurrence data with a new column, .coordinates_country_inconsistent
 #' @export
@@ -38,7 +44,9 @@ jbd_coordCountryInconsistent <- function(
     lon = "decimalLongitude",
     lat = "decimalLatitude",
     mapResolution = 50,
-    pointBuffer = 0.01){
+    pointBuffer = 0.01,
+    stepSize = 1000000,
+    mc.cores = 1){
   
   database_id <- decimalLatitude <- decimalLongitude <- country <- name_long <- iso_a2 <- 
     geometry <- admin <- sovereignt <- name <- . <- NULL
@@ -51,8 +59,29 @@ requireNamespace("mgsub")
 requireNamespace("terra")
 
   #### 0.0 Prep ####
+    ###### 0.1 Coord quality ####
+if(!any(colnames(data) %in% ".coordinates_outOfRange")){
+    writeLines("No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...")
+  data <- bdc::bdc_coordinates_outOfRange(
+    data = data,
+    lat = lat,
+    lon = lon)
+}
+if(!any(colnames(data) %in% ".coordinates_empty")){
+  writeLines("No '.coordinates_empty' column found, running bdc_coordinates_empty")
+  data <- bdc::bdc_coordinates_empty(
+    data = data,
+    lat = lat,
+    lon = lon)
+}
+  # Remove poor-quality coordinates
+dataR <- data %>%
+  dplyr::filter(!.coordinates_outOfRange == FALSE) %>%
+  dplyr::filter(!.coordinates_empty == FALSE) 
+
+
     # Reduce dataset 
-  dataR <- data %>%
+  dataR <- dataR %>%
     dplyr::select(database_id, decimalLatitude, decimalLongitude, country) %>%
       # Remove lat/lon NAs
     dplyr::filter(!is.na(decimalLatitude)) %>% dplyr::filter(!is.na(decimalLongitude))
@@ -63,7 +92,8 @@ requireNamespace("terra")
   # Download the rnaturalearth countries
 vectEarth <- rnaturalearth::ne_countries(scale = mapResolution, type = "countries", 
                                     returnclass = "sf" )%>%
-  dplyr::select(name_long, iso_a2, geometry, admin, sovereignt, name)
+  dplyr::select(name_long, iso_a2, geometry, admin, sovereignt, name) %>%
+  sf::st_make_valid()
 # Simplify the world map ONCE to be used later
 simplePoly <- vectEarth %>% sf::st_drop_geometry() %>%
   dplyr::mutate(indexMatch = dplyr::row_number())
@@ -72,25 +102,51 @@ sf::sf_use_s2(FALSE)
 
 
   #### 2.0 Extractions ####
-    ##### 2.1 Country name ####
+    ##### 2.1 Create function 1 ####
+intersectFun <- function(sp){
+  extracted <- sf::st_intersects(sp, vectEarth, sparse = TRUE) %>% 
+    # return a tibble with the index of each match or NA where there was no match
+    dplyr::tibble(indexMatch = .) 
+    # If first element is full, unlist each one
+    suppressWarnings( # Suppress NAs by coersion warning
+      extracted <- extracted %>%
+      dplyr::mutate(indexMatch = indexMatch %>% as.character() %>% as.numeric() )
+    )
+    # rejoin
+  extracted <- extracted %>%
+    dplyr::left_join(simplePoly,
+                     by = "indexMatch") %>%
+    # Add in the database_id
+    dplyr::bind_cols(sp)
+  return(extracted)
+  }# END intersectFun function
+
+
+
+    ##### 2.2 Country name ####
 writeLines(" - Extracting initial country names without buffer...")
       # Turn the points into an sf object
 sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
-                   crs = terra::crs(vectEarth))
+                   crs = sf::st_crs("WGS84"))
   # Extract the country for the points from the vectEarth map
 suppressWarnings({
-country_extracted <- sf::st_intersects(sp, vectEarth) %>%
-  # return a tibble with the index of each match or NA where there was no match
-  dplyr::tibble(indexMatch = . ) %>%
-  # Convert to numeric
-  dplyr::mutate(indexMatch = indexMatch %>% as.numeric()) %>%
-  dplyr::left_join(simplePoly,
-                   by = "indexMatch") %>%
-  # Add in the database_id
-  dplyr::bind_cols(sp)
+  country_extracted = sp %>%
+    # Make a new column with the ordering of rows
+    dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+    # Group by the row number and step size
+    dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+    # Split the dataset up into a list by group
+    dplyr::group_split(.keep = TRUE) %>%
+    # Run the actual function
+    parallel::mclapply(., intersectFun,
+                       mc.cores = mc.cores
+    ) %>%
+    # Combine the lists of tibbles
+    dplyr::bind_rows()
 })
   
-    ##### 2.2 Failures ####
+
+    ##### 2.3 Failures ####
   # Find those records that don't match.
 failed_extract <- country_extracted %>%
     # Find the mis-matched countries
@@ -100,7 +156,7 @@ failed_extract <- country_extracted %>%
     # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
   dplyr::tibble() %>%
-  sf::st_as_sf(crs = terra::crs(vectEarth))
+  sf::st_as_sf(crs = sf::st_crs("WGS84"))
     # Replace some country names as needed and re-remove
 failed_extract$country <-
   mgsub::mgsub(failed_extract$country, 
@@ -115,25 +171,36 @@ failed_extract <- failed_extract %>%
   # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
   dplyr::tibble() %>%
-  sf::st_as_sf(crs = terra::crs(vectEarth))
+  sf::st_as_sf(crs = sf::st_crs("WGS84"))
+# remove spent dataset
+rm(country_extracted)
 
-  # Find the unique combination of failures
-failed_unique <- failed_extract %>% dplyr::distinct(admin, country, iso_a2)
 
-    ##### 2.3 Buffer fails ####
+    ##### 2.4 Buffer fails ####
 writeLines(" - Buffering naturalearth map by pointBuffer...")
   # Buffer the natural earth map
 suppressWarnings({
-  vectEarth_buff <- vectEarth %>% 
+  vectEarth <- vectEarth %>% 
   sf::st_buffer(dist = pointBuffer)
 })
 
 writeLines(" - Extracting FAILED country names WITH buffer...")
 # Extract the country for the points from the vectEarth map
 suppressWarnings({
-  failed_extract_2 <- failed_extract %>%
-  dplyr::select(database_id, country, geometry) %>%
-  sf::st_intersection(vectEarth_buff, .)
+  failed_extract_2 = failed_extract %>%
+    dplyr::select(database_id, country, geometry) %>%
+    # Make a new column with the ordering of rows
+    dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+    # Group by the row number and step size
+    dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+    # Split the dataset up into a list by group
+    dplyr::group_split(.keep = TRUE) %>%
+    # Run the actual function
+    parallel::mclapply(., intersectFun,
+                       mc.cores = mc.cores
+    ) %>%
+    # Combine the lists of tibbles
+    dplyr::bind_rows()
 })
     # Find MATCHES #
   # With country
