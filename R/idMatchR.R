@@ -151,9 +151,9 @@ idMatchR <- function(
     #### 1.0 loop ####
   
   writeLines(" - Starting core loop...")
-    # Set up al oop dataframe to enter into
+    # Set up a loop dataframe to enter into
   loopDF <- dplyr::tibble()
-  # Create a dataset to put unique vaules into
+  # Create a dataset to put unique values into
   for(i in 1:length(matchBy)){
     # Select the ith CustomComparisons to match with
     currentMatch <- matchBy[[i]]
@@ -260,9 +260,7 @@ idMatchR <- function(
       # Filter to only the examined dataSources
     # Remove all text after the first "_"
     dplyr::mutate(dataSourceShort = stringr::str_remove(dataSource, "_.*")) %>%
-    # Remove the datasets
-    dplyr::filter(!dataSourceShort %in% excludeDataset) %>%
-      # Add the new database_id column, while removing the old one
+      # Add the new database_id column, while removing the old one (database_id_current)
     dplyr::left_join(loopDF, by = c("database_id" = "database_id_current"),
                      suffix = c("", "_matched"), keep = FALSE) %>%
       # Remove existing [current] database_id columns
@@ -285,7 +283,10 @@ idMatchR <- function(
       databaseName)) %>%
     # Add a new column with the database_id NUMBER
     dplyr::mutate(databaseNum = stringr::str_extract(
-      string = database_id, "[0-9]+") %>% as.numeric()) %>%
+      string = database_id, "[0-9]+") %>% as.numeric(),
+        # Get a column with the current numbers to start the MAX count from
+      databaseNum_current = database_id_current %>% stringr::str_extract("[0-9]+") %>% 
+        as.numeric()) %>%
     # Group by databaseName
     dplyr::group_by(databaseName) %>%
     # Sort
@@ -303,14 +304,17 @@ idMatchR <- function(
                   missingNum)) %>%
       # Fill down the missing numbers starting from 1+ the maximum within databaseName group.
     dplyr::mutate(missingNum = dplyr::if_else(is.na(missingNum), 
-                                        (max(missingNum, na.rm = TRUE)+
-                                           dplyr::row_number()- 
-                                           sum(complete.cases(missingNum))),
+                                        (max(databaseNum_current, na.rm = TRUE)+
+                                           dplyr::row_number()-sum(complete.cases(missingNum))  
+                                         ),
                   missingNum)) %>%
       # Update the database_id column
     dplyr::mutate(database_id = stringr::str_c(databaseName, missingNum)) %>% 
       # Filter for only NA values on the databaseNum column
-    dplyr::filter(!complete.cases(databaseNum)) 
+    dplyr::filter(is.na(databaseNum)) %>%
+    # Remove the excludeDataset
+    dplyr::filter(!dataSourceShort %in% excludeDataset)
+    
   
     # Now combine
   checkedData <- checkedData %>%
@@ -319,7 +323,8 @@ idMatchR <- function(
       # now re-combine
     dplyr::bind_rows(newData) %>%
       # Remove groupings
-    dplyr::ungroup()
+    dplyr::ungroup() %>%
+    dplyr::distinct(database_id, .keep_all = TRUE)
 
   # User output
   writeLines(paste0(" - We matched a total of ",
@@ -332,6 +337,7 @@ idMatchR <- function(
                            big.mark = ","),
                     " occurrences compared to the number in priorData"
                     ))
+
   
     # Merge the new databse IDs with the returnData
   returnData <- returnData %>%
@@ -347,9 +353,8 @@ idMatchR <- function(
                                                 # keep existing database_id
                                                database_id,
                                                 # Otherwise Assign the newly matched id
-                                               database_id_new)) %>% 
+                                               database_id_new)) %>%
     dplyr::select(!database_id_new)
-  
   
 
     # Return the data

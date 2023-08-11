@@ -1215,6 +1215,7 @@ readr_GeoL <- function(path = NULL,
     dplyr::filter(!database_id %in% BELS_data$database_id) %>%
       # Combine datasets 
     dplyr::bind_rows(BELS_data) %>%
+    dplyr::select(!database_id) %>%
     # add the database_id column
     dplyr::mutate(
       database_id = paste("GEOL_data_", 1:nrow(.), sep = ""),
