@@ -102,6 +102,7 @@ idMatchR <- function(
   returnData <- currentData
   # Save a count of priorData rows
   priorRowCount <- nrow(priorData)
+  
     ###### a. dataSource ####
     # If the user is matching by DataSource, then simplify that column to only the over-arching 
     # source.
@@ -311,9 +312,7 @@ idMatchR <- function(
       # Update the database_id column
     dplyr::mutate(database_id = stringr::str_c(databaseName, missingNum)) %>% 
       # Filter for only NA values on the databaseNum column
-    dplyr::filter(is.na(databaseNum)) %>%
-    # Remove the excludeDataset
-    dplyr::filter(!dataSourceShort %in% excludeDataset)
+    dplyr::filter(is.na(databaseNum)) 
     
   
     # Now combine
@@ -324,18 +323,16 @@ idMatchR <- function(
     dplyr::bind_rows(newData) %>%
       # Remove groupings
     dplyr::ungroup() %>%
-    dplyr::distinct(database_id, .keep_all = TRUE)
+    dplyr::distinct(database_id, .keep_all = TRUE) %>%
+    # Remove the excludeDataset
+    dplyr::filter(!dataSourceShort %in% excludeDataset)
 
   # User output
   writeLines(paste0(" - We matched a total of ",
                     format(sum(complete.cases(checkedData$databaseNum)), big.mark = ","),
                     " database_id numbers. We then assigned new database_id numbers to ",
                     format(sum(complete.cases(checkedData$missingNum)), big.mark = ","),
-                    " unmatched occurrences.\n",
-                    "This represents a shortfall of ",
-                    format(priorRowCount - sum(complete.cases(checkedData$databaseNum)),
-                           big.mark = ","),
-                    " occurrences compared to the number in priorData"
+                    " unmatched occurrences."
                     ))
 
   
