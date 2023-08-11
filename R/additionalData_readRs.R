@@ -1214,9 +1214,11 @@ readr_GeoL <- function(path = NULL,
       # Remove data that occurs in BELS_data
     dplyr::filter(!database_id %in% BELS_data$database_id) %>%
       # Combine datasets 
-    dplyr::bind_rows(BELS_data) # %>%
-      # Annotate dataSource
-    #dplyr::mutate(dataSource = stringr::str_c("GeoL", dataSource, sep = "_"))
+    dplyr::bind_rows(BELS_data) %>%
+    # add the database_id column
+    dplyr::mutate(
+      database_id = paste("GEOL_data_", 1:nrow(.), sep = ""),
+      .before = catalogNumber)
     
     # User output
   writeLines(paste0(
