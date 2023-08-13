@@ -171,36 +171,7 @@ db_standardized <- readr::read_csv(occPath,
   dplyr::mutate(database_id = paste("Dorey_data_", 1:nrow(db_standardized), sep = ""),
                 .before = family)
 
-###### c. match database_id ####
-# IF you have prior runs from which you'd like to match database_ids with from the current run,
-  # you may use the below script
-# Try to match database IDs with prior runs.
-  # read in a prior run of choice
-  priorRun <- BeeBDC::fileFinder(path = DataPath,
-                          file = "01_prefilter_database_9Aug22.csv") %>%
-    readr::read_csv(file = ., col_types = BeeBDC::ColTypeR())
-  
-  # This function will attempt to find the database_ids from prior runs
-  db_standardized <- BeeBDC::idMatchR(
-    currentData = db_standardized,
-    priorData = priorRun,
-    # First matches will be given preference over later ones
-    matchBy = dplyr::lst(c("gbifID"),
-                          c("catalogNumber", "institutionCode", "dataSource"),
-                          c("occurrenceID", "dataSource"),
-                          c("recordId", "dataSource"),
-                          c("id"),
-                          # Because INHS was entered as it's own dataset but is now included in the GBIF download...
-                          c("catalogNumber", "institutionCode")),
-    # You can exclude datasets from prior by matching their prefixs — before first underscore:
-    # Which datasets are static and should be excluded from matching?
-    excludeDataset = c("ASP", "BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
-                       "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm"))
-  
-  # Remove redundant files
-  rm(priorRun, excludeDataset)
-
-###### d. optional thin ####
+###### c. optional thin ####
     # You can thin the dataset for TESTING ONLY!
     # check_pf <- check_pf %>%
     #   # take every 100th record
@@ -439,6 +410,37 @@ db_standardized <- db_standardized %>%
                            "/jbd_Dor_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
   # END bind_rows
   suppressWarnings(classes = "warning") # End suppressWarnings — due to col_types
+
+##### 2.6 Match database_id ####
+# Try to match database IDs with prior runs.
+# read in a prior run of choice
+priorRun <- fileFinder(path = DataPath,
+                       file = "01_prefilter_database_9Aug22.csv") %>%
+  readr::read_csv(file = ., col_types = ColTypeR())
+
+# attempt to match records using the below function
+# This function will attempt to find the database_ids from prior runs
+# source(paste(ScriptPath, "idMatchR.R", sep = "/"))
+db_standardized <- idMatchR(
+  currentData = db_standardized,
+  priorData = priorRun,
+  # First matches will be given preference over later ones
+  matchBy = tibble::lst(c("gbifID", "dataSource"),
+                        c("catalogNumber", "institutionCode", "dataSource", "decimalLatitude",
+                          "decimalLongitude"),
+                        c("occurrenceID", "dataSource","decimalLatitude","decimalLongitude"),
+                        c("recordId", "dataSource","decimalLatitude","decimalLongitude"),
+                        c("id", "dataSource","decimalLatitude","decimalLongitude"),
+                        # Because INHS was entered as it's own dataset but is now included in the GBIF download...
+                        c("catalogNumber", "institutionCode", "dataSource",
+                          "decimalLatitude","decimalLongitude")),
+  # You can exclude datasets from prior by matching their prefixs — before first underscore:
+  excludeDataset = c("ASP", "BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
+                     "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm"))
+
+# Remove redundant files
+rm(priorRun, excludeDataset)
+
 
 #   # Save the dataset
 db_standardized %>%

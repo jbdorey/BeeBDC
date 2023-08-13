@@ -26,8 +26,10 @@ and assign the relevant prior database_id.}
 matching. These should be static dataSources from minor providers.}
 }
 \value{
-The input data frame returned with a new column that shows the updated database_ids
-as in priorData where they could be matched
+The input data frame returned with an updated database_id column that shows the
+database_ids as in priorData where they could be matched. Additionally, a columnd called
+idContinuity is returned where TRUE indicates a match to a prior database_id and FALSE
+indicates that a new database_id was assigned.
 }
 \description{
 This function attempts to match database_ids from a prior bdc or BeeBDC run in order to keep

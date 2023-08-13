@@ -309,7 +309,7 @@ jbd_CfC_chunker <- function(data = NULL,
       # Arrange these
       dplyr::arrange(BeeBDC_order) %>%
         # Remove extra columns
-      dplyr::select(!c(BeeBDC_order, BeeBDC_group))
+      dplyr::select(!c(BeeBDC_order))
   } # END mc.cores > 1
   
   

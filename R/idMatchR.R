@@ -19,8 +19,10 @@
 #' @param excludeDataset A character vector. The dataSources that are to be excluded from data 
 #' matching. These should be static dataSources from minor providers.
 #'
-#' @return The input data frame returned with a new column that shows the updated database_ids
-#' as in priorData where they could be matched
+#' @return The input data frame returned with an updated database_id column that shows the 
+#' database_ids as in priorData where they could be matched. Additionally, a columnd called 
+#' idContinuity is returned where TRUE indicates a match to a prior database_id and FALSE 
+#' indicates that a new database_id was assigned.
 #' 
 #' @export
 #' 
@@ -340,7 +342,7 @@ idMatchR <- function(
   returnData <- returnData %>%
       # Join the checkedData dataset
     dplyr::left_join(checkedData %>% dplyr::select(
-      tidyselect::any_of(c("database_id", "database_id_current"))),
+      tidyselect::any_of(c("database_id", "database_id_current", "idContinuity"))),
                      by = c("database_id" = "database_id_current"),
                      suffix = c("", "_new")) %>%
     # Update the database_id column to include the new database_ids, or the old ones where
