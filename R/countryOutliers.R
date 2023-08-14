@@ -59,7 +59,8 @@ countryOutlieRs <- function(
     verbatim_scientificName<-.<-neighbours<-rowNum<-countryOutlieRs<-neighboursText<-
     SciCountry<-validName<-countryOutlieRs<-SciCountry_noYear<-countryOutlieRs<-
     neighbourMatch_noYear<-countryOutlieRs<-exactMatch_noYear<-matchType<-countryMatch<-
-    countryOutlieRs<-countryOutlieRs<-.countryOutlier <- NULL
+    countryOutlieRs<-countryOutlieRs<-.countryOutlier <- BeeBDC_order <- BeeBDC_group <- points <- 
+    NULL
   
   # REMOVE - TEST thinning
    #  data <- data %>%
@@ -167,9 +168,7 @@ points_extract = data %>%
                      mc.cores = mc.cores
   ) %>%
   # Combine the lists of tibbles
-  dplyr::bind_rows() %>%
-  dplyr::arrange(BeeBDC_order) %>%
-  dplyr::select(!"BeeBDC_order")
+  dplyr::bind_rows() 
 
   
   if(!is.null(pointBuffer)){
@@ -191,9 +190,7 @@ points_extract = data %>%
                        mc.cores = mc.cores
     ) %>%
     # Combine the lists of tibbles
-    dplyr::bind_rows() %>%
-    dplyr::arrange(BeeBDC_order) %>%
-    dplyr::select(!"BeeBDC_order")
+    dplyr::bind_rows() 
   
   # Re-merge good with failed
   points_extract <- points_extract %>%
@@ -241,8 +238,17 @@ points_extract = data %>%
                      multiple = "all", relationship = "many-to-many")
     
 ###### c. Sea points ####
-    # Find the points that did not overlap with contries but that had coordinates
-  seaPoints <- points %>% 
+    # Find the points that did not overlap with countries but that had coordinates
+  seaPoints <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+                            coords = c("decimalLongitude", "decimalLatitude"),
+                            na.fail = TRUE,
+                            # Assign the CRS from the rnaturalearth map to the point data
+                            crs = sf::st_crs(countryMap)) %>%
+    # Use a subset of columns
+    dplyr::select(database_id, scientificName, species, family, subfamily, genus, specificEpithet, 
+                  scientificNameAuthorship,
+                  country, stateProvince, eventDate, institutionCode, recordNumber, catalogNumber,
+                  dataSource, verbatim_scientificName, geometry) %>% 
     sf::st_drop_geometry() %>%
     dplyr::filter(!database_id %in% points_extract$database_id) %>%
     dplyr::select(database_id)
@@ -444,4 +450,4 @@ points_extract = data %>%
       sep = ""))
 return(output)
 
-} # END checklistOutlieR
+} # END countryOutlieRs

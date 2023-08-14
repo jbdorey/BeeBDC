@@ -8,7 +8,9 @@ diagonAlley(
   data = NULL,
   minRepeats = NULL,
   groupingColumns = c("eventDate", "recordedBy", "datasetName"),
-  ndec = 3
+  ndec = 3,
+  stepSize = 1e+06,
+  mc.cores = 1
 )
 }
 \arguments{
@@ -21,6 +23,14 @@ errors within. Default = c("eventDate", "recordedBy", "datasetName").}
 
 \item{ndec}{Numeric. The number of decimal places below which records will not be considered
 in the diagonAlley function. This is fed into \code{\link[=jbd_coordinates_precision]{jbd_coordinates_precision()}}. Default = 3.}
+
+\item{stepSize}{Numeric. The number of occurrences to process in each chunk. Default = 1000000.}
+
+\item{mc.cores}{Numeric. If > 1, the function will run in parallel
+using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+be aware that each thread can use large chunks of memory.
+Default = 1.}
 }
 \value{
 The function returns the input data with a new column, .sequential, where FALSE =
@@ -46,7 +56,9 @@ columns are empty, that record will be excluded.
     # The minimum number of repeats needed to find a sequence in for flagging
     minRepeats = 4,
     groupingColumns = c("eventDate", "recordedBy", "datasetName"),
-    ndec = 3)
+    ndec = 3,
+    stepSize = 1000000,
+    mc.cores = 1)
   
 
 }

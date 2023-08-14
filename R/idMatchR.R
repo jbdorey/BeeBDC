@@ -61,7 +61,7 @@ idMatchR <- function(
   # locally bind variables to the function
   dataSource <- completeness <- database_id <- . <- currentConcat <- dataSourceShort <- 
     database_id_matched <- idContinuity <- databaseName <- database_id_current <-
-    databaseNum <- missingNum <- database_id_new <- NULL
+    databaseNum <- missingNum <- database_id_new <- databaseNum_current <- NULL
   
   requireNamespace("dplyr")
 

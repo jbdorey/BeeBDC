@@ -109,7 +109,7 @@ jbd_CfC_chunker <- function(data = NULL,
                             scale = "large",
                             path = tempdir(),
                             mc.cores = 1){
-  BeeBDC_order <- . <- NULL
+  BeeBDC_order <- . <- .data <- id_temp <- name_long <- geometry <- NULL
   #### 0.0 Prep ####
   startTime <- Sys.time()
     ##### 0.1 nChunks ####
@@ -309,7 +309,7 @@ jbd_CfC_chunker <- function(data = NULL,
       # Arrange these
       dplyr::arrange(BeeBDC_order) %>%
         # Remove extra columns
-      dplyr::select(!c(BeeBDC_order))
+      dplyr::select(!tidyselect::any_of(BeeBDC_order))
   } # END mc.cores > 1
   
   

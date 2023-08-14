@@ -183,6 +183,7 @@ jbd_correct_coordinates <-
     
     # Detect records outside a country
       # Convert to sf object
+    suppressWarnings({
     countryTest <- occ_country %>% 
       sf::st_as_sf(coords = c(x, y), crs = sf::st_crs(world_poly)) %>%
         # Perform intersect operation with world_poly
@@ -193,6 +194,7 @@ jbd_correct_coordinates <-
       dplyr::mutate(indexMatch = indexMatch %>% as.character() %>% as.numeric()) %>%
       dplyr::left_join(simplePoly,
                        by = "indexMatch")
+    })# END suppressWarnings
       # Join with the original dataset to find the database_ids of those occurrences that 1. do not
         # match with their supplied country code and/or 2. fall in the ocean (are NA)
     countryTest <- occ_country %>%

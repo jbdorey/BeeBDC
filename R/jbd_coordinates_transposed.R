@@ -195,7 +195,7 @@ jbd_coordinates_transposed <- function(data,
         setwd(path)
         corrected_coordinates %>%
           readr::write_excel_csv(
-            paste(path, fileName, sep = ""),
+            paste(path, fileName, sep = "/"),
                            append = TRUE)
         message(
           paste(

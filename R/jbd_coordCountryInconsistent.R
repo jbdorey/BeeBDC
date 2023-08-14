@@ -50,6 +50,7 @@ jbd_coordCountryInconsistent <- function(
   
   database_id <- decimalLatitude <- decimalLongitude <- country <- name_long <- iso_a2 <- 
     geometry <- admin <- sovereignt <- name <- . <- NULL
+  .coordinates_outOfRange <- .coordinates_empty <- indexMatch <- BeeBDC_order <- NULL
   
 startTime <- Sys.time()
 requireNamespace("rnaturalearth")

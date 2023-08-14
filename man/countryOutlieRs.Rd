@@ -9,7 +9,9 @@ countryOutlieRs(
   data = NULL,
   keepAdjacentCountry = TRUE,
   pointBuffer = NULL,
-  rnearthScale = 50
+  rnearthScale = 50,
+  stepSize = 1e+06,
+  mc.cores = 1
 )
 }
 \arguments{
@@ -28,6 +30,14 @@ maps in rnaturalearth}
 \code{\link[rnaturalearth:ne_countries]{rnaturalearth::ne_countries()}}'s scale parameter:
 Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large', where smaller numbers
 are higher resolution. WARNING: This function is tested on 110 and 50.}
+
+\item{stepSize}{Numeric. The number of occurrences to process in each chunk. Default = 1000000.}
+
+\item{mc.cores}{Numeric. If > 1, the function will run in parallel
+using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+be aware that each thread can use large chunks of memory.
+Default = 1.}
 }
 \value{
 The input data with a new column, .countryOutlier. There are three possible values for
@@ -43,6 +53,8 @@ beesRaw_out <- countryOutlieRs(checklist = BeeBDC::beesChecklist,
                                data = BeeBDC::beesRaw,
                                keepAdjacentCountry = TRUE,
                                pointBuffer = 0.05,
-                               rnearthScale = 50)
+                               rnearthScale = 50,
+                               stepSize = 1000000,
+                               mc.cores = 1)
 table(beesRaw_out$.countryOutlier, useNA = "always")
 }

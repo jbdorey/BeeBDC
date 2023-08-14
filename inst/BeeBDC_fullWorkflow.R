@@ -894,7 +894,8 @@ check_space %>%
 check_space <- BeeBDC::diagonAlley(
   data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
-  minRepeats = 4)
+  minRepeats = 4,
+  mc.cores = 6)
 
 # SPATIAL gridding from rasterisation:
 # Select only the records with more than X occurrences
@@ -968,7 +969,8 @@ check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                           # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
                           # Smaller numbers will result in much longer calculation times. 
                           # We have not attempted a scale of 10.
-                        rnearthScale = 50)
+                        rnearthScale = 50,
+                        mc.cores = 4)
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%
