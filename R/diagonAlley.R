@@ -19,6 +19,7 @@
 #' errors within. Default = c("eventDate", "recordedBy", "datasetName").
 #' @param ndec Numeric. The number of decimal places below which records will not be considered
 #' in the diagonAlley function. This is fed into [BeeBDC::jbd_coordinates_precision()]. Default = 3.
+#' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #' @param mc.cores Numeric. If > 1, the function will run in parallel
 #' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
 #' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
@@ -43,6 +44,7 @@
 #'     minRepeats = 4,
 #'     groupingColumns = c("eventDate", "recordedBy", "datasetName"),
 #'     ndec = 3,
+#'     stepSize = 1000000,
 #'     mc.cores = 1)
 #'   
 #' 
@@ -51,6 +53,7 @@ diagonAlley <- function(
   minRepeats = NULL,
   groupingColumns = c("eventDate", "recordedBy", "datasetName"),
   ndec = 3,
+  stepSize = 1000000,
   mc.cores = 1
   ){
   # locally bind variables to the function

@@ -17,6 +17,7 @@
 #'  [rnaturalearth::ne_countries()]'s scale parameter:
 #' 	Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large', where smaller numbers 
 #' 	are higher resolution. WARNING: This function is tested on 110 and 50.
+#' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #' @param mc.cores Numeric. If > 1, the function will run in parallel
 #' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
 #' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
@@ -36,6 +37,7 @@
 #'                                keepAdjacentCountry = TRUE,
 #'                                pointBuffer = 0.05,
 #'                                rnearthScale = 50,
+#'                                stepSize = 1000000,
 #'                                mc.cores = 1)
 #' table(beesRaw_out$.countryOutlier, useNA = "always")
 
@@ -45,6 +47,7 @@ countryOutlieRs <- function(
     keepAdjacentCountry = TRUE,
     pointBuffer = NULL,
     rnearthScale = 50,
+    stepSize = 1000000,
     mc.cores = 1
     ){
   # locally bind variables to the function
@@ -164,7 +167,9 @@ points_extract = data %>%
                      mc.cores = mc.cores
   ) %>%
   # Combine the lists of tibbles
-  dplyr::bind_rows() 
+  dplyr::bind_rows() %>%
+  dplyr::arrange(BeeBDC_order) %>%
+  dplyr::select(!"BeeBDC_order")
 
   
   if(!is.null(pointBuffer)){
@@ -186,7 +191,9 @@ points_extract = data %>%
                        mc.cores = mc.cores
     ) %>%
     # Combine the lists of tibbles
-    dplyr::bind_rows() 
+    dplyr::bind_rows() %>%
+    dplyr::arrange(BeeBDC_order) %>%
+    dplyr::select(!"BeeBDC_order")
   
   # Re-merge good with failed
   points_extract <- points_extract %>%
