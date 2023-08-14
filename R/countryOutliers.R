@@ -17,6 +17,11 @@
 #'  [rnaturalearth::ne_countries()]'s scale parameter:
 #' 	Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large', where smaller numbers 
 #' 	are higher resolution. WARNING: This function is tested on 110 and 50.
+#' @param mc.cores Numeric. If > 1, the function will run in parallel
+#' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+#' be aware that each thread can use large chunks of memory.
+#'  Default = 1.
 #'
 #' @return The input data with a new column, .countryOutlier. There are three possible values for 
 #' the new column: TRUE == passed, FALSE == failed, NA == did not overlap with rnaturalearth map.
@@ -91,41 +96,96 @@ sf::sf_use_s2(FALSE)
 
 
   #### 2.0 Use occ. data ####
-  ##### 2.1 Occ data ####
+    ##### 2.1 Create functions ####
+      ###### a. simple intersect ####
+# Hijack st_intersection to allow it to be run in parallel
+jbd_intersection <- function(data){
   # Turn data into a simple point feature
   points <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
                          coords = c("decimalLongitude", "decimalLatitude"),
                          na.fail = TRUE,
-                            # Assign the CRS from the rnaturalearth map to the point data
-                            crs = sf::st_crs(countryMap)) %>%
-      # Use a subset of columns
+                         # Assign the CRS from the rnaturalearth map to the point data
+                         crs = sf::st_crs(countryMap)) %>%
+    # Use a subset of columns
     dplyr::select(database_id, scientificName, species, family, subfamily, genus, specificEpithet, 
                   scientificNameAuthorship,
                   country, stateProvince, eventDate, institutionCode, recordNumber, catalogNumber,
                   dataSource, verbatim_scientificName, geometry)
-  
-    ##### 2.2 Extraction ####
-    ###### a. exactCountry ####
-  writeLines(" - Extracting country data from points...")
+  suppressWarnings({
     #Extract polygon information to points
   points_extract <- sf::st_intersection(countryMap,
-                              points) %>% suppressWarnings()
+                                        points) %>% suppressWarnings()
+  })
+    # Return the points
+  return(points_extract)
+  } # END jbd_intersection
+
+      ###### b. buffered intersect ####
+# Hijack st_intersection to allow it to be run in parallel
+jbd_bufferedIntersection <- function(data){
+  suppressWarnings({
+  # Turn data into a simple point feature
+  points <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+                         coords = c("decimalLongitude", "decimalLatitude"),
+                         na.fail = TRUE,
+                         # Assign the CRS from the rnaturalearth map to the point data
+                         crs = sf::st_crs(countryMap)) %>%
+    # Use a subset of columns
+    dplyr::select(database_id, scientificName, species, family, subfamily, genus, specificEpithet, 
+                  scientificNameAuthorship,
+                  country, stateProvince, eventDate, institutionCode, recordNumber, catalogNumber,
+                  dataSource, verbatim_scientificName, geometry) %>%
+      # Buffer the points by the pointBuffer
+    sf::st_buffer(dist = pointBuffer)
+    #Extract polygon information to points
+    points_extract <- sf::st_intersection(countryMap,
+                                          points) %>% suppressWarnings()
+  })
+  # Return the points
+  return(points_extract)
+} # END jbd_intersection
+
+
+
+##### 2.2 Extraction ####
+###### a. exactCountry ####
+writeLines(" - Extracting country data from points...")
+points_extract = data %>%
+  # Make a new column with the ordering of rows
+  dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+  # Group by the row number and step size
+  dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+  # Split the dataset up into a list by group
+  dplyr::group_split(.keep = TRUE) %>%
+  # Run the actual function
+  parallel::mclapply(., jbd_intersection,
+                     mc.cores = mc.cores
+  ) %>%
+  # Combine the lists of tibbles
+  dplyr::bind_rows() 
+
   
   if(!is.null(pointBuffer)){
   # Failed extractions
-  points_failed <- points %>%
+  points_failed <- data %>%
     dplyr::filter(!database_id %in% points_extract$database_id)
   
   writeLines(" - Buffering failed points by pointBuffer...")
-  # Buffer the natural earth map
-  suppressWarnings({
-      # Buffer the failed points 
-    points_failed <- points_failed %>%
-      sf::st_buffer(dist = pointBuffer)
-      # attempt to overlay these points
-    points_failed <- sf::st_intersection(countryMap,
-                                         points_failed) %>% suppressWarnings()
-  })
+  
+  points_failed = points_failed %>%
+    # Make a new column with the ordering of rows
+    dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+    # Group by the row number and step size
+    dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+    # Split the dataset up into a list by group
+    dplyr::group_split(.keep = TRUE) %>%
+    # Run the actual function
+    parallel::mclapply(., jbd_bufferedIntersection,
+                       mc.cores = mc.cores
+    ) %>%
+    # Combine the lists of tibbles
+    dplyr::bind_rows() 
+  
   # Re-merge good with failed
   points_extract <- points_extract %>%
     sf::st_drop_geometry() %>%
