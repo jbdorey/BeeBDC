@@ -35,7 +35,8 @@
 #'                                data = BeeBDC::beesRaw,
 #'                                keepAdjacentCountry = TRUE,
 #'                                pointBuffer = 0.05,
-#'                                rnearthScale = 50)
+#'                                rnearthScale = 50,
+#'                                mc.cores = 1)
 #' table(beesRaw_out$.countryOutlier, useNA = "always")
 
 countryOutlieRs <- function(
@@ -43,7 +44,8 @@ countryOutlieRs <- function(
     data = NULL,
     keepAdjacentCountry = TRUE,
     pointBuffer = NULL,
-    rnearthScale = 50
+    rnearthScale = 50,
+    mc.cores = 1
     ){
   # locally bind variables to the function
   iso_a2<-iso_a3<-name<-name_long<-continent<-geometry<-countryOutlieRs<-decimalLongitude<-
