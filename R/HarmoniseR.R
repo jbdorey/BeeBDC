@@ -20,6 +20,12 @@
 #' @param speciesColumn Character. The name of the column containing species names. Default = "scientificName".
 #' @param rm_names_clean Logical. If TRUE then the names_clean column will be removed at the end of
 #' this function to help reduce confusion about this column later. Default = TRUE
+#' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
+#' @param mc.cores Numeric. If > 1, the function will run in parallel
+#' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+#' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+#' be aware that each thread can use large chunks of memory.
+#'  Default = 1.
 #'
 #' @return The occurrences are returned with update taxonomy columns, including: scientificName, 
 #' species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and 
@@ -46,7 +52,9 @@ harmoniseR <- function(
   path = NULL, #The path to a folder that the output can be saved
   taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
   speciesColumn = "scientificName",
-  rm_names_clean = TRUE
+  rm_names_clean = TRUE,
+  stepSize = 1000000,
+  mc.cores = 1
   ) {  
   # locally bind variables to the function
   . <- id <- validName<-canonical<-canonical_withFlags<-family<-subfamily<-genus<-subgenus<-
@@ -100,7 +108,8 @@ harmoniseR <- function(
   if(!"names_clean" %in% colnames(data)){
     data <- data %>%
       dplyr::mutate(names_clean = scientificName)
-    message("The names_clean column was not found and will be temporarily removed.")
+    message(paste0("The names_clean column was not found and will be temporarily copied from",
+            " scientificName"))
   }
     ###### c. database_id ####
     # If the database_id column isn't in the dataset, then add it for internal use
@@ -171,7 +180,8 @@ harmoniseR <- function(
   #### 2.0 Harmonise data ####
   writeLines(paste("\n",
                    " - Harmonise the occurrence data with unambiguous names...", sep = ""))
-  
+    # Create the parallel-able function
+  unAmbiguousFunction <- function(data){
     ##### 2.1 Valid Name ####
       ###### a. prep synonyms ####
   # Filter out the AMBIGUOUS validNames prior to matching
@@ -336,9 +346,6 @@ harmoniseR <- function(
   # Remove spent file
   rm(occs_24)
   
-  gc()
-  
-
   
   ##### 2.5 sciName_comb ####
   # Now we will try and match the valid name by combining the scientificName and scientificNameAuthorship columns
@@ -492,11 +499,28 @@ harmoniseR <- function(
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
   rm(occs_27, currenttaxonomy)
+  return(runningOccurrences)
+  } # END unAmbiguousFunction
+  
+  # Run the function
+  runningOccurrences <- data %>%
+    # Make a new column with the ordering of rows
+    dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+    # Group by the row number and step size
+    dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+    # Split the dataset up into a list by group
+    dplyr::group_split(.keep = TRUE) %>%
+    # Run the actual function
+    parallel::mclapply(., unAmbiguousFunction,
+                       mc.cores = mc.cores
+    ) %>%
+    # Combine the lists of tibbles
+    dplyr::bind_rows() 
   
   #### 3.0 Ambiguous names ####
   writeLines(paste("\n",
                    " - Attempting to harmonise the occurrence data with ambiguous names...", sep = ""))
-  
+  ambiguousFunction <- function(data){
   ##### 3.1 Prepare datasets ####
   ###### a. prep synonyms ####
   # Synonym list of ambiguous names
@@ -706,9 +730,7 @@ harmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   # Remove spent file
-  rm(occs_35, taxonomy)
-
-  gc()
+  rm(occs_35)
   
   
   
@@ -821,6 +843,24 @@ harmoniseR <- function(
     dplyr::bind_rows(runningAmb_occs)
   # Remove this spent files
   rm(occs_38)
+  return(runningAmb_occs)
+  } # END ambiguousFunction
+  
+  # Run the function
+  runningAmb_occs <- data %>%
+    # Make a new column with the ordering of rows
+    dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+    # Group by the row number and step size
+    dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+    # Split the dataset up into a list by group
+    dplyr::group_split(.keep = TRUE) %>%
+    # Run the actual function
+    parallel::mclapply(., ambiguousFunction,
+                       mc.cores = mc.cores
+    ) %>%
+    # Combine the lists of tibbles
+    dplyr::bind_rows() 
+  
   
   ##### 3.6 Combine 2.x & 3.x ####
     # Merge the results from 2.x and 3.x 
@@ -831,7 +871,7 @@ harmoniseR <- function(
     dplyr::bind_rows(runningAmb_occs)
   
     # Remove the spent runningAmb_occs data
-  rm(runningAmb_occs, data_amb, ambiguousSynonyms)
+  rm(runningAmb_occs)
 
   
   

@@ -5,12 +5,14 @@ data("beesRaw")
 
 
   # Run the function
-testOut <- BeeBDC::harmoniseR(
+testOut <- harmoniseR(
   path = tempdir(), #The path to a folder that the output can be saved
   taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
   data = beesRaw,
   speciesColumn = "scientificName",
-  rm_names_clean = TRUE)
+  rm_names_clean = TRUE,
+  stepSize = 50,
+  mc.cores = 1)
 
 
 # Test the expected results

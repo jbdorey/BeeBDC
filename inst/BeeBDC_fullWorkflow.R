@@ -548,7 +548,8 @@ suppressWarnings(
                                    # Start row
                                    chunkStart = 1,
                                    path = HomePath,
-                                   append = FALSE),
+                                   append = FALSE,
+                                   mc.cores = 6),
   classes = "warning")
 
 ###### c. re-merge ####
@@ -611,7 +612,8 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
   stepSize = 1000000,  # How many rows to process at a time
   chunkStart = 1,  # Start row
   append = FALSE,  # If FALSE it may overwrite existing dataset
-  path = OutPath_Check
+  path = OutPath_Check,
+  mc.cores = 4
 ) 
 
 # Get a summary of the number of transposed records
@@ -776,7 +778,8 @@ data(beesTaxonomy, package = "BeeBDC")
   # according to DiscoverLife
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
                        taxonomy = beesTaxonomy, # The formatted taxonomy file
-                       data = database)
+                       data = database,
+                       mc.cores = 4)
 
 # You don't need this file anymore...
 rm(beesTaxonomy)
@@ -895,7 +898,7 @@ check_space <- BeeBDC::diagonAlley(
   data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
   minRepeats = 4,
-  mc.cores = 6)
+  mc.cores = 4)
 
 # SPATIAL gridding from rasterisation:
 # Select only the records with more than X occurrences
