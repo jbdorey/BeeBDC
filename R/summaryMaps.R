@@ -93,7 +93,7 @@ summaryMaps <- function(
     dplyr::select(name_long, iso_a3, name, name_long, geometry)
 
   # This stops a plotting error
-  sf_use_s2(FALSE)
+  sf::sf_use_s2(FALSE)
   
   
     ###### 1.2 occurrences ####
@@ -171,7 +171,7 @@ summaryMaps <- function(
      # Add in a blank base-map to highlight countries with no data
      ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
       # Plot and colour the terrestrial base map
-      ggplot2::geom_sf(aes(fill = class_count), size = 0.15)+ 
+      ggplot2::geom_sf(ggplot2::aes(fill = class_count), size = 0.15)+ 
       # Set map limits, if wanted
       ggplot2::coord_sf(expand = FALSE, ylim = c(-60,90), lims_method = "geometry_bbox") + 
       # Map formatting
@@ -295,7 +295,7 @@ summaryMaps <- function(
                                   labels = c("(a)","(b)"),
                                  ncol = 1, align = 'v', axis = 'l'))
   # Save the plot
-  cowplot::save_plot(filename = paste(outPath, fileName, sep = "/"),
+  cowplot::save_plot(filename = paste(outPath, "/", fileName, sep = ""),
                      plot = combinedPlot,
                      base_width = width,
                      base_height = height, dpi = dpi)
