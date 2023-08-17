@@ -62,7 +62,7 @@ harmoniseR <- function(
     family_valid<-subfamily_valid<-canonical_withFlags_valid<-genus_valid<-subgenus_valid<-
     species_valid<-infraspecies_valid<-authorship_valid<-database_id<-names_clean<-
     scientificNameAuthorship<-taxonRank<-authorFound<-SciNameAuthorSimple<-
-    authorSimple<-united_SciName<-verbatimScientificName <- scientificName <- NULL
+    authorSimple<-united_SciName<-verbatimScientificName <- scientificName <- BeeBDC_order <- NULL
 
   
   

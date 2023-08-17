@@ -9,7 +9,9 @@ harmoniseR(
   path = NULL,
   taxonomy = BeeBDC::beesTaxonomy,
   speciesColumn = "scientificName",
-  rm_names_clean = TRUE
+  rm_names_clean = TRUE,
+  stepSize = 1e+06,
+  mc.cores = 1
 )
 }
 \arguments{
@@ -23,6 +25,14 @@ harmoniseR(
 
 \item{rm_names_clean}{Logical. If TRUE then the names_clean column will be removed at the end of
 this function to help reduce confusion about this column later. Default = TRUE}
+
+\item{stepSize}{Numeric. The number of occurrences to process in each chunk. Default = 1000000.}
+
+\item{mc.cores}{Numeric. If > 1, the function will run in parallel
+using mclapply using the number of cores specified. If = 1 then it will be run using a serial
+loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
+be aware that each thread can use large chunks of memory.
+Default = 1.}
 }
 \value{
 The occurrences are returned with update taxonomy columns, including: scientificName,

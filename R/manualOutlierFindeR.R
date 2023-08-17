@@ -60,7 +60,7 @@ manualOutlierFindeR <- function(
     ){
   # locally bind variables to the function
   OutPath_Report <- eventDate <- near_truepoints_KM <- database_id <- occurrenceID <- NULL
-  institutionCode <- database_id_keep <- catalogNumber <- .expertOutlier <- NULL
+  institutionCode <- database_id_keep <- catalogNumber <- .expertOutlier <- . <- NULL
   
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
@@ -89,7 +89,7 @@ manualOutlierFindeR <- function(
   # Find the outliers from chesshire et al. 2023
   PaigeOutliers <- fileFinder(path = DataPath,
                                fileName = PaigeOutliersName) %>%
-    readr::read_csv( col_types = ColTypeR()) %>%
+    readr::read_csv( col_types = readr::cols(.default = "c")) %>%
     suppressWarnings()
   
       ###### b. new outliers ####
@@ -97,20 +97,27 @@ manualOutlierFindeR <- function(
   outliersAll <- fileFinder(path = DataPath,
                              fileName = newOutliersName) %>%
     openxlsx::read.xlsx("Outliers_FromCanadaToPanama_ANB") %>%
+    dplyr::mutate(dplyr::across(tidyselect::all_of(colnames(.)), as.character)) %>%
     dplyr::bind_rows(fileFinder(path = DataPath,
                                  fileName = newOutliersName) %>%
-                       openxlsx::read.xlsx("Tracys_outliers")) %>%
+                       openxlsx::read.xlsx("Tracys_outliers") %>%
+                       dplyr::mutate(dplyr::across(tidyselect::all_of(colnames(.)), as.character))
+                     ) %>%
     dplyr::bind_rows(fileFinder(path = DataPath,
                                  fileName = newOutliersName) %>%
-                       openxlsx::read.xlsx("Colombian_outliers")) %>%
+                       openxlsx::read.xlsx("Colombian_outliers") %>%
+                       dplyr::mutate(dplyr::across(tidyselect::all_of(colnames(.)), as.character))
+                     ) %>%
     dplyr::bind_rows(fileFinder(path = DataPath,
                                  fileName = newOutliersName) %>%
-                       ("Outliers_SppInStatus3")) %>%
+                       openxlsx::read.xlsx("Outliers_SppInStatus3") %>%
+                       dplyr::mutate(dplyr::across(tidyselect::all_of(colnames(.)), as.character))
+                     ) %>%
     readr::write_excel_csv(paste(tempdir(), "newOutliers.csv", sep = "/"))
   # Read back in with the correct column classes
   outliersAll <- fileFinder(path = tempdir(),
                              fileName = "newOutliers.csv") %>%
-    readr::read_csv(col_types = ColTypeR(), lazy = FALSE) %>%
+    readr::read_csv(col_types = readr::cols(.default = "c"), lazy = FALSE) %>%
     dplyr::mutate(eventDate = eventDate %>%
                     lubridate::ymd_hms(truncated = 5)) %>%
     suppressWarnings()
@@ -118,7 +125,7 @@ manualOutlierFindeR <- function(
   ###### c. Colombia ####
   ColombiaOutliers <- fileFinder(path = DataPath,
                                   fileName = ColombiaOutliers_all) %>%
-    readr::read_csv( col_types = ColTypeR()) %>%
+    readr::read_csv( col_types = readr::cols(.default = "c")) %>%
     suppressWarnings()
   
   ######  d. remove NearTRUE ####
@@ -166,6 +173,8 @@ manualOutlierFindeR <- function(
 
   # Combine the Paige and new outliers 
   outliersAll <- outliersAll %>%
+      # Convert to the correct column types
+    readr::type_convert(col_types = ColTypeR()) %>%
     dplyr::bind_rows(Outliers_matched) 
 
   

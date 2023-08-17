@@ -898,7 +898,7 @@ check_space <- BeeBDC::diagonAlley(
   data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
   minRepeats = 4,
-  mc.cores = 4)
+  mc.cores = 2)
 
 # SPATIAL gridding from rasterisation:
 # Select only the records with more than X occurrences

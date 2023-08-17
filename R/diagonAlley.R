@@ -136,7 +136,7 @@ diagonAlley <- function(
         # Keep distinct flagRecords
         # Run distinct every 1000th iteration, or at the end
         if(i %in% seq(0, length(runningData), 1000) | 
-           i == max(1:length(runningData), na.rm = TRUE)){
+           i == length(runningData)){
           flagRecords <- flagRecords %>%
             dplyr::distinct(.keep_all = TRUE)}
         } # END i loop

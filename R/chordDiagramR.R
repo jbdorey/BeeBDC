@@ -221,8 +221,9 @@ circlize::circos.clear()
 
 title(title)
 
-grDevices::dev.copy2pdf(file = paste0(outPath, fileName, sep = "/"),
+grDevices::dev.copy2pdf(file = paste(outPath, fileName, sep = "/"),
                         height = height, width = width, bg = bg)
 
 #dev.off()
 } # END function
+
