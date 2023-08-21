@@ -445,8 +445,8 @@ points_extract = data %>%
     # Time output
     message(paste(
       " - Completed in ", 
-      round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
-      " minutes.",
+      round(difftime(endTime, startTime, units = "mins"), digits = 2 )," ",
+      units(round(endTime - startTime, digits = 2)),
       sep = ""))
 return(output)
 

@@ -17,11 +17,11 @@ bees3sp <- readr::read_csv(paste0(dataPath, "/bees3sp.csv"))
 usethis::use_data(bees3sp)
 
 #### 2.0 Discover Life data ####
-beesChecklist <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-08-20.csv"),
+beesChecklist <- readr::read_csv(paste0(dataPath, "/CheckL_combined2023-08-21.csv"),
                                  guess_max = 40000)
 usethis::use_data(beesChecklist, overwrite = TRUE)
 
-beesTaxonomy <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-07-12.csv"))
+beesTaxonomy <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-08-20.csv"))
 usethis::use_data(beesTaxonomy, overwrite = TRUE)
 
 

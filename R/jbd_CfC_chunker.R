@@ -320,7 +320,8 @@ jbd_CfC_chunker <- function(data = NULL,
   message(paste(
     " - Completed in ", 
     round(difftime(endTime, startTime, units = "mins"), digits = 2 ),
-    " minutes.",
+    " ",
+    units(round(endTime - startTime, digits = 2)),
     sep = ""))
   
   # Clean a little

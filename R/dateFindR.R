@@ -708,7 +708,8 @@ dateFindR <-
         format( sum(is.na(dates_complete$year)), big.mark = ","), 
         " occurrences on the basis of missing",
         " year",
-        " - Operation time: ", (timeEnd - timeStart),
+        " - Operation time: ", (timeEnd - timeStart)," ",
+        units(round(endTime - startTime, digits = 2)),
       sep = "")
     )
     return(dates_complete)

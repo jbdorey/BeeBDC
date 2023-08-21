@@ -118,7 +118,8 @@ repoMerge <- function(path, save_type, occ_paths){
 
   # Completion message to user with endTime
   endTime <- Sys.time()
-  writeLines( paste(" - Completed in ", round(endTime - startTime, digits = 2), " minutes", sep = ""))
+  writeLines( paste(" - Completed in ", round(endTime - startTime, digits = 2), " ",
+                    units(round(endTime - startTime, digits = 2)), sep = ""))
   } # END Data Loop
   return( dplyr::lst(Data_WebDL, eml_files))
 } # END repoMerge function

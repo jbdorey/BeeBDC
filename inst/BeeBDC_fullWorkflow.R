@@ -88,9 +88,9 @@ BeeBDC::atlasDownloader(path = DataPath,
 # Supply the path to where the data are
 # save_type is either "csv_files" or "R_file"
 DataImp <- BeeBDC::repoMerge(path = DataPath, 
-                        # Find data — Many problems can be solved by running dataFinder(path = DataPath)
+                        # Find data — Many problems can be solved by running repoFinder(path = DataPath)
                         # And looking for problems
-                      occ_paths = BeeBDC::dataFinder(path = DataPath),
+                      occ_paths = BeeBDC::repoFinder(path = DataPath),
                       save_type = "R_file")
 
 # Load in the most-recent version of these data if needed 
