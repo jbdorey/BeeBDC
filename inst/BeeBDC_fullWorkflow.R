@@ -12,6 +12,8 @@ RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
 # Set the working directory
 setwd(paste0(RootPath,"/Data_acquisition_workflow"))
 
+# Initialise renv the project if needed
+  # renv::init() 
 
 ##### 0.2 Install packages (if needed) #####
 # Choose packages that need to be installed/loaded
@@ -25,7 +27,6 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "dplyr",             #  Part of the tidyverse
                       "forcats",           # tidyverse for working with factors
                       "rlist",             # Package to save lists
-                      "EML",               #  To work with .eml files
                       "emld",              #  To work with .eml files
                       "rlang",             #  Part of the tidyverse — core functions
                       "xml2",              #  Part of the tidyverse — reads .xml files
@@ -38,7 +39,6 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "rnaturalearthdata", #  To access the above global map data
                       "countrycode",       # Package to deal with country codes
                       "renv",
-                      "rworldmap",
                       "janitor",
                       "circlize", 
                       "BiocManager",
@@ -48,36 +48,31 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "cowplot",           # ggplot2 helper package
                       "igraph",
                       "ggspatial")        #  Makes ggplot2 create north arrows or scale bars
-# Install sf, terra, galah, and ComplexHeatMap seperately
-renv::install(c("sf","terra"), type = "binary")
-remotes::install_github("AtlasOfLivingAustralia/galah")
-BiocManager::install("ComplexHeatmap")
-# List the new (not installed) packages and then if there are any, install them.
-renv::install(packages = c(list.of.packages), 
-              rebuild = FALSE) # try changing to TRUE if you're having package troubles
 
-# Initialise renv the project
-renv::init() 
 
-##### 0.3 Load packages ####
-# Load all packages from the list specified above,
-lapply(c(list.of.packages, "sf","terra", "galah", 
-         "ComplexHeatmap"), 
-       library, character.only = TRUE)
-# Save a snapshot of the environment
-renv::snapshot()
+# Install ComplexHeatMap seperately
+BiocManager::install("ComplexHeatmap", force = FALSE)
 
-  ##### 0.4 BeeBDC ####
 # Install BeeBDC 
 remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", ref = "main", 
                         force = TRUE,
                         auth_token = "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")
 
+##### 0.3 Load packages ####
+# Load all packages from the list specified above,
+lapply(c(list.of.packages, "sf","terra", "galah", 
+         "ComplexHeatmap", "BeeBDC"), 
+       library, character.only = TRUE)
+# Save a snapshot of the environment
+renv::snapshot()
+
+
+
 # Create file paths and prepare for what's to come
 BeeBDC::dirMaker(
   RootPath = RootPath,
   # Input the location of the workflow script RELATIVE to the RootPath
-  RDoc = "Packages/BeeBDC/BeeBDC_fullWorkflow.R") %>%
+  RDoc = "Packages/BeeBDC/inst/BeeBDC_fullWorkflow.R") %>%
   # Add paths created by this function to the .GlobalEnv
   list2env(envir = .GlobalEnv)  
 
@@ -86,6 +81,7 @@ BeeBDC::dirMaker(
 # Downloads ALA data and creates a new file in the HomePath to put those data
 BeeBDC::atlasDownloader(path = DataPath,
                userEmail = "jbdorey@me.com",
+               atlas = "ALA",
                ALA_taxon = "Apiformes")
 
 ##### 1.2 Import and merge ALA, SCAN, iDigBio and GBIF data ####

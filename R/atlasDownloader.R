@@ -58,7 +58,7 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
   # Define ColsToKeep
   ColsToKeep <- BeeBDC::ColTypeR()[[1]] %>% names()
   # Create a new working directory for ALA data in the path provided
-  dir.create(paste(path, atlas, "_galah_path", sep = "/"), showWarnings = FALSE)
+  dir.create(paste0(path, "/", atlas, "_galah_path", sep = ""), showWarnings = FALSE)
   atlas_galah_path <- paste(path, "/", atlas, "_galah_path", sep = "")
   # Set up the ALA download configuration
   writeLines(" - Setting galah configuration.")

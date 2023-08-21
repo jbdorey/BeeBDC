@@ -34,7 +34,7 @@ taxoDuplicator <- function(
   duplicates <- SynList %>% 
     #dplyr::filter(source == "DiscoverLife") %>%
     dplyr::group_by(validName) %>%
-    dplyr::filter(n() > 1)
+    dplyr::filter(dplyr::n() > 1)
   # User output
   writeLines(paste(" - ", format(nrow(duplicates), big.mark = ","),
                                  " duplicates found in the data.", sep = ""))
@@ -91,7 +91,7 @@ taxoDuplicator <- function(
     # Look for internal source1 duplicated ACCEPTED names
   S1duplicates <- S1accepted %>%
     dplyr::group_by(validName) %>%
-    dplyr::filter(n() > 1)
+    dplyr::filter(dplyr::n() > 1)
   # Stop here becuase I have no matches, but this might be important down the track if someone 
     # finds them!
   if(nrow(S1duplicates) > 0 ){
@@ -106,7 +106,7 @@ taxoDuplicator <- function(
   # Look for internal source1 duplicated SYNONYMS
   S1duplicatesyns <- S1synonyms %>%
     dplyr::group_by(validName) %>%
-    dplyr::filter(n() > 1)
+    dplyr::filter(dplyr::n() > 1)
   
  S1dupes_nest <- S1duplicatesyns %>%
     # ungroup but nest the data by valid name instead
@@ -141,17 +141,17 @@ taxoDuplicator <- function(
         # FOR n > 2
       if(nrow(LoopTibble) > 2){
           # Find non-ambiguous duplicates
-        nrow_nonAmbi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(n() > 1) %>%
+        nrow_nonAmbi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(dplyr::n() > 1) %>%
           nrow()
           # Find ambiguous duplicates
-        nrow_Ambi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(n() == 1) %>%
+        nrow_Ambi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(dplyr::n() == 1) %>%
           nrow()
           # IF ALL of these rows have the same accid, then they are just regular synonym duplicates
         if(nrow_nonAmbi == nrow(LoopTibble)){
           # Add the lowest id number to the nonAmbiSyns tibble
           LoopTibble <- LoopTibble %>% dplyr::arrange(id)
           nonAmbiSyns <- nonAmbiSyns %>% 
-            dplyr::bind_rows(dplyr::filter(LoopTibble, row_number() == 1))
+            dplyr::bind_rows(dplyr::filter(LoopTibble, dplyr::row_number() == 1))
         }else{ # ALL of the others have been ambiguous so far
             # Add these data to the ambiSyns dataframe
           ambiSyns <- ambiSyns %>% 
@@ -164,7 +164,7 @@ taxoDuplicator <- function(
     # Take only one of each non-ambiguous synonyms
  nonAmbiSyns_deDuped <- nonAmbiSyns %>%
    dplyr::group_by(validName) %>%
-   dplyr::filter(row_number() == 1)
+   dplyr::filter(dplyr::row_number() == 1)
     # For ambiguous accids, add this to the flags
  ambiSyns$flags <- "ambiguous validName"
     ###### c. merge ####
@@ -195,7 +195,7 @@ taxoDuplicator <- function(
     # Look for internal source1 duplicates
   S2Duplicates <- S2Unique %>%
     dplyr::group_by(validName) %>%
-    dplyr::filter(n() > 1)
+    dplyr::filter(dplyr::n() > 1)
     # Yep, there are source2 synonym duplicates to deal with!
   # Do any of the accids in the full list match these names' ids?
   S2IDmatches <- S2Duplicates %>%
@@ -215,7 +215,7 @@ taxoDuplicator <- function(
       # Filter out ANY duplicated rows for validName
     dplyr::group_by(validName) %>%
       # take the first row
-    dplyr::filter(row_number() == 1)
+    dplyr::filter(dplyr::row_number() == 1)
     # KEEP S2Originals
   
   
@@ -235,7 +235,7 @@ taxoDuplicator <- function(
     # Check to make sure that all validNames are unique
   UniqueVNcheck <- NonAmbi_VNcheck %>%
     dplyr::group_by(validName) %>%
-    dplyr::filter(n() > 1)
+    dplyr::filter(dplyr::n() > 1)
   
      ##### 4.1 ValSyn_clean ####
       # look for matches between source1 accepted names and source2 synonyms
@@ -305,7 +305,7 @@ taxoDuplicator <- function(
       dplyr::filter(canonical_withFlags %>% stringr::str_detect(
         "_"
       )) %>%
-      dplyr::filter(n() > 1) 
+      dplyr::filter(dplyr::n() > 1) 
 
     S1dupes_nest <- S1duplicatesyns_51 %>%
       # ungroup but nest the data by valid name instead
@@ -346,10 +346,12 @@ taxoDuplicator <- function(
         # FOR n > 2
         if(nrow(LoopTibble) > 2){
           # Find non-ambiguous duplicates
-          nrow_nonAmbi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(n() > 1) %>%
+          nrow_nonAmbi <- LoopTibble %>% dplyr::group_by(accid) %>% 
+            dplyr::filter(dplyr::n() > 1) %>%
             nrow()
           # Find ambiguous duplicates
-          nrow_Ambi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(n() == 1) %>%
+          nrow_Ambi <- LoopTibble %>% dplyr::group_by(accid) %>% 
+            dplyr::filter(dplyr::n() == 1) %>%
             nrow()
           # IF ALL of these rows have the same accid, then they are just regular synonym duplicates
           if(nrow_nonAmbi == nrow(LoopTibble)){
@@ -433,7 +435,7 @@ taxoDuplicator <- function(
     # Look for internal source1 duplicated SYNONYMS
     S1duplicatesyns_52 <- deDuplicated_51 %>%
       dplyr::group_by(canonical) %>%
-      dplyr::filter(n() > 1) 
+      dplyr::filter(dplyr::n() > 1) 
     
     S1dupes_nest <- S1duplicatesyns_52 %>%
       # ungroup but nest the data by valid name instead
@@ -474,10 +476,12 @@ taxoDuplicator <- function(
         # FOR n > 2
         if(nrow(LoopTibble) > 2){
           # Find non-ambiguous duplicates
-          nrow_nonAmbi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(n() > 1) %>%
+          nrow_nonAmbi <- LoopTibble %>% dplyr::group_by(accid) %>% 
+            dplyr::filter(dplyr::n() > 1) %>%
             nrow()
           # Find ambiguous duplicates
-          nrow_Ambi <- LoopTibble %>% dplyr::group_by(accid) %>% dplyr::filter(n() == 1) %>%
+          nrow_Ambi <- LoopTibble %>% dplyr::group_by(accid) %>% 
+            dplyr::filter(dplyr::n() == 1) %>%
             nrow()
           # IF ALL of these rows have the same accid, then they are just regular synonym duplicates
           if(nrow_nonAmbi == nrow(LoopTibble)){
@@ -508,7 +512,7 @@ taxoDuplicator <- function(
       # Take only one of each non-ambiguous synonyms
       nonAmbiSyns_deDuped_52 <- nonAmbiSyns_52 %>%
         dplyr::group_by(validName) %>%
-        dplyr::filter(row_number() == 1)
+        dplyr::filter(dplyr::row_number() == 1)
     }
     
     # NON-AMBIGUOUS

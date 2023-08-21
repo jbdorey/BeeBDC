@@ -160,7 +160,7 @@ taxoMergeR <- function(currentNames = NULL,
   # subset those names that matched a single Ascher name
   SingleMatch <- Correct_matched %>%
     dplyr::group_by(tempIndex) %>%
-    dplyr::filter(n() == 1)
+    dplyr::filter(dplyr::n() == 1)
   # Split the Original column into genus and species
   suppressWarnings(
     SingleMatch_split <- SingleMatch %>% 
@@ -177,7 +177,7 @@ taxoMergeR <- function(currentNames = NULL,
     dplyr::filter(tempIndex %in% SingleMatch_split$tempIndex)%>%
     # Keep those with a single match
     dplyr::group_by(tempIndex) %>%
-    dplyr::filter(n() == 1)
+    dplyr::filter(dplyr::n() == 1)
   # Attach the authority to the SingleMatch_split tibble
   Single_newMatched <- SingleMatch_split %>%
     dplyr::left_join( dplyr::select(Syn_matched, c(tempIndex, authorship)), by = "tempIndex")
@@ -282,12 +282,12 @@ taxoMergeR <- function(currentNames = NULL,
     # group by the temporary index number
     dplyr::group_by(tempIndex) %>%
     # Find all with more than one
-    dplyr::filter(n() > 1) %>% 
+    dplyr::filter(dplyr::n() > 1) %>% 
     # Sort in order of waht you want to keep
     dplyr::arrange(accid,
                    .by_group = TRUE) %>%
     # Filter for the first row only - this will direct to the accepted name hopefully
-    dplyr::filter(row_number() == 1)
+    dplyr::filter(dplyr::row_number() == 1)
   
   ###### a. find accepted (if needed) ####
   # If any rows do not == 0 (accepted names), then find those names.
@@ -404,7 +404,7 @@ taxoMergeR <- function(currentNames = NULL,
     # subset those names that matched a single Ascher name
   Single_newMatched <- Correct_matched %>%
     dplyr::group_by(tempIndex) %>%
-    dplyr::filter(n() == 1)
+    dplyr::filter(dplyr::n() == 1)
   
         # Give preference to the occurrence's authorship and then combine
   Single_newMatched$authorship <- dplyr::if_else(Single_newMatched$authorship_nameSplit == "" |
@@ -565,12 +565,12 @@ taxoMergeR <- function(currentNames = NULL,
       # group by the temporary index number
     dplyr::group_by(tempIndex) %>%
       # Find all with more than one
-    dplyr::filter(n() > 1) %>% 
+    dplyr::filter(dplyr::n() > 1) %>% 
       # Sort in order of waht you want to keep
     dplyr::arrange(accid,
                    .by_group = TRUE) %>%
       # Filter for the first row only - this will direct to the accepted name hopefully
-    dplyr::filter(row_number() == 1)
+    dplyr::filter(dplyr::row_number() == 1)
   
   ###### a. find accepted (if needed) ####
     # If any rows do not == 0 (accepted names), then find those names.
