@@ -144,7 +144,15 @@ setwd(outPath) #directory of work
   #### 1.0 Data prep ####
     ##### 1.1 Remove na+ ####
 data <- data %>%
-  tidyr::drop_na(tidyselect::any_of(c(lon, lat))) 
+  tidyr::drop_na(tidyselect::any_of(c(lon, lat)))  %>%
+    # Rename the lat and lon to darwincore
+  dplyr::rename("decimalLongitude" = tidyselect::all_of(lon),
+                "decimalLatitude" = tidyselect::all_of(lat) )
+
+# Stop if no lat/lon
+if(nrow(data) == 0){
+  stop("It looks like there may be no lat and lon data. Check that it exists and is not NA.")
+}
 
 # If there is no .expertOutlier then add one as all NA
 if(!".expertOutlier" %in% colnames(data)){
@@ -180,12 +188,16 @@ if(excludeApis_mellifera == TRUE){
 
 
 ##### 1.5 Overwrite ####
-if(overWrite == TRUE){
+if(overWrite == FALSE){
     # Find completed species
   existingFiles <- list.files(path = outPath) %>%
     stringr::str_remove("\\.html")
     # remove them from the to-do list
   speciesList <- setdiff(speciesList, existingFiles)
+    # STOP if no maps will be produced
+  if(length(speciesList) == 0){
+    stop("With overWrite = FALSE, there are no new maps to produce.")
+  }
     # Re-filter the data to use only wanted species
   data <- data %>% 
     # Select ONLY the species requested
@@ -264,10 +276,12 @@ for (x in 1:length(speciesList)){
     leaflet::addMapPane(name = "maplabels_TRUE", zIndex = 420) %>% # higher zIndex rendered on top
     # Base groups
     leaflet::addTiles(group = "OSM (default)") %>%
-    leaflet::addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite")
+    leaflet::addProviderTiles("Stamen.TonerLite", group = "Toner Lite",
+                              layerId = 300,
+                              options = leaflet::providerTileOptions(zIndex = 500))
     # For the names in the list, apply the points function
   names(databaseLoop) %>%
-    purrr::walk(function(walkName) {
+    purrr::walk(function(walkName){
       databaseSpp <<- databaseLoop[[walkName]]
       mdatabaseSpp <<- mdatabaseSpp %>%
     leaflet::addCircleMarkers(data = databaseSpp,
