@@ -1,6 +1,6 @@
 Package: BeeBDC
 Title: BeeBDC: an Occurrence Data Cleaning Package
-Version: 0.2.7
+Version: 0.2.8
 Authors@R: c(
     person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-2721-3842")),
