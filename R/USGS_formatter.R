@@ -164,10 +164,11 @@ USGS_formatter <- function(
                      paste0("Trap liquid: ", how4), ""),
       sep = "|") %>%
       # Remove extra bars.
-      mgsub::mgsub(pattern = c("(\\|){2,5}"),
-                   replacement = c("\\|")) %>%
-      mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                   replacement = c("",""))) %>%
+      # Remove extra bars.
+      stringr::str_replace_all(pattern = "(\\|){2,5}",
+                               replacement = "\\|") %>%
+      stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                               replacement = "")) %>%
       # Add in samplingEffort
     dplyr::mutate(
       samplingEffort = stringr::str_c(
@@ -206,10 +207,10 @@ USGS_formatter <- function(
                      paste0("time2: ", time2), ""),
       sep = "|") %>%
     # Remove extra bars.
-    mgsub::mgsub(pattern = c("(\\|){2,9}"),
-                 replacement = c("\\|")) %>%
-    mgsub::mgsub(pattern = c("(\\|$)+","(^\\|)+"),
-                 replacement = c("",""))) 
+    stringr::str_replace_all(pattern = "(\\|){2,9}",
+                 replacement = "\\|") %>%
+      stringr::str_replace_all(pattern = "(\\|$)+|(^\\|)+",
+                 replacement = "")) 
   # Trim white spaces
     # stringr::str_trim(side = "both")
   

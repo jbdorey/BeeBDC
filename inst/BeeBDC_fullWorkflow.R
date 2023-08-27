@@ -13,7 +13,8 @@ RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
 setwd(paste0(RootPath,"/Data_acquisition_workflow"))
 
 # Initialise renv the project if needed
-  # renv::init() 
+  # renv::init(project = paste0(RootPath,"/Data_acquisition_workflow")) 
+renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 ##### 0.2 Install packages (if needed) #####
 # Choose packages that need to be installed/loaded
@@ -49,7 +50,9 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "igraph",
                       "ggspatial")        #  Makes ggplot2 create north arrows or scale bars
 
-
+# Install all packages from the list specified above,
+lapply(c(list.of.packages, "sf","terra", "galah"), 
+       renv::install, prompt = FALSE, character.only = TRUE)
 # Install ComplexHeatMap seperately
 BiocManager::install("ComplexHeatmap", force = FALSE)
 
@@ -64,7 +67,7 @@ lapply(c(list.of.packages, "sf","terra", "galah",
          "ComplexHeatmap", "BeeBDC"), 
        library, character.only = TRUE)
 # Save a snapshot of the environment
-renv::snapshot()
+renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 
 
