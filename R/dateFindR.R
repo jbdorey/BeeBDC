@@ -42,7 +42,7 @@ dateFindR <-
       ymd_fieldNotes<-ymd_locationRemarks<-locality<-dmy_vEV<-dmy_locality<-dmy_fieldNotes<-
       dmy_locationRemarks<-mdy_vEV<-mdy_locality<-mdy_fieldNotes<-mdy_locationRemarks<-my_vEV<-
       my_locality<-my_fieldNotes<-my_locationRemarks<-amb_vEV<-amb_locality<-amb_fieldNotes<-
-      amb_locationRemarks<-year <- NULL
+      amb_locationRemarks<-year <- endTime <- startTime <- NULL
     
       # load required packages
     requireNamespace("dplyr")
@@ -709,7 +709,7 @@ dateFindR <-
         " occurrences on the basis of missing",
         " year",
         " - Operation time: ", (timeEnd - timeStart)," ",
-        units(round(endTime - startTime, digits = 2)),
+        units(round(timeEnd - timeStart, digits = 2)),
       sep = "")
     )
     return(dates_complete)
