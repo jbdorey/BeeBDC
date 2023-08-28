@@ -119,6 +119,10 @@ chordDiagramR <- function(
   if(is.null(fileName)){
     stop(" - Please provide an argument for fileName Seems reckless to let me just guess.")
   }
+  if(nrow(dupeData) == 0){
+    stop(" - There are no duplicates in the dupeData object. Stopping process.")
+  }
+  
   
 
 # Create a table to go into chord diagram

@@ -77,7 +77,7 @@ summaryFun <- function(
       # Select all columns starting with "."
       dplyr::select(tidyselect::starts_with(".")) %>% 
       # Delete the summary column if it's there
-      dplyr::select(!tidyselect::any_of(".summary")) %>%
+      dplyr::select(!tidyselect::starts_with(".summary")) %>%
       # Make FALSE == 1 and TRUE == 0
       dplyr::mutate_if(is.logical, ~abs(as.numeric(.) - 1)) %>%
       # IF rowSum > 0 then there is at least one flag
@@ -100,7 +100,7 @@ summaryFun <- function(
       # Select all columns starting with "."
       dplyr::select(tidyselect::starts_with(".")) %>% 
       # Delete the summary column if it's there
-      dplyr::select(!tidyselect::any_of(".summary")) %>%
+      dplyr::select(!tidyselect::starts_with(".summary")) %>%
       # Make FALSE == 1 and TRUE == 0
       dplyr::mutate_if(is.logical, ~abs(as.numeric(.) - 1)) %>%
       # IF rowSum > 0 then there is at least one flag
@@ -114,7 +114,7 @@ summaryFun <- function(
   }
   
   ##### 1.3 User message ####
-  message(paste(" - summaryColumnR:\nFlagged", 
+  message(paste(" - summaryFun:\nFlagged", 
                 format(sum(dataOut$.summary == FALSE, na.rm = TRUE), big.mark = ","),
                 "\n ",
                 "The .summary column was added to the database.",

@@ -63,8 +63,8 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey",
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above,
-lapply(c(list.of.packages, "sf","terra", "galah", 
-         "ComplexHeatmap", "BeeBDC"), 
+lapply(c(#list.of.packages, "sf","terra", "galah", 
+         "ComplexHeatmap", "BeeBDC", "magrittr"), 
        library, character.only = TRUE)
 # Save a snapshot of the environment
 renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"))
@@ -167,7 +167,7 @@ db_standardized <- readr::read_csv(occPath,
                                    # Use the basic ColTypeR function to determine types
                                    col_types = BeeBDC::ColTypeR(), trim_ws = TRUE) %>%
   # add the database_id columns
-  dplyr::mutate(database_id = paste("Dorey_data_", 1:nrow(db_standardized), sep = ""),
+  dplyr::mutate(database_id = paste("Dorey_data_", 1:nrow(.), sep = ""),
                 .before = family)
 
 ###### c. optional thin ####
@@ -217,7 +217,7 @@ db_standardized <- BeeBDC::PaigeIntegrater(
 # Remove spent data
 rm(PaigeNAm)
 
-##### 2.3 USGS ####
+##### 2.3 USGS
 # The USGS dataset also partially occurs on GBIF from BISON, however, the occurrence codes are in
 # a silly place... We will correct these here to help identify duplicates later
 db_standardized <- db_standardized %>%
@@ -254,7 +254,6 @@ db_standardized <- db_standardized %>%
     # become freely available post-publication.
   # There will be some warnings were a few rows may not be formatted correctly or where dates fail
     # to parse. This is normal.
-source(paste(ScriptPath, "additionalData_readRs.R", sep = "/"))
 ###### a. EPEL ####
 EPEL_Data <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
                                 path = paste0(DataPath, "/Additional_Datasets"),
@@ -297,13 +296,15 @@ CAES_Data <- BeeBDC::readr_BeeBDC(dataset = "CAES",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/CT_BEE_DATA_FROM_PBI.xlsx",
                         outFile = "jbd_CT_Data.csv",
+                        sheet = "Sheet1",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### h. GeoL ####
 GeoL_Data <- BeeBDC::readr_BeeBDC(dataset = "GeoL",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/Geolocate and BELS_certain and accurate.xlsx",
-                        outFile = "jbd_GeoL_Data.csv")
+                        outFile = "jbd_GeoL_Data.csv",
+                        dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 
 ###### i. EaCO ####
@@ -341,6 +342,7 @@ Bal_Data <- BeeBDC::readr_BeeBDC(dataset = "Bal",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Beedata_ballare.xlsx", 
                       outFile = "jbd_Bal_Data.csv",
+                      sheet = "animal_data",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### m. Palouse Lic ####
@@ -438,7 +440,7 @@ db_standardized <- idMatchR(
                      "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm"))
 
 # Remove redundant files
-rm(priorRun, excludeDataset)
+rm(priorRun)
 
 
 #   # Save the dataset
@@ -546,7 +548,7 @@ suppressWarnings(
                                    stepSize = 1000000,
                                    # Start row
                                    chunkStart = 1,
-                                   path = HomePath,
+                                   path = OutPath_Intermediate,
                                    append = FALSE,
                                    mc.cores = 6),
   classes = "warning")
@@ -727,8 +729,6 @@ check_pf %>%
   readr::write_excel_csv(., paste(OutPath_Intermediate, "01_prefilter_output.csv",
                             sep = "/"))
 
-
-
 #### 4.0 Taxonomy ####
 # See bdc tutorial here — https://brunobrr.github.io/bdc/articles/taxonomy.html
 if(!exists("check_pf")){
@@ -891,8 +891,7 @@ check_space %>%
 ##### 5.3 diagonal + grid ####
 # Finds sequential numbers that could be fill-down errors in lat and long. 
 # groups by eventDate, recordedBy
-# This will ONLY find those where ALL records in a group are filled-down. missing occurrences
-# will break the chain
+# This is accomplished by using a sliding window with the length determined by minRepeats.
 check_space <- BeeBDC::diagonAlley(
   data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
@@ -1165,7 +1164,7 @@ if(!exists("check_time")){
 # These input columns can be hacked to de-duplicate as you wish.
 check_time <- BeeBDC::dupeSummary(
   data = check_time,
-  path = paste0(DataPath, "/Output/Report/"),
+  path = OutPath_Report,
   # options are "ID","collectionInfo", or "both"
   duplicatedBy = "collectionInfo", 
   # The columns to generate completeness info from (and to sort by completness)
@@ -1282,7 +1281,7 @@ if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("ComplexHeatmap")
 
-# Read in the most-RECENT file
+# Read in the most-RECENT duplicates file.
 if(!exists("duplicates")){
   duplicates <- fileFinder(path = DataPath,
                             fileName = "duplicateRun_") %>%
@@ -1315,7 +1314,6 @@ BeeBDC::chordDiagramR(
   legendY = grid::unit(18, "mm"),
   legendJustify = c("left", "bottom"),
   niceFacing = TRUE)
-# Save 7*6
 
 
 ##### 9.2 Duplicate histogram ####
@@ -1328,7 +1326,7 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
   beeData <- check_time
   rm(check_time)
 }
-# Create a figure shoring the total number of duplicates, kept duplicates, and unique
+# Create a figure showing the total number of duplicates, kept duplicates, and unique
 # records for each data source (simplified to the text before the first underscore) and
 # the proportion of the above for each data source
 BeeBDC::dupePlotR(
@@ -1393,7 +1391,8 @@ BeeBDC::summaryMaps(
   width = 10, height = 10,
   class_n = 15,
   class_Style = "fisher",
-  fileName = paste0(OutPath_Figures, "CountryMaps_fisher.pdf", sep = "/")
+  fileName = "CountryMaps_fisher.pdf",
+  outPath = OutPath_Figures
 )
 
   ###### b. Interactive maps ####
@@ -1436,7 +1435,7 @@ if(!exists("mapData")){
   locale = readr::locale(encoding = "UTF-8"))}
 institutionList_DL <- readxl::read_excel(paste(DiscLifePath, "Apoidea Bee Collections Master List jan 2023.xlsx",
                                                sep = "/"))
-source(paste(ScriptPath, "dataProvTables.R", sep = "/"))
+  # Create the table
 dataProvTable <- BeeBDC::dataProvTables(data = mapData,
                                         runBeeDataChecks = TRUE,
                                         outPath = OutPath_Report,

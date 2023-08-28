@@ -78,6 +78,9 @@ dupePlotR <- function(
   if(is.null(fileName)){
     stop(" - Please provide an argument for fileName Seems reckless to let me just guess.")
   }
+  if(sum(data$.duplicates) == 0){
+    stop(" - No duplicates flagged in the dataset. Stopping process.")
+  }
   
   
   #### 1.0 data prep. ####

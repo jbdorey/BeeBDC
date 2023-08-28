@@ -46,6 +46,9 @@ countryNameCleanR <- function(
   if(is.null(data)){
     stop(" - Please provide input data.")
   }
+  if(!"countryCode" %in% colnames(data)){
+    stop(" - No countryCode column in data.")
+  }
   
   ##### 0.2 Data defaults ####
   if(is.null(ISO2_table)){
