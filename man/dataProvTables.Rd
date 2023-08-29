@@ -28,7 +28,7 @@ Returns a table with the data providers, an specimen count, and a species count.
 \description{
 This function will attempt to find and build a table of data providers that have contributed
 to the input data, especially using the 'institutionCode' column. It will also look for a
-variety of other columns to find data providers using a an internally set sequence of if-else
+variety of other columns to find data providers using an internally set sequence of if-else
 statements. Hence, this function is quite specific for bee data, but should work for other
 taxa in similar institutions.
 }

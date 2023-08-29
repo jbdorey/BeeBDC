@@ -255,6 +255,9 @@ db_standardized <- db_standardized %>%
   # There will be some warnings were a few rows may not be formatted correctly or where dates fail
     # to parse. This is normal.
 ###### a. EPEL ####
+  # Guzman, L. M., Kelly, T. & Elle, E. A data set for pollinator diversity and their interactions 
+  # with plants in the Pacific Northwest. Ecology n/a, e3927 (2022). 
+  # <https://doi.org/10.1002/ecy.3927>
 EPEL_Data <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/bee_data_canada.csv",
@@ -273,18 +276,25 @@ BMin_Data <- BeeBDC::readr_BeeBDC(dataset = "BMin",
                         outFile = "jbd_BMin_data.csv",
                         dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### d. BMont ####
+  # Delphia, C. M. Bumble bees of Montana. 
+  # <https://www.mtent.org/projects/Bumble_Bees/bombus_species.html>. (2022)
 BMont_Data <- BeeBDC::readr_BeeBDC(dataset = "BMont",
                                  path = paste0(DataPath, "/Additional_Datasets"),
                           inFile = "/InputDatasets/Bombus_Montana_dorey.csv",
                           outFile = "jbd_BMont_data.csv",
                           dataLicense = "https://creativecommons.org/licenses/by-sa/4.0/")
 ###### e. Ecd ####
+  # Ecdysis. Ecdysis: a portal for live-data arthropod collections, 
+  # <https://serv.biokic.asu.edu/ecdysis/index.php> (2022).
 Ecd_Data <- BeeBDC::readr_BeeBDC(dataset = "Ecd",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/Ecdysis_occs.csv",
                       outFile = "jbd_Ecd_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### f. Gai ####
+  # Gaiarsa, M. P., Kremen, C. & Ponisio, L. C. Pollinator interaction flexibility across scales 
+  # affects patch colonization and occupancy. Nature Ecology & Evolution 5, 787-793 (2021). 
+  # <https://doi.org/10.1038/s41559-021-01434-y>
 Gai_Data <- BeeBDC::readr_BeeBDC(dataset = "Gai",
                                path = paste0(DataPath, "/Additional_Datasets"),
                       inFile = "/InputDatasets/upload_to_scan_Gaiarsa et al_Dorey.csv",

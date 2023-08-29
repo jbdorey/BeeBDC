@@ -1,0 +1,5 @@
+url: https://jbdorey.github.io/BeeBDC/
+template:
+  bootstrap: 5
+  bootswatch: cerulean
+

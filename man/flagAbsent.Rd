@@ -16,7 +16,7 @@ Default = "occurrenceStatus"}
 The input data with a new column called ".occurrenceAbsent" where FALSE == "ABSENT" records.
 }
 \description{
-Flags occurrences that are "ABSENT" for the .occurrenceAbsent (or some other user-specified) column
+Flags occurrences that are "ABSENT" for the occurrenceStatus (or some other user-specified) column.
 }
 \examples{
   # Bring in the data

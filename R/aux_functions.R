@@ -4,7 +4,7 @@
 ##### a. dataSaver ####
 #' Simple function to save occurrence AND EML data as a list
 #' 
-#' Generally used at the end of 1.x in the example workflow.
+#' Used at the end of 1.x in the example workflow in order to save the occurrence dataset and its associated eml metadata.
 #'
 #' @param path Character. The main file path to look for data in.
 #' @param save_type Character. The file format in which to save occurrence and EML data. 

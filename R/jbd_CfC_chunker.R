@@ -106,7 +106,6 @@ jbd_CfC_chunker <- function(data = NULL,
                             progressiveSave = TRUE,
                             # If FALSE it may overwrite existing dataset
                             append = FALSE,
-                            scale = "large",
                             path = tempdir(),
                             mc.cores = 1){
   BeeBDC_order <- . <- .data <- id_temp <- name_long <- geometry <- NULL
@@ -237,7 +236,8 @@ jbd_CfC_chunker <- function(data = NULL,
           dplyr::mutate(decimalLatitude = as.numeric(.data[[lat]]),
                         decimalLongitude = as.numeric(.data[[lon]]))
         
-        worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
+        worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf") %>%
+          sf::st_make_valid()
         
         data_no_country <- data %>%
           dplyr::filter(is.na(country) | country == "")

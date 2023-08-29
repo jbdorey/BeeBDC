@@ -4,7 +4,7 @@
 
 #' Flags occurrences that are marked as absent
 #' 
-#' Flags occurrences that are "ABSENT" for the .occurrenceAbsent (or some other user-specified) column
+#' Flags occurrences that are "ABSENT" for the occurrenceStatus (or some other user-specified) column.
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param PresAbs Character. The column in which the function will find "ABSENT" or "PRESENT" records.

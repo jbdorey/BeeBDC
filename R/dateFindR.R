@@ -17,7 +17,7 @@
 #' @importFrom stats complete.cases setNames
 #'
 #' @return The function results in the input occurrence data with but with updated eventDate, year, 
-#' month, and day columns for occurrences where this data was a) missing and b) located in one of the 
+#' month, and day columns for occurrences where these data were a) missing and b) located in one of the 
 #' searched columns.
 #' 
 #' @export

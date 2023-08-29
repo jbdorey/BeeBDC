@@ -29,7 +29,7 @@ This function saves both occurrence and EML data as a list when save_type = "R_F
 as individual csv files when save_type = "CSV_file".
 }
 \description{
-Generally used at the end of 1.x in the example workflow.
+Used at the end of 1.x in the example workflow in order to save the occurrence dataset and its associated eml metadata.
 }
 \examples{
 \dontrun{

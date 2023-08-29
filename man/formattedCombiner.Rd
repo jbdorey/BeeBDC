@@ -20,7 +20,7 @@ A list with the combined occurrence dataset and the updated EML file.
 }
 \description{
 Merges the Darwin Core version of the USGS dataset that was created using \code{\link[=USGS_formatter]{USGS_formatter()}}
-with the main dataset
+with the main dataset.
 }
 \examples{
 \dontrun{

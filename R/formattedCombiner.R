@@ -7,7 +7,7 @@
 #' Combine the formatted USGS data with the main dataset
 #' 
 #' Merges the Darwin Core version of the USGS dataset that was created using [BeeBDC::USGS_formatter()]
-#' with the main dataset
+#' with the main dataset.
 #'
 #' @param path A directory as character. The directory to look in for the formatted USGS data. 
 #' @param strings A regex string. The string to find the most-recent formatted USGS dataset.
