@@ -40,7 +40,7 @@ knitr::opts_chunk$set(error = TRUE, eval = TRUE, tidy = TRUE, warning = FALSE)
 ## 0.1 Working directory 
 Choose the path to the root folder in which all other folders can be found
 ```{r RootPath}
-RootPath <- "/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"
+RootPath <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/inst/extdata/WebDir"
   # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -98,7 +98,7 @@ renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"),
 ```{r dirMaker}
 BeeBDC::dirMaker(
     RootPath = RootPath,
-    RDoc = "BeeBDC_website.Rmd") %>%
+    RDoc = "vignettes/BeeBDC_main.Rmd") %>%
       # Add paths created by this function to the .GlobalEnv
     list2env(envir = .GlobalEnv)
 ```
@@ -376,7 +376,7 @@ There will be some warnings were a few rows may not be formatted correctly or wh
 
 
 ###### a. EPEL
-Guzman, L. M., Kelly, T. & Elle, E. A data set for pollinator diversity and their interactions with plants in the Pacific Northwest. Ecology n/a, e3927 (2022). <https://doi.org/10.1002/ecy.3927>
+Guzman, L. M., Kelly, T. & Elle, E. A data set for pollinator diversity and their interactions with plants in the Pacific Northwest. Ecology, e3927 (2022). <https://doi.org/10.1002/ecy.3927>
 
     EPEL_Data <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
                                     path = paste0(DataPath, "/Additional_Datasets"),

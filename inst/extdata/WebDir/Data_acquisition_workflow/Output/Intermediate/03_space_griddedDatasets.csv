@@ -1,0 +1,5 @@
+﻿"dataset","lon.n.outliers","lon.n.regular.outliers","lon.regular.distance","lon.flag","lat.n.outliers","lat.n.regular.outliers","lat.regular.distance","lat.flag","summary"
+"AMNH Hymenoptera",12,3,0.18,FALSE,13,4,0.73,FALSE,FALSE
+"Collaborative databasing of North American bee collections within a global informatics network project",18,3,0.57,FALSE,23,6,0.32,FALSE,FALSE
+"iNaturalist research-grade observations",4,0,NA,TRUE,5,1,0.7,TRUE,TRUE
+"Snow Entomological Museum Collection",23,6,0.72,FALSE,23,5,0.48,FALSE,FALSE
