@@ -786,12 +786,12 @@ data(beesTaxonomy, package = "BeeBDC")
 # Harmonise the names in the occurrence tibble
 #   # This flags the occurrences without a matched name and matches names to their correct name 
   # according to DiscoverLife
-TEST <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
+database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
                        taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
                        data = database,
                        speciesColumn = "scientificName",
                        stepSize = 1000000,
-                       mc.cores = 4)
+                       mc.cores = 1)
 
 # You don't need this file anymore...
 rm(beesTaxonomy)
