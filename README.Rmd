@@ -1,9 +1,20 @@
 ---
+title: "BeeBDC"
+
 output: github_document
 editor_options: 
   markdown: 
     wrap: 80
+
+vignette: >
+  %\VignetteIndexEntry{BeeBDC}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
+```{r setup}
+library(BeeBDC)
+```
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -33,7 +44,7 @@ status](https://www.r-pkg.org/badges/version/BeeBDC)](https://CRAN.R-project.org
 
 #### **Overview**
 
-The consistent implementation of biodiversity data continues to be a challenge for ecological researchers. We present the BeeBDC package which provides novel and udpated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in nature but we also provide some functions and data that are specific for use with bee occurrence data. We build upon functions and conventions in other fantastic R packages, especially [bdc](https://brunobrr.github.io/bdc/) and [CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html). Hence, our package name is Bee **B**iodiversity **D**ata **C**leaning (**BeeBDC**).
+The consistent implementation of biodiversity data continues to be a challenge for ecological researchers. We present the BeeBDC package which provides novel and udpated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in nature but we also provide some functions and data that are specific for use with bee occurrence data. We build upon functions and conventions in other fantastic R packages, especially [bdc](https://brunobrr.github.io/bdc/) and [CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html), while also removing dependencies on sp-related packages. Hence, our package name is Bee **B**iodiversity **D**ata **C**leaning (**BeeBDC**).
 
 We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite our primary [publication](https://doi.org/10.1101/2023.06.30.547152).
 
@@ -42,7 +53,7 @@ We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean
 
 The *BeeBDC* toolkit is organized using the conventions similar to bdc and CoordinateCleaner. 
 
-#### ![](https://github.com/jbdorey/BeeBDC/tree/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.pdf)
+#### ![](https://github.com/jbdorey/BeeBDC/tree/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.jpg)
 
 <br/>
 

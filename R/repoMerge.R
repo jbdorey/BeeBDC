@@ -24,7 +24,7 @@
 #' DataImp <- repoMerge(path = DataPath, 
 #' # Find data - Many problems can be solved by running [BeeBDC::repoFinder(path = DataPath)]
 #' # And looking for problems
-#' occ_paths = [BeeBDC::repoFinder(path = DataPath)],
+#' occ_paths = BeeBDC::repoFinder(path = DataPath),
 #' save_type = "R_file")
 #' }
 repoMerge <- function(path, save_type, occ_paths){

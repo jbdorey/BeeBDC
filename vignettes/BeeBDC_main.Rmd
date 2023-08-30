@@ -1,5 +1,5 @@
 ---
-title: "BeeBDC"
+title: "BeeBDC vignette"
 
 output:
    rmarkdown::html_vignette:
@@ -11,48 +11,30 @@ output:
      lightbox: yes
      self_contained: yes
      thumbnails: yes
+     
+vignette: >
+  %\VignetteIndexEntry{BeeBDC vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 --- 
+
+```{r setup}
+options("rgdal_show_exportToProj4_warnings"="none")
+library(BeeBDC)
+```
 
 ```{r libraryChunk, load-packages, include=FALSE}
 library(rgnparser)
-library(dplyr)
 library(magrittr)
 library(knitr)
-library(R.utils)
-library(magrittr)
-library(ggplot2)
-library(tibble)
-library(forcats)
-library(tidyr)
-library(rlist)
-library(galah)
-library(emld)
-library(rlang)
-library(xml2)
-library(readr)
-library(stringr)
-library(lubridate)
-library(tidyselect)
-library(mgsub)
 library(bdc)
-library(rvest)
-library(rnaturalearth)
-library(rnaturalearthdata)
-library(countrycode)
 library(rmarkdown)
+library(rmdformats)
 library(prettydoc)
-library(hexbin)
-library(readxl)
-library(cowplot)
-library(ggspatial)
 library(htmltools)
 
 ```
 
-<div class="alert alert-info">
-  <strong> Attention:</strong> 
-This R script was written by James B. Dorey, starting on the 2nd of May 2022. The script is intended to clean occurrence data from several sources using several packages; primarily BeeBDC, bdc, and CoordinateCleaner. 
-</div>
 
 ```{r global-options, include=FALSE}
 knitr::opts_chunk$set(error = TRUE, eval = TRUE, tidy = TRUE, warning = FALSE)
@@ -1766,7 +1748,8 @@ BeeBDC::chordDiagramR(
   niceFacing = TRUE)
 ```
 
-knitr::include_graphics("images/ChordDiagram.pdf")
+knitr::include_graphics("https://github.com/jbdorey/BeeBDC/tree/main/inst/extdata/icon_vignettes/ChordDiagram.pdf")
+
 
 ## 9.2 Duplicate histogram 
 

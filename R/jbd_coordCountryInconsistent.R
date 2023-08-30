@@ -105,14 +105,14 @@ sf::sf_use_s2(FALSE)
   #### 2.0 Extractions ####
     ##### 2.1 Create function 1 ####
 intersectFun <- function(sp){
+  suppressWarnings({
   extracted <- sf::st_intersects(sp, vectEarth, sparse = TRUE) %>% 
     # return a tibble with the index of each match or NA where there was no match
     dplyr::tibble(indexMatch = .) 
     # If first element is full, unlist each one
-    suppressWarnings( # Suppress NAs by coersion warning
       extracted <- extracted %>%
       dplyr::mutate(indexMatch = indexMatch %>% as.character() %>% as.numeric() )
-    )
+    }) # END suppressWarnings
     # rejoin
   extracted <- extracted %>%
     dplyr::left_join(simplePoly,

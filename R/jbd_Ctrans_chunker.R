@@ -114,7 +114,7 @@ jbd_Ctrans_chunker <- function(
   if(append == TRUE){
     suppressWarnings({
       # Read in the Tranps_tibble csv
-    Tranps_tibble = readr::read_csv("Tranps_tibble.csv", col_types = ColTypeR())
+    Tranps_tibble = readr::read_csv(paste0(path, "/","Tranps_tibble.csv"), col_types = ColTypeR())
     })
      # set the chunkStart to the number of rows completed plus one
     chunkStart = nrow(Tranps_tibble) + 1
@@ -198,7 +198,7 @@ jbd_Ctrans_chunker <- function(
                      sep = "") )
     # Save as a csv after each iteration
     if(progressiveSave == TRUE){
-    readr::write_excel_csv(Tranps_tibble, file = "Tranps_tibble.csv")}
+    readr::write_excel_csv(Tranps_tibble, file = paste0(path, "/", "Tranps_tibble.csv"))}
   } # END loop
   
   

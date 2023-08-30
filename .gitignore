@@ -2,5 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+README.Rmd
 docs
 inst/doc
