@@ -1,165 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/articles/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/authors.html</loc>
   </url>
   <url>
-    <loc>/reference/BeeBDCQuery.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/index.html</loc>
   </url>
   <url>
-    <loc>/reference/ColTypeR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/GBIFissues.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/BeeBDCQuery.html</loc>
   </url>
   <url>
-    <loc>/reference/HarmoniseR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/ColTypeR.html</loc>
   </url>
   <url>
-    <loc>/reference/PaigeIntegrater.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/GBIFissues.html</loc>
   </url>
   <url>
-    <loc>/reference/USGS_formatter.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.html</loc>
   </url>
   <url>
-    <loc>/reference/atlasDownloader.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/PaigeIntegrater.html</loc>
   </url>
   <url>
-    <loc>/reference/bees3sp.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/USGS_formatter.html</loc>
   </url>
   <url>
-    <loc>/reference/beesChecklist.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/atlasDownloader.html</loc>
   </url>
   <url>
-    <loc>/reference/beesFlagged.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/bees3sp.html</loc>
   </url>
   <url>
-    <loc>/reference/beesRaw.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/beesChecklist.html</loc>
   </url>
   <url>
-    <loc>/reference/beesTaxonomy.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/beesFlagged.html</loc>
   </url>
   <url>
-    <loc>/reference/chordDiagramR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/beesRaw.html</loc>
   </url>
   <url>
-    <loc>/reference/coordUncerFlagR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/beesTaxonomy.html</loc>
   </url>
   <url>
-    <loc>/reference/countryNameCleanR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/chordDiagramR.html</loc>
   </url>
   <url>
-    <loc>/reference/countryOutlieRs.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/coordUncerFlagR.html</loc>
   </url>
   <url>
-    <loc>/reference/dataProvTables.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/countryNameCleanR.html</loc>
   </url>
   <url>
-    <loc>/reference/dataSaver.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/countryOutlieRs.html</loc>
   </url>
   <url>
-    <loc>/reference/dateFindR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/dataProvTables.html</loc>
   </url>
   <url>
-    <loc>/reference/diagonAlley.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/dataSaver.html</loc>
   </url>
   <url>
-    <loc>/reference/dirMaker.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/dateFindR.html</loc>
   </url>
   <url>
-    <loc>/reference/dupePlotR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/diagonAlley.html</loc>
   </url>
   <url>
-    <loc>/reference/dupeSummary.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/dirMaker.html</loc>
   </url>
   <url>
-    <loc>/reference/fileFinder.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/dupePlotR.html</loc>
   </url>
   <url>
-    <loc>/reference/flagAbsent.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/dupeSummary.html</loc>
   </url>
   <url>
-    <loc>/reference/flagLicense.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/fileFinder.html</loc>
   </url>
   <url>
-    <loc>/reference/flagRecorder.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/flagAbsent.html</loc>
   </url>
   <url>
-    <loc>/reference/flagSummary.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/flagLicense.html</loc>
   </url>
   <url>
-    <loc>/reference/formattedCombiner.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/flagRecorder.html</loc>
   </url>
   <url>
-    <loc>/reference/idMatchR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/flagSummaryTable.html</loc>
   </url>
   <url>
-    <loc>/reference/importOccurrences.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/formattedCombiner.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/idMatchR.html</loc>
   </url>
   <url>
-    <loc>/reference/interactiveMapR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/importOccurrences.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_CfC_chunker.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_Ctrans_chunker.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/interactiveMapR.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_coordCountryInconsistent.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/jbd_CfC_chunker.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_coord_trans.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/jbd_Ctrans_chunker.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_coordinates_precision.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/jbd_coordCountryInconsistent.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_coordinates_transposed.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/jbd_coordinates_precision.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_country_from_coordinates.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/jbd_coordinates_transposed.html</loc>
   </url>
   <url>
-    <loc>/reference/jbd_create_figures.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/jbd_country_from_coordinates.html</loc>
   </url>
   <url>
-    <loc>/reference/manualOutlierFindeR.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/jbd_create_figures.html</loc>
   </url>
   <url>
-    <loc>/reference/plotFlagSummary.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/manualOutlierFindeR.html</loc>
   </url>
   <url>
-    <loc>/reference/readr_BeeBDC.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/plotFlagSummary.html</loc>
   </url>
   <url>
-    <loc>/reference/repoFinder.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/readr_BeeBDC.html</loc>
   </url>
   <url>
-    <loc>/reference/repoMerge.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/repoFinder.html</loc>
   </url>
   <url>
-    <loc>/reference/summaryFun.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/repoMerge.html</loc>
   </url>
   <url>
-    <loc>/reference/summaryMaps.html</loc>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/summaryFun.html</loc>
+  </url>
+  <url>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/summaryMaps.html</loc>
   </url>
 </urlset>

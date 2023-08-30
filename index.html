@@ -4,14 +4,32 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Flags and checks occurrence data that are in Darwin Core
+    format.  The package includes generic functions and data as well as
+    some that are specific to bees. This package is meant to build upon
+    and be complimentary to other excellent occurrence cleaning packages,
+    including bdc and CoordinateCleaner.  This package uses datasets
+    from several sources and particularly from the Discove Life Website,
+    created by John Ascher and John Pickering: ASCHER, J. S. &amp; PICKERING,
+    J. 2020. Discover Life bee species guide and world checklist
+    (Hymenoptera: Apoidea: Anthophila).
+    http://www.discoverlife.org/mp/20q?guide=Apoidea_species.  For further
+    information, please see the original publication of this package:
+    DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L.,
+    BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E.,
+    SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R.,
+    DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S.,
+    MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A.,
+    SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. &amp; COBB,
+    N. S. In review. BeeBDC: An R package and globally synthesised and
+    flagged bee occurrence dataset. Scientific Data.">
 <title>BeeBDC: an Occurrence Data Cleaning Package • BeeBDC</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="BeeBDC: an Occurrence Data Cleaning Package">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="BeeBDC: an Occurrence Data Cleaning Package">
 <meta property="og:description" content="Flags and checks occurrence data that are in Darwin Core
     format.  The package includes generic functions and data as well as
     some that are specific to bees. This package is meant to build upon
@@ -36,64 +54,274 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
-      </span>
-    </div>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    
+    <a class="navbar-brand me-2" href="index.html">BeeBDC</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="reference/index.html">Reference</a>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="news/index.html">Changelog</a>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/BeeBDC_main.html">BeeBDC vignette</a>
+  </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/jbdorey/BeeBDC/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-<div class="section level1">
-<div class="page-header"><h1 id="beebdc">BeeBDC<a class="anchor" aria-label="anchor" href="#beebdc"></a>
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="beebdc-">
+<strong><em>BeeBDC</em></strong> <a href="https://github.com/brunobrr/bdc" class="external-link"><img src="https://raw.githubusercontent.com/brunobrr/bdc/master/man/figures/logo.png" align="right" width="155"></a>
+<a class="anchor" aria-label="anchor" href="#beebdc-"></a>
 </h1></div>
-<p>Repo for the BeeBDC package</p>
+<div class="section level2">
+<h2 id="beebdc-an-occurrence-data-cleaning-package">
+<strong>BeeBDC: an occurrence data cleaning package</strong><a class="anchor" aria-label="anchor" href="#beebdc-an-occurrence-data-cleaning-package"></a>
+</h2>
 <!-- badges: start -->
 
+<!-- badges: end -->
+<div class="section level4">
+<h4 id="overview">
+<strong>Overview</strong><a class="anchor" aria-label="anchor" href="#overview"></a>
+</h4>
+<p>The consistent implementation of biodiversity data continues to be a challenge for ecological researchers. We present the BeeBDC package which provides novel and udpated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in nature but we also provide some functions and data that are specific for use with bee occurrence data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>. Hence, our package name is Bee <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (BeeBDC).</p>
+<p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite our primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>.</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
+<div class="section level4">
+<h4 id="structure-of-beebdc">
+<strong>Structure of <em>BeeBDC</em></strong><a class="anchor" aria-label="anchor" href="#structure-of-beebdc"></a>
+</h4>
+<p>The <em>BeeBDC</em> toolkit is organized using the conventions set by bdc, in modules related to different biodiversity dimensions.</p>
+<hr>
+<blockquote>
+<p><span class="emoji" data-emoji="warning">⚠️</span> The modules illustrated, and <strong>functions</strong> within, <strong>were linked to form</strong> a proposed reproducible <strong>workflow</strong> (see <a href="https://brunobrr.github.io/bdc/" class="external-link"><strong>vignettes</strong></a>). However, all functions <strong>can also be executed independently</strong>.</p>
+</blockquote>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="section">
+<embed src="https://github.com/jbdorey/BeeBDC/tree/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.pdf"></embed><a class="anchor" aria-label="anchor" href="#section"></a>
+</h4>
+<p><br></p>
+</div>
+<div class="section level4">
+<h4 id="id_1-data-merge">1. <a href="https://brunobrr.github.io/bdc/articles/integrate_datasets.html" class="external-link"><strong>Data merge</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_1-data-merge"></a>
+</h4>
+<p>Integrate and merge different datasets from major the data repositories — GBIF, SCAN, iDigBio, the USGS, and ALA.</p>
+<ul>
+<li>
+<code><a href="reference/atlasDownloader.html">atlasDownloader()</a></code> Downloads ALA data and creates a new file in the path to put those data. This function can also request downloads from other atlases (see: <a href="http://galah.ala.org.au/articles/choosing_an_atlas.html" class="external-link uri">http://galah.ala.org.au/articles/choosing_an_atlas.html</a>). However, it will only send the download to your email and you must do the rest yourself at this point.</li>
+<li>
+<code><a href="reference/repoMerge.html">repoMerge()</a></code> Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its eml metadata.</li>
+<li>
+<code><a href="reference/repoFinder.html">repoFinder()</a></code> Find GBIF, ALA, iDigBio, and SCAN files in a directory.</li>
+<li>
+<code><a href="reference/importOccurrences.html">importOccurrences()</a></code> Looks for and imports the most-recent version of the occurrence data created by the repoMerge() function.</li>
+<li>
+<code><a href="reference/USGS_formatter.html">USGS_formatter()</a></code> The function finds, imports, formats, and creates metadata for the USGS dataset.</li>
+<li>
+<code><a href="reference/formattedCombiner.html">formattedCombiner()</a></code> Merges the Darwin Core version of the USGS dataset that was created using USGS_formatter() with the main dataset.</li>
+<li>
+<code><a href="reference/dataSaver.html">dataSaver()</a></code> Used at the end of 1.x in the example workflow in order to save the occurrence dataset and its associated eml metadata.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_2-data-preperation">2. <a href="https://brunobrr.github.io/bdc/articles/prefilter.html" class="external-link"><strong>Data preperation</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_2-data-preperation"></a>
+</h4>
+<p>The reading in and formatting of the major and minor [bee] occurrence repositories as well as some data modifications. This section is mostly, but not entirely, related to bee occurrence data.</p>
+<ul>
+<li>
+<code><a href="reference/fileFinder.html">fileFinder()</a></code> A function which can be used to find files within a user-defined directory based on a user-provided character string.</li>
+<li>
+<code><a href="reference/PaigeIntegrater.html">PaigeIntegrater()</a></code> Replaces publicly available data with data that has been manually cleaned and error-corrected for use in the paper Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography.</li>
+<li>
+<code><a href="reference/readr_BeeBDC.html">readr_BeeBDC()</a></code> Read in a variety of data files that are specific to certain smaller data providers. There is an internal readr function for each dataset and each one of these functions is called by readr_BeeBDC. While these functions are internal, they are displayed in the documentation of readr_BeeBDC for clarity.</li>
+<li>
+<code><a href="reference/idMatchR.html">idMatchR()</a></code> This function attempts to match database_ids from a prior bdc or BeeBDC run in order to keep this column somewhat consistent between iterations. However, not all records contain sufficient information for this to work flawlessly.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_3-initial-flags">3. <a href="https://brunobrr.github.io/bdc/articles/prefilter.html" class="external-link"><strong>Initial flags</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_3-initial-flags"></a>
+</h4>
+<p>Flagging and carpentry of several, mostly general, data issues. See bdc’s <a href="https://brunobrr.github.io/bdc/articles/prefilter.html" class="external-link">pre-filter</a> for more related functions.</p>
+<ul>
+<li>
+<code><a href="reference/countryNameCleanR.html">countryNameCleanR()</a></code> This is a basic function for a user to manually fix some country name inconsistencies.</li>
+<li>
+<code><a href="reference/jbd_CfC_chunker.html">jbd_CfC_chunker()</a></code> Because the jbd_country_from_coordinates() function is very RAM-intensive, this wrapper allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a time. The prefix jbd_ is used to highlight the difference between this function and the original bdc::bdc_country_from_coordinates().</li>
+<li>
+<code><a href="reference/jbd_Ctrans_chunker.html">jbd_Ctrans_chunker()</a></code> Because the jbd_coordinates_transposed() function is very RAM-intensive, this wrapper allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a time. The prefix jbd_ is used to highlight the difference between this function and the original bdc::bdc_coordinates_transposed().</li>
+<li>
+<code><a href="reference/jbd_coordCountryInconsistent.html">jbd_coordCountryInconsistent()</a></code> Compares stated country name in an occurrence record with record’s coordinates using rnaturalearth data. The prefix, jbd_ is meant to distinguish this function from the original bdc::bdc_coordinates_country_inconsistent().</li>
+<li>
+<code><a href="reference/flagAbsent.html">flagAbsent()</a></code> Flags occurrences that are “ABSENT” for the occurrenceStatus (or some other user-specified) column.</li>
+<li>
+<code><a href="reference/GBIFissues.html">GBIFissues()</a></code> This function will flag records which are subject to a user-specified vector of GBIF issues.</li>
+<li>
+<code><a href="reference/flagRecorder.html">flagRecorder()</a></code> This function is used to save the flag data for your occurrence data as you run the BeeBDC script. It will read and append existing files, if asked to. Your flags should also be saved in the occurrence file itself automatically.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_4-taxonomy">4. <a href="https://brunobrr.github.io/bdc/articles/taxonomy.html" class="external-link"><strong>Taxonomy</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_4-taxonomy"></a>
+</h4>
+<p>Harmonisation of scientific names against a custom taxonomy or the provided Discover Life website’s taxonomic reference.</p>
+<ul>
+<li>
+<code><a href="reference/HarmoniseR.html">harmoniseR()</a></code> Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match the checklist. This function could be hijacked to service other taxa if a user matched the format of the beesTaxonomy file.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_5-space">5. <a href="https://brunobrr.github.io/bdc/articles/space.html" class="external-link"><strong>Space</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_5-space"></a>
+</h4>
+<p>Flagging of erroneous, suspicious, and low-precision geographic coordinates.</p>
+<ul>
+<li>
+<code><a href="reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with the original function, bdc::bdc_coordinates_precision() that will flag occurrences where only one of latitude OR longitude are rounded. The BeeBDC approach saves occurrences that may have had terminal zeros rounded in one coordinate column.</li>
+<li>
+<code><a href="reference/diagonAlley.html">diagonAlley()</a></code> A simple function that looks for potential latitude and longitude fill-down errors by identifying consecutive occurrences with coordinates at regular intervals. This is accomplished by using a sliding window with the length determined by minRepeats.</li>
+<li>
+<code><a href="reference/coordUncerFlagR.html">coordUncerFlagR()</a></code> To use this function, the user must choose a column, probably “coordinateUncertaintyInMeters” and a threshold above which occurrences will be flagged for geographic uncertainty.</li>
+<li>
+<code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code> This function flags country-level outliers using the checklist provided with this package. For additional context and column names, see ?beesChecklist().</li>
+<li>
+<code><a href="reference/jbd_create_figures.html">jbd_create_figures()</a></code> Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and BeeBDC packages. Works like bdc::bdc_create_figures(), but it allows the user to specify a save path.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_6-time">6. <a href="https://brunobrr.github.io/bdc/articles/time.html" class="external-link"><strong>Time</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_6-time"></a>
+</h4>
+<p>Flagging and, whenever possible, correction of inconsistent collection date.</p>
+<ul>
+<li>
+<code><a href="reference/dateFindR.html">dateFindR()</a></code> A function made to search other columns for dates and add them to the eventDate column. The function searches the columns locality, fieldNotes, locationRemarks, and verbatimEventDate for the relevant information.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_7-de-duplication">7. <a href="https://brunobrr.github.io/bdc/articles/time.html" class="external-link"><strong>De-duplication</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_7-de-duplication"></a>
+</h4>
+<ul>
+<li>
+<code><a href="reference/dupeSummary.html">dupeSummary()</a></code> This function uses user-specified inputs and columns to identify duplicate occurrence records. Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted at the end of the function. The function is designed to work with Darwin Core data with a database_id column, but it is also modifiable to work with other columns.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_8-filtering">8. <a href="https://brunobrr.github.io/bdc/articles/time.html" class="external-link"><strong>Filtering</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_8-filtering"></a>
+</h4>
+<ul>
+<li>
+<code><a href="reference/manualOutlierFindeR.html">manualOutlierFindeR()</a></code> Uses expert-identified outliers with source spreadsheets that may be edited by users. The function will also use the duplicates file made using dupeSummary() to identify duplicates of the expert-identified outliers and flag those as well. The function will add a flagging column called .expertOutlier where records that are FALSE are the expert outliers.</li>
+<li>
+<code><a href="reference/summaryFun.html">summaryFun()</a></code> Using all flag columns (column names starting with “.”), this function either creates or updates the .summary flag column which is FALSE when ANY of the flag columns are FALSE. Columns can be excluded and removed after creating the .summary column. Additionally, the occurrence dataset can be filtered to only those where .summary = TRUE at the end of the function.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_9-figures-and-tables">9. <a href="https://brunobrr.github.io/bdc/articles/time.html" class="external-link"><strong>Figures and tables</strong></a>
+<a class="anchor" aria-label="anchor" href="#id_9-figures-and-tables"></a>
+</h4>
+<ul>
+<li>
+<code><a href="reference/chordDiagramR.html">chordDiagramR()</a></code> This function outputs a figure which shows the relative size and direction of occurrence points duplicated between data providers, such as, SCAN, GBIF, ALA, etc.</li>
+<li>
+<code><a href="reference/dupePlotR.html">dupePlotR()</a></code> Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each data source while the other shows the proportion of records that are duplicated within each data source.</li>
+<li>
+<code><a href="reference/plotFlagSummary.html">plotFlagSummary()</a></code> Creates a compound bar plot that shows the proportion of records that pass or fail each flag (rows) and for each data source (columns). The function can also optionally return a point map for a user-specified species when plotMap = TRUE.</li>
+<li>
+<code><a href="reference/summaryMaps.html">summaryMaps()</a></code> Builds an output figure that shows the number of species and the number of occurrences per country. Breaks the data into classes for visualisation. Users may filter data to their taxa of interest to produce figures of interest.</li>
+<li>
+<code><a href="reference/interactiveMapR.html">interactiveMapR()</a></code> Uses the occurrence data (preferably uncleaned) and outputs interactive .html maps that can be opened in your browser to a specific directory. The maps can highlight if an occurrence has passed all filtering (.summary == TRUE) or failed at least one filter (.summary == FALSE). This can be modified by first running summaryFun() to set the columns that you want to be highlighted. It can also highlight occurrences flagged as expert-identified or country outliers.</li>
+<li>
+<code><a href="reference/dataProvTables.html">dataProvTables()</a></code> This function will attempt to find and build a table of data providers that have contributed to the input data, especially using the ‘institutionCode’ column. It will also look for a variety of other columns to find data providers using a an internally set sequence of if-else statements. Hence, this function is quite specific for bee data, but should work for other taxa in similar institutions.</li>
+<li>
+<code><a href="reference/flagSummaryTable.html">flagSummaryTable()</a></code> Takes a flagged dataset and returns the total number of fails (FALSE) per flag (columns starting with “.”) and per species. Users may define the column to group the summary by. While it is intended to work with the scientificName column, users may select any grouping column (e.g., country).</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="installation">
+<strong>Installation</strong><a class="anchor" aria-label="anchor" href="#installation"></a>
+</h4>
+<p>You can install <em>BeeBDC</em> from GitHub</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># Some dependencies</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
+<span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span></code></pre></div>
+<p>Load the package with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jbdorey.github.io/BeeBDC/">BeeBDC</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="package-website">
+<strong>Package website</strong><a class="anchor" aria-label="anchor" href="#package-website"></a>
+</h4>
+<p>See <em>BeeBDC</em> package website (<a href="https://jbdorey.github.io/BeeBDC/reference/index.html" class="uri">https://jbdorey.github.io/BeeBDC/reference/index.html</a>) for detailed explanation on each module.</p>
+</div>
+<div class="section level4">
+<h4 id="getting-help">
+<strong>Getting help</strong><a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h4>
+<blockquote>
+<p>If you encounter a clear bug, please file an issue <a href="https://github.com/jbdorey/BeeBDC/issues" class="external-link"><strong>here</strong></a>. For questions or suggestion, please send us a email (<a href="mailto:jbdorey@icloud.com" class="email">jbdorey@icloud.com</a>).</p>
+</blockquote>
+</div>
+<div class="section level4">
+<h4 id="citation">
+<strong>Citation</strong><a class="anchor" aria-label="anchor" href="#citation"></a>
+</h4>
+<p>Paper, dataset, and package citation: Dorey, J. B., Chesshire, P. R., Bolaños, A. N., O’reilly, R. L., Bossert, S., Collins, S. M., Lichtenberg, E. M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D. A., Ribeiro, B. R., De Pedro, D., Fischer, E., Hung, J. K.-L., Parys, K. A., Rogan, M. S., Minckley, R. L., Velzco, S. J. E., Griswold, T., Zarrillo, T. A., Sica, Y., Orr, M. C., Guzman, L. M., Ascher, J., Hughes, A. C. &amp; Cobb, N. S. In review. BeeBDC: A new R package and globally synthesised and flagged bee occurrence dataset. Scientific Data.</p>
+<p>Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 0.2.8. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a></p>
+</div>
+</div>
+</div>
+  </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/jbdorey/BeeBDC/" class="external-link">Browse source code</a></li>
@@ -130,29 +358,33 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=bdc" class="external-link"><img src="https://www.r-pkg.org/badges/version/bdc" alt="CRAN status"></a></li>
+<li><a href="https://cranlogs.r-pkg.org:443/badges/grand-total/bdc" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/bdc" alt="downloads"></a></li>
+<li><a href="https://github.com/brunobrr/bdc/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/brunobrr/bdc/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/brunobrr/bdc" class="external-link"><img src="https://codecov.io/gh/brunobrr/bdc/branch/master/graph/badge.svg?token=9AUF86G9LJ" alt="Codecov test coverage"></a></li>
+<li><a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link"><img src="https://doi.org/10.1101/2023.06.30.547152" alt="Pre-print DOI"></a></li>
+<li><a href="http://www.gnu.org/licenses/gpl-3.0.html" class="external-link"><img src="https://img.shields.io/badge/license-GPL%20(%3E=%203)-lightgrey.svg?style=flat" alt="License"></a></li>
 </ul>
 </div>
 
-  </div>
+  </aside>
 </div>
 
 
-      <footer><div class="copyright">
+    <footer><div class="pkgdown-footer-left">
   <p></p>
 <p>Developed by James B. Dorey, Robert O’Reilly, Silas Bossert, Fischer Fischer.</p>
 </div>
 
-<div class="pkgdown">
+<div class="pkgdown-footer-right">
   <p></p>
 <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-
 
   
 
