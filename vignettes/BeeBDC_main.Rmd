@@ -33,14 +33,18 @@ library(dplyr)
 
 
 ```{r global-options, include=FALSE}
-knitr::opts_chunk$set(error = TRUE, eval = TRUE, tidy = TRUE, warning = FALSE)
+knitr::opts_chunk$set(error = TRUE, 
+                      eval = TRUE, 
+                      tidy = TRUE, 
+                      warning = FALSE,
+                      root.dir = rprojroot::find_rstudio_root_file())
 ```
 
 # 0.0 Script preparation 
 ## 0.1 Working directory 
 Choose the path to the root folder in which all other folders can be found
 ```{r RootPath}
-RootPath <- "/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/inst/extdata/WebDir"
+RootPath <- paste0(rprojroot::find_rstudio_root_file(), "/inst/extdata/WebDir")
   # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
