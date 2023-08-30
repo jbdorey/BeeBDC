@@ -25,7 +25,7 @@ DOI](https://doi.org/10.1101/2023.06.30.547152)](https://doi.org/10.1101/2023.06
 
 The consistent implementation of biodiversity data continues to be a
 challenge for ecological researchers. We present the BeeBDC package
-which provides novel and udpated functions for flagging, cleaning, and
+which provides novel and updated functions for flagging, cleaning, and
 visualising occurrence datasets. Our functions are mostly general in
 nature but we also provide some functions and data that are specific for
 use with bee occurrence data. We build upon functions and conventions in
@@ -92,9 +92,9 @@ but not entirely, related to bee occurrence data.
 - `PaigeIntegrater()` Replaces publicly available data with data that
   has been manually cleaned and error-corrected for use in the paper
   Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T.,
-  Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press).
+  Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (2023).
   Completeness analysis for over 3000 United States bee species
-  identifies persistent data gaps. Ecography.
+  identifies persistent data gaps. Ecography. https://doi.org/10.1111/ecog.06584.
 - `readr_BeeBDC()` Read in a variety of data files that are specific to
   certain smaller data providers. There is an internal readr function
   for each dataset and each one of these functions is called by

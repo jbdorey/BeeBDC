@@ -28,7 +28,6 @@ library(rmdformats)
 library(prettydoc)
 library(htmltools)
 library(dplyr)
-
 ```
 
 
@@ -37,14 +36,14 @@ knitr::opts_chunk$set(error = TRUE,
                       eval = TRUE, 
                       tidy = TRUE, 
                       warning = FALSE,
-                      root.dir = rprojroot::find_rstudio_root_file())
+                      root.dir = "..")
 ```
 
 # 0.0 Script preparation 
 ## 0.1 Working directory 
 Choose the path to the root folder in which all other folders can be found
 ```{r RootPath}
-RootPath <- paste0(rprojroot::find_rstudio_root_file(), "/inst/extdata/WebDir")
+RootPath <- paste0(dirname(getwd()), "/inst/extdata/WebDir")
   # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -68,9 +67,9 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 ## 0.2 Install packages (if needed) 
 
-You may need to install gdal on your computer. This can be done on mac by using Homebrew in the terminal and the command "brew install gdal". 
+You may need to install gdal on your computer. This can be done on a Mac by using Homebrew in the terminal and the command "brew install gdal". 
 
-To start out, you will need to install BiocManager, devtools, **ComplexHeatmap**, and **rnaturalearthhires** to then install adn fully use BeeBDC.
+To start out, you will need to install BiocManager, devtools, **ComplexHeatmap**, and **rnaturalearthhires** to then install and fully use BeeBDC.
 ```{r installPackages, results=FALSE}
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -1897,5 +1896,8 @@ summaryTable <- BeeBDC::flagSummaryTable(data = beeData,
 Fin.
 
 
-
+```{r 9.end, include=FALSE}
+  # Secretely remove the RootPath once finished
+unlink(paste0(RootPath), recursive = TRUE)
+```
 
