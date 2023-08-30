@@ -92,7 +92,7 @@
 <p>Choose the path to the root folder in which all other folders can be
 found</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RootPath</span> <span class="op">&lt;-</span> <span class="st">"/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper"</span></span>
+<code class="sourceCode R"><span><span class="va">RootPath</span> <span class="op">&lt;-</span> <span class="st">"/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/inst/extdata/WebDir"</span></span>
 <span>  <span class="co"># Create the working directory in the RootPath if it doesn't exist already</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>, <span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>, <span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -109,7 +109,7 @@ renv package to manage your packages, you can install renv…</p>
 activate it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>,<span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error: failed to create directory at path '/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper/Data_acquisition_workflow'</span></span></code></pre>
+<pre><code><span><span class="co">## Error: failed to create directory at path '/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow'</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="install-packages-if-needed">0.2 Install packages (if needed)<a class="anchor" aria-label="anchor" href="#install-packages-if-needed"></a>
@@ -156,7 +156,7 @@ to then install adn fully use BeeBDC.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>,<span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span>,</span>
 <span>                 prompt <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in normalizePath(path, winslash, mustWork): path[1]="/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_paper/Data_acquisition_workflow": No such file or directory</span></span></code></pre>
+<pre><code><span><span class="co">## Error in normalizePath(path, winslash, mustWork): path[1]="/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow": No such file or directory</span></span></code></pre>
 <p>Set up the directories used by BeeBDC. These directories include
 where the data, figures, reports, etc. will be saved. The RDoc needs to
 be a path RELATIVE to the RootPath; i.e., the file path from which the
@@ -164,7 +164,7 @@ two diverge.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dirMaker.html">dirMaker</a></span><span class="op">(</span></span>
 <span>    RootPath <span class="op">=</span> <span class="va">RootPath</span>,</span>
-<span>    RDoc <span class="op">=</span> <span class="st">"BeeBDC_website.Rmd"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    RDoc <span class="op">=</span> <span class="st">"vignettes/BeeBDC_main.Rmd"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>      <span class="co"># Add paths created by this function to the .GlobalEnv</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## here() starts at /home/runner/work/BeeBDC/BeeBDC</span></span></code></pre>
@@ -472,7 +472,7 @@ correctly or where dates fail to parse. This is normal.</p>
 </h6>
 <p>Guzman, L. M., Kelly, T. &amp; Elle, E. A data set for pollinator
 diversity and their interactions with plants in the Pacific Northwest.
-Ecology n/a, e3927 (2022). <a href="https://doi.org/10.1002/ecy.3927" class="external-link uri">https://doi.org/10.1002/ecy.3927</a></p>
+Ecology, e3927 (2022). <a href="https://doi.org/10.1002/ecy.3927" class="external-link uri">https://doi.org/10.1002/ecy.3927</a></p>
 <pre><code><span><span class="va">EPEL_Data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/readr_BeeBDC.html">readr_BeeBDC</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"EPEL"</span>,</span>
 <span>                                path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Additional_Datasets"</span><span class="op">)</span>,</span>
 <span>                      inFile <span class="op">=</span> <span class="st">"/InputDatasets/bee_data_canada.csv"</span>,</span>
@@ -1022,8 +1022,8 @@ parallel running.</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##            used  (Mb) gc trigger  (Mb)  max used  (Mb)</span></span>
-<span><span class="co">## Ncells  5886676 314.4    9883022 527.9   9883022 527.9</span></span>
-<span><span class="co">## Vcells 13763686 105.1   62906164 480.0 122843431 937.3</span></span></code></pre>
+<span><span class="co">## Ncells  5886670 314.4    9876365 527.5   9876365 527.5</span></span>
+<span><span class="co">## Vcells 13763709 105.1   62906177 480.0 122845936 937.3</span></span></code></pre>
 <p>Read data in again if needed</p>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
@@ -1190,8 +1190,8 @@ fail-safe..</p>
 <span><span class="co">## bdc_create_report:</span></span>
 <span><span class="co">## Check the report summarizing the results of the prefilter in:</span></span>
 <span><span class="co">##  /home/runner/work/BeeBDC/BeeBDC/Output/Report</span></span></code></pre>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1ac4e79ad5176635591f" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1ac4e79ad5176635591f">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Records with empty scientific name","Records with empty coordinates","Records with coordinates out-of-range","Records from a doubtful source","Records outside one or multiple reference countries","Summary of all tests","","(*) calculated in relation to total number of records, i.e. 205 records"],[".scientificName_empty",".coordinates_empty",".coordinates_outOfRange",".basisOfRecords_notStandard",".coordinates_country_inconsistent",".summary","",""],["0","42","0","1","2","44","",""],["0","20.49","0","0.49","0.98","21.46","",""]],"container":"<table class=\"stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Description<\/th>\n      <th>Test_name<\/th>\n      <th>Records_flagged<\/th>\n      <th>perc_number_records(*)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"Brtip","scrollX":true,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a7461c49eab910b58d90" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a7461c49eab910b58d90">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Records with empty scientific name","Records with empty coordinates","Records with coordinates out-of-range","Records from a doubtful source","Records outside one or multiple reference countries","Summary of all tests","","(*) calculated in relation to total number of records, i.e. 205 records"],[".scientificName_empty",".coordinates_empty",".coordinates_outOfRange",".basisOfRecords_notStandard",".coordinates_country_inconsistent",".summary","",""],["0","42","0","1","2","44","",""],["0","20.49","0","0.49","0.98","21.46","",""]],"container":"<table class=\"stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Description<\/th>\n      <th>Test_name<\/th>\n      <th>Records_flagged<\/th>\n      <th>perc_number_records(*)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"Brtip","scrollX":true,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="section level3">
@@ -1556,7 +1556,7 @@ threshold.</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.1 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.14 secs</span></span></code></pre>
 <div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1615,8 +1615,8 @@ threshold.</p>
 <span><span class="co">## bdc_create_report:</span></span>
 <span><span class="co">## Check the report summarizing the results of the space in:</span></span>
 <span><span class="co">##  /home/runner/work/BeeBDC/BeeBDC/Output/Report</span></span></code></pre>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1820aefe09bde5663f2b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1820aefe09bde5663f2b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9"],["Identical coordinates","Plain zeros","Records around country capital centroid","Records around country or province centroids","Records around the GBIF headquarters","Records around biodiversity institutions","Rounded (probably imprecise) coordinates","","(*) calculated in relation to total number of records, i.e. 205 records"],[".equ",".zer",".cap",".cen",".gbf",".inst",".rou","",""],["","","","","","","61","",""],["","","","","","","29.76","",""]],"container":"<table class=\"stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Description<\/th>\n      <th>Test_name<\/th>\n      <th>Records_flagged<\/th>\n      <th>perc_number_records(*)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"Brtip","scrollX":true,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a3da8d2af4cb34e6cf53" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a3da8d2af4cb34e6cf53">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9"],["Identical coordinates","Plain zeros","Records around country capital centroid","Records around country or province centroids","Records around the GBIF headquarters","Records around biodiversity institutions","Rounded (probably imprecise) coordinates","","(*) calculated in relation to total number of records, i.e. 205 records"],[".equ",".zer",".cap",".cen",".gbf",".inst",".rou","",""],["","","","","","","61","",""],["","","","","","","29.76","",""]],"container":"<table class=\"stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Description<\/th>\n      <th>Test_name<\/th>\n      <th>Records_flagged<\/th>\n      <th>perc_number_records(*)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"Brtip","scrollX":true,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level3">
 <h3 id="space-figures">5.8 Space figures<a class="anchor" aria-label="anchor" href="#space-figures"></a>
@@ -1726,7 +1726,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.247704029083252 secs</span></span></code></pre>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.266888380050659 secs</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1784,8 +1784,8 @@ column.</p>
 <span>                           workflow_step <span class="op">=</span> <span class="st">"time"</span>,</span>
 <span>                           save_report <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span>   </span></code></pre></div>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b6ea46cb5ec9c48d1bc4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b6ea46cb5ec9c48d1bc4">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["Records with empty eventDate","Records with year out-of-range (i.e., year in the future or\n                collected before a threshold defined by the user).","Summary of all tests","","(*) calculated in relation to total number of records, i.e. 205 records"],[".eventDate_empty",".year_outOfRange",".summary","",""],["30","21","51","",""],["14.63","10.24","24.88","",""]],"container":"<table class=\"stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Description<\/th>\n      <th>Test_name<\/th>\n      <th>Records_flagged<\/th>\n      <th>perc_number_records(*)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"Brtip","scrollX":true,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d71ded7ce85a1ddf3251" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d71ded7ce85a1ddf3251">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["Records with empty eventDate","Records with year out-of-range (i.e., year in the future or\n                collected before a threshold defined by the user).","Summary of all tests","","(*) calculated in relation to total number of records, i.e. 205 records"],[".eventDate_empty",".year_outOfRange",".summary","",""],["30","21","51","",""],["14.63","10.24","24.88","",""]],"container":"<table class=\"stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Description<\/th>\n      <th>Test_name<\/th>\n      <th>Records_flagged<\/th>\n      <th>perc_number_records(*)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"Brtip","scrollX":true,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level3">
 <h3 id="time-figures">6.5 Time figures<a class="anchor" aria-label="anchor" href="#time-figures"></a>
