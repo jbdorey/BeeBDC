@@ -561,7 +561,7 @@ suppressWarnings(
                                    path = OutPath_Intermediate,
                                    append = FALSE,
                                    scale = "large",
-                                   mc.cores = 6),
+                                   mc.cores = 4),
   classes = "warning")
 
 ###### c. re-merge ####

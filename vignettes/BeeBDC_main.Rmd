@@ -2,7 +2,7 @@
 title: "BeeBDC"
 
 output:
-   rmdformats::readthedown:
+   rmarkdown::html_vignette:
      code_folding: show
      Float_TOC: True
      TOC_depth: 2
@@ -40,7 +40,6 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(countrycode)
 library(rmarkdown)
-library(rmdformats)
 library(prettydoc)
 library(hexbin)
 library(readxl)
