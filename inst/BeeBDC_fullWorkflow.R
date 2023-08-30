@@ -387,7 +387,7 @@ Dor_Data <- BeeBDC::readr_BeeBDC(dataset = "Dor",
 # Remove these spent datasets
 rm(EPEL_Data, ASP_Data, BMin_Data, BMont_Data, Ecd_Data, Gai_Data, CAES_Data, 
    # INHS_Data, MABC_Data, EcoS_Data, KP_Data,
-   GeoL_Data, EaCO_Data, FSCA_Data, SMC_Data, Bal_Data, Lic_Data, Arm_data, Dor_Data)
+   GeoL_Data, EaCO_Data, FSCA_Data, SMC_Data, Bal_Data, Lic_Data, Arm_Data, Dor_Data)
 # Read in and merge all
 db_standardized <- db_standardized %>%
   dplyr::bind_rows(
@@ -787,8 +787,10 @@ data(beesTaxonomy, package = "BeeBDC")
 #   # This flags the occurrences without a matched name and matches names to their correct name 
   # according to DiscoverLife
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
-                       taxonomy = beesTaxonomy, # The formatted taxonomy file
+                       taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
                        data = database,
+                       speciesColumn = "scientificName",
+                       stepSize = 1000000,
                        mc.cores = 4)
 
 # You don't need this file anymore...

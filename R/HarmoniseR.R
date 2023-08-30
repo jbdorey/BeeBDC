@@ -132,7 +132,7 @@ harmoniseR <- function(
       dplyr::mutate(taxonRank = NA_character_)
     message("The taxonRank column was not found, making this column full of NAs.")
   }
-  ###### e. species ####
+  ###### f. species ####
   # If there is no species, make all NA
   if(!"species" %in% colnames(data)){
     data <- data %>%

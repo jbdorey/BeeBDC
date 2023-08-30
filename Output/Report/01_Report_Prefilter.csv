@@ -1,0 +1,9 @@
+Description,Test_name,Records_flagged,perc_number_records(*)
+Records with empty scientific name,.scientificName_empty,0,0
+Records with empty coordinates,.coordinates_empty,42,20.49
+Records with coordinates out-of-range,.coordinates_outOfRange,0,0
+Records from a doubtful source,.basisOfRecords_notStandard,1,0.49
+Records outside one or multiple reference countries,.coordinates_country_inconsistent,2,0.98
+Summary of all tests,.summary,44,21.46
+,,,
+"(*) calculated in relation to total number of records, i.e. 205 records",,,
