@@ -28,22 +28,34 @@ library(rmdformats)
 library(prettydoc)
 library(htmltools)
 library(dplyr)
+library(renv)
 ```
 
+```{r secretRootPath, include=FALSE}
+  # Set a root path that will work on the local machine and also on GitHub actions
+RootPath <- paste0(dirname(getwd()), "/inst/extdata/WebDir")
+  # Create the working directory in the RootPath if it doesn't exist already
+if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
+    dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
+}
+```
 
 ```{r global-options, include=FALSE}
 knitr::opts_chunk$set(error = TRUE, 
                       eval = TRUE, 
                       tidy = TRUE, 
                       warning = FALSE,
-                      root.dir = "..")
+                      root.dir = normalizePath(paste0(dirname(getwd()), "/inst/extdata/WebDir")))
 ```
+
 
 # 0.0 Script preparation 
 ## 0.1 Working directory 
 Choose the path to the root folder in which all other folders can be found
-```{r RootPath}
-RootPath <- paste0(dirname(getwd()), "/inst/extdata/WebDir")
+```{r falseRootPath, eval = FALSE}
+RootPath <- paste0("/your/path/here")
+```
+```{r CreateRootPath}
   # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -1899,5 +1911,6 @@ Fin.
 ```{r 9.end, include=FALSE}
   # Secretely remove the RootPath once finished
 unlink(paste0(RootPath), recursive = TRUE)
+unlink(paste0(here::here(), "/Output"), recursive = TRUE)
 ```
 

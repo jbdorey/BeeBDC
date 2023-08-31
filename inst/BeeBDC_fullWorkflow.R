@@ -888,6 +888,7 @@ tempSpace <- check_space %>%
   )
 # re-merge the datasets
 check_space <- tempSpace %>%
+  dplyr::select(!tidyselect::starts_with(".summary")) %>%
   # Re-bind with the records that were excluded earlier
   dplyr::bind_rows(check_space %>% 
                      dplyr::filter(.coordinates_empty == FALSE | 
@@ -909,7 +910,7 @@ check_space <- BeeBDC::diagonAlley(
   data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
   minRepeats = 4,
-  mc.cores = 2)
+  mc.cores = 1)
 
 # SPATIAL gridding from rasterisation:
 # Select only the records with more than X occurrences
