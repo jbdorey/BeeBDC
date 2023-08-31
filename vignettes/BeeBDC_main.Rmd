@@ -1189,7 +1189,9 @@ tempSpace <-
     range_ref = NULL,
     # seas_scale = 50,
     value = "spatialvalid" # result of tests are appended in separate columns
-  )
+  ) %>%
+  dplyr::select(!tidyselect::starts_with(".summary")) %>%
+  dplyr::tibble()
 ```
 
 Re-merge the datasets.
@@ -1199,8 +1201,7 @@ check_space <- tempSpace %>%
   # Re-bind with the records that were removed earlier
   dplyr::bind_rows(check_space %>% 
                      dplyr::filter(.coordinates_empty == FALSE | 
-                                     .coordinates_outOfRange == FALSE) ) %>%
-  dplyr::select(!tidyselect::starts_with(".summary")) 
+                                     .coordinates_outOfRange == FALSE) ) 
 ```
 
 Remove the temporary dataset.
