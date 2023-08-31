@@ -19,7 +19,6 @@ vignette: >
 --- 
 
 ```{r libraryChunk, load-packages, include=FALSE}
-.rs.restartR()
   # markdown stuff
 library(rgnparser)
 library(magrittr)
