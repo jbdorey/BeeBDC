@@ -19,19 +19,30 @@ vignette: >
 --- 
 
 ```{r libraryChunk, load-packages, include=FALSE}
+  # markdown stuff
 library(rgnparser)
 library(magrittr)
 library(knitr)
-library(bdc)
 library(rmarkdown)
 library(rmdformats)
 library(prettydoc)
 library(htmltools)
-library(dplyr)
-library(renv)
 library(pkgdown)
+
+  # Core packages
+library(devtools)
+library(BiocManager)
 library(purrr)
+library(here)
+library(renv)
+library(BeeBDC)
+library(bdc)
 library(CoordinateCleaner)
+library(dplyr)
+library(readr)
+library(stringr)
+library(lubridate)
+library(tidyselect)
 ```
 
 ```{r secretRootPath, include=FALSE}
@@ -1332,7 +1343,7 @@ check_space %>%
   dplyr::select(database_id, scientificName, country) %>%
   dplyr::group_by(scientificName) %>% 
   dplyr::mutate(count_scientificName = n()) %>%
-  distinct(scientificName, country, .keep_all = TRUE) %>% 
+  dplyr::distinct(scientificName, country, .keep_all = TRUE) %>% 
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_failedCountryChecklist.csv",
                          sep = "/"))
 ```
