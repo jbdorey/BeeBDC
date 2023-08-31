@@ -1887,7 +1887,7 @@ BeeBDC::interactiveMapR(
     # Which species to map — a character vector of names or "ALL"
     # Note: "ALL" is defined AFTER filtering for country
   speciesList = "ALL",
-  countryList = NULL, # studyArea
+  countryList = NULL, # study area
     # Point jitter to see stacked points — jitters an amount in decimal degrees
   jitterValue = 0.01
 )
