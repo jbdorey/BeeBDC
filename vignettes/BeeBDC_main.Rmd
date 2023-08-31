@@ -35,7 +35,7 @@ library(CoordinateCleaner)
 ```
 
 ```{r secretRootPath, include=FALSE}
-  # Use here::i_am to set the root dir
+  # Use here::i_am to set the root directory
 here::i_am("vignettes/BeeBDC_main.Rmd")
   # Set a root path that will work on the local machine and also on GitHub actions
 RootPath <- paste0(dirname(getwd()), "/inst/extdata/WebDir")
