@@ -990,8 +990,8 @@ parallel running.</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##           used  (Mb) gc trigger   (Mb)  max used   (Mb)</span></span>
-<span><span class="co">## Ncells 5600564 299.2    9005394  481.0   9005394  481.0</span></span>
-<span><span class="co">## Vcells 9716302  74.2  453209404 3457.8 517510872 3948.3</span></span></code></pre>
+<span><span class="co">## Ncells 5600567 299.2    9005302  481.0   9005302  481.0</span></span>
+<span><span class="co">## Vcells 9716311  74.2  410806459 3134.3 426220779 3251.9</span></span></code></pre>
 <p>Read data in again if needed</p>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
@@ -2039,7 +2039,7 @@ categories can be slow to produce and unwieldy to view.</p>
 <span>    <span class="co"># Which species to map — a character vector of names or "ALL"</span></span>
 <span>    <span class="co"># Note: "ALL" is defined AFTER filtering for country</span></span>
 <span>  speciesList <span class="op">=</span> <span class="st">"ALL"</span>,</span>
-<span>  countryList <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># studyArea</span></span>
+<span>  countryList <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># study area</span></span>
 <span>    <span class="co"># Point jitter to see stacked points — jitters an amount in decimal degrees</span></span>
 <span>  jitterValue <span class="op">=</span> <span class="fl">0.01</span></span>
 <span><span class="op">)</span></span></code></pre></div>
