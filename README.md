@@ -54,7 +54,7 @@ modules related to different biodiversity dimensions.
 
 ------------------------------------------------------------------------
 
-#### ![](inst/extdata/icon_vignettes/Figure1_14Jan2023.pdf)
+<a href='https://jbdorey.github.io/BeeBDC/index.html'><img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.jpeg" align="left" /></a>
 
 <br/>
 

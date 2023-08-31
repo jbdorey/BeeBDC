@@ -31,6 +31,7 @@ library(dplyr)
 library(renv)
 library(pkgdown)
 library(purrr)
+library(CoordinateCleaner)
 ```
 
 ```{r secretRootPath, include=FALSE}
@@ -60,7 +61,7 @@ Choose the path to the root folder in which all other folders can be found
 ```{r falseRootPath, eval = FALSE}
 RootPath <- paste0("/your/path/here")
 ```
-```{r CreateRootPath}
+```{r CreateRootPath, warning=FALSE}
   # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -87,7 +88,7 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 You may need to install gdal on your computer. This can be done on a Mac by using Homebrew in the terminal and the command "brew install gdal". 
 
 To start out, you will need to install BiocManager, devtools, **ComplexHeatmap**, and **rnaturalearthhires** to then install and fully use BeeBDC.
-```{r installPackages, results=FALSE}
+```{r installPackages, message=FALSE, warning=FALSE, results=FALSE}
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 if (!require("devtools", quietly = TRUE))
@@ -852,7 +853,7 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
 
 Get a quick summary of the number of transposed records.
 
-```{r 3.7ii}
+```{r 3.7ii, eval = FALSE}
 table(check_pf$coordinates_transposed, useNA = "always")
 ```
 
@@ -914,7 +915,7 @@ xyFromLocality <- bdc::bdc_coordinates_from_locality(
 
 
 Remove spent data.
-```{r 3.9ii}
+```{r 3.9ii, eval = FALSE}
 rm(xyFromLocality)
 ```
 
@@ -1157,7 +1158,7 @@ tempSpace <- check_space %>%
 
 Next, we will flag common spatial issues using functions of the package CoordinateCleaner. It addresses some common issues in biodiversity datasets.
 
-```{r 5.2ii, message=FALSE, warning=FALSE}
+```{r 5.2ii, message=TRUE, warning=FALSE}
 tempSpace <-
   CoordinateCleaner::clean_coordinates(
     x =  tempSpace,
@@ -1718,7 +1719,7 @@ BeeBDC::summaryFun(
 ## 9.1 Duplicate chordDiagrams 
 
 Install BiocManager and ComplexHeatmap if you missed them at the start.
-```{r 9.1}
+```{r 9.1, message=FALSE, warning=FALSE}
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("ComplexHeatmap")
@@ -1740,7 +1741,7 @@ par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
 
 Create the chorDiagram. You can leave many of the below values out but we show here the defaults. There are [internal] no duplicates in our test dataset and so BeeBDC will throw an informative error. However, we show the full output figure from our bee dataset below.
 
-```{r 9.1iv, fig.width=9, fig.height=7.5, fig.fullwidth=TRUE}
+```{r 9.1iv, eval=FALSE, fig.fullwidth=TRUE, fig.height=7.5, fig.width=9}
 BeeBDC::chordDiagramR(
   # The duplicate data from the dupeSummary function output  
   dupeData = duplicates,
@@ -1766,7 +1767,8 @@ BeeBDC::chordDiagramR(
   niceFacing = TRUE)
 ```
 
-![Full chord diagram from Dorey et al. 2023](inst/extdata/icon_vignettes/ChordDiagram.pdf)
+![Full chord diagram from Dorey et al. 2023]
+<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left" />
 
 
 ## 9.2 Duplicate histogram 
@@ -1784,7 +1786,7 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 ```
 
 Create a plot with two bar graphs. One shows the absolute number of duplicate records for each data source while the other shows the proportion of records that are duplicated within each data source. (*'dataSource'* is simplified to the text before the first underscore).
-```{r 9.2ii}
+```{r 9.2ii, warning=FALSE}
 BeeBDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
