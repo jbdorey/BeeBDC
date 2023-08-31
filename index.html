@@ -62,7 +62,7 @@
     
     <a class="navbar-brand me-2" href="index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@
 <h4 id="overview">
 <strong>Overview</strong><a class="anchor" aria-label="anchor" href="#overview"></a>
 </h4>
-<p>The consistent implementation of biodiversity data continues to be a challenge for ecological researchers. We present the BeeBDC package which provides novel and udpated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in nature but we also provide some functions and data that are specific for use with bee occurrence data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>. Hence, our package name is Bee <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (BeeBDC).</p>
+<p>The consistent implementation of biodiversity data continues to be a challenge for ecological researchers. We present the BeeBDC package which provides novel and updated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in nature but we also provide some functions and data that are specific for use with bee occurrence data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>. Hence, our package name is Bee <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (BeeBDC).</p>
 <p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite our primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>.</p>
 </div>
 <div class="section level4">
@@ -131,11 +131,7 @@
 <p><span class="emoji" data-emoji="warning">⚠️</span> The modules illustrated, and <strong>functions</strong> within, <strong>were linked to form</strong> a proposed reproducible <strong>workflow</strong> (see <a href="https://brunobrr.github.io/bdc/" class="external-link"><strong>vignettes</strong></a>). However, all functions <strong>can also be executed independently</strong>.</p>
 </blockquote>
 <hr>
-</div>
-<div class="section level4">
-<h4 id="section">
-<embed src="https://github.com/jbdorey/BeeBDC/tree/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.pdf"></embed><a class="anchor" aria-label="anchor" href="#section"></a>
-</h4>
+<p><a href="https://jbdorey.github.io/BeeBDC/index.html"><img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.jpeg" align="left"></a></p>
 <p><br></p>
 </div>
 <div class="section level4">
@@ -169,7 +165,7 @@
 <li>
 <code><a href="reference/fileFinder.html">fileFinder()</a></code> A function which can be used to find files within a user-defined directory based on a user-provided character string.</li>
 <li>
-<code><a href="reference/PaigeIntegrater.html">PaigeIntegrater()</a></code> Replaces publicly available data with data that has been manually cleaned and error-corrected for use in the paper Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography.</li>
+<code><a href="reference/PaigeIntegrater.html">PaigeIntegrater()</a></code> Replaces publicly available data with data that has been manually cleaned and error-corrected for use in the paper Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (2023). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography. <a href="https://doi.org/10.1111/ecog.06584" class="external-link uri">https://doi.org/10.1111/ecog.06584</a>.</li>
 <li>
 <code><a href="reference/readr_BeeBDC.html">readr_BeeBDC()</a></code> Read in a variety of data files that are specific to certain smaller data providers. There is an internal readr function for each dataset and each one of these functions is called by readr_BeeBDC. While these functions are internal, they are displayed in the documentation of readr_BeeBDC for clarity.</li>
 <li>
@@ -296,7 +292,7 @@
 <span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the package with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jbdorey.github.io/BeeBDC/">BeeBDC</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="package-website">
@@ -351,7 +347,7 @@
 <li>James B. Dorey <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0003-2721-3842" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Robert O'Reilly <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-5291-7396" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Silas Bossert <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-3620-5468" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Fischer Fischer <br><small class="roles"> Author </small>  </li>
+<li>Erica Fischer <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8202-158X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -373,7 +369,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by James B. Dorey, Robert O’Reilly, Silas Bossert, Fischer Fischer.</p>
+<p>Developed by James B. Dorey, Robert O’Reilly, Silas Bossert, Erica Fischer.</p>
 </div>
 
 <div class="pkgdown-footer-right">
