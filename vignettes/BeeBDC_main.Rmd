@@ -29,6 +29,8 @@ library(prettydoc)
 library(htmltools)
 library(dplyr)
 library(renv)
+library(pkgdown)
+library(purrr)
 ```
 
 ```{r secretRootPath, include=FALSE}
@@ -149,7 +151,7 @@ first make an account with ALA in order to download your data — <https://auth.
                ALA_taxon = "Apiformes")
 
 
-##  1.2 Import and merge ALA, SCAN, iDigBio and GBIF data 
+##  1.2 Import and merge ALA, SCAN, iDigBio, and GBIF data 
       
 Supply the path to where the data is, the save_type is either "csv_files" or "R_file".
 
@@ -160,7 +162,7 @@ Supply the path to where the data is, the save_type is either "csv_files" or "R_
 
 
 
-If there is an error in finding a file run `repoFinder()` by itself to troubleshoot. For example:
+If there is an error in finding a file, run `repoFinder()` by itself to troubleshoot. For example:
 
       		
       			#BeeBDC::repoFinder(path = DataPath)
@@ -185,7 +187,7 @@ If there is an error in finding a file run `repoFinder()` by itself to troublesh
       			#Failing because SCAN_data seems to be missing. Downloaded separatly from the one drive
 
 
-Load in the most-recent version of these data if needed.This will return a list with: 
+Load in the most-recent version of these data if needed. This will return a list with: 
  
  1. The occurrence dataset with attributes and (.$Data_WebDL)
  2. The appended eml file (.$eml_files)
