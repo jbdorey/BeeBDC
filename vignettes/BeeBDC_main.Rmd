@@ -1034,3 +1034,155 @@ check_pf %>%
   readr::write_excel_csv(., paste(OutPath_Intermediate, "01_prefilter_output.csv",
                             sep = "/"))
 ```
+
+
+
+# 4.0 Taxonomy 
+*For more information about the corresponding bdc functions used in this section, see their [tutorial](https://brunobrr.github.io/bdc/articles/taxonomy.html). *
+
+Read in the filtered dataset or rename the 3.x dataset for 4.0.
+
+```{r 4.0}
+if(!exists("check_pf")){
+database <-
+  readr::read_csv( paste(OutPath_Intermediate, "01_prefilter_output.csv",
+                         sep = "/"), col_types = BeeBDC::ColTypeR())
+}else{
+    # OR rename and remove
+  database <- check_pf
+  # Remove spent dataset
+  rm(check_pf)}
+```
+
+Remove *names_clean* if it already exists (i.e. you have run the following functions before on this dataset before).
+
+```{r 4.0ii}
+			database <- database %>%
+			  dplyr::select(!tidyselect::any_of("names_clean"))
+```
+
+## 4.1 Prep data names 
+
+This step cleans the database's *scientificName* column. 
+	
+**! MAC**: You might need to install gnparser through terminal — brew
+			brew tap gnames/gn
+			brew install gnparser
+			
+			
+<div class="alert alert-info">
+  <strong> Attention:</strong> <br>
+This can be difficult for a Windows install. Ensure you have the most recent version of R, R Studio, and R packages. Also, check package '**rgnparser**' is installed correctly. If you still can not get the below code to work, you may have to download the latest version of 'gnparser' from [here](https://github.com/gnames/gnparser/releases/tag/v1.6.9). You may then need to manually install it and edit your systems environmental variable PATH to locate 'gnparser.exe'. See [here](https://github.com/gnames/gnparser#installation).
+
+</div>			
+
+
+```{r 4.1, eval = TRUE}
+parse_names <-
+  bdc::bdc_clean_names(sci_names = database$scientificName, save_outputs = FALSE)
+```
+
+Keep only the *.uncer_terms* and *names_clean* columns.
+
+```{r 4.1ii}
+parse_names <-
+  parse_names %>%
+  dplyr::select(.uncer_terms, names_clean)
+```
+
+Merge names with the complete dataset.
+```{r 4.1iii}
+database <- dplyr::bind_cols(database, parse_names)
+rm(parse_names)
+```
+
+## 4.2 Harmonise taxonomy 
+Read in the custom taxonomy file from the BeeBDC package and [Discover Life](http://discoverlife.org) website.
+
+```{r 4.2}
+data("beesTaxonomy", package = "BeeBDC")
+```
+
+
+Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](http://discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
+
+```{r 4.2gc, include=FALSE}
+  # Clean up the garbage
+gc()
+```
+
+```{r 4.2ii}
+database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
+                       taxonomy = beesTaxonomy, # The formatted taxonomy file
+                       data = database,
+                       mc.cores = 1)
+```
+
+
+You don't need this file any more...
+```{r 4.2iii}
+rm(beesTaxonomy)
+```
+
+
+
+Save the harmonised file.
+
+```{r 4.2iv}
+database %>%
+  readr::write_excel_csv(.,
+                   paste(DataPath, "Output", "Intermediate", "02_taxonomy_database.csv",
+                         sep = "/"))
+```
+
+## 4.3 Save flags 
+Save the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact.
+
+```{r 4.3}
+flagFile <- BeeBDC::flagRecorder(
+  data = database,
+  outPath = paste(OutPath_Report, sep =""),
+  fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
+  idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
+  append = TRUE,
+  printSummary = TRUE)
+```
+
+# 5.0 Space
+
+Read in the latest database.
+
+```{r 5.0}
+if(!exists("database")){
+database <-
+  readr::read_csv(paste(OutPath_Intermediate, "02_taxonomy_database.csv", sep = "/"),
+                  col_types = BeeBDC::ColTypeR())}
+```
+
+## 5.1 Coordinate precision 
+This function identifies records with a coordinate precision below a specified number of decimal places. For example, the precision of a coordinate with 1 decimal place is 11.132 km at the equator, i.e., the scale of a large city. The major difference between the **bdc** and **BeeBDC** functions is that `jbd_coordinates_precision()` will only flag occurrences if BOTH latitude and longitude are rounded (as opposed to only one of these).
+Coordinates with one, two, or three decimal places present a precision of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.
+
+```{r 5.1}
+check_space <-
+  BeeBDC::jbd_coordinates_precision(
+    data = database,
+    lon = "decimalLongitude",
+    lat = "decimalLatitude",
+    ndec = 2 # number of decimals to be tested
+  )
+```
+
+Remove the spent dataset.
+```{r 5.1ii}
+rm(database)
+```
+
+Save the resulting file.
+```{r 5.1iii}
+check_space %>%
+  readr::write_excel_csv(.,
+                   paste(OutPath_Intermediate, "03_space_inter_database.csv",
+                         sep = "/"))
+```
+
