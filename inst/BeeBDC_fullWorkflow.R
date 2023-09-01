@@ -63,8 +63,7 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey",
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above,
-lapply(c(#list.of.packages, "sf","terra", "galah", 
-         "ComplexHeatmap", "BeeBDC", "magrittr"), 
+lapply(c("ComplexHeatmap", "BeeBDC", "magrittr"), 
        library, character.only = TRUE)
 # Save a snapshot of the environment
 renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"))
@@ -885,10 +884,12 @@ tempSpace <- check_space %>%
     range_ref = NULL,
     # seas_scale = 50,
     value = "spatialvalid" # result of tests are appended in separate columns
-  )
+  ) %>%
+    # Remove duplicate .summary column that can be replaced later and turn into a tibble
+  dplyr::select(!tidyselect::starts_with(".summary")) %>%
+  dplyr::tibble() 
 # re-merge the datasets
 check_space <- tempSpace %>%
-  dplyr::select(!tidyselect::starts_with(".summary")) %>%
   # Re-bind with the records that were excluded earlier
   dplyr::bind_rows(check_space %>% 
                      dplyr::filter(.coordinates_empty == FALSE | 

@@ -116,15 +116,17 @@ To start out, you will need to install **BiocManager**, **devtools**, **ComplexH
 ```{r installPackages, message=FALSE, warning=FALSE, results=FALSE}
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-if (!require("devtools", quietly = TRUE))
-    install.packages("devtools")
 
-devtools::install_github("ropensci/rnaturalearthhires")
 BiocManager::install("ComplexHeatmap")
 ```
    
-```{r rnaturalearthhires, include=FALSE}
-devtools::install_github("ropensci/rnaturalearthhires")
+   
+```{r rnaturalearthhires, eval=FALSE}
+  # Install remotes if needed
+if (!require("remotes", quietly = TRUE))
+    install.packages("remotes")
+  # Download and load rnaturalearthhires
+remotes::install_github("ropensci/rnaturalearthhires")
 install.packages("rnaturalearthhires", repos = "https://ropensci.r-universe.dev", type = "source")
 library(rnaturalearthhires)
 ```   
@@ -161,7 +163,7 @@ BeeBDC::dirMaker(
 Load packages.
 
 ```{r lapply_library, results=FALSE}
-lapply(c("ComplexHeatmap", "magrittr", "rnaturalearthhires"), 
+lapply(c("ComplexHeatmap", "magrittr"), 
        library, character.only = TRUE)
 ```
 
@@ -778,7 +780,8 @@ check_pf_noNa <- BeeBDC::countryNameCleanR(
 
 
 ### b. run function
-Get country name from coordinates using a wrapper around the `jbd_country_from_coordinates()` function. Because our dataset is much larger than those used to design **bdc**, we have made it so that you can analyse data in smaller pieces. Additionally, like some other functions in **BeeBDC**, we have implemented parallel operations (using mc.cores = #cores in stepSize = #rowsPerOperation); see '?`jbd_CfC_chunker()`' for details.
+Get country name from coordinates using a wrapper around the `jbd_country_from_coordinates()` function. Because our dataset is much larger than those used to design **bdc**, we have made it so that you can analyse data in smaller pieces. Additionally, like some other functions in **BeeBDC**, we have implemented parallel operations (using mc.cores = #cores in stepSize = #rowsPerOperation); see '?`jbd_CfC_chunker()`' for details. 
+NOTE: In an actual run you should use scale = "large"
 
 ```{r 3.5b, message=FALSE, warning=FALSE}
 suppressWarnings(
@@ -792,6 +795,8 @@ suppressWarnings(
                                    chunkStart = 1,
                                    path = OutPath_Intermediate,
                                    append = FALSE,
+                                    # Normally, please use scale = "large"
+                                   scale = "medium",
                                    mc.cores = 1),
   classes = "warning")
 ```
@@ -855,6 +860,7 @@ check_pf <- bdc::bdc_country_standardized(
 ## 3.7 TranspCoords 
 
 Flag and correct records when *decimalLatitude* and *decimalLongitude* appear to be transposed. We created this chunked version of  `bdc::bdc_coordinates_transposed()` because it is very RAM-heavy using our large bee dataset. Like many of our other 'jbd_...' functions there are other improvements - e.g., parallel running. 
+NOTE: Usually you would use scale = "large", which requires rnaturalearthhires
 
 ```{r 3.7, message=FALSE, warning=FALSE}
 check_pf <- BeeBDC::jbd_Ctrans_chunker(
@@ -872,6 +878,8 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
   stepSize = 1000000,  # How many rows to process at a time
   chunkStart = 1,  # Start row
   append = FALSE,  # If FALSE it may overwrite existing dataset
+    # In a normal run, please use scale = "large"
+  scale = "medium",
   path = OutPath_Check,
   mc.cores = 1
 ) 
@@ -1221,6 +1229,7 @@ tempSpace <-
     # seas_scale = 50,
     value = "spatialvalid" # result of tests are appended in separate columns
   ) %>%
+      # Remove duplicate .summary column that can be replaced later and turn into a tibble
   dplyr::select(!tidyselect::starts_with(".summary")) %>%
   dplyr::tibble()
 ```
