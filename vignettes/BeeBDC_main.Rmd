@@ -196,7 +196,7 @@ If there is an error in finding a file, run `repoFinder()` by itself to troubles
 
 Load in the most-recent version of these data if needed. This will return a list with: 
  
- 1. The occurrence dataset with attributes and (.$Data_WebDL)
+ 1. The occurrence dataset with attributes (.$Data_WebDL)
  2. The appended eml file (.$eml_files)
 
 
@@ -206,7 +206,7 @@ Load in the most-recent version of these data if needed. This will return a list
 
 ## 1.3 Import USGS Data 
 
-The `USGS_formatter()` will find, import, format and create metadata for the USGS dataset. The pubDate must be in day-month-year format.
+The `USGS_formatter()` will find, import, format, and create metadata for the USGS dataset. The pubDate must be in day-month-year format.
 
 
       USGS_data <- BeeBDC::USGS_formatter(path = DataPath, pubDate = "19-11-2022")
@@ -214,7 +214,7 @@ The `USGS_formatter()` will find, import, format and create metadata for the USG
 
 ## 1.4 Formatted Source Importer
 
-Formatted source importer. Use this importer to find files that have been formatted and need to be added to the larger data file. 
+Use this importer to find files that have been formatted and need to be added to the larger data file. 
 
 The attributes file must contain "attribute" in its name, and the occurrence file must not.
 
@@ -226,7 +226,7 @@ The attributes file must contain "attribute" in its name, and the occurrence fil
                                     existingEMLs = DataImp$eml_files) 
 
 
-In the *catalogNumber*, remove ".*specimennumber:" as what comes after should be the USGS number to match for duplicates.
+In the column *catalogNumber*, remove ".*specimennumber:" as what comes after should be the USGS number to match for duplicates.
 
 
       Complete_data$Data_WebDL <- Complete_data$Data_WebDL %>%
@@ -237,7 +237,7 @@ In the *catalogNumber*, remove ".*specimennumber:" as what comes after should be
 
 ## 1.5 Save data 
 
-Choose the type of data format you want.
+Choose the type of data format you want to use in saving your work in 1.x.
 
 
       BeeBDC::dataSaver(path = DataPath,# The main path to look for data in
@@ -248,10 +248,10 @@ Choose the type of data format you want.
     rm(Complete_data, DataImp)
 
 
-# 2.0 Data preperation 
+# 2.0 Data preparation 
 The data preparatin section of the script relates mostly to integrating **bee** occurrence datasets and corrections and so may be skipped by many general taxon users.
 
-## 2.1 standardise datasets
+## 2.1 Standardise datasets
 
 You may either use: 
 
@@ -307,7 +307,7 @@ You can thin the dataset for ***TESTING ONLY!***
 Paige Chesshire's cleaned American dataset — <https://doi.org/10.1111/ecog.06584>
  
 ### Import data
-If you haven't figured out by now, don't worry about the column name warning — not all columns occur here.
+If you haven't figured it out by now, don't worry about the column name warning — not all columns occur here.
 
 
       PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
@@ -445,7 +445,7 @@ Ecdysis. Ecdysis: a portal for live-data arthropod collections, <https://serv.bi
                           dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
                           
 ###### f. Gai
-Gaiarsa, M. P., Kremen, C. & Ponisio, L. C. Pollinator interaction flexibility across scales affects patch colonization and occupancy. Nature Ecology & Evolution 5, 787-793 (2021). <https://doi.org/10.1038/s41559-021-01434-y>
+Gaiarsa, M. P., Kremen, C. & Ponisio, L. C. Pollinator interaction flexibility across scales affects patch colonization and occupancy. *Nature Ecology & Evolution* 5, 787-793 (2021). <https://doi.org/10.1038/s41559-021-01434-y>
 
     Gai_Data <- BeeBDC::readr_BeeBDC(dataset = "Gai",
                                    path = paste0(DataPath, "/Additional_Datasets"),
@@ -503,7 +503,7 @@ Published or unpublished data from Texas literature not in an online database, u
                           
 
 ###### l. Texas Bal
-Data with GPS coordinates from Ballare, K. M., Neff, J. L., Ruppel, R. & Jha, S. Multi-scalar drivers of biodiversity: local management mediates wild bee community response to regional urbanization. Ecol. Appl. 29, e01869 (2019), <https://doi.org/10.1002/eap.1869>. The version on Dryad is missing site GPS coordinates (by accident). Kim is okay with these data being made public as long as her paper is referenced. - Elinor Lichtenberg
+Data with GPS coordinates from Ballare, K. M., Neff, J. L., Ruppel, R. & Jha, S. Multi-scalar drivers of biodiversity: local management mediates wild bee community response to regional urbanization. *Ecological Applications* 29, e01869 (2019), <https://doi.org/10.1002/eap.1869>. The version on Dryad is missing site GPS coordinates (by accident). Kim is okay with these data being made public as long as her paper is referenced. - Elinor Lichtenberg
 
     Bal_Data <- BeeBDC::readr_BeeBDC(dataset = "Bal",
                                    path = paste0(DataPath, "/Additional_Datasets"),
@@ -513,7 +513,7 @@ Data with GPS coordinates from Ballare, K. M., Neff, J. L., Ruppel, R. & Jha, S.
                           dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
 ###### m. Palouse Lic
-*Attached: My canola data. I tried to get this in DarwinCore format. These data go with a manuscript currently under review. Here’s the bioRxiv version: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J. & Crowder, D. W. Differential effects of soil conservation practices on arthropods and crop yield. bioRxiv, https://doi.org/10.1101/2021.1112.1106.471474 (2022) <https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2>. These are the data I will be putting on SCAN. - Elinor Lichtenberg
+Attached: My canola data. I tried to get this in DarwinCore format. These data go with a manuscript currently under review. Here’s the bioRxiv version: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J. & Crowder, D. W. Differential effects of soil conservation practices on arthropods and crop yield. *bioRxiv*, https://doi.org/10.1101/2021.1112.1106.471474 (2022) <https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2>. These are the data I will be putting on SCAN. - Elinor Lichtenberg
  
     Lic_Data <- BeeBDC::readr_BeeBDC(dataset = "Lic",
                                    path = paste0(DataPath, "/Additional_Datasets"),
@@ -585,7 +585,7 @@ Read in and merge all. There are more `readr_BeeBDC()` supported than currently 
 
 ### 2.6 Match database_id 
 
-If you have prior runs from which you'd like to match database_ids with from the current run. You may use the below script to try to match database IDs with prior runs. 
+If you have prior runs from which you'd like to match *database_id*s with from the current run, you may use the below script to try to match *database_id*s with prior runs. 
 
 
 Read in a prior run of choice.
@@ -596,7 +596,7 @@ Read in a prior run of choice.
         readr::read_csv(file = ., col_types = BeeBDC::ColTypeR())
 
 
-This function will attempt to find the database_ids from prior runs.
+This function will attempt to find the *database_id*s from prior runs.
 
       
       db_standardized <- BeeBDC::idMatchR(
@@ -637,12 +637,6 @@ Read data back in if needed. OutPath_Intermediate (and a few other directories) 
                                         sep = "/"), col_types = BeeBDC::ColTypeR())}
 
 
-<div class="alert alert-info">
-  <strong> Attention:</strong> <br>
-For the purposes of this website, we will only use a combination of two test datasets, that are provided with BeeBDC. These datasets are (i) 105 occurrence records across three species (**bees3sp**) and (ii) 100 records across 85 names (**beesRaw**). 
-
-</div>
-
 ```{r 3.0}
 data("bees3sp", package = "BeeBDC")
 data("beesRaw", package = "BeeBDC")
@@ -680,7 +674,7 @@ check_pf <- bdc::bdc_coordinates_empty(
 ```
 
 ## 3.3 OutOfRange 
-Flag occurrences that are not on earth (outside of -180 to 180 or -90 to 90 degrees).
+Flag occurrences that are not on Earth (outside of -180 to 180 or -90 to 90 degrees).
 
 ```{r 3.3}
 check_pf <- bdc::bdc_coordinates_outOfRange(
@@ -808,7 +802,7 @@ check_pf <- readr::read_csv(paste(DataPath,
              col_types = BeeBDC::ColTypeR())}
 ```
 
-remove these interim datasets.
+Remove these interim datasets.
 
 ```{r 3.5civ}
 rm(check_pf_noNa, countryOutput)
@@ -816,7 +810,7 @@ rm(check_pf_noNa, countryOutput)
 
 ## 3.6 StandardCoNames 
 
-Run the function (standardises country names and adds ISO2 codes if needed).
+Run the function, which standardises country names and adds ISO2 codes, if needed.
 
 ```{r 3.6}
   # Standardise country names and add ISO2 codes if needed
@@ -831,7 +825,7 @@ check_pf <- bdc::bdc_country_standardized(
 
 ## 3.7 TranspCoords 
 
-Flag and correct records when *decimalLatitude* and *decimalLongitude* appear to be transposed. We created this chunked version of  `bdc::bdc_coordinates_transposed()` because it is very RAM-heavy using our large bee dataset. However, like many of our other 'jbd_...' functions there are other improvements - e.g., parallel running. 
+Flag and correct records when *decimalLatitude* and *decimalLongitude* appear to be transposed. We created this chunked version of  `bdc::bdc_coordinates_transposed()` because it is very RAM-heavy using our large bee dataset. Like many of our other 'jbd_...' functions there are other improvements - e.g., parallel running. 
 
 ```{r 3.7, message=FALSE, warning=FALSE}
 check_pf <- BeeBDC::jbd_Ctrans_chunker(
@@ -860,7 +854,7 @@ Get a quick summary of the number of transposed records.
 table(check_pf$coordinates_transposed, useNA = "always")
 ```
 
-Save the dataset
+Save the dataset.
 ```{r 3.7iii}
 check_pf %>%
   readr::write_excel_csv(.,
@@ -870,7 +864,7 @@ gc()
 ```
 
 
-Read data in again if needed 
+Read the data in again if needed.
 
 ```{r 3.7iv}
 if(!exists("check_pf")){
@@ -901,7 +895,7 @@ check_pf %>%
 
 ## 3.9 GeoRefIssue 
 
-This function Identifies records whose coordinates can potentially be extracted from locality information (must be manually checked later).
+This function identifies records whose coordinates can potentially be extracted from locality information, which must be manually checked later.
 
 ```{r 3.9, eval = FALSE}
 xyFromLocality <- bdc::bdc_coordinates_from_locality(
@@ -954,7 +948,7 @@ check_pf <- BeeBDC::GBIFissues(data = check_pf,
 ## 3.13 Flag Reports 
 ### a. Save flags 
 
-Save the flags so far. This function will make sure that you keep a copy of everything that has been flagged up until now. This will be updated throughout the script and can accessed at the end, so be wary of moving files around manually. However, these data will also still be maintained in the main running file and so this is an optional fail-safe..
+Save the flags so far. This function will make sure that you keep a copy of everything that has been flagged up until now. This will be updated throughout the script and can accessed at the end, so be wary of moving files around manually. However, these data will also still be maintained in the main running file, so this is an optional fail-safe.
 
 ```{r 3.13a}
 flagFile <- BeeBDC::flagRecorder(
@@ -1034,14 +1028,14 @@ Remove *names_clean* if it already exists (i.e. you have run the following funct
 
 This step cleans the database's *scientificName* column. 
 	
-***! MAC: You might need to install gnparser through terminal — brew
+**! MAC**: You might need to install gnparser through terminal — brew
 			brew tap gnames/gn
 			brew install gnparser
 			
 			
 <div class="alert alert-info">
   <strong> Attention:</strong> <br>
-This can be difficult for a Windows install. Ensure you have the most recent version of R, Rstudio, and R packages. Also check package '**rgnparser**' is installed correctly. If you still can not get the below code to work, you may have to download the latest version of 'gnparser' from [here](https://github.com/gnames/gnparser/releases/tag/v1.6.9). You may then need to manually install it and edit your systems environmental variable PATH to locate 'gnparser.exe'. See [here](https://github.com/gnames/gnparser#installation).
+This can be difficult for a Windows install. Ensure you have the most recent version of R, R Studio, and R packages. Also, check package '**rgnparser**' is installed correctly. If you still can not get the below code to work, you may have to download the latest version of 'gnparser' from [here](https://github.com/gnames/gnparser/releases/tag/v1.6.9). You may then need to manually install it and edit your systems environmental variable PATH to locate 'gnparser.exe'. See [here](https://github.com/gnames/gnparser#installation).
 
 </div>			
 
@@ -1065,7 +1059,7 @@ database <- dplyr::bind_cols(database, parse_names)
 rm(parse_names)
 ```
 
-## 4.2 Taxo harmonization 
+## 4.2 Harmonise taxonomy 
 Read in the custom taxonomy file from the BeeBDC package and [Discover Life](http://discoverlife.org) website.
 
 ```{r 4.2}
@@ -1100,7 +1094,7 @@ database %>%
 ```
 
 ## 4.3 Save flags 
-SAVE the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact. <3 
+Save the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact. <3 
 
 ```{r 4.3}
 flagFile <- BeeBDC::flagRecorder(
@@ -1114,7 +1108,7 @@ flagFile <- BeeBDC::flagRecorder(
 
 # 5.0 Space
 
-Read in the last database.
+Read in the latest database.
 
 ```{r 5.0}
 if(!exists("database")){
@@ -1123,9 +1117,9 @@ database <-
                   col_types = BeeBDC::ColTypeR())}
 ```
 
-## 5.1 Coord precision 
-This function identifies records with a coordinate precision below a specified number of decimal places. For example, the precision of a coordinate with 1 decimal place is 11.132 km at the equator, i.e., the scale of a large city. The major difference between the **bdc** and **BeeBDC** functions is that `jbd_coordinates_precision()` will only flag occurrences if BOTH lat and lon are rounded (as opposed to only one of these).
-"Coordinates with one, two, or three decimal places present a precision of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively."
+## 5.1 Coordinate precision 
+This function identifies records with a coordinate precision below a specified number of decimal places. For example, the precision of a coordinate with 1 decimal place is 11.132 km at the equator, i.e., the scale of a large city. The major difference between the **bdc** and **BeeBDC** functions is that `jbd_coordinates_precision()` will only flag occurrences if BOTH latitude and longitude are rounded (as opposed to only one of these).
+Coordinates with one, two, or three decimal places present a precision of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.
 
 ```{r 5.1}
 check_space <-
@@ -1142,7 +1136,7 @@ Remove the spent dataset.
 rm(database)
 ```
 
-Save the harmonised file.
+Save the resulting file.
 ```{r 5.1iii}
 check_space %>%
   readr::write_excel_csv(.,
@@ -1151,7 +1145,7 @@ check_space %>%
 ```
 
 ## 5.2 Common spatial issues 
-Only run for occurrences through clean_coordinates that are spatially 'valid'. 
+Only run for occurrences through `clean_coordinates()` that are spatially 'valid'. 
 
 ```{r 5.2}
 tempSpace <- check_space %>% 
@@ -1311,7 +1305,11 @@ check_space <- coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 ```
-## 5.5 Country Checklist 
+
+## 5.5 Country checklist 
+
+This step identifies mismatches between the [Discover Life](http://discoverlife.org) country checklist — `beesChecklist` — for bee species and the dataset, identifying potential misidentifications, outliers, etc.’ 
+
 Read in the country-level checklist.
 
 ```{r 5.5}
@@ -1342,6 +1340,8 @@ check_space %>%
 
 
 ## 5.6 Map spatial errors 
+
+Assemble maps of potential spatial errors and outliers, either one flag at a time or using the *.summary* column. First, you need to rebuild the *.summary* column.
 
 Rebuild the *.summary* column.
 
@@ -1399,16 +1399,16 @@ Create figures for the spatial data filtering results.
 ```
 
 
-Check figure, the options are:
-- *.cap* = Records around country capital centroid	
-- *.cen* = Records around country or province centroids
-- *.dbl* = Duplicated coordinates per species
-- *.equ* = Identical coordinates
-- *.otl* = Geographical outliers
-- *.gbf* = Records around the GBIF headquarters
-- *.inst* = Records around biodiversity institutions
-- *.rou* = Rounded (probably imprecise) coordinates
-- *.urb* = Records within urban areas — (Likely not relevant for bees.) 
+For examining the figures, the options are:
+* *.cap* = Records around country capital centroid	
+* *.cen* = Records around country or province centroids
+* *.dbl* = Duplicated coordinates per species
+* *.equ* = Identical coordinates
+* *.otl* = Geographical outliers
+* *.gbf* = Records around the GBIF headquarters
+* *.inst* = Records around biodiversity institutions
+* *.rou* = Rounded (probably imprecise) coordinates
+* *.urb* = Records within urban areas — (Likely not relevant for bees.) 
 
 			You can examine these figures, for example, by running:
 
@@ -1437,7 +1437,7 @@ BeeBDC::flagRecorder(
 
 ## 5.10 Save 
 
-Save the intermediate dataset
+Save the intermediate dataset.
 ```{r 5.10}
 check_space %>%
   readr::write_excel_csv(.,

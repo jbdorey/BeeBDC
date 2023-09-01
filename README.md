@@ -47,10 +47,8 @@ modules related to different biodiversity dimensions.
 
 ------------------------------------------------------------------------
 
-> :warning: The modules illustrated, and **functions** within, **were
-> linked to form** a proposed reproducible **workflow** (see
-> [**vignettes**](https://brunobrr.github.io/bdc/)). However, all
-> functions **can also be executed independently**.
+> :warning: like in the [**bdc**](https://brunobrr.github.io/bdc/) package, we provide a suggested workflow here. However these packages can also be run mostly out of order.
+> Additionally, when running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks.
 
 ------------------------------------------------------------------------
 

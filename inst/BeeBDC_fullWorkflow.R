@@ -779,7 +779,7 @@ database <- dplyr::bind_cols(database, parse_names)
 rm(parse_names)
 
 
-##### 4.2 Taxo harmonization ####
+##### 4.2 Harmonise taxonomy ####
 # Read in the custom taxonomy file
 data(beesTaxonomy, package = "BeeBDC")
 
@@ -973,7 +973,7 @@ check_space <- BeeBDC::coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 
-##### 5.5 Country Checklist ####
+##### 5.5 Country checklist ####
 # Read in the country-level checklist
 data("beesChecklist", package = "BeeBDC")
 
