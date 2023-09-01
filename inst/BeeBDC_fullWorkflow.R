@@ -1309,7 +1309,7 @@ BeeBDC::chordDiagramR(
   # The duplicate data from the dupeSummary function output  
   dupeData = duplicates,
   outPath = OutPath_Figures,
-  fileName = "ChordDiagram.pdf",
+  fileName = "Fig2_ChordDiagram.pdf",
   # These can be modified to help fit the final pdf that's exported.
   width = 9,
   height = 7.5,
@@ -1331,7 +1331,7 @@ BeeBDC::chordDiagramR(
 
 
 ##### 9.2 Duplicate histogram ####
-# Use the uncleaned dataset
+# Use the uncleaned dataset (read it in, or change its name to beeData)
 if(!exists("check_time")){
 beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                  sep = "/"),

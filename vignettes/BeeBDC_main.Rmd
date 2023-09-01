@@ -52,6 +52,9 @@ library(paletteer)
 library(cowplot)
 library(igraph)
 library(ggspatial)
+library(sf)
+library(parallel)
+library(terra)
 ```
 
 
@@ -82,6 +85,7 @@ Choose the path to the root folder in which all other folders can be found.
 ```{r falseRootPath, eval = FALSE}
 RootPath <- paste0("/your/path/here")
 ```
+
 ```{r CreateRootPath, warning=FALSE}
   # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
