@@ -97,3 +97,4 @@ LazyDataCompression: xz
 roxygen: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+URL: https://jbdorey.github.io/BeeBDC/
