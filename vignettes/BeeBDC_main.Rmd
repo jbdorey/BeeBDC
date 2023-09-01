@@ -1101,7 +1101,7 @@ Harmonise the names in the occurrence tibble. This flags the occurrences without
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
                        taxonomy = beesTaxonomy, # The formatted taxonomy file
                        data = database,
-                       mc.cores = 4)
+                       mc.cores = 1)
 ```
 
 
@@ -1354,7 +1354,7 @@ check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                           # Smaller numbers will result in much longer calculation times. 
                           # We have not attempted a scale of 10.
                         rnearthScale = 50,
-                        mc.cores = 4)
+                        mc.cores = 1)
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%

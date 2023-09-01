@@ -1347,7 +1347,7 @@ BeeBDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
   outPath = OutPath_Figures,
-  fileName = "duplicatePlot.pdf",
+  fileName = "Fig3_duplicatePlot.pdf",
   # Colours in order: duplicate, kept duplicate, unique
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height
@@ -1366,7 +1366,7 @@ BeeBDC::plotFlagSummary(
   data = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
   flagColours = c("#127852", "#A7002D", "#BDBABB"),
-  fileName = paste0("FlagsPlot_", Sys.Date(),".pdf"),
+  fileName = paste0("Fig4_FlagsPlot_", Sys.Date(),".pdf"),
   outPath = paste0(OutPath_Figures),
   width = 15, height = 9,
     # OPTIONAL:
@@ -1405,7 +1405,7 @@ BeeBDC::summaryMaps(
   width = 10, height = 10,
   class_n = 15,
   class_Style = "fisher",
-  fileName = "CountryMaps_fisher.pdf",
+  fileName = "Fig5_CountryMaps_fisher.pdf",
   outPath = OutPath_Figures
 )
 
