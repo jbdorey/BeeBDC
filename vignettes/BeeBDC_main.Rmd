@@ -1962,9 +1962,3 @@ summaryTable <- BeeBDC::flagSummaryTable(data = beeData,
 Fin.
 
 
-```{r 9.end, include=FALSE}
-  # Secretely remove the RootPath once finished
-# unlink(paste0(RootPath), recursive = TRUE)
-#unlink(paste0(here::here(), "/Output"), recursive = TRUE)
-```
-
