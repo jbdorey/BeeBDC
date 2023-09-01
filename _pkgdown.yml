@@ -1,5 +1,21 @@
 url: https://jbdorey.github.io/BeeBDC/
-template:
-  bootstrap: 5
-  bootswatch: journal
 
+template:
+  params:
+    bootswatch: journal
+
+navbar:
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: "Functions"
+      href: reference/index.html
+    - icon: fas fa-book
+      text: "Articles"
+      menu:
+      -  text: "BeeBDC vignette"
+         href: articles/BeeBDC_main.html
+      -  text: "TEST_time"
+         href: articles/BeeBDC_main.html#time
+  components:
+    home: ~

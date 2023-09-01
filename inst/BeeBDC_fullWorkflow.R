@@ -130,7 +130,7 @@ BeeBDC::dataSaver(path = DataPath,# The main path to look for data in
            occurrences = Complete_data$Data_WebDL, # The existing datasheet
            eml_files = Complete_data$eml_files, # The existing EML files
            file_prefix = "Fin_") # The prefix for the fileNames
-rm(Complete_data, DataImp)
+rm(Complete_data, DataImp, USGS_data)
 
 
 #### 2.0 Data preparation ####
@@ -216,14 +216,14 @@ db_standardized <- BeeBDC::PaigeIntegrater(
 # Remove spent data
 rm(PaigeNAm)
 
-##### 2.3 USGS
+##### 2.3 USGS ####
 # The USGS dataset also partially occurs on GBIF from BISON, however, the occurrence codes are in
 # a silly place... We will correct these here to help identify duplicates later
 db_standardized <- db_standardized %>%
     # Remove the discoverlife html if it is from USGS
   dplyr::mutate(occurrenceID = dplyr::if_else(
     stringr::str_detect(occurrenceID, "USGS_DRO"),
-    str_remove(occurrenceID, "http://www\\.discoverlife\\.org/mp/20l\\?id="),
+    stringr::str_remove(occurrenceID, "http://www\\.discoverlife\\.org/mp/20l\\?id="),
     occurrenceID)) %>%
     # Use otherCatalogNumbers when occurrenceID is empty AND when USGS_DRO is detected there
   dplyr::mutate(

@@ -434,7 +434,7 @@ Remove spent data.
               # Remove the discoverlife html if it is from USGS
           dplyr::mutate(occurrenceID = dplyr::if_else(
             stringr::str_detect(occurrenceID, "USGS_DRO"),
-            str_remove(occurrenceID, "http://www\\.discoverlife\\.org/mp/20l\\?id="),
+            stringr::str_remove(occurrenceID, "http://www\\.discoverlife\\.org/mp/20l\\?id="),
             occurrenceID)) %>%
               # Use otherCatalogNumbers when occurrenceID is empty AND when USGS_DRO is detected there
           dplyr::mutate(
