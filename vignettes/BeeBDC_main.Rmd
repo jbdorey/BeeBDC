@@ -126,6 +126,7 @@ BiocManager::install("ComplexHeatmap")
 ```{r rnaturalearthhires, include=FALSE}
 devtools::install_github("ropensci/rnaturalearthhires")
 install.packages("rnaturalearthhires", repos = "https://ropensci.r-universe.dev", type = "source")
+library(rnaturalearthhires)
 ```   
    
    Now install **BeeBDC**.
