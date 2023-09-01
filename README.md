@@ -31,7 +31,7 @@ nature but we also provide some functions and data that are specific for
 use with bee occurrence data. We build upon functions and conventions in
 other fantastic R packages, especially
 [bdc](https://brunobrr.github.io/bdc/) and
-[CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html).
+[CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html) and provide functions and alternatives that do not use sp, rgeos, and rgdal which are slated for retirement.
 Hence, our package name is Bee **B**iodiversity **D**ata **C**leaning
 (BeeBDC).
 
