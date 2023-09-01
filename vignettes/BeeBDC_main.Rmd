@@ -1136,7 +1136,7 @@ database %>%
 ```
 
 ## 4.3 Save flags 
-Save the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact. <3 
+Save the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact.
 
 ```{r 4.3}
 flagFile <- BeeBDC::flagRecorder(
