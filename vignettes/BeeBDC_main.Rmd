@@ -110,7 +110,7 @@ BiocManager::install("ComplexHeatmap")
    
    Now install **BeeBDC**.
 
-```{r installBeeBDC, results=FALSE, message=FALSE, eval = TRUE}
+```{r installBeeBDC, results=TRUE, message=TRUE, eval = TRUE}
 devtools::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main", 
                         force = FALSE,
                         auth_token = "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")
