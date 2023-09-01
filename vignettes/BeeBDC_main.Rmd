@@ -1099,6 +1099,7 @@ data("beesTaxonomy", package = "BeeBDC")
 Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](http://discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
 
 ```{r 4.2gc, include=FALSE}
+  # Clean up the garbage
 gc()
 ```
 
