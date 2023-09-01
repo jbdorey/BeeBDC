@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +87,7 @@
 <h3 id="working-directory">0.1 Working directory<a class="anchor" aria-label="anchor" href="#working-directory"></a>
 </h3>
 <p>Choose the path to the root folder in which all other folders can be
-found</p>
+found.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RootPath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"/your/path/here"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -113,9 +113,10 @@ activate it.</p>
 <p>You may need to install gdal on your computer. This can be done on a
 Mac by using Homebrew in the terminal and the command “brew install
 gdal”.</p>
-<p>To start out, you will need to install BiocManager, devtools,
-<strong>ComplexHeatmap</strong>, and <strong>rnaturalearthhires</strong>
-to then install and fully use BeeBDC.</p>
+<p>To start out, you will need to install <strong>BiocManager</strong>,
+<strong>devtools</strong>, <strong>ComplexHeatmap</strong>, and
+<strong>rnaturalearthhires</strong> to then install and fully use
+BeeBDC.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
@@ -124,7 +125,7 @@ to then install and fully use BeeBDC.</p>
 <span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
-<p>Now install BeeBDC.</p>
+<p>Now install <strong>BeeBDC</strong>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
 <span>                        force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -157,10 +158,9 @@ two diverge.</p>
 <div class="section level3">
 <h3 id="load-packages">0.3 Load packages<a class="anchor" aria-label="anchor" href="#load-packages"></a>
 </h3>
-<p>Load all packages from the list specified above, with the addition of
-“rnaturalearthhires”.</p>
+<p>Load packages.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span>, <span class="st">"BeeBDC"</span>, <span class="st">"magrittr"</span><span class="op">)</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span>, <span class="st">"BeeBDC"</span>, <span class="st">"magrittr"</span>, <span class="st">"rnaturalearthhires"</span><span class="op">)</span>, </span>
 <span>       <span class="va">library</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: grid</span></span></code></pre>
 <pre><code><span><span class="co">## ========================================</span></span>
@@ -189,10 +189,10 @@ two diverge.</p>
 </h2>
 <div class="alert alert-info">
 <p><strong> Attention:</strong> <br> Although each line of code has been
-validated, in order to save time knitting the RMarkdown document the
-next section is display only. If you are not data merging (section 1.0)
-or preparing the data (section 2.0), feel free to skip to Section 3.0
-Initial flags.</p>
+validated, in order to save time knitting the R
+<strong>markdown</strong> document the next section is display only. If
+you are not data merging (section 1.0) or preparing the data (section
+2.0), feel free to skip to Section 3.0 Initial flags.</p>
 </div>
 <div class="section level3">
 <h3 id="download-ala-data">1.1 Download ALA data<a class="anchor" aria-label="anchor" href="#download-ala-data"></a>
@@ -311,8 +311,8 @@ so may be skipped by many general taxon users.</p>
 <h4 id="a--bdc-import">a. bdc import<a class="anchor" aria-label="anchor" href="#a--bdc-import"></a>
 </h4>
 <p>The bdc import is <strong>NOT</strong> truly supported here, but
-provided as an example. Please go to section 2.1b below. Read in the bdc
-metadata and standardise the dataset to bdc.</p>
+provided as an example. Please go to section 2.1b below. Read in the
+<strong>bdc</strong> metadata and standardise the dataset to bdc.</p>
 <pre><code><span>        <span class="va">bdc_metadata</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"out_file"</span>, <span class="st">"bdc_integration.csv"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span>
 <span>        <span class="co"># ?issue — datasetName is a darwinCore field already!</span></span>
 <span>        <span class="co"># Standardise the dataset to bdc</span></span>
@@ -855,11 +855,12 @@ codes for occurrences.</p>
 </h4>
 <p>Get country name from coordinates using a wrapper around the
 <code><a href="../reference/jbd_country_from_coordinates.html">jbd_country_from_coordinates()</a></code> function. Because our
-dataset is much larger than those used to design bdc, we have made it so
-that you can analyse data in smaller pieces. Additionally, like some
-other functions in BeeBDC, we have implemented parallel operations
-(using mc.cores = #cores in stepSize = #rowsPerOperation); see
-‘?<code><a href="../reference/jbd_CfC_chunker.html">jbd_CfC_chunker()</a></code>’ for details.</p>
+dataset is much larger than those used to design <strong>bdc</strong>,
+we have made it so that you can analyse data in smaller pieces.
+Additionally, like some other functions in <strong>BeeBDC</strong>, we
+have implemented parallel operations (using mc.cores = #cores in
+stepSize = #rowsPerOperation); see ‘?<code><a href="../reference/jbd_CfC_chunker.html">jbd_CfC_chunker()</a></code>’ for
+details.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span></span>
 <span>  <span class="va">countryOutput</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_CfC_chunker.html">jbd_CfC_chunker</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf_noNa</span>,</span>
@@ -989,9 +990,9 @@ parallel running.</p>
 <pre><code><span><span class="co">## Error: object 'OutPath_Intermediate' not found</span></span></code></pre>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##           used  (Mb) gc trigger   (Mb)  max used   (Mb)</span></span>
-<span><span class="co">## Ncells 5600567 299.2    9005302  481.0   9005302  481.0</span></span>
-<span><span class="co">## Vcells 9716311  74.2  410806459 3134.3 426220779 3251.9</span></span></code></pre>
+<pre><code><span><span class="co">##           used  (Mb) gc trigger   (Mb)  max used (Mb)</span></span>
+<span><span class="co">## Ncells 5601008 299.2    9005374  481.0   9005374  481</span></span>
+<span><span class="co">## Vcells 9717008  74.2  480615555 3666.9 516027426 3937</span></span></code></pre>
 <p>Read data in again if needed</p>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
@@ -1002,8 +1003,8 @@ parallel running.</p>
 <h3 id="coord-country">3.8 Coord-country<a class="anchor" aria-label="anchor" href="#coord-country"></a>
 </h3>
 <p>Collect all country names in the <em>country_suggested</em> column.
-We rebuilt a bdc function to flag occurrences where the coordinates are
-inconsistent with the provided country name.</p>
+We rebuilt a <strong>bdc</strong> function to flag occurrences where the
+coordinates are inconsistent with the provided country name.</p>
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordCountryInconsistent.html">jbd_coordCountryInconsistent</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
@@ -1109,7 +1110,7 @@ fail-safe..</p>
 <div class="section level4">
 <h4 id="c--reporting">c. Reporting<a class="anchor" aria-label="anchor" href="#c--reporting"></a>
 </h4>
-<p>Use bdc to generate reports.</p>
+<p>Use <strong>bdc</strong> to generate reports.</p>
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>                                  database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
@@ -1160,9 +1161,9 @@ brew tap gnames/gn brew install gnparser</p>
 <div class="alert alert-info">
 <p><strong> Attention:</strong> <br> This can be difficult for a Windows
 install. Ensure you have the most recent version of R, Rstudio, and R
-packages. Also check package ‘rgnparser’ is installed correctly. If you
-still can not get the below code to work, you may have to download the
-latest version of ‘gnparser’ from <a href="https://github.com/gnames/gnparser/releases/tag/v1.6.9" class="external-link">here</a>.
+packages. Also check package ‘<strong>rgnparser</strong>’ is installed
+correctly. If you still can not get the below code to work, you may have
+to download the latest version of ‘gnparser’ from <a href="https://github.com/gnames/gnparser/releases/tag/v1.6.9" class="external-link">here</a>.
 You may then need to manually install it and edit your systems
 environmental variable PATH to locate ‘gnparser.exe’. See <a href="https://github.com/gnames/gnparser#installation" class="external-link">here</a>.</p>
 </div>
@@ -1195,8 +1196,9 @@ columns.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesTaxonomy"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span></code></pre></div>
 <p>Harmonise the names in the occurrence tibble. This flags the
 occurrences without a matched name and matches names to their correct
-name according to Discover Life. You can also use multiple cores to
-achieve this. See ‘?<code><a href="../reference/HarmoniseR.html">harmoniseR()</a></code>’ for details.</p>
+name according to <a href="http://discoverlife.org" class="external-link">Discover Life</a>.
+You can also use multiple cores to achieve this. See
+‘?<code><a href="../reference/HarmoniseR.html">harmoniseR()</a></code>’ for details.</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/HarmoniseR.html">harmoniseR</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, <span class="co">#The path to a folder that the output can be saved</span></span>
 <span>                       taxonomy <span class="op">=</span> <span class="va">beesTaxonomy</span>, <span class="co"># The formatted taxonomy file</span></span>
@@ -1247,12 +1249,12 @@ intact. &lt;3</p>
 <p>This function identifies records with a coordinate precision below a
 specified number of decimal places. For example, the precision of a
 coordinate with 1 decimal place is 11.132 km at the equator, i.e., the
-scale of a large city. The major difference between the bdc and BeeBDC
-functions is that <code><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> will only
-flag occurrences if BOTH lat and lon are rounded (as opposed to only one
-of these). “Coordinates with one, two, or three decimal places present a
-precision of ~11.1 km, ~1.1 km, and ~111 m at the equator,
-respectively.”</p>
+scale of a large city. The major difference between the
+<strong>bdc</strong> and <strong>BeeBDC</strong> functions is that
+<code><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> will only flag occurrences if
+BOTH lat and lon are rounded (as opposed to only one of these).
+“Coordinates with one, two, or three decimal places present a precision
+of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.”</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision</a></span><span class="op">(</span></span>
@@ -1284,8 +1286,8 @@ respectively.”</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">.coordinates_outOfRange</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 <p>Next, we will flag common spatial issues using functions of the
-package CoordinateCleaner. It addresses some common issues in
-biodiversity datasets.</p>
+package <strong>CoordinateCleaner</strong>. It addresses some common
+issues in biodiversity datasets.</p>
 <div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tempSpace</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">CoordinateCleaner</span><span class="fu">::</span><span class="fu"><a href="https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html" class="external-link">clean_coordinates</a></span><span class="op">(</span></span>
@@ -1491,7 +1493,7 @@ threshold.</p>
 <div class="section level3">
 <h3 id="space-report">5.7 Space report<a class="anchor" aria-label="anchor" href="#space-report"></a>
 </h3>
-<p>Create the space report using bdc.</p>
+<p>Create the space report using <strong>bdc</strong>.</p>
 <div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span></span>
 <span>   <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span></span>
@@ -1717,7 +1719,7 @@ clustered, and sorted at the end of the function. The function is
 designed to work with Darwin Core data with a <em>database_id</em>
 column, but it is also modifiable to work with other columns. I would
 encourage you to, see ‘?<code><a href="../reference/dupeSummary.html">dupeSummary()</a></code>’ for more details as
-this function is quite modifiable ot user needs.</p>
+this function is quite modifiable to user needs.</p>
 <div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dupeSummary.html">dupeSummary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
@@ -1862,8 +1864,8 @@ it.</p>
 <div class="section level3">
 <h3 id="duplicate-chorddiagrams">9.1 Duplicate chordDiagrams<a class="anchor" aria-label="anchor" href="#duplicate-chorddiagrams"></a>
 </h3>
-<p>Install BiocManager and ComplexHeatmap if you missed them at the
-start.</p>
+<p>Install <strong>BiocManager</strong> and
+<strong>ComplexHeatmap</strong> if you missed them at the start.</p>
 <div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
@@ -1881,8 +1883,9 @@ environment.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Create the chorDiagram. You can leave many of the below values out
 but we show here the defaults. There are [internal] no duplicates in our
-test dataset and so BeeBDC will throw an informative error. However, we
-show the full output figure from our bee dataset below.</p>
+test dataset and so <strong>BeeBDC</strong> will throw an informative
+error. However, we show the full output figure from our bee dataset
+below.</p>
 <div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/chordDiagramR.html">chordDiagramR</a></span><span class="op">(</span></span>
 <span>  <span class="co"># The duplicate data from the dupeSummary function output  </span></span>
