@@ -1139,13 +1139,12 @@ database %>%
 Save the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact. <3 
 
 ```{r 4.3}
-flagFile <- BeeBDC::flagRecorder(
-  data = database,
-  outPath = paste(OutPath_Report, sep =""),
-  fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
-  idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
-  append = TRUE,
-  printSummary = TRUE)
+flagFile <- BeeBDC::flagRecorder(data = database,
+                                 outPath = paste(OutPath_Report, sep =""),
+                                 fileName = paste0("flagsRecorded_", Sys.Date(),  ".csv"),
+                                 idColumns = c("database_id", "id", "catalogNumber", "occurrenceID", "dataSource"),
+                                 append = TRUE,
+                                 printSummary = TRUE)
 ```
 
 # 5.0 Space
