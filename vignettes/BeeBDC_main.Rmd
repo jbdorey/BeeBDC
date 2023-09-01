@@ -1761,4 +1761,6 @@ BeeBDC::summaryFun(
                          sep = "/"))
 ```
 
-# 9.0 Figures and tables
+Fin.
+
+
