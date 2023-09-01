@@ -1761,6 +1761,3 @@ BeeBDC::summaryFun(
                          sep = "/"))
 ```
 
-Fin.
-
-
