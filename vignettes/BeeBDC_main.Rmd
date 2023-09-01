@@ -3,15 +3,7 @@ title: "BeeBDC vignette"
 
 output:
    rmarkdown::html_vignette:
-     code_folding: show
-     Float_TOC: True
-     TOC_depth: 2
-     gallery: yes
-     highlight: tango
-     lightbox: yes
-     self_contained: yes
-     thumbnails: yes
-     
+
 vignette: >
   %\VignetteIndexEntry{BeeBDC vignette}
   %\VignetteEngine{knitr::rmarkdown}
