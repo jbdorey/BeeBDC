@@ -19,7 +19,7 @@ vignette: >
 --- 
 
 ```{r libraryChunk, load-packages, include=FALSE}
-  # markdown stuff
+  # markdown packages
 library(rgnparser)
 library(magrittr)
 library(knitr)
