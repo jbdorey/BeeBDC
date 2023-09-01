@@ -1138,7 +1138,7 @@ database %>%
 ## 4.3 Save flags 
 Save the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact.
 
-```{r 4.3}
+```{r 4.3, eval = FALSE}
 flagFile <- BeeBDC::flagRecorder(
   data = database,
   outPath = paste(OutPath_Report, sep =""),
@@ -1183,6 +1183,77 @@ Save the resulting file.
 check_space %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_inter_database.csv",
+                         sep = "/"))
+```
+
+## 5.2 Common spatial issues 
+Only run for occurrences through `clean_coordinates()` that are spatially 'valid'. 
+
+```{r 5.2, eval = FALSE}
+tempSpace <- check_space %>% 
+  dplyr::filter(!.coordinates_empty == FALSE) %>%
+  dplyr::filter(!.coordinates_outOfRange == FALSE)
+```
+
+Next, we will flag common spatial issues using functions of the package **CoordinateCleaner**. It addresses some common issues in biodiversity datasets.
+
+```{r 5.2ii, message=TRUE, warning=FALSE, eval = FALSE}
+tempSpace <-
+  CoordinateCleaner::clean_coordinates(
+    x =  tempSpace,
+    lon = "decimalLongitude",
+    lat = "decimalLatitude",
+    species = "scientificName",
+    countries = NULL, # Tests if coords are from x country. This is not needed.
+    tests = c(
+      "capitals",     # records within 0.5 km of capitals centroids
+      "centroids",    # records within 1 km around country and province centroids
+      "equal",      # records with equal coordinates
+      "gbif",         # records within 1 km of GBIF headquarters. (says 1 degree in package, but code says 1000 m)
+      "institutions", # records within 100m of zoo and herbaria
+      "zeros"       # records with coordinates 0,0
+      # "seas"        # Not flagged as this should be flagged by coordinate country inconsistent
+    ),
+    capitals_rad = 1000,
+    centroids_rad = 500,
+    centroids_detail = "both", # test both country and province centroids
+    inst_rad = 100, # remove zoo and herbaria within 100m
+    range_rad = 0,
+    zeros_rad = 0.5,
+    capitals_ref = NULL,
+    centroids_ref = NULL,
+    country_ref = NULL,
+    country_refcol = "countryCode",
+    inst_ref = NULL,
+    range_ref = NULL,
+    # seas_scale = 50,
+    value = "spatialvalid" # result of tests are appended in separate columns
+  ) %>%
+      # Remove duplicate .summary column that can be replaced later and turn into a tibble
+  dplyr::select(!tidyselect::starts_with(".summary")) %>%
+  dplyr::tibble()
+```
+
+Re-merge the datasets.
+
+```{r 5.2iii, eval = FALSE}
+check_space <- tempSpace %>%
+  # Re-bind with the records that were removed earlier
+  dplyr::bind_rows(check_space %>% 
+                     dplyr::filter(.coordinates_empty == FALSE | 
+                                     .coordinates_outOfRange == FALSE) ) 
+```
+
+Remove the temporary dataset.
+```{r 5.2iv, eval = FALSE}
+rm(tempSpace)
+```
+
+Save the intermediate dataset.
+
+```{r 5.2v}
+check_space %>%
+  readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
 ```
 
