@@ -125,7 +125,7 @@ BiocManager::install("ComplexHeatmap")
   # Install remotes if needed
 if (!require("remotes", quietly = TRUE))
     install.packages("remotes")
-  # Download and load rnaturalearthhires
+  # Download and then load rnaturalearthhires
 remotes::install_github("ropensci/rnaturalearthhires")
 install.packages("rnaturalearthhires", repos = "https://ropensci.r-universe.dev", type = "source")
 library(rnaturalearthhires)
