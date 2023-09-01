@@ -35,7 +35,6 @@ library(BiocManager)
 library(purrr)
 library(here)
 library(renv)
-library(BeeBDC)
 library(bdc)
 library(CoordinateCleaner)
 library(dplyr)
@@ -43,6 +42,7 @@ library(readr)
 library(stringr)
 library(lubridate)
 library(tidyselect)
+remove.packages("BeeBDC")
 ```
 
 ```{r secretRootPath, include=FALSE}
