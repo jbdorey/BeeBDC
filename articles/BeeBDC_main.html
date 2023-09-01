@@ -120,18 +120,36 @@ BeeBDC.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
-<p>Now install <strong>BeeBDC</strong>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># Install remotes if needed</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span>  <span class="co"># Download and load rnaturalearthhires</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>, repos <span class="op">=</span> <span class="st">"https://ropensci.r-universe.dev"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rnaturalearthhires" class="external-link">rnaturalearthhires</a></span><span class="op">)</span></span></code></pre></div>
+<p>Now install <strong>BeeBDC</strong>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
 <span>                        force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">## * checking for file ‘/tmp/Rtmp3aykTL/remotes222cc2d9ce6/jbdorey-BeeBDC-ae456132f6e5819a6a7327521fa3cd37fd423fb4/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * preparing ‘BeeBDC’:</span></span>
+<span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
+<span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
+<span><span class="co">## * checking for empty or unneeded directories</span></span>
+<span><span class="co">## * building ‘BeeBDC_0.2.10.tar.gz’</span></span></code></pre>
+<pre><code><span><span class="co">## Installing package into '/home/runner/work/_temp/Library'</span></span>
+<span><span class="co">## (as 'lib' is unspecified)</span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>,<span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span>,</span>
 <span>                 prompt <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## The following package(s) will be updated in the lockfile:</span></span>
@@ -147,22 +165,28 @@ BeeBDC.</p>
 where the data, figures, reports, etc. will be saved. The RDoc needs to
 be a path RELATIVE to the RootPath; i.e., the file path from which the
 two diverge.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dirMaker.html">dirMaker</a></span><span class="op">(</span></span>
 <span>    RootPath <span class="op">=</span> <span class="va">RootPath</span>,</span>
 <span>    RDoc <span class="op">=</span> <span class="st">"vignettes/BeeBDC_main.Rmd"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>      <span class="co"># Add paths created by this function to the .GlobalEnv</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in list2env(., envir = .GlobalEnv): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## here() starts at /home/runner/work/BeeBDC/BeeBDC</span></span></code></pre>
+<pre><code><span><span class="co">## &lt;environment: R_GlobalEnv&gt;</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="load-packages">0.3 Load packages<a class="anchor" aria-label="anchor" href="#load-packages"></a>
 </h3>
 <p>Load packages.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span>, <span class="st">"BeeBDC"</span>, <span class="st">"magrittr"</span>, <span class="st">"rnaturalearthhires"</span><span class="op">)</span>, </span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span>, <span class="st">"magrittr"</span><span class="op">)</span>, </span>
 <span>       <span class="va">library</span>, character.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: grid</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'grid'</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:terra':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     depth</span></span></code></pre>
 <pre><code><span><span class="co">## ========================================</span></span>
 <span><span class="co">## ComplexHeatmap version 2.16.0</span></span>
 <span><span class="co">## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/</span></span>
@@ -181,6 +205,14 @@ two diverge.</p>
 <span><span class="co">## This message can be suppressed by:</span></span>
 <span><span class="co">##   suppressPackageStartupMessages(library(ComplexHeatmap))</span></span>
 <span><span class="co">## ========================================</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'ComplexHeatmap'</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:terra':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     draw</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:R.utils':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     draw</span></span></code></pre>
 <hr>
 </div>
 </div>
@@ -238,8 +270,7 @@ by itself to troubleshoot. For example:</p>
 <p>Load in the most-recent version of these data if needed. This will
 return a list with:</p>
 <ol style="list-style-type: decimal">
-<li><p>The occurrence dataset with attributes and
-(.$Data_WebDL)</p></li>
+<li><p>The occurrence dataset with attributes (.$Data_WebDL)</p></li>
 <li>
 <p>The appended eml file (.$eml_files)</p>
 <pre><code><span><span class="va">DataImp</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/importOccurrences.html">importOccurrences</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
@@ -250,7 +281,7 @@ return a list with:</p>
 <div class="section level3">
 <h3 id="import-usgs-data">1.3 Import USGS Data<a class="anchor" aria-label="anchor" href="#import-usgs-data"></a>
 </h3>
-<p>The <code><a href="../reference/USGS_formatter.html">USGS_formatter()</a></code> will find, import, format and
+<p>The <code><a href="../reference/USGS_formatter.html">USGS_formatter()</a></code> will find, import, format, and
 create metadata for the USGS dataset. The pubDate must be in
 day-month-year format.</p>
 <pre><code><span>  <span class="va">USGS_data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/USGS_formatter.html">USGS_formatter</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, pubDate <span class="op">=</span> <span class="st">"19-11-2022"</span><span class="op">)</span></span></code></pre>
@@ -258,8 +289,8 @@ day-month-year format.</p>
 <div class="section level3">
 <h3 id="formatted-source-importer">1.4 Formatted Source Importer<a class="anchor" aria-label="anchor" href="#formatted-source-importer"></a>
 </h3>
-<p>Formatted source importer. Use this importer to find files that have
-been formatted and need to be added to the larger data file.</p>
+<p>Use this importer to find files that have been formatted and need to
+be added to the larger data file.</p>
 <p>The attributes file must contain “attribute” in its name, and the
 occurrence file must not.</p>
 <pre><code><span>  <span class="va">Complete_data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/formattedCombiner.html">formattedCombiner</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, </span>
@@ -267,8 +298,8 @@ occurrence file must not.</p>
 <span>                                  <span class="co"># This should be the list-format with eml attached</span></span>
 <span>                                existingOccurrences <span class="op">=</span> <span class="va">DataImp</span><span class="op">$</span><span class="va">Data_WebDL</span>,</span>
 <span>                                existingEMLs <span class="op">=</span> <span class="va">DataImp</span><span class="op">$</span><span class="va">eml_files</span><span class="op">)</span> </span></code></pre>
-<p>In the <em>catalogNumber</em>, remove “.*specimennumber:” as what
-comes after should be the USGS number to match for duplicates.</p>
+<p>In the column <em>catalogNumber</em>, remove “.*specimennumber:” as
+what comes after should be the USGS number to match for duplicates.</p>
 <pre><code><span>  <span class="va">Complete_data</span><span class="op">$</span><span class="va">Data_WebDL</span> <span class="op">&lt;-</span> <span class="va">Complete_data</span><span class="op">$</span><span class="va">Data_WebDL</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>catalogNumber <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace</a></span><span class="op">(</span><span class="va">catalogNumber</span>,</span>
 <span>                                                       pattern <span class="op">=</span> <span class="st">".*\\| specimennumber:"</span>,</span>
@@ -278,7 +309,8 @@ comes after should be the USGS number to match for duplicates.</p>
 <div class="section level3">
 <h3 id="save-data">1.5 Save data<a class="anchor" aria-label="anchor" href="#save-data"></a>
 </h3>
-<p>Choose the type of data format you want.</p>
+<p>Choose the type of data format you want to use in saving your work in
+1.x.</p>
 <pre><code><span>  <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dataSaver.html">dataSaver</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,<span class="co"># The main path to look for data in</span></span>
 <span>       save_type <span class="op">=</span> <span class="st">"CSV_file"</span>, <span class="co"># "R_file" OR "CSV_file"</span></span>
 <span>       occurrences <span class="op">=</span> <span class="va">Complete_data</span><span class="op">$</span><span class="va">Data_WebDL</span>, <span class="co"># The existing datasheet</span></span>
@@ -288,13 +320,13 @@ comes after should be the USGS number to match for duplicates.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="data-preperation">2.0 Data preperation<a class="anchor" aria-label="anchor" href="#data-preperation"></a>
+<h2 id="data-preparation">2.0 Data preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
 </h2>
 <p>The data preparatin section of the script relates mostly to
 integrating <strong>bee</strong> occurrence datasets and corrections and
 so may be skipped by many general taxon users.</p>
 <div class="section level3">
-<h3 id="standardise-datasets">2.1 standardise datasets<a class="anchor" aria-label="anchor" href="#standardise-datasets"></a>
+<h3 id="standardise-datasets">2.1 Standardise datasets<a class="anchor" aria-label="anchor" href="#standardise-datasets"></a>
 </h3>
 <p>You may either use:</p>
 <ul>
@@ -360,8 +392,8 @@ ONLY!</em></strong></p>
 <div class="section level4">
 <h4 id="import-data">Import data<a class="anchor" aria-label="anchor" href="#import-data"></a>
 </h4>
-<p>If you haven’t figured out by now, don’t worry about the column name
-warning — not all columns occur here.</p>
+<p>If you haven’t figured it out by now, don’t worry about the column
+name warning — not all columns occur here.</p>
 <pre><code><span>  <span class="va">PaigeNAm</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"Paige_data"</span>, <span class="st">"NorAmer_highQual_only_ALLfamilies.csv"</span>,</span>
 <span>                                    sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>     <span class="co"># Change the column name from Source to dataSource to match the rest of the data.</span></span>
@@ -515,7 +547,7 @@ Ecology, e3927 (2022). <a href="https://doi.org/10.1002/ecy.3927" class="externa
 </h6>
 <p>Gaiarsa, M. P., Kremen, C. &amp; Ponisio, L. C. Pollinator
 interaction flexibility across scales affects patch colonization and
-occupancy. Nature Ecology &amp; Evolution 5, 787-793 (2021). <a href="https://doi.org/10.1038/s41559-021-01434-y" class="external-link uri">https://doi.org/10.1038/s41559-021-01434-y</a></p>
+occupancy. <em>Nature Ecology &amp; Evolution</em> 5, 787-793 (2021). <a href="https://doi.org/10.1038/s41559-021-01434-y" class="external-link uri">https://doi.org/10.1038/s41559-021-01434-y</a></p>
 <pre><code><span><span class="va">Gai_Data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/readr_BeeBDC.html">readr_BeeBDC</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"Gai"</span>,</span>
 <span>                               path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Additional_Datasets"</span><span class="op">)</span>,</span>
 <span>                      inFile <span class="op">=</span> <span class="st">"/InputDatasets/upload_to_scan_Gaiarsa et al_Dorey.csv"</span>,</span>
@@ -582,8 +614,8 @@ permission from the lead author.</p>
 </h6>
 <p>Data with GPS coordinates from Ballare, K. M., Neff, J. L., Ruppel,
 R. &amp; Jha, S. Multi-scalar drivers of biodiversity: local management
-mediates wild bee community response to regional urbanization. Ecol.
-Appl. 29, e01869 (2019), <a href="https://doi.org/10.1002/eap.1869" class="external-link uri">https://doi.org/10.1002/eap.1869</a>. The version on Dryad
+mediates wild bee community response to regional urbanization.
+<em>Ecological Applications</em> 29, e01869 (2019), <a href="https://doi.org/10.1002/eap.1869" class="external-link uri">https://doi.org/10.1002/eap.1869</a>. The version on Dryad
 is missing site GPS coordinates (by accident). Kim is okay with these
 data being made public as long as her paper is referenced. - Elinor
 Lichtenberg</p>
@@ -597,11 +629,11 @@ Lichtenberg</p>
 <div class="section level7">
 <h6 id="m--palouse-lic">m. Palouse Lic<a class="anchor" aria-label="anchor" href="#m--palouse-lic"></a>
 </h6>
-<p>*Attached: My canola data. I tried to get this in DarwinCore format.
+<p>Attached: My canola data. I tried to get this in DarwinCore format.
 These data go with a manuscript currently under review. Here’s the
 bioRxiv version: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J.
 &amp; Crowder, D. W. Differential effects of soil conservation practices
-on arthropods and crop yield. bioRxiv, <a href="https://doi.org/10.1101/2021.1112.1106.471474" class="external-link uri">https://doi.org/10.1101/2021.1112.1106.471474</a> (2022) <a href="https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2" class="external-link uri">https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2</a>.
+on arthropods and crop yield. <em>bioRxiv</em>, <a href="https://doi.org/10.1101/2021.1112.1106.471474" class="external-link uri">https://doi.org/10.1101/2021.1112.1106.471474</a> (2022) <a href="https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2" class="external-link uri">https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2</a>.
 These are the data I will be putting on SCAN. - Elinor Lichtenberg</p>
 <pre><code><span><span class="va">Lic_Data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/readr_BeeBDC.html">readr_BeeBDC</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"Lic"</span>,</span>
 <span>                               path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Additional_Datasets"</span><span class="op">)</span>,</span>
@@ -676,15 +708,15 @@ will be publicly released in the future. See
 <div class="section level4">
 <h4 id="match-database_id">2.6 Match database_id<a class="anchor" aria-label="anchor" href="#match-database_id"></a>
 </h4>
-<p>If you have prior runs from which you’d like to match database_ids
-with from the current run. You may use the below script to try to match
-database IDs with prior runs.</p>
+<p>If you have prior runs from which you’d like to match
+<em>database_id</em>s with from the current run, you may use the below
+script to try to match <em>database_id</em>s with prior runs.</p>
 <p>Read in a prior run of choice.</p>
 <pre><code><span>  <span class="va">priorRun</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
 <span>                          file <span class="op">=</span> <span class="st">"01_prefilter_database_9Aug22.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">.</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<p>This function will attempt to find the database_ids from prior
-runs.</p>
+<p>This function will attempt to find the <em>database_id</em>s from
+prior runs.</p>
 <pre><code><span>  <span class="va">db_standardized</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/idMatchR.html">idMatchR</a></span><span class="op">(</span></span>
 <span>  currentData <span class="op">=</span> <span class="va">db_standardized</span>,</span>
 <span>  priorData <span class="op">=</span> <span class="va">priorRun</span>,</span>
@@ -721,14 +753,7 @@ environment by <code><a href="../reference/dirMaker.html">dirMaker()</a></code>.
 <pre><code><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"db_standardized"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">db_standardized</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"00_prefilter_database.csv"</span>,</span>
 <span>                                    sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre>
-<div class="alert alert-info">
-<p><strong> Attention:</strong> <br> For the purposes of this website,
-we will only use a combination of two test datasets, that are provided
-with BeeBDC. These datasets are (i) 105 occurrence records across three
-species (<strong>bees3sp</strong>) and (ii) 100 records across 85 names
-(<strong>beesRaw</strong>).</p>
-</div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"bees3sp"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesRaw"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span><span class="va">db_standardized</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">beesRaw</span>, </span>
@@ -739,7 +764,7 @@ species (<strong>bees3sp</strong>) and (ii) 100 records across 85 names
 <h3 id="sciname">3.1 SciName<a class="anchor" aria-label="anchor" href="#sciname"></a>
 </h3>
 <p>Flag occurrences without <em>scientificName</em> provided.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_scientificName_empty.html" class="external-link">bdc_scientificName_empty</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">db_standardized</span>,</span>
 <span>  sci_name <span class="op">=</span> <span class="st">"scientificName"</span><span class="op">)</span></span></code></pre></div>
@@ -747,7 +772,7 @@ species (<strong>bees3sp</strong>) and (ii) 100 records across 85 names
 <span><span class="co">## bdc_scientificName_empty:</span></span>
 <span><span class="co">## Flagged 0 records.</span></span>
 <span><span class="co">## One column was added to the database.</span></span></code></pre>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># now that this is saved, remove it to save space in memory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">db_standardized</span><span class="op">)</span> </span></code></pre></div>
 </div>
@@ -756,7 +781,7 @@ species (<strong>bees3sp</strong>) and (ii) 100 records across 85 names
 </h3>
 <p>Flag occurrences with missing <em>decimalLatitude</em> and
 <em>decimalLongitude</em>.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_empty.html" class="external-link">bdc_coordinates_empty</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
@@ -769,9 +794,9 @@ species (<strong>bees3sp</strong>) and (ii) 100 records across 85 names
 <div class="section level3">
 <h3 id="outofrange">3.3 OutOfRange<a class="anchor" aria-label="anchor" href="#outofrange"></a>
 </h3>
-<p>Flag occurrences that are not on earth (outside of -180 to 180 or -90
+<p>Flag occurrences that are not on Earth (outside of -180 to 180 or -90
 to 90 degrees).</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_outOfRange.html" class="external-link">bdc_coordinates_outOfRange</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
@@ -786,7 +811,7 @@ to 90 degrees).</p>
 </h3>
 <p>Flag occurrences that don’t match the <em>basisOfRecord</em> types
 below.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_basisOfRecords_notStandard.html" class="external-link">bdc_basisOfRecords_notStandard</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>  basisOfRecord <span class="op">=</span> <span class="st">"basisOfRecord"</span>,</span>
@@ -835,7 +860,7 @@ below.</p>
 </h4>
 <p>Fix up country names based on common problems above and extract ISO2
 codes for occurrences.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf_noNa</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/countryNameCleanR.html">countryNameCleanR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>    <span class="co"># Create a Tibble of common issues in country names and their replacements</span></span>
@@ -848,7 +873,7 @@ codes for occurrences.</p>
 <span>                                          <span class="st">'United States of America'</span>,<span class="st">'Mexico'</span>,<span class="st">'Canada'</span>,<span class="st">'Brazil'</span>,</span>
 <span>                                          <span class="st">'Brazil'</span>,<span class="st">'Brazil'</span>,<span class="st">'Northern Mariana Islands'</span>,<span class="st">'PUERTO.RICO'</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="b--run-function">b. run function<a class="anchor" aria-label="anchor" href="#b--run-function"></a>
@@ -860,8 +885,8 @@ we have made it so that you can analyse data in smaller pieces.
 Additionally, like some other functions in <strong>BeeBDC</strong>, we
 have implemented parallel operations (using mc.cores = #cores in
 stepSize = #rowsPerOperation); see ‘?<code><a href="../reference/jbd_CfC_chunker.html">jbd_CfC_chunker()</a></code>’ for
-details.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+details. NOTE: In an actual run you should use scale = “large”</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span></span>
 <span>  <span class="va">countryOutput</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_CfC_chunker.html">jbd_CfC_chunker</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf_noNa</span>,</span>
 <span>                                   lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
@@ -873,15 +898,20 @@ details.</p>
 <span>                                   chunkStart <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                                   path <span class="op">=</span> <span class="va">OutPath_Intermediate</span>,</span>
 <span>                                   append <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                    <span class="co"># Normally, please use scale = "large"</span></span>
+<span>                                   scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>                                   mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in withCallingHandlers(expr, warning = function(w) if (inherits(w, : lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - Starting chunk 1...</span></span>
+<span><span class="co">## From 1 to 1,000,000</span></span>
+<span><span class="co">##  - Cleaning RAM.</span></span>
+<span><span class="co">##  - Finished chunk 1 of 1 chunks. Records examined: 1,000,000</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="c--re-merge">c. re-merge<a class="anchor" aria-label="anchor" href="#c--re-merge"></a>
 </h4>
 <p>Join these datasets.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">check_pf</span>, </span>
 <span>                             <span class="va">countryOutput</span>, </span>
 <span>                             by <span class="op">=</span> <span class="st">"database_id"</span>,</span>
@@ -892,31 +922,29 @@ details.</p>
 <span>                                         <span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Remove duplicates if they arose from left_join!</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'countryOutput' not found</span></span></code></pre>
 <p>Save the dataset.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error: object 'OutPath_Intermediate' not found</span></span></code></pre>
 <p>Read in if needed.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DataPath</span>, </span>
 <span>             <span class="st">"Output"</span>, <span class="st">"Intermediate"</span>, <span class="st">"01_prefilter_database.csv"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
 <span>             col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<p>remove these interim datasets.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<p>Remove these interim datasets.</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_pf_noNa</span>, <span class="va">countryOutput</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
 <h3 id="standardconames">3.6 StandardCoNames<a class="anchor" aria-label="anchor" href="#standardconames"></a>
 </h3>
-<p>Run the function (standardises country names and adds ISO2 codes if
-needed).</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<p>Run the function, which standardises country names and adds ISO2
+codes, if needed.</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Standardise country names and add ISO2 codes if needed</span></span>
 <span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_country_standardized.html" class="external-link">bdc_country_standardized</a></span><span class="op">(</span></span>
 <span>  <span class="co"># Remove the countryCode and country_suggested columns to avoid an error with </span></span>
@@ -939,6 +967,7 @@ needed).</p>
 <pre><code><span><span class="co">## country found: Finland</span></span></code></pre>
 <pre><code><span><span class="co">## country found: France</span></span></code></pre>
 <pre><code><span><span class="co">## country found: Germany</span></span></code></pre>
+<pre><code><span><span class="co">## country found: Ireland</span></span></code></pre>
 <pre><code><span><span class="co">## country found: Mexico</span></span></code></pre>
 <pre><code><span><span class="co">## country found: Norway</span></span></code></pre>
 <pre><code><span><span class="co">## country found: South Africa</span></span></code></pre>
@@ -955,10 +984,11 @@ needed).</p>
 <p>Flag and correct records when <em>decimalLatitude</em> and
 <em>decimalLongitude</em> appear to be transposed. We created this
 chunked version of <code><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_transposed.html" class="external-link">bdc::bdc_coordinates_transposed()</a></code>
-because it is very RAM-heavy using our large bee dataset. However, like
-many of our other ‘jbd_…’ functions there are other improvements - e.g.,
-parallel running.</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+because it is very RAM-heavy using our large bee dataset. Like many of
+our other ‘jbd_…’ functions there are other improvements - e.g.,
+parallel running. NOTE: Usually you would use scale = “large”, which
+requires rnaturalearthhires</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_Ctrans_chunker.html">jbd_Ctrans_chunker</a></span><span class="op">(</span></span>
 <span>  <span class="co"># bdc_coordinates_transposed inputs</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
@@ -974,27 +1004,35 @@ parallel running.</p>
 <span>  stepSize <span class="op">=</span> <span class="fl">1000000</span>,  <span class="co"># How many rows to process at a time</span></span>
 <span>  chunkStart <span class="op">=</span> <span class="fl">1</span>,  <span class="co"># Start row</span></span>
 <span>  append <span class="op">=</span> <span class="cn">FALSE</span>,  <span class="co"># If FALSE it may overwrite existing dataset</span></span>
+<span>    <span class="co"># In a normal run, please use scale = "large"</span></span>
+<span>  scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>  path <span class="op">=</span> <span class="va">OutPath_Check</span>,</span>
 <span>  mc.cores <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span> </span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - Running chunker with:</span></span>
+<span><span class="co">## stepSize = 1,000,000</span></span>
+<span><span class="co">## chunkStart = 1</span></span>
+<span><span class="co">## chunkEnd = 1,000,000</span></span>
+<span><span class="co">## append = FALSE</span></span>
+<span><span class="co">##  - Starting chunk 1...</span></span>
+<span><span class="co">## From 1 to 1,000,000</span></span>
+<span><span class="co">##  - Cleaning RAM.</span></span>
+<span><span class="co">##  - Finished chunk 1 with 1 remaining. Records examined: 205</span></span></code></pre>
 <p>Get a quick summary of the number of transposed records.</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">check_pf</span><span class="op">$</span><span class="va">coordinates_transposed</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></code></pre></div>
-<p>Save the dataset</p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<p>Save the dataset.</p>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_database.csv"</span>,</span>
-<span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error: object 'OutPath_Intermediate' not found</span></span></code></pre>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##           used  (Mb) gc trigger   (Mb)  max used (Mb)</span></span>
-<span><span class="co">## Ncells 5601008 299.2    9005374  481.0   9005374  481</span></span>
-<span><span class="co">## Vcells 9717008  74.2  480615555 3666.9 516027426 3937</span></span></code></pre>
-<p>Read data in again if needed</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            used  (Mb) gc trigger  (Mb)  max used  (Mb)</span></span>
+<span><span class="co">## Ncells  5866418 313.4   10347555 552.7  10347555 552.7</span></span>
+<span><span class="co">## Vcells 10806750  82.5   53127949 405.4 103765215 791.7</span></span></code></pre>
+<p>Read the data in again if needed.</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_database.csv"</span>,</span>
 <span>                                    sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
@@ -1005,29 +1043,46 @@ parallel running.</p>
 <p>Collect all country names in the <em>country_suggested</em> column.
 We rebuilt a <strong>bdc</strong> function to flag occurrences where the
 coordinates are inconsistent with the provided country name.</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordCountryInconsistent.html">jbd_coordCountryInconsistent</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
 <span>  mapResolution <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  pointBuffer <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - Downloading naturalearth map...</span></span></code></pre>
+<pre><code><span><span class="co">## Spherical geometry (s2) switched off</span></span></code></pre>
+<pre><code><span><span class="co">##  - Extracting initial country names without buffer...</span></span></code></pre>
+<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span></code></pre>
+<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span></code></pre>
+<pre><code><span><span class="co">##  - Buffering naturalearth map by pointBuffer...</span></span></code></pre>
+<pre><code><span><span class="co">## dist is assumed to be in decimal degrees (arc_degrees).</span></span></code></pre>
+<pre><code><span><span class="co">##  - Extracting FAILED country names WITH buffer...</span></span></code></pre>
+<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span>
+<span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
+<span><span class="co">## Flagged 2 records.</span></span>
+<span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre>
 <p>Save the dataset.</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error: object 'OutPath_Intermediate' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="georefissue">3.9 GeoRefIssue<a class="anchor" aria-label="anchor" href="#georefissue"></a>
 </h3>
-<p>This function Identifies records whose coordinates can potentially be
-extracted from locality information (must be manually checked
-later).</p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<p>This function identifies records whose coordinates can potentially be
+extracted from locality information, which must be manually checked
+later.</p>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xyFromLocality</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_from_locality.html" class="external-link">bdc_coordinates_from_locality</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>  locality <span class="op">=</span> <span class="st">"locality"</span>,</span>
@@ -1039,39 +1094,45 @@ later).</p>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Check</span>, <span class="st">"01_coordinates_from_locality.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Remove spent data.</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">xyFromLocality</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="flag-absent">3.10 Flag Absent<a class="anchor" aria-label="anchor" href="#flag-absent"></a>
 </h3>
 <p>Flag the records marked as “absent”.</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagAbsent.html">flagAbsent</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>                   PresAbs <span class="op">=</span> <span class="st">"occurrenceStatus"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## \.occurrenceAbsent:</span></span>
+<span><span class="co">##  Flagged 8 absent records:</span></span>
+<span><span class="co">##  One column was added to the database.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="flag-license">3.11 flag License<a class="anchor" aria-label="anchor" href="#flag-license"></a>
 </h3>
 <p>Flag the records that may not be used according to their license
 information.</p>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagLicense.html">flagLicense</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>                    strings_to_restrict <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>                    <span class="co"># DON'T flag if in the following dataSource(s)</span></span>
 <span>                    excludeDataSource <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## \.unLicensed:</span></span>
+<span><span class="co">##  Flagged 0 records that may NOT be used.</span></span>
+<span><span class="co">##  One column was added to the database.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="gbif-issue">3.12 GBIF issue<a class="anchor" aria-label="anchor" href="#gbif-issue"></a>
 </h3>
 <p>Flag select issues that are flagged by GBIF.</p>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/GBIFissues.html">GBIFissues</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>, </span>
 <span>                   issueColumn <span class="op">=</span> <span class="st">"issue"</span>, </span>
 <span>                   GBIFflags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"COORDINATE_INVALID"</span>, <span class="st">"ZERO_COORDINATE"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - jbd_GBIFissues:</span></span>
+<span><span class="co">## Flagged 0 </span></span>
+<span><span class="co">##   The .GBIFflags column was added to the database.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="flag-reports">3.13 Flag Reports<a class="anchor" aria-label="anchor" href="#flag-reports"></a>
@@ -1083,9 +1144,9 @@ information.</p>
 copy of everything that has been flagged up until now. This will be
 updated throughout the script and can accessed at the end, so be wary of
 moving files around manually. However, these data will also still be
-maintained in the main running file and so this is an optional
-fail-safe..</p>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+maintained in the main running file, so this is an optional
+fail-safe.</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flagFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagRecorder.html">flagRecorder</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Report</span>, sep <span class="op">=</span><span class="st">""</span><span class="op">)</span>,</span>
@@ -1094,9 +1155,12 @@ fail-safe..</p>
 <span>  idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>, <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>,</span>
 <span>    <span class="co"># TRUE if you want to find a file from a previous part of the script to append to</span></span>
 <span>  append <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - NO .summary column detected. This will added to the data.</span></span></code></pre>
+<pre><code><span><span class="co">##  - Data saved to /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Report/flagsRecorded_2023-09-01.csv</span></span></code></pre>
+<pre><code><span><span class="co">##  - Selected 14 columns. These include:</span></span>
+<span><span class="co">## database_id, id, catalogNumber, occurrenceID, dataSource, .scientificName_empty, .coordinates_empty, .coordinates_outOfRange, .basisOfRecords_notStandard, .coordinates_country_inconsistent, .occurrenceAbsent, .unLicensed, .GBIFflags, and .summary</span></span></code></pre>
 <p>Update the <em>.summary</em> column</p>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>    <span class="co"># Don't filter these columns (or NULL)</span></span>
@@ -1105,13 +1169,16 @@ fail-safe..</p>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    <span class="co"># Filter to ONLY cleaned data?</span></span>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - We will flag all columns starting with '.'</span></span></code></pre>
+<pre><code><span><span class="co">##  - summaryFun:</span></span>
+<span><span class="co">## Flagged 52 </span></span>
+<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="c--reporting">c. Reporting<a class="anchor" aria-label="anchor" href="#c--reporting"></a>
 </h4>
 <p>Use <strong>bdc</strong> to generate reports.</p>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>                                  database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
 <span>                                  workflow_step <span class="op">=</span> <span class="st">"prefilter"</span>,</span>
@@ -1123,11 +1190,10 @@ fail-safe..</p>
 <h3 id="save">3.14 Save<a class="anchor" aria-label="anchor" href="#save"></a>
 </h3>
 <p>Save the intermediate dataset.</p>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_output.csv"</span>,</span>
 <span>                            sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error: object 'OutPath_Intermediate' not found</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -1137,7 +1203,7 @@ fail-safe..</p>
 in this section, see their <a href="https://brunobrr.github.io/bdc/articles/taxonomy.html" class="external-link">tutorial</a>.
 </em></p>
 <p>Read in the filtered dataset or rename the 3.x dataset for 4.0.</p>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span><span class="va">database</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_output.csv"</span>,</span>
@@ -1149,25 +1215,25 @@ in this section, see their <a href="https://brunobrr.github.io/bdc/articles/taxo
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_pf</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>Remove <em>names_clean</em> if it already exists (i.e. you have run
 the following functions before on this dataset before).</p>
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>            <span class="va">database</span> <span class="op">&lt;-</span> <span class="va">database</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>              <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"names_clean"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="prep-data-names">4.1 Prep data names<a class="anchor" aria-label="anchor" href="#prep-data-names"></a>
 </h3>
 <p>This step cleans the database’s <em>scientificName</em> column.</p>
-<p>***! MAC: You might need to install gnparser through terminal — brew
-brew tap gnames/gn brew install gnparser</p>
+<p><strong>! MAC</strong>: You might need to install gnparser through
+terminal — brew brew tap gnames/gn brew install gnparser</p>
 <div class="alert alert-info">
 <p><strong> Attention:</strong> <br> This can be difficult for a Windows
-install. Ensure you have the most recent version of R, Rstudio, and R
-packages. Also check package ‘<strong>rgnparser</strong>’ is installed
+install. Ensure you have the most recent version of R, R Studio, and R
+packages. Also, check package ‘<strong>rgnparser</strong>’ is installed
 correctly. If you still can not get the below code to work, you may have
 to download the latest version of ‘gnparser’ from <a href="https://github.com/gnames/gnparser/releases/tag/v1.6.9" class="external-link">here</a>.
 You may then need to manually install it and edit your systems
 environmental variable PATH to locate ‘gnparser.exe’. See <a href="https://github.com/gnames/gnparser#installation" class="external-link">here</a>.</p>
 </div>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parse_names</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_clean_names.html" class="external-link">bdc_clean_names</a></span><span class="op">(</span>sci_names <span class="op">=</span> <span class="va">database</span><span class="op">$</span><span class="va">scientificName</span>, save_outputs <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## The latest gnparser version is v1.7.4</span></span></code></pre>
@@ -1179,51 +1245,64 @@ environmental variable PATH to locate ‘gnparser.exe’. See <a href="https://g
 <pre><code><span><span class="co">## &gt;&gt; Infraspecific terms were flagged and removed from 0 records.</span></span></code></pre>
 <p>Keep only the <em>.uncer_terms</em> and <em>names_clean</em>
 columns.</p>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parse_names</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">parse_names</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">.uncer_terms</span>, <span class="va">names_clean</span><span class="op">)</span></span></code></pre></div>
 <p>Merge names with the complete dataset.</p>
-<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">database</span>, <span class="va">parse_names</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">parse_names</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="taxo-harmonization">4.2 Taxo harmonization<a class="anchor" aria-label="anchor" href="#taxo-harmonization"></a>
+<h3 id="harmonise-taxonomy">4.2 Harmonise taxonomy<a class="anchor" aria-label="anchor" href="#harmonise-taxonomy"></a>
 </h3>
 <p>Read in the custom taxonomy file from the BeeBDC package and <a href="http://discoverlife.org" class="external-link">Discover Life</a> website.</p>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesTaxonomy"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span></code></pre></div>
 <p>Harmonise the names in the occurrence tibble. This flags the
 occurrences without a matched name and matches names to their correct
 name according to <a href="http://discoverlife.org" class="external-link">Discover Life</a>.
 You can also use multiple cores to achieve this. See
 ‘?<code><a href="../reference/HarmoniseR.html">harmoniseR()</a></code>’ for details.</p>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/HarmoniseR.html">harmoniseR</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, <span class="co">#The path to a folder that the output can be saved</span></span>
 <span>                       taxonomy <span class="op">=</span> <span class="va">beesTaxonomy</span>, <span class="co"># The formatted taxonomy file</span></span>
 <span>                       data <span class="op">=</span> <span class="va">database</span>,</span>
-<span>                       mc.cores <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<span>                       mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  - Formatting taxonomy for matching...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  - Harmonise the occurrence data with unambiguous names...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  - Attempting to harmonise the occurrence data with ambiguous names...</span></span>
+<span><span class="co">##  - Formatting merged datasets...</span></span></code></pre>
+<pre><code><span><span class="co">## Removing the names_clean column...</span></span></code></pre>
+<pre><code><span><span class="co">##  - We matched valid names to 201 of 205 occurrence records. This leaves a total of 4 unmatched occurrence records.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## harmoniseR:</span></span></code></pre>
+<pre><code><span><span class="co">## 4</span></span></code></pre>
+<pre><code><span><span class="co">## records were flagged.</span></span>
+<span><span class="co">## The column, '.invalidName' was added to the database.</span></span></code></pre>
+<pre><code><span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre>
 <p>You don’t need this file any more…</p>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">beesTaxonomy</span><span class="op">)</span></span></code></pre></div>
 <p>Save the harmonised file.</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">database</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"Output"</span>, <span class="st">"Intermediate"</span>, <span class="st">"02_taxonomy_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error: object 'DataPath' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="save-flags">4.3 Save flags<a class="anchor" aria-label="anchor" href="#save-flags"></a>
 </h3>
-<p>SAVE the flags so far. This will find the most-recent flag file and
+<p>Save the flags so far. This will find the most-recent flag file and
 append your new data to it. You can double-check the data and number of
 columns if you’d like to be thorough and sure that all of data are
 intact. &lt;3</p>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flagFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagRecorder.html">flagRecorder</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">database</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Report</span>, sep <span class="op">=</span><span class="st">""</span><span class="op">)</span>,</span>
@@ -1231,20 +1310,20 @@ intact. &lt;3</p>
 <span>  idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>, <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>,</span>
 <span>  append <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  printSummary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="space">5.0 Space<a class="anchor" aria-label="anchor" href="#space"></a>
 </h2>
-<p>Read in the last database.</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<p>Read in the latest database.</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"database"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span><span class="va">database</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"02_taxonomy_database.csv"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
 <span>                  col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="coord-precision">5.1 Coord precision<a class="anchor" aria-label="anchor" href="#coord-precision"></a>
+<h3 id="coordinate-precision">5.1 Coordinate precision<a class="anchor" aria-label="anchor" href="#coordinate-precision"></a>
 </h3>
 <p>This function identifies records with a coordinate precision below a
 specified number of decimal places. For example, the precision of a
@@ -1252,10 +1331,11 @@ coordinate with 1 decimal place is 11.132 km at the equator, i.e., the
 scale of a large city. The major difference between the
 <strong>bdc</strong> and <strong>BeeBDC</strong> functions is that
 <code><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> will only flag occurrences if
-BOTH lat and lon are rounded (as opposed to only one of these).
-“Coordinates with one, two, or three decimal places present a precision
-of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.”</p>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+BOTH latitude and longitude are rounded (as opposed to only one of
+these). Coordinates with one, two, or three decimal places present a
+precision of ~11.1 km, ~1.1 km, and ~111 m at the equator,
+respectively.</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">database</span>,</span>
@@ -1263,32 +1343,32 @@ of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.”</p>
 <span>    lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
 <span>    ndec <span class="op">=</span> <span class="fl">2</span> <span class="co"># number of decimals to be tested</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## jbd_coordinates_precision:</span></span>
+<span><span class="co">## Flagged 61 records</span></span>
+<span><span class="co">## The '.rou' column was added to the database.</span></span></code></pre>
 <p>Remove the spent dataset.</p>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">database</span><span class="op">)</span></span></code></pre></div>
-<p>Save the harmonised file.</p>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<p>Save the resulting file.</p>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_inter_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="common-spatial-issues">5.2 Common spatial issues<a class="anchor" aria-label="anchor" href="#common-spatial-issues"></a>
 </h3>
-<p>Only run for occurrences through clean_coordinates that are spatially
-‘valid’.</p>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<p>Only run for occurrences through <code>clean_coordinates()</code>
+that are spatially ‘valid’.</p>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tempSpace</span> <span class="op">&lt;-</span> <span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">.coordinates_empty</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">.coordinates_outOfRange</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 <p>Next, we will flag common spatial issues using functions of the
 package <strong>CoordinateCleaner</strong>. It addresses some common
 issues in biodiversity datasets.</p>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tempSpace</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">CoordinateCleaner</span><span class="fu">::</span><span class="fu"><a href="https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html" class="external-link">clean_coordinates</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span>  <span class="va">tempSpace</span>,</span>
@@ -1320,26 +1400,39 @@ issues in biodiversity datasets.</p>
 <span>    <span class="co"># seas_scale = 50,</span></span>
 <span>    value <span class="op">=</span> <span class="st">"spatialvalid"</span> <span class="co"># result of tests are appended in separate columns</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>      <span class="co"># Remove duplicate .summary column that can be replaced later and turn into a tibble</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">".summary"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'tempSpace' not found</span></span></code></pre>
+<pre><code><span><span class="co">## Testing coordinate validity</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## Testing equal lat/lon</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## Testing zero coordinates</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## Testing country capitals</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## Testing country centroids</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## Testing GBIF headquarters, flagging records around Copenhagen</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## Testing biodiversity institutions</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## Flagged 0 of 163 records, EQ = 0.</span></span></code></pre>
 <p>Re-merge the datasets.</p>
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="va">tempSpace</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># Re-bind with the records that were removed earlier</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>                     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.coordinates_empty</span> <span class="op">==</span> <span class="cn">FALSE</span> <span class="op">|</span> </span>
 <span>                                     <span class="va">.coordinates_outOfRange</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">)</span> </span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'tempSpace' not found</span></span></code></pre>
 <p>Remove the temporary dataset.</p>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">tempSpace</span><span class="op">)</span></span></code></pre></div>
 <p>Save the intermediate dataset.</p>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_inter_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="diagonal-grid">5.3 Diagonal + grid<a class="anchor" aria-label="anchor" href="#diagonal-grid"></a>
@@ -1351,7 +1444,7 @@ coordinates of precision ‘ndec’ (number of decimals in decimal degree
 format) will be examined. Note, that this function is very RAM-intensive
 and so the use of multiple threads should be approached with caution
 depending on your dataset. However, the option is provided.</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/diagonAlley.html">diagonAlley</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_space</span>,</span>
 <span>  <span class="co"># The minimum number of repeats needed to find a sequence in for flagging</span></span>
@@ -1359,10 +1452,17 @@ depending on your dataset. However, the option is provided.</p>
 <span>  ndec <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  groupingColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"eventDate"</span>, <span class="st">"recordedBy"</span>, <span class="st">"datasetName"</span><span class="op">)</span>,</span>
 <span>  mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Removing rounded coordinates with BeeBDC::jbd_coordinates_precision...</span></span></code></pre>
+<pre><code><span><span class="co">## jbd_coordinates_precision:</span></span>
+<span><span class="co">## Removed 68 records.</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## jbd_diagonAlley:</span></span>
+<span><span class="co">## Flagged 0 records</span></span>
+<span><span class="co">## The .sequential column was added to the database.</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than X occurrences.</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">griddingDF</span> <span class="op">&lt;-</span> <span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># Exclude NA lat and lon values</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"decimalLatitude"</span>, <span class="st">"decimalLongitude"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1374,9 +1474,8 @@ more than X occurrences.</p>
 <span>  <span class="co"># Find the groups with 4 or more occurrence records </span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 <p>Run the gridding analysis to find datasets that might be gridded.</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gridded_datasets</span> <span class="op">&lt;-</span> <span class="fu">CoordinateCleaner</span><span class="fu">::</span><span class="fu"><a href="https://ropensci.github.io/CoordinateCleaner/reference/cd_round.html" class="external-link">cd_round</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">griddingDF</span>,</span>
 <span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
@@ -1394,12 +1493,11 @@ more than X occurrences.</p>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Testing for rasterized collection</span></span></code></pre>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'griddingDF' not found</span></span></code></pre>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The griddingDF is no longer needed. remove it.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">griddingDF</span><span class="op">)</span></span></code></pre></div>
 <p>Integrate these results with the main dataset.</p>
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># Join the datasets</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
@@ -1412,15 +1510,13 @@ more than X occurrences.</p>
 <span>                .gridSummary <span class="op">=</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html" class="external-link">replace_na</a></span><span class="op">(</span><span class="va">summary</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># Remove old columns</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lon.flag</span>, <span class="va">lat.flag</span>, <span class="va">summary</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 <p>Save the gridded_datasets file for later examination.</p>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gridded_datasets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_griddedDatasets.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'gridded_datasets' not found</span></span></code></pre>
 <p>Now remove this file.</p>
-<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">gridded_datasets</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -1428,19 +1524,24 @@ more than X occurrences.</p>
 </h3>
 <p>Flag records that exceed a <em>coordinateUncertaintyInMeters</em>
 threshold.</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coordUncerFlagR.html">coordUncerFlagR</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_space</span>,</span>
 <span>                               uncerColumn <span class="op">=</span> <span class="st">"coordinateUncertaintyInMeters"</span>,</span>
 <span>                               threshold <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## \coordUncerFlagR:</span></span>
+<span><span class="co">##  Flagged 33 geographically uncertain records:</span></span>
+<span><span class="co">##  The column '.uncertaintyThreshold' was added to the database.</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="country-checklist">5.5 Country Checklist<a class="anchor" aria-label="anchor" href="#country-checklist"></a>
+<h3 id="country-checklist">5.5 Country checklist<a class="anchor" aria-label="anchor" href="#country-checklist"></a>
 </h3>
+<p>This step identifies mismatches between the <a href="http://discoverlife.org" class="external-link">Discover Life</a> country checklist —
+<code>beesChecklist</code> — for bee species and the dataset,
+identifying potential misidentifications, outliers, etc.’</p>
 <p>Read in the country-level checklist.</p>
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesChecklist"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/countryOutlieRs.html">countryOutlieRs</a></span><span class="op">(</span>checklist <span class="op">=</span> <span class="va">beesChecklist</span>,</span>
 <span>                        data <span class="op">=</span> <span class="va">check_space</span>,</span>
 <span>                        keepAdjacentCountry <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -1449,9 +1550,33 @@ threshold.</p>
 <span>                          <span class="co"># Smaller numbers will result in much longer calculation times. </span></span>
 <span>                          <span class="co"># We have not attempted a scale of 10.</span></span>
 <span>                        rnearthScale <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>                        mc.cores <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<span>                        mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## dist is assumed to be in decimal degrees (arc_degrees).</span></span></code></pre>
+<pre><code><span><span class="co">##  - Extracting country data from points...</span></span></code></pre>
+<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersection assumes that they</span></span>
+<span><span class="co">## are planar</span></span></code></pre>
+<pre><code><span><span class="co">##  - Buffering failed points by pointBuffer...</span></span></code></pre>
+<pre><code><span><span class="co">## dist is assumed to be in decimal degrees (arc_degrees).</span></span></code></pre>
+<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersection assumes that they</span></span>
+<span><span class="co">## are planar</span></span></code></pre>
+<pre><code><span><span class="co">##  - Prepare the neighbouring country dataset...</span></span></code></pre>
+<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span></code></pre>
+<pre><code><span><span class="co">##  - Compare points with the checklist...</span></span>
+<span><span class="co">##  - Combining data...</span></span>
+<span><span class="co">##  - Sorting and removing potentially duplicated buffered points...</span></span>
+<span><span class="co">##  - Finished. </span></span>
+<span><span class="co">## We have matched 159 records to their exact country and 2 to an adjacent country</span></span>
+<span><span class="co">## We failed to match 0 occurrences to any 'exact' or 'neighbouring' country.</span></span>
+<span><span class="co">## There are 0 'NA' occurrences for this column.</span></span></code></pre>
+<pre><code><span><span class="co">## countryOutlieRs:</span></span>
+<span><span class="co">## Flagged 0  for country outlier and flagged  2  for in the .sea records.</span></span>
+<span><span class="co">## Three columns were added to the database:</span></span>
+<span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
+<span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
+<span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.14 secs</span></span></code></pre>
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.countryOutlier</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1461,22 +1586,24 @@ threshold.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_failedCountryChecklist.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="map-spatial-errors">5.6 Map spatial errors<a class="anchor" aria-label="anchor" href="#map-spatial-errors"></a>
 </h3>
+<p>Assemble maps of potential spatial errors and outliers, either one
+flag at a time or using the <em>.summary</em> column. First, you need to
+rebuild the <em>.summary</em> column.</p>
 <p>Rebuild the <em>.summary</em> column.</p>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_space</span>,</span>
 <span>  dontFilterThese <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
 <p>Use col_to_map in order to map ONE spatial flag at a time or map the
 <em>.summary</em> column for all flags.</p>
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.summary</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># map only records flagged as FALSE</span></span>
 <span>  <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_quickmap.html" class="external-link">bdc_quickmap</a></span><span class="op">(</span></span>
@@ -1486,7 +1613,6 @@ threshold.</p>
 <span>    col_to_map <span class="op">=</span> <span class="st">".summary"</span>,</span>
 <span>    size <span class="op">=</span> <span class="fl">0.9</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Loading required package: ggplot2</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `map_data()`:</span></span></span>
 <span><span class="co">## <span style="color: #BBBB00;">!</span> The package "maps" is required for `map_data()`</span></span></code></pre>
 </div>
@@ -1494,7 +1620,7 @@ threshold.</p>
 <h3 id="space-report">5.7 Space report<a class="anchor" aria-label="anchor" href="#space-report"></a>
 </h3>
 <p>Create the space report using <strong>bdc</strong>.</p>
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span></span>
 <span>   <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span></span>
 <span>     data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">.uncer_terms</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -1507,7 +1633,7 @@ threshold.</p>
 <h3 id="space-figures">5.8 Space figures<a class="anchor" aria-label="anchor" href="#space-figures"></a>
 </h3>
 <p>Create figures for the spatial data filtering results.</p>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">figures</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_create_figures.html">jbd_create_figures</a></span><span class="op">(</span></span>
 <span>      data <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">.uncer_terms</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -1516,31 +1642,30 @@ threshold.</p>
 <span>      workflow_step <span class="op">=</span> <span class="st">"space"</span>,</span>
 <span>      save_figures <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
-<p>Check figure, the options are: - <em>.cap</em> = Records around
-country capital centroid<br>
-- <em>.cen</em> = Records around country or province centroids -
-<em>.dbl</em> = Duplicated coordinates per species - <em>.equ</em> =
-Identical coordinates - <em>.otl</em> = Geographical outliers -
-<em>.gbf</em> = Records around the GBIF headquarters - <em>.inst</em> =
-Records around biodiversity institutions - <em>.rou</em> = Rounded
-(probably imprecise) coordinates - <em>.urb</em> = Records within urban
+<pre><code><span><span class="co">## Error in tbl_vars_dispatch(x): attempt to apply non-function</span></span></code></pre>
+<p>For examining the figures, the options are: * <em>.cap</em> = Records
+around country capital centroid<br>
+* <em>.cen</em> = Records around country or province centroids *
+<em>.dbl</em> = Duplicated coordinates per species * <em>.equ</em> =
+Identical coordinates * <em>.otl</em> = Geographical outliers *
+<em>.gbf</em> = Records around the GBIF headquarters * <em>.inst</em> =
+Records around biodiversity institutions * <em>.rou</em> = Rounded
+(probably imprecise) coordinates * <em>.urb</em> = Records within urban
 areas — (Likely not relevant for bees.)</p>
 <pre><code>        You can examine these figures, for example, by running:
 
         figures$.rou</code></pre>
 <p>Save interim dataset.</p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_inter_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="save-flags-1">5.9 Save flags<a class="anchor" aria-label="anchor" href="#save-flags-1"></a>
 </h3>
 <p>Save the flags so far.</p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagRecorder.html">flagRecorder</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_space</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Report</span>, sep <span class="op">=</span><span class="st">""</span><span class="op">)</span>,</span>
@@ -1548,25 +1673,24 @@ areas — (Likely not relevant for bees.)</p>
 <span>  idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>, <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>,</span>
 <span>  append <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  printSummary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="save-1">5.10 Save<a class="anchor" aria-label="anchor" href="#save-1"></a>
 </h3>
-<p>Save the intermediate dataset</p>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<p>Save the intermediate dataset.</p>
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_space' not found</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="time">6.0 Time<a class="anchor" aria-label="anchor" href="#time"></a>
 </h2>
 <p>Read in the last database, if needed.</p>
-<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_space"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">check_time</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_database.csv"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
@@ -1575,24 +1699,18 @@ areas — (Likely not relevant for bees.)</p>
 <span>  <span class="va">check_time</span> <span class="op">&lt;-</span> <span class="va">check_space</span></span>
 <span>      <span class="co"># Remove the spent file</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_space</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'OutPath_Intermediate' not found</span></span></code></pre>
 <p>You can plot a histogram of dates here.</p>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html" class="external-link">ymd_hms</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">eventDate</span>, truncated <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
+<p><img src="BeeBDC_main_files/figure-html/6.0ii-1.png" width="700"></p>
 <p>Filter some silly dates that don’t make sense.</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;</span> <span class="fl">1600</span>,</span>
-<span>                        <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&gt;</span> <span class="fl">12</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">1</span>,</span>
-<span>                         <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">month</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
-<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&gt;</span> <span class="fl">31</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;</span> <span class="fl">1</span>,</span>
+<span>                        <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
+<span><span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&gt;</span> <span class="fl">12</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">1</span>,</span>
+<span>                         <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">month</span><span class="op">)</span></span>
+<span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&gt;</span> <span class="fl">31</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;</span> <span class="fl">1</span>,</span>
 <span>                       <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">day</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="recover-dates">6.1 Recover dates<a class="anchor" aria-label="anchor" href="#recover-dates"></a>
 </h3>
@@ -1601,22 +1719,35 @@ columns in order to find and rescue dates that may not have made it into
 the correct columns. It will further update the <em>eventDate</em>,
 <em>day</em>, <em>month</em>, and <em>year</em> columns where these data
 were a) missing and b) located in one of the searched columns.</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dateFindR.html">dateFindR</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>                        <span class="co"># Years above this are removed (from the recovered dates only)</span></span>
 <span>                        maxYear <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                        <span class="co"># Years below this are removed (from the recovered dates only)</span></span>
 <span>                        minYear <span class="op">=</span> <span class="fl">1700</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - Preparing data...</span></span>
+<span><span class="co">##  - Extracting dates from year, month, day columns...</span></span>
+<span><span class="co">##  - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate columns in unambiguous ymd, dmy, mdy, and my formats...</span></span>
+<span><span class="co">##  - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate columns in ambiguous formats...</span></span>
+<span><span class="co">##  - Formating and combining the new data..</span></span>
+<span><span class="co">##  - Merging all data, nearly there...</span></span>
+<span><span class="co">##  - Finished. </span></span>
+<span><span class="co">## We rescued: </span></span>
+<span><span class="co">## 175 occurrences with missing eventDate.</span></span>
+<span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.53110146522522 secs</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
 </h3>
 <p>Flag records that simply lack collection date. :*(</p>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_eventDate_empty.html" class="external-link">bdc_eventDate_empty</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, eventDate <span class="op">=</span> <span class="st">"eventDate"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## bdc_eventDate_empty:</span></span>
+<span><span class="co">## Flagged 30 records.</span></span>
+<span><span class="co">## One column was added to the database.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="old-records">6.3 Old records<a class="anchor" aria-label="anchor" href="#old-records"></a>
@@ -1625,12 +1756,15 @@ were a) missing and b) located in one of the searched columns.</p>
 chosen for SDM work. You may not need to filter old records at all, so
 think critically about your use. We have chosen 1950 as a lower
 extreme.</p>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_year_outOfRange.html" class="external-link">bdc_year_outOfRange</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>                           eventDate <span class="op">=</span> <span class="st">"year"</span>,</span>
 <span>                           year_threshold <span class="op">=</span> <span class="fl">1950</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## bdc_year_outOfRange:</span></span>
+<span><span class="co">## Flagged 21 records.</span></span>
+<span><span class="co">## One column was added to the database.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="time-report">6.4 Time report<a class="anchor" aria-label="anchor" href="#time-report"></a>
@@ -1638,7 +1772,7 @@ extreme.</p>
 <p><em>Not all of time, just the time pertaining to our precise
 occurrence records.</em> Firstly, update the <em>.summary</em>
 column.</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>  <span class="co"># Don't filter these columns (or NULL)</span></span>
@@ -1647,8 +1781,8 @@ column.</p>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="co"># Filter to ONLY cleaned data?</span></span>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
-<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">report</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>                           database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
@@ -1656,37 +1790,36 @@ column.</p>
 <span>                           save_report <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span>   </span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: DT</span></span></code></pre>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
+<pre><code><span><span class="co">## Error in tbl_vars_dispatch(x): attempt to apply non-function</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="time-figures">6.5 Time figures<a class="anchor" aria-label="anchor" href="#time-figures"></a>
 </h3>
 <p>Create time results figures.</p>
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">figures</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_create_figures.html">jbd_create_figures</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>                     path <span class="op">=</span> <span class="va">DataPath</span>,</span>
 <span>                     database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
 <span>                     workflow_step <span class="op">=</span> <span class="st">"time"</span>,</span>
 <span>                     save_figures <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in tbl_vars_dispatch(x): attempt to apply non-function</span></span></code></pre>
 <p>You can check figures by using…</p>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">figures</span><span class="op">$</span><span class="va">year</span></span></code></pre></div>
 <pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'figures' not found</span></span></code></pre>
 <p>Save the ~raw time dataset into the intermediate folder.</p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"04_time_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="save-flags-2">6.6 Save flags<a class="anchor" aria-label="anchor" href="#save-flags-2"></a>
 </h3>
 <p>Save the flags so far.</p>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagRecorder.html">flagRecorder</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Report</span>, sep <span class="op">=</span><span class="st">""</span><span class="op">)</span>,</span>
@@ -1694,20 +1827,19 @@ column.</p>
 <span>  idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>, <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>,</span>
 <span>  append <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  printSummary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="de-duplication">7.0 De-duplication<a class="anchor" aria-label="anchor" href="#de-duplication"></a>
 </h2>
 <p>The raw dataset can be re-read here if it does not already exist.</p>
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_time"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">check_time</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"04_time_database.csv"</span>,</span>
 <span>                          sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
 <span>                    col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'OutPath_Intermediate' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="deduplicate">7.1 deDuplicate<a class="anchor" aria-label="anchor" href="#deduplicate"></a>
 </h3>
@@ -1720,7 +1852,7 @@ designed to work with Darwin Core data with a <em>database_id</em>
 column, but it is also modifiable to work with other columns. I would
 encourage you to, see ‘?<code><a href="../reference/dupeSummary.html">dupeSummary()</a></code>’ for more details as
 this function is quite modifiable to user needs.</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dupeSummary.html">dupeSummary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>  path <span class="op">=</span> <span class="va">OutPath_Report</span>,</span>
@@ -1758,20 +1890,22 @@ this function is quite modifiable to user needs.</p>
 <span>  numberOnlyThreshold <span class="op">=</span> <span class="fl">5</span></span>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># END dupeSummary</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in dplyr::as_tibble(., col_types = BeeBDC::ColTypeR()): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - Generating a basic completeness summary from the decimalLatitude, decimalLongitude, scientificName, eventDate columns.</span></span>
+<span><span class="co">## This summary is simply the sum of complete.cases in each column. It ranges from zero to the N of columns. This will be used to sort duplicate rows and select the most-complete rows.</span></span>
+<span><span class="co">##  - Updating the .summary column to sort by...</span></span></code></pre>
+<pre><code><span><span class="co">## Error in summaryFun(data = data, dontFilterThese = dontFilterThese, removeFilterColumns = FALSE, : could not find function "summaryFun"</span></span></code></pre>
 <p>Save the dataset into the intermediate folder.</p>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"04_2_dup_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="save-flags-3">7.2 Save flags<a class="anchor" aria-label="anchor" href="#save-flags-3"></a>
 </h3>
 <p>Save the flags so far.</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagRecorder.html">flagRecorder</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Report</span>, sep <span class="op">=</span><span class="st">""</span><span class="op">)</span>,</span>
@@ -1779,31 +1913,31 @@ this function is quite modifiable to user needs.</p>
 <span>  idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>, <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>,</span>
 <span>  append <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  printSummary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="data-filtering">8.0 Data filtering<a class="anchor" aria-label="anchor" href="#data-filtering"></a>
 </h2>
 <p>The dataset can be re-read here if it does not already exist.</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_time"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span> <span class="va">check_time</span> <span class="op">&lt;-</span></span>
 <span>   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"04_2_dup_database.csv"</span>,</span>
 <span>                          sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'OutPath_Intermediate' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="rm-outliers">8.1 rm Outliers<a class="anchor" aria-label="anchor" href="#rm-outliers"></a>
 </h3>
 <p>Read in the most-recent duplicates file (generated by
 <code><a href="../reference/dupeSummary.html">dupeSummary()</a></code>) in order to identify the duplicates of the
 expert outliers.</p>
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"duplicates"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
 <span>                            fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in standardise_path(file): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in BeeBDC::fileFinder(path = DataPath, fileName = "duplicateRun_"):  - Bugger it, R can't find the file that you're looking for :(</span></span>
+<span><span class="co">## Please check that it exists in the provided directory.</span></span></code></pre>
 <p>Identify the outliers and get a list of their database_ids. This
 would require the source outlier files provided with the <a href="https://www.biorxiv.org/content/10.1101/2023.06.30.547152v1" class="external-link">BeeBDC</a>
 paper. These files can further be modified to include more outliers.</p>
@@ -1821,7 +1955,7 @@ paper. These files can further be modified to include more outliers.</p>
 <h3 id="save-uncleaned">8.2 Save uncleaned<a class="anchor" aria-label="anchor" href="#save-uncleaned"></a>
 </h3>
 <p>Save the uncleaned dataset.</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Make sure that the .summary column is updated</span></span>
 <span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
@@ -1829,20 +1963,19 @@ paper. These files can further be modified to include more outliers.</p>
 <span>                      <span class="st">".uncertaintyThreshold"</span><span class="op">)</span>,</span>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
-<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Save the uncleaned dataset</span></span>
 <span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                                <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_unCleaned_database.csv"</span>,</span>
 <span>                                      sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'check_time' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="filter">8.3 Filter<a class="anchor" aria-label="anchor" href="#filter"></a>
 </h3>
 <p>Now clean the dataset of extra columns and failed rows and then save
 it.</p>
-<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
 <span>  dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>, <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>, <span class="st">".uncer_terms"</span>,</span>
@@ -1855,7 +1988,7 @@ it.</p>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in is.data.frame(x): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in is.data.frame(x): attempt to apply non-function</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -1866,27 +1999,27 @@ it.</p>
 </h3>
 <p>Install <strong>BiocManager</strong> and
 <strong>ComplexHeatmap</strong> if you missed them at the start.</p>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
 <p>Read in the most recent duplicate file, if it’s not already in your
 environment.</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"duplicates"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
 <span>                            fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in standardise_path(file): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in standardise_path(file): attempt to apply non-function</span></span></code></pre>
 <p>Choose the global figure parameters.</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Create the chorDiagram. You can leave many of the below values out
 but we show here the defaults. There are [internal] no duplicates in our
 test dataset and so <strong>BeeBDC</strong> will throw an informative
 error. However, we show the full output figure from our bee dataset
 below.</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/chordDiagramR.html">chordDiagramR</a></span><span class="op">(</span></span>
 <span>  <span class="co"># The duplicate data from the dupeSummary function output  </span></span>
 <span>  dupeData <span class="op">=</span> <span class="va">duplicates</span>,</span>
@@ -1917,7 +2050,7 @@ below.</p>
 <h3 id="duplicate-histogram">9.2 Duplicate histogram<a class="anchor" aria-label="anchor" href="#duplicate-histogram"></a>
 </h3>
 <p>Read in the uncleaned dataset, if it’s not already present.</p>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_time"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span><span class="va">beeData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_unCleaned_database.csv"</span>,</span>
 <span>                                 sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
@@ -1926,13 +2059,12 @@ below.</p>
 <span>  <span class="va">beeData</span> <span class="op">&lt;-</span> <span class="va">check_time</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'OutPath_Intermediate' not found</span></span></code></pre>
 <p>Create a plot with two bar graphs. One shows the absolute number of
 duplicate records for each data source while the other shows the
 proportion of records that are duplicated within each data source.
 (<em>‘dataSource’</em> is simplified to the text before the first
 underscore).</p>
-<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dupePlotR.html">dupePlotR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
 <span>  <span class="co"># The outPath to save the plot as</span></span>
@@ -1948,7 +2080,7 @@ underscore).</p>
 <span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in BeeBDC::dupePlotR(data = beeData, outPath = OutPath_Figures, :  - No duplicates flagged in the dataset. Stopping process.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="flags-by-source">9.3 Flags by source<a class="anchor" aria-label="anchor" href="#flags-by-source"></a>
@@ -1958,7 +2090,7 @@ pass or fail each flag (rows) and for each data source (columns). The
 function can also optionally return a point map for a user-specified
 species when plotMap = TRUE. (<em>dataSource</em> is simplified to the
 text before the first underscore.)</p>
-<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/plotFlagSummary.html">plotFlagSummary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
 <span>  <span class="co"># Colours in order of pass (TRUE), fail (FALSE), and NA</span></span>
@@ -1988,23 +2120,25 @@ text before the first underscore.)</p>
 <span>  Gaiarsa <span class="op">=</span> <span class="st">"Gai"</span>, EPEL <span class="op">=</span> <span class="st">"EPEL"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">##  - Preparing data to plot...</span></span>
+<span><span class="co">##  - Building plot...</span></span></code></pre>
+<p><img src="BeeBDC_main_files/figure-html/9.3-1.png" width="1440"></p>
 </div>
 <div class="section level3">
 <h3 id="maps">9.4 Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
 </h3>
 <p>Import CLEANED dataset (you can change this option).</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mapData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
 <span>                                 sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
 <span>                           col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'OutPath_Intermediate' not found</span></span></code></pre>
+<pre><code><span><span class="co">## Error: '/home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Intermediate/05_cleaned_database.csv' does not exist.</span></span></code></pre>
 <div class="section level4">
 <h4 id="a--summary-maps">a. Summary maps<a class="anchor" aria-label="anchor" href="#a--summary-maps"></a>
 </h4>
 <p>Draw a global summary map for occurrence and species number by
 country.</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryMaps.html">summaryMaps</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">mapData</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -2013,7 +2147,7 @@ country.</p>
 <span>  fileName <span class="op">=</span> <span class="st">"CountryMaps_fisher.pdf"</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="va">OutPath_Figures</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'mapData' not found</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="b--interactive-maps">b. Interactive maps<a class="anchor" aria-label="anchor" href="#b--interactive-maps"></a>
@@ -2029,7 +2163,7 @@ flagged as expert-identified or country outliers separately. Because the
 function can have any categorical variable fed into ‘speciesColumn’,
 users may choose another column of interest to map; however, very large
 categories can be slow to produce and unwieldy to view.</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/interactiveMapR.html">interactiveMapR</a></span><span class="op">(</span></span>
 <span>   <span class="co"># occurrence data</span></span>
 <span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
@@ -2046,20 +2180,39 @@ categories can be slow to produce and unwieldy to view.</p>
 <span>    <span class="co"># Point jitter to see stacked points — jitters an amount in decimal degrees</span></span>
 <span>  jitterValue <span class="op">=</span> <span class="fl">0.01</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required namespace: leaflet</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'plotly'</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:ComplexHeatmap':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     add_heatmap</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:igraph':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     groups</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:ggplot2':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     last_plot</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:stats':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     filter</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:graphics':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     layout</span></span></code></pre>
+<pre><code><span><span class="co">## The column .expertOutlier was not found. One will be created with all values = TRUE.</span></span></code></pre>
+<pre><code><span><span class="co">## Error in leaflet::addLegend(., color = pointColours[1:length(names(databaseLoop))], : 'colors' and 'labels' must be of the same length</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
 <h3 id="data-providers">9.5 Data providers<a class="anchor" aria-label="anchor" href="#data-providers"></a>
 </h3>
 <p>Read in the clean data if it’s not already in the environment.</p>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"mapData"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">mapData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
 <span>                                sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
 <span>                          col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  locale <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/locale.html" class="external-link">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'OutPath_Intermediate' not found</span></span></code></pre>
+<pre><code><span><span class="co">## Error: '/home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Intermediate/05_cleaned_database.csv' does not exist.</span></span></code></pre>
 <p>This function will attempt to find and build a table of data
 providers that have contributed to the input data, especially using the
 <em>‘institutionCode’</em> column. It will also look for a variety of
@@ -2067,12 +2220,12 @@ other columns to find data providers using an internally set sequence of
 if-else statements. Hence, this function is quite specific for bee data,
 but should work for other taxa in similar institutions (perhaps to a
 lesser degree).</p>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dataProvTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dataProvTables.html">dataProvTables</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mapData</span>,</span>
 <span>                                        runBeeDataChecks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                        outPath <span class="op">=</span> <span class="va">OutPath_Report</span>,</span>
 <span>                                        fileName <span class="op">=</span> <span class="st">"dataProvTable.csv"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'mapData' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="flag-summary">9.6 Flag summary<a class="anchor" aria-label="anchor" href="#flag-summary"></a>
@@ -2082,12 +2235,12 @@ per flag (columns starting with “.”) and per species. Users may define
 the column to group the summary by. While it is intended to work with
 the <em>scientificName</em> column, users may select any grouping column
 (e.g., <em>country</em>).</p>
-<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summaryTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagSummaryTable.html">flagSummaryTable</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">beeData</span>, </span>
 <span>                                         column <span class="op">=</span> <span class="st">"scientificName"</span>, </span>
 <span>                                         outPath <span class="op">=</span> <span class="va">OutPath_Report</span>,</span>
 <span>                                         fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): lazy-load database '/home/runner/work/_temp/Library/BeeBDC/R/BeeBDC.rdb' is corrupt</span></span></code></pre>
+<pre><code><span><span class="co">## Error in data %&gt;% BeeBDC::summaryFun(): attempt to apply non-function</span></span></code></pre>
 <p>Fin.</p>
 </div>
 </div>

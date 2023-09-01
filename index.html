@@ -118,7 +118,7 @@
 <h4 id="overview">
 <strong>Overview</strong><a class="anchor" aria-label="anchor" href="#overview"></a>
 </h4>
-<p>The consistent implementation of biodiversity data continues to be a challenge for ecological researchers. We present the BeeBDC package which provides novel and updated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in nature but we also provide some functions and data that are specific for use with bee occurrence data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>. Hence, our package name is Bee <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (BeeBDC).</p>
+<p>The consistent implementation of biodiversity data continues to be a challenge for ecological researchers. We present the BeeBDC package which provides novel and updated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in nature but we also provide some functions and data that are specific for use with bee occurrence data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a> and provide functions and alternatives that do not use sp, rgeos, and rgdal which are slated for retirement. Hence, our package name is Bee <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (BeeBDC).</p>
 <p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite our primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>.</p>
 </div>
 <div class="section level4">
@@ -128,7 +128,7 @@
 <p>The <em>BeeBDC</em> toolkit is organized using the conventions set by bdc, in modules related to different biodiversity dimensions.</p>
 <hr>
 <blockquote>
-<p><span class="emoji" data-emoji="warning">⚠️</span> The modules illustrated, and <strong>functions</strong> within, <strong>were linked to form</strong> a proposed reproducible <strong>workflow</strong> (see <a href="https://brunobrr.github.io/bdc/" class="external-link"><strong>vignettes</strong></a>). However, all functions <strong>can also be executed independently</strong>.</p>
+<p><span class="emoji" data-emoji="warning">⚠️</span> like in the <a href="https://brunobrr.github.io/bdc/" class="external-link"><strong>bdc</strong></a> package, we provide a suggested workflow here. However these packages can also be run mostly out of order. Additionally, when running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks.</p>
 </blockquote>
 <hr>
 <p><a href="https://jbdorey.github.io/BeeBDC/index.html"><img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.jpeg" align="left"></a></p>
