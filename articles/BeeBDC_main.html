@@ -154,7 +154,7 @@ BeeBDC.</p>
 <pre><code><span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpsUTuxv/remotes219d6b69bb26/jbdorey-BeeBDC-be837f29c1fd1595098dd866810b2962ace799c1/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/Rtmp0Tlbrf/remotes21a84f0f88a5/jbdorey-BeeBDC-9cca678e68209c0fdbb65e683a941102cc845609/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -1045,8 +1045,8 @@ requires rnaturalearthhires</p>
 <span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##            used  (Mb) gc trigger  (Mb)  max used  (Mb)</span></span>
-<span><span class="co">## Ncells  5863618 313.2   10281212 549.1  10281212 549.1</span></span>
-<span><span class="co">## Vcells 10794391  82.4   75616456 577.0 109022374 831.8</span></span></code></pre>
+<span><span class="co">## Ncells  5864099 313.2   10345815 552.6  10345815 552.6</span></span>
+<span><span class="co">## Vcells 10796448  82.4   69090024 527.2 107953088 823.7</span></span></code></pre>
 <p>Read the data in again if needed.</p>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
@@ -1210,6 +1210,167 @@ fail-safe.</p>
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_output.csv"</span>,</span>
 <span>                            sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="taxonomy">4.0 Taxonomy<a class="anchor" aria-label="anchor" href="#taxonomy"></a>
+</h2>
+<p><em>For more information about the corresponding bdc functions used
+in this section, see their <a href="https://brunobrr.github.io/bdc/articles/taxonomy.html" class="external-link">tutorial</a>.
+</em></p>
+<p>Read in the filtered dataset or rename the 3.x dataset for 4.0.</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">database</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_output.csv"</span>,</span>
+<span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="kw">else</span><span class="op">{</span></span>
+<span>    <span class="co"># OR rename and remove</span></span>
+<span>  <span class="va">database</span> <span class="op">&lt;-</span> <span class="va">check_pf</span></span>
+<span>  <span class="co"># Remove spent dataset</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_pf</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<p>Remove <em>names_clean</em> if it already exists (i.e. you have run
+the following functions before on this dataset before).</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>            <span class="va">database</span> <span class="op">&lt;-</span> <span class="va">database</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>              <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"names_clean"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="prep-data-names">4.1 Prep data names<a class="anchor" aria-label="anchor" href="#prep-data-names"></a>
+</h3>
+<p>This step cleans the database’s <em>scientificName</em> column.</p>
+<p><strong>! MAC</strong>: You might need to install gnparser through
+terminal — brew brew tap gnames/gn brew install gnparser</p>
+<div class="alert alert-info">
+<p><strong> Attention:</strong> <br> This can be difficult for a Windows
+install. Ensure you have the most recent version of R, R Studio, and R
+packages. Also, check package ‘<strong>rgnparser</strong>’ is installed
+correctly. If you still can not get the below code to work, you may have
+to download the latest version of ‘gnparser’ from <a href="https://github.com/gnames/gnparser/releases/tag/v1.6.9" class="external-link">here</a>.
+You may then need to manually install it and edit your systems
+environmental variable PATH to locate ‘gnparser.exe’. See <a href="https://github.com/gnames/gnparser#installation" class="external-link">here</a>.</p>
+</div>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">parse_names</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_clean_names.html" class="external-link">bdc_clean_names</a></span><span class="op">(</span>sci_names <span class="op">=</span> <span class="va">database</span><span class="op">$</span><span class="va">scientificName</span>, save_outputs <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## The latest gnparser version is v1.7.4</span></span></code></pre>
+<pre><code><span><span class="co">## gnparser has been installed to /home/runner/bin</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## &gt;&gt; Family names prepended to scientific names were flagged and removed from 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## &gt;&gt; Terms denoting taxonomic uncertainty were flagged and removed from 0 records.</span></span></code></pre>
+<pre><code><span><span class="co">## &gt;&gt; Other issues, capitalizing the first letter of the generic name, replacing empty names by NA, and removing extra spaces, were flagged and corrected or removed from 1 records.</span></span></code></pre>
+<pre><code><span><span class="co">## &gt;&gt; Infraspecific terms were flagged and removed from 0 records.</span></span></code></pre>
+<p>Keep only the <em>.uncer_terms</em> and <em>names_clean</em>
+columns.</p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">parse_names</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">parse_names</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">.uncer_terms</span>, <span class="va">names_clean</span><span class="op">)</span></span></code></pre></div>
+<p>Merge names with the complete dataset.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">database</span>, <span class="va">parse_names</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">parse_names</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="harmonise-taxonomy">4.2 Harmonise taxonomy<a class="anchor" aria-label="anchor" href="#harmonise-taxonomy"></a>
+</h3>
+<p>Read in the custom taxonomy file from the BeeBDC package and <a href="http://discoverlife.org" class="external-link">Discover Life</a> website.</p>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesTaxonomy"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span></code></pre></div>
+<p>Harmonise the names in the occurrence tibble. This flags the
+occurrences without a matched name and matches names to their correct
+name according to <a href="http://discoverlife.org" class="external-link">Discover Life</a>.
+You can also use multiple cores to achieve this. See
+‘?<code><a href="../reference/HarmoniseR.html">harmoniseR()</a></code>’ for details.</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/HarmoniseR.html">harmoniseR</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, <span class="co">#The path to a folder that the output can be saved</span></span>
+<span>                       taxonomy <span class="op">=</span> <span class="va">beesTaxonomy</span>, <span class="co"># The formatted taxonomy file</span></span>
+<span>                       data <span class="op">=</span> <span class="va">database</span>,</span>
+<span>                       mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  - Formatting taxonomy for matching...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  - Harmonise the occurrence data with unambiguous names...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  - Attempting to harmonise the occurrence data with ambiguous names...</span></span>
+<span><span class="co">##  - Formatting merged datasets...</span></span></code></pre>
+<pre><code><span><span class="co">## Removing the names_clean column...</span></span></code></pre>
+<pre><code><span><span class="co">##  - We matched valid names to 201 of 205 occurrence records. This leaves a total of 4 unmatched occurrence records.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## harmoniseR:</span></span></code></pre>
+<pre><code><span><span class="co">## 4</span></span></code></pre>
+<pre><code><span><span class="co">## records were flagged.</span></span>
+<span><span class="co">## The column, '.invalidName' was added to the database.</span></span></code></pre>
+<pre><code><span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre>
+<p>You don’t need this file any more…</p>
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">beesTaxonomy</span><span class="op">)</span></span></code></pre></div>
+<p>Save the harmonised file.</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">database</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"Output"</span>, <span class="st">"Intermediate"</span>, <span class="st">"02_taxonomy_database.csv"</span>,</span>
+<span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="save-flags">4.3 Save flags<a class="anchor" aria-label="anchor" href="#save-flags"></a>
+</h3>
+<p>Save the flags so far. This will find the most-recent flag file and
+append your new data to it. You can double-check the data and number of
+columns if you’d like to be thorough and sure that all of data are
+intact.</p>
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flagFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagRecorder.html">flagRecorder</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">database</span>,</span>
+<span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Report</span>, sep <span class="op">=</span><span class="st">""</span><span class="op">)</span>,</span>
+<span>  fileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"flagsRecorded_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,  <span class="st">".csv"</span><span class="op">)</span>,</span>
+<span>  idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>, <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>,</span>
+<span>  append <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  printSummary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): attempt to apply non-function</span></span></code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2 id="space">5.0 Space<a class="anchor" aria-label="anchor" href="#space"></a>
+</h2>
+<p>Read in the latest database.</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"database"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">database</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"02_taxonomy_database.csv"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>                  col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="coordinate-precision">5.1 Coordinate precision<a class="anchor" aria-label="anchor" href="#coordinate-precision"></a>
+</h3>
+<p>This function identifies records with a coordinate precision below a
+specified number of decimal places. For example, the precision of a
+coordinate with 1 decimal place is 11.132 km at the equator, i.e., the
+scale of a large city. The major difference between the
+<strong>bdc</strong> and <strong>BeeBDC</strong> functions is that
+<code><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> will only flag occurrences if
+BOTH latitude and longitude are rounded (as opposed to only one of
+these). Coordinates with one, two, or three decimal places present a
+precision of ~11.1 km, ~1.1 km, and ~111 m at the equator,
+respectively.</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">database</span>,</span>
+<span>    lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
+<span>    lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
+<span>    ndec <span class="op">=</span> <span class="fl">2</span> <span class="co"># number of decimals to be tested</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## jbd_coordinates_precision:</span></span>
+<span><span class="co">## Flagged 61 records</span></span>
+<span><span class="co">## The '.rou' column was added to the database.</span></span></code></pre>
+<p>Remove the spent dataset.</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">database</span><span class="op">)</span></span></code></pre></div>
+<p>Save the resulting file.</p>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_inter_database.csv"</span>,</span>
+<span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
