@@ -1098,6 +1098,10 @@ data("beesTaxonomy", package = "BeeBDC")
 
 Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](http://discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
 
+```{r 4.2gc, include=FALSE}
+gc()
+```
+
 ```{r 4.2ii}
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
                        taxonomy = beesTaxonomy, # The formatted taxonomy file
