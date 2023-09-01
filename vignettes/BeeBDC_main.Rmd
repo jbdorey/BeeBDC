@@ -34,7 +34,28 @@ library(readr)
 library(stringr)
 library(lubridate)
 library(tidyselect)
+library(R.utils)
+library(tidyr)
+library(ggplot2)
+library(forcats)
+library(rlist)
+library(emld)
+library(rlang)
+library(xml2)
+library(mgsub)
+library(rvest)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(countrycode)
+library(janitor)
+library(circlize)
+library(paletteer)
+library(readxl)
+library(cowplot)
+library(igraph)
+library(ggspatial)
 ```
+
 
 ```{r secretRootPath, include=FALSE}
   # Use here::i_am to set the root directory
@@ -99,6 +120,13 @@ if (!require("devtools", quietly = TRUE))
 devtools::install_github("ropensci/rnaturalearthhires")
 BiocManager::install("ComplexHeatmap")
 ```
+   
+```{r rnaturalearthhires, include=FALSE}
+if (!require("remotes", quietly = TRUE))
+    install.packages("remotes")
+remotes::install_github("ropensci/rnaturalearthhires")
+install.packages("rnaturalearthhires", repos = "https://ropensci.r-universe.dev", type = "source")
+```   
    
    Now install **BeeBDC**.
 
