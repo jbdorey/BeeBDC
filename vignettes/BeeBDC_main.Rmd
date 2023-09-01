@@ -42,7 +42,6 @@ library(readr)
 library(stringr)
 library(lubridate)
 library(tidyselect)
-remove.packages("BeeBDC")
 ```
 
 ```{r secretRootPath, include=FALSE}
@@ -111,10 +110,11 @@ BiocManager::install("ComplexHeatmap")
    
    Now install **BeeBDC**.
 
-```{r installBeeBDC, results=FALSE, message=FALSE}
+```{r installBeeBDC, results=FALSE, message=FALSE, eval = FALSE}
 devtools::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main", 
                         force = FALSE,
                         auth_token = "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")
+library(BeeBDC)
 ```
 
   
@@ -140,7 +140,7 @@ BeeBDC::dirMaker(
 Load packages.
 
 ```{r lapply_library, results=FALSE}
-lapply(c("ComplexHeatmap", "BeeBDC", "magrittr", "rnaturalearthhires"), 
+lapply(c("ComplexHeatmap", "magrittr", "rnaturalearthhires"), 
        library, character.only = TRUE)
 ```
 
