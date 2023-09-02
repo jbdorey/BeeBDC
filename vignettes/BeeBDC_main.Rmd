@@ -1314,7 +1314,7 @@ griddingDF <- check_space %>%
 
 Run the gridding analysis to find datasets that might be gridded.
 
-```{r 5.3iii}
+```{r 5.3iii, eval = FALSE}
 gridded_datasets <- CoordinateCleaner::cd_round(
   x = griddingDF,
   lon = "decimalLongitude",
