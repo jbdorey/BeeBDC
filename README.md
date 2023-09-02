@@ -1,7 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ***BeeBDC*** <a href='https://github.com/brunobrr/bdc'><img src="https://raw.githubusercontent.com/brunobrr/bdc/master/man/figures/logo.png" align="right" width="155"/></a>
+# ***BeeBDC*** 
+<!-- <a href='PlaceholerLink'><img src="Placeholer" align="right" width="155"/></a> -->
 
 ## **BeeBDC: an occurrence data cleaning package**
 
@@ -20,6 +21,8 @@ DOI](https://doi.org/10.1101/2023.06.30.547152)](https://doi.org/10.1101/2023.06
 [![License](https://img.shields.io/badge/license-GPL%20(%3E=%203)-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 
 <!-- badges: end -->
+
+## ** STILL UNDER DEVELOPMENT! **
 
 #### **Overview**
 
