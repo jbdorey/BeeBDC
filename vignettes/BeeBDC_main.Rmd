@@ -56,6 +56,9 @@ library(ggspatial)
 library(sf)
 library(parallel)
 library(terra)
+
+# Dont detect cores to avoid GitHbub error
+options(mc.cores = parallel::detectCores())
 ```
 
 ```{r extraPackages, include = FALSE}
