@@ -31,6 +31,7 @@ library(bdc)
 library(CoordinateCleaner)
 library(dplyr)
 library(readr)
+library(vroom)
 library(stringr)
 library(lubridate)
 library(tidyselect)
@@ -1337,7 +1338,7 @@ rm(griddingDF)
 
 Integrate these results with the main dataset.
 
-```{r 5.3iv}
+```{r 5.3iv, eval = FALSE}
 check_space <- check_space %>%
   # Join the datasets
   dplyr::left_join(
@@ -1354,14 +1355,14 @@ check_space <- check_space %>%
 
 Save the gridded_datasets file for later examination.
 
-```{r 5.3 v}
+```{r 5.3 v, eval = FALSE}
 gridded_datasets %>%
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_griddedDatasets.csv",
                          sep = "/"))
 ```
 
 Now remove this file.
-```{r 5.3vi}
+```{r 5.3vi, eval = FALSE}
 rm(gridded_datasets)
 ```
 
