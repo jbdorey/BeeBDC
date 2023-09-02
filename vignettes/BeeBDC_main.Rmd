@@ -1862,8 +1862,8 @@ BeeBDC::chordDiagramR(
   niceFacing = TRUE)
 ```
 
-![Full chord diagram from Dorey et al. 2023]
-<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left" />
+<!-- ![Full chord diagram from Dorey et al. 2023]
+<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left" /> -->
 
 
 ## 9.2 Duplicate histogram 
