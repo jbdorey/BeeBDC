@@ -46,8 +46,6 @@
 #'                         c("occurrenceID", "dataSource"),
 #'                         c("recordId", "dataSource"),
 #'                         c("id"),
-#'                         # Because INHS was entered as it's own dataset but is now included in 
-#'                           # the GBIF download...
 #'                         c("catalogNumber", "institutionCode")),
 #'   # You can exclude datasets from prior by matching their prefixs - before first underscore:
 #'   excludeDataset = excludeDataset)
