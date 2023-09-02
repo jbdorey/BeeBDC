@@ -230,7 +230,7 @@ fileFinder <- function(path, fileName){
       # Extract the dates from the file path rownames and supress the warning from non-matches
       suppressWarnings(lubridate::dmy(.), classes = "warning")) %>%
     # Set the column names of this new tibble
-    rlang::set_names(c("Locs","dates"))
+    stats::setNames(c("Locs","dates"))
        # IF there are no dates, look for ymd format
      if(sum(complete.cases(FileName_dates$dates)) == 0){
        FileName_dates <- stringr::str_replace(rownames(locations), ".+/", "") %>%
@@ -241,7 +241,7 @@ fileFinder <- function(path, fileName){
            # Extract the dates from the file path rownames and supress the warning from non-matches
            suppressWarnings(lubridate::ymd(.), classes = "warning")) %>%
          # Set the column names of this new tibble
-         rlang::set_names(c("Locs","dates"))
+         stats::setNames(c("Locs","dates"))
      }
   # Insert the full locations in the Locs column
   FileName_dates$Locs <- rownames(locations)

@@ -53,6 +53,9 @@ flagRecorder <- function(
     #### 0.0 Prep ####
       ##### 0.1 Packages ####
   requireNamespace("dplyr")
+  requireNamespace("tidyselect")
+  requireNamespace("lubridate")
+  requireNamespace("readr")
 
       ##### 0.2 Warnings ####
   if(is.null(data)){
