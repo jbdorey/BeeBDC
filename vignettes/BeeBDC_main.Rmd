@@ -1881,7 +1881,7 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 ```
 
 Create a plot with two bar graphs. One shows the absolute number of duplicate records for each data source while the other shows the proportion of records that are duplicated within each data source. (*'dataSource'* is simplified to the text before the first underscore).
-```{r 9.2ii, warning=FALSE}
+```{r 9.2ii, warning=FALSE, eval=FALSE}
 BeeBDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
@@ -1902,7 +1902,7 @@ BeeBDC::dupePlotR(
 ## 9.3 Flags by source 
 
 Create a compound bar plot that shows the proportion of records that pass or fail each flag (rows) and for each data source (columns). The function can also optionally return a point map for a user-specified species when plotMap = TRUE. (*dataSource* is simplified to the text before the first underscore.)
-```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE}
+```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE, eval=FALSE}
 BeeBDC::plotFlagSummary(
   data = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
@@ -1946,7 +1946,7 @@ mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv"
 ### a. Summary maps
 
 Draw a global summary map for occurrence and species number by country.
-```{r 9.4a}
+```{r 9.4a, eval=FALSE}
 BeeBDC::summaryMaps(
   data = mapData,
   width = 10, height = 10,
