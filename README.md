@@ -9,13 +9,13 @@
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/bdc)](https://CRAN.R-project.org/package=bdc)
-[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/bdc)](https://cranlogs.r-pkg.org:443/badges/grand-total/bdc)
+status](https://www.r-pkg.org/badges/version/BeeBDC)](https://CRAN.R-project.org/package=BeeBDC)
+[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/bdc)](https://cranlogs.r-pkg.org:443/badges/grand-total/BeeBDC)
 <!-- [![rstudio mirror -->
-<!-- downloads](https://cranlogs.r-pkg.org/badges/bdc)](https://cranlogs.r-pkg.org:443/badges/bdc) -->
-[![R-CMD-check](https://github.com/brunobrr/bdc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/brunobrr/bdc/actions/workflows/R-CMD-check.yaml)
+<!-- downloads](https://cranlogs.r-pkg.org/badges/BeeBDC)](https://cranlogs.r-pkg.org:443/badges/BeeBDC) -->
+[![R-CMD-check](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/brunobrr/bdc/branch/master/graph/badge.svg?token=9AUF86G9LJ)](https://app.codecov.io/gh/brunobrr/bdc)
+coverage](https://codecov.io/gh/jbdorey/BeeBDC/branch/master/graph/badge.svg?token=9AUF86G9LJ)](https://app.codecov.io/gh/jbdorey/BeeBDC)
 [![Pre-print
 DOI](https://doi.org/10.1101/2023.06.30.547152)](https://doi.org/10.1101/2023.06.30.547152)
 [![License](https://img.shields.io/badge/license-GPL%20(%3E=%203)-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
