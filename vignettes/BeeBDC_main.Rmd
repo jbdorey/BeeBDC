@@ -62,8 +62,8 @@ options(mc.cores = parallel::detectCores())
 ```
 
 ```{r extraPackages, include = FALSE}
-install.packages("maps")
-install.packages("sp")
+install.packages("maps", repos = "http://cran.us.r-project.org")
+install.packages("sp", repos = "http://cran.us.r-project.org")
 
 library(maps)
 library(sp)
@@ -110,7 +110,7 @@ setwd(paste0(RootPath,"/Data_acquisition_workflow"))
 For the first time that you run BeeBDC, and if you want to use the renv package to manage your 
 packages, you can install renv...
 
-            install.packages("renv")
+            install.packages("renv", repos = "http://cran.us.r-project.org")
 
  and then initialise renv the project.
  
@@ -127,7 +127,7 @@ You may need to install gdal on your computer. This can be done on a Mac by usin
 To start out, you will need to install **BiocManager**, **devtools**, **ComplexHeatmap**, and **rnaturalearthhires** to then install and fully use BeeBDC.
 ```{r installPackages, message=FALSE, warning=FALSE, results=FALSE}
 if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+    install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 
 BiocManager::install("ComplexHeatmap")
 ```
@@ -136,7 +136,7 @@ BiocManager::install("ComplexHeatmap")
 ```{r rnaturalearthhires, eval=FALSE}
   # Install remotes if needed
 if (!require("remotes", quietly = TRUE))
-    install.packages("remotes")
+    install.packages("remotes", repos = "http://cran.us.r-project.org")
   # Download and then load rnaturalearthhires
 remotes::install_github("ropensci/rnaturalearthhires")
 install.packages("rnaturalearthhires", repos = "https://ropensci.r-universe.dev", type = "source")
@@ -1816,7 +1816,7 @@ BeeBDC::summaryFun(
 Install **BiocManager** and **ComplexHeatmap** if you missed them at the start.
 ```{r 9.1, message=FALSE, warning=FALSE, eval = FALSE}
 if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
+  install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 BiocManager::install("ComplexHeatmap")
 ```
 

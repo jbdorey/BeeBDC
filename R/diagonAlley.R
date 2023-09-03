@@ -290,6 +290,7 @@ diagonAlley <- function(
 
   
   #### 3.0 Merge ####
+  writeLines(" - Merging results and adding the .sequential column...")
     # Add a new column called .sequential to flag sequential lats and longs as FALSE
   data <- data %>%
     dplyr::mutate(.sequential = !database_id %in% flagRecords$database_id)
