@@ -17,5 +17,7 @@ navbar:
          href: articles/BeeBDC_main.html
       -  text: "TEST_time"
          href: articles/BeeBDC_main.html#time
+      -  text: "TEST_2"
+         href: articles/BeeBDC_2.html
   components:
     home: ~

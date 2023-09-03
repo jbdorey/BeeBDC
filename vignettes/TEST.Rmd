@@ -1,11 +1,11 @@
 ---
-title: "BeeBDC 2"
+title: "BeeBDC_2"
 
 output:
    rmarkdown::html_vignette:
 
 vignette: >
-  %\VignetteIndexEntry{BeeBDC 2}
+  %\VignetteIndexEntry{BeeBDC_2}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 --- 
