@@ -1261,7 +1261,7 @@ check_time <- manualOutlierFindeR(
 check_time <- summaryFun(
   data = check_time,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
-                      ".uncertaintyThreshold"),
+                      ".uncertaintyThreshold", ".sequential"),
   removeFilterColumns = FALSE,
   filterClean = FALSE)
 # Save the uncleaned dataset
@@ -1274,7 +1274,7 @@ check_time %>% readr::write_excel_csv(.,
 BeeBDC::summaryFun(
   data = check_time,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
-                      ".uncertaintyThreshold"),
+                      ".uncertaintyThreshold", ".sequential"),
   # Remove the filtering columns?
   removeFilterColumns = TRUE,
   # Filter to ONLY cleaned data?
