@@ -1946,7 +1946,7 @@ mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv"
 ### a. Summary maps
 
 Draw a global summary map for occurrence and species number by country.
-```{r 9.4a, eval=TRUE}
+```{r 9.4a, eval=FALSE}
 BeeBDC::summaryMaps(
   data = mapData,
   width = 10, height = 10,
@@ -1984,7 +1984,7 @@ BeeBDC::interactiveMapR(
 ## 9.5 Data providers
 
 Read in the clean data if it's not already in the environment.
-```{r 9.5, eval = TRUE}
+```{r 9.5, eval = FALSE}
 if(!exists("mapData")){
   mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                 sep = "/"),
@@ -2011,3 +2011,9 @@ summaryTable <- BeeBDC::flagSummaryTable(data = beeData,
                                          fileName = "flagTable.csv")
 ```
 
+
+```{r 9.end, include=FALSE, eval = FALSE}
+  # Secretely remove the RootPath once finished
+# unlink(paste0(RootPath), recursive = TRUE)
+#unlink(paste0(here::here(), "/Output"), recursive = TRUE)
+```
