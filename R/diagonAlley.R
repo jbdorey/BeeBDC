@@ -129,18 +129,18 @@ diagonAlley <- function(
           windowj <- groupi[j:(j+minRepeats-1),]
           # If all differences are equal, then add to a running list of database_ids
           if(all(windowj$diff == windowj$diff[1])){
-            flagRecords <- flagRecords %>% 
+            flaggedRecords <- flaggedRecords %>% 
               dplyr::bind_rows(windowj %>%  
                                  dplyr::select(database_id) )}  # END if statement
           } # END J loop
-        # Keep distinct flagRecords
+        # Keep distinct flaggedRecords
         # Run distinct every 1000th iteration, or at the end
         if(i %in% seq(0, length(runningData), 1000) | 
            i == length(runningData)){
-          flagRecords <- flagRecords %>%
+          flaggedRecords <- flaggedRecords %>%
             dplyr::distinct(.keep_all = TRUE)}
         } # END i loop
-      return(flagRecords)
+      return(flaggedRecords)
       }# End LatLonFun
     
     ##### 2.2 Lat sequences ####
@@ -202,7 +202,7 @@ diagonAlley <- function(
   # Set up a tibble for the flagged records
   flagRecords <- dplyr::tibble()
     # Run the loop function in parallel
-  flagRecords <- runningData_LatGrp %>% 
+  flagRecords_Lat <- runningData_LatGrp %>% 
     parallel::mclapply(LatLonFun, mc.cores = mc.cores) %>%
       # Re-bind the list elements 
     dplyr::bind_rows() 
@@ -272,17 +272,22 @@ diagonAlley <- function(
 
   writeLines(" - Starting the longitude sequence...")
   # Run the loop function in parallel
-  flagRecords <- runningData_LonGrp %>% 
+  flagRecords_Lon <- runningData_LonGrp %>% 
     parallel::mclapply(LatLonFun, mc.cores = mc.cores) %>%
     # Re-bind the list elements 
     dplyr::bind_rows() 
+  
+    ##### 2.4 Merge lat lon ####
+    # Merge the minor runs
+  flagRecords <- dplyr::bind_rows(flagRecords_Lat, flagRecords_Lon) %>% 
+    dplyr::distinct()
   
   }else{
     flagRecords = dplyr::tibble(database_id = NA_character_)
   } # END nrow(runningData) > 0
     # Remove the spent dataset
   rm(runningData_LonGrp)
-  
+
   
   #### 3.0 Merge ####
     # Add a new column called .sequential to flag sequential lats and longs as FALSE
