@@ -94,7 +94,7 @@ knitr::opts_chunk$set(error = TRUE,
 ## 0.1 Working directory 
 
 Choose the path to the root folder in which all other folders can be found.
-```{r falseRootPath, eval = FALSE}
+```{r falseRootPath, eval=FALSE}
 RootPath <- paste0("/your/path/here")
 ```
 
@@ -124,7 +124,7 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 You may need to install gdal on your computer. This can be done on a Mac by using Homebrew in the terminal and the command "brew install gdal". 
 
-To start out, you will need to install **BiocManager**, **devtools**, **ComplexHeatmap**, and **rnaturalearthhires** to then install and fully use BeeBDC.
+To start out, you will need to install **BiocManager**, **devtools**, **ComplexHeatmap**, and **rnaturalearthhires** to then install and fully use **BeeBDC**.
 ```{r installPackages, message=FALSE, warning=FALSE, results=FALSE}
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager", repos = "http://cran.us.r-project.org")
@@ -148,7 +148,7 @@ library(rnaturalearthhires)
 ```{r installBeeBDC, results=TRUE, message=TRUE, eval = TRUE}
 devtools::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main", 
                         force = FALSE,
-                        auth_token = "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")
+                        auth_token = "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")
 library(BeeBDC)
 ```
 
@@ -1480,15 +1480,15 @@ Create figures for the spatial data filtering results.
 
 
 For examining the figures, the options are:
-* *.cap* = Records around country capital centroid	
-* *.cen* = Records around country or province centroids
-* *.dbl* = Duplicated coordinates per species
-* *.equ* = Identical coordinates
-* *.otl* = Geographical outliers
-* *.gbf* = Records around the GBIF headquarters
-* *.inst* = Records around biodiversity institutions
-* *.rou* = Rounded (probably imprecise) coordinates
-* *.urb* = Records within urban areas — (Likely not relevant for bees.) 
+- *.cap* = Records around country capital centroid	
+- *.cen* = Records around country or province centroids
+- *.dbl* = Duplicated coordinates per species
+- *.equ* = Identical coordinates
+- *.otl* = Geographical outliers
+- *.gbf* = Records around the GBIF headquarters
+- *.inst* = Records around biodiversity institutions
+- *.rou* = Rounded (probably imprecise) coordinates
+- *.urb* = Records within urban areas — (Likely not relevant for bees.) 
 
 			You can examine these figures, for example, by running:
 
@@ -1574,7 +1574,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 
 ## 6.2 No eventDate 
 
-Flag records that simply lack collection date. :*(
+Flag records that simply lack collection date. :(
 
 ```{r 6.2}
 check_time <-
@@ -1775,7 +1775,7 @@ Identify the outliers and get a list of their database_ids. This would require t
 
 Save the uncleaned dataset.
 
-```{r 8.2, eval = FALSE}
+```{r 8.2, eval = TRUE}
   # Make sure that the .summary column is updated
 check_time <- BeeBDC::summaryFun(
   data = check_time,
@@ -1869,7 +1869,7 @@ BeeBDC::chordDiagramR(
 ## 9.2 Duplicate histogram 
 
 Read in the uncleaned dataset, if it's not already present.
-```{r 9.2, eval = FALSE}
+```{r 9.2, eval = TRUE}
 if(!exists("check_time")){
 beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                  sep = "/"),
@@ -1881,7 +1881,7 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 ```
 
 Create a plot with two bar graphs. One shows the absolute number of duplicate records for each data source while the other shows the proportion of records that are duplicated within each data source. (*'dataSource'* is simplified to the text before the first underscore).
-```{r 9.2ii, warning=FALSE, eval=FALSE}
+```{r 9.2ii, warning=FALSE, eval=TRUE}
 BeeBDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
@@ -1902,7 +1902,7 @@ BeeBDC::dupePlotR(
 ## 9.3 Flags by source 
 
 Create a compound bar plot that shows the proportion of records that pass or fail each flag (rows) and for each data source (columns). The function can also optionally return a point map for a user-specified species when plotMap = TRUE. (*dataSource* is simplified to the text before the first underscore.)
-```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE, eval=FALSE}
+```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE, eval=TRUE}
 BeeBDC::plotFlagSummary(
   data = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
@@ -1937,7 +1937,7 @@ BeeBDC::plotFlagSummary(
 ## 9.4 Maps 
 
 Import CLEANED dataset (you can change this option).
-```{r 9.4, eval = FALSE}
+```{r 9.4, eval = TRUE}
 mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                  sep = "/"),
                            col_types = BeeBDC::ColTypeR())
@@ -1946,7 +1946,7 @@ mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv"
 ### a. Summary maps
 
 Draw a global summary map for occurrence and species number by country.
-```{r 9.4a, eval=FALSE}
+```{r 9.4a, eval=TRUE}
 BeeBDC::summaryMaps(
   data = mapData,
   width = 10, height = 10,
@@ -1984,7 +1984,7 @@ BeeBDC::interactiveMapR(
 ## 9.5 Data providers
 
 Read in the clean data if it's not already in the environment.
-```{r 9.5, eval = FALSE}
+```{r 9.5, eval = TRUE}
 if(!exists("mapData")){
   mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                 sep = "/"),
@@ -1993,7 +1993,7 @@ if(!exists("mapData")){
 ```
 
 This function will attempt to find and build a table of data providers that have contributed to the input data, especially using the *'institutionCode'* column. It will also look for a variety of other columns to find data providers using an internally set sequence of if-else statements. Hence, this function is quite specific for bee data, but should work for other taxa in similar institutions (perhaps to a lesser degree).
-```{r 9.5ii, eval = FALSE}
+```{r 9.5ii, eval = TRUE}
 dataProvTable <- BeeBDC::dataProvTables(data = mapData,
                                         runBeeDataChecks = TRUE,
                                         outPath = OutPath_Report,
@@ -2004,7 +2004,7 @@ dataProvTable <- BeeBDC::dataProvTables(data = mapData,
 ## 9.6 Flag summary
 
 Takes a flagged dataset and returns the total number of fails (FALSE) per flag (columns starting with ".") and per species. Users may define the column to group the summary by. While it is intended to work with the *scientificName* column, users may select any grouping column (e.g., *country*).
-```{r 9.6, eval = FALSE}
+```{r 9.6, eval = TRUE}
 summaryTable <- BeeBDC::flagSummaryTable(data = beeData, 
                                          column = "scientificName", 
                                          outPath = OutPath_Report,

@@ -59,7 +59,7 @@ BiocManager::install("ComplexHeatmap", force = FALSE)
 # Install BeeBDC 
 remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", ref = "main", 
                         force = TRUE,
-                        auth_token = "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")
+                        auth_token = "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")
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above,

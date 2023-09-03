@@ -10,7 +10,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/BeeBDC)](https://CRAN.R-project.org/package=BeeBDC)
-[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/bdc)](https://cranlogs.r-pkg.org:443/badges/grand-total/BeeBDC)
+[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/BeeBDC)](https://cranlogs.r-pkg.org:443/badges/grand-total/BeeBDC)
 <!-- [![rstudio mirror -->
 <!-- downloads](https://cranlogs.r-pkg.org/badges/BeeBDC)](https://cranlogs.r-pkg.org:443/badges/BeeBDC) -->
 [![R-CMD-check](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml)

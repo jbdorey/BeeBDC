@@ -31,15 +31,16 @@
 #' @importFrom dplyr desc across
 #'
 #' @examples
-#' 
+#' # Get the example data
+#' data("beesRaw", package = "BeeBDC)
 #' # Which datasets are static and should be excluded from matching?
 #' excludeDataset <- c("BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
 #'                     "Gai", "KP", "EPEL", "USGS", "FSCA", "SMC", "Bal", "Lic", "Arm", "BBD", 
 #'                     "MEPB")
 #'   # Match the data to itself just as an example of running the code.
 #' beesRaw_out <- idMatchR(
-#'   currentData = BeeBDC::beesRaw,
-#'   priorData = BeeBDC::beesRaw,
+#'   currentData = beesRaw,
+#'   priorData = beesRaw,
 #'   # First matches will be given preference over later ones
 #'   matchBy = dplyr::lst(c("gbifID"),
 #'                         c("catalogNumber", "institutionCode", "dataSource"),
