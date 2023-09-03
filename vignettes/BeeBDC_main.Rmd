@@ -1881,7 +1881,7 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 ```
 
 Create a plot with two bar graphs. One shows the absolute number of duplicate records for each data source while the other shows the proportion of records that are duplicated within each data source. (*'dataSource'* is simplified to the text before the first underscore).
-```{r 9.2ii, warning=FALSE, eval=TRUE}
+```{r 9.2ii, warning=FALSE, eval=FALSE}
 BeeBDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
