@@ -1620,7 +1620,7 @@ check_time <- BeeBDC::summaryFun(
 
 Create time results figures.
 
-```{r 6.5, eval = FALSE}
+```{r 6.5, eval = TRUE}
 figures <-
   BeeBDC::jbd_create_figures(data = check_time,
                      path = DataPath,
@@ -1630,7 +1630,7 @@ figures <-
 ```
 
 You can check figures by using...
-```{r 6.5ii, eval = FALSE}
+```{r 6.5ii, eval = TRUE}
 figures$year
 ```
 
@@ -1674,7 +1674,7 @@ if(!exists("check_time")){
 We will FLAG duplicates here. These input columns can be hacked to de-duplicate as you wish. This function uses user-specified inputs and columns to identify duplicate occurrence records. Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted at the end of the function. The function is designed to work with Darwin Core data with a *database_id* column, but it is also modifiable to work with other columns.
 I would encourage you to, see '?`dupeSummary()`' for more details as this function is quite modifiable to user needs.
 
-```{r 7.1, eval = FALSE}
+```{r 7.1, eval = TRUE}
 check_time <- BeeBDC::dupeSummary(
   data = check_time,
   path = OutPath_Report,
