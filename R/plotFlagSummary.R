@@ -183,9 +183,9 @@ plotFlagSummary <- function(
           # Sort the filterColumn to have TRUE on top of FALSE
       mapData <- mapData %>%
         dplyr::select(tidyselect::all_of(filterColumn)) %>%
-        mutate(across(1, as.character)) %>%
+        dplyr::mutate(across(1, as.character)) %>%
         dplyr::bind_cols(mapData %>% dplyr::select(!tidyselect::all_of(filterColumn))) %>% 
-        arrange(desc(.))
+        dplyr::arrange(desc(.))
     }
   } # END !is.null(speciesName)
   
@@ -382,7 +382,7 @@ plotFlagSummary <- function(
           # Add in the title
           ggplot2::ggtitle( speciesName) )
       # save as the map as 10*6"
-      ggsave(paste0("/Map_FlagsPlot_", speciesName, ".pdf"), plot = PointMap, device = "pdf", 
+      ggplot2::ggsave(paste0("/Map_FlagsPlot_", speciesName, ".pdf"), plot = PointMap, device = "pdf", 
               width = 10, height = 5, dpi = 300, path = outPath)
     }
     

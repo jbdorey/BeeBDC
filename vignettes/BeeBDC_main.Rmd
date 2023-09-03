@@ -1902,7 +1902,7 @@ BeeBDC::dupePlotR(
 ## 9.3 Flags by source 
 
 Create a compound bar plot that shows the proportion of records that pass or fail each flag (rows) and for each data source (columns). The function can also optionally return a point map for a user-specified species when plotMap = TRUE. (*dataSource* is simplified to the text before the first underscore.)
-```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE, eval=TRUE}
+```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE, eval=FALSE}
 BeeBDC::plotFlagSummary(
   data = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
