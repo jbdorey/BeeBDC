@@ -105,12 +105,12 @@ dupePlotR <- function(
       # Turn into a tibble
     dplyr::tibble() %>%
       # Name the single column
-    rlang::set_names(c("simpleSource")) %>%
+    stats::setNames(c("simpleSource")) %>%
       # Group by this column and then count the number of occurrences for each level
     dplyr::group_by(simpleSource) %>%
     dplyr::mutate(count = dplyr::n()) %>%
       # Name these columns
-    rlang::set_names(c("simpleSource", "count")) 
+    stats::setNames(c("simpleSource", "count")) 
     # Now re-order the factor by this count and then feed back into dupeTibble
   dupeTibble$simpleSource <-  forcats::fct_reorder(factorised$simpleSource, 
                                                     factorised$count, .desc = TRUE)
