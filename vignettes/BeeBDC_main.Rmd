@@ -1552,7 +1552,7 @@ if(!exists("check_space")){
 
 You can plot a histogram of dates here.
 
-```{r 6.0ii, collapse = TRUE}
+```{r 6.0ii, collapse = TRUE, data-background=#ff0000}
 hist(lubridate::ymd_hms(check_time$eventDate, truncated = 5), breaks = 20)
 ```
 

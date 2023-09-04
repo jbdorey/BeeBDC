@@ -21,7 +21,6 @@ coverage](https://codecov.io/gh/jbdorey/BeeBDC/branch/master/graph/badge.svg?tok
 
 <!-- badges: end -->
 
-## ** STILL UNDER DEVELOPMENT! **
 
 #### **Overview**
 
