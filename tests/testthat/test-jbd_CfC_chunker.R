@@ -26,6 +26,7 @@ countryOutput <- BeeBDC::jbd_CfC_chunker(data = bees3sp %>%
                                      chunkStart = 1,
                                      path = tempdir(),
                                      scale = "medium", # Test at medium scale in this instance.
+                                     progressiveSave = FALSE,
                                      append = FALSE)
 
 
@@ -59,6 +60,7 @@ countryOutput <- BeeBDC::jbd_CfC_chunker(data = bees3sp %>%
                                          chunkStart = 1,
                                          path = tempdir(),
                                          scale = "medium", # Test at medium scale in this instance.
+                                         progressiveSave = FALSE,
                                          append = FALSE)
 
 

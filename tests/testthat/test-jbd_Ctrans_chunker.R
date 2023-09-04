@@ -29,6 +29,7 @@ testOut <- BeeBDC::jbd_Ctrans_chunker(
   chunkStart = 1,  # Start row
   path = tempdir(),
   append = FALSE,  # If FALSE it may overwrite existing dataset
+  progressiveSave = FALSE,
   scale = "medium",
   mc.cores = 1
 ) 
