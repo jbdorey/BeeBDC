@@ -903,7 +903,7 @@ check_space %>%
                          sep = "/"))
 
 
-##### 5.3 diagonal + grid ####
+##### 5.3 Diagonal + grid ####
 # Finds sequential numbers that could be fill-down errors in lat and long. 
 # groups by eventDate, recordedBy
 # This is accomplished by using a sliding window with the length determined by minRepeats.
@@ -912,6 +912,8 @@ check_space <- BeeBDC::diagonAlley(
   # The minimum number of repeats needed to find a sequence in for flagging
   minRepeats = 4,
   mc.cores = 1)
+
+data <- beeData[1:1000000,]
 
 # SPATIAL gridding from rasterisation:
 # Select only the records with more than X occurrences

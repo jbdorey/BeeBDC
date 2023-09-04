@@ -56,9 +56,24 @@ flagSummaryTable <- function(
   }
   
   #### 1.0 Data prep ####
+    # Filter for bad names to not include in the table
+  if(any(colnames(data) %in% ".scientificName_empty")){
+    data <- data %>%
+      dplyr::filter(!.scientificName_empty == FALSE)
+  }
+  if(any(colnames(data) %in% ".invalidName")){
+    data <- data %>%
+      dplyr::filter(!.invalidName == FALSE)
+  }
+  
   # Re-do the .summary column to be sure its up to date
 data <- data %>%
-  BeeBDC::summaryFun()
+      # Remove those without scientific name and that flag column
+    dplyr::select(!tidyselect::any_of(".scientificName_empty")) %>%
+      # Do the same for invalid names
+    dplyr::select(!tidyselect::any_of(".invalidName")) %>%
+      # Refresh the .summary column
+    BeeBDC::summaryFun() 
 
   # Get a character vector of the flag columns 
   flagColumns <- data %>% dplyr::select(tidyselect::starts_with(".")) %>% colnames()

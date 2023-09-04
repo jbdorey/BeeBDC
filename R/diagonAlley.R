@@ -115,18 +115,15 @@ diagonAlley <- function(
   
   #### 2.0 Identify sequences ####
   if(nrow(runningData) > 0){
-    
-    
+
       ##### 2.1 Create function ####
     # Set up the loop function
-    LatLonFun <- function(runningData){
-      for(i in 1:length(runningData)){
-        # Select the ith list, get only the dataset and the miniumum columns required
-        groupi <- runningData
+    LatLonFun <- function(funData){
+      for(i in 1:length(funData)){
         # Run the sliding window
-        for(j in 1:(nrow(groupi) - minRepeats+1)){
+        for(j in 1:(nrow(funData) - minRepeats+1)){
           # select an amount of rows based on minRepeats
-          windowj <- groupi[j:(j+minRepeats-1),]
+          windowj <- funData[j:(j+minRepeats-1),]
           # If all differences are equal, then add to a running list of database_ids
           if(all(windowj$diff == windowj$diff[1])){
             flaggedRecords <- flaggedRecords %>% 
@@ -135,8 +132,8 @@ diagonAlley <- function(
           } # END J loop
         # Keep distinct flaggedRecords
         # Run distinct every 1000th iteration, or at the end
-        if(i %in% seq(0, length(runningData), 1000) | 
-           i == length(runningData)){
+        if(i %in% seq(0, length(funData), 1000) | 
+           i == length(funData)){
           flaggedRecords <- flaggedRecords %>%
             dplyr::distinct(.keep_all = TRUE)}
         } # END i loop
@@ -200,7 +197,7 @@ diagonAlley <- function(
   runningData_LatGrp <- lapply(runningData_LatGrp, function(x) x[(names(x) %in% c("database_id", "diff"))])
   
   # Set up a tibble for the flagged records
-  flagRecords <- dplyr::tibble()
+  flaggedRecords <- dplyr::tibble()
     # Run the loop function in parallel
   flagRecords_Lat <- runningData_LatGrp %>% 
     parallel::mclapply(LatLonFun, mc.cores = mc.cores) %>%
