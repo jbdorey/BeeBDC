@@ -970,7 +970,7 @@ xyFromLocality <- bdc::bdc_coordinates_from_locality(
   locality = "locality",
   lon = "decimalLongitude",
   lat = "decimalLatitude",
-  save_outputs = TRUE
+  save_outputs = FALSE
 ) 
 ```
 
@@ -2042,3 +2042,8 @@ summaryTable <- BeeBDC::flagSummaryTable(data = beeData,
                                          fileName = "flagTable.csv")
 ```
 
+
+```{r cleanup, include=FALSE}
+# Remove the webpage folder
+unlink(paste0(dirname(getwd()), "/inst/extdata/WebDir"), recursive = TRUE)
+```
