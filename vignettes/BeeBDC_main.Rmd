@@ -549,7 +549,7 @@ Published or unpublished data from Texas literature not in an online database, u
 
 ###### l. Texas Bal
 
-Data with GPS coordinates from Ballare, K. M., Neff, J. L., Ruppel, R. & Jha, S. Multi-scalar drivers of biodiversity: local management mediates wild bee community response to regional urbanization. *Ecological Applications* 29, e01869 (2019), <https://doi.org/10.1002/eap.1869>. The version on Dryad is missing site GPS coordinates (by accident). Kim is okay with these data being made public as long as her paper is referenced. - Elinor Lichtenberg
+Data with GPS coordinates (missing accidentally from records on Dryad) from Ballare, K. M., Neff, J. L., Ruppel, R. & Jha, S. Multi-scalar drivers of biodiversity: local management mediates wild bee community response to regional urbanization. Ecological Applications 29, e01869 (2019), <https://doi.org/10.1002/eap.1869>. The version on Dryad is missing site GPS coordinates (by accident). Kim is okay with these data being made public as long as her paper is referenced. - Elinor Lichtenberg
 
     Bal_Data <- BeeBDC::readr_BeeBDC(dataset = "Bal",
                                    path = paste0(DataPath, "/Additional_Datasets"),
@@ -560,7 +560,7 @@ Data with GPS coordinates from Ballare, K. M., Neff, J. L., Ruppel, R. & Jha, S.
 
 ###### m. Palouse Lic
 
-Attached: My canola data. I tried to get this in DarwinCore format. These data go with a manuscript currently under review. Here’s the bioRxiv version: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J. & Crowder, D. W. Differential effects of soil conservation practices on arthropods and crop yield. *bioRxiv*, https://doi.org/10.1101/2021.1112.1106.471474 (2022) <https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2>. These are the data I will be putting on SCAN. - Elinor Lichtenberg
+Elinor Lichtenberg’s canola data, which go with a manuscript currently under review. preprint: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J. & Crowder, D. W. Differential effects of soil conservation practices on arthropods and crop yield. *bioRxiv*, (2022) <https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2>. These are the data I will be putting on SCAN. - Elinor Lichtenberg
  
     Lic_Data <- BeeBDC::readr_BeeBDC(dataset = "Lic",
                                    path = paste0(DataPath, "/Additional_Datasets"),

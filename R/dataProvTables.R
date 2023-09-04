@@ -49,9 +49,6 @@ dataProvTables <- function(
   if(is.null(data)){
     stop("You must provide an input dataset.")
   }
-  if(is.null(outPath)){
-    stop("You must provide an outPath.")
-  }
   if(is.null(data)){
     stop("You must provide a fileName.")
   }
