@@ -157,7 +157,7 @@ gdal”.</p>
 <pre><code><span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpDewZKU/remotes21f7c02902c/jbdorey-BeeBDC-3b8a0eda8a0ae151021fed6047f9875c9916e1ab/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/RtmpA5GA1s/remotes21ae195bd9af/jbdorey-BeeBDC-1c8a23dad8b18ee8cdd0258fb3bba63e59c3e26a/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -1080,7 +1080,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1168,7 +1168,7 @@ fail-safe.</p>
 <span>    <span class="co"># TRUE if you want to find a file from a previous part of the script to append to</span></span>
 <span>  append <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  - NO .summary column detected. This will added to the data.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Data saved to /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Report/flagsRecorded_2023-09-03.csv</span></span></code></pre>
+<pre><code><span><span class="co">##  - Data saved to /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Report/flagsRecorded_2023-09-04.csv</span></span></code></pre>
 <pre><code><span><span class="co">##  - Selected 14 columns. These include:</span></span>
 <span><span class="co">## database_id, id, catalogNumber, occurrenceID, dataSource, .scientificName_empty, .coordinates_empty, .coordinates_outOfRange, .basisOfRecords_notStandard, .coordinates_country_inconsistent, .occurrenceAbsent, .unLicensed, .GBIFflags, and .summary</span></span></code></pre>
 <p>Update the <em>.summary</em> column</p>
@@ -1878,6 +1878,298 @@ this function is quite modifiable to user needs.</p>
 <span>  idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>, <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>,</span>
 <span>  append <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  printSummary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="data-filtering">8.0 Data filtering<a class="anchor" aria-label="anchor" href="#data-filtering"></a>
+</h2>
+<p>The dataset can be re-read here if it does not already exist.</p>
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_time"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span> <span class="va">check_time</span> <span class="op">&lt;-</span></span>
+<span>   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"04_2_dup_database.csv"</span>,</span>
+<span>                          sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="rm-outliers">8.1 rm Outliers<a class="anchor" aria-label="anchor" href="#rm-outliers"></a>
+</h3>
+<p>Read in the most-recent duplicates file (generated by
+<code><a href="../reference/dupeSummary.html">dupeSummary()</a></code>) in order to identify the duplicates of the
+expert outliers.</p>
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"duplicates"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
+<span>                            fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<p>Identify the outliers and get a list of their database_ids. This
+would require the source outlier files provided with the <a href="https://www.biorxiv.org/content/10.1101/2023.06.30.547152v1" class="external-link">BeeBDC</a>
+paper. These files can further be modified to include more outliers.</p>
+<pre><code><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/manualOutlierFindeR.html">manualOutlierFindeR</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
+<span>  DataPath <span class="op">=</span> <span class="va">DataPath</span>,</span>
+<span>  PaigeOutliersName <span class="op">=</span> <span class="st">"removedBecauseDeterminedOutlier.csv"</span>,</span>
+<span>  newOutliersName <span class="op">=</span> <span class="st">"^All_outliers_ANB_14March.xlsx"</span>,</span>
+<span>  ColombiaOutliers_all <span class="op">=</span> <span class="st">"All_Colombian_OutlierIDs.csv"</span>,</span>
+<span>  <span class="co"># A .csv with manual outlier records that are too close to otherwise TRUE records</span></span>
+<span>  NearTRUE <span class="op">=</span> <span class="st">"nearTRUE.csv"</span>,</span>
+<span>  duplicates <span class="op">=</span> <span class="va">duplicates</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="save-uncleaned">8.2 Save uncleaned<a class="anchor" aria-label="anchor" href="#save-uncleaned"></a>
+</h3>
+<p>Save the uncleaned dataset.</p>
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># Make sure that the .summary column is updated</span></span>
+<span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
+<span>  dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>, <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>, <span class="st">".uncer_terms"</span>,</span>
+<span>                      <span class="st">".uncertaintyThreshold"</span><span class="op">)</span>,</span>
+<span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="co"># Save the uncleaned dataset</span></span>
+<span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
+<span>                                <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_unCleaned_database.csv"</span>,</span>
+<span>                                      sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="filter">8.3 Filter<a class="anchor" aria-label="anchor" href="#filter"></a>
+</h3>
+<p>Now clean the dataset of extra columns and failed rows and then save
+it.</p>
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
+<span>  dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>, <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>, <span class="st">".uncer_terms"</span>,</span>
+<span>                      <span class="st">".uncertaintyThreshold"</span><span class="op">)</span>,</span>
+<span>  <span class="co"># Remove the filtering columns?</span></span>
+<span>  removeFilterColumns <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="co"># Filter to ONLY cleaned data?</span></span>
+<span>  filterClean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="co"># Save this CLEANED dataset</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
+<span>                         sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="figures-and-tables">9.0 Figures and tables<a class="anchor" aria-label="anchor" href="#figures-and-tables"></a>
+</h2>
+<div class="section level3">
+<h3 id="duplicate-chorddiagrams">9.1 Duplicate chordDiagrams<a class="anchor" aria-label="anchor" href="#duplicate-chorddiagrams"></a>
+</h3>
+<p>Install <strong>BiocManager</strong> and
+<strong>ComplexHeatmap</strong> if you missed them at the start.</p>
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, repos <span class="op">=</span> <span class="st">"http://cran.us.r-project.org"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
+<p>Read in the most recent duplicate file, if it’s not already in your
+environment.</p>
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"duplicates"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
+<span>                            fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<p>Choose the global figure parameters.</p>
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Create the chorDiagram. You can leave many of the below values out
+but we show here the defaults. There are [internal] no duplicates in our
+test dataset and so <strong>BeeBDC</strong> will throw an informative
+error. However, we show the full output figure from our bee dataset
+below.</p>
+<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/chordDiagramR.html">chordDiagramR</a></span><span class="op">(</span></span>
+<span>  <span class="co"># The duplicate data from the dupeSummary function output  </span></span>
+<span>  dupeData <span class="op">=</span> <span class="va">duplicates</span>,</span>
+<span>  outPath <span class="op">=</span> <span class="va">OutPath_Figures</span>,</span>
+<span>  fileName <span class="op">=</span> <span class="st">"ChordDiagram.pdf"</span>,</span>
+<span>  <span class="co"># These can be modified to help fit the final pdf that's exported.</span></span>
+<span>  width <span class="op">=</span> <span class="fl">9</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">7.5</span>,</span>
+<span>  bg <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  <span class="co"># How few distinct dataSources should a group have to be listed as "other"</span></span>
+<span>  smallGrpThreshold <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Duplicated record sources"</span>,</span>
+<span>  <span class="co"># The default list of colour palettes to choose from usign the paleteer package</span></span>
+<span>  palettes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cartography::blue.pal"</span>, <span class="st">"cartography::green.pal"</span>, </span>
+<span>               <span class="st">"cartography::sand.pal"</span>, <span class="st">"cartography::orange.pal"</span>, <span class="st">"cartography::red.pal"</span>,</span>
+<span>               <span class="st">"cartography::purple.pal"</span>, <span class="st">"cartography::brown.pal"</span><span class="op">)</span>,</span>
+<span>  canvas.ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.0</span>,<span class="fl">1.0</span><span class="op">)</span>, </span>
+<span>  canvas.xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.6</span>, <span class="fl">0.25</span><span class="op">)</span>,</span>
+<span>  text.col <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  legendX <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">6</span>, <span class="st">"mm"</span><span class="op">)</span>,</span>
+<span>  legendY <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">18</span>, <span class="st">"mm"</span><span class="op">)</span>,</span>
+<span>  legendJustify <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"bottom"</span><span class="op">)</span>,</span>
+<span>  niceFacing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<!-- ![Full chord diagram from Dorey et al. 2023]
+<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left" /> -->
+</div>
+<div class="section level3">
+<h3 id="duplicate-histogram">9.2 Duplicate histogram<a class="anchor" aria-label="anchor" href="#duplicate-histogram"></a>
+</h3>
+<p>Read in the uncleaned dataset, if it’s not already present.</p>
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_time"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">beeData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_unCleaned_database.csv"</span>,</span>
+<span>                                 sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>                           col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="kw">else</span><span class="op">{</span></span>
+<span>  <span class="va">beeData</span> <span class="op">&lt;-</span> <span class="va">check_time</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Create a plot with two bar graphs. One shows the absolute number of
+duplicate records for each data source while the other shows the
+proportion of records that are duplicated within each data source.
+(<em>‘dataSource’</em> is simplified to the text before the first
+underscore).</p>
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dupePlotR.html">dupePlotR</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
+<span>  <span class="co"># The outPath to save the plot as</span></span>
+<span>  outPath <span class="op">=</span> <span class="va">OutPath_Figures</span>,</span>
+<span>  fileName <span class="op">=</span> <span class="st">"duplicatePlot.pdf"</span>,</span>
+<span>  <span class="co"># Colours in order: duplicate, kept duplicate, unique</span></span>
+<span>  dupeColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#F2D2A2"</span>,<span class="st">"#B9D6BC"</span>, <span class="st">"#349B90"</span><span class="op">)</span>,</span>
+<span>  <span class="co"># Plot size and height</span></span>
+<span>  base_height <span class="op">=</span> <span class="fl">7</span>, base_width <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.85</span>, <span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>  <span class="co"># Extra variables can be fed into forcats::fct_recode() to change names on plot</span></span>
+<span>  GBIF <span class="op">=</span> <span class="st">"GBIF"</span>, SCAN <span class="op">=</span> <span class="st">"SCAN"</span>, iDigBio <span class="op">=</span> <span class="st">"iDigBio"</span>, USGS <span class="op">=</span> <span class="st">"USGS"</span>, ALA <span class="op">=</span> <span class="st">"ALA"</span>, </span>
+<span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
+<span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="flags-by-source">9.3 Flags by source<a class="anchor" aria-label="anchor" href="#flags-by-source"></a>
+</h3>
+<p>Create a compound bar plot that shows the proportion of records that
+pass or fail each flag (rows) and for each data source (columns). The
+function can also optionally return a point map for a user-specified
+species when plotMap = TRUE. (<em>dataSource</em> is simplified to the
+text before the first underscore.)</p>
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/plotFlagSummary.html">plotFlagSummary</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
+<span>  <span class="co"># Colours in order of pass (TRUE), fail (FALSE), and NA</span></span>
+<span>  flagColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#127852"</span>, <span class="st">"#A7002D"</span>, <span class="st">"#BDBABB"</span><span class="op">)</span>,</span>
+<span>  fileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"FlagsPlot_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">".pdf"</span><span class="op">)</span>,</span>
+<span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">OutPath_Figures</span><span class="op">)</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">15</span>, height <span class="op">=</span> <span class="fl">9</span>,</span>
+<span>    <span class="co"># OPTIONAL:</span></span>
+<span>      <span class="co">#   # Filter to a single species</span></span>
+<span>      <span class="co">#       speciesName = "Holcopasites heliopsis",</span></span>
+<span>      <span class="co">#         # column to look in</span></span>
+<span>      <span class="co">#       nameColumn = "species",</span></span>
+<span>      <span class="co">#        # Save the filtered data</span></span>
+<span>      <span class="co">#       saveFiltered = TRUE,</span></span>
+<span>      <span class="co">#   # Filter column to display on map</span></span>
+<span>      <span class="co">#       filterColumn = ".summary",</span></span>
+<span>      <span class="co">#       plotMap = TRUE,</span></span>
+<span>      <span class="co">#   # amount to jitter points if desired, e.g. 0.25 or NULL</span></span>
+<span>      <span class="co">#       jitterValue = NULL,</span></span>
+<span>      <span class="co">#        # Map opacity value for points between 0 and 1</span></span>
+<span>      <span class="co">#   mapAlpha = 1,</span></span>
+<span>      <span class="co">#        # If a user wants to output the table used to make the figure, change this to TRUE</span></span>
+<span>      <span class="co">#   saveTable = FALSE,</span></span>
+<span>  <span class="co"># Extra variables can be fed into forcats::fct_recode() to change names on plot</span></span>
+<span>  GBIF <span class="op">=</span> <span class="st">"GBIF"</span>, SCAN <span class="op">=</span> <span class="st">"SCAN"</span>, iDigBio <span class="op">=</span> <span class="st">"iDigBio"</span>, USGS <span class="op">=</span> <span class="st">"USGS"</span>, ALA <span class="op">=</span> <span class="st">"ALA"</span>, </span>
+<span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, <span class="st">'BMont'</span> <span class="op">=</span> <span class="st">"BMont"</span>, <span class="st">'BMin'</span> <span class="op">=</span> <span class="st">"BMin"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
+<span>  Gaiarsa <span class="op">=</span> <span class="st">"Gai"</span>, EPEL <span class="op">=</span> <span class="st">"EPEL"</span>,</span>
+<span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="maps">9.4 Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
+</h3>
+<p>Import CLEANED dataset (you can change this option).</p>
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mapData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
+<span>                                 sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>                           col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="a--summary-maps">a. Summary maps<a class="anchor" aria-label="anchor" href="#a--summary-maps"></a>
+</h4>
+<p>Draw a global summary map for occurrence and species number by
+country.</p>
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryMaps.html">summaryMaps</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">mapData</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  class_n <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  class_Style <span class="op">=</span> <span class="st">"fisher"</span>,</span>
+<span>  fileName <span class="op">=</span> <span class="st">"CountryMaps_fisher.pdf"</span>,</span>
+<span>  outPath <span class="op">=</span> <span class="va">OutPath_Figures</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="b--interactive-maps">b. Interactive maps<a class="anchor" aria-label="anchor" href="#b--interactive-maps"></a>
+</h4>
+<p>Use the occurrence data (preferably uncleaned in order to show
+pass/fail points) and outputs interactive .html maps, that can be opened
+in your browser, to a specific directory. The maps can highlight if an
+occurrence has passed all filtering (<em>.summary</em> == TRUE) or
+failed at least one filter (<em>.summary</em> == FALSE). This can be
+updated by first running <code><a href="../reference/summaryFun.html">summaryFun()</a></code> to choose the columns
+that you want to be highlighted. It will also highlight occurrences
+flagged as expert-identified or country outliers separately. Because the
+function can have any categorical variable fed into ‘speciesColumn’,
+users may choose another column of interest to map; however, very large
+categories can be slow to produce and unwieldy to view.</p>
+<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/interactiveMapR.html">interactiveMapR</a></span><span class="op">(</span></span>
+<span>   <span class="co"># occurrence data</span></span>
+<span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
+<span>   <span class="co"># Directory where to save files</span></span>
+<span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">OutPath_Figures</span>, <span class="st">"interactiveMaps"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
+<span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
+<span>    <span class="co"># Occurrence dataset column with species names</span></span>
+<span>  speciesColumn <span class="op">=</span> <span class="st">"scientificName"</span>,</span>
+<span>    <span class="co"># Which species to map — a character vector of names or "ALL"</span></span>
+<span>    <span class="co"># Note: "ALL" is defined AFTER filtering for country</span></span>
+<span>  speciesList <span class="op">=</span> <span class="st">"ALL"</span>,</span>
+<span>  countryList <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># study area</span></span>
+<span>    <span class="co"># Point jitter to see stacked points — jitters an amount in decimal degrees</span></span>
+<span>  jitterValue <span class="op">=</span> <span class="fl">0.01</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="data-providers">9.5 Data providers<a class="anchor" aria-label="anchor" href="#data-providers"></a>
+</h3>
+<p>Read in the clean data if it’s not already in the environment.</p>
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"mapData"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">mapData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
+<span>                                sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>                          col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/locale.html" class="external-link">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<p>This function will attempt to find and build a table of data
+providers that have contributed to the input data, especially using the
+<em>‘institutionCode’</em> column. It will also look for a variety of
+other columns to find data providers using an internally set sequence of
+if-else statements. Hence, this function is quite specific for bee data,
+but should work for other taxa in similar institutions (perhaps to a
+lesser degree).</p>
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dataProvTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dataProvTables.html">dataProvTables</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mapData</span>,</span>
+<span>                                        runBeeDataChecks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                        outPath <span class="op">=</span> <span class="va">OutPath_Report</span>,</span>
+<span>                                        fileName <span class="op">=</span> <span class="st">"dataProvTable.csv"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="flag-summary">9.6 Flag summary<a class="anchor" aria-label="anchor" href="#flag-summary"></a>
+</h3>
+<p>Takes a flagged dataset and returns the total number of fails (FALSE)
+per flag (columns starting with “.”) and per species. Users may define
+the column to group the summary by. While it is intended to work with
+the <em>scientificName</em> column, users may select any grouping column
+(e.g., <em>country</em>).</p>
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">summaryTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagSummaryTable.html">flagSummaryTable</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">beeData</span>, </span>
+<span>                                         column <span class="op">=</span> <span class="st">"scientificName"</span>, </span>
+<span>                                         outPath <span class="op">=</span> <span class="va">OutPath_Report</span>,</span>
+<span>                                         fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
