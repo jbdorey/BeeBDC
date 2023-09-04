@@ -78,7 +78,8 @@ knitr::opts_chunk$set(error = TRUE,
                       eval = TRUE, 
                       tidy = TRUE, 
                       warning = FALSE,
-                      root.dir = normalizePath(paste0(dirname(getwd()), "/inst/extdata/WebDir")))
+                      root.dir = normalizePath(paste0(dirname(getwd()), "/inst/extdata/WebDir")),
+                      collapse = TRUE)
 ```
 
 
