@@ -32,7 +32,7 @@
 #'
 #' @examples
 #' # Get the example data
-#' data("beesRaw", package = "BeeBDC)
+#' data("beesRaw", package = "BeeBDC")
 #' # Which datasets are static and should be excluded from matching?
 #' excludeDataset <- c("BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
 #'                     "Gai", "KP", "EPEL", "USGS", "FSCA", "SMC", "Bal", "Lic", "Arm", "BBD", 

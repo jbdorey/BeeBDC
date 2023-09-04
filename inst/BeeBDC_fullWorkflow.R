@@ -913,8 +913,6 @@ check_space <- BeeBDC::diagonAlley(
   minRepeats = 4,
   mc.cores = 1)
 
-data <- beeData[1:1000000,]
-
 # SPATIAL gridding from rasterisation:
 # Select only the records with more than X occurrences
 griddingDF <- check_space %>%

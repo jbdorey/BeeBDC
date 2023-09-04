@@ -37,23 +37,22 @@ this column somewhat consistent between iterations. However, not all records con
 information for this to work flawlessly.
 }
 \examples{
-
+# Get the example data
+data("beesRaw", package = "BeeBDC")
 # Which datasets are static and should be excluded from matching?
 excludeDataset <- c("BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
                     "Gai", "KP", "EPEL", "USGS", "FSCA", "SMC", "Bal", "Lic", "Arm", "BBD", 
                     "MEPB")
   # Match the data to itself just as an example of running the code.
 beesRaw_out <- idMatchR(
-  currentData = BeeBDC::beesRaw,
-  priorData = BeeBDC::beesRaw,
+  currentData = beesRaw,
+  priorData = beesRaw,
   # First matches will be given preference over later ones
   matchBy = dplyr::lst(c("gbifID"),
                         c("catalogNumber", "institutionCode", "dataSource"),
                         c("occurrenceID", "dataSource"),
                         c("recordId", "dataSource"),
                         c("id"),
-                        # Because INHS was entered as it's own dataset but is now included in 
-                          # the GBIF download...
                         c("catalogNumber", "institutionCode")),
   # You can exclude datasets from prior by matching their prefixs - before first underscore:
   excludeDataset = excludeDataset)
