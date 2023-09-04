@@ -63,10 +63,8 @@ options(mc.cores = parallel::detectCores())
 
 ```{r extraPackages, include = FALSE}
 install.packages("maps", repos = "http://cran.us.r-project.org")
-install.packages("sp", repos = "http://cran.us.r-project.org")
 
 library(maps)
-library(sp)
 ```
 
 ```{r secretRootPath, include=FALSE}
@@ -1775,7 +1773,7 @@ Identify the outliers and get a list of their database_ids. This would require t
 
 Save the uncleaned dataset.
 
-```{r 8.2, eval = TRUE}
+```{r 8.2, eval = FALSE}
   # Make sure that the .summary column is updated
 check_time <- BeeBDC::summaryFun(
   data = check_time,
@@ -1869,7 +1867,7 @@ BeeBDC::chordDiagramR(
 ## 9.2 Duplicate histogram 
 
 Read in the uncleaned dataset, if it's not already present.
-```{r 9.2, eval = TRUE}
+```{r 9.2, eval = FALSE}
 if(!exists("check_time")){
 beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                  sep = "/"),
