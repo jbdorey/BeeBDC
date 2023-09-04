@@ -8,7 +8,9 @@ flagSummaryTable(
   data = NULL,
   column = "scientificName",
   outPath = OutPath_Report,
-  fileName = "flagTable.csv"
+  fileName = "flagTable.csv",
+  percentImpacted = TRUE,
+  percentThreshold = 0
 )
 }
 \arguments{
@@ -22,6 +24,13 @@ Default = OutPath_Report. If is NULL then no file will be saved to the disk.}
 
 \item{fileName}{Character. The name of the file to be saved, ending in ".csv".
 Default = "flagTable.csv".}
+
+\item{percentImpacted}{Logical. If TRUE (the default), the program will write the percentage of
+species impacted and over the percentThreshold for each flagging column.}
+
+\item{percentThreshold}{Numeric. A number between 0 and 100 to indicate the percent of
+individuals (≥; within each species) that is impacted by a flag, and to be included in the
+percentImpacted. Default = 0.}
 }
 \value{
 A tibble with a column for each flag column (starting with ".") showing the number of
@@ -30,7 +39,8 @@ number of failed records, and (iii) the percentage of failed records.
 }
 \description{
 Takes a flagged dataset and returns the total number of fails (FALSE) per flag (columns starting
-with ".") and per species.
+with ".") and per species. It will ignore the .scientificName_empty and .invalidName columns as
+species are not assigned.
 Users may define the column to group the summary by. While it is intended to work with
 the scientificName column, users may select any grouping column (e.g., country).
 }

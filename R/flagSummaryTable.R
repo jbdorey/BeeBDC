@@ -2,7 +2,8 @@
 #' Build a per-species summary for each and all flags
 #' 
 #' Takes a flagged dataset and returns the total number of fails (FALSE) per flag (columns starting
-#' with ".") and per species.
+#' with ".") and per species. It will ignore the .scientificName_empty and .invalidName columns as 
+#' species are not assigned.
 #' Users may define the column to group the summary by. While it is intended to work with 
 #' the scientificName column, users may select any grouping column (e.g., country).
 #'
@@ -13,6 +14,11 @@
 #' Default = OutPath_Report. If is NULL then no file will be saved to the disk.
 #' @param fileName Character. The name of the file to be saved, ending in ".csv". 
 #' Default = "flagTable.csv".
+#' @param percentImpacted Logical. If TRUE (the default), the program will write the percentage of 
+#' species impacted and over the percentThreshold for each flagging column.
+#' @param percentThreshold Numeric. A number between 0 and 100 to indicate the percent of 
+#' individuals (≥; within each species) that is impacted by a flag, and to be included in the 
+#' percentImpacted. Default = 0.
 #' 
 #' @importFrom dplyr %>%
 #'
@@ -36,7 +42,9 @@ flagSummaryTable <- function(
     data = NULL,
     column = "scientificName",
     outPath = OutPath_Report,
-    fileName = "flagTable.csv"){
+    fileName = "flagTable.csv",
+    percentImpacted = TRUE,
+    percentThreshold = 0){
   # locally bind variables to the function
   flagColumns <- dataFlags <- speciesColumn <- loopCol <- summaryColumn <- . <- NULL
   flagCol <- .summary <- totalFailed <- totalFailed <- total <- OutPath_Report <- NULL
@@ -54,6 +62,10 @@ flagSummaryTable <- function(
   if(is.null(data)){
     stop(" - Please provide an argument for data. I'm a program not a magician.")
   }
+  if(percentThreshold > 100 | percentThreshold < 0){
+    stop(" - percentThreshold must range from 0 to 100.")
+  }
+  
   
   #### 1.0 Data prep ####
     # Filter for bad names to not include in the table
@@ -126,6 +138,24 @@ summaryColumn <- speciesColumn %>%
   dplyr::relocate(totalFailed, .after = total) %>%
     # Add percentage failed
   dplyr::mutate(percentFailed = (totalFailed/total)*100)
+
+if(percentImpacted == TRUE){
+  # Turn the percentThreshold into a proportion instead of a percentage
+  percentThreshold <- percentThreshold/100
+  # Get the percentages of species that are impacted by each flag
+percentImpacted <- summaryColumn %>%
+  dplyr::summarise(dplyr::across(tidyselect::starts_with("."), 
+                                 function(x){
+                                   sum(x/total >= percentThreshold)/length(x)*100
+                                 })) %>%
+    # Transpose the tibble
+  tidyr::pivot_longer(cols = tidyselect::starts_with("."))
+    # Provide use output
+writeLines(paste0("The percentages of species impacted by each flag in your analysis are as follows: \n",
+       paste0("  ", percentImpacted$name, " = ", round(percentImpacted$value, 2), "%", 
+              collapse = "\n"))
+       ) # END  writeLines
+  } # END percentImpacted == TRUE
 
 
   #### 4.0 Output ####
