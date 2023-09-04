@@ -5,6 +5,9 @@ title: "BeeBDC"
 template:
   params:
     bootswatch: spacelab
+    
+development:
+  mode: auto
 
 navbar:
   left:
