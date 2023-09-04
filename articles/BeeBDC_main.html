@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeeBDC vignette • BeeBDC</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/darkly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/solar/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -178,7 +178,7 @@ gdal”.</p>
 <span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpdNtRG5/remotes21757f562e0/jbdorey-BeeBDC-c77894db281e6042001fa985ebbdcec1a2f0623b/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/Rtmptfqq74/remotes21c92165e0da/jbdorey-BeeBDC-03a8b53bdb7ff45c89df802c9aacd1e022969610/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -1592,7 +1592,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 0.11 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.1 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1747,7 +1747,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.24613881111145 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.255310297012329 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -2293,7 +2293,24 @@ the <em>scientificName</em> column, users may select any grouping column
 <span><span class="co">##  - We will flag all columns starting with '.'</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
 <span><span class="co">## Flagged 113 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
+<span><span class="co">##   The .summary column was added to the database.</span></span>
+<span><span class="co">## The percentages of species impacted by each flag in your analysis are as follows: </span></span>
+<span><span class="co">##   .coordinates_empty = 100%</span></span>
+<span><span class="co">##   .coordinates_outOfRange = 100%</span></span>
+<span><span class="co">##   .basisOfRecords_notStandard = 100%</span></span>
+<span><span class="co">##   .coordinates_country_inconsistent = 100%</span></span>
+<span><span class="co">##   .occurrenceAbsent = 100%</span></span>
+<span><span class="co">##   .unLicensed = 100%</span></span>
+<span><span class="co">##   .GBIFflags = 100%</span></span>
+<span><span class="co">##   .uncer_terms = 100%</span></span>
+<span><span class="co">##   .rou = 100%</span></span>
+<span><span class="co">##   .sequential = 100%</span></span>
+<span><span class="co">##   .uncertaintyThreshold = 100%</span></span>
+<span><span class="co">##   .countryOutlier = 100%</span></span>
+<span><span class="co">##   .sea = 100%</span></span>
+<span><span class="co">##   .eventDate_empty = 100%</span></span>
+<span><span class="co">##   .year_outOfRange = 100%</span></span>
+<span><span class="co">##   .duplicates = 100%</span></span></code></pre></div>
 </div>
 </div>
   </div>
