@@ -911,7 +911,7 @@ check_space <- BeeBDC::diagonAlley(
   data = check_time,
   # The minimum number of repeats needed to find a sequence in for flagging
   minRepeats = 4,
-  mc.cores = 8)
+  mc.cores = 4)
 
 # SPATIAL gridding from rasterisation:
 # Select only the records with more than X occurrences
@@ -1261,7 +1261,7 @@ check_time <- manualOutlierFindeR(
 check_time <- summaryFun(
   data = check_time,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
-                      ".uncertaintyThreshold", ".sequential"),
+                      ".uncertaintyThreshold", ".sequential", ".year_outOfRange"),
   removeFilterColumns = FALSE,
   filterClean = FALSE)
 # Save the uncleaned dataset
@@ -1274,7 +1274,7 @@ check_time %>% readr::write_excel_csv(.,
 cleanData <- BeeBDC::summaryFun(
   data = check_time,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
-                      ".uncertaintyThreshold", ".sequential"),
+                      ".uncertaintyThreshold", ".sequential", ".year_outOfRange"),
   # Remove the filtering columns?
   removeFilterColumns = TRUE,
   # Filter to ONLY cleaned data?
