@@ -31,7 +31,6 @@ library(bdc)
 library(CoordinateCleaner)
 library(dplyr)
 library(readr)
-library(vroom)
 library(stringr)
 library(lubridate)
 library(tidyselect)
@@ -64,11 +63,6 @@ library(checkmate)
 options(mc.cores = parallel::detectCores())
 ```
 
-```{r extraPackages, include = FALSE}
-install.packages("maps", repos = "http://cran.us.r-project.org")
-
-library(maps)
-```
 
 ```{r secretRootPath, include=FALSE}
   # Use here::i_am to set the root directory
@@ -988,7 +982,7 @@ xyFromLocality <- bdc::bdc_coordinates_from_locality(
 
 
 Remove spent data.
-```{r 3.9ii, eval = FALSE}
+```{r 3.9iii, eval = FALSE}
 rm(xyFromLocality)
 ```
 

@@ -26,18 +26,18 @@ testthat::test_that("flagSummaryTable expected class", {
 
 # Test 100% fails size
 testthat::test_that("flagSummaryTable 100% failed size test", {
-  testthat::expect_equal(fails100, 67)
+  testthat::expect_equal(fails100, 64)
 })
 testthat::test_that("flagSummaryTable 0% failed size test", {
   testthat::expect_equal(fails0, 15)
 })
 
 # Test number of filtering columns
-testthat::test_that("flagSummaryTable test the numbero of flag columns in and out are equal. Excluding '.summary'", {
+testthat::test_that("flagSummaryTable test the number of flag columns in and out are equal, minus two. Excluding '.summary'", {
   testthat::expect_equal(colnames(beesFlagged %>% 
                                     dplyr::select(tidyselect::starts_with(".")) %>%
                                     dplyr::select(!tidyselect::any_of(".summary"))) %>%
-                           length, 
+                           length - 2, 
                          colnames(flagTibble %>% 
                                     dplyr::select(tidyselect::starts_with(".")) %>%
                                     dplyr::select(!tidyselect::any_of(".summary"))) %>%

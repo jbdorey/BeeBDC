@@ -41,6 +41,7 @@ flagSummaryTable <- function(
   # locally bind variables to the function
   flagColumns <- dataFlags <- speciesColumn <- loopCol <- summaryColumn <- . <- NULL
   flagCol <- .summary <- totalFailed <- totalFailed <- total <- OutPath_Report <- NULL
+  .scientificName_empty <- .invalidName <- NULL
   
   # Load required packages
   requireNamespace("dplyr")
