@@ -78,8 +78,7 @@ knitr::opts_chunk$set(error = TRUE,
                       eval = TRUE, 
                       tidy = TRUE, 
                       warning = FALSE,
-                      root.dir = normalizePath(paste0(dirname(getwd()), "/inst/extdata/WebDir")),
-                      collapse = TRUE)
+                      root.dir = normalizePath(paste0(dirname(getwd()), "/inst/extdata/WebDir")))
 ```
 
 
@@ -91,7 +90,7 @@ Choose the path to the root folder in which all other folders can be found.
 RootPath <- paste0("/your/path/here")
 ```
 
-```{r CreateRootPath, warning=FALSE}
+```{r CreateRootPath, warning=FALSE, collapse = TRUE}
   # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -109,7 +108,7 @@ packages, you can install renv...
  
             renv::init(project = paste0(RootPath,"/Data_acquisition_workflow")) 
   If you have already initialised a project, you can instead just activate it.
-```{r activate}
+```{r activate, collapse = TRUE}
 renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 ```
 
@@ -118,7 +117,7 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 You may need to install gdal on your computer. This can be done on a Mac by using Homebrew in the terminal and the command "brew install gdal". 
 
 To start out, you will need to install **BiocManager**, **devtools**, **ComplexHeatmap**, and **rnaturalearthhires** to then install and fully use **BeeBDC**.
-```{r installPackages, message=FALSE, warning=FALSE, results=FALSE}
+```{r installPackages, message=FALSE, warning=FALSE, results=FALSE, collapse = TRUE}
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 
@@ -138,7 +137,7 @@ library(rnaturalearthhires)
    
    Now install **BeeBDC**.
 
-```{r installBeeBDC, results=TRUE, message=TRUE, eval = TRUE}
+```{r installBeeBDC, results=TRUE, message=TRUE, eval = TRUE, collapse = TRUE}
 devtools::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main", 
                         force = FALSE,
                         auth_token = "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")
@@ -148,14 +147,14 @@ library(BeeBDC)
   
   Snapshot the renv environment.
   
-```{r snapshot}
+```{r snapshot, collapse = TRUE}
 renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"),
                  prompt = FALSE)
 ```
       
   Set up the directories used by BeeBDC. These directories include where the data, figures, reports, etc. will be saved. The RDoc needs to be a path RELATIVE to the RootPath; i.e., the file path from which the two diverge.
   
-```{r dirMaker}
+```{r dirMaker, collapse = TRUE}
 BeeBDC::dirMaker(
     RootPath = RootPath,
     RDoc = "vignettes/BeeBDC_main.Rmd") %>%
@@ -167,7 +166,7 @@ BeeBDC::dirMaker(
       
 Load packages.
 
-```{r lapply_library, results=FALSE}
+```{r lapply_library, results=FALSE, collapse = TRUE}
 lapply(c("ComplexHeatmap", "magrittr"), 
        library, character.only = TRUE)
 ```
@@ -688,7 +687,7 @@ Read data back in if needed. OutPath_Intermediate (and a few other directories) 
                                         sep = "/"), col_types = BeeBDC::ColTypeR())}
 
 
-```{r 3.0}
+```{r 3.0, collapse = TRUE}
 data("bees3sp", package = "BeeBDC")
 data("beesRaw", package = "BeeBDC")
 db_standardized <- dplyr::bind_rows(beesRaw, 
@@ -706,7 +705,7 @@ db_standardized <- dplyr::bind_rows(beesRaw,
 
 Flag occurrences without *scientificName* provided.
 
-```{r 3.1}
+```{r 3.1, collapse = TRUE}
 check_pf <- bdc::bdc_scientificName_empty(
   data = db_standardized,
   sci_name = "scientificName")
@@ -719,7 +718,7 @@ rm(db_standardized)
 
 Flag occurrences with missing *decimalLatitude* and *decimalLongitude*.
 
-```{r 3.2}
+```{r 3.2, collapse = TRUE}
 check_pf <- bdc::bdc_coordinates_empty(
   data = check_pf,
   lat = "decimalLatitude",
@@ -730,7 +729,7 @@ check_pf <- bdc::bdc_coordinates_empty(
 
 Flag occurrences that are not on Earth (outside of -180 to 180 or -90 to 90 degrees).
 
-```{r 3.3}
+```{r 3.3, collapse = TRUE}
 check_pf <- bdc::bdc_coordinates_outOfRange(
   data = check_pf,
   lat = "decimalLatitude",
@@ -741,7 +740,7 @@ check_pf <- bdc::bdc_coordinates_outOfRange(
 
 Flag occurrences that don't match the *basisOfRecord* types below.
 
-```{r 3.4}
+```{r 3.4, collapse = TRUE}
 check_pf <- bdc::bdc_basisOfRecords_notStandard(
   data = check_pf,
   basisOfRecord = "basisOfRecord",
@@ -787,7 +786,7 @@ Try to harmonise country names.
 Fix up country names based on common problems above and extract ISO2 codes for occurrences.
 
 
-```{r 3.5a}
+```{r 3.5a, collapse = TRUE}
 check_pf_noNa <- BeeBDC::countryNameCleanR(
   data = check_pf,
     # Create a Tibble of common issues in country names and their replacements
@@ -808,7 +807,7 @@ check_pf_noNa <- BeeBDC::countryNameCleanR(
 Get country name from coordinates using a wrapper around the `jbd_country_from_coordinates()` function. Because our dataset is much larger than those used to design **bdc**, we have made it so that you can analyse data in smaller pieces. Additionally, like some other functions in **BeeBDC**, we have implemented parallel operations (using mc.cores = #cores in stepSize = #rowsPerOperation); see '?`jbd_CfC_chunker()`' for details. 
 NOTE: In an actual run you should use scale = "large"
 
-```{r 3.5b, message=FALSE, warning=FALSE}
+```{r 3.5b, message=FALSE, warning=FALSE, collapse = TRUE}
 suppressWarnings(
   countryOutput <- BeeBDC::jbd_CfC_chunker(data = check_pf_noNa,
                                    lat = "decimalLatitude",
@@ -831,7 +830,7 @@ suppressWarnings(
 
 Join these datasets.
 
-```{r 3.5ci}
+```{r 3.5ci, collapse = TRUE}
 check_pf <- dplyr::left_join(check_pf, 
                              countryOutput, 
                              by = "database_id",
@@ -846,7 +845,7 @@ check_pf <- dplyr::left_join(check_pf,
 
 Save the dataset.
 
-```{r 3.5cii, eval = FALSE}
+```{r 3.5cii, eval = FALSE, collapse = TRUE}
 check_pf %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
@@ -855,7 +854,7 @@ check_pf %>%
 
 Read in if needed. 
 
-```{r 3.5ciii, eval = FALSE}
+```{r 3.5ciii, eval = FALSE, collapse = TRUE}
 if(!exists("check_pf")){
 check_pf <- readr::read_csv(paste(DataPath, 
              "Output", "Intermediate", "01_prefilter_database.csv", sep = "/"),
@@ -864,7 +863,7 @@ check_pf <- readr::read_csv(paste(DataPath,
 
 Remove these interim datasets.
 
-```{r 3.5civ}
+```{r 3.5civ, collapse = TRUE}
 rm(check_pf_noNa, countryOutput)
 ```
 
@@ -872,7 +871,7 @@ rm(check_pf_noNa, countryOutput)
 
 Run the function, which standardises country names and adds ISO2 codes, if needed.
 
-```{r 3.6}
+```{r 3.6, collapse = TRUE}
   # Standardise country names and add ISO2 codes if needed
 check_pf <- bdc::bdc_country_standardized(
   # Remove the countryCode and country_suggested columns to avoid an error with 
@@ -888,7 +887,7 @@ check_pf <- bdc::bdc_country_standardized(
 Flag and correct records when *decimalLatitude* and *decimalLongitude* appear to be transposed. We created this chunked version of  `bdc::bdc_coordinates_transposed()` because it is very RAM-heavy using our large bee dataset. Like many of our other 'jbd_...' functions there are other improvements - e.g., parallel running. 
 NOTE: Usually you would use scale = "large", which requires rnaturalearthhires
 
-```{r 3.7, message=FALSE, warning=FALSE}
+```{r 3.7, message=FALSE, warning=FALSE, collapse = TRUE}
 check_pf <- BeeBDC::jbd_Ctrans_chunker(
   # bdc_coordinates_transposed inputs
   data = check_pf,
@@ -914,13 +913,13 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
 
 Get a quick summary of the number of transposed records.
 
-```{r 3.7ii, eval = FALSE}
+```{r 3.7ii, eval = FALSE, collapse = TRUE}
 table(check_pf$coordinates_transposed, useNA = "always")
 ```
 
 Save the dataset.
 
-```{r 3.7iii, eval = FALSE}
+```{r 3.7iii, eval = FALSE, collapse = TRUE}
 check_pf %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
@@ -930,7 +929,7 @@ check_pf %>%
 
 Read the data in again if needed.
 
-```{r 3.7iv, eval = FALSE}
+```{r 3.7iv, eval = FALSE, collapse = TRUE}
 if(!exists("check_pf")){
   check_pf <- readr::read_csv(paste(OutPath_Intermediate, "01_prefilter_database.csv",
                                     sep = "/"))}
@@ -941,7 +940,7 @@ if(!exists("check_pf")){
 
 Collect all country names in the *country_suggested* column. We rebuilt a **bdc** function to flag occurrences where the coordinates are inconsistent with the provided country name.
 
-```{r 3.8}
+```{r 3.8, collapse = TRUE}
 check_pf <- BeeBDC::jbd_coordCountryInconsistent(
   data = check_pf,
   lon = "decimalLongitude",
@@ -962,7 +961,7 @@ check_pf %>%
 
 This function identifies records whose coordinates can potentially be extracted from locality information, which must be manually checked later.
 
-```{r 3.9, eval = TRUE}
+```{r 3.9, eval = TRUE, collapse = TRUE}
 xyFromLocality <- bdc::bdc_coordinates_from_locality(
   data = check_pf,
   locality = "locality",
@@ -988,7 +987,7 @@ rm(xyFromLocality)
 
 Flag the records marked as "absent".
 
-```{r 3.10}
+```{r 3.10, collapse = TRUE}
 check_pf <- BeeBDC::flagAbsent(data = check_pf,
                    PresAbs = "occurrenceStatus")
 ```
@@ -997,7 +996,7 @@ check_pf <- BeeBDC::flagAbsent(data = check_pf,
 
 Flag the records that may not be used according to their license information.
 
-```{r 3.11}
+```{r 3.11, collapse = TRUE}
 check_pf <- BeeBDC::flagLicense(data = check_pf,
                     strings_to_restrict = "all",
                     # DON'T flag if in the following dataSource(s)
@@ -1008,7 +1007,7 @@ check_pf <- BeeBDC::flagLicense(data = check_pf,
 
 Flag select issues that are flagged by GBIF.
 
-```{r 3.12}
+```{r 3.12, collapse = TRUE}
 check_pf <- BeeBDC::GBIFissues(data = check_pf, 
                    issueColumn = "issue", 
                    GBIFflags = c("COORDINATE_INVALID", "ZERO_COORDINATE")) 
@@ -1034,7 +1033,7 @@ flagFile <- BeeBDC::flagRecorder(
 
 Update the *.summary* column
 
-```{r 3.13b}
+```{r 3.13b, collapse = TRUE}
 check_pf <- BeeBDC::summaryFun(
   data = check_pf,
     # Don't filter these columns (or NULL)
@@ -1077,7 +1076,7 @@ check_pf %>%
 
 Read in the filtered dataset or rename the 3.x dataset for 4.0.
 
-```{r 4.0}
+```{r 4.0, collapse = TRUE}
 if(!exists("check_pf")){
 database <-
   readr::read_csv( paste(OutPath_Intermediate, "01_prefilter_output.csv",
@@ -1091,7 +1090,7 @@ database <-
 
 Remove *names_clean* if it already exists (i.e. you have run the following functions before on this dataset before).
 
-```{r 4.0ii}
+```{r 4.0ii, collapse = TRUE}
 			database <- database %>%
 			  dplyr::select(!tidyselect::any_of("names_clean"))
 ```
@@ -1112,14 +1111,14 @@ This can be difficult for a Windows install. Ensure you have the most recent ver
 </div>			
 
 
-```{r 4.1, eval = TRUE}
+```{r 4.1, eval = TRUE, collapse = TRUE}
 parse_names <-
   bdc::bdc_clean_names(sci_names = database$scientificName, save_outputs = FALSE)
 ```
 
 Keep only the *.uncer_terms* and *names_clean* columns.
 
-```{r 4.1ii}
+```{r 4.1ii, collapse = TRUE}
 parse_names <-
   parse_names %>%
   dplyr::select(.uncer_terms, names_clean)
@@ -1127,7 +1126,7 @@ parse_names <-
 
 Merge names with the complete dataset.
 
-```{r 4.1iii}
+```{r 4.1iii, collapse = TRUE}
 database <- dplyr::bind_cols(database, parse_names)
 rm(parse_names)
 ```
@@ -1136,7 +1135,7 @@ rm(parse_names)
 
 Read in the custom taxonomy file from the BeeBDC package and [Discover Life](http://discoverlife.org) website.
 
-```{r 4.2}
+```{r 4.2, collapse = TRUE}
 data("beesTaxonomy", package = "BeeBDC")
 ```
 
@@ -1144,7 +1143,7 @@ data("beesTaxonomy", package = "BeeBDC")
 Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](http://discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
 
 
-```{r 4.2ii}
+```{r 4.2ii, collapse = TRUE}
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
                        taxonomy = beesTaxonomy, # The formatted taxonomy file
                        data = database,
@@ -1154,7 +1153,7 @@ database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the o
 
 You don't need this file any more...
 
-```{r 4.2iii}
+```{r 4.2iii, collapse = TRUE}
 rm(beesTaxonomy)
 ```
 
@@ -1162,7 +1161,7 @@ rm(beesTaxonomy)
 
 Save the harmonised file.
 
-```{r 4.2iv, eval = FALSE}
+```{r 4.2iv, eval = FALSE, collapse = TRUE}
 database %>%
   readr::write_excel_csv(.,
                    paste(DataPath, "Output", "Intermediate", "02_taxonomy_database.csv",
@@ -1173,7 +1172,7 @@ database %>%
 
 Save the flags so far. This will find the most-recent flag file and append your new data to it. You can double-check the data and number of columns if you'd like to be thorough and sure that all of data are intact.
 
-```{r 4.3, eval = FALSE}
+```{r 4.3, eval = FALSE, collapse = TRUE}
 flagFile <- BeeBDC::flagRecorder(
   data = database,
   outPath = paste(OutPath_Report, sep =""),
@@ -1187,7 +1186,7 @@ flagFile <- BeeBDC::flagRecorder(
 
 Read in the latest database.
 
-```{r 5.0}
+```{r 5.0, collapse = TRUE}
 if(!exists("database")){
 database <-
   readr::read_csv(paste(OutPath_Intermediate, "02_taxonomy_database.csv", sep = "/"),
@@ -1198,7 +1197,7 @@ database <-
 This function identifies records with a coordinate precision below a specified number of decimal places. For example, the precision of a coordinate with 1 decimal place is 11.132 km at the equator, i.e., the scale of a large city. The major difference between the **bdc** and **BeeBDC** functions is that `jbd_coordinates_precision()` will only flag occurrences if BOTH latitude and longitude are rounded (as opposed to only one of these).
 Coordinates with one, two, or three decimal places present a precision of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.
 
-```{r 5.1}
+```{r 5.1, collapse = TRUE}
 check_space <-
   BeeBDC::jbd_coordinates_precision(
     data = database,
@@ -1210,13 +1209,13 @@ check_space <-
 
 Remove the spent dataset.
 
-```{r 5.1ii}
+```{r 5.1ii, collapse = TRUE}
 rm(database)
 ```
 
 Save the resulting file.
 
-```{r 5.1iii, eval = FALSE}
+```{r 5.1iii, eval = FALSE, collapse = TRUE}
 check_space %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_inter_database.csv",
@@ -1227,7 +1226,7 @@ check_space %>%
 
 Only run for occurrences through `clean_coordinates()` that are spatially 'valid'. 
 
-```{r 5.2, eval = FALSE}
+```{r 5.2, eval = FALSE, collapse = TRUE}
 tempSpace <- check_space %>% 
   dplyr::filter(!.coordinates_empty == FALSE) %>%
   dplyr::filter(!.coordinates_outOfRange == FALSE)
@@ -1235,7 +1234,7 @@ tempSpace <- check_space %>%
 
 Next, we will flag common spatial issues using functions of the package **CoordinateCleaner**. It addresses some common issues in biodiversity datasets.
 
-```{r 5.2ii, message=TRUE, warning=FALSE, eval = FALSE}
+```{r 5.2ii, message=TRUE, warning=FALSE, eval = FALSE, collapse = TRUE}
 tempSpace <-
   CoordinateCleaner::clean_coordinates(
     x =  tempSpace,
@@ -1274,7 +1273,7 @@ tempSpace <-
 
 Re-merge the datasets.
 
-```{r 5.2iii, eval = FALSE}
+```{r 5.2iii, eval = FALSE, collapse = TRUE}
 check_space <- tempSpace %>%
   # Re-bind with the records that were removed earlier
   dplyr::bind_rows(check_space %>% 
@@ -1283,13 +1282,13 @@ check_space <- tempSpace %>%
 ```
 
 Remove the temporary dataset.
-```{r 5.2iv, eval = FALSE}
+```{r 5.2iv, eval = FALSE, collapse = TRUE}
 rm(tempSpace)
 ```
 
 Save the intermediate dataset.
 
-```{r 5.2v, eval = FALSE}
+```{r 5.2v, eval = FALSE, collapse = TRUE}
 check_space %>%
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
@@ -1299,7 +1298,7 @@ check_space %>%
 
 Finds sequential numbers that could be fill-down errors in lat and long, and groups by the 'groupingColumns'. This is accomplished by using a sliding window with the length determined by minRepeats. Only coordinates of precision 'ndec' (number of decimals in decimal degree format) will be examined. Note, that this function is very RAM-intensive and so the use of multiple threads should be approached with caution depending on your dataset. However, the option is provided.
 
-```{r 5.3}
+```{r 5.3, collapse = TRUE}
 check_space <- BeeBDC::diagonAlley(
   data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
@@ -1311,7 +1310,7 @@ check_space <- BeeBDC::diagonAlley(
 
 Spatial gridding from rasterisation: Select only the records with more than X occurrences.
 
-```{r 5.3ii}
+```{r 5.3ii, collapse = TRUE}
 griddingDF <- check_space %>%
   # Exclude NA lat and lon values
   tidyr::drop_na(c("decimalLatitude", "decimalLongitude")) %>%
@@ -1328,7 +1327,7 @@ griddingDF <- check_space %>%
 
 Run the gridding analysis to find datasets that might be gridded.
 
-```{r 5.3iii, eval = FALSE}
+```{r 5.3iii, eval = FALSE, collapse = TRUE}
 gridded_datasets <- CoordinateCleaner::cd_round(
   x = griddingDF,
   lon = "decimalLongitude",
@@ -1351,7 +1350,7 @@ rm(griddingDF)
 
 Integrate these results with the main dataset.
 
-```{r 5.3iv, eval = FALSE}
+```{r 5.3iv, eval = FALSE, collapse = TRUE}
 check_space <- check_space %>%
   # Join the datasets
   dplyr::left_join(
@@ -1368,7 +1367,7 @@ check_space <- check_space %>%
 
 Save the gridded_datasets file for later examination.
 
-```{r 5.3 v, eval = FALSE}
+```{r 5.3 v, eval = FALSE, collapse = TRUE}
 gridded_datasets %>%
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_griddedDatasets.csv",
                          sep = "/"))
@@ -1376,7 +1375,7 @@ gridded_datasets %>%
 
 Now remove this file.
 
-```{r 5.3vi, eval = FALSE}
+```{r 5.3vi, eval = FALSE, collapse = TRUE}
 rm(gridded_datasets)
 ```
 
@@ -1384,7 +1383,7 @@ rm(gridded_datasets)
 
 Flag records that exceed a *coordinateUncertaintyInMeters* threshold.
 
-```{r 5.4}
+```{r 5.4, collapse = TRUE}
 check_space <- coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
@@ -1396,12 +1395,12 @@ This step identifies mismatches between the [Discover Life](http://discoverlife.
 
 Read in the country-level checklist.
 
-```{r 5.5}
+```{r 5.5, collapse = TRUE}
 data("beesChecklist", package = "BeeBDC")
 ```
 
 
-```{r 5.5ii}
+```{r 5.5ii, collapse = TRUE}
 check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                         data = check_space,
                         keepAdjacentCountry = TRUE,
@@ -1413,7 +1412,7 @@ check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                         mc.cores = 1)
 ```
 
-```{r 5.5iii, eval = FALSE}
+```{r 5.5iii, eval = FALSE, collapse = TRUE}
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%
@@ -1432,7 +1431,7 @@ Assemble maps of potential spatial errors and outliers, either one flag at a tim
 
 Rebuild the *.summary* column.
 
-```{r 5.6, eval = FALSE}
+```{r 5.6, eval = FALSE, collapse = TRUE}
 check_space <- BeeBDC::summaryFun(
   data = check_space,
   dontFilterThese = NULL,
@@ -1443,7 +1442,7 @@ check_space <- BeeBDC::summaryFun(
 
 Use col_to_map in order to map ONE spatial flag at a time or map the *.summary* column for all flags. 
 
-```{r 5.6ii, eval = FALSE}
+```{r 5.6ii, eval = FALSE, collapse = TRUE}
 check_space %>%
   dplyr::filter(.summary == FALSE) %>% # map only records flagged as FALSE
   bdc::bdc_quickmap(
@@ -1461,7 +1460,7 @@ check_space %>%
 
 Create the space report using **bdc**.
 
-```{r 5.7, eval = FALSE}
+```{r 5.7, eval = FALSE, collapse = TRUE}
 (report <-
    bdc::bdc_create_report(
      data = dplyr::tibble(check_space %>% dplyr::select(!.uncer_terms)),
@@ -1475,7 +1474,7 @@ Create the space report using **bdc**.
 
 Create figures for the spatial data filtering results.
 
-```{r 5.8, eval = FALSE}
+```{r 5.8, eval = FALSE, collapse = TRUE}
 (figures <-
     BeeBDC::jbd_create_figures(
       data = dplyr::tibble(check_space %>% dplyr::select(!.uncer_terms)),
@@ -1504,7 +1503,7 @@ For examining the figures, the options are:
 
 Save interim dataset.
 
-```{r 5.8ii, eval = FALSE}
+```{r 5.8ii, eval = FALSE, collapse = TRUE}
 check_space %>%
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
@@ -1514,7 +1513,7 @@ check_space %>%
 
 Save the flags so far.
 
-```{r 5.9, eval = FALSE}
+```{r 5.9, eval = FALSE, collapse = TRUE}
 BeeBDC::flagRecorder(
   data = check_space,
   outPath = paste(OutPath_Report, sep =""),
@@ -1527,7 +1526,7 @@ BeeBDC::flagRecorder(
 ## 5.10 Save 
 
 Save the intermediate dataset.
-```{r 5.10, eval = FALSE}
+```{r 5.10, eval = FALSE, collapse = TRUE}
 check_space %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_database.csv",
@@ -1539,7 +1538,7 @@ check_space %>%
 
 Read in the last database, if needed.
 
-```{r 6.0}
+```{r 6.0, collapse = TRUE}
 if(!exists("check_space")){
   check_time <-
     readr::read_csv(paste(OutPath_Intermediate, "03_space_database.csv", sep = "/"),
@@ -1553,13 +1552,13 @@ if(!exists("check_space")){
 
 You can plot a histogram of dates here.
 
-```{r 6.0ii}
+```{r 6.0ii, collapse = TRUE}
 hist(lubridate::ymd_hms(check_time$eventDate, truncated = 5), breaks = 20)
 ```
 
 Filter some silly dates that don't make sense.
 
-```{r 6.0iii}
+```{r 6.0iii, collapse = TRUE}
 check_time$year <- ifelse(check_time$year > lubridate::year(Sys.Date()) | check_time$year < 1600,
                         NA, check_time$year)
 check_time$month <- ifelse(check_time$month > 12 | check_time$month < 1,
@@ -1572,7 +1571,7 @@ check_time$day <- ifelse(check_time$day > 31 | check_time$day < 1,
 
 The `dateFindR()` function will search through some other columns in order to find and rescue dates that may not have made it into the correct columns. It will further update the *eventDate*, *day*, *month*, and *year* columns where these data were a) missing and b) located in one of the searched columns.
 
-```{r 6.1}
+```{r 6.1, collapse = TRUE}
 check_time <- BeeBDC::dateFindR(data = check_time,
                         # Years above this are removed (from the recovered dates only)
                         maxYear = lubridate::year(Sys.Date()),
@@ -1585,7 +1584,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 
 Flag records that simply lack collection date. :(
 
-```{r 6.2}
+```{r 6.2, collapse = TRUE}
 check_time <-
   bdc::bdc_eventDate_empty(data = check_time, eventDate = "eventDate")
 ```
@@ -1595,7 +1594,7 @@ check_time <-
 
 This will flag records prior to the date selected. 1970 is frequently chosen for SDM work. You may not need to filter old records at all, so think critically about your use. We have chosen 1950 as a lower extreme.
 
-```{r 6.3}
+```{r 6.3, collapse = TRUE}
 check_time <-
   bdc::bdc_year_outOfRange(data = check_time,
                            eventDate = "year",
@@ -1607,7 +1606,7 @@ check_time <-
 *Not all of time, just the time pertaining to our precise occurrence records.*
 Firstly, update the *.summary* column.
 
-```{r 6.4, eval = TRUE}
+```{r 6.4, eval = TRUE, collapse = TRUE}
 check_time <- BeeBDC::summaryFun(
   data = check_time,
   # Don't filter these columns (or NULL)
@@ -1619,7 +1618,7 @@ check_time <- BeeBDC::summaryFun(
 
 ```
 
-```{r 6.4ii, eval = FALSE}
+```{r 6.4ii, eval = FALSE, collapse = TRUE}
 ( report <-
     bdc::bdc_create_report(data = check_time,
                            database_id = "database_id",
@@ -1632,7 +1631,7 @@ check_time <- BeeBDC::summaryFun(
 
 Create time results figures.
 
-```{r 6.5, eval = FALSE}
+```{r 6.5, eval = FALSE, collapse = TRUE}
 figures <-
   BeeBDC::jbd_create_figures(data = check_time,
                      path = DataPath,
@@ -1642,13 +1641,13 @@ figures <-
 ```
 
 You can check figures by using...
-```{r 6.5ii, eval = FALSE}
+```{r 6.5ii, eval = FALSE, collapse = TRUE}
 figures$year
 ```
 
 Save the ~raw time dataset into the intermediate folder.
 
-```{r 6.5iii, eval = FALSE}
+```{r 6.5iii, eval = FALSE, collapse = TRUE}
 check_time %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "04_time_database.csv",
@@ -1660,7 +1659,7 @@ check_time %>%
 
 Save the flags so far.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, collapse = TRUE}
 BeeBDC::flagRecorder(
   data = check_time,
   outPath = paste(OutPath_Report, sep =""),
@@ -1675,7 +1674,7 @@ BeeBDC::flagRecorder(
 
 The raw dataset can be re-read here if it does not already exist.
 
-```{r 7.0, eval = FALSE}
+```{r 7.0, eval = FALSE, collapse = TRUE}
 if(!exists("check_time")){
   check_time <-
     readr::read_csv(paste(OutPath_Intermediate, "04_time_database.csv",
@@ -1688,7 +1687,7 @@ if(!exists("check_time")){
 We will FLAG duplicates here. These input columns can be hacked to de-duplicate as you wish. This function uses user-specified inputs and columns to identify duplicate occurrence records. Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted at the end of the function. The function is designed to work with Darwin Core data with a *database_id* column, but it is also modifiable to work with other columns.
 I would encourage you to, see '?`dupeSummary()`' for more details as this function is quite modifiable to user needs.
 
-```{r 7.1}
+```{r 7.1, collapse = TRUE}
 check_time <- BeeBDC::dupeSummary(
   data = check_time,
   path = OutPath_Report,
@@ -1730,7 +1729,7 @@ check_time <- BeeBDC::dupeSummary(
 
 Save the dataset into the intermediate folder.
 
-```{r 7.1ii, eval = FALSE}
+```{r 7.1ii, eval = FALSE, collapse = TRUE}
 check_time %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "04_2_dup_database.csv",
@@ -1741,7 +1740,7 @@ check_time %>%
 
 Save the flags so far.
 
-```{r 7.2, eval = FALSE}
+```{r 7.2, eval = FALSE, collapse = TRUE}
 BeeBDC::flagRecorder(
   data = check_time,
   outPath = paste(OutPath_Report, sep =""),
@@ -1755,7 +1754,7 @@ BeeBDC::flagRecorder(
 
 The dataset can be re-read here if it does not already exist.
 
-```{r 8.0, eval = FALSE}
+```{r 8.0, eval = FALSE, collapse = TRUE}
 if(!exists("check_time")){
  check_time <-
    readr::read_csv(paste(OutPath_Intermediate, "04_2_dup_database.csv",
@@ -1766,7 +1765,7 @@ if(!exists("check_time")){
 
 Read in the most-recent duplicates file (generated by `dupeSummary()`) in order to identify the duplicates of the expert outliers.
 
-```{r 8.1, eval = TRUE}
+```{r 8.1, eval = TRUE, collapse = TRUE}
 if(!exists("duplicates")){
   duplicates <- BeeBDC::fileFinder(path = DataPath,
                             fileName = "duplicateRun_") %>%
@@ -1793,7 +1792,7 @@ Identify the outliers and get a list of their database_ids. This would require t
 
 Save the uncleaned dataset.
 
-```{r 8.2, eval = TRUE}
+```{r 8.2, eval = TRUE, collapse = TRUE}
   # Make sure that the .summary column is updated
 check_time <- BeeBDC::summaryFun(
   data = check_time,
@@ -1803,7 +1802,7 @@ check_time <- BeeBDC::summaryFun(
   filterClean = FALSE)
 ```
 
-```{r 8.2ii, eval = FALSE}
+```{r 8.2ii, eval = FALSE, collapse = TRUE}
   # Save the uncleaned dataset
 check_time %>% readr::write_excel_csv(.,
                                 paste(OutPath_Intermediate, "05_unCleaned_database.csv",
@@ -1815,7 +1814,7 @@ check_time %>% readr::write_excel_csv(.,
 
 Now clean the dataset of extra columns and failed rows and then save it.
 
-```{r 8.3, eval = TRUE}
+```{r 8.3, eval = TRUE, collapse = TRUE}
 cleanData <- BeeBDC::summaryFun(
   data = check_time,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
@@ -1826,7 +1825,7 @@ cleanData <- BeeBDC::summaryFun(
   filterClean = TRUE)
 ```
 
-```{r 8.3ii, eval = FALSE}
+```{r 8.3ii, eval = FALSE, collapse = TRUE}
 # Save this CLEANED dataset
  cleanData %>% readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "05_cleaned_database.csv",
@@ -1839,7 +1838,7 @@ cleanData <- BeeBDC::summaryFun(
 
 Install **BiocManager** and **ComplexHeatmap** if you missed them at the start.
 
-```{r 9.1, message=FALSE, warning=FALSE, eval = FALSE}
+```{r 9.1, message=FALSE, warning=FALSE, eval = FALSE, collapse = TRUE}
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 BiocManager::install("ComplexHeatmap")
@@ -1847,7 +1846,7 @@ BiocManager::install("ComplexHeatmap")
 
 Read in the most recent duplicate file, if it's not already in your environment.
 
-```{r 9.1ii, eval = TRUE}
+```{r 9.1ii, eval = TRUE, collapse = TRUE}
 if(!exists("duplicates")){
   duplicates <- BeeBDC::fileFinder(path = DataPath,
                             fileName = "duplicateRun_") %>%
@@ -1856,13 +1855,13 @@ if(!exists("duplicates")){
 
 Choose the global figure parameters.
 
-```{r 9.1iii, eval = FALSE}
+```{r 9.1iii, eval = FALSE, collapse = TRUE}
 par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
 ```
 
 Create the chorDiagram. You can leave many of the below values out but we show here the defaults. There are [internal] no duplicates in our test dataset and so **BeeBDC** will throw an informative error. However, we show the full output figure from our bee dataset below.
 
-```{r 9.1iv, eval=FALSE, fig.fullwidth=TRUE, fig.height=7.5, fig.width=9}
+```{r 9.1iv, eval=FALSE, fig.fullwidth=TRUE, fig.height=7.5, fig.width=9, collapse = TRUE}
 BeeBDC::chordDiagramR(
   # The duplicate data from the dupeSummary function output  
   dupeData = duplicates,
@@ -1896,7 +1895,7 @@ BeeBDC::chordDiagramR(
 
 Read in the uncleaned dataset, if it's not already present.
 
-```{r 9.2, eval = TRUE}
+```{r 9.2, eval = TRUE, collapse = TRUE}
 if(!exists("check_time")){
 beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                  sep = "/"),
@@ -1909,7 +1908,7 @@ beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.cs
 
 Create a plot with two bar graphs. One shows the absolute number of duplicate records for each data source while the other shows the proportion of records that are duplicated within each data source. (*'dataSource'* is simplified to the text before the first underscore).
 
-```{r 9.2ii, warning=FALSE, eval=TRUE}
+```{r 9.2ii, warning=FALSE, eval=TRUE, collapse = TRUE}
 BeeBDC::dupePlotR(
   data = beeData,
   # The outPath to save the plot as
@@ -1931,7 +1930,7 @@ BeeBDC::dupePlotR(
 
 Create a compound bar plot that shows the proportion of records that pass or fail each flag (rows) and for each data source (columns). The function can also optionally return a point map for a user-specified species when plotMap = TRUE. (*dataSource* is simplified to the text before the first underscore.)
 
-```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE, eval=TRUE}
+```{r 9.3, fig.width=15, fig.height=9, fig.fullwidth=TRUE, eval=TRUE, collapse = TRUE}
 BeeBDC::plotFlagSummary(
   data = beeData,
   # Colours in order of pass (TRUE), fail (FALSE), and NA
@@ -1967,7 +1966,7 @@ BeeBDC::plotFlagSummary(
 
 Import CLEANED dataset (you can change this option).
 
-```{r 9.4, eval = TRUE}
+```{r 9.4, eval = TRUE, collapse = TRUE}
 if(!exists("cleanData")){
 cleanData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                  sep = "/"),
@@ -1978,7 +1977,7 @@ cleanData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.cs
 
 Draw a global summary map for occurrence and species number by country.
 
-```{r 9.4a, eval=FALSE}
+```{r 9.4a, eval=FALSE, collapse = TRUE}
 BeeBDC::summaryMaps(
   data = cleanData,
   width = 10, height = 10,
@@ -1995,7 +1994,7 @@ BeeBDC::summaryMaps(
 
 Use the occurrence data (preferably uncleaned in order to show pass/fail points) and outputs interactive .html maps, that can be opened in your browser, to a specific directory. The maps can highlight if an occurrence has passed all filtering (*.summary* == TRUE) or failed at least one filter (*.summary* == FALSE). This can be updated by first running `summaryFun()` to choose the columns that you want to be highlighted. It will also highlight occurrences flagged as expert-identified or country outliers separately. Because the function can have any categorical variable fed into 'speciesColumn', users may choose another column of interest to map; however, very large categories can be slow to produce and unwieldy to view.
 
-```{r 9.4b, eval = FALSE}
+```{r 9.4b, eval = FALSE, collapse = TRUE}
 BeeBDC::interactiveMapR(
    # occurrence data
   data = beeData,
@@ -2019,7 +2018,7 @@ BeeBDC::interactiveMapR(
 
 Read in the clean data if it's not already in the environment.
 
-```{r 9.5, eval = FALSE}
+```{r 9.5, eval = FALSE, collapse = TRUE}
 if(!exists("cleanData")){
   cleanData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                 sep = "/"),
@@ -2029,7 +2028,7 @@ if(!exists("cleanData")){
 
 This function will attempt to find and build a table of data providers that have contributed to the input data, especially using the *'institutionCode'* column. It will also look for a variety of other columns to find data providers using an internally set sequence of if-else statements. Hence, this function is quite specific for bee data, but should work for other taxa in similar institutions (perhaps to a lesser degree).
 
-```{r 9.5ii, eval = TRUE}
+```{r 9.5ii, eval = TRUE, collapse = TRUE}
   # Note, if outPath = NULL then no file will be saved
 dataProvTable <- BeeBDC::dataProvTables(data = cleanData,
                                         runBeeDataChecks = TRUE,
@@ -2042,7 +2041,7 @@ dataProvTable <- BeeBDC::dataProvTables(data = cleanData,
 
 Takes a flagged dataset and returns the total number of fails (FALSE) per flag (columns starting with ".") and per species. Users may define the column to group the summary by. While it is intended to work with the *scientificName* column, users may select any grouping column (e.g., *country*).
 
-```{r 9.6, eval = TRUE}
+```{r 9.6, eval = TRUE, collapse = TRUE}
   # Note, if outPath = NULL then no file will be saved
 summaryTable <- BeeBDC::flagSummaryTable(data = beeData, 
                                          column = "scientificName", 
@@ -2051,7 +2050,7 @@ summaryTable <- BeeBDC::flagSummaryTable(data = beeData,
 ```
 
 
-```{r cleanup, include=FALSE}
+```{r cleanup, include=FALSE, collapse = TRUE}
 # Remove the webpage folder
 unlink(paste0(dirname(getwd()), "/inst/extdata/WebDir"), recursive = TRUE)
 ```
