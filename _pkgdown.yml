@@ -1,5 +1,7 @@
 url: https://jbdorey.github.io/BeeBDC/
 
+title: "BeeBDC"
+
 template:
   params:
     bootswatch: journal
