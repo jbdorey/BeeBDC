@@ -4,7 +4,7 @@ title: "BeeBDC"
 
 template:
   params:
-    bootswatch: solar
+    bootswatch: darkly
 
 navbar:
   left:
