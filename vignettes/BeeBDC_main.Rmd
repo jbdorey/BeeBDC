@@ -56,9 +56,6 @@ library(sf)
 library(parallel)
 library(terra)
 
-  # Random extra packages that might help?
-library(checkmate)
-
 # Dont detect cores to avoid GitHbub error
 options(mc.cores = parallel::detectCores())
 ```

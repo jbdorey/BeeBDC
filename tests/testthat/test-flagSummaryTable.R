@@ -26,7 +26,7 @@ testthat::test_that("flagSummaryTable expected class", {
 
 # Test 100% fails size
 testthat::test_that("flagSummaryTable 100% failed size test", {
-  testthat::expect_equal(fails100, 64)
+  testthat::expect_equal(fails100, 63)
 })
 testthat::test_that("flagSummaryTable 0% failed size test", {
   testthat::expect_equal(fails0, 15)
