@@ -1238,7 +1238,7 @@ BeeBDC::flagRecorder(
 if(!exists("check_time")){
  check_time <-
    readr::read_csv(paste(OutPath_Intermediate, "04_2_dup_database.csv",
-                          sep = "/"))}
+                          sep = "/"), col_types = ColTypeR())}
 ##### 8.1 rm Outliers ####
 # Read in the most-recent duplicates file as well
 if(!exists("duplicates")){
@@ -1271,15 +1271,17 @@ check_time %>% readr::write_excel_csv(.,
 
 ##### 8.3 Save cleaned ####
 # Now clean the dataset of extra columns and failed rows and save it...
-BeeBDC::summaryFun(
+cleanData <- BeeBDC::summaryFun(
   data = check_time,
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
                       ".uncertaintyThreshold", ".sequential"),
   # Remove the filtering columns?
   removeFilterColumns = TRUE,
   # Filter to ONLY cleaned data?
-  filterClean = TRUE) %>% 
+  filterClean = TRUE) 
+
 # Save this CLEANED dataset
+cleanData %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "05_cleaned_database.csv",
                          sep = "/"))
@@ -1395,14 +1397,15 @@ BeeBDC::plotFlagSummary(
 
 ##### 9.4 Maps ####
 # Import CLEANED dataset (you can change this option)
-mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
+if(!exists("cleanData")){
+cleanData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                  sep = "/"),
-                           col_types = BeeBDC::ColTypeR())
+                           col_types = BeeBDC::ColTypeR())}
 
   ###### a. Summary maps ####
   # Draw a global summary map for occurrence and species number by country
 BeeBDC::summaryMaps(
-  data = mapData,
+  data = cleanData,
   width = 10, height = 10,
   class_n = 15,
   class_Style = "fisher",
@@ -1443,15 +1446,15 @@ BeeBDC::interactiveMapR(
 
   ##### 9.5 Data providers ####
 # Read in the clean data if it's not already in the environment
-if(!exists("mapData")){
-  mapData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
+if(!exists("cleanData")){
+  cleanData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
                                 sep = "/"),
                           col_types = BeeBDC::ColTypeR(),
   locale = readr::locale(encoding = "UTF-8"))}
 institutionList_DL <- readxl::read_excel(paste(DiscLifePath, "Apoidea Bee Collections Master List jan 2023.xlsx",
                                                sep = "/"))
   # Create the table
-dataProvTable <- BeeBDC::dataProvTables(data = mapData,
+dataProvTable <- BeeBDC::dataProvTables(data = cleanData,
                                         runBeeDataChecks = TRUE,
                                         outPath = OutPath_Report,
                                         fileName = "dataProvTable.csv")
