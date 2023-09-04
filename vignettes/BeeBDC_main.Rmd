@@ -57,6 +57,9 @@ library(sf)
 library(parallel)
 library(terra)
 
+  # Random extra packages that might help?
+library(checkmate)
+
 # Dont detect cores to avoid GitHbub error
 options(mc.cores = parallel::detectCores())
 ```
@@ -825,6 +828,7 @@ suppressWarnings(
                                    chunkStart = 1,
                                    path = OutPath_Intermediate,
                                    append = FALSE,
+                                   progressiveSave = FALSE,
                                     # Normally, please use scale = "large"
                                    scale = "medium",
                                    mc.cores = 1),
@@ -850,7 +854,7 @@ check_pf <- dplyr::left_join(check_pf,
 
 Save the dataset.
 
-```{r 3.5cii}
+```{r 3.5cii, eval = FALSE}
 check_pf %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
@@ -859,7 +863,7 @@ check_pf %>%
 
 Read in if needed. 
 
-```{r 3.5ciii}
+```{r 3.5ciii, eval = FALSE}
 if(!exists("check_pf")){
 check_pf <- readr::read_csv(paste(DataPath, 
              "Output", "Intermediate", "01_prefilter_database.csv", sep = "/"),
@@ -908,6 +912,7 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
   stepSize = 1000000,  # How many rows to process at a time
   chunkStart = 1,  # Start row
   append = FALSE,  # If FALSE it may overwrite existing dataset
+  progressiveSave = FALSE,
     # In a normal run, please use scale = "large"
   scale = "medium",
   path = OutPath_Check,
@@ -923,7 +928,7 @@ table(check_pf$coordinates_transposed, useNA = "always")
 
 Save the dataset.
 
-```{r 3.7iii}
+```{r 3.7iii, eval = FALSE}
 check_pf %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
@@ -933,7 +938,7 @@ check_pf %>%
 
 Read the data in again if needed.
 
-```{r 3.7iv}
+```{r 3.7iv, eval = FALSE}
 if(!exists("check_pf")){
   check_pf <- readr::read_csv(paste(OutPath_Intermediate, "01_prefilter_database.csv",
                                     sep = "/"))}
@@ -954,7 +959,7 @@ check_pf <- BeeBDC::jbd_coordCountryInconsistent(
 ```
 
 Save the dataset.
-```{r 3.8ii}
+```{r 3.8ii, eval = FALSE}
 check_pf %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "01_prefilter_database.csv",
@@ -965,16 +970,19 @@ check_pf %>%
 
 This function identifies records whose coordinates can potentially be extracted from locality information, which must be manually checked later.
 
-```{r 3.9, eval = FALSE}
+```{r 3.9, eval = TRUE}
 xyFromLocality <- bdc::bdc_coordinates_from_locality(
   data = check_pf,
   locality = "locality",
   lon = "decimalLongitude",
   lat = "decimalLatitude",
   save_outputs = TRUE
-) %>%
-# Save data 
-  readr::write_excel_csv(paste(OutPath_Check, "01_coordinates_from_locality.csv",
+) 
+```
+
+```{r 3.9ii, eval = FALSE}
+# Save the resultant data 
+  xyFromLocality %>% readr::write_excel_csv(paste(OutPath_Check, "01_coordinates_from_locality.csv",
                          sep = "/"))
 ```
 
@@ -1020,7 +1028,7 @@ check_pf <- BeeBDC::GBIFissues(data = check_pf,
 
 Save the flags so far. This function will make sure that you keep a copy of everything that has been flagged up until now. This will be updated throughout the script and can accessed at the end, so be wary of moving files around manually. However, these data will also still be maintained in the main running file, so this is an optional fail-safe.
 
-```{r 3.13a}
+```{r 3.13a, eval = FALSE}
 flagFile <- BeeBDC::flagRecorder(
   data = check_pf,
   outPath = paste(OutPath_Report, sep =""),
@@ -1063,7 +1071,7 @@ Use **bdc** to generate reports.
 
 Save the intermediate dataset.
 
-```{r 3.14}
+```{r 3.14, eval = FALSE}
 check_pf %>%
   readr::write_excel_csv(., paste(OutPath_Intermediate, "01_prefilter_output.csv",
                             sep = "/"))
@@ -1162,7 +1170,7 @@ rm(beesTaxonomy)
 
 Save the harmonised file.
 
-```{r 4.2iv}
+```{r 4.2iv, eval = FALSE}
 database %>%
   readr::write_excel_csv(.,
                    paste(DataPath, "Output", "Intermediate", "02_taxonomy_database.csv",
@@ -1216,7 +1224,7 @@ rm(database)
 
 Save the resulting file.
 
-```{r 5.1iii}
+```{r 5.1iii, eval = FALSE}
 check_space %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_inter_database.csv",
@@ -1289,7 +1297,7 @@ rm(tempSpace)
 
 Save the intermediate dataset.
 
-```{r 5.2v}
+```{r 5.2v, eval = FALSE}
 check_space %>%
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
@@ -1411,6 +1419,9 @@ check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                           # We have not attempted a scale of 10.
                         rnearthScale = 50,
                         mc.cores = 1)
+```
+
+```{r 5.5iii, eval = FALSE}
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%
@@ -1440,7 +1451,7 @@ check_space <- BeeBDC::summaryFun(
 
 Use col_to_map in order to map ONE spatial flag at a time or map the *.summary* column for all flags. 
 
-```{r 5.6ii}
+```{r 5.6ii, eval = FALSE}
 check_space %>%
   dplyr::filter(.summary == FALSE) %>% # map only records flagged as FALSE
   bdc::bdc_quickmap(
@@ -1501,7 +1512,7 @@ For examining the figures, the options are:
 
 Save interim dataset.
 
-```{r 5.8ii}
+```{r 5.8ii, eval = FALSE}
 check_space %>%
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
@@ -1524,7 +1535,7 @@ BeeBDC::flagRecorder(
 ## 5.10 Save 
 
 Save the intermediate dataset.
-```{r 5.10}
+```{r 5.10, eval = FALSE}
 check_space %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_database.csv",
@@ -1614,6 +1625,9 @@ check_time <- BeeBDC::summaryFun(
   # Filter to ONLY cleaned data?
   filterClean = FALSE)
 
+```
+
+```{r 6.4ii, eval = FALSE}
 ( report <-
     bdc::bdc_create_report(data = check_time,
                            database_id = "database_id",
@@ -1642,7 +1656,7 @@ figures$year
 
 Save the ~raw time dataset into the intermediate folder.
 
-```{r 6.5iii}
+```{r 6.5iii, eval = FALSE}
 check_time %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "04_time_database.csv",
@@ -1682,7 +1696,7 @@ if(!exists("check_time")){
 We will FLAG duplicates here. These input columns can be hacked to de-duplicate as you wish. This function uses user-specified inputs and columns to identify duplicate occurrence records. Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted at the end of the function. The function is designed to work with Darwin Core data with a *database_id* column, but it is also modifiable to work with other columns.
 I would encourage you to, see '?`dupeSummary()`' for more details as this function is quite modifiable to user needs.
 
-```{r 7.1, eval = FALSE}
+```{r 7.1}
 check_time <- BeeBDC::dupeSummary(
   data = check_time,
   path = OutPath_Report,
