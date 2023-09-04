@@ -9,9 +9,8 @@
 #' @param data A data frame or tibble. The flagged dataset.
 #' @param column Character. The name of the column to group by and summarise the failed occurrences.
 #' Default = "scientificName".
-#' 
 #' @param outPath A character path. The path to the directory in which the figure will be saved.
-#' Default = OutPath_Report.
+#' Default = OutPath_Report. If is NULL then no file will be saved to the disk.
 #' @param fileName Character. The name of the file to be saved, ending in ".csv". 
 #' Default = "flagTable.csv".
 #' 

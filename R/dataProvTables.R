@@ -852,8 +852,11 @@ institutionCodeNew = dplyr::if_else( stringr::str_detect(occurrenceID, "MFV:VT|U
   
   
   #### 4.0 Save and return ####
+  # If user provided an outPath then save the file
+  if(!is.null(outPath)){
   readr::write_excel_csv(counts, 
                    paste(outPath, fileName, sep = "/"))
+  }
 
   
   return(counts)
