@@ -18,7 +18,7 @@ flagSummaryTable(
 Default = "scientificName".}
 
 \item{outPath}{A character path. The path to the directory in which the figure will be saved.
-Default = OutPath_Report.}
+Default = OutPath_Report. If is NULL then no file will be saved to the disk.}
 
 \item{fileName}{Character. The name of the file to be saved, ending in ".csv".
 Default = "flagTable.csv".}

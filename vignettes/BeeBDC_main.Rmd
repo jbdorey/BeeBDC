@@ -1895,7 +1895,7 @@ BeeBDC::chordDiagramR(
 
 Read in the uncleaned dataset, if it's not already present.
 
-```{r 9.2, eval = FALSE}
+```{r 9.2, eval = TRUE}
 if(!exists("check_time")){
 beeData <- readr::read_csv(paste(OutPath_Intermediate, "05_unCleaned_database.csv",
                                  sep = "/"),
