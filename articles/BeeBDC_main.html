@@ -61,10 +61,31 @@
       <a href="../articles/BeeBDC_main.html">BeeBDC vignette</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#time">TEST_time</a>
+      <a href="../articles/BeeBDC_main.html#data-merge">1.0 Data merge</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_2.html">TEST_2</a>
+      <a href="../articles/BeeBDC_main.html#Data-preparation">2.0 Data preparation</a>
+    </li>
+    <li>
+      <a href="../articles/BeeBDC_main.html#Initial-flags">3.0 Initial flags</a>
+    </li>
+    <li>
+      <a href="../articles/BeeBDC_main.html#Taxonomy">4.0 Taxonomy</a>
+    </li>
+    <li>
+      <a href="../articles/BeeBDC_main.html#Space">5.0 Space</a>
+    </li>
+    <li>
+      <a href="../articles/BeeBDC_main.html#Time">6.0 Time</a>
+    </li>
+    <li>
+      <a href="../articles/BeeBDC_main.html#De-duplication">7.0 De-duplication</a>
+    </li>
+    <li>
+      <a href="../articles/BeeBDC_main.html#Data-filtering">8.0 Data filtering</a>
+    </li>
+    <li>
+      <a href="../articles/BeeBDC_main.html#Figures-and-tables">9.0 Figures and tables</a>
     </li>
   </ul>
 </li>
@@ -157,7 +178,7 @@ gdal”.</p>
 <pre><code><span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpOPj31c/remotes21c05dc40603/jbdorey-BeeBDC-f9a01de8630990a24cd1efe7d735da314ed265b8/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/Rtmp92M3xQ/remotes2196486f28e4/jbdorey-BeeBDC-49e48c4dd8d9a08f906b97dd50db1284507d31bb/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -629,10 +650,11 @@ permission from the lead author.</p>
 <div class="section level7">
 <h6 id="l--texas-bal">l. Texas Bal<a class="anchor" aria-label="anchor" href="#l--texas-bal"></a>
 </h6>
-<p>Data with GPS coordinates from Ballare, K. M., Neff, J. L., Ruppel,
-R. &amp; Jha, S. Multi-scalar drivers of biodiversity: local management
-mediates wild bee community response to regional urbanization.
-<em>Ecological Applications</em> 29, e01869 (2019), <a href="https://doi.org/10.1002/eap.1869" class="external-link uri">https://doi.org/10.1002/eap.1869</a>. The version on Dryad
+<p>Data with GPS coordinates (missing accidentally from records on
+Dryad) from Ballare, K. M., Neff, J. L., Ruppel, R. &amp; Jha, S.
+Multi-scalar drivers of biodiversity: local management mediates wild bee
+community response to regional urbanization. Ecological Applications 29,
+e01869 (2019), <a href="https://doi.org/10.1002/eap.1869" class="external-link uri">https://doi.org/10.1002/eap.1869</a>. The version on Dryad
 is missing site GPS coordinates (by accident). Kim is okay with these
 data being made public as long as her paper is referenced. - Elinor
 Lichtenberg</p>
@@ -646,11 +668,11 @@ Lichtenberg</p>
 <div class="section level7">
 <h6 id="m--palouse-lic">m. Palouse Lic<a class="anchor" aria-label="anchor" href="#m--palouse-lic"></a>
 </h6>
-<p>Attached: My canola data. I tried to get this in DarwinCore format.
-These data go with a manuscript currently under review. Here’s the
-bioRxiv version: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J.
-&amp; Crowder, D. W. Differential effects of soil conservation practices
-on arthropods and crop yield. <em>bioRxiv</em>, <a href="https://doi.org/10.1101/2021.1112.1106.471474" class="external-link uri">https://doi.org/10.1101/2021.1112.1106.471474</a> (2022) <a href="https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2" class="external-link uri">https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2</a>.
+<p>Elinor Lichtenberg’s canola data, which go with a manuscript
+currently under review. preprint: Lichtenberg, E. M., Milosavljević, I.,
+Campbell, A. J. &amp; Crowder, D. W. Differential effects of soil
+conservation practices on arthropods and crop yield. <em>bioRxiv</em>,
+(2022) <a href="https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2" class="external-link uri">https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2</a>.
 These are the data I will be putting on SCAN. - Elinor Lichtenberg</p>
 <pre><code><span><span class="va">Lic_Data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/readr_BeeBDC.html">readr_BeeBDC</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"Lic"</span>,</span>
 <span>                               path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Additional_Datasets"</span><span class="op">)</span>,</span>
@@ -1082,7 +1104,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1298,7 +1320,7 @@ You can also use multiple cores to achieve this. See
 <pre><code><span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span></code></pre>
 <pre><code><span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre>
 <p>You don’t need this file any more…</p>
 <div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">beesTaxonomy</span><span class="op">)</span></span></code></pre></div>
@@ -1572,7 +1594,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.15 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.11 secs</span></span></code></pre>
 <div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1727,7 +1749,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.34560751914978 secs</span></span></code></pre>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.260564088821411 secs</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -2255,7 +2277,6 @@ lesser degree).</p>
 <span>                                        runBeeDataChecks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                        outPath <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                        fileName <span class="op">=</span> <span class="st">"dataProvTable.csv"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in BeeBDC::dataProvTables(data = cleanData, runBeeDataChecks = TRUE, : You must provide an outPath.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="flag-summary">9.6 Flag summary<a class="anchor" aria-label="anchor" href="#flag-summary"></a>
@@ -2265,7 +2286,7 @@ per flag (columns starting with “.”) and per species. Users may define
 the column to group the summary by. While it is intended to work with
 the <em>scientificName</em> column, users may select any grouping column
 (e.g., <em>country</em>).</p>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Note, if outPath = NULL then no file will be saved</span></span>
 <span><span class="va">summaryTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagSummaryTable.html">flagSummaryTable</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">beeData</span>, </span>
 <span>                                         column <span class="op">=</span> <span class="st">"scientificName"</span>, </span>
