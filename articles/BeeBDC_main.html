@@ -157,7 +157,7 @@ gdal”.</p>
 <pre><code><span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpPpMOeW/remotes21b32e0ca238/jbdorey-BeeBDC-e9fd14da0cf1cde9179b14037e553cf3114fdb09/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/RtmpOPj31c/remotes21c05dc40603/jbdorey-BeeBDC-f9a01de8630990a24cd1efe7d735da314ed265b8/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -1082,7 +1082,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1572,7 +1572,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.13 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.15 secs</span></span></code></pre>
 <div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1727,7 +1727,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.294396162033081 secs</span></span></code></pre>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.34560751914978 secs</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -2130,7 +2130,7 @@ underscore).</p>
 <span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'beeData' not found</span></span></code></pre>
+<p><img src="BeeBDC_main_files/figure-html/9.2ii-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="flags-by-source">9.3 Flags by source<a class="anchor" aria-label="anchor" href="#flags-by-source"></a>
@@ -2140,7 +2140,7 @@ pass or fail each flag (rows) and for each data source (columns). The
 function can also optionally return a point map for a user-specified
 species when plotMap = TRUE. (<em>dataSource</em> is simplified to the
 text before the first underscore.)</p>
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/plotFlagSummary.html">plotFlagSummary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
 <span>  <span class="co"># Colours in order of pass (TRUE), fail (FALSE), and NA</span></span>
@@ -2170,13 +2170,15 @@ text before the first underscore.)</p>
 <span>  Gaiarsa <span class="op">=</span> <span class="st">"Gai"</span>, EPEL <span class="op">=</span> <span class="st">"EPEL"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'beeData' not found</span></span></code></pre>
+<pre><code><span><span class="co">##  - Preparing data to plot...</span></span>
+<span><span class="co">##  - Building plot...</span></span></code></pre>
+<p><img src="BeeBDC_main_files/figure-html/9.3-1.png" width="1440"></p>
 </div>
 <div class="section level3">
 <h3 id="maps">9.4 Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
 </h3>
 <p>Import CLEANED dataset (you can change this option).</p>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"cleanData"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span><span class="va">cleanData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
 <span>                                 sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
@@ -2186,7 +2188,7 @@ text before the first underscore.)</p>
 </h4>
 <p>Draw a global summary map for occurrence and species number by
 country.</p>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryMaps.html">summaryMaps</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">cleanData</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -2211,7 +2213,7 @@ flagged as expert-identified or country outliers separately. Because the
 function can have any categorical variable fed into ‘speciesColumn’,
 users may choose another column of interest to map; however, very large
 categories can be slow to produce and unwieldy to view.</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/interactiveMapR.html">interactiveMapR</a></span><span class="op">(</span></span>
 <span>   <span class="co"># occurrence data</span></span>
 <span>  data <span class="op">=</span> <span class="va">beeData</span>,</span>
@@ -2234,7 +2236,7 @@ categories can be slow to produce and unwieldy to view.</p>
 <h3 id="data-providers">9.5 Data providers<a class="anchor" aria-label="anchor" href="#data-providers"></a>
 </h3>
 <p>Read in the clean data if it’s not already in the environment.</p>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"cleanData"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">cleanData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
 <span>                                sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
@@ -2247,7 +2249,7 @@ other columns to find data providers using an internally set sequence of
 if-else statements. Hence, this function is quite specific for bee data,
 but should work for other taxa in similar institutions (perhaps to a
 lesser degree).</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Note, if outPath = NULL then no file will be saved</span></span>
 <span><span class="va">dataProvTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dataProvTables.html">dataProvTables</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cleanData</span>,</span>
 <span>                                        runBeeDataChecks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -2263,13 +2265,16 @@ per flag (columns starting with “.”) and per species. Users may define
 the column to group the summary by. While it is intended to work with
 the <em>scientificName</em> column, users may select any grouping column
 (e.g., <em>country</em>).</p>
-<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Note, if outPath = NULL then no file will be saved</span></span>
 <span><span class="va">summaryTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagSummaryTable.html">flagSummaryTable</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">beeData</span>, </span>
 <span>                                         column <span class="op">=</span> <span class="st">"scientificName"</span>, </span>
 <span>                                         outPath <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                         fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): object 'beeData' not found</span></span></code></pre>
+<pre><code><span><span class="co">##  - We will flag all columns starting with '.'</span></span></code></pre>
+<pre><code><span><span class="co">##  - summaryFun:</span></span>
+<span><span class="co">## Flagged 113 </span></span>
+<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
 </div>
 </div>
   </div>
