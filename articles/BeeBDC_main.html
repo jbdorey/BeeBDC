@@ -64,28 +64,28 @@
       <a href="../articles/BeeBDC_main.html#data-merge">1.0 Data merge</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#Data-preparation">2.0 Data preparation</a>
+      <a href="../articles/BeeBDC_main.html#data-preparation">2.0 Data preparation</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#Initial-flags">3.0 Initial flags</a>
+      <a href="../articles/BeeBDC_main.html#initial-flags">3.0 Initial flags</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#Taxonomy">4.0 Taxonomy</a>
+      <a href="../articles/BeeBDC_main.html#taxonomy">4.0 Taxonomy</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#Space">5.0 Space</a>
+      <a href="../articles/BeeBDC_main.html#space">5.0 Space</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#Time">6.0 Time</a>
+      <a href="../articles/BeeBDC_main.html#time">6.0 Time</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#De-duplication">7.0 De-duplication</a>
+      <a href="../articles/BeeBDC_main.html#de-duplication">7.0 De-duplication</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#Data-filtering">8.0 Data filtering</a>
+      <a href="../articles/BeeBDC_main.html#data-filtering">8.0 Data filtering</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#Figures-and-tables">9.0 Figures and tables</a>
+      <a href="../articles/BeeBDC_main.html#figures-and-tables">9.0 Figures and tables</a>
     </li>
   </ul>
 </li>
@@ -178,7 +178,7 @@ gdal”.</p>
 <pre><code><span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpVLPHFy/remotes21e288c3df3/jbdorey-BeeBDC-c84e0fcf556b9a2a5ee1c8c97fd047d6aba9b5fb/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/Rtmpxj3LOw/remotes21a75e957c40/jbdorey-BeeBDC-c84e0fcf556b9a2a5ee1c8c97fd047d6aba9b5fb/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -1594,7 +1594,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span></code></pre>
-<pre><code><span><span class="co">##  - Completed in 0.14 secs</span></span></code></pre>
+<pre><code><span><span class="co">##  - Completed in 0.13 secs</span></span></code></pre>
 <div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1749,7 +1749,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.331090450286865 secs</span></span></code></pre>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.314020156860352 secs</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -2115,8 +2115,8 @@ below.</p>
 <span>  legendY <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">18</span>, <span class="st">"mm"</span><span class="op">)</span>,</span>
 <span>  legendJustify <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"bottom"</span><span class="op">)</span>,</span>
 <span>  niceFacing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<!-- ![Full chord diagram from Dorey et al. 2023]
-<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left" /> -->
+<p>[Full chord diagram from Dorey et al. 2023]
+<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left"></p>
 </div>
 <div class="section level3">
 <h3 id="duplicate-histogram">9.2 Duplicate histogram<a class="anchor" aria-label="anchor" href="#duplicate-histogram"></a>
