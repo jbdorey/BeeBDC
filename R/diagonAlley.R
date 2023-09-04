@@ -141,6 +141,7 @@ diagonAlley <- function(
       }# End LatLonFun
     
     ##### 2.2 Lat sequences ####
+    writeLines(" - Starting the latitude sequence...")
   # Find the groups where ALL of the differences between values is the same (is.sequential)
     # Return their database_id
   runningData_Lat <- runningData %>% 
@@ -204,13 +205,12 @@ diagonAlley <- function(
       # Re-bind the list elements 
     dplyr::bind_rows() 
   
-  writeLines(" - Starting the latitude sequence...")
-
     # Remove the spent dataset
   rm(runningData_LatGrp)
   
   
   ##### 2.3 Lon sequences ####
+  writeLines(" - Starting the longitude sequence...")
   # Find the groups where ALL of the differences between values is the same (is.sequential)
     # Return their database_id
   runningData_Lon <- runningData %>% 
@@ -266,8 +266,6 @@ diagonAlley <- function(
   # Remove excess columns from list
   runningData_LonGrp <- lapply(runningData_LonGrp, function(x) x[(names(x) %in% c("database_id", "diff"))])
 
-
-  writeLines(" - Starting the longitude sequence...")
   # Run the loop function in parallel
   flagRecords_Lon <- runningData_LonGrp %>% 
     parallel::mclapply(LatLonFun, mc.cores = mc.cores) %>%
