@@ -110,14 +110,15 @@ summaryMaps <- function(
     # Use a subset of columns
     dplyr::select(tidyselect::any_of(c("database_id", "scientificName", "species", 
                   "country", "stateProvince", "dataSource", "geometry",
-                  "decimalLongitude", "decimalLatitude")))
+                  "decimalLongitude", "decimalLatitude"))) %>% 
+      # Drop the points without coordinates
+    tidyr::drop_na(tidyselect::all_of(c("decimalLongitude", "decimalLatitude")))
   
   # Make all of the US virgin islands species into US species
     #  data$countryCode <- stringr::str_replace(string = data$countryCode, 
     #                                              pattern = "VI", replacement = "US")
   # Turn occData into a simple point feature
-  dataPoints <- sf::st_as_sf(data %>% tidyr::drop_na(tidyselect::all_of(c("decimalLongitude", 
-                                                                    "decimalLatitude"))),
+  dataPoints <- sf::st_as_sf(data,
                          coords = c("decimalLongitude", "decimalLatitude"),
                          na.fail = TRUE,
                          # Assign the CRS from the rnaturalearth map to the point data

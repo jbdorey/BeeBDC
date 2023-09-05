@@ -646,10 +646,10 @@ if(!exists("check_pf")){
 # rebuilt a bdc function to flag occurrences where the coordinates are inconsistent with the provided
   # country name
 check_pf <- BeeBDC::jbd_coordCountryInconsistent(
-  data = check_time,
+  data = check_pf,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
-  mapResolution = 110,
+  mapResolution = 50,
   pointBuffer = 0.01)
 
 # Save the dataset

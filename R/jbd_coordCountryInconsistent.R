@@ -90,6 +90,7 @@ dataR <- data %>%
   #### 1.1 Terrestrial map ####
       ##### 1.1 rnaturalearth DL ####
   writeLines(" - Downloading naturalearth map...")
+  suppressWarnings({
   # Download the rnaturalearth countries
 vectEarth <- rnaturalearth::ne_countries(scale = scale, type = "countries", 
                                     returnclass = "sf" )%>%
@@ -98,9 +99,10 @@ vectEarth <- rnaturalearth::ne_countries(scale = scale, type = "countries",
 # Simplify the world map ONCE to be used later
 simplePoly <- vectEarth %>% sf::st_drop_geometry() %>%
   dplyr::mutate(indexMatch = dplyr::row_number())
+
   # Repair gemoetries
 sf::sf_use_s2(FALSE)
-
+})
 
   #### 2.0 Extractions ####
     ##### 2.1 Create function 1 ####
@@ -112,13 +114,13 @@ intersectFun <- function(sp){
     # If first element is full, unlist each one
       extracted <- extracted %>%
       dplyr::mutate(indexMatch = indexMatch %>% as.character() %>% as.numeric() )
-    }) # END suppressWarnings
     # rejoin
   extracted <- extracted %>%
     dplyr::left_join(simplePoly,
                      by = "indexMatch") %>%
     # Add in the database_id
     dplyr::bind_cols(sp)
+  }) # END suppressWarnings
   return(extracted)
   }# END intersectFun function
 
@@ -126,11 +128,11 @@ intersectFun <- function(sp){
 
     ##### 2.2 Country name ####
 writeLines(" - Extracting initial country names without buffer...")
+suppressWarnings({
       # Turn the points into an sf object
 sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
                    crs = sf::st_crs("WGS84"))
   # Extract the country for the points from the vectEarth map
-suppressWarnings({
   country_extracted = sp %>%
     # Make a new column with the ordering of rows
     dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
