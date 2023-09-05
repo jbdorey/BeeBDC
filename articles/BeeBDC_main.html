@@ -87,6 +87,9 @@
     <li>
       <a href="../articles/BeeBDC_main.html#figures-and-tables">9.0 Figures and tables</a>
     </li>
+    <li>
+      <a href="../articles/basicworkflow.html">Basic workflow</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -178,12 +181,15 @@ gdal”.</p>
 <span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpejwR1R/remotes21911671a416/jbdorey-BeeBDC-29c514264dd56533e247eccbc46ca6b46d8a9fab/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/Rtmp6qAglE/remotes21c269a26631/jbdorey-BeeBDC-60daf2ef9081c35dba0f359bf599b380a895ec95/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
 <span><span class="co">## * checking for empty or unneeded directories</span></span>
 <span><span class="co">## * building ‘BeeBDC_1.0.0.tar.gz’</span></span>
+<span><span class="co">## Warning in utils::tar(filepath, pkgname, compression = compression, compression_level = 9L,  :</span></span>
+<span><span class="co">##   storing paths of more than 100 bytes is not portable:</span></span>
+<span><span class="co">##   ‘BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Figures/Map_FlagsPlot_Apis mellifera Linnaeus, 1758.pdf’</span></span>
 <span><span class="co">## Installing package into '/home/runner/work/_temp/Library'</span></span>
 <span><span class="co">## (as 'lib' is unspecified)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
@@ -191,14 +197,6 @@ gdal”.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>,<span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span>,</span>
 <span>                 prompt <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">## The following package(s) will be updated in the lockfile:</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## # RSPM -----------------------------------------------------------------------</span></span>
-<span><span class="co">## - renv   [* -&gt; 1.0.2]</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
-<span><span class="co">## - R      [* -&gt; 4.3.1]</span></span>
-<span><span class="co">## </span></span>
 <span><span class="co">## - Lockfile written to "~/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by BeeBDC. These directories include
 where the data, figures, reports, etc. will be saved. The RDoc needs to
@@ -1102,7 +1100,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1349,6 +1347,7 @@ intact.</p>
 <div class="section level2">
 <h2 id="space">5.0 Space<a class="anchor" aria-label="anchor" href="#space"></a>
 </h2>
+<p><em>The final frontier or whatever.</em></p>
 <p>Read in the latest database.</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"database"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
@@ -1478,7 +1477,7 @@ depending on your dataset. However, the option is provided.</p>
 <span><span class="co">## diagonAlley:</span></span>
 <span><span class="co">## Flagged 0 records</span></span>
 <span><span class="co">## The .sequential column was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.06 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.09 secs</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than X occurrences.</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
@@ -1592,7 +1591,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 0.12 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.16 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1713,7 +1712,8 @@ areas — (Likely not relevant for bees.)</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_space</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>You can plot a histogram of dates here.</p>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html" class="external-link">ymd_hms</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">eventDate</span>, truncated <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html" class="external-link">ymd_hms</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">eventDate</span>, truncated <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Histogram of eventDates"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="BeeBDC_main_files/figure-html/6.0ii-1.png" width="700"></p>
 <p>Filter some silly dates that don’t make sense.</p>
 <div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
@@ -1747,7 +1747,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.266611099243164 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.401884794235229 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1782,8 +1782,7 @@ extreme.</p>
 <h3 id="time-report">6.4 Time report<a class="anchor" aria-label="anchor" href="#time-report"></a>
 </h3>
 <p><em>Not all of time, just the time pertaining to our precise
-occurrence records.</em> Firstly, update the <em>.summary</em>
-column.</p>
+occurrence records.</em> Update the <em>.summary</em> column.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_time</span>,</span>
@@ -1820,7 +1819,7 @@ column.</p>
 <p>You can check figures by using…</p>
 <div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">figures</span><span class="op">$</span><span class="va">year</span></span></code></pre></div>
-<p>Save the ~raw time dataset into the intermediate folder.</p>
+<p>Save the time-revised data into the intermediate folder.</p>
 <div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>,</span>
@@ -1844,7 +1843,7 @@ column.</p>
 <div class="section level2">
 <h2 id="de-duplication">7.0 De-duplication<a class="anchor" aria-label="anchor" href="#de-duplication"></a>
 </h2>
-<p>The raw dataset can be re-read here if it does not already exist.</p>
+<p>The dataset can be re-read here if it does not already exist.</p>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_time"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">check_time</span> <span class="op">&lt;-</span></span>
@@ -1861,7 +1860,7 @@ identified iteratively and will be tallied up, duplicate pairs
 clustered, and sorted at the end of the function. The function is
 designed to work with Darwin Core data with a <em>database_id</em>
 column, but it is also modifiable to work with other columns. I would
-encourage you to, see ‘?<code><a href="../reference/dupeSummary.html">dupeSummary()</a></code>’ for more details as
+encourage you to see ‘?<code><a href="../reference/dupeSummary.html">dupeSummary()</a></code>’ for more details as
 this function is quite modifiable to user needs.</p>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dupeSummary.html">dupeSummary</a></span><span class="op">(</span></span>
@@ -1945,9 +1944,9 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Ordering prefixs...</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-04.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-05.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.01 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1991,7 +1990,7 @@ expert outliers.</p>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-04.csv</span></span>
+<span><span class="co">##  /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-05.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -2295,22 +2294,22 @@ the <em>scientificName</em> column, users may select any grouping column
 <span><span class="co">## Flagged 113 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">## The percentages of species impacted by each flag in your analysis are as follows: </span></span>
-<span><span class="co">##   .coordinates_empty = 100%</span></span>
-<span><span class="co">##   .coordinates_outOfRange = 100%</span></span>
-<span><span class="co">##   .basisOfRecords_notStandard = 100%</span></span>
-<span><span class="co">##   .coordinates_country_inconsistent = 100%</span></span>
-<span><span class="co">##   .occurrenceAbsent = 100%</span></span>
-<span><span class="co">##   .unLicensed = 100%</span></span>
-<span><span class="co">##   .GBIFflags = 100%</span></span>
-<span><span class="co">##   .uncer_terms = 100%</span></span>
-<span><span class="co">##   .rou = 100%</span></span>
-<span><span class="co">##   .sequential = 100%</span></span>
-<span><span class="co">##   .uncertaintyThreshold = 100%</span></span>
-<span><span class="co">##   .countryOutlier = 100%</span></span>
-<span><span class="co">##   .sea = 100%</span></span>
-<span><span class="co">##   .eventDate_empty = 100%</span></span>
-<span><span class="co">##   .year_outOfRange = 100%</span></span>
-<span><span class="co">##   .duplicates = 100%</span></span></code></pre></div>
+<span><span class="co">##   .coordinates_empty = 26.19%</span></span>
+<span><span class="co">##   .coordinates_outOfRange = 0%</span></span>
+<span><span class="co">##   .basisOfRecords_notStandard = 1.19%</span></span>
+<span><span class="co">##   .coordinates_country_inconsistent = 1.19%</span></span>
+<span><span class="co">##   .occurrenceAbsent = 8.33%</span></span>
+<span><span class="co">##   .unLicensed = 0%</span></span>
+<span><span class="co">##   .GBIFflags = 0%</span></span>
+<span><span class="co">##   .uncer_terms = 0%</span></span>
+<span><span class="co">##   .rou = 32.14%</span></span>
+<span><span class="co">##   .sequential = 0%</span></span>
+<span><span class="co">##   .uncertaintyThreshold = 15.48%</span></span>
+<span><span class="co">##   .countryOutlier = 0%</span></span>
+<span><span class="co">##   .sea = 2.38%</span></span>
+<span><span class="co">##   .eventDate_empty = 15.48%</span></span>
+<span><span class="co">##   .year_outOfRange = 16.67%</span></span>
+<span><span class="co">##   .duplicates = 0%</span></span></code></pre></div>
 </div>
 </div>
   </div>
