@@ -468,7 +468,8 @@ BeeBDC::summaryMaps(
   class_n = 3,
   class_Style = "jenks",
   outPath = tempdir(),
-  fileName = "CountryMaps_jenks.pdf"
+  fileName = "CountryMaps_jenks.pdf",
+  returnPlot = TRUE
 )
 ```
 
