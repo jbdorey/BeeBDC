@@ -38,5 +38,7 @@ navbar:
          href: articles/BeeBDC_main.html#data-filtering
       -  text: "9.0 Figures and tables"
          href: articles/BeeBDC_main.html#figures-and-tables
+      -  text: "Basic workflow"
+         href: articles/basicworkflow.html
   components: 
     home: ~

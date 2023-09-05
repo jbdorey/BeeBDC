@@ -1410,7 +1410,8 @@ BeeBDC::summaryMaps(
   class_n = 15,
   class_Style = "fisher",
   fileName = "Fig5_CountryMaps_fisher.pdf",
-  outPath = OutPath_Figures
+  outPath = OutPath_Figures,
+  scale = 50
 )
 
   ###### b. Interactive maps ####
@@ -1464,7 +1465,8 @@ dataProvTable <- BeeBDC::dataProvTables(data = cleanData,
 summaryTable <- BeeBDC::flagSummaryTable(data = beeData, 
                                          column = "scientificName", 
                                          outPath = OutPath_Report,
-                                         fileName = "flagTable.csv")
+                                         fileName = "flagTable.csv",
+                                         percentThreshold = 0)
                                          
 
 

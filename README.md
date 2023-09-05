@@ -262,6 +262,16 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main",
                         auth_token = "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")
 ```
 
+#### **Package data**
+
+You can access package data safely by using the following:
+
+    data("bees3sp", package = "BeeBDC")
+    data("beesFlagged", package = "BeeBDC")
+    data("beesRaw", package = "BeeBDC")
+    data("beesChecklist", package = "BeeBDC")
+    data("beesTaxonomy", package = "BeeBDC")
+
 Load the package with:
 
 ``` r

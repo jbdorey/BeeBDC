@@ -21,6 +21,11 @@
 #' @param height Numeric. The height, in inches, of the resulting figure. Default = 5.
 #' @param dpi Numeric. The resolution of the resulting plot. Default = 300.
 #' @param returnPlot Logical. If TRUE, return the plot to the environment. Default = FALSE.
+#' @param scale Numeric or character. Passed to rnaturalearth's ne_countries().
+#' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = 110.
+#' @param pointBuffer Numeric. Amount to buffer points, in decimal degrees. If the point is outside 
+#' of a country, but within this point buffer, it will count towards that country. It's a good idea
+#' to keep this value consistent with the prior flags applied. Default = 0.01.
 #'
 #' @return Saves a figure to the user-specified outpath and name with a global map of bee 
 #' occurrence species and count data from the input dataset. 
@@ -56,7 +61,9 @@ summaryMaps <- function(
     fileName = NULL,
     width = 10, height = 5,
     dpi = 300,
-    returnPlot = FALSE
+    returnPlot = FALSE,
+    scale = 110,
+    pointBuffer = 0.01
 ){
   # locally bind variables to the function
   name_long<-iso_a3<-name<-geometry<-decimalLongitude<-decimalLatitude<-database_id<-
@@ -88,40 +95,120 @@ summaryMaps <- function(
     ###### 1.1 naturalEarth ####
   # Download world map using rnaturalearth packages
   worldMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
-                                          type = "map_units", scale = 110) %>%
+                                          type = "map_units", scale = scale) %>%
     # Select only a subset of the naturalearthdata columns to extract
-    dplyr::select(name_long, iso_a3, name, name_long, geometry)
+    dplyr::select(name_long, iso_a3, iso_a2, name, name_long, geometry) %>%
+    sf::st_make_valid()
 
   # This stops a plotting error
   sf::sf_use_s2(FALSE)
   
   
     ###### 1.2 occurrences ####
+    # Filter the data columns
+  data <- data %>%
+    # Use a subset of columns
+    dplyr::select(tidyselect::any_of(c("database_id", "scientificName", "species", 
+                  "country", "stateProvince", "dataSource", "geometry",
+                  "decimalLongitude", "decimalLatitude")))
+  
   # Make all of the US virgin islands species into US species
     #  data$countryCode <- stringr::str_replace(string = data$countryCode, 
     #                                              pattern = "VI", replacement = "US")
   # Turn occData into a simple point feature
-  data <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+  dataPoints <- sf::st_as_sf(data %>% tidyr::drop_na(tidyselect::all_of(c("decimalLongitude", 
+                                                                    "decimalLatitude"))),
                          coords = c("decimalLongitude", "decimalLatitude"),
                          na.fail = TRUE,
                          # Assign the CRS from the rnaturalearth map to the point data
-                         crs = sf::st_crs(worldMap)) %>%
-    # Use a subset of columns
-    dplyr::select(database_id, scientificName, species, 
-                  country, stateProvince, dataSource, geometry)
+                         crs = sf::st_crs(worldMap)) 
   
     ##### 1.3 Extraction ####
   writeLines(" - Extracting country data from points...")
+  suppressWarnings({
     # Set geometries to constant for the sake of the map
   sf::st_agr(worldMap) = "constant"
-  sf::st_agr(data) = "constant"
-  #Extract polygon information to points
-  data <- sf::st_intersection(worldMap, data) %>%
+  sf::st_agr(dataPoints) = "constant"
+  
+  # Simplify the world map ONCE to be used later
+  simplePoly <- worldMap %>% sf::st_drop_geometry() %>%
+    dplyr::mutate(indexMatch = dplyr::row_number())
+  
+    #Extract polygon information to points
+  extracted <- sf::st_intersects(dataPoints, worldMap, sparse = TRUE) %>% 
+    # return a tibble with the index of each match or NA where there was no match
+    dplyr::tibble(indexMatch = .) 
+  # If first element is full, unlist each one
+  extracted <- extracted %>%
+    dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
+                      # deal with problems — Take the first number where two are provided
+                    stringr::str_extract("[0-9]+") %>% 
+                      # Remove zero to NA
+                    stringr::str_replace("^[0]$", NA_character_) %>%
+                      # Make numeric
+                    as.numeric()
+                    ) %>%
     # drop geometry
     sf::st_drop_geometry() 
+})
+# rejoin
+data <- extracted %>%
+  dplyr::left_join(simplePoly,
+                   by = "indexMatch") %>%
+  # Add in the database_id
+  dplyr::bind_cols(data)
+
+rm(extracted)
+  
   writeLines("Extraction complete.")
   
+  ##### 1.4 Buffer fails ####
+  writeLines(" - Buffering naturalearth map by pointBuffer...")
+    ###### a. buffer map ####
+  # Buffer the natural earth map
+  suppressWarnings({
+    worldMap <- worldMap %>% 
+      sf::st_buffer(dist = pointBuffer)
+  })
+    ###### b. extract fails ####
+  
+  #Extract polygon information to points
+  suppressWarnings({
+  extracted2 <- sf::st_intersects(dataPoints %>% dplyr::filter(
+    database_id %in% (data %>% dplyr::filter(is.na(name_long)) %>% pull(database_id))),
+                                 worldMap %>% sf::st_make_valid(), sparse = TRUE) %>% 
+    # return a tibble with the index of each match or NA where there was no match
+    dplyr::tibble(indexMatch = .) 
+  # If first element is full, unlist each one
+  extracted2 <- extracted2 %>%
+    dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
+                    # deal with problems — Take the first number where two are provided
+                    stringr::str_extract("[0-9]+") %>% 
+                    # Remove zero to NA
+                    stringr::str_replace("^[0]$", NA_character_) %>%
+                    # Make numeric
+                    as.numeric()
+    ) %>%
+    # drop geometry
+    sf::st_drop_geometry() 
+})
+# rejoin
+extracted2 <- extracted2 %>%
+  dplyr::left_join(simplePoly,
+                   by = "indexMatch") %>%
+  # Add in the database_id
+  dplyr::bind_cols(data %>% dplyr::filter(is.na(name_long)) %>% 
+                     dplyr::select(!tidyselect::any_of(c("name_long", "iso_a3", "indexMatch",
+                                                         "iso_a2", "name"))))
 
+  # Rejoin with data
+data <- data %>%
+  dplyr::filter(!database_id %in% extracted2$database_id) %>%
+  dplyr::bind_rows(extracted2)
+
+rm(extracted2)
+  
+  
   #### 2.0 Species map ####
     ##### 2.1 Data prep ####
   # Get the unique country-species pairs
@@ -178,10 +265,10 @@ summaryMaps <- function(
       # Add in the map's north arrow
       ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
                              pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
-                             style = north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
-      ggplot2::theme(panel.grid.major = ggplot2::element_line(color = gray(.1, alpha = 0.1), 
+                             style = ggspatial::north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
+      ggplot2::theme(panel.grid.major = ggplot2::element_line(color = grDevices::gray(.1, alpha = 0.1), 
                                             linetype = "dashed", linewidth = 0.5), # Add grid lines
-            panel.border = ggplot2::element_rect(color = gray(.1, alpha = 1), 
+            panel.border = ggplot2::element_rect(color = grDevices::gray(.1, alpha = 1), 
                                         linetype = "solid", linewidth = 0.5,
                                         fill = NA), # add panel border
             # Add background - colour in the ocean
@@ -197,9 +284,9 @@ summaryMaps <- function(
                              # options = "magma", "inferno", "plasma", "cividis"
                              dplyr::pull(class_count2)) + 
       # Add in X and Y labels
-      xlab("Longitude") + ylab("Latitude") + 
+     ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
       # Add in the title
-      ggtitle( "Number of species per country")  )
+     ggplot2::ggtitle( "Number of species per country")  )
   
   rm(spMapData)
   
@@ -211,7 +298,7 @@ summaryMaps <- function(
       # Group by the country
     dplyr::group_by(name_long) %>%
       # Get a count of the records per country
-    dplyr::mutate(occCount = n()) %>%
+    dplyr::mutate(occCount = dplyr::n()) %>%
     # Get unique
     dplyr::distinct(name_long, .keep_all = TRUE) %>%
       # Select only these columns
@@ -254,18 +341,18 @@ summaryMaps <- function(
       # Add in a blank base-map to highlight countries with no data
      ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
       # Plot and colour the terrestrial base map
-      ggplot2::geom_sf(aes(fill = class_count), size = 0.15)+ 
+      ggplot2::geom_sf(ggplot2::aes(fill = class_count), size = 0.15)+ 
       # Set map limits, if wanted
      ggplot2::coord_sf(expand = FALSE, ylim = c(-60,90), lims_method = "geometry_bbox") + 
      # Map formatting
       # Add in the map's north arrow
       ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
                                         pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
-                                        style = north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
-      ggplot2::theme(panel.grid.major = ggplot2::element_line(color = gray(.1, alpha = 0.1), 
+                                        style = ggspatial::north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
+      ggplot2::theme(panel.grid.major = ggplot2::element_line(color = grDevices::gray(.1, alpha = 0.1), 
                                                               linetype = "dashed", 
                                                               linewidth = 0.5), # Add grid lines
-                     panel.border = ggplot2::element_rect(color = gray(.1, alpha = 1), 
+                     panel.border = ggplot2::element_rect(color = grDevices::gray(.1, alpha = 1), 
                                                           linetype = "solid", linewidth = 0.5,
                                                           fill = NA), # add panel border
                      # Add background - colour in the ocean
@@ -281,9 +368,9 @@ summaryMaps <- function(
                                       # options = "magma", "inferno", "plasma", "cividis"
                                       dplyr::pull(class_count2)) + 
       # Add in X and Y labels
-      xlab("Longitude") + ylab("Latitude") + 
+      ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
       # Add in the title
-      ggtitle( "Number of occurrences per country")  )
+     ggplot2::ggtitle( "Number of occurrences per country")  )
   
   #### 4.0 combine + save ####
   # plot the figures together

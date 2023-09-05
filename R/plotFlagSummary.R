@@ -389,7 +389,7 @@ plotFlagSummary <- function(
     ##### c. save ####
     # Filtered save plot
     if(!is.null(speciesName)){
-      ggplot2::ggsave(fileName = paste0("/FlagsPlot_", speciesName,".pdf"),
+      ggplot2::ggsave(filename = paste0("/FlagsPlot_", speciesName,".pdf"),
                       path = outPath,
                       plot = plot, dpi = dpi, bg = bg, device = device,
                       width = width, height = height, units = units)}

@@ -17,7 +17,7 @@
 #' Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”. 
 #' Smaller values return higher-resolution maps.
 #' @param pointBuffer Numeric. Amount to buffer points, in decimal degrees. If the point is outside 
-#' of a country, but within this point buffer, it will not be flagged.
+#' of a country, but within this point buffer, it will not be flagged. Default = 0.01.
 #' @param mc.cores Numeric. If > 1, the st_intersects function will run in parallel
 #' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
 #' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
