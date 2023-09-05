@@ -106,7 +106,7 @@ jbd_CfC_chunker <- function(data = NULL,
                             progressiveSave = TRUE,
                             # If FALSE it may overwrite existing dataset
                             append = FALSE,
-                            scale = "large",
+                            scale = "medium",
                             path = tempdir(),
                             mc.cores = 1){
   BeeBDC_order <- . <- .data <- id_temp <- name_long <- geometry <- NULL

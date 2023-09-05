@@ -559,7 +559,7 @@ suppressWarnings(
                                    chunkStart = 1,
                                    path = OutPath_Intermediate,
                                    append = FALSE,
-                                   scale = "large",
+                                   scale = "medium",
                                    mc.cores = 4),
   classes = "warning")
 
