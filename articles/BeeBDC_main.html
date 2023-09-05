@@ -88,7 +88,7 @@
       <a href="../articles/BeeBDC_main.html#figures-and-tables">9.0 Figures and tables</a>
     </li>
     <li>
-      <a href="../articles/basicworkflow.html">Basic workflow</a>
+      <a href="../articles/basicWorkflow.html">Basic workflow</a>
     </li>
   </ul>
 </li>
@@ -179,19 +179,8 @@ gdal”.</p>
 <span>                        force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span>
 <span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/Rtmp6qAglE/remotes21c269a26631/jbdorey-BeeBDC-60daf2ef9081c35dba0f359bf599b380a895ec95/DESCRIPTION’ ... OK</span></span>
-<span><span class="co">## * preparing ‘BeeBDC’:</span></span>
-<span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
-<span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
-<span><span class="co">## * checking for empty or unneeded directories</span></span>
-<span><span class="co">## * building ‘BeeBDC_1.0.0.tar.gz’</span></span>
-<span><span class="co">## Warning in utils::tar(filepath, pkgname, compression = compression, compression_level = 9L,  :</span></span>
-<span><span class="co">##   storing paths of more than 100 bytes is not portable:</span></span>
-<span><span class="co">##   ‘BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Figures/Map_FlagsPlot_Apis mellifera Linnaeus, 1758.pdf’</span></span>
-<span><span class="co">## Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">## (as 'lib' is unspecified)</span></span>
+<span><span class="co">## Error in utils::download.file(url, path, method = method, quiet = quiet,  : </span></span>
+<span><span class="co">##   download from 'https://api.github.com/repos/jbdorey/BeeBDC/tarball/main' failed</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -1100,7 +1089,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1477,7 +1466,7 @@ depending on your dataset. However, the option is provided.</p>
 <span><span class="co">## diagonAlley:</span></span>
 <span><span class="co">## Flagged 0 records</span></span>
 <span><span class="co">## The .sequential column was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.09 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.06 secs</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than X occurrences.</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
@@ -1591,7 +1580,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 0.16 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.12 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1747,7 +1736,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.401884794235229 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.269211530685425 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1946,7 +1935,7 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
 <span><span class="co">##  - Duplicates have been saved in the file and location: /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-05.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.01 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>

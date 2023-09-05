@@ -88,7 +88,7 @@
       <a href="../articles/BeeBDC_main.html#figures-and-tables">9.0 Figures and tables</a>
     </li>
     <li>
-      <a href="../articles/basicworkflow.html">Basic workflow</a>
+      <a href="../articles/basicWorkflow.html">Basic workflow</a>
     </li>
   </ul>
 </li>
@@ -182,8 +182,20 @@ gdal”.</p>
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
 <span>                        force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span>
-<span><span class="co">## Skipping install of 'BeeBDC' from a github remote, the SHA1 (60daf2ef) has not changed since last install.</span></span>
-<span><span class="co">##   Use `force = TRUE` to force installation</span></span>
+<span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span>
+<span><span class="co">## Skipping 1 packages not available: ComplexHeatmap</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">## * checking for file ‘/tmp/Rtmpdc7HVN/remotes22442ab78cac/jbdorey-BeeBDC-26919241693e86713c6a88a8c98557ada219d961/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * preparing ‘BeeBDC’:</span></span>
+<span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
+<span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
+<span><span class="co">## * checking for empty or unneeded directories</span></span>
+<span><span class="co">## * building ‘BeeBDC_1.0.0.tar.gz’</span></span>
+<span><span class="co">## Warning in utils::tar(filepath, pkgname, compression = compression, compression_level = 9L,  :</span></span>
+<span><span class="co">##   storing paths of more than 100 bytes is not portable:</span></span>
+<span><span class="co">##   ‘BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Figures/Map_FlagsPlot_Apis mellifera Linnaeus, 1758.pdf’</span></span>
+<span><span class="co">## Installing package into '/home/runner/work/_temp/Library'</span></span>
+<span><span class="co">## (as 'lib' is unspecified)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -507,7 +519,7 @@ available on CRAN and so must be downloaded using
 <span><span class="co">## - nlme           [3.1-163 -&gt; 3.1-162]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # GitHub ---------------------------------------------------------------------</span></span>
-<span><span class="co">## - BeeBDC         [jbdorey/BeeBDC@main: e5afd24f -&gt; 60daf2ef]</span></span>
+<span><span class="co">## - BeeBDC         [jbdorey/BeeBDC@main: e5afd24f -&gt; 26919241]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # Repository -----------------------------------------------------------------</span></span>
 <span><span class="co">## - BiocGenerics   [0.46.0: Bioconductor -&gt; Repository]</span></span>
