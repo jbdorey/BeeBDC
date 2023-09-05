@@ -83,7 +83,8 @@ dataR <- data %>%
 
     # Reduce dataset 
   dataR <- dataR %>%
-    dplyr::select(database_id, decimalLatitude, decimalLongitude, country) %>%
+    dplyr::select(database_id, decimalLatitude, decimalLongitude, country, countryCode,
+                  country_suggested) %>%
       # Remove lat/lon NAs
     dplyr::filter(!is.na(decimalLatitude)) %>% dplyr::filter(!is.na(decimalLongitude))
   
@@ -107,7 +108,7 @@ sf::sf_use_s2(FALSE)
   #### 2.0 Extractions ####
     ##### 2.1 Create function 1 ####
 intersectFun <- function(sp){
-  suppressWarnings({
+  suppressMessages({
   extracted <- sf::st_intersects(sp, vectEarth, sparse = TRUE) %>% 
     # return a tibble with the index of each match or NA where there was no match
     dplyr::tibble(indexMatch = .) 
@@ -154,8 +155,9 @@ sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
 failed_extract <- country_extracted %>%
     # Find the mis-matched countries
   dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                                   tolower(sovereignt), tolower(name))) %>%
-  dplyr::filter(!tolower(iso_a2) %in% tolower(country)) %>%
+                                                   tolower(sovereignt), tolower(name),
+                                         tolower(country_suggested))) %>%
+  dplyr::filter(!tolower(iso_a2) %in% c(tolower(country), tolower(countryCode))) %>%
     # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
   dplyr::tibble() %>%
@@ -169,8 +171,9 @@ failed_extract$country <-
 failed_extract <- failed_extract %>%
   # Find the mis-matched countries
   dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                                   tolower(sovereignt), tolower(name))) %>%
-  dplyr::filter(!tolower(iso_a2) %in% tolower(country)) %>%
+                                         tolower(sovereignt), tolower(name),
+                                         tolower(country_suggested))) %>%
+  dplyr::filter(!tolower(iso_a2) %in% c(tolower(country), tolower(countryCode))) %>%
   # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
   dplyr::tibble() %>%
@@ -191,7 +194,7 @@ writeLines(" - Extracting FAILED country names WITH buffer...")
 # Extract the country for the points from the vectEarth map
 suppressWarnings({
   failed_extract_2 = failed_extract %>%
-    dplyr::select(database_id, country, geometry) %>%
+    dplyr::select(database_id, country, geometry, country_suggested, countryCode) %>%
     # Make a new column with the ordering of rows
     dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
     # Group by the row number and step size
@@ -209,16 +212,18 @@ suppressWarnings({
   # With country
 fExtr_1 <- failed_extract_2 %>% 
   dplyr::filter(tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                                  tolower(sovereignt), tolower(name)))
+                                        tolower(sovereignt), tolower(name),
+                                        tolower(country_suggested)))
   # With iso_a2
 fExtr_2 <- failed_extract_2 %>% 
-  dplyr::filter(tolower(iso_a2) %in% tolower(country))
+  dplyr::filter(tolower(iso_a2) %in% c(tolower(country), tolower(countryCode)))
 
 ids2keep <- dplyr::bind_rows(fExtr_1, fExtr_2) %>%
   # Find the mis-matched countries
   dplyr::filter(tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                                   tolower(sovereignt), tolower(name))) %>%
-  dplyr::filter(tolower(iso_a2) %in% tolower(country)) %>%
+                                        tolower(sovereignt), tolower(name),
+                                        tolower(country_suggested))) %>%
+  dplyr::filter(tolower(iso_a2) %in% c(tolower(country), tolower(countryCode))) %>%
     # Keep only the database id
   dplyr::select(database_id)
 
