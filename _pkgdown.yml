@@ -20,23 +20,23 @@ navbar:
       menu:
       -  text: "BeeBDC vignette"
          href: articles/BeeBDC_main.html
-      -  text: "1.0 Data merge"
+      -  text: "  1.0 Data merge"
          href: articles/BeeBDC_main.html#data-merge
-      -  text: "2.0 Data preparation"
+      -  text: "  2.0 Data preparation"
          href: articles/BeeBDC_main.html#data-preparation
-      -  text: "3.0 Initial flags"
+      -  text: "  3.0 Initial flags"
          href: articles/BeeBDC_main.html#initial-flags
-      -  text: "4.0 Taxonomy"
+      -  text: "  4.0 Taxonomy"
          href: articles/BeeBDC_main.html#taxonomy 
-      -  text: "5.0 Space"
+      -  text: "  5.0 Space"
          href: articles/BeeBDC_main.html#space
-      -  text: "6.0 Time"
+      -  text: "  6.0 Time"
          href: articles/BeeBDC_main.html#time
-      -  text: "7.0 De-duplication"
+      -  text: "  7.0 De-duplication"
          href: articles/BeeBDC_main.html#de-duplication
-      -  text: "8.0 Data filtering"
+      -  text: "  8.0 Data filtering"
          href: articles/BeeBDC_main.html#data-filtering
-      -  text: "9.0 Figures and tables"
+      -  text: "  9.0 Figures and tables"
          href: articles/BeeBDC_main.html#figures-and-tables
       -  text: "Basic workflow"
          href: articles/basic_workflow.html
