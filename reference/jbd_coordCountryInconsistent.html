@@ -45,34 +45,34 @@ to distinguish this function from the original bdc::bdc_coordinates_country_inco
       <a href="../articles/BeeBDC_main.html">BeeBDC vignette</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#data-merge">1.0 Data merge</a>
+      <a href="../articles/BeeBDC_main.html#data-merge">  1.0 Data merge</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#data-preparation">2.0 Data preparation</a>
+      <a href="../articles/BeeBDC_main.html#data-preparation">  2.0 Data preparation</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#initial-flags">3.0 Initial flags</a>
+      <a href="../articles/BeeBDC_main.html#initial-flags">  3.0 Initial flags</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#taxonomy">4.0 Taxonomy</a>
+      <a href="../articles/BeeBDC_main.html#taxonomy">  4.0 Taxonomy</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#space">5.0 Space</a>
+      <a href="../articles/BeeBDC_main.html#space">  5.0 Space</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#time">6.0 Time</a>
+      <a href="../articles/BeeBDC_main.html#time">  6.0 Time</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#de-duplication">7.0 De-duplication</a>
+      <a href="../articles/BeeBDC_main.html#de-duplication">  7.0 De-duplication</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#data-filtering">8.0 Data filtering</a>
+      <a href="../articles/BeeBDC_main.html#data-filtering">  8.0 Data filtering</a>
     </li>
     <li>
-      <a href="../articles/BeeBDC_main.html#figures-and-tables">9.0 Figures and tables</a>
+      <a href="../articles/BeeBDC_main.html#figures-and-tables">  9.0 Figures and tables</a>
     </li>
     <li>
-      <a href="../articles/basicWorkflow.html">Basic workflow</a>
+      <a href="../articles/basic_workflow.html">Basic workflow</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -166,35 +166,7 @@ Default = 1.</p></dd>
 <span class="r-in"><span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span></span>
 <span class="r-in"><span>  mapResolution <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span>  pointBuffer <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_outOfRange:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 0 records.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_empty' column found, running bdc_coordinates_empty</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_empty:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 23 records.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Downloading naturalearth map...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Spherical geometry (s2) switched off</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting initial country names without buffer...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> although coordinates are longitude/latitude, st_intersects assumes that they</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> are planar</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> although coordinates are longitude/latitude, st_intersects assumes that they</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> are planar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Buffering naturalearth map by pointBuffer...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> dist is assumed to be in decimal degrees (arc_degrees).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting FAILED country names WITH buffer...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> although coordinates are longitude/latitude, st_intersects assumes that they</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> are planar</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> although coordinates are longitude/latitude, st_intersects assumes that they</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> are planar</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> jbd_coordinates_country_inconsistent:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 2 records.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The column, '.coordinates_country_inconsistent', was added to the database.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Completed in 0.02 secs</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jbd_coordCountryInconsistent(data = BeeBDC::beesRaw, lon = "decimalLongitude",     lat = "decimalLatitude", mapResolution = 50, pointBuffer = 0.01):</span> unused argument (mapResolution = 50)</span>
 </code></pre></div>
     </div>
   </div>
