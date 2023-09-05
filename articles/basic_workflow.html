@@ -182,7 +182,7 @@ gdal”.</p>
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
 <span>                        force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span>
-<span><span class="co">## Skipping install of 'BeeBDC' from a github remote, the SHA1 (1adc1b56) has not changed since last install.</span></span>
+<span><span class="co">## Skipping install of 'BeeBDC' from a github remote, the SHA1 (7c473118) has not changed since last install.</span></span>
 <span><span class="co">##   Use `force = TRUE` to force installation</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
@@ -507,7 +507,7 @@ available on CRAN and so must be downloaded using
 <span><span class="co">## - nlme           [3.1-163 -&gt; 3.1-162]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # GitHub ---------------------------------------------------------------------</span></span>
-<span><span class="co">## - BeeBDC         [jbdorey/BeeBDC@main: e5afd24f -&gt; 1adc1b56]</span></span>
+<span><span class="co">## - BeeBDC         [jbdorey/BeeBDC@main: e5afd24f -&gt; 7c473118]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # Repository -----------------------------------------------------------------</span></span>
 <span><span class="co">## - BiocGenerics   [0.46.0: Bioconductor -&gt; Repository]</span></span>
@@ -672,7 +672,8 @@ unique, then reduce class_n.</p>
 <span>  class_n <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  class_Style <span class="op">=</span> <span class="st">"jenks"</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  fileName <span class="op">=</span> <span class="st">"CountryMaps_jenks.pdf"</span></span>
+<span>  fileName <span class="op">=</span> <span class="st">"CountryMaps_jenks.pdf"</span>,</span>
+<span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Spherical geometry (s2) switched off</span></span></code></pre>
 <pre><code><span><span class="co">##  - Extracting country data from points...</span></span></code></pre>
@@ -680,14 +681,20 @@ unique, then reduce class_n.</p>
 <span><span class="co">## are planar</span></span></code></pre>
 <pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
 <span><span class="co">## are planar</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `dplyr::bind_cols()`:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> Can't recycle `..1` (size 77) to match `..2` (size 100).</span></span></code></pre>
+<pre><code><span><span class="co">## Extraction complete.</span></span>
+<span><span class="co">##  - Buffering naturalearth map by pointBuffer...</span></span></code></pre>
+<pre><code><span><span class="co">## dist is assumed to be in decimal degrees (arc_degrees).</span></span>
+<span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span>
+<span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span></code></pre>
+<p><img src="basic_workflow_files/figure-html/5.4-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="save-data">6.0 Save data<a class="anchor" aria-label="anchor" href="#save-data"></a>
 </h2>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mapData</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Output/Intermediate/"</span>, <span class="st">"cleanTaxon_"</span>,</span>
 <span>                          <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
