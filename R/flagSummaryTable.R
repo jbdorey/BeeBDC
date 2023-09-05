@@ -17,7 +17,7 @@
 #' @param percentImpacted Logical. If TRUE (the default), the program will write the percentage of 
 #' species impacted and over the percentThreshold for each flagging column.
 #' @param percentThreshold Numeric. A number between 0 and 100 to indicate the percent of 
-#' individuals (≥; within each species) that is impacted by a flag, and to be included in the 
+#' individuals (>; within each species) that is impacted by a flag, and to be included in the 
 #' percentImpacted. Default = 0.
 #' 
 #' @importFrom dplyr %>%
@@ -146,7 +146,7 @@ if(percentImpacted == TRUE){
 percentImpacted <- summaryColumn %>%
   dplyr::summarise(dplyr::across(tidyselect::starts_with("."), 
                                  function(x){
-                                   sum(x/total >= percentThreshold)/length(x)*100
+                                   sum(x/total > percentThreshold)/length(x)*100
                                  })) %>%
     # Transpose the tibble
   tidyr::pivot_longer(cols = tidyselect::starts_with("."))
@@ -156,7 +156,6 @@ writeLines(paste0("The percentages of species impacted by each flag in your anal
               collapse = "\n"))
        ) # END  writeLines
   } # END percentImpacted == TRUE
-
 
   #### 4.0 Output ####
   # If user provided an outPath then save the file

@@ -1184,6 +1184,8 @@ flagFile <- BeeBDC::flagRecorder(
 
 # 5.0 Space
 
+*The final frontier or whatever.*
+
 Read in the latest database.
 
 ```{r 5.0, collapse = TRUE}
@@ -1553,7 +1555,8 @@ if(!exists("check_space")){
 You can plot a histogram of dates here.
 
 ```{r 6.0ii, collapse = TRUE}
-hist(lubridate::ymd_hms(check_time$eventDate, truncated = 5), breaks = 20)
+hist(lubridate::ymd_hms(check_time$eventDate, truncated = 5), breaks = 20,
+     main = "Histogram of eventDates")
 ```
 
 Filter some silly dates that don't make sense.
@@ -1604,7 +1607,7 @@ check_time <-
 ## 6.4 Time report 
 
 *Not all of time, just the time pertaining to our precise occurrence records.*
-Firstly, update the *.summary* column.
+Update the *.summary* column.
 
 ```{r 6.4, eval = TRUE, collapse = TRUE}
 check_time <- BeeBDC::summaryFun(
@@ -1645,7 +1648,7 @@ You can check figures by using...
 figures$year
 ```
 
-Save the ~raw time dataset into the intermediate folder.
+Save the time-revised data into the intermediate folder.
 
 ```{r 6.5iii, eval = FALSE, collapse = TRUE}
 check_time %>%
@@ -1672,7 +1675,7 @@ BeeBDC::flagRecorder(
 
 # 7.0 De-duplication  
 
-The raw dataset can be re-read here if it does not already exist.
+The dataset can be re-read here if it does not already exist.
 
 ```{r 7.0, eval = FALSE, collapse = TRUE}
 if(!exists("check_time")){
@@ -1685,7 +1688,7 @@ if(!exists("check_time")){
 ## 7.1 deDuplicate
 
 We will FLAG duplicates here. These input columns can be hacked to de-duplicate as you wish. This function uses user-specified inputs and columns to identify duplicate occurrence records. Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted at the end of the function. The function is designed to work with Darwin Core data with a *database_id* column, but it is also modifiable to work with other columns.
-I would encourage you to, see '?`dupeSummary()`' for more details as this function is quite modifiable to user needs.
+I would encourage you to see '?`dupeSummary()`' for more details as this function is quite modifiable to user needs.
 
 ```{r 7.1, collapse = TRUE}
 check_time <- BeeBDC::dupeSummary(

@@ -908,7 +908,7 @@ check_space %>%
 # groups by eventDate, recordedBy
 # This is accomplished by using a sliding window with the length determined by minRepeats.
 check_space <- BeeBDC::diagonAlley(
-  data = check_time,
+  data = check_space,
   # The minimum number of repeats needed to find a sequence in for flagging
   minRepeats = 6,
   mc.cores = 4)
