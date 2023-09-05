@@ -63,7 +63,7 @@ options(mc.cores = parallel::detectCores())
 
 ```{r secretRootPath, include=FALSE}
 # Use here::i_am to set the root directory
-here::i_am("vignettes/basicWorkflow.Rmd")
+here::i_am("vignettes/basic_workflow.Rmd")
 # Set a root path that will work on the local machine and also on GitHub actions
 RootPath <- paste0(dirname(getwd()), "/inst/extdata/WebDir")
 # Create the working directory in the RootPath if it doesn't exist already
@@ -158,7 +158,7 @@ renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"),
 ```{r dirMaker, collapse = TRUE}
 BeeBDC::dirMaker(
     RootPath = RootPath,
-    RDoc = "vignettes/basicWorkflow.Rmd") %>%
+    RDoc = "vignettes/basic_workflow.Rmd") %>%
       # Add paths created by this function to the .GlobalEnv
     list2env(envir = .GlobalEnv)
 ```

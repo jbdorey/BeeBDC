@@ -13,7 +13,7 @@
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
-#' @param mapResolution Numeric or character. To be passed to [rnaturalearth::ne_countries()]'s scale.
+#' @param scale Numeric or character. To be passed to [rnaturalearth::ne_countries()]'s scale.
 #' Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”. 
 #' Smaller values return higher-resolution maps.
 #' @param pointBuffer Numeric. Amount to buffer points, in decimal degrees. If the point is outside 
@@ -36,14 +36,14 @@
 #'   data = BeeBDC::beesRaw,
 #'   lon = "decimalLongitude",
 #'   lat = "decimalLatitude",
-#'   mapResolution = 50,
+#'   scale = 50,
 #'   pointBuffer = 0.01)
 
 jbd_coordCountryInconsistent <- function(
     data = NULL,
     lon = "decimalLongitude",
     lat = "decimalLatitude",
-    mapResolution = 50,
+    scale = 50,
     pointBuffer = 0.01,
     stepSize = 1000000,
     mc.cores = 1){
@@ -91,7 +91,7 @@ dataR <- data %>%
       ##### 1.1 rnaturalearth DL ####
   writeLines(" - Downloading naturalearth map...")
   # Download the rnaturalearth countries
-vectEarth <- rnaturalearth::ne_countries(scale = mapResolution, type = "countries", 
+vectEarth <- rnaturalearth::ne_countries(scale = scale, type = "countries", 
                                     returnclass = "sf" )%>%
   dplyr::select(name_long, iso_a2, geometry, admin, sovereignt, name) %>%
   sf::st_make_valid()
