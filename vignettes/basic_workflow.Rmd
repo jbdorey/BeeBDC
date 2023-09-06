@@ -140,8 +140,7 @@ library(rnaturalearthhires)
 
 ```{r installBeeBDC, results=TRUE, message=TRUE, eval = TRUE, collapse = TRUE}
 devtools::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main", 
-                        force = FALSE,
-                        auth_token = "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")
+                        force = FALSE)
 library(BeeBDC)
 ```
 

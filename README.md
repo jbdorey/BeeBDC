@@ -258,8 +258,7 @@ if (!require("devtools", quietly = TRUE))
 devtools::install_github("ropensci/rnaturalearthhires")
 BiocManager::install("ComplexHeatmap")
 
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main", 
-                        auth_token = "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")
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main")
 ```
 
 Load the package with:
