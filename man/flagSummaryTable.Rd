@@ -29,7 +29,7 @@ Default = "flagTable.csv".}
 species impacted and over the percentThreshold for each flagging column.}
 
 \item{percentThreshold}{Numeric. A number between 0 and 100 to indicate the percent of
-individuals (≥; within each species) that is impacted by a flag, and to be included in the
+individuals (>; within each species) that is impacted by a flag, and to be included in the
 percentImpacted. Default = 0.}
 }
 \value{

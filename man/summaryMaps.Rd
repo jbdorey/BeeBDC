@@ -13,7 +13,9 @@ summaryMaps(
   width = 10,
   height = 5,
   dpi = 300,
-  returnPlot = FALSE
+  returnPlot = FALSE,
+  scale = 110,
+  pointBuffer = 0.01
 )
 }
 \arguments{
@@ -37,6 +39,13 @@ for the output figure, ending with '.pdf'.}
 \item{dpi}{Numeric. The resolution of the resulting plot. Default = 300.}
 
 \item{returnPlot}{Logical. If TRUE, return the plot to the environment. Default = FALSE.}
+
+\item{scale}{Numeric or character. Passed to rnaturalearth's ne_countries().
+Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = 110.}
+
+\item{pointBuffer}{Numeric. Amount to buffer points, in decimal degrees. If the point is outside
+of a country, but within this point buffer, it will count towards that country. It's a good idea
+to keep this value consistent with the prior flags applied. Default = 0.01.}
 }
 \value{
 Saves a figure to the user-specified outpath and name with a global map of bee

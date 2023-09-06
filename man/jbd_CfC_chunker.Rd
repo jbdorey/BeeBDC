@@ -13,7 +13,7 @@ jbd_CfC_chunker(
   chunkStart = 1,
   progressiveSave = TRUE,
   append = FALSE,
-  scale = "large",
+  scale = "medium",
   path = tempdir(),
   mc.cores = 1
 )

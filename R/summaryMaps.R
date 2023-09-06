@@ -68,7 +68,7 @@ summaryMaps <- function(
   # locally bind variables to the function
   name_long<-iso_a3<-name<-geometry<-decimalLongitude<-decimalLatitude<-database_id<-
     scientificName<-species<-country<-stateProvince<-dataSource<-count<-class_count<-
-    class_count2<-occCount <- NULL
+    class_count2<-occCount <- indexMatch <- . <- iso_a2 <- NULL
   
   requireNamespace("dplyr")
   requireNamespace("classInt")

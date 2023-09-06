@@ -8,7 +8,7 @@ jbd_coordCountryInconsistent(
   data = NULL,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
-  mapResolution = 50,
+  scale = 50,
   pointBuffer = 0.01,
   stepSize = 1e+06,
   mc.cores = 1
@@ -21,12 +21,12 @@ jbd_coordCountryInconsistent(
 
 \item{lat}{Character. The name of the column to use as latitude. Default = "decimalLatitude".}
 
-\item{mapResolution}{Numeric or character. To be passed to \code{\link[rnaturalearth:ne_countries]{rnaturalearth::ne_countries()}}'s scale.
+\item{scale}{Numeric or character. To be passed to \code{\link[rnaturalearth:ne_countries]{rnaturalearth::ne_countries()}}'s scale.
 Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”.
 Smaller values return higher-resolution maps.}
 
 \item{pointBuffer}{Numeric. Amount to buffer points, in decimal degrees. If the point is outside
-of a country, but within this point buffer, it will not be flagged.}
+of a country, but within this point buffer, it will not be flagged. Default = 0.01.}
 
 \item{stepSize}{Numeric. The number of occurrences to process in each chunk. Default = 1000000.}
 
@@ -50,6 +50,6 @@ beesRaw_out <- jbd_coordCountryInconsistent(
   data = BeeBDC::beesRaw,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
-  mapResolution = 50,
+  scale = 50,
   pointBuffer = 0.01)
 }
