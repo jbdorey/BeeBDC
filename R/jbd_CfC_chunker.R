@@ -109,7 +109,7 @@ jbd_CfC_chunker <- function(data = NULL,
                             scale = "medium",
                             path = tempdir(),
                             mc.cores = 1){
-  BeeBDC_order <- . <- .data <- id_temp <- name_long <- geometry <- NULL
+  BeeBDC_order <- . <- .data <- id_temp <- name_long <- geometry <- inData <- country_OG <- NULL
   #### 0.0 Prep ####
   startTime <- Sys.time()
     ##### 0.1 nChunks ####
@@ -144,72 +144,12 @@ jbd_CfC_chunker <- function(data = NULL,
                    format(chunkEnd, big.mark=",",scientific=FALSE), "\n",
                    "append = ", append, 
                    sep = ""))
-  #### 1.0 Serial Loop ####
-  if(mc.cores < 2){
-  # Loop - from chunkStart to the end, process rows in batches of chunkEnd
-  for(i in 1:nChunks){
-    # Select rows from chunkStart to chunkEnd
-    loop_check_pf = data[chunkStart:chunkEnd,] %>%
-      # Drop unused factors
-      base::droplevels()
-
-    # User output
-    writeLines(paste(" - Starting chunk ", i, "...", "\n",
-                     "From ",  
-                     format(chunkStart, big.mark=",",scientific=FALSE), " to ", 
-                     format(chunkEnd, big.mark=",",scientific=FALSE),
-                     sep = ""))
-    ##### 1.1 Function ####
-    # Run the bdc_country_from_coordinates function from the bdc package
-    loop_check_pf <- jbd_country_from_coordinates(
-      data = loop_check_pf,
-      lat = lat,
-      lon = lon,
-      scale = scale,
-      country = country)
-    #### 1.2 Save file ####
-    # Save a smaller csv file with the database_id and country name to be matched later
-    # For the first instance in the loop...
-    if(i == 1 && append == FALSE){
-      CountryList = dplyr::tibble(loop_check_pf$database_id, loop_check_pf$country)
-    }else{
-      CountryList = dplyr::bind_rows(CountryList, 
-                                     dplyr::tibble(loop_check_pf$database_id,
-                                                    loop_check_pf$country))
-    }# END else
-    
-     #### 1.3 New chunks ####
-    # Set chunkStart to be chunkEnd +1 for the next row
-    chunkStart = chunkStart + stepSize
-    chunkEnd = chunkEnd + stepSize
-    # If chunkEnd surpasses nrowMax, then assign nrowMax.
-    if(chunkEnd > nrowMax){
-      chunkEnd = nrowMax
-    }
-      ###### 1.4 Text and gc ####
-    # Make room on the RAM by cleaning up the garbage
-    # user output
-    writeLines(paste(" - Cleaning RAM.", sep = ""))
-    gc()
-    
-    # Print use output
-    writeLines(paste(" - Finished chunk ", i, " of ", nChunks,
-                     " chunks",
-                     ". ","Records examined: ", 
-                     format(nrow(CountryList), big.mark=",",scientific=FALSE),
-                     sep = "") )
-      ##### 1.5 Save ####
-    if(progressiveSave == TRUE){
-    # Save as a csv after each iteration
-    readr::write_excel_csv(CountryList, file = paste0(path, "/CountryList.csv"))}
-  } # END loop
-  }# END mc.cores < 2
+ 
   
-  #### 2.0 Parallel ####
-  if(mc.cores > 1){
-      ##### 2.1 Input function for parallel ####
+  #### 1.0 Parallel ####
+      ##### 1.1 Input function for parallel ####
     funCoordCountry <-
-      function(data) {
+      function(inData) {
         suppressWarnings({
           check_require_cran("rnaturalearth")
           # check_require_github("ropensci/rnaturalearthdata")
@@ -217,34 +157,34 @@ jbd_CfC_chunker <- function(data = NULL,
         loadNamespace("bdc")
         
         # create an id_temp
-        data$id_temp <- 1:nrow(data)
+        inData$id_temp <- 1:nrow(inData)
         minimum_colnames <- c(lat, lon)
-        if(!all(minimum_colnames %in% colnames(data))) {
+        if(!all(minimum_colnames %in% colnames(inData))) {
           stop(
             "These columns names were not found in your database: ",
-            paste(minimum_colnames[!minimum_colnames %in% colnames(data)],
+            paste(minimum_colnames[!minimum_colnames %in% colnames(inData)],
                   collapse = ", "),
             call. = FALSE
           )}
-        # check if data has a country column
-        has_country <- any(colnames(data) == country)
+        # check if inData has a country column
+        has_country <- any(colnames(inData) == country)
         
         if(!has_country) {
-          data$country <- NA}
+          inData$country <- NA}
         
         # converts coordinates columns to numeric
-        data <- data %>%
+        inData <- inData %>%
           dplyr::mutate(decimalLatitude = as.numeric(.data[[lat]]),
                         decimalLongitude = as.numeric(.data[[lon]]))
         
         worldmap <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf") %>%
           sf::st_make_valid()
         
-        data_no_country <- data %>%
+        data_no_country <- inData %>%
           dplyr::filter(is.na(country) | country == "")
         
         if(nrow(data_no_country) == 0) {
-          data <- data %>% dplyr::select(-id_temp)
+          inData <- inData %>% dplyr::select(-id_temp)
         }else{
           # converts coordinates columns to spatial points
           suppressWarnings({
@@ -278,16 +218,17 @@ jbd_CfC_chunker <- function(data = NULL,
           
           ext_country$geometry <- NULL
           
-          res <- dplyr::left_join(data_no_country, ext_country, by = "id_temp")
+          res <- dplyr::left_join(data_no_country, ext_country, by = "id_temp") %>%
+            dplyr::distinct(id_temp, .keep_all = TRUE)
           
-          id_replace <- res$id_temp
-          data[id_replace, "country"] <- res$name_long
-          data <- data %>% dplyr::select(-id_temp)
+          id_replace <- res$id_temp 
+          inData[id_replace, "country"] <- res$name_long
+          inData <- inData %>% dplyr::select(-id_temp)
         }
-        return(dplyr::as_tibble(data))
+        return(dplyr::as_tibble(inData))
       }
     
-    #### 2.2 Run mclapply ####
+    ##### 1.2 Run mclapply ####
     # User output
     writeLines(paste(" - Starting parallel operation. Unlike the serial operation (mc.cores = 1)",
                      ", a parallel operation will not provide running feedback. Please be patient",
@@ -306,15 +247,16 @@ jbd_CfC_chunker <- function(data = NULL,
     ) %>%
       # Combine the lists of tibbles
       dplyr::bind_rows()
-    CountryList = dplyr::tibble(loop_check_pf$database_id, loop_check_pf$country) %>%
+    CountryList = dplyr::tibble(database_id = loop_check_pf$database_id, 
+                                country = loop_check_pf$country, 
+                                BeeBDC_order = loop_check_pf$BeeBDC_order) %>%
       # Arrange these
       dplyr::arrange(BeeBDC_order) %>%
         # Remove extra columns
-      dplyr::select(!tidyselect::any_of(BeeBDC_order))
-  } # END mc.cores > 1
+      dplyr::select(!tidyselect::any_of("BeeBDC_order"))
   
   
-    #### 3.0 Return ####
+    #### 2.0 Return ####
   colnames(CountryList) <- c("database_id", "country")
   
   endTime <- Sys.time()
@@ -325,8 +267,26 @@ jbd_CfC_chunker <- function(data = NULL,
     units(round(endTime - startTime, digits = 2)),
     sep = ""))
   
+    # Get a subset of the input data
+  data <- data %>% 
+    dplyr::select(tidyselect::any_of(c("database_id", "country")))
+  
   # Clean a little
-  return(CountryList %>%
-            # Drop na rows
-           tidyr::drop_na(country))
+  CountryList <-  CountryList %>%
+    # Drop na rows
+    tidyr::drop_na(country)
+  
+    # Get a summary of the output
+  summaryTable <- CountryList %>%
+    dplyr::left_join(data, by = "database_id",
+                     suffix = c("", "_OG")) %>%
+      # Assign changed == 1 if the country name has changed from the original
+    dplyr::mutate(changed = dplyr::if_else(is.na(country_OG), 1, 0))
+  
+  writeLines(paste0(" - We have updated the country names of ", 
+                    format(sum(summaryTable$changed), big.mark = ","), 
+                    " occurrences that previously had no country name assigned."))
+  
+  return(CountryList)
 } # END function
+

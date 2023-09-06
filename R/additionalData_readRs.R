@@ -4,8 +4,7 @@
 
 
 #### x.0 readr_BeeBDC function ####
-# A single function that wraps all of the readr_functions
-#' Read in specific bee datasets
+#' A wrapper for all of the data readr_functions
 #' 
 #' Read in a variety of data files that are specific to certain smaller data providers. 
 #' There is an internal readr function for each dataset and each one of these functions is called

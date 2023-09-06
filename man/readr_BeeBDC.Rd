@@ -27,7 +27,7 @@
 \alias{readr_STRI}
 \alias{readr_PALA}
 \alias{readr_JoLa}
-\title{Read in specific bee datasets}
+\title{A wrapper for all of the data readr_functions}
 \usage{
 readr_BeeBDC(
   dataset = NULL,

@@ -262,6 +262,12 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main",
                         auth_token = "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")
 ```
 
+Load the package with:
+
+``` r
+library(BeeBDC)
+```
+
 #### **Package data**
 
 You can access package data safely by using the following:
@@ -272,17 +278,7 @@ You can access package data safely by using the following:
     data("beesChecklist", package = "BeeBDC")
     data("beesTaxonomy", package = "BeeBDC")
 
-Load the package with:
 
-``` r
-library(BeeBDC)
-```
-
-#### **Package website**
-
-See *BeeBDC* package website
-(<https://jbdorey.github.io/BeeBDC/reference/index.html>) for detailed
-explanation on each module.
 
 #### **Getting help**
 
@@ -292,16 +288,6 @@ explanation on each module.
 
 #### **Citation**
 
-Paper, dataset, and package citation: Dorey, J. B., Chesshire, P. R.,
-Bolaños, A. N., O’reilly, R. L., Bossert, S., Collins, S. M.,
-Lichtenberg, E. M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A.,
-Guevara, D. A., Ribeiro, B. R., De Pedro, D., Fischer, E., Hung, J.
-K.-L., Parys, K. A., Rogan, M. S., Minckley, R. L., Velzco, S. J. E.,
-Griswold, T., Zarrillo, T. A., Sica, Y., Orr, M. C., Guzman, L. M.,
-Ascher, J., Hughes, A. C. & Cobb, N. S. In review. BeeBDC: A new R
-package and globally synthesised and flagged bee occurrence dataset.
-Scientific Data.
+Paper, dataset, and package citation: Dorey JB, Fischer EE, Chesshire PR, Nava-Bolaños A, O’Reilly RL, Bossert S, Collins SM, Lichtenberg EM, Tucker E, Smith-Pardo A, Falcon-Brindis A, Guevara DA, Ribeiro BR, de Pedro D, Hung JK-L, Parys KA, McCabe LM, Rogan MS, Minckley RL, Velzco SJE, Griswold T, Zarrillo TA, Jetz W, Sica YV, Orr MC, Guzman LM, Ascher J, Hughes AC, Cobb NS (2023) BeeBDC: An R package and globally synthesised and flagged bee occurrence dataset. bioRxiv
 
-Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
-E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 0.2.8. url: <https://github.com/jbdorey/BeeBDC>
+Package citation: Dorey JB, O’Reilly RL, Bossert S, Fischer EE (2023) BeeBDC: an occurrence data cleaning package. https://jbdorey.github.io/BeeBDC/index.html.
