@@ -106,7 +106,7 @@ to distinguish this function from the original bdc::bdc_coordinates_country_inco
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
-<span>  mapResolution <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  scale <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  pointBuffer <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>  stepSize <span class="op">=</span> <span class="fl">1e+06</span>,</span>
 <span>  mc.cores <span class="op">=</span> <span class="fl">1</span></span>
@@ -127,7 +127,7 @@ to distinguish this function from the original bdc::bdc_coordinates_country_inco
 <dd><p>Character. The name of the column to use as latitude. Default = "decimalLatitude".</p></dd>
 
 
-<dt>mapResolution</dt>
+<dt>scale</dt>
 <dd><p>Numeric or character. To be passed to <code><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html" class="external-link">rnaturalearth::ne_countries()</a></code>'s scale.
 Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”.
 Smaller values return higher-resolution maps.</p></dd>
@@ -135,7 +135,7 @@ Smaller values return higher-resolution maps.</p></dd>
 
 <dt>pointBuffer</dt>
 <dd><p>Numeric. Amount to buffer points, in decimal degrees. If the point is outside
-of a country, but within this point buffer, it will not be flagged.</p></dd>
+of a country, but within this point buffer, it will not be flagged. Default = 0.01.</p></dd>
 
 
 <dt>stepSize</dt>
@@ -164,9 +164,29 @@ Default = 1.</p></dd>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="va"><a href="beesRaw.html">beesRaw</a></span>,</span></span>
 <span class="r-in"><span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span></span>
 <span class="r-in"><span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span></span>
-<span class="r-in"><span>  mapResolution <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  scale <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span>  pointBuffer <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jbd_coordCountryInconsistent(data = BeeBDC::beesRaw, lon = "decimalLongitude",     lat = "decimalLatitude", mapResolution = 50, pointBuffer = 0.01):</span> unused argument (mapResolution = 50)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_outOfRange:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 0 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_empty' column found, running bdc_coordinates_empty</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_empty:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 23 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Downloading naturalearth map...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Spherical geometry (s2) switched off</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting initial country names without buffer...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Buffering naturalearth map by pointBuffer...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> dist is assumed to be in decimal degrees (arc_degrees).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting FAILED country names WITH buffer...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> jbd_coordinates_country_inconsistent:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 2 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The column, '.coordinates_country_inconsistent', was added to the database.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Completed in 0.02 secs</span>
 </code></pre></div>
     </div>
   </div>
