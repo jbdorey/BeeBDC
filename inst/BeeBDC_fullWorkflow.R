@@ -1411,7 +1411,7 @@ BeeBDC::summaryMaps(
   class_Style = "fisher",
   fileName = "Fig5_CountryMaps_fisher.pdf",
   outPath = OutPath_Figures,
-  scale = 50
+  scale = 110
 )
 
   ###### b. Interactive maps ####
