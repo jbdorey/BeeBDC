@@ -180,9 +180,9 @@ gdal”.</p>
 <p>Now install <strong>BeeBDC</strong>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
-<span>                        force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span>
-<span><span class="co">## Skipping install of 'BeeBDC' from a github remote, the SHA1 (46128c82) has not changed since last install.</span></span>
+<span>                        force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## Using github PAT from envvar GITHUB_PAT</span></span>
+<span><span class="co">## Skipping install of 'BeeBDC' from a github remote, the SHA1 (9851a5d4) has not changed since last install.</span></span>
 <span><span class="co">##   Use `force = TRUE` to force installation</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
@@ -496,7 +496,7 @@ available on CRAN and so must be downloaded using
 <span><span class="co">##   path: /opt/R/4.3.1/lib/R/library</span></span>
 <span><span class="co">##   packages:</span></span>
 <span><span class="co">##     KernSmooth, Matrix, mgcv, nlme, spatial, survival</span></span></code></pre>
-<pre><code><span><span class="co">## Old packages: 'classInt'</span></span></code></pre>
+<pre><code><span><span class="co">## Old packages: 'credentials', 'terra'</span></span></code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## The following package(s) will be updated in the lockfile:</span></span>
@@ -508,7 +508,10 @@ available on CRAN and so must be downloaded using
 <span><span class="co">## - nlme           [3.1-163 -&gt; 3.1-162]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # GitHub ---------------------------------------------------------------------</span></span>
-<span><span class="co">## - BeeBDC         [jbdorey/BeeBDC@main: e5afd24f -&gt; 46128c82]</span></span>
+<span><span class="co">## - BeeBDC         [jbdorey/BeeBDC@main: 3add9b82 -&gt; 9851a5d4]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## # RSPM -----------------------------------------------------------------------</span></span>
+<span><span class="co">## - classInt       [repo: CRAN -&gt; RSPM; ver: 0.4-9 -&gt; 0.4-10]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # Repository -----------------------------------------------------------------</span></span>
 <span><span class="co">## - BiocGenerics   [0.46.0: Bioconductor -&gt; Repository]</span></span>

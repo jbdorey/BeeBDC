@@ -176,12 +176,12 @@ gdal”.</p>
 <p>Now install <strong>BeeBDC</strong>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
-<span>                        force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span>
+<span>                        force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## Using github PAT from envvar GITHUB_PAT</span></span>
 <span><span class="co">## Downloading GitHub repo jbdorey/BeeBDC@main</span></span>
 <span><span class="co">## Skipping 1 packages not available: ComplexHeatmap</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="color: #00BBBB;">R CMD build</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpQA5okf/remotes221435881b07/jbdorey-BeeBDC-46128c8256812f0364bf4b7554809a9dfc36e9e9/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/RtmpaMxGJc/remotes217b7a948d56/jbdorey-BeeBDC-9851a5d/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘BeeBDC’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -573,8 +573,7 @@ Ecology, e3927 (2022). <a href="https://doi.org/10.1002/ecy.3927" class="externa
 <div class="section level7">
 <h6 id="e--ecd">e. Ecd<a class="anchor" aria-label="anchor" href="#e--ecd"></a>
 </h6>
-<p>Ecdysis. Ecdysis: a portal for live-data arthropod collections, <a href="https://serv.biokic.asu.edu/ecdysis/index.php" class="external-link uri">https://serv.biokic.asu.edu/ecdysis/index.php</a>
-(2022).</p>
+<p>Ecdysis. Ecdysis: a portal for live-data arthropod collections, <a href="https://ecdysis.org/index.php" class="external-link uri">https://ecdysis.org/index.php</a> (2022).</p>
 <pre><code><span><span class="va">Ecd_Data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/readr_BeeBDC.html">readr_BeeBDC</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
 <span>                               path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Additional_Datasets"</span><span class="op">)</span>,</span>
 <span>                      inFile <span class="op">=</span> <span class="st">"/InputDatasets/Ecdysis_occs.csv"</span>,</span>
@@ -942,10 +941,8 @@ details. NOTE: In an actual run you should use scale = “large”</p>
 <span>                                   scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>                                   mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
-<span><span class="co">##  - Starting chunk 1...</span></span>
-<span><span class="co">## From 1 to 1,000,000</span></span>
-<span><span class="co">##  - Cleaning RAM.</span></span>
-<span><span class="co">##  - Finished chunk 1 of 1 chunks. Records examined: 1,000,000</span></span></code></pre></div>
+<span><span class="co">##  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.</span></span>
+<span><span class="co">##  - We have updated the country names of 39 occurrences that previously had no country name assigned.</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="c--re-merge">c. re-merge<a class="anchor" aria-label="anchor" href="#c--re-merge"></a>
@@ -1072,7 +1069,7 @@ requires rnaturalearthhires</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"check_pf"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"01_prefilter_database.csv"</span>,</span>
-<span>                                    sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<span>                                    sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="coord-country">3.8 Coord-country<a class="anchor" aria-label="anchor" href="#coord-country"></a>
@@ -1276,13 +1273,13 @@ columns.</p>
 <div class="section level3">
 <h3 id="harmonise-taxonomy">4.2 Harmonise taxonomy<a class="anchor" aria-label="anchor" href="#harmonise-taxonomy"></a>
 </h3>
-<p>Read in the custom taxonomy file from the BeeBDC package and <a href="http://discoverlife.org" class="external-link">Discover Life</a> website.</p>
+<p>Read in the custom taxonomy file from the BeeBDC package and <a href="https://www.discoverlife.org" class="external-link">Discover Life</a> website.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesTaxonomy"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span></code></pre></div>
 <p>Harmonise the names in the occurrence tibble. This flags the
 occurrences without a matched name and matches names to their correct
-name according to <a href="http://discoverlife.org" class="external-link">Discover Life</a>.
-You can also use multiple cores to achieve this. See
+name according to <a href="https://www.discoverlife.org" class="external-link">Discover
+Life</a>. You can also use multiple cores to achieve this. See
 ‘?<code><a href="../reference/HarmoniseR.html">harmoniseR()</a></code>’ for details.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/HarmoniseR.html">harmoniseR</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, <span class="co">#The path to a folder that the output can be saved</span></span>
@@ -1538,8 +1535,8 @@ threshold.</p>
 <div class="section level3">
 <h3 id="country-checklist">5.5 Country checklist<a class="anchor" aria-label="anchor" href="#country-checklist"></a>
 </h3>
-<p>This step identifies mismatches between the <a href="http://discoverlife.org" class="external-link">Discover Life</a> country checklist —
-<code>beesChecklist</code> — for bee species and the dataset,
+<p>This step identifies mismatches between the <a href="https://www.discoverlife.org" class="external-link">Discover Life</a> country checklist
+— <code>beesChecklist</code> — for bee species and the dataset,
 identifying potential misidentifications, outliers, etc.’</p>
 <p>Read in the country-level checklist.</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
@@ -1578,7 +1575,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 0.26 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.25 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1734,7 +1731,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.273835897445679 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.254668712615967 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1931,7 +1928,7 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Ordering prefixs...</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-06.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-07.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
 <span><span class="co">##  - Completed in 0.01 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
@@ -1977,7 +1974,7 @@ expert outliers.</p>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-06.csv</span></span>
+<span><span class="co">##  /home/runner/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-07.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -2060,8 +2057,8 @@ it.</p>
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, repos <span class="op">=</span> <span class="st">"http://cran.us.r-project.org"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
-<p>Read in the most recent duplicate file, if it’s not already in your
-environment.</p>
+<p>Read in the most recent file of flagged duplicates, if it’s not
+already in your environment.</p>
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"duplicates"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
@@ -2070,11 +2067,11 @@ environment.</p>
 <p>Choose the global figure parameters.</p>
 <div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Create the chorDiagram. You can leave many of the below values out
-but we show here the defaults. There are [internal] no duplicates in our
-test dataset and so <strong>BeeBDC</strong> will throw an informative
-error. However, we show the full output figure from our bee dataset
-below.</p>
+<p>Create the chordDiagram. You can leave many of the below values out,
+but we show here the defaults. There are [internally] no duplicates in
+current our test dataset, so <strong>BeeBDC</strong> will throw an
+informative error. However, we show the full output figure from our bee
+dataset below.</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/chordDiagramR.html">chordDiagramR</a></span><span class="op">(</span></span>
 <span>  <span class="co"># The duplicate data from the dupeSummary function output  </span></span>
@@ -2100,7 +2097,7 @@ below.</p>
 <span>  legendJustify <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"bottom"</span><span class="op">)</span>,</span>
 <span>  niceFacing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>[Full chord diagram from Dorey et al. 2023]
-<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left"></p>
+<img src="https://photos.smugmug.com/photos/i-Xt3tN8L/0/X5/i-Xt3tN8L-X5.jpg" align="left"></p>
 </div>
 <div class="section level3">
 <h3 id="duplicate-histogram">9.2 Duplicate histogram<a class="anchor" aria-label="anchor" href="#duplicate-histogram"></a>
@@ -2116,7 +2113,7 @@ below.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Create a plot with two bar graphs. One shows the absolute number of
-duplicate records for each data source while the other shows the
+duplicate records for each data source, while the other shows the
 proportion of records that are duplicated within each data source.
 (<em>‘dataSource’</em> is simplified to the text before the first
 underscore).</p>
@@ -2142,7 +2139,7 @@ underscore).</p>
 <h3 id="flags-by-source">9.3 Flags by source<a class="anchor" aria-label="anchor" href="#flags-by-source"></a>
 </h3>
 <p>Create a compound bar plot that shows the proportion of records that
-pass or fail each flag (rows) and for each data source (columns). The
+pass or fail each flag (rows) for each data source (columns). The
 function can also optionally return a point map for a user-specified
 species when plotMap = TRUE. (<em>dataSource</em> is simplified to the
 text before the first underscore.)</p>
@@ -2208,17 +2205,18 @@ country.</p>
 <div class="section level4">
 <h4 id="b--interactive-maps">b. Interactive maps<a class="anchor" aria-label="anchor" href="#b--interactive-maps"></a>
 </h4>
-<p>Use the occurrence data (preferably uncleaned in order to show
-pass/fail points) and outputs interactive .html maps, that can be opened
-in your browser, to a specific directory. The maps can highlight if an
-occurrence has passed all filtering (<em>.summary</em> == TRUE) or
+<p>Uses the occurrence data (preferably uncleaned in order to show
+pass/fail points) and outputs interactive .html maps, which can be
+opened in your browser, to a specific directory. The maps can highlight
+if an occurrence has passed all filtering (<em>.summary</em> == TRUE) or
 failed at least one filter (<em>.summary</em> == FALSE). This can be
 updated by first running <code><a href="../reference/summaryFun.html">summaryFun()</a></code> to choose the columns
-that you want to be highlighted. It will also highlight occurrences
-flagged as expert-identified or country outliers separately. Because the
-function can have any categorical variable fed into ‘speciesColumn’,
-users may choose another column of interest to map; however, very large
-categories can be slow to produce and unwieldy to view.</p>
+that you want to be highlighted. This function will also highlight
+occurrences flagged as expert-identified or country outliers separately.
+Because the function can have any categorical variable fed into
+‘speciesColumn’, users may choose another column of interest to map;
+however, maps made using very large categories can be slow to produce
+and unwieldy to view.</p>
 <div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/interactiveMapR.html">interactiveMapR</a></span><span class="op">(</span></span>
 <span>   <span class="co"># occurrence data</span></span>
@@ -2250,10 +2248,10 @@ categories can be slow to produce and unwieldy to view.</p>
 <span>  locale <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/locale.html" class="external-link">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>This function will attempt to find and build a table of data
 providers that have contributed to the input data, especially using the
-<em>‘institutionCode’</em> column. It will also look for a variety of
+<em>‘institutionCode’</em> column. It will also search a variety of
 other columns to find data providers using an internally set sequence of
 if-else statements. Hence, this function is quite specific for bee data,
-but should work for other taxa in similar institutions (perhaps to a
+but it should work for other taxa in similar institutions (perhaps to a
 lesser degree).</p>
 <div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Note, if outPath = NULL then no file will be saved</span></span>
@@ -2265,10 +2263,11 @@ lesser degree).</p>
 <div class="section level3">
 <h3 id="flag-summary">9.6 Flag summary<a class="anchor" aria-label="anchor" href="#flag-summary"></a>
 </h3>
-<p>Takes a flagged dataset and returns the total number of fails (FALSE)
-per flag (columns starting with “.”) and per species. Users may define
-the column to group the summary by. While it is intended to work with
-the <em>scientificName</em> column, users may select any grouping column
+<p>The function <code><a href="../reference/flagSummaryTable.html">flagSummaryTable()</a></code> takes a flagged dataset
+and returns the total number of fails (FALSE) per flag (in columns
+starting with “.”) and per species. Users may define the column by which
+to group the summary. While it is intended to work with the
+<em>scientificName</em> column, users may select any grouping column
 (e.g., <em>country</em>).</p>
 <div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Note, if outPath = NULL then no file will be saved</span></span>

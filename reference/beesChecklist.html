@@ -100,7 +100,7 @@ data collated on Discover Life. See <code><a href="beesTaxonomy.html">beesTaxono
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">beesChecklist</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesChecklist"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="format">
@@ -126,14 +126,8 @@ data collated on Discover Life. See <code><a href="beesTaxonomy.html">beesTaxono
 <dt>Alpha-3</dt>
 <dd><p>Alpha-3 from rnaturalearth.</p></dd>
 
-<dt>official</dt>
-<dd><p>Official country name = "yes" or only a Discover Life name = "no".</p></dd>
-
 <dt>Source</dt>
 <dd><p>A text strign denoting the source or author of the name-country pair.</p></dd>
-
-<dt>matchCertainty</dt>
-<dd><p>Quality of the name's match to the Discover Life checklist.</p></dd>
 
 <dt>canonical</dt>
 <dd><p>The valid species name without scientificNameAuthority.</p></dd>
@@ -156,20 +150,11 @@ data collated on Discover Life. See <code><a href="beesTaxonomy.html">beesTaxono
 <dt>infraspecies</dt>
 <dd><p>Bee infraSpecificEpithet.</p></dd>
 
-<dt>infraspecificEpithet</dt>
-<dd><p>Bee infraspecificEpithet.</p></dd>
-
 <dt>species</dt>
 <dd><p>Bee specificEpithet.</p></dd>
 
 <dt>scientificNameAuthorship</dt>
 <dd><p>Bee scientificNameAuthorship.</p></dd>
-
-<dt>taxon_rank</dt>
-<dd><p>Rank of the taxon name.</p></dd>
-
-<dt>Notes</dt>
-<dd><p>Discover Life country name notes.</p></dd>
 
 
 
@@ -188,9 +173,9 @@ ASCHER, J. S. &amp; PICKERING, J. 2020. Discover Life bee species guide and worl
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Not run:</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">beesChecklist</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesChecklist"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">beesChecklist</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 23</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   validName      DiscoverLife_name rNaturalEarth_name shortName DiscoverLife_ISO</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Halictus lute… Colombia          Colombia           Colombia  CO              </span>
@@ -199,12 +184,10 @@ ASCHER, J. S. &amp; PICKERING, J. 2020. Discover Life bee species guide and worl
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Andrena afgha… Afghanistan       Afghanistan        Afghanis… AF              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Andrena afzel… Afghanistan       Afghanistan        Afghanis… AF              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Andrena albop… Afghanistan       Afghanistan        Afghanis… AF              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 18 more variables: `Alpha-2` &lt;chr&gt;, `Alpha-3` &lt;chr&gt;, official &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   Source &lt;chr&gt;, matchCertainty &lt;chr&gt;, canonical &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   canonical_withFlags &lt;chr&gt;, family &lt;chr&gt;, subfamily &lt;chr&gt;, genus &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   subgenus &lt;lgl&gt;, specificEpithet &lt;chr&gt;, species &lt;chr&gt;, infraspecies &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   scientificNameAuthorship &lt;chr&gt;, taxon_rank &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   infraspecificEpithet &lt;chr&gt;, Notes &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 13 more variables: `Alpha-2` &lt;chr&gt;, `Alpha-3` &lt;chr&gt;, Source &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   canonical &lt;chr&gt;, canonical_withFlags &lt;chr&gt;, family &lt;chr&gt;, subfamily &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   genus &lt;chr&gt;, subgenus &lt;lgl&gt;, specificEpithet &lt;chr&gt;, species &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   infraspecies &lt;chr&gt;, scientificNameAuthorship &lt;chr&gt;</span></span>
 <span class="r-in"><span><span class="co">## End(Not run)</span></span></span>
 </code></pre></div>
     </div>
