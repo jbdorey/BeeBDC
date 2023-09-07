@@ -21,8 +21,8 @@ Description: Flags and checks occurrence data that are in Darwin Core
     <http://www.discoverlife.org/mp/20q?guide=Apoidea_species>.  For
     further information, please see the original publication and package
     website.  Publication - Dorey et al. (2023)
-    <https://doi.org/10.1101/2023.06.30.547152> and package website -
-    Dorey et al. (2023) <https://github.com/jbdorey/BeeBDC>.
+    <doi:10.1101/2023.06.30.547152> and package website - Dorey et al.
+    (2023) <https://github.com/jbdorey/BeeBDC>.
 License: GPL-3 + file LICENSE
 BugReports: https://github.com/jbdorey/BeeBDC/issues
 Depends: 
@@ -82,7 +82,6 @@ Suggests:
     xml2
 VignetteBuilder: 
     knitr
-Additional_repositories: https://bioconductor.org/packages/ComplexHeatmap/
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-gb

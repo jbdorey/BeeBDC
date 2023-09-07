@@ -13,10 +13,9 @@ status](https://www.r-pkg.org/badges/version/BeeBDC)](https://CRAN.R-project.org
 [![downloads](https://cranlogs.r-pkg.org/badges/grand-total/BeeBDC)](https://cranlogs.r-pkg.org:443/badges/grand-total/BeeBDC)
 <!-- [![rstudio mirror -->
 <!-- downloads](https://cranlogs.r-pkg.org/badges/BeeBDC)](https://cranlogs.r-pkg.org:443/badges/BeeBDC) -->
-[![R-CMD-check](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml)
-<!-- [![Codecov test
+[![R-CMD-check](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml)<!-- [![Codecov test
 coverage](https://codecov.io/gh/jbdorey/BeeBDC/branch/master/graph/badge.svg?token=9AUF86G9LJ)](https://app.codecov.io/gh/jbdorey/BeeBDC) -->
-[![DOI](https://doi.org/10.1101/2023.06.30.547152)](https://doi.org/10.1101/2023.06.30.547152)
+[![DOI](https://zenodo.org/badge/DOI/10.1101/2023.06.30.547152.svg)](https://doi.org/10.1101/2023.06.30.547152)
 [![License](https://img.shields.io/badge/license-GPL%20(%3E=%203)-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 
 <!-- badges: end -->
