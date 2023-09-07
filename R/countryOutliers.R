@@ -31,14 +31,15 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' 
+#' library(magrittr)
 #' data("beesRaw", package = "BeeBDC")
 #' data("beesChecklist", package = "BeeBDC")
 #' 
 #' beesRaw_out <- countryOutlieRs(checklist = beesChecklist %>%
 #'                                  # cut down the dataset to run the test quicker
 #'                                  dplyr::filter(validName %in% beesFlagged$scientificName),
-#'                                data = beesRaw,
+#'                                data = beesRaw %>%
+#'                                dplyr::filter(dplyr::row_number() %in% 1:50),
 #'                                keepAdjacentCountry = TRUE,
 #'                                pointBuffer = 1,
 #'                                rnearthScale = 50,
@@ -65,7 +66,7 @@ countryOutlieRs <- function(
     SciCountry<-validName<-countryOutlieRs<-SciCountry_noYear<-countryOutlieRs<-
     neighbourMatch_noYear<-countryOutlieRs<-exactMatch_noYear<-matchType<-countryMatch<-
     countryOutlieRs<-countryOutlieRs<-.countryOutlier <- BeeBDC_order <- BeeBDC_group <- points <- 
-    NULL
+    inData <- indexMatch <- NULL
   
   # REMOVE - TEST thinning
    #  data <- data %>%
@@ -101,6 +102,11 @@ countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
     "HKG" = "CHN", # Hong Kong == China
     "MAF" = "SXM"))) # Saint-Martin == Sint Maarten
 })
+  
+  # Simplify the world map ONCE to be used later
+  simplePoly <- countryMap %>% sf::st_drop_geometry() %>%
+    dplyr::mutate(indexMatch = dplyr::row_number())
+  
   # Dont's use spherical geometry
 sf::sf_use_s2(FALSE)
 
@@ -109,36 +115,49 @@ sf::sf_use_s2(FALSE)
     ##### 2.1 Create functions ####
       ###### a. simple intersect ####
 # Hijack st_intersection to allow it to be run in parallel
-jbd_intersection <- function(data){
-  # Turn data into a simple point feature
-  points <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+jbd_intersection <- function(inData){
+  inData <- inData %>% tidyr::drop_na(decimalLongitude, decimalLatitude)
+  suppressWarnings({ suppressMessages({
+    # Turn inData into a simple point feature
+  points <- sf::st_as_sf(inData,
                          coords = c("decimalLongitude", "decimalLatitude"),
                          na.fail = TRUE,
-                         # Assign the CRS from the rnaturalearth map to the point data
+                         # Assign the CRS from the rnaturalearth map to the point inData
                          crs = sf::st_crs(countryMap)) %>%
     # Use a subset of columns
     dplyr::select(database_id, scientificName, species, family, subfamily, genus, specificEpithet, 
                   scientificNameAuthorship,
                   country, stateProvince, eventDate, institutionCode, recordNumber, catalogNumber,
                   dataSource, verbatim_scientificName, geometry)
-  suppressWarnings({
     #Extract polygon information to points
-  points_extract <- sf::st_intersection(countryMap,
-                                        points) %>% suppressWarnings()
-  })
+    points_extract <- sf::st_intersects(points, countryMap) %>%
+      # return a tibble with the index of each match or NA where there was no match
+      dplyr::tibble(indexMatch = .) %>%
+      # Convert to numeric
+      dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
+                      # deal with problems — Take the first number where two are provided
+                      stringr::str_extract("[0-9]+") %>% 
+                      # Remove zero to NA
+                      stringr::str_replace("^[0]$", NA_character_) %>% as.numeric()) %>%
+      dplyr::left_join(simplePoly,
+                       by = "indexMatch") %>%
+      # Add in the database_id
+      dplyr::bind_cols(inData %>% sf::st_drop_geometry() %>% dplyr::select(!continent))
+  }) })
     # Return the points
   return(points_extract)
   } # END jbd_intersection
 
       ###### b. buffered intersect ####
 # Hijack st_intersection to allow it to be run in parallel
-jbd_bufferedIntersection <- function(data){
-  suppressWarnings({
-  # Turn data into a simple point feature
-  points <- sf::st_as_sf(data %>% tidyr::drop_na(decimalLongitude, decimalLatitude),
+jbd_bufferedIntersection <- function(inData){
+  suppressWarnings({ suppressMessages({
+    inData <- inData %>% tidyr::drop_na(decimalLongitude, decimalLatitude)
+  # Turn inData into a simple point feature
+  points <- sf::st_as_sf(inData,
                          coords = c("decimalLongitude", "decimalLatitude"),
                          na.fail = TRUE,
-                         # Assign the CRS from the rnaturalearth map to the point data
+                         # Assign the CRS from the rnaturalearth map to the point inData
                          crs = sf::st_crs(countryMap)) %>%
     # Use a subset of columns
     dplyr::select(database_id, scientificName, species, family, subfamily, genus, specificEpithet, 
@@ -147,10 +166,22 @@ jbd_bufferedIntersection <- function(data){
                   dataSource, verbatim_scientificName, geometry) %>%
       # Buffer the points by the pointBuffer
     sf::st_buffer(dist = pointBuffer)
-    #Extract polygon information to points
-    points_extract <- sf::st_intersection(countryMap,
-                                          points) %>% suppressWarnings()
-  })
+  
+  #Extract polygon information to points
+  points_extract <- sf::st_intersects(points, countryMap) %>%
+    # return a tibble with the index of each match or NA where there was no match
+    dplyr::tibble(indexMatch = . ) %>%
+    # Convert to numeric
+    dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
+                    # deal with problems — Take the first number where two are provided
+                    stringr::str_extract("[0-9]+") %>% 
+                    # Remove zero to NA
+                    stringr::str_replace("^[0]$", NA_character_) %>% as.numeric()) %>%
+    dplyr::left_join(simplePoly,
+                     by = "indexMatch") %>%
+    # Add in the database_id
+    dplyr::bind_cols(inData %>% sf::st_drop_geometry() %>% dplyr::select(!continent))
+  })  })
   # Return the points
   return(points_extract)
 } # END jbd_intersection
@@ -196,6 +227,7 @@ points_extract = data %>%
     # Combine the lists of tibbles
     dplyr::bind_rows() 
   
+  if(nrow(points_failed > 0)){
   # Re-merge good with failed
   points_extract <- points_extract %>%
     sf::st_drop_geometry() %>%
@@ -203,6 +235,7 @@ points_extract = data %>%
     dplyr::filter(!database_id %in% points_failed$database_id) %>%
       # replace these, but now matched
     dplyr::bind_rows(points_failed %>% sf::st_drop_geometry())
+  }
   } # End if pointBuffer
   
   writeLines(" - Prepare the neighbouring country dataset...")

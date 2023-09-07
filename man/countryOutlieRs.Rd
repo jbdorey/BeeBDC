@@ -48,14 +48,15 @@ This function flags country-level outliers using the checklist provided with thi
 For additional context and column names, see \code{\link[=beesChecklist]{beesChecklist()}}.
 }
 \examples{
-
+library(magrittr)
 data("beesRaw", package = "BeeBDC")
 data("beesChecklist", package = "BeeBDC")
 
 beesRaw_out <- countryOutlieRs(checklist = beesChecklist \%>\%
                                  # cut down the dataset to run the test quicker
                                  dplyr::filter(validName \%in\% beesFlagged$scientificName),
-                               data = beesRaw,
+                               data = beesRaw \%>\%
+                               dplyr::filter(dplyr::row_number() \%in\% 1:50),
                                keepAdjacentCountry = TRUE,
                                pointBuffer = 1,
                                rnearthScale = 50,
