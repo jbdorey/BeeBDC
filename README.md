@@ -51,9 +51,13 @@ modules related to different biodiversity dimensions.
 > :warning: like in the [**bdc**](https://brunobrr.github.io/bdc/) package, we provide a suggested workflow [here](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html). However our functions can also be run mostly out of order.
 > Additionally, when running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks.
 
+> Paper DOI - <https://doi.org/10.1101/2023.06.30.547152>
+
+> Package GitHub - <https://github.com/jbdorey/BeeBDC/>
+
 ------------------------------------------------------------------------
 
-<a href='https://jbdorey.github.io/BeeBDC/index.html'><img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/Figure1_14Jan2023.jpeg" align="left" /></a>
+<a href='https://jbdorey.github.io/BeeBDC/index.html'><img src="https://photos.smugmug.com/photos/i-V37Vg2w/0/X4/i-V37Vg2w-X4.jpg" align="left" /></a>
 
 <br/>
 
@@ -65,7 +69,7 @@ Integrate and merge different datasets from major the data repositories
 - `atlasDownloader()` Downloads ALA data and creates a new file in the
   path to put those data. This function can also request downloads from
   other atlases (see:
-  <http://galah.ala.org.au/articles/choosing_an_atlas.html>). However,
+  <https://galah.ala.org.au/R/articles/choosing_an_atlas.html>). However,
   it will only send the download to your email and you must do the rest
   yourself at this point.
 - `repoMerge()` Locates data from GBIF, ALA, iDigBio, and SCAN within a
@@ -283,7 +287,7 @@ You can access package data safely by using the following:
 
 > If you encounter a clear bug, please file an issue
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
-> suggestion, please send us a email (jbdorey@icloud.com).
+> suggestion, please send us a email (james.dorey@flinders.edu.au).
 
 #### **Citation**
 

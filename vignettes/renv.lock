@@ -21,7 +21,7 @@
       "RemoteRepo": "BeeBDC",
       "RemoteUsername": "jbdorey",
       "RemoteRef": "main",
-      "RemoteSha": "e5afd24fce2a3e554b4429d8a13a65854cfdf18a",
+      "RemoteSha": "3add9b82c15dde8e48996aa9c22006a862a48ee3",
       "Requirements": [
         "ComplexHeatmap",
         "CoordinateCleaner",
@@ -44,7 +44,7 @@
         "stringr",
         "tidyselect"
       ],
-      "Hash": "f4110cd1bcf2eeb420b6cb80ffd7d5e6"
+      "Hash": "b07e6eaa239db987a676b83da79f3b51"
     },
     "BiocGenerics": {
       "Package": "BiocGenerics",

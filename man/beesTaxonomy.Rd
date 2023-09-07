@@ -29,13 +29,12 @@ An object of class \code{"tibble"} ## \code{beesTaxonomy}
 \item{infraspecies}{The infraspecific epithet for the bee addressed.}
 \item{authorship}{The author who described the bee species.}
 \item{taxon_rank}{Rank for the bee taxon addressed in the entry.}
-\item{valid}{Logical for if the name is valid. TRUE == a valid name, FALSE == invalid scientific name.}
 \item{notes}{Additional notes about the name/taxon.}
 
 }
 }
 \usage{
-data(beesTaxonomy)
+data("beesTaxonomy", package = "BeeBDC")
 }
 \description{
 Contains taxonomic information for the bees of the world. Source of taxonomy is listed under
@@ -43,8 +42,7 @@ Contains taxonomic information for the bees of the world. Source of taxonomy is 
 }
 \examples{
 
-data(beesTaxonomy)
-head(beesTaxonomy)
+data("beesTaxonomy", package = "BeeBDC")
 
 }
 \references{

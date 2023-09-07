@@ -478,7 +478,7 @@ Delphia, C. M. Bumble bees of Montana. <https://www.mtent.org/projects/Bumble_Be
                               
 ###### e. Ecd
 
-Ecdysis. Ecdysis: a portal for live-data arthropod collections, <https://serv.biokic.asu.edu/ecdysis/index.php> (2022).
+Ecdysis. Ecdysis: a portal for live-data arthropod collections, <https://ecdysis.org/index.php> (2022).
 
     Ecd_Data <- BeeBDC::readr_BeeBDC(dataset = "Ecd",
                                    path = paste0(DataPath, "/Additional_Datasets"),
@@ -931,7 +931,7 @@ Read the data in again if needed.
 ```{r 3.7iv, eval = FALSE, collapse = TRUE}
 if(!exists("check_pf")){
   check_pf <- readr::read_csv(paste(OutPath_Intermediate, "01_prefilter_database.csv",
-                                    sep = "/"))}
+                                    sep = "/"), col_types = BeeBDC::ColTypeR())}
 ```
 
 
@@ -1132,14 +1132,14 @@ rm(parse_names)
 
 ## 4.2 Harmonise taxonomy 
 
-Read in the custom taxonomy file from the BeeBDC package and [Discover Life](http://discoverlife.org) website.
+Read in the custom taxonomy file from the BeeBDC package and [Discover Life](https://www.discoverlife.org) website.
 
 ```{r 4.2, collapse = TRUE}
 data("beesTaxonomy", package = "BeeBDC")
 ```
 
 
-Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](http://discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
+Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](https://www.discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
 
 
 ```{r 4.2ii, collapse = TRUE}
@@ -1392,7 +1392,7 @@ check_space <- coordUncerFlagR(data = check_space,
 
 ## 5.5 Country checklist 
 
-This step identifies mismatches between the [Discover Life](http://discoverlife.org) country checklist — `beesChecklist` — for bee species and the dataset, identifying potential misidentifications, outliers, etc.’ 
+This step identifies mismatches between the [Discover Life](https://www.discoverlife.org) country checklist — `beesChecklist` — for bee species and the dataset, identifying potential misidentifications, outliers, etc.’ 
 
 Read in the country-level checklist.
 
@@ -1890,7 +1890,7 @@ BeeBDC::chordDiagramR(
 ```
 
 ![Full chord diagram from Dorey et al. 2023]
-<img src="https://github.com/jbdorey/BeeBDC/blob/main/inst/extdata/icon_vignettes/ChordDiagram.pdf" align="left" />
+<img src="https://photos.smugmug.com/photos/i-Xt3tN8L/0/X5/i-Xt3tN8L-X5.jpg" align="left" />
 
 
 ## 9.2 Duplicate histogram 

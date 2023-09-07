@@ -20,7 +20,7 @@ An object of class \code{"tibble"}
 \item{taxonRank}{The taxonomic rank of the most specific name in the scientificName column.}
 \item{scientificNameAuthorship}{The authorship information for the scientificName column formatted according to the conventions of the applicable nomenclaturalCode.}
 \item{identificationQualifier}{A brief phrase or a standard term ("cf.", "aff.") to express the determiner's doubts about the identification.}
-\item{higherClassification}{A list (concatenated and separated) of taxon names terminating at the rank immediately superior to the taxon referenced in the taxon record.)}
+\item{higherClassification}{A list (concatenated and separated) of taxon names terminating at the rank immediately superior to the taxon referenced in the taxon record.}
 \item{identificationReferences}{A list (concatenated and separated) of references (e.g. publications, global unique identifier, URI, etc.) used in the identification of the occurrence.}
 \item{typeStatus}{A list (concatenated and separated) of nomenclatural types (e.g. type status, typified scientific name, publication) applied to the occurrence.}
 \item{previousIdentifications}{A list (concatenated and separated) of previous assignments of names to the occurrence.}
@@ -53,7 +53,7 @@ An object of class \code{"tibble"}
 \item{samplingProtocol}{The names of, references to, or descriptions of the methods or protocols used during an Event. Examples	UV light trap, mist net, bottom trawl, ad hoc observation | point count, Penguins from space: faecal stains reveal the location of emperor penguin colonies, https://doi.org/10.1111/j.1466-8238.2009.00467.x, Takats et al. 2001.}
 \item{samplingEffort}{The amount of effort expended during an Event. Examples	40 trap-nights, 10 observer-hours, 10 km by foot, 30 km by car.}
 \item{individualCount}{The number of individuals present at the time of the Occurrence. Integer.}
-\item{organismQuantity}{A number or enumeration value for the quantity of organisms. Examples	27 (organismQuantity) with individuals (organismQuantityType). 12.5 (organismQuantity) with \% biomass (organismQuantityType). r (organismQuantity) with Braun Blanquet Scale (organismQuantityType). many (organismQuantity) with individuals (organismQuantityType).}
+\item{organismQuantity}{A number or enumeration value for the quantity of organisms. Examples	27 (organismQuantity) with individuals (organismQuantityType). 12.5 (organismQuantity) with percentage biomass (organismQuantityType). r (organismQuantity) with Braun Blanquet Scale (organismQuantityType). many (organismQuantity) with individuals (organismQuantityType).}
 \item{coordinatePrecision}{A decimal representation of the precision of the coordinates given in the decimalLatitude and decimalLongitude.}
 \item{coordinateUncertaintyInMeters}{The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.}
 \item{spatiallyValid}{Occurrence records in the ALA can be filtered by using the spatially valid flag. This flag combines a set of tests applied to the record to see how reliable are its spatial data components.}
@@ -70,7 +70,7 @@ An object of class \code{"tibble"}
 \item{verbatimEventDate}{The verbatim original representation of the date and time information for an event. For occurrences, this is the date-time when the event was recorded as noted by the collector.}
 \item{associatedTaxa}{A list (concatenated and separated) of identifiers or names of taxa and the associations of this occurrence to each of them.}
 \item{associatedOrganisms}{A list (concatenated and separated) of identifiers of other Organisms and the associations of this occurrence to each of them.}
-\item{fieldNotes}{One of a) an indicator of the existence of, b) a reference to (publication, URI), or c) the text of notes taken in the field about the Event.}
+\item{fieldNotes}{One of (a) an indicator of the existence of, (b) a reference to (publication, URI), or (c) the text of notes taken in the field about the Event.}
 \item{sex}{The sex of the biological individual(s) represented in the Occurrence.}
 \item{rights}{A description of the usage rights applicable to the record.}
 \item{rightsHolder}{A person or organization owning or managing rights over the resource.}
@@ -95,7 +95,7 @@ An object of class \code{"tibble"}
 \item{.basisOfRecords_notStandard}{Flag produced by \code{\link[bdc:bdc_basisOfRecords_notStandard]{bdc::bdc_basisOfRecords_notStandard()}} where FALSE == an occurrence with a basisOfRecord not defined as acceptable by the user.}
 \item{country_suggested}{A country name suggested by the \code{\link[bdc:bdc_country_standardized]{bdc::bdc_country_standardized()}} function.}
 \item{countryCode}{A country code suggested by the \code{\link[bdc:bdc_country_standardized]{bdc::bdc_country_standardized()}} function.}
-\item{coordinates_transposed}{A column indicating if coordinates were identified as being transposed by the function BeeBDC::jbd_Ctrans_chunker() where FALSE == transposed.}
+\item{coordinates_transposed}{A column indicating if coordinates were identified as being transposed by the function \code{\link[=jbd_Ctrans_chunker]{jbd_Ctrans_chunker()}} where FALSE == transposed.}
 \item{.coordinates_country_inconsistent}{A flag generated by \code{\link[=jbd_coordCountryInconsistent]{jbd_coordCountryInconsistent()}} where FALSE == an occurrence where the country name and coordinates did not match.}
 \item{.occurrenceAbsent}{A flag generated by \code{\link[=flagAbsent]{flagAbsent()}} where FALSE == occurrences marked as "ABSENT" in the "occurrenceStatus" column}
 \item{.unLicensed}{A flag generated by \code{\link[=flagLicense]{flagLicense()}} where FALSE == those occurrences protected by a restrictive license.}
@@ -121,12 +121,12 @@ An object of class \code{"tibble"}
 \item{.sea}{A flag generated by \code{\link[=countryOutlieRs]{countryOutlieRs()}} where FALSE == occurrences that are in the ocean.}
 \item{.summary}{A flag generated by \code{\link[=summaryFun]{summaryFun()}} where FALSE == occurrences flagged as FALSE in any of the .flag columns. In this example it excludes flags in the ".gridSummary", ".lonFlag", ".latFlag", and ".uncer_terms" columns.}
 \item{.eventDate_empty}{A flag generated by \code{\link[bdc:bdc_eventDate_empty]{bdc::bdc_eventDate_empty()}} where FALSE == occurrences with no eventDate provided.}
-\item{.year_outOfRange}{A flag column generated by bdc::bdc_year_outOfRange() where FALSE == occurrences older than a threshold date. In the case of the bee dataset used in this package, the lower threshold is 1950}
+\item{.year_outOfRange}{A flag column generated by \code{\link[bdc:bdc_year_outOfRange]{bdc::bdc_year_outOfRange()}} where FALSE == occurrences older than a threshold date. In the case of the bee dataset used in this package, the lower threshold is 1950}
 \item{.duplicates}{A flag generated by \code{\link[=dupeSummary]{dupeSummary()}} where FALSE == occurrences identified as duplicates. There will be an associated kept duplicate (.duplictes == TRUE) for all duplicate clusters.}
 }
 }
 \usage{
-data(beesFlagged)
+data("bees3sp", package = "BeeBDC")
 }
 \description{
 This test dataset includes 105 random occurrence records from three bee species.
@@ -139,7 +139,7 @@ example script and to test functions. For data types, see \code{\link[=ColTypeR]
 }
 \examples{
 
-data(bees3sp)
+data("bees3sp", package = "BeeBDC")
 head(bees3sp)
 
 }

@@ -640,7 +640,7 @@ gc()
 # Read data in again if needed
 if(!exists("check_pf")){
   check_pf <- readr::read_csv(paste(OutPath_Intermediate, "01_prefilter_database.csv",
-                                    sep = "/"))}
+                                    sep = "/"), col_types = BeeBDC::ColTypeR())}
 # Collect all country names in the country column
 # rebuilt a bdc function to flag occurrences where the coordinates are inconsistent with the provided
   # country name

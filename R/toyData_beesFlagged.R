@@ -8,7 +8,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(beesFlagged)
+#' @usage data("beesFlagged", package = "BeeBDC")
 #'
 #' @format An object of class \code{"tibble"}
 #' \describe{
@@ -58,7 +58,7 @@
 #'  \item{samplingProtocol}{The names of, references to, or descriptions of the methods or protocols used during an Event. Examples	UV light trap, mist net, bottom trawl, ad hoc observation | point count, Penguins from space: faecal stains reveal the location of emperor penguin colonies, https://doi.org/10.1111/j.1466-8238.2009.00467.x, Takats et al. 2001.}
 #'  \item{samplingEffort}{The amount of effort expended during an Event. Examples	40 trap-nights, 10 observer-hours, 10 km by foot, 30 km by car.}
 #'  \item{individualCount}{The number of individuals present at the time of the Occurrence. Integer.}
-#'  \item{organismQuantity}{A number or enumeration value for the quantity of organisms. Examples	27 (organismQuantity) with individuals (organismQuantityType). 12.5 (organismQuantity) with % biomass (organismQuantityType). r (organismQuantity) with Braun Blanquet Scale (organismQuantityType). many (organismQuantity) with individuals (organismQuantityType).}
+#'  \item{organismQuantity}{A number or enumeration value for the quantity of organisms. Examples	27 (organismQuantity) with individuals (organismQuantityType). 12.5 (organismQuantity) with percentage biomass (organismQuantityType). r (organismQuantity) with Braun Blanquet Scale (organismQuantityType). many (organismQuantity) with individuals (organismQuantityType).}
 #'  \item{coordinatePrecision}{A decimal representation of the precision of the coordinates given in the decimalLatitude and decimalLongitude.}
 #'  \item{coordinateUncertaintyInMeters}{The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.}
 #'  \item{spatiallyValid}{Occurrence records in the ALA can be filtered by using the spatially valid flag. This flag combines a set of tests applied to the record to see how reliable are its spatial data components.}
@@ -135,7 +135,7 @@
 #' @keywords datasets
 #' @examples
 #'
-#' data(beesFlagged)
+#' data("beesFlagged", package = "BeeBDC")
 #' head(beesFlagged)
 #'
 "beesFlagged"

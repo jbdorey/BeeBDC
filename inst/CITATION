@@ -1,7 +1,7 @@
 citHeader("To cite BeeBDC and associated data in publications use both:")
 
-citEntry(
-  entry    = "Article",
+bibentry(
+  bibtype  = "Article",
   title    = "BeeBDC: An R package and globally synthesised and flagged bee occurrence dataset",
   author   = person("Dorey, James B [aut],Fischer, Erica E [aut],Chesshire, Paige R [aut],Bolaños, Angela N [aut],O’Reilly, Robert L [aut],Bossert, Silas [aut],Collins, Shannon M [aut],Lichtenberg, Elinor M [aut],Tucker, Erika [aut],Smith-Pardo, Allan [aut],Falcon-Brindis, Armando [aut],Guevara, Diego A [aut],Ribeiro, Bruno R [aut],de Pedro, Diego [aut],Hung, James Keng-Lou [aut],Parys, Katherine A [aut],McCabe Lindsie M [aut],Rogan, Matthew S [aut],Minckley, Robert L [aut],Velzco, Santiago J E [aut],Griswold, Terry [aut],Zarrillo, Tracy A [aut],Jetz, Walter [aut],Sica, Yanina [aut],Orr, Michael C [aut],Guzman, Laura Melissa [aut],Ascher, John [aut],Hughes, Alice C [aut],Cobb, Neil S [aut]"),
   journal  = "Scientific Data",
@@ -16,12 +16,12 @@ citEntry(
 )
 
 
-citEntry(
-  entry    = "Manual",
+bibentry(
+  bibtype  = "Manual",
   title    = "BeeBDC: an occurrence data cleaning package",
   author   = person("Dorey, James B. [aut],O’Reilly, Robert L. [aut],Bossert, Silas [aut],Fischer, Erica E. [aut]"),
   year     = "2023",
-  note    = "R package version 0.0.1",
+  note     = "R package version 0.0.1",
   url      = "https://github.com/jbdorey/BeeBDC",
   textVersion = paste(
 "Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer, E. E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.0.0. url: https://github.com/jbdorey/BeeBDC"

@@ -8,8 +8,8 @@
 #'  data collated on Discover Life. See [BeeBDC::beesTaxonomy()] for further context. 
 #'
 #' @docType data
-#'
-#' @usage data(beesChecklist)
+#' 
+#' @usage data("beesChecklist", package = "BeeBDC")
 #'
 #' @format An object of class \code{"tibble"}
 #' \describe{
@@ -20,9 +20,7 @@
 #'  \item{DiscoverLife_ISO}{The ISO country name as it occurs on Discover Life.}
 #'  \item{Alpha-2}{Alpha-2 from rnaturalearth.}
 #'  \item{Alpha-3}{Alpha-3 from rnaturalearth.}
-#'  \item{official}{Official country name = "yes" or only a Discover Life name = "no".}
 #'  \item{Source}{A text strign denoting the source or author of the name-country pair.}
-#'  \item{matchCertainty}{Quality of the name's match to the Discover Life checklist.}
 #'  \item{canonical}{The valid species name without scientificNameAuthority.}
 #'  \item{canonical_withFlags}{The validName without the scientificNameAuthority but with Discover Life flags.}
 #'  \item{family}{Bee family.}
@@ -30,11 +28,8 @@
 #'  \item{genus}{Bee genus.}
 #'  \item{subgenus}{Bee subgenus.}
 #'  \item{infraspecies}{Bee infraSpecificEpithet.}
-#'  \item{infraspecificEpithet}{Bee infraspecificEpithet.}
 #'  \item{species}{Bee specificEpithet.}
 #'  \item{scientificNameAuthorship}{Bee scientificNameAuthorship.}
-#'  \item{taxon_rank}{Rank of the taxon name.}
-#'  \item{Notes}{Discover Life country name notes.}
 #'  
 #' }
 #' @references This dataset was created using the Discover Life checklist and taxonomy. 
@@ -48,7 +43,7 @@
 #' @examples
 #'
 #'## Not run:
-#' data(beesChecklist)
+#' data("beesChecklist", package = "BeeBDC")
 #' head(beesChecklist)
 #'## End(Not run)
 "beesChecklist"

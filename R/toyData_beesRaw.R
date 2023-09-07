@@ -8,7 +8,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(beesRaw)
+#' @usage data("beesRaw", package = "BeeBDC")
 #'
 #' @format An object of class \code{"tibble"}
 #' \describe{
@@ -58,7 +58,7 @@
 #'  \item{samplingProtocol}{The names of, references to, or descriptions of the methods or protocols used during an Event. Examples	UV light trap, mist net, bottom trawl, ad hoc observation | point count, Penguins from space: faecal stains reveal the location of emperor penguin colonies, https://doi.org/10.1111/j.1466-8238.2009.00467.x, Takats et al. 2001.}
 #'  \item{samplingEffort}{The amount of effort expended during an Event. Examples	40 trap-nights, 10 observer-hours, 10 km by foot, 30 km by car.}
 #'  \item{individualCount}{The number of individuals present at the time of the Occurrence. Integer.}
-#'  \item{organismQuantity}{A number or enumeration value for the quantity of organisms. Examples	27 (organismQuantity) with individuals (organismQuantityType). 12.5 (organismQuantity) with % biomass (organismQuantityType). r (organismQuantity) with Braun Blanquet Scale (organismQuantityType). many (organismQuantity) with individuals (organismQuantityType).}
+#'  \item{organismQuantity}{A number or enumeration value for the quantity of organisms. Examples	27 (organismQuantity) with individuals (organismQuantityType). 12.5 (organismQuantity) with percentage biomass (organismQuantityType). r (organismQuantity) with Braun Blanquet Scale (organismQuantityType). many (organismQuantity) with individuals (organismQuantityType).}
 #'  \item{coordinatePrecision}{A decimal representation of the precision of the coordinates given in the decimalLatitude and decimalLongitude.}
 #'  \item{coordinateUncertaintyInMeters}{The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.}
 #'  \item{spatiallyValid}{Occurrence records in the ALA can be filtered by using the spatially valid flag. This flag combines a set of tests applied to the record to see how reliable are its spatial data components.}
@@ -94,14 +94,13 @@
 #'  \item{locationRemarks}{Comments or notes about the Location.}
 #'  \item{dataSource}{BeeBDC assigned source of the data. Often written when the data is formatted by a BeeBDC::xxx_readr function or similar.}
 #'  \item{verbatim_scientificName}{The verbatim (originally-provided) scientific name}
-
 #' }
 #' @references This data set was created by generating a random subset of 100 rows from the full, unfiltered and unflagged, BeeBDC dataset from the publication:
 #' DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.
 #' @keywords datasets
 #' @examples
 #'
-#' data(beesRaw)
+#' data("beesRaw", package = "BeeBDC")
 #' head(beesRaw)
 #'
 "beesRaw"
