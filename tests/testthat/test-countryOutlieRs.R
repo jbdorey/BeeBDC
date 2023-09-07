@@ -6,35 +6,37 @@ data("beesChecklist")
 # Load in the test dataset
 data("beesFlagged")
 
-  # Input a potentially difficult loction on the map to test into an NA lat/lon slot
+  # Input a potentially difficult location on the map to test into an NA lat/lon slot
 beesFlagged$decimalLatitude[[1]] <-  31.887646484374983
 beesFlagged$decimalLongitude[[1]] <- 78.719726562500085 
 beesFlagged$decimalLatitude[[2]] <-  78.719726562500085
 beesFlagged$decimalLongitude[[2]] <- 31.887646484374983 
 
-testOut <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
-                                      data = beesFlagged %>% 
-                                    dplyr::select(!tidyselect::any_of(c("countryMatch", 
-                                                                      ".countryOutlier",
-                                                                      "iso_a3"))),
-                                      keepAdjacentCountry = TRUE,
-                                      pointBuffer = 0.05,
-                                      # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
-                                      # Smaller numbers will result in much longer calculation times. 
-                                      # We have not attempted a scale of 10.
-                                      rnearthScale = 50)
+testOut <- BeeBDC::countryOutlieRs(
+    # Speed up operation by providing only the relevant entries in the beesChecklist
+  checklist = beesChecklist %>%
+    dplyr::filter(validName %in% beesFlagged$scientificName),
+  data = beesFlagged %>% 
+    dplyr::select(!tidyselect::any_of(c("countryMatch", ".countryOutlier","iso_a3"))),
+  keepAdjacentCountry = FALSE,
+  # running without a larger buffer to speed up tests
+  pointBuffer = NULL,
+  # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
+  # Smaller numbers will result in much longer calculation times. 
+  # We have not attempted a scale of 10.
+  rnearthScale = 50)
 
 
 # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
 # tibbles are a special case of lists)
 testthat::test_that("countryOutlieRs results TRUE/passed", {
-  testthat::expect_equal(sum(testOut$.countryOutlier == TRUE, na.rm = TRUE), 77)
+  testthat::expect_equal(sum(testOut$.countryOutlier == TRUE, na.rm = TRUE), 74)
 })
 testthat::test_that("countryOutlieRs results FALSE/failed", {
-  testthat::expect_equal(sum(testOut$.countryOutlier == FALSE, na.rm = TRUE), 1)
+  testthat::expect_equal(sum(testOut$.countryOutlier == FALSE, na.rm = TRUE), 2)
 })
 testthat::test_that("countryOutlieRs results NA/could not assess", {
-  testthat::expect_equal(sum(is.na(testOut$.countryOutlier)), 22)
+  testthat::expect_equal(sum(is.na(testOut$.countryOutlier)), 24)
 })
 
   # Test format

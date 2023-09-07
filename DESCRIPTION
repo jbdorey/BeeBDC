@@ -16,13 +16,11 @@ Description: Flags and checks occurrence data that are in Darwin Core
     some that are specific to bees. This package is meant to build upon
     and be complimentary to other excellent occurrence cleaning packages,
     including 'bdc' and 'CoordinateCleaner'.  This package uses datasets
-    from several sources and particularly from the Discove Life Website,
-    created by - Ascher and Pickering (2020)
-    <http://www.discoverlife.org/mp/20q?guide=Apoidea_species>.  For
-    further information, please see the original publication and package
-    website.  Publication - Dorey et al. (2023)
-    <doi:10.1101/2023.06.30.547152> and package website - Dorey et al.
-    (2023) <https://github.com/jbdorey/BeeBDC>.
+    from several sources and particularly from the Discover Life Website,
+    created by Ascher and Pickering (2020).  For further information,
+    please see the original publication and package website.  Publication
+    - Dorey et al. (2023) <doi:10.1101/2023.06.30.547152> and package
+    website - Dorey et al. (2023) <https://github.com/jbdorey/BeeBDC>.
 License: GPL-3 + file LICENSE
 BugReports: https://github.com/jbdorey/BeeBDC/issues
 Depends: 

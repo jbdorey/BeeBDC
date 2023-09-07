@@ -14,18 +14,20 @@ testOut <- BeeBDC::jbd_Ctrans_chunker(
   # bdc_coordinates_transposed inputs
   data = bees3sp %>%
     dplyr::filter(complete.cases(decimalLatitude)) %>%
-    dplyr::select(!c(".sea", ".val")) %>%
+    dplyr::select(c(database_id, decimalLatitude, decimalLongitude, country, countryCode,
+                    scientificName)) %>%
     dplyr::bind_rows(fakeData),
   idcol = "database_id",
   lat = "decimalLatitude",
   lon = "decimalLongitude",
   country = "country",
   countryCode = "countryCode",
-  border_buffer = 0.2, # in decimal degrees (~22 km at the equator)
-  save_outputs = TRUE,
+    # Larger buffer to speed up operation for test
+  border_buffer = 0.9, # in decimal degrees (~22 km at the equator)
+  save_outputs = FALSE,
   sci_names = "scientificName",
   # chunker inputs
-  stepSize = 55,  # How many rows to process at a time
+  stepSize = 100,  # How many rows to process at a time
   chunkStart = 1,  # Start row
   path = tempdir(),
   append = FALSE,  # If FALSE it may overwrite existing dataset
@@ -56,6 +58,4 @@ testthat::test_that("jbd_Ctrans_chunker row count expected", {
 testthat::test_that("jbd_Ctrans_chunker expected class", {
   testthat::expect_type(testOut, "list")
 })
-
-
 

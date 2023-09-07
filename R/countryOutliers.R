@@ -32,10 +32,15 @@
 #'
 #' @examples
 #' 
-#' beesRaw_out <- countryOutlieRs(checklist = BeeBDC::beesChecklist,
-#'                                data = BeeBDC::beesRaw,
+#' data("beesRaw", package = "BeeBDC")
+#' data("beesChecklist", package = "BeeBDC")
+#' 
+#' beesRaw_out <- countryOutlieRs(checklist = beesChecklist %>%
+#'                                  # cut down the dataset to run the test quicker
+#'                                  dplyr::filter(validName %in% beesFlagged$scientificName),
+#'                                data = beesRaw,
 #'                                keepAdjacentCountry = TRUE,
-#'                                pointBuffer = 0.05,
+#'                                pointBuffer = 1,
 #'                                rnearthScale = 50,
 #'                                stepSize = 1000000,
 #'                                mc.cores = 1)
@@ -87,7 +92,6 @@ countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
                                         type = "countries", scale = rnearthScale)  %>%
       # buffer by zero and make geometry valid to avoid potential issues with polygon intersection
     sf::st_make_valid() %>%
-    sf::st_buffer(., dist = 0) %>%
   # Select only a subset of the naturalearthdata columns to extract
   dplyr::select(iso_a2, iso_a3, name, name_long, continent, geometry) %>%
   # Replace some country codes to match the checklist
@@ -445,7 +449,7 @@ points_extract = data %>%
     # Time output
     message(paste(
       " - Completed in ", 
-      round(difftime(endTime, startTime, units = "mins"), digits = 2 )," ",
+      round(difftime(endTime, startTime), digits = 2 )," ",
       units(round(endTime - startTime, digits = 2)),
       sep = ""))
 return(output)

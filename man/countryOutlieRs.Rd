@@ -49,10 +49,15 @@ For additional context and column names, see \code{\link[=beesChecklist]{beesChe
 }
 \examples{
 
-beesRaw_out <- countryOutlieRs(checklist = BeeBDC::beesChecklist,
-                               data = BeeBDC::beesRaw,
+data("beesRaw", package = "BeeBDC")
+data("beesChecklist", package = "BeeBDC")
+
+beesRaw_out <- countryOutlieRs(checklist = beesChecklist \%>\%
+                                 # cut down the dataset to run the test quicker
+                                 dplyr::filter(validName \%in\% beesFlagged$scientificName),
+                               data = beesRaw,
                                keepAdjacentCountry = TRUE,
-                               pointBuffer = 0.05,
+                               pointBuffer = 1,
                                rnearthScale = 50,
                                stepSize = 1000000,
                                mc.cores = 1)

@@ -80,7 +80,9 @@ time. The prefix jbd_ is used to highlight the difference between this function 
 library(dplyr)
   # Import and prepare the data
 data(beesFlagged)
-beesFlagged <- beesFlagged \%>\% dplyr::select(!c(.val, .sea))
+beesFlagged <- beesFlagged \%>\% dplyr::select(!c(.val, .sea)) \%>\%
+  # Cut down the dataset to un example quicker
+dplyr::filter(dplyr::row_number() \%in\% 1:30)
   # Run the function
 beesFlagged_out <- jbd_Ctrans_chunker(
 # bdc_coordinates_transposed inputs
@@ -91,8 +93,8 @@ lon = "decimalLongitude",
 country = "country_suggested",
 countryCode = "countryCode",
 # in decimal degrees (~22 km at the equator)
-border_buffer = 0.2, 
-save_outputs = TRUE,
+border_buffer = 1, 
+save_outputs = FALSE,
 sci_names = "scientificName",
 # chunker inputs
 # How many rows to process at a time
