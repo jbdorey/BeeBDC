@@ -22,7 +22,10 @@ Replaces publicly available data with data that has been manually cleaned and er
 the paper Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography.
 }
 \examples{
-\donttest{
+\dontrun{
+library(dplyr)
+# set the DataPath to tempdir for this example
+DataPath <- tempdir()
 # Integrate Paige Chesshire's cleaned dataset.
 PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
                                  sep = "/"), col_types = ColTypeR()) \%>\%

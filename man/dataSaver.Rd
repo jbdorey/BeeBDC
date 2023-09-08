@@ -32,7 +32,7 @@ as individual csv files when save_type = "CSV_file".
 Used at the end of 1.x in the example workflow in order to save the occurrence dataset and its associated eml metadata.
 }
 \examples{
-\donttest{
+\dontrun{
 dataSaver(path = tempdir(),# The main path to look for data in
 save_type = "CSV_file", # "R_file" OR "CSV_file"
 occurrences = Complete_data$Data_WebDL, # The existing datasheet

@@ -63,7 +63,7 @@
 #'
 #' @examples
 #' \donttest{
-#' idcol <- c(1, 2, 3, 4)
+#' database_id <- c(1, 2, 3, 4)
 #' scientificName <- c(
 #'   "Rhinella major", "Scinax ruber",
 #'   "Siparuna guianensis", "Psychotria vellosiana"
@@ -73,7 +73,7 @@
 #' country <- c("BOLIVIA", "bolivia", "Brasil", "Brazil")
 #'
 #' x <- data.frame(
-#'   idcol, scientificName, decimalLatitude,
+#'   database_id, scientificName, decimalLatitude,
 #'   decimalLongitude, country
 #' )
 #'
@@ -82,7 +82,7 @@
 #'
 #' jbd_coordinates_transposed(
 #'   data = x,
-#'   idcol = "idcol",
+#'   idcol = "database_id",
 #'   sci_names = "scientificName",
 #'   lat = "decimalLatitude",
 #'   lon = "decimalLongitude",

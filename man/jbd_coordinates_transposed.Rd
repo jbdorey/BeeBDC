@@ -91,7 +91,7 @@ columns "country" and "countryCode" can be retrieved by using the function
 }
 \examples{
 \donttest{
-idcol <- c(1, 2, 3, 4)
+database_id <- c(1, 2, 3, 4)
 scientificName <- c(
   "Rhinella major", "Scinax ruber",
   "Siparuna guianensis", "Psychotria vellosiana"
@@ -101,7 +101,7 @@ decimalLongitude <- c(-17.90000, -67.91667, -13.25000, -13.82444)
 country <- c("BOLIVIA", "bolivia", "Brasil", "Brazil")
 
 x <- data.frame(
-  idcol, scientificName, decimalLatitude,
+  database_id, scientificName, decimalLatitude,
   decimalLongitude, country
 )
 
@@ -110,7 +110,7 @@ x <- bdc::bdc_country_standardized(data = x, country = "country")
 
 jbd_coordinates_transposed(
   data = x,
-  idcol = "idcol",
+  idcol = "database_id",
   sci_names = "scientificName",
   lat = "decimalLatitude",
   lon = "decimalLongitude",

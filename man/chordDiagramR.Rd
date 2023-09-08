@@ -78,9 +78,34 @@ This function outputs a figure which shows the relative size and direction of oc
 duplicated between data providers, such as, SCAN, GBIF, ALA, etc.
 }
 \examples{
-\donttest{
+\dontrun{
+  # Createa a basic example dataset of duplicates to visualise
+basicData <- dplyr::tribble(
+                            ~dataSource,    ~dataSource_keep,
+                      "GBIF_Halictidae",         "USGS_data",
+                      "GBIF_Halictidae",         "USGS_data",
+                      "GBIF_Halictidae",         "USGS_data",
+                      "GBIF_Halictidae",         "USGS_data",
+                      "GBIF_Halictidae",         "USGS_data",
+                      "GBIF_Halictidae",         "USGS_data",
+                      "SCAN_Halictidae",   "GBIF_Halictidae",
+                   "iDigBio_halictidae",   "GBIF_Halictidae",
+                   "iDigBio_halictidae",   "SCAN_Halictidae",
+                   "iDigBio_halictidae",   "SCAN_Halictidae",
+                      "SCAN_Halictidae",   "GBIF_Halictidae",
+                       "iDigBio_apidae",       "SCAN_Apidae",
+                          "SCAN_Apidae",    "Ecd_Anthophila",
+                       "iDigBio_apidae",    "Ecd_Anthophila",
+                          "SCAN_Apidae",    "Ecd_Anthophila",
+                       "iDigBio_apidae",    "Ecd_Anthophila",
+                    "SCAN_Megachilidae", "SCAN_Megachilidae",
+                      "CAES_Anthophila",   "CAES_Anthophila",
+                      "CAES_Anthophila",   "CAES_Anthophila"
+ )
+
+
  chordDiagramR(
-dupeData = duplicates,
+dupeData = basicData,
 outPath = tempdir(),
 fileName = "ChordDiagram.pdf",
 # These can be modified to help fit the final pdf that's exported.

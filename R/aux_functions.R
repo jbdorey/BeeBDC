@@ -20,7 +20,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' dataSaver(path = tempdir(),# The main path to look for data in
 #' save_type = "CSV_file", # "R_file" OR "CSV_file"
 #' occurrences = Complete_data$Data_WebDL, # The existing datasheet
@@ -204,6 +204,19 @@ outFile_maker <- function(path = path, file2make = "out_file"){
 #'
 #' @examples
 #' \donttest{
+#' # load dplyr
+#' library(dplyr)
+#' 
+#'  # Make the RootPath to the tempdir for this example
+#'   RootPath <- tempdir()
+#'   
+#'  # Load the example data
+#'  data("beesRaw", package = "BeeBDC")
+#' 
+#' # Save and example dataset to the temp dir
+#'   readr::write_csv(beesRaw, file = paste0(RootPath, "/beesRaw.csv"))
+#' 
+#'  # Now go find it!
 #' fileFinder(path = RootPath, fileName = "beesRaw")
 #' # more specifically the .csv version
 #' fileFinder(path = RootPath, fileName = "beesRaw.csv")

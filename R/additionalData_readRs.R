@@ -43,7 +43,7 @@
 #' 
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # An example using a .xlsx file
 #'Arm_Data <- readr_BeeBDC(
 #'     dataset = "Arm",

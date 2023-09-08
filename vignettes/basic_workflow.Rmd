@@ -76,7 +76,7 @@ knitr::opts_chunk$set(error = TRUE,
                       eval = TRUE, 
                       tidy = TRUE, 
                       warning = FALSE,
-                      root.dir = normalizePath(tempdir())
+                      root.dir = normalizePath(tempdir()))
 ```
 
 This workflow is meant to be a basic example workflow of how a user might take a flagged version of our (or some other) occurrence dataset and filter for specific taxa or countries, re-apply flagging functions, re-filter the data, or make maps based of those data.
@@ -229,20 +229,18 @@ The **BeeBDC** package provides a simple function that can re-build the *.summar
  
 ```{r 4.1}
 filteredData <- 
-  BeeBDC::summaryFun(
-    # Use the above input dataset to filter
-  data = beesFlagged,
+  BeeBDC::summaryFun(data = beesFlagged,
    # Choose the columns to NOT filter (or NULL to filter all columns)
-  dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
+   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms",
                       ".uncertaintyThreshold"),
     # In the output, do you want to REMOVE all filtering columns (TRUE), or keep them (FALSE)
-  removeFilterColumns = TRUE,
+   removeFilterColumns = TRUE,
    # In the output, do you want to only keep clean data according to your filtering (TRUE),
     # Or keep all data and simply update the .summary column (FALSE)
   filterClean = TRUE) 
 ```
 
-# 4.2 Uncertainty threshold
+## 4.2 Uncertainty threshold
 
 You may also want to change the *.uncertaintyThreshold* as we have chosen a somewhat strict default of 1 km in our dataset. Here, we will instead flag to 10 km (threshold = 10000 [m]). Additionally, we use the **magrittr** package pipe (%>%) to feed the outputs directly into `summaryFun()` to filter our data in one action!
 
@@ -263,7 +261,7 @@ filteredData <- beesFlagged %>%
   filterClean = TRUE)
 ```
 
-# 4.2 Date filter
+## 4.2 Date filter
 
 ### a. bdc_year_outOfRange
  

@@ -24,7 +24,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' atlasDownloader(path = DataPath,
 #'                userEmail = "InsertYourEmail",
 #'                ALA_taxon = "Apiformes",

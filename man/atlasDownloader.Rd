@@ -36,7 +36,7 @@ request downloads from other atlases (see: http://galah.ala.org.au/articles/choo
 However, it will only send the download to your email and you must do the rest yourself at this point.
 }
 \examples{
-\donttest{
+\dontrun{
 atlasDownloader(path = DataPath,
                userEmail = "InsertYourEmail",
                ALA_taxon = "Apiformes",

@@ -50,10 +50,35 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
+#'   # Createa a basic example dataset of duplicates to visualise
+#' basicData <- dplyr::tribble(
+#'                             ~dataSource,    ~dataSource_keep,
+#'                       "GBIF_Halictidae",         "USGS_data",
+#'                       "GBIF_Halictidae",         "USGS_data",
+#'                       "GBIF_Halictidae",         "USGS_data",
+#'                       "GBIF_Halictidae",         "USGS_data",
+#'                       "GBIF_Halictidae",         "USGS_data",
+#'                       "GBIF_Halictidae",         "USGS_data",
+#'                       "SCAN_Halictidae",   "GBIF_Halictidae",
+#'                    "iDigBio_halictidae",   "GBIF_Halictidae",
+#'                    "iDigBio_halictidae",   "SCAN_Halictidae",
+#'                    "iDigBio_halictidae",   "SCAN_Halictidae",
+#'                       "SCAN_Halictidae",   "GBIF_Halictidae",
+#'                        "iDigBio_apidae",       "SCAN_Apidae",
+#'                           "SCAN_Apidae",    "Ecd_Anthophila",
+#'                        "iDigBio_apidae",    "Ecd_Anthophila",
+#'                           "SCAN_Apidae",    "Ecd_Anthophila",
+#'                        "iDigBio_apidae",    "Ecd_Anthophila",
+#'                     "SCAN_Megachilidae", "SCAN_Megachilidae",
+#'                       "CAES_Anthophila",   "CAES_Anthophila",
+#'                       "CAES_Anthophila",   "CAES_Anthophila"
+#'  )
+#'
+#' 
 #'  chordDiagramR(
 # # The duplicate data from the dupeSummary function output  
-#' dupeData = duplicates,
+#' dupeData = basicData,
 #' outPath = tempdir(),
 #' fileName = "ChordDiagram.pdf",
 #' # These can be modified to help fit the final pdf that's exported.
@@ -99,7 +124,7 @@ chordDiagramR <- function(
   self.link = 2){
   # locally bind variabls to the function
   Frequency <- Frequency_dupe <- sourceName <- . <- sourceCategories <- groupCount <- cur_group_id <-
-    groupNumber <- groupPalette <- groupColours <- 
+    groupNumber <- groupPalette <- groupColours <- par <- NULL
   
     requireNamespace("circlize")
   requireNamespace("ComplexHeatmap")
@@ -162,7 +187,7 @@ colourTable <- dplyr::full_join(keptSource, dupeSource, by = "sourceName") %>%
   dplyr::arrange(sourceName, .by_group = TRUE) %>%
   # Re-group
   dplyr::group_by(sourceCategories) %>%
-  dplyr::mutate(groupNumber = cur_group_id(),
+  dplyr::mutate(groupNumber = dplyr::cur_group_id(),
                 # Re-count
                 groupCount = dplyr::n(),
                 groupPalette = palettes[groupNumber]) %>%

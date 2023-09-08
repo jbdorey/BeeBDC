@@ -50,6 +50,8 @@
 #'
 #' @examples
 #' \donttest{
+#'   # load dplyr
+#'   library(dplyr)
 #'   # Store your original working directory
 #'  oldwd <- getwd() 
 #' # Standard/basic usage:
@@ -57,7 +59,8 @@
 #' dirMaker(
   #' RootPath = RootPath,
   #' # Input the location of the workflow script RELATIVE to the RootPath
-  #' RDoc = "BDC_repo/BeeCleaning_SciData.R") %>%
+  #' RDoc = NULL,
+  #' useHere = FALSE) %>%
   #'   # Add paths created by this function to the .GlobalEnv
   #'   list2env(envir = .GlobalEnv)  
   #' # Set the working directory
@@ -70,7 +73,8 @@
 #'  OutPath = NULL,
 #'  OutPathName = "T2T_Output",
 #'  # Input the location of the workflow script RELATIVE to the RootPath
-#'  RDoc = "BDC_repo/BeeCleaning_SciData.R") %>%
+#'  RDoc = NULL,
+#'  useHere = FALSE) %>%
 #'    # Add paths created by this function to the .GlobalEnv
 #'    list2env(envir = .GlobalEnv)  
 #'  # Set the working directory
@@ -83,7 +87,8 @@
 #'   DiscLifePath = "...path/BDC_repo/DiscoverLife_Data",
 #'   OutPathName = "AsianPerspective_Output",
 #'   # Input the location of the workflow script RELATIVE to the RootPath
-#'   RDoc = "AsianPerspecitve_workflow.R") %>%
+#'   RDoc = NULL,
+#'   useHere = FALSE) %>%
 #'   # Add paths created by this function to the .GlobalEnv
 #'   list2env(envir = .GlobalEnv)  
 #' 

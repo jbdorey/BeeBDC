@@ -21,7 +21,8 @@
 #' @importFrom stats setNames
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
+#' DataPath <- tempdir()
 #' strings = c("USGS_DRO_flat_27-Apr-2022")
 #'     # Combine the USGS data and the existing big dataset
 #' Complete_data <- formattedCombiner(path = DataPath, 

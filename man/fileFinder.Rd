@@ -23,6 +23,19 @@ user-provided character string.
 }
 \examples{
 \donttest{
+# load dplyr
+library(dplyr)
+
+ # Make the RootPath to the tempdir for this example
+  RootPath <- tempdir()
+  
+ # Load the example data
+ data("beesRaw", package = "BeeBDC")
+
+# Save and example dataset to the temp dir
+  readr::write_csv(beesRaw, file = paste0(RootPath, "/beesRaw.csv"))
+
+ # Now go find it!
 fileFinder(path = RootPath, fileName = "beesRaw")
 # more specifically the .csv version
 fileFinder(path = RootPath, fileName = "beesRaw.csv")

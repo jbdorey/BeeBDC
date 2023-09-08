@@ -21,7 +21,7 @@ Description: Flags and checks occurrence data that are in Darwin Core
     please see the original publication and package website.  Publication
     - Dorey et al. (2023) <doi:10.1101/2023.06.30.547152> and package
     website - Dorey et al. (2023) <https://github.com/jbdorey/BeeBDC>.
-License: GPL-3 + file LICENSE
+License: GPL (>= 3)
 BugReports: https://github.com/jbdorey/BeeBDC/issues
 Depends: 
     R (>= 2.10)

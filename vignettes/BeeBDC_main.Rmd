@@ -1119,14 +1119,21 @@ This can be difficult for a Windows install. Ensure you have the most recent ver
 </div>			
 
 
-```{r 4.1, eval = TRUE, collapse = TRUE}
+```{r 4.1, eval = FALSE, collapse = TRUE}
 parse_names <-
   bdc::bdc_clean_names(sci_names = database$scientificName, save_outputs = FALSE)
 ```
 
+    ## The latest gnparser version is v1.7.4
+    ## gnparser has been installed to /home/runner/bin
+    ## 
+    ## >> Family names prepended to scientific names were flagged and removed from 0 records.
+    ## >> Terms denoting taxonomic uncertainty were flagged and removed from 0 records.
+    ## >> Other issues, capitalizing the first letter of the generic name, replacing empty names by NA, and     removing extra spaces, were flagged and corrected or removed from 1 records.
+    ## >> Infraspecific terms were flagged and removed from 0 records.
 Keep only the *.uncer_terms* and *names_clean* columns.
 
-```{r 4.1ii, collapse = TRUE}
+```{r 4.1ii, collapse = TRUE, eval = FALSE}
 parse_names <-
   parse_names %>%
   dplyr::select(.uncer_terms, names_clean)

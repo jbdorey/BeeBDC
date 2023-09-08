@@ -17,7 +17,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' DataImp <- importOccurrences(path = DataPath)
 #' }
 importOccurrences <- function(path = path,

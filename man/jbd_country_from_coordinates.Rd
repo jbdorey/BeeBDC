@@ -52,11 +52,12 @@ x <- data.frame(
   decimalLongitude = c(-69.095, -68.443588, 37.438108, -13.82444),
   country = c("", NA, NA, "Brazil"))
 
-bdc_country_from_coordinates(
+jbd_country_from_coordinates(
   data = x,
   lat = "decimalLatitude",
   lon = "decimalLongitude",
-  country = "country"
+  country = "country",
+  scale = "medium"
 )
 }
 }
