@@ -43,12 +43,17 @@ read and also cite our primary
 The *BeeBDC* toolkit is organized using the conventions similar to bdc
 and CoordinateCleaner.
 
-|                                                                                                                                                                                                                                                                                                                             |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| \> like in the **bdc** package, we provide a suggested workflow here. While, our functions can mostly be run out of order there are a few exceptions mentioned throughout the documentation. Additionally, many functions require the database_id column that is generated early on in the **BeeBDC** or **bdc** workflows. |
-| When running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks.                                                       |
-| Paper DOI - <https://doi.org/10.1101/2023.06.30.547152>                                                                                                                                                                                                                                                                     |
-| Package GitHub - <https://github.com/jbdorey/BeeBDC/>                                                                                                                                                                                                                                                                       |
+> like in the **bdc** package, we provide a suggested workflow here.
+> While, our functions can mostly be run out of order there are a few
+> exceptions mentioned throughout the documentation. Additionally, many
+> functions require the database_id column that is generated early on in
+> the **BeeBDC** or **bdc** workflows. When running very large datasets
+> (e.g., the global bee occurrence dataset) you may require a machine
+> that has a minimum amount of RAM (~32 GB). However, we do try to
+> provide work-arounds, especially by alowing some functions to be
+> broken into consumable chunks. Paper DOI -
+> <https://doi.org/10.1101/2023.06.30.547152> Package GitHub -
+> <https://github.com/jbdorey/BeeBDC/>
 
 #### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/0/X4/i-V37Vg2w-X4.jpg)
 
