@@ -71,7 +71,7 @@ Package GitHub - [https://github.com/jbdorey/BeeBDC/](https://github.com/jbdorey
 Integrate and merge different datasets from major the data repositories — GBIF, SCAN, iDigBio, the 
 USGS, and ALA.
 
--   `atlasDownloader()` Downloads ALA data and creates a new file in the path to put those data. This function can also request downloads from other atlases (see: http://galah.ala.org.au/articles/choosing_an_atlas.html). However, it will only send the download to your email and you must do the rest yourself at this point.
+-   `atlasDownloader()` Downloads ALA data and creates a new file in the path to put those data. This function can also request downloads from other atlases ([see here](https://galah.ala.org.au/R/articles/choosing_an_atlas.html)). However, it will only send the download to your email and you must do the rest yourself at this point.
 -   `repoMerge()` Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its eml metadata.
 -   `repoFinder()` Find GBIF, ALA, iDigBio, and SCAN files in a directory.
 -   `importOccurrences()` Looks for and imports the most-recent version of the occurrence data created by the `BeeBDC::repoMerge()` function.
