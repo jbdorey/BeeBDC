@@ -11,7 +11,10 @@
 #' Harmonise taxonomy of bee occurrence data
 #' 
 #' Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match
-#' the checklist. This function could be hijacked to service other taxa if a user matched the format of the
+#' the checklist. [BeeBDC::harmoniseR()] prefers to use the names_clean columns that is generated 
+#' by [bdc::bdc_clean_names()]. While this is not required, you may find better results by running
+#' that function on your dataset first.
+#' This function could be hijacked to service other taxa if a user matched the format of the
 #' [BeeBDC::beesTaxonomy] file.
 #'
 #' @param path A directory as character. The path to a folder that the output can be saved.

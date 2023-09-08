@@ -42,7 +42,10 @@ name did not match the supplied taxonomy.
 }
 \description{
 Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match
-the checklist. This function could be hijacked to service other taxa if a user matched the format of the
+the checklist. \code{\link[=harmoniseR]{harmoniseR()}} prefers to use the names_clean columns that is generated
+by \code{\link[bdc:bdc_clean_names]{bdc::bdc_clean_names()}}. While this is not required, you may find better results by running
+that function on your dataset first.
+This function could be hijacked to service other taxa if a user matched the format of the
 \link{beesTaxonomy} file.
 }
 \examples{

@@ -6,7 +6,9 @@
 #' 
 #' Creates a compound bar plot that shows the proportion of records that pass or fail each flag (rows)
 #' and for each data source (columns). The function can also optionally return a point map for 
-#' a user-specified species when plotMap = TRUE.
+#' a user-specified species when plotMap = TRUE. This function requires that your dataset has been
+#' run through some filtering functions - so that is can display logical columns starting with
+#' ".".
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param flagColours A character vector. Colours in order of pass (TRUE), fail (FALSE), and NA.

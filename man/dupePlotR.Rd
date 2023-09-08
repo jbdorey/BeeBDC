@@ -43,6 +43,7 @@ Outputs a .pdf figure.
 Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each
 data source
 while the other shows the proportion of records that are duplicated within each data source.
+This function requires a dataset that has been run through \code{\link[=dupeSummary]{dupeSummary()}}.
 }
 \examples{
 

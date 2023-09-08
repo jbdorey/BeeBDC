@@ -6,7 +6,8 @@
 #' 
 #' Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each 
 #' data source
-#' while the other shows the proportion of records that are duplicated within each data source.
+#' while the other shows the proportion of records that are duplicated within each data source. 
+#' This function requires a dataset that has been run through [BeeBDC::dupeSummary()].
 #'
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param outPath Character. The path to a directory (folder) in which the output should be saved.
