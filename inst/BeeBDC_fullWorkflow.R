@@ -984,7 +984,7 @@ check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                           # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
                           # Smaller numbers will result in much longer calculation times. 
                           # We have not attempted a scale of 10.
-                        rnearthScale = 50,
+                        scale = 50,
                         mc.cores = 4)
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%

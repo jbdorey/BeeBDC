@@ -13,7 +13,7 @@
 #' @param pointBuffer Numeric. A buffer around points to help them align with a country or coastline.
 #' This provides a good way to retain points that occur right along the coast or borders of the 
 #' maps in rnaturalearth
-#' @param rnearthScale Numeric. The value fed into the map scale parameter for
+#' @param scale Numeric. The value fed into the map scale parameter for
 #'  [rnaturalearth::ne_countries()]'s scale parameter:
 #' 	Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large', where smaller numbers 
 #' 	are higher resolution. WARNING: This function is tested on 110 and 50.
@@ -42,7 +42,7 @@
 #'                                dplyr::filter(dplyr::row_number() %in% 1:50),
 #'                                keepAdjacentCountry = TRUE,
 #'                                pointBuffer = 1,
-#'                                rnearthScale = 50,
+#'                                scale = 50,
 #'                                stepSize = 1000000,
 #'                                mc.cores = 1)
 #' table(beesRaw_out$.countryOutlier, useNA = "always")
@@ -52,7 +52,7 @@ countryOutlieRs <- function(
     data = NULL,
     keepAdjacentCountry = TRUE,
     pointBuffer = NULL,
-    rnearthScale = 50,
+    scale = 50,
     stepSize = 1000000,
     mc.cores = 1
     ){
@@ -90,7 +90,7 @@ countryOutlieRs <- function(
 # Download world map using rnaturalearth packages
   suppressWarnings({
 countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
-                                        type = "countries", scale = rnearthScale)  %>%
+                                        type = "countries", scale = scale)  %>%
       # buffer by zero and make geometry valid to avoid potential issues with polygon intersection
     sf::st_make_valid() %>%
   # Select only a subset of the naturalearthdata columns to extract

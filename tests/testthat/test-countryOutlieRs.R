@@ -24,7 +24,7 @@ testOut <- BeeBDC::countryOutlieRs(
   # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
   # Smaller numbers will result in much longer calculation times. 
   # We have not attempted a scale of 10.
-  rnearthScale = 50)
+  scale = 50)
 
 
 # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and

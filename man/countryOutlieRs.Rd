@@ -9,7 +9,7 @@ countryOutlieRs(
   data = NULL,
   keepAdjacentCountry = TRUE,
   pointBuffer = NULL,
-  rnearthScale = 50,
+  scale = 50,
   stepSize = 1e+06,
   mc.cores = 1
 )
@@ -26,7 +26,7 @@ kept. If FALSE, they will be flagged.}
 This provides a good way to retain points that occur right along the coast or borders of the
 maps in rnaturalearth}
 
-\item{rnearthScale}{Numeric. The value fed into the map scale parameter for
+\item{scale}{Numeric. The value fed into the map scale parameter for
 \code{\link[rnaturalearth:ne_countries]{rnaturalearth::ne_countries()}}'s scale parameter:
 Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large', where smaller numbers
 are higher resolution. WARNING: This function is tested on 110 and 50.}
@@ -59,7 +59,7 @@ beesRaw_out <- countryOutlieRs(checklist = beesChecklist \%>\%
                                dplyr::filter(dplyr::row_number() \%in\% 1:50),
                                keepAdjacentCountry = TRUE,
                                pointBuffer = 1,
-                               rnearthScale = 50,
+                               scale = 50,
                                stepSize = 1000000,
                                mc.cores = 1)
 table(beesRaw_out$.countryOutlier, useNA = "always")
