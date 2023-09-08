@@ -228,7 +228,7 @@ See Dorey et al. 2023 BeeBDC... for further details.
 
 }}
 \examples{
-\dontrun{
+\donttest{
 # An example using a .xlsx file
 Arm_Data <- readr_BeeBDC(
     dataset = "Arm",

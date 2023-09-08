@@ -22,7 +22,7 @@ A function which can be used to find files within a user-defined directory based
 user-provided character string.
 }
 \examples{
-\dontrun{
+\donttest{
 fileFinder(path = RootPath, fileName = "beesRaw")
 # more specifically the .csv version
 fileFinder(path = RootPath, fileName = "beesRaw.csv")

@@ -46,7 +46,7 @@ using a high-quality map of the world (from the rnaturalearth package). No
 country name is added to records whose coordinates are in the sea.
 }
 \examples{
-\dontrun{
+\donttest{
 x <- data.frame(
   decimalLatitude = c(-22.9834, -39.857030, -17.06811, -46.69778),
   decimalLongitude = c(-69.095, -68.443588, 37.438108, -13.82444),

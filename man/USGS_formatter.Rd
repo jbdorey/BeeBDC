@@ -19,7 +19,7 @@ Returns a list with the occurrence data, "USGS_data", and the EML data, "EML_att
 The function finds, imports, formats, and creates metadata for the USGS dataset.
 }
 \examples{
-\dontrun{
+\donttest{
 USGS_data <- USGS_formatter(path = DataPath, pubDate = "19-11-2022")
 }
 

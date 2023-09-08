@@ -16,7 +16,8 @@ dirMaker(
   Check = TRUE,
   Figures = TRUE,
   Intermediate = TRUE,
-  RDoc = NULL
+  RDoc = NULL,
+  useHere = TRUE
 )
 }
 \arguments{
@@ -56,6 +57,10 @@ OutPath-defined folder in which to save intermediate datasets. Default = TRUE.}
 \item{RDoc}{A character String. The path to the current script or report, relative to the project
 root. Passing an absolute path raises an error. This argument is used by \code{\link[here:i_am]{here::i_am()}} and incorrectly
 setting this may result in \code{bdc} figures being saved to your computer's root directory}
+
+\item{useHere}{Logical. If TRUE, dirMaker will use \code{\link[here:i_am]{here::i_am()}} to declare the relative path
+to 'RDoc'. This is aimed at preserving some functionality with where bdc saves summary figures
+and tables. Default = TRUE.}
 }
 \value{
 Results in the generation of a list containing the BeeBDC-required directories in your global
@@ -68,7 +73,9 @@ This function sets up a directory for saving outputs (i.e. data, figures) genera
 use of the BeeBDC package, if the required folders do not already exist.
 }
 \examples{
-\dontrun{
+\donttest{
+  # Store your original working directory
+ oldwd <- getwd() 
 # Standard/basic usage:
 RootPath <- tempdir()
 dirMaker(
@@ -103,8 +110,10 @@ dirMaker(
   RDoc = "AsianPerspecitve_workflow.R") \%>\%
   # Add paths created by this function to the .GlobalEnv
   list2env(envir = .GlobalEnv)  
-# Set the working directory
-setwd(DataPath)
+
+  # Restore your original working directory
+ setwd(oldwd) 
+
 }
 
 }

@@ -47,7 +47,7 @@ The function will add a flagging column called \code{.expertOutlier} where recor
 the expert outliers.
 }
 \examples{
-\dontrun{
+\donttest{
   # Read example data
   data(beesFlagged)
 # Read in the most-recent duplicates file as well

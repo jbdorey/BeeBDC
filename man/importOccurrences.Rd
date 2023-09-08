@@ -22,7 +22,7 @@ Looks for and imports the most-recent version of the occurrence data created by 
 function.
 }
 \examples{
-\dontrun{
+\donttest{
 DataImp <- importOccurrences(path = DataPath)
 }
 }

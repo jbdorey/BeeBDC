@@ -78,7 +78,7 @@ This function outputs a figure which shows the relative size and direction of oc
 duplicated between data providers, such as, SCAN, GBIF, ALA, etc.
 }
 \examples{
-\dontrun{
+\donttest{
  chordDiagramR(
 dupeData = duplicates,
 outPath = tempdir(),

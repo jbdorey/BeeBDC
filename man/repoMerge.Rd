@@ -25,7 +25,7 @@ Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it i
 metadata.
 }
 \examples{
-\dontrun{
+\donttest{
 DataImp <- repoMerge(path = DataPath, 
 # Find data - Many problems can be solved by running [BeeBDC::repoFinder(path = DataPath)]
 # And looking for problems

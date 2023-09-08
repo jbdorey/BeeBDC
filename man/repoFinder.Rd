@@ -17,7 +17,7 @@ Returns a list of directories to each of the above data downloads
 Find GBIF, ALA, iDigBio, and SCAN files in a directory
 }
 \examples{
-\dontrun{
+\donttest{
 # Where DataPath is made by [BeeBDC::dirMaker()]
 BeeBDC::repoFinder(path = DataPath)
 }

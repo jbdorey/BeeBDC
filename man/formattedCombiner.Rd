@@ -23,7 +23,7 @@ Merges the Darwin Core version of the USGS dataset that was created using \code{
 with the main dataset.
 }
 \examples{
-\dontrun{
+\donttest{
 strings = c("USGS_DRO_flat_27-Apr-2022")
     # Combine the USGS data and the existing big dataset
 Complete_data <- formattedCombiner(path = DataPath, 
