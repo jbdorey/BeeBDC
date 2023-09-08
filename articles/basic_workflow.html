@@ -181,9 +181,6 @@ gdal”.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
 <span>                        force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">## Using github PAT from envvar GITHUB_PAT</span></span>
-<span><span class="co">## Skipping install of 'BeeBDC' from a github remote, the SHA1 (83ad3872) has not changed since last install.</span></span>
-<span><span class="co">##   Use `force = TRUE` to force installation</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -197,7 +194,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.1]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "~/work/BeeBDC/BeeBDC/inst/extdata/WebDir/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/RtmpMB4wBs/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by <strong>BeeBDC</strong>. These
 directories include where the data, figures, reports, etc. will be
 saved. The RDoc needs to be a path RELATIVE to the RootPath; i.e., the
@@ -205,11 +202,9 @@ file path from which the two diverge.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dirMaker.html">dirMaker</a></span><span class="op">(</span></span>
 <span>    RootPath <span class="op">=</span> <span class="va">RootPath</span>,</span>
-<span>    RDoc <span class="op">=</span> <span class="st">"vignettes/basic_workflow.Rmd"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    RDoc <span class="op">=</span> <span class="st">"vignettes/BeeBDC_main.Rmd"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>      <span class="co"># Add paths created by this function to the .GlobalEnv</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span></span>
-<span><span class="co">## here() starts at /home/runner/work/BeeBDC/BeeBDC</span></span>
-<span><span class="co">## &lt;environment: R_GlobalEnv&gt;</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="load-packages">0.3 Load packages<a class="anchor" aria-label="anchor" href="#load-packages"></a>
@@ -341,14 +336,12 @@ and filtering to only completely clean occurrences (filterClean = TRUE).
 For the latter, we are only keeping <em>.summary</em> == TRUE.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">filteredData</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span></span>
-<span>    <span class="co"># Use the above input dataset to filter</span></span>
-<span>  data <span class="op">=</span> <span class="va">beesFlagged</span>,</span>
+<span>  <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">beesFlagged</span>,</span>
 <span>   <span class="co"># Choose the columns to NOT filter (or NULL to filter all columns)</span></span>
-<span>  dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>, <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>, <span class="st">".uncer_terms"</span>,</span>
+<span>   dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>, <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>, <span class="st">".uncer_terms"</span>,</span>
 <span>                      <span class="st">".uncertaintyThreshold"</span><span class="op">)</span>,</span>
 <span>    <span class="co"># In the output, do you want to REMOVE all filtering columns (TRUE), or keep them (FALSE)</span></span>
-<span>  removeFilterColumns <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>   removeFilterColumns <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>   <span class="co"># In the output, do you want to only keep clean data according to your filtering (TRUE),</span></span>
 <span>    <span class="co"># Or keep all data and simply update the .summary column (FALSE)</span></span>
 <span>  filterClean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
@@ -359,10 +352,9 @@ For the latter, we are only keeping <em>.summary</em> == TRUE.</p>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
 <pre><code><span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre>
 </div>
-</div>
-<div class="section level2">
-<h2 id="uncertainty-threshold">4.2 Uncertainty threshold<a class="anchor" aria-label="anchor" href="#uncertainty-threshold"></a>
-</h2>
+<div class="section level3">
+<h3 id="uncertainty-threshold">4.2 Uncertainty threshold<a class="anchor" aria-label="anchor" href="#uncertainty-threshold"></a>
+</h3>
 <p>You may also want to change the <em>.uncertaintyThreshold</em> as we
 have chosen a somewhat strict default of 1 km in our dataset. Here, we
 will instead flag to 10 km (threshold = 10000 [m]). Additionally, we use
@@ -394,9 +386,9 @@ action!</p>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
 <pre><code><span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre>
 </div>
-<div class="section level2">
-<h2 id="date-filter">4.2 Date filter<a class="anchor" aria-label="anchor" href="#date-filter"></a>
-</h2>
+<div class="section level3">
+<h3 id="date-filter">4.2 Date filter<a class="anchor" aria-label="anchor" href="#date-filter"></a>
+</h3>
 <div class="section level4">
 <h4 id="a--bdc_year_outofrange">a. bdc_year_outOfRange<a class="anchor" aria-label="anchor" href="#a--bdc_year_outofrange"></a>
 </h4>
@@ -469,6 +461,7 @@ feed in the data aoutput from the above function into the proceeding
 one.</p>
 </div>
 </div>
+</div>
 <div class="section level2">
 <h2 id="summary-figures">5. Summary figures<a class="anchor" aria-label="anchor" href="#summary-figures"></a>
 </h2>
@@ -485,43 +478,11 @@ available on CRAN and so must be downloaded using
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span><span class="op">}</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## 'getOption("repos")' replaces Bioconductor standard repositories, see</span></span>
-<span><span class="co">## 'help("repositories", package = "BiocManager")' for details.</span></span>
-<span><span class="co">## Replacement repositories:</span></span>
-<span><span class="co">##     CRAN: https://cloud.r-project.org</span></span></code></pre>
-<pre><code><span><span class="co">## Bioconductor version 3.17 (BiocManager 1.30.22), R 4.3.1 (2023-06-16)</span></span></code></pre>
-<pre><code><span><span class="co">## Installing package(s) 'ComplexHeatmap'</span></span></code></pre>
-<pre><code><span><span class="co">## Installation paths not writeable, unable to update packages</span></span>
-<span><span class="co">##   path: /opt/R/4.3.1/lib/R/library</span></span>
-<span><span class="co">##   packages:</span></span>
-<span><span class="co">##     KernSmooth, Matrix, mgcv, nlme, spatial, survival</span></span></code></pre>
-<pre><code><span><span class="co">## Old packages: 'credentials', 'terra'</span></span></code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The following package(s) will be updated in the lockfile:</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## # CRAN -----------------------------------------------------------------------</span></span>
-<span><span class="co">## - KernSmooth     [2.23-22 -&gt; 2.23-21]</span></span>
-<span><span class="co">## - Matrix         [1.6-1 -&gt; 1.5-4.1]</span></span>
-<span><span class="co">## - mgcv           [1.9-0 -&gt; 1.8-42]</span></span>
-<span><span class="co">## - nlme           [3.1-163 -&gt; 3.1-162]</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## # GitHub ---------------------------------------------------------------------</span></span>
-<span><span class="co">## - BeeBDC         [jbdorey/BeeBDC@main: 3add9b82 -&gt; 83ad3872]</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## # RSPM -----------------------------------------------------------------------</span></span>
-<span><span class="co">## - classInt       [repo: CRAN -&gt; RSPM; ver: 0.4-9 -&gt; 0.4-10]</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## # Repository -----------------------------------------------------------------</span></span>
-<span><span class="co">## - BiocGenerics   [0.46.0: Bioconductor -&gt; Repository]</span></span>
-<span><span class="co">## - IRanges        [2.34.1: Bioconductor -&gt; Repository]</span></span>
-<span><span class="co">## - S4Vectors      [0.38.1: Bioconductor -&gt; Repository]</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "~/work/BeeBDC/BeeBDC/vignettes/renv.lock".</span></span></code></pre>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>We don’t actually have an example duplicates dataset with the
 package, so I’ll magic one up behind the scences!</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"PATH TO A FOLDER CONTAINING THE duplicateRun_ — could be supp. materials folder"</span>,</span>
 <span>                          fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -530,9 +491,9 @@ package, so I’ll magic one up behind the scences!</p>
 <span>                  <span class="va">database_id_match</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">stinglessData</span><span class="op">$</span><span class="va">database_id</span><span class="op">)</span></span></code></pre></div>
 <p>Then, set some parameters for figure borders and run your data
 through <code><a href="../reference/chordDiagramR.html">chordDiagramR()</a></code>.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Choose the global figure parameters</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create the chorDiagram. You can leave many of the below values out but we show here</span></span>
 <span><span class="co"># the defaults</span></span>
@@ -569,7 +530,7 @@ how this works. We will use beesFlagged, which has been filtered from a
 larger dataset and contains duplicates from that larger dataset. To
 print the plot in R, you need to specify returnPlot = TRUE, otherwise it
 will only save to the disk</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesFlagged"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create a figure shoring the total number of duplicates, kept duplicates, and unique</span></span>
@@ -604,72 +565,71 @@ those species.</p>
 <div class="section level4">
 <h4 id="a--all-taxa-in-dataset">a. all taxa in dataset<a class="anchor" aria-label="anchor" href="#a--all-taxa-in-dataset"></a>
 </h4>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Visualise all flags for each dataSource (simplified to the text before the first underscore)</span></span>
-<span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/plotFlagSummary.html">plotFlagSummary</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">beesFlagged</span>,</span>
-<span>  <span class="co"># Colours in order of pass (TRUE), fail (FALSE), and NA</span></span>
-<span>  flagColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#127852"</span>, <span class="st">"#A7002D"</span>, <span class="st">"#BDBABB"</span><span class="op">)</span>,</span>
-<span>  fileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Fig4_FlagsPlot_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">".pdf"</span><span class="op">)</span>,</span>
-<span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  width <span class="op">=</span> <span class="fl">15</span>, height <span class="op">=</span> <span class="fl">9</span>,</span>
-<span>  <span class="co"># Extra variables can be fed into forcats::fct_recode() to change names on plot</span></span>
-<span>  GBIF <span class="op">=</span> <span class="st">"GBIF"</span>, SCAN <span class="op">=</span> <span class="st">"SCAN"</span>, iDigBio <span class="op">=</span> <span class="st">"iDigBio"</span>, USGS <span class="op">=</span> <span class="st">"USGS"</span>, ALA <span class="op">=</span> <span class="st">"ALA"</span>, </span>
-<span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>,</span>
-<span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  - Preparing data to plot...</span></span>
-<span><span class="co">##  - Building plot...</span></span></code></pre>
-<p><img src="basic_workflow_files/figure-html/5.3a-1.png" width="700"></p>
-<p>###### b. Single sp. summary ####</p>
-<p>In fact, lets build one of these single-species example below using
-the same data and the omnipresent <em>Apis mellifera</em>.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Visualise all flags for each dataSource (simplified to the text before the first underscore)</span></span>
-<span>  <span class="co"># A clever user might also realise the potential to summarise and produce outputs in other columns</span></span>
-<span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/plotFlagSummary.html">plotFlagSummary</a></span><span class="op">(</span></span>
-<span>  <span class="co"># WARNING: alternate path if wanting to produce figures for the selected taxonData (2.0 above)</span></span>
-<span>  <span class="co"># Select only the taxonData data</span></span>
-<span>  data <span class="op">=</span> <span class="va">beesFlagged</span>,</span>
-<span>  <span class="co"># Colours in order of pass (TRUE), fail (FALSE), and NA</span></span>
-<span>  flagColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#127852"</span>, <span class="st">"#A7002D"</span>, <span class="st">"#BDBABB"</span><span class="op">)</span>,</span>
-<span>  fileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"FlagsPlot_Amell"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">".pdf"</span><span class="op">)</span>,</span>
-<span>  outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  width <span class="op">=</span> <span class="fl">15</span>, height <span class="op">=</span> <span class="fl">9</span>,</span>
-<span>  <span class="co"># OPTIONAL:</span></span>
-<span>         <span class="co">#  # Filter to species</span></span>
-<span>           speciesName <span class="op">=</span> <span class="st">"Apis mellifera Linnaeus, 1758"</span>,</span>
-<span>             <span class="co"># column to look in</span></span>
-<span>           nameColumn <span class="op">=</span> <span class="st">"scientificName"</span>,</span>
-<span>           <span class="co"># Save the filtered data</span></span>
-<span>           saveFiltered <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>     <span class="co"># Filter column to display on map</span></span>
-<span>           filterColumn <span class="op">=</span> <span class="st">".summary"</span>,</span>
-<span>           plotMap <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>       <span class="co"># amount to jitter points if desired, e.g. 0.25 or NULL</span></span>
-<span>     jitterValue <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>       <span class="co"># Map opacity value for points between 0 and 1</span></span>
-<span>     mapAlpha <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  <span class="co"># Extra variables can be fed into forcats::fct_recode() to change names on plot</span></span>
-<span>  GBIF <span class="op">=</span> <span class="st">"GBIF"</span>, SCAN <span class="op">=</span> <span class="st">"SCAN"</span>, iDigBio <span class="op">=</span> <span class="st">"iDigBio"</span>, USGS <span class="op">=</span> <span class="st">"USGS"</span>, ALA <span class="op">=</span> <span class="st">"ALA"</span>, </span>
-<span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, <span class="st">'B. Mont.'</span> <span class="op">=</span> <span class="st">"BMont"</span>, <span class="st">'B. Minkley'</span> <span class="op">=</span> <span class="st">"BMin"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
-<span>  Gaiarsa <span class="op">=</span> <span class="st">"Gai"</span>, EPEL <span class="op">=</span> <span class="st">"EPEL"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="visualise-all-flags-for-each-datasource-simplified-to-the-text-before-the-first-underscore">Visualise all flags for each dataSource (simplified to the text
+before the first underscore)<a class="anchor" aria-label="anchor" href="#visualise-all-flags-for-each-datasource-simplified-to-the-text-before-the-first-underscore"></a>
+</h2>
+<p>BeeBDC::plotFlagSummary( data = beesFlagged, # Colours in order of
+pass (TRUE), fail (FALSE), and NA flagColours = c(“#127852”, “#A7002D”,
+“#BDBABB”), fileName = paste0(“Fig4_FlagsPlot_”, Sys.Date(),“.pdf”),
+outPath = tempdir(), width = 15, height = 9, # Extra variables can be
+fed into forcats::fct_recode() to change names on plot GBIF = “GBIF”,
+SCAN = “SCAN”, iDigBio = “iDigBio”, USGS = “USGS”, ALA = “ALA”, ASP =
+“ASP”, returnPlot = TRUE )</p>
+<pre><code>
+
+  ###### b. Single sp. summary ####
+  
+  In fact, lets build one of these single-species example below using the same data and the omnipresent *Apis mellifera*.
+  
+
+```r
+# Visualise all flags for each dataSource (simplified to the text before the first underscore)
+  # A clever user might also realise the potential to summarise and produce outputs in other columns
+BeeBDC::plotFlagSummary(
+  # WARNING: alternate path if wanting to produce figures for the selected taxonData (2.0 above)
+  # Select only the taxonData data
+  data = beesFlagged,
+  # Colours in order of pass (TRUE), fail (FALSE), and NA
+  flagColours = c("#127852", "#A7002D", "#BDBABB"),
+  fileName = paste0("FlagsPlot_Amell", Sys.Date(),".pdf"),
+  outPath = tempdir(),
+  width = 15, height = 9,
+  # OPTIONAL:
+         #  # Filter to species
+           speciesName = "Apis mellifera Linnaeus, 1758",
+             # column to look in
+           nameColumn = "scientificName",
+           # Save the filtered data
+           saveFiltered = FALSE,
+     # Filter column to display on map
+           filterColumn = ".summary",
+           plotMap = TRUE,
+       # amount to jitter points if desired, e.g. 0.25 or NULL
+     jitterValue = NULL,
+       # Map opacity value for points between 0 and 1
+     mapAlpha = 1,
+  returnPlot = TRUE,
+  # Extra variables can be fed into forcats::fct_recode() to change names on plot
+  GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
+  ASP = "ASP", CAES = "CAES", 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd",
+  Gaiarsa = "Gai", EPEL = "EPEL"
+)</code></pre>
 <pre><code><span><span class="co">##  - Filtering to selected species...</span></span>
 <span><span class="co">##  - Selected species has 8 occurrences.</span></span>
 <span><span class="co">##  - Preparing data to plot...</span></span>
 <span><span class="co">##  - Building plot...</span></span></code></pre>
 <p><img src="basic_workflow_files/figure-html/5.3b-1.png" width="700"></p>
-</div>
-</div>
 <div class="section level3">
 <h3 id="maps">5.4 Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
 </h3>
 <p>We can also make some overall summary maps at the country level using
 <code><a href="../reference/summaryMaps.html">summaryMaps()</a></code>. If you get an error about breaks not being
 unique, then reduce class_n.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryMaps.html">summaryMaps</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beesFlagged</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -698,7 +658,7 @@ unique, then reduce class_n.</p>
 <div class="section level2">
 <h2 id="save-data">6.0 Save data<a class="anchor" aria-label="anchor" href="#save-data"></a>
 </h2>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mapData</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Output/Intermediate/"</span>, <span class="st">"cleanTaxon_"</span>,</span>
 <span>                          <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>

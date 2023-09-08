@@ -112,7 +112,8 @@ use of the BeeBDC package, if the required folders do not already exist.</p>
 <span>  Check <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  Figures <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  Intermediate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  RDoc <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  RDoc <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  useHere <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -178,6 +179,12 @@ OutPath-defined folder in which to save intermediate datasets. Default = TRUE.</
 root. Passing an absolute path raises an error. This argument is used by <code><a href="https://here.r-lib.org//reference/i_am.html" class="external-link">here::i_am()</a></code> and incorrectly
 setting this may result in <code>bdc</code> figures being saved to your computer's root directory</p></dd>
 
+
+<dt>useHere</dt>
+<dd><p>Logical. If TRUE, dirMaker will use <code><a href="https://here.r-lib.org//reference/i_am.html" class="external-link">here::i_am()</a></code> to declare the relative path
+to 'RDoc'. This is aimed at preserving some functionality with where bdc saves summary figures
+and tables. Default = TRUE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -191,15 +198,28 @@ directory</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span>  <span class="co"># load dplyr</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># Store your original working directory</span></span></span>
+<span class="r-in"><span> <span class="va">oldwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="co"># Standard/basic usage:</span></span></span>
 <span class="r-in"><span><span class="va">RootPath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">dirMaker</span><span class="op">(</span></span></span>
 <span class="r-in"><span>RootPath <span class="op">=</span> <span class="va">RootPath</span>,</span></span>
 <span class="r-in"><span><span class="co"># Input the location of the workflow script RELATIVE to the RootPath</span></span></span>
-<span class="r-in"><span>RDoc <span class="op">=</span> <span class="st">"BDC_repo/BeeCleaning_SciData.R"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>RDoc <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>useHere <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># Add paths created by this function to the .GlobalEnv</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span>  </span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> here() starts at /home/runner/work/BeeBDC/BeeBDC</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the /tmp/RtmpyaFBks/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the /tmp/RtmpyaFBks/Data_acquisition_workflowfile. This file needs to have the occurrence data that you want to use added to it otherise things won't work. Please choose this data or download it from the supp. materials of our paper</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpyaFBks/BDC_repo/DiscoverLife_Data' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the /tmp/RtmpyaFBks/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpyaFBks/Data_acquisition_workflow/Output' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the /tmp/RtmpyaFBks/Data_acquisition_workflow/Outputfile.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: R_GlobalEnv&gt;</span>
 <span class="r-in"><span><span class="co"># Set the working directory</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">DataPath</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -210,9 +230,13 @@ directory</p>
 <span class="r-in"><span> OutPath <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span> OutPathName <span class="op">=</span> <span class="st">"T2T_Output"</span>,</span></span>
 <span class="r-in"><span> <span class="co"># Input the location of the workflow script RELATIVE to the RootPath</span></span></span>
-<span class="r-in"><span> RDoc <span class="op">=</span> <span class="st">"BDC_repo/BeeCleaning_SciData.R"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span> RDoc <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span> useHere <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="co"># Add paths created by this function to the .GlobalEnv</span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span>  </span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpyaFBks/Data_acquisition_workflow/T2T_Output' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the /tmp/RtmpyaFBks/Data_acquisition_workflow/T2T_Outputfile.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: R_GlobalEnv&gt;</span>
 <span class="r-in"><span> <span class="co"># Set the working directory</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">DataPath</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -223,12 +247,21 @@ directory</p>
 <span class="r-in"><span>  DiscLifePath <span class="op">=</span> <span class="st">"...path/BDC_repo/DiscoverLife_Data"</span>,</span></span>
 <span class="r-in"><span>  OutPathName <span class="op">=</span> <span class="st">"AsianPerspective_Output"</span>,</span></span>
 <span class="r-in"><span>  <span class="co"># Input the location of the workflow script RELATIVE to the RootPath</span></span></span>
-<span class="r-in"><span>  RDoc <span class="op">=</span> <span class="st">"AsianPerspecitve_workflow.R"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  RDoc <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>  useHere <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># Add paths created by this function to the .GlobalEnv</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span>  </span></span>
-<span class="r-in"><span><span class="co"># Set the working directory</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">DataPath</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the ...path/Bee_SDM_paper/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'...path/BDC_repo/DiscoverLife_Data' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the ...path/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpyaFBks/Data_acquisition_workflow/AsianPerspective_Output' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> - We created the /tmp/RtmpyaFBks/Data_acquisition_workflow/AsianPerspective_Outputfile.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: R_GlobalEnv&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Restore your original working directory</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">oldwd</span><span class="op">)</span> </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
