@@ -1,5 +1,5 @@
 Package: BeeBDC
-Title: BeeBDC: An Occurrence Data Cleaning Package
+Title: Occurrence Data Cleaning
 Version: 1.0.0
 Authors@R: c(
     person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre", "cph"),
@@ -25,6 +25,15 @@ License: GPL-3 + file LICENSE
 BugReports: https://github.com/jbdorey/BeeBDC/issues
 Depends: 
     R (>= 2.10)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-gb
+LazyData: TRUE
+LazyDataCompression: xz
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
 Imports: 
     circlize,
     ComplexHeatmap,
@@ -78,12 +87,3 @@ Suggests:
     tidyr,
     utils,
     xml2
-VignetteBuilder: 
-    knitr
-Config/testthat/edition: 3
-Encoding: UTF-8
-Language: en-gb
-LazyData: TRUE
-LazyDataCompression: xz
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3

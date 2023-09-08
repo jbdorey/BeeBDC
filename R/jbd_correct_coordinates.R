@@ -38,8 +38,9 @@
 #' @noRd
 #'
 #' @examples
-#' \dontrun{
-#'
+#' \donttest{
+#' # This is an internal function, that is exported for clarity and for users to potentially trace
+#' errors.
 #' }
 jbd_correct_coordinates <-
   function(data,

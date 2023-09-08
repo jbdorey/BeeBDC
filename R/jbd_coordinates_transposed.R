@@ -62,7 +62,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' idcol <- c(1, 2, 3, 4)
 #' scientificName <- c(
 #'   "Rhinella major", "Scinax ruber",
@@ -114,9 +114,12 @@ jbd_coordinates_transposed <- function(data,
     suppressWarnings({
       check_require_cran("rnaturalearth")
       check_require_cran("readr")
-     #  check_require_github("ropensci/rnaturalearthdata")
     })
-    # loadNamespace("rnaturalearthdata")
+    
+    # Ensure that working directories are maintain on exit from function
+    oldwd <- getwd()           # code line i 
+    on.exit(setwd(oldwd))        # code line i+1 
+    
     # Copy original wd
     OGwd <- getwd()
     

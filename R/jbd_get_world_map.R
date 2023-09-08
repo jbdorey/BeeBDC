@@ -11,8 +11,9 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \dontrun{
-#' worldmap <- jbd_get_world_map()
+#' \donttest{
+#'   # This is an internal function.
+#' worldmap <- jbd_get_world_map(scale = "large")
 #' }
 jbd_get_world_map <- function(scale = "large") {
   name_en <- iso_n3 <- iso2c <- iso3c <- NULL

@@ -50,7 +50,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'  chordDiagramR(
 # # The duplicate data from the dupeSummary function output  
 #' dupeData = duplicates,
@@ -123,6 +123,9 @@ chordDiagramR <- function(
     stop(" - There are no duplicates in the dupeData object. Stopping process.")
   }
   
+  # Make sure to maintain prior par on exit from the function
+  oldpar <- par(no.readonly = TRUE) 
+  on.exit(oldpar)
   
 
 # Create a table to go into chord diagram
@@ -172,8 +175,8 @@ colourTable <- dplyr::full_join(keptSource, dupeSource, by = "sourceName") %>%
 
 
 circlize::circos.clear()
-
-circlize::circos.par(canvas.ylim = canvas.ylim, canvas.xlim = canvas.xlim)
+  circlize::circos.par(canvas.ylim = canvas.ylim, canvas.xlim = canvas.xlim)
+  
 # Create the chord diagrame
 circlize::chordDiagram(
   x = chordData,

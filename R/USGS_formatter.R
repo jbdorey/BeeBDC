@@ -13,7 +13,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' USGS_data <- USGS_formatter(path = DataPath, pubDate = "19-11-2022")
 #' }
 #' 

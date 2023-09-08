@@ -19,7 +19,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Integrate Paige Chesshire's cleaned dataset.
 # Import Paige's cleaned N. American data
 # IF you haven't figured out by now, dont worry about the column name warning - not all columns occur here.

@@ -10,7 +10,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Where DataPath is made by [BeeBDC::dirMaker()]
 #' BeeBDC::repoFinder(path = DataPath)
 #' }

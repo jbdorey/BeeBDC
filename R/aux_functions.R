@@ -20,7 +20,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' dataSaver(path = tempdir(),# The main path to look for data in
 #' save_type = "CSV_file", # "R_file" OR "CSV_file"
 #' occurrences = Complete_data$Data_WebDL, # The existing datasheet
@@ -203,7 +203,7 @@ outFile_maker <- function(path = path, file2make = "out_file"){
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' fileFinder(path = RootPath, fileName = "beesRaw")
 #' # more specifically the .csv version
 #' fileFinder(path = RootPath, fileName = "beesRaw.csv")

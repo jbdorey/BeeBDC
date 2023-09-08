@@ -33,6 +33,9 @@
 #' folder. Default = TRUE.
 #' @param Intermediate Logical. If TRUE, function creates a "Intermediate" folder within the 
 #' OutPath-defined folder in which to save intermediate datasets. Default = TRUE.
+#' @param useHere Logical. If TRUE, dirMaker will use [here::i_am()] to declare the relative path 
+#' to 'RDoc'. This is aimed at preserving some functionality with where bdc saves summary figures 
+#' and tables. Default = TRUE.
 #' 
 #'
 #' @return Results in the generation of a list containing the BeeBDC-required directories in your global
@@ -46,7 +49,9 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
+#'   # Store your original working directory
+#'  oldwd <- getwd() 
 #' # Standard/basic usage:
 #' RootPath <- tempdir()
 #' dirMaker(
@@ -81,8 +86,10 @@
 #'   RDoc = "AsianPerspecitve_workflow.R") %>%
 #'   # Add paths created by this function to the .GlobalEnv
 #'   list2env(envir = .GlobalEnv)  
-#' # Set the working directory
-#' setwd(DataPath)
+#' 
+#'   # Restore your original working directory
+#'  setwd(oldwd) 
+#' 
 #' }
 #'
 
@@ -99,10 +106,16 @@ dirMaker <- function(
     Check = TRUE,
     Figures = TRUE,
     Intermediate = TRUE,
-    RDoc = NULL
+    RDoc = NULL,
+    useHere = TRUE
 ){
   # Package names
   packages <- c("dplyr", "here")
+  
+  # Ensure that working directories are maintain on exit from function
+  oldwd <- getwd()           # code line i 
+  on.exit(setwd(oldwd))        # code line i+1 
+  
   
   # Install packages not yet installed
   installed_packages <-  rownames(utils::installed.packages(packages))
@@ -120,10 +133,12 @@ dirMaker <- function(
     stop(paste0(" - No RootPath was given. Please specifcy the root drectory that you want to use ",
                 "for your data-cleaning adventures. I'll do the rest."))
   }
-  if(is.null(RDoc)){
-    stop(paste0(" - Please provide a path for RDoc. This path MUST be relative to the RootPath. ",
+  if(is.null(RDoc) & useHere == TRUE){
+    stop(paste0(" - Please provide a path for RDoc with useHere = TRUE.",
+                " This path MUST be relative to the RootPath. ",
                 "Hence, if the RootPath is '/user/home/', and the path to the RDoc is ", 
-                "'/user/home/beeData/cleaningWorkflow.R', then RDoc == 'beeData/cleaningWorkflow.R"))
+                "'/user/home/beeData/cleaningWorkflow.R', ",
+                "then RDoc == 'beeData/cleaningWorkflow.R"))
   }
 
     # Set the working directory
@@ -277,7 +292,8 @@ dirMaker <- function(
   
   #### 3.0 Set here::here ####
     # here::here needs to know where to find all output files. This is set here.
-  here::i_am(RDoc)
+  if(useHere == TRUE){
+  here::i_am(RDoc)}
   
   #### 4.0 Output ####
   return(list(ScriptPath, DataPath, DiscLifePath, OutPath,

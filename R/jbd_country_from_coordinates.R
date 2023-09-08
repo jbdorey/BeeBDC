@@ -35,7 +35,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' x <- data.frame(
 #'   decimalLatitude = c(-22.9834, -39.857030, -17.06811, -46.69778),
 #'   decimalLongitude = c(-69.095, -68.443588, 37.438108, -13.82444),

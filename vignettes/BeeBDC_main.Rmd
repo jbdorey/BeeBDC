@@ -57,20 +57,18 @@ library(parallel)
 library(terra)
 
 # Dont detect cores to avoid GitHbub error
+old <- options()         # code line i 
+on.exit(options(old))      # code line i+1 
 options(mc.cores = parallel::detectCores())
 ```
 
 
 ```{r secretRootPath, include=FALSE}
-  # Use here::i_am to set the root directory
-here::i_am("vignettes/BeeBDC_main.Rmd")
-  # Set a root path that will work on the local machine and also on GitHub actions
-RootPath <- paste0(dirname(getwd()), "/inst/extdata/WebDir")
-  # Create the working directory in the RootPath if it doesn't exist already
+# Set the RootPath to tempdir
+RootPath <- tempdir()
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
 }
-
 ```
 
 ```{r global-options, include=FALSE}
@@ -78,7 +76,7 @@ knitr::opts_chunk$set(error = TRUE,
                       eval = TRUE, 
                       tidy = TRUE, 
                       warning = FALSE,
-                      root.dir = normalizePath(paste0(dirname(getwd()), "/inst/extdata/WebDir")))
+                      root.dir = normalizePath(tempdir()))
 ```
 
 
@@ -117,7 +115,7 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 You may need to install gdal on your computer. This can be done on a Mac by using Homebrew in the terminal and the command "brew install gdal". 
 
 To start out, you will need to install **BiocManager**, **devtools**, **ComplexHeatmap**, and **rnaturalearthhires** to then install and fully use **BeeBDC**.
-```{r installPackages, message=FALSE, warning=FALSE, results=FALSE, collapse = TRUE}
+```{r installPackages, message=FALSE, warning=FALSE, results=FALSE, collapse = TRUE, eval = FALSE}
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 
@@ -137,7 +135,7 @@ library(rnaturalearthhires)
    
    Now install **BeeBDC**.
 
-```{r installBeeBDC, results=TRUE, message=TRUE, eval = TRUE, collapse = TRUE}
+```{r installBeeBDC, results=TRUE, message=TRUE, eval = FALSE, collapse = TRUE}
 devtools::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main", 
                         force = FALSE)
 library(BeeBDC)
@@ -153,10 +151,21 @@ renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"),
       
   Set up the directories used by BeeBDC. These directories include where the data, figures, reports, etc. will be saved. The RDoc needs to be a path RELATIVE to the RootPath; i.e., the file path from which the two diverge.
   
-```{r dirMaker, collapse = TRUE}
+```{r dirMaker, collapse = TRUE, eval = FALSE}
 BeeBDC::dirMaker(
     RootPath = RootPath,
     RDoc = "vignettes/BeeBDC_main.Rmd") %>%
+      # Add paths created by this function to the .GlobalEnv
+    list2env(envir = .GlobalEnv)
+```
+      
+```{r dirMakerSECRETELY, include = FALSE}
+# For the sake of this tutorial, we will not use here::i_am in dirMaker, because we aren't allowed
+  # to mess with package directories. This will work-around to use the tempdir()
+BeeBDC::dirMaker(
+    RootPath = RootPath,
+    useHere = FALSE,
+    RDoc = NULL) %>%
       # Add paths created by this function to the .GlobalEnv
     list2env(envir = .GlobalEnv)
 ```
@@ -1385,7 +1394,7 @@ rm(gridded_datasets)
 Flag records that exceed a *coordinateUncertaintyInMeters* threshold.
 
 ```{r 5.4, collapse = TRUE}
-check_space <- coordUncerFlagR(data = check_space,
+check_space <- BeeBDC::coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 ```
@@ -1856,9 +1865,13 @@ if(!exists("duplicates")){
 ```
 
 Choose the global figure parameters.
+```{r 9.1on.exit, include = FALSE}
+oldpar <- par(no.readonly = TRUE) 
+on.exit(oldpar)
+```
 
 ```{r 9.1iii, eval = FALSE, collapse = TRUE}
-par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
+  par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
 ```
 
 Create the chordDiagram. You can leave many of the below values out, but we show here the defaults. There are [internally] no duplicates in current our test dataset, so **BeeBDC** will throw an informative error. However, we show the full output figure from our bee dataset below.

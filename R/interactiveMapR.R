@@ -101,8 +101,12 @@ interactiveMapR <- function(
   
   requireNamespace("htmlwidgets")
   requireNamespace("leaflet")
-  #requireNamespace("DT")
   requireNamespace("dplyr")
+  
+  # Ensure that working directories are maintain on exit from function
+  oldwd <- getwd()           # code line i 
+  on.exit(setwd(oldwd))        # code line i+1 
+  
   
 #### 0.0 Prep ####
   ##### 0.1 Errors ####
@@ -247,7 +251,11 @@ if(onlySummary == FALSE){
 
 
 # ensure UTF-8 encoding
+old <- options()         # code line i 
+on.exit(options(old))      # code line i+1 
+
 options(encoding = "UTF-8")
+
 data <- data %>% mutate(across(where(is.character), 
                               function(x){iconv(x, 
                                                 to = "UTF-8",
@@ -280,11 +288,13 @@ for (x in 1:length(speciesList)){
                               layerId = 300,
                               options = leaflet::providerTileOptions(zIndex = 500))
     # For the names in the list, apply the points function
-  names(databaseLoop) %>%
-    purrr::walk(function(walkName){
-      databaseSpp <<- databaseLoop[[walkName]]
-      mdatabaseSpp <<- mdatabaseSpp %>%
-    leaflet::addCircleMarkers(data = databaseSpp,
+      # Apply each walkName in a for loop to add to the map.
+for(i in 1:length(names(databaseLoop))){
+  walkName <- names(databaseLoop)[[i]]
+  databaseSpp <- databaseLoop[[walkName]]
+  mdatabaseSpp <- databaseLoop[[walkName]] %>%
+    leaflet::addCircleMarkers(map = mdatabaseSpp,
+                              data = databaseSpp,
                               lng = ~decimalLongitude, lat = ~decimalLatitude, ###then you can specify what do you want in the popup window from your data
                               group = walkName,
                               if(TrueAlwaysTop == TRUE){
@@ -463,7 +473,8 @@ for (x in 1:length(speciesList)){
                                 # border size
                              weight = if(walkName %in% c("TRUE", "FALSE")){
                                1.5}else{2.5}) #to change the size of points  
-    })# END purrr::walk
+    } # END for loop
+
     
   ###### j. controller ####
     # Add the layers control

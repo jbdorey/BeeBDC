@@ -30,7 +30,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'   # Read example data
 #'   data(beesFlagged)
 #' # Read in the most-recent duplicates file as well

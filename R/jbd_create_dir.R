@@ -16,8 +16,8 @@
 #' @noRd
 
 #' @examples
-#' \dontrun{
-#' jbd_create_dir()
+#' \donttest{
+#' jbd_create_dir(path = tempdir())
 #' }
 jbd_create_dir <- function(path = NULL) {
     # Option 1 if no path is provided, create directories using here::here
