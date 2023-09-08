@@ -48,7 +48,7 @@
 #' data(beesFlagged)
 #' beesFlagged <- beesFlagged %>% dplyr::select(!c(.val, .sea)) %>%
 #'   # Cut down the dataset to un example quicker
-#' dplyr::filter(dplyr::row_number() %in% 1:30)
+#' dplyr::filter(dplyr::row_number() %in% 1:20)
 #'   # Run the function
 #' beesFlagged_out <- jbd_Ctrans_chunker(
 #' # bdc_coordinates_transposed inputs

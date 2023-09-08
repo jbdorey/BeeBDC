@@ -11,7 +11,8 @@ testMap <- BeeBDC::summaryMaps(
   class_Style = "fisher",
   outPath = tempdir(),
   fileName = "CountryMaps_fisher.pdf",
-  returnPlot = TRUE
+  returnPlot = TRUE,
+  scale = 110
 )
 
 
