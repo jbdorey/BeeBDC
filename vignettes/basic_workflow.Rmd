@@ -162,14 +162,14 @@ BeeBDC::dirMaker(
       
 ```{r dirMakerSECRETELY, include = FALSE}
 # For the sake of this tutorial, we will not use here::i_am in dirMaker, because we aren't allowed
-  # to mess with package directories. This will work-around to use the tempdir()
-BeeBDC::dirMaker(
-    RootPath = RootPath,
-    useHere = FALSE,
-    RDoc = NULL) %>%
-      # Add paths created by this function to the .GlobalEnv
-    list2env(envir = .GlobalEnv)
-```      
+  # to mess with package directories in this way. This will work-around to use the tempdir()
+DataPath <- paste0(RootPath, "/Data_acquisition_workflow")
+OutPath_Check <- paste0(RootPath, "/Data_acquisition_workflow/Output/Check")
+OutPath_Figures <- paste0(RootPath, "/Data_acquisition_workflow/Output/Figures")
+OutPath_Intermediate <- paste0(RootPath, "/Data_acquisition_workflow/Output/Intermediate")
+OutPath_Report <- paste0(RootPath, "/Data_acquisition_workflow/Output/Report")
+```
+
 ## 0.3 Load packages 
       
 Load packages.

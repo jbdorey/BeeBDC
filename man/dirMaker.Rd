@@ -73,7 +73,7 @@ This function sets up a directory for saving outputs (i.e. data, figures) genera
 use of the BeeBDC package, if the required folders do not already exist.
 }
 \examples{
-\donttest{
+\dontrun{
   # load dplyr
   library(dplyr)
   # Store your original working directory

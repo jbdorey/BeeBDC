@@ -49,7 +49,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #'   # load dplyr
 #'   library(dplyr)
 #'   # Store your original working directory
