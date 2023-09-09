@@ -15,13 +15,8 @@
 #' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #' @param chunkStart Numeric. The chunk number to start from. This can be > 1 when you need to 
 #' restart the function from a certain chunk. For example, can be used if R failed unexpectedly.
-#' @param progressiveSave Logical. If TRUE then the country output list will be saved between
-#' each iteration so that `append` can be used if the function is stopped part way through.
-#' Will not function if mc.cores > 1.
 #' @param path Character. The directory path to a folder in which to save the running countrylist
 #' csv file.
-#' @param append Logical. If TRUE, the function will look to append an existing file. Will not 
-#' function if mc.cores > 1.
 #' @param scale Passed to rnaturalearth's ne_countries().
 #' Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".
 #' @param mc.cores Numeric. If > 1, the function will run in parallel
@@ -37,10 +32,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' # Because this function iteratively adds to a save file in the background, for simplicity's sake
-#' # and for the sake of transparency the output needs to be added to the data input
-#' # outside of the main function.
-#' library(dplyr)
+#' library("dplyr")
 #' data(beesFlagged)
 #' HomePath = tempdir()
 #' # Tibble of common issues in country names and their replacements
@@ -69,11 +61,8 @@
 #'                                    stepSize = 1000000,
 #'                                    # Start row
 #'                                    chunkStart = 1,
-#'                                     # Progressively save the country list between each iteration?
-#'                                    progressiveSave = FALSE,
 #'                                    path = HomePath,
-#'                                    scale = "medium",
-#'                                    append = FALSE),
+#'                                    scale = "medium"),
 #'   classes = "warning")
 #' 
 #' 
@@ -103,9 +92,6 @@ jbd_CfC_chunker <- function(data = NULL,
                             stepSize = 1000000,
                             # Start row
                             chunkStart = 1,
-                            progressiveSave = TRUE,
-                            # If FALSE it may overwrite existing dataset
-                            append = FALSE,
                             scale = "medium",
                             path = tempdir(),
                             mc.cores = 1){
@@ -117,18 +103,8 @@ jbd_CfC_chunker <- function(data = NULL,
   nChunks = ceiling(nrow(data)/stepSize)
     # Find the max nrow
   nrowMax <- nrow(data)
-  # IF a run failed you can start again from the same spot using append = TRUE
-    ##### 0.2 append ####
-  if(append == TRUE){
-    # Read in the CountryList csv
-    CountryList = readr::read_csv("CountryList.csv")
-    # set the chunkStart to the number of rows completed plus one
-    chunkStart = nrow(CountryList) + 1
-    nChunks = ceiling((nrow(data)-chunkStart)/stepSize)
-  } # END append IF statement
   # The chunkEnd is the same as the stepSize initially, but the chunkEnd will change with each 
     # iteration
-  # It will also differ if append == true based on where the run is at.
     ##### 0.3 chunkEnd ####
   chunkEnd = (chunkStart + stepSize) - 1
 
@@ -141,8 +117,7 @@ jbd_CfC_chunker <- function(data = NULL,
                    "chunkStart = ", 
                    format(chunkStart, big.mark=",",scientific=FALSE), "\n",
                    "chunkEnd = ", 
-                   format(chunkEnd, big.mark=",",scientific=FALSE), "\n",
-                   "append = ", append, 
+                   format(chunkEnd, big.mark=",",scientific=FALSE), 
                    sep = ""))
  
   
