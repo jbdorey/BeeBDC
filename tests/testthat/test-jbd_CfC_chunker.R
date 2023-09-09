@@ -25,9 +25,7 @@ countryOutput <- BeeBDC::jbd_CfC_chunker(data = bees3sp %>%
                                      # Start row
                                      chunkStart = 1,
                                      path = tempdir(),
-                                     scale = "medium", # Test at medium scale in this instance.
-                                     progressiveSave = FALSE,
-                                     append = FALSE)
+                                     scale = "medium")
 
 
   # Test expected number of rows
@@ -59,9 +57,7 @@ countryOutput <- BeeBDC::jbd_CfC_chunker(data = bees3sp %>%
                                          # Start row
                                          chunkStart = 1,
                                          path = tempdir(),
-                                         scale = "medium", # Test at medium scale in this instance.
-                                         progressiveSave = FALSE,
-                                         append = FALSE)
+                                         scale = "medium")
 
 
 # Test expected number of rows
@@ -95,7 +91,6 @@ testthat::test_that("jbd_CfC_chunker check that the input and output contries ar
 #                                              chunkStart = 1,
 #                                              path = tempdir(),
 #                                              scale = "medium", # Test at medium scale in this instance.
-#                                              append = FALSE,
 #                                              mc.cores = 2)
 #     
 #     
