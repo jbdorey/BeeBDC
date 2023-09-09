@@ -11,8 +11,6 @@ jbd_CfC_chunker(
   country = "country",
   stepSize = 1e+06,
   chunkStart = 1,
-  progressiveSave = TRUE,
-  append = FALSE,
   scale = "medium",
   path = tempdir(),
   mc.cores = 1
@@ -31,13 +29,6 @@ jbd_CfC_chunker(
 
 \item{chunkStart}{Numeric. The chunk number to start from. This can be > 1 when you need to
 restart the function from a certain chunk. For example, can be used if R failed unexpectedly.}
-
-\item{progressiveSave}{Logical. If TRUE then the country output list will be saved between
-each iteration so that \code{append} can be used if the function is stopped part way through.
-Will not function if mc.cores > 1.}
-
-\item{append}{Logical. If TRUE, the function will look to append an existing file. Will not
-function if mc.cores > 1.}
 
 \item{scale}{Passed to rnaturalearth's ne_countries().
 Scale of map to return, one of 110, 50, 10 or 'small', 'medium', 'large'. Default = "large".}
@@ -62,10 +53,7 @@ time. The prefix jbd_ is used to highlight the difference between this function 
 bdc::bdc_country_from_coordinates().
 }
 \examples{
-# Because this function iteratively adds to a save file in the background, for simplicity's sake
-# and for the sake of transparency the output needs to be added to the data input
-# outside of the main function.
-library(dplyr)
+library("dplyr")
 data(beesFlagged)
 HomePath = tempdir()
 # Tibble of common issues in country names and their replacements
@@ -94,11 +82,8 @@ suppressWarnings(
                                    stepSize = 1000000,
                                    # Start row
                                    chunkStart = 1,
-                                    # Progressively save the country list between each iteration?
-                                   progressiveSave = FALSE,
                                    path = HomePath,
-                                   scale = "medium",
-                                   append = FALSE),
+                                   scale = "medium"),
   classes = "warning")
 
 
