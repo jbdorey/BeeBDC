@@ -190,7 +190,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.1]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmpVkbcf0/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/RtmpQahp4o/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by BeeBDC. These directories include
 where the data, figures, reports, etc. will be saved. The RDoc needs to
 be a path RELATIVE to the RootPath; i.e., the file path from which the
@@ -927,8 +927,7 @@ details. NOTE: In an actual run you should use scale = “large”</p>
 <span>                                   scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>                                   mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
-<span><span class="co">##  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.</span></span>
-<span><span class="co">##  - We have updated the country names of 39 occurrences that previously had no country name assigned.</span></span></code></pre></div>
+<span><span class="co">## Error in BeeBDC::jbd_CfC_chunker(data = check_pf_noNa, lat = "decimalLatitude", : unused arguments (append = FALSE, progressiveSave = FALSE)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="c--re-merge">c. re-merge<a class="anchor" aria-label="anchor" href="#c--re-merge"></a>
@@ -944,7 +943,8 @@ details. NOTE: In an actual run you should use scale = “large”</p>
 <span>                                         <span class="va">countryCO</span>,</span>
 <span>                                         <span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Remove duplicates if they arose from left_join!</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Error in eval(expr, envir, enclos): object 'countryOutput' not found</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -990,7 +990,6 @@ codes, if needed.</p>
 <span><span class="co">## country found: Finland</span></span>
 <span><span class="co">## country found: France</span></span>
 <span><span class="co">## country found: Germany</span></span>
-<span><span class="co">## country found: Ireland</span></span>
 <span><span class="co">## country found: Mexico</span></span>
 <span><span class="co">## country found: Norway</span></span>
 <span><span class="co">## country found: South Africa</span></span>
@@ -1287,7 +1286,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 1.66 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 1.91 secs</span></span></code></pre></div>
 <p>You don’t need this file any more…</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">beesTaxonomy</span><span class="op">)</span></span></code></pre></div>
@@ -1557,7 +1556,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 6.28 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 6.99 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1713,7 +1712,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.369951963424683 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.412241220474243 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1911,7 +1910,7 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
 <span><span class="co">## Error: Cannot open file for writing:</span></span>
-<span><span class="co">## * '/tmp/RtmpVkbcf0/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-09.csv'</span></span></code></pre></div>
+<span><span class="co">## * '/tmp/RtmpQahp4o/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-09.csv'</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2150,7 +2149,7 @@ text before the first underscore.)</p>
 <span><span class="op">)</span></span>
 <span><span class="co">##  - Preparing data to plot...</span></span>
 <span><span class="co">##  - Building plot...</span></span>
-<span><span class="co">## Error in grDevices::pdf(file = filename, ..., version = version): cannot open file '/tmp/RtmpVkbcf0/Data_acquisition_workflow/Output/Figures/FlagsPlot_2023-09-09.pdf'</span></span></code></pre></div>
+<span><span class="co">## Error in grDevices::pdf(file = filename, ..., version = version): cannot open file '/tmp/RtmpQahp4o/Data_acquisition_workflow/Output/Figures/FlagsPlot_2023-09-09.pdf'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="maps">9.4 Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
