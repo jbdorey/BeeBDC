@@ -57,7 +57,7 @@ library(parallel)
 library(terra)
 
 # Dont detect cores to avoid GitHbub error
-old <- options()         # code line i 
+old <- options()         # code line i  
 on.exit(options(old))      # code line i+1 
 options(mc.cores = parallel::detectCores())
 ```
