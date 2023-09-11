@@ -168,6 +168,17 @@ OutPath_Check <- paste0(RootPath, "/Data_acquisition_workflow/Output/Check")
 OutPath_Figures <- paste0(RootPath, "/Data_acquisition_workflow/Output/Figures")
 OutPath_Intermediate <- paste0(RootPath, "/Data_acquisition_workflow/Output/Intermediate")
 OutPath_Report <- paste0(RootPath, "/Data_acquisition_workflow/Output/Report")
+  # Create these files
+if (!dir.exists(DataPath)) {
+    dir.create(DataPath, recursive = TRUE)}
+if (!dir.exists(OutPath_Check)) {
+    dir.create(OutPath_Check, recursive = TRUE)}
+if (!dir.exists(OutPath_Figures)) {
+    dir.create(OutPath_Figures, recursive = TRUE)}
+if (!dir.exists(OutPath_Intermediate)) {
+    dir.create(OutPath_Intermediate, recursive = TRUE)}
+if (!dir.exists(OutPath_Report)) {
+    dir.create(OutPath_Report, recursive = TRUE)}
 ```
 
 ## 0.3 Load packages 

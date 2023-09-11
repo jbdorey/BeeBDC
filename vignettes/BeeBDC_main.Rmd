@@ -167,6 +167,17 @@ OutPath_Check <- paste0(RootPath, "/Data_acquisition_workflow/Output/Check")
 OutPath_Figures <- paste0(RootPath, "/Data_acquisition_workflow/Output/Figures")
 OutPath_Intermediate <- paste0(RootPath, "/Data_acquisition_workflow/Output/Intermediate")
 OutPath_Report <- paste0(RootPath, "/Data_acquisition_workflow/Output/Report")
+  # Create these files
+if (!dir.exists(DataPath)) {
+    dir.create(DataPath, recursive = TRUE)}
+if (!dir.exists(OutPath_Check)) {
+    dir.create(OutPath_Check, recursive = TRUE)}
+if (!dir.exists(OutPath_Figures)) {
+    dir.create(OutPath_Figures, recursive = TRUE)}
+if (!dir.exists(OutPath_Intermediate)) {
+    dir.create(OutPath_Intermediate, recursive = TRUE)}
+if (!dir.exists(OutPath_Report)) {
+    dir.create(OutPath_Report, recursive = TRUE)}
 ```
       
 ## 0.3 Load packages 
@@ -506,7 +517,9 @@ Gaiarsa, M. P., Kremen, C. & Ponisio, L. C. Pollinator interaction flexibility a
                           
 ###### g. CAES
 
-From the Connecticut Agricultural Experiment Station
+From the Connecticut Agricultural Experiment Station.
+Zarrillo, T. A., Stoner, K. A. & Ascher, J. S. Biodiversity of bees (Hymenoptera: Apoidea: Anthophila) in Connecticut (USA). Zootaxa (Accepted).
+Ecdysis. Occurrence dataset (ID: 16fca9c2-f622-4cb1-aef0-3635a7be5aeb). https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip. (2023)
 
     CAES_Data <- BeeBDC::readr_BeeBDC(dataset = "CAES",
                                     path = paste0(DataPath, "/Additional_Datasets"),
@@ -825,8 +838,6 @@ suppressWarnings(
                                     # Start row
                                    chunkStart = 1,
                                    path = OutPath_Intermediate,
-                                   append = FALSE,
-                                   progressiveSave = FALSE,
                                     # Normally, please use scale = "large"
                                    scale = "medium",
                                    mc.cores = 1),
@@ -952,7 +963,7 @@ check_pf <- BeeBDC::jbd_coordCountryInconsistent(
   data = check_pf,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
-  mapResolution = 50,
+  scale = 50,
   pointBuffer = 0.01)
 ```
 
@@ -1141,7 +1152,7 @@ parse_names <-
 Merge names with the complete dataset.
 
 ```{r 4.1iii, collapse = TRUE}
-database <- dplyr::bind_cols(database, parse_names)
+database <- dplyr::bind_cols(database)
 rm(parse_names)
 ```
 
