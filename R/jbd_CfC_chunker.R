@@ -1,12 +1,12 @@
 # This function was written by James Dorey to chunk the bdc_country_from_coordinates function
   # to allow bigger datasets to be analysed without consuming too much RAM.
 # This function was written on the 12th of May 2022. For questions, please email jbdorey[at]me.com
-#' A wrapper around [BeeBDC::jbd_country_from_coordinates()] to chunk analyses
+#' Get country names from coordinates
 #' 
-#' Because the [BeeBDC::jbd_country_from_coordinates()] function is very RAM-intensive, this wrapper 
+#' Because the [bdc::bdc_country_from_coordinates()] function is very RAM-intensive, this wrapper 
 #' allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a 
 #' time. The prefix jbd_ is used to highlight the difference between this function and the original
-#' bdc::bdc_country_from_coordinates().
+#' [bdc::bdc_country_from_coordinates()].
 #'
 #' @param data A data frame or tibble. Occurrence records to use as input.
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".

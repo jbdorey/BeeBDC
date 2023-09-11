@@ -60,7 +60,7 @@ The *BeeBDC* toolkit is organized using the conventions similar to bdc and Coord
 
 
 
-#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/0/X4/i-V37Vg2w-X4.jpg)
+#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/Research-images/BeeBDC/n-xP3sqK/i-V37Vg2w/1/198894f2/X2/i-V37Vg2w-X2.jpg)
 
 
 <br/>

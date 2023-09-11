@@ -2,7 +2,7 @@
 % Please edit documentation in R/jbd_CfC_chunker.R
 \name{jbd_CfC_chunker}
 \alias{jbd_CfC_chunker}
-\title{A wrapper around \code{\link[=jbd_country_from_coordinates]{jbd_country_from_coordinates()}} to chunk analyses}
+\title{Get country names from coordinates}
 \usage{
 jbd_CfC_chunker(
   data = NULL,
@@ -47,10 +47,10 @@ A data frame containing database_ids and a country column
 that needs to be re-merged with the data input.
 }
 \description{
-Because the \code{\link[=jbd_country_from_coordinates]{jbd_country_from_coordinates()}} function is very RAM-intensive, this wrapper
+Because the \code{\link[bdc:bdc_country_from_coordinates]{bdc::bdc_country_from_coordinates()}} function is very RAM-intensive, this wrapper
 allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a
 time. The prefix jbd_ is used to highlight the difference between this function and the original
-bdc::bdc_country_from_coordinates().
+\code{\link[bdc:bdc_country_from_coordinates]{bdc::bdc_country_from_coordinates()}}.
 }
 \examples{
 library("dplyr")
