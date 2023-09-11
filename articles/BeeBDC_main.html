@@ -190,7 +190,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.1]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmpQahp4o/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/RtmpfxOD14/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by BeeBDC. These directories include
 where the data, figures, reports, etc. will be saved. The RDoc needs to
 be a path RELATIVE to the RootPath; i.e., the file path from which the
@@ -583,7 +583,11 @@ occupancy. <em>Nature Ecology &amp; Evolution</em> 5, 787-793 (2021). <a href="h
 <div class="section level7">
 <h6 id="g--caes">g. CAES<a class="anchor" aria-label="anchor" href="#g--caes"></a>
 </h6>
-<p>From the Connecticut Agricultural Experiment Station</p>
+<p>From the Connecticut Agricultural Experiment Station. Zarrillo, T.
+A., Stoner, K. A. &amp; Ascher, J. S. Biodiversity of bees (Hymenoptera:
+Apoidea: Anthophila) in Connecticut (USA). Zootaxa (Accepted). Ecdysis.
+Occurrence dataset (ID: 16fca9c2-f622-4cb1-aef0-3635a7be5aeb). <a href="https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip" class="external-link uri">https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip</a>.
+(2023)</p>
 <pre><code><span><span class="va">CAES_Data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/readr_BeeBDC.html">readr_BeeBDC</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"CAES"</span>,</span>
 <span>                                path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Additional_Datasets"</span><span class="op">)</span>,</span>
 <span>                        inFile <span class="op">=</span> <span class="st">"/InputDatasets/CT_BEE_DATA_FROM_PBI.xlsx"</span>,</span>
@@ -921,13 +925,12 @@ details. NOTE: In an actual run you should use scale = “large”</p>
 <span>                                    <span class="co"># Start row</span></span>
 <span>                                   chunkStart <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                                   path <span class="op">=</span> <span class="va">OutPath_Intermediate</span>,</span>
-<span>                                   append <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                                   progressiveSave <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                                    <span class="co"># Normally, please use scale = "large"</span></span>
 <span>                                   scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>                                   mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
-<span><span class="co">## Error in BeeBDC::jbd_CfC_chunker(data = check_pf_noNa, lat = "decimalLatitude", : unused arguments (append = FALSE, progressiveSave = FALSE)</span></span></code></pre></div>
+<span><span class="co">##  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.</span></span>
+<span><span class="co">##  - We have updated the country names of 39 occurrences that previously had no country name assigned.</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="c--re-merge">c. re-merge<a class="anchor" aria-label="anchor" href="#c--re-merge"></a>
@@ -943,8 +946,7 @@ details. NOTE: In an actual run you should use scale = “large”</p>
 <span>                                         <span class="va">countryCO</span>,</span>
 <span>                                         <span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Remove duplicates if they arose from left_join!</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## Error in eval(expr, envir, enclos): object 'countryOutput' not found</span></span></code></pre></div>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -990,6 +992,7 @@ codes, if needed.</p>
 <span><span class="co">## country found: Finland</span></span>
 <span><span class="co">## country found: France</span></span>
 <span><span class="co">## country found: Germany</span></span>
+<span><span class="co">## country found: Ireland</span></span>
 <span><span class="co">## country found: Mexico</span></span>
 <span><span class="co">## country found: Norway</span></span>
 <span><span class="co">## country found: South Africa</span></span>
@@ -1066,9 +1069,19 @@ coordinates are inconsistent with the provided country name.</p>
 <span>  data <span class="op">=</span> <span class="va">check_pf</span>,</span>
 <span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
-<span>  mapResolution <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  scale <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  pointBuffer <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
-<span><span class="co">## Error in BeeBDC::jbd_coordCountryInconsistent(data = check_pf, lon = "decimalLongitude", : unused argument (mapResolution = 50)</span></span></code></pre></div>
+<span><span class="co">##  - Downloading naturalearth map...</span></span>
+<span><span class="co">## Spherical geometry (s2) switched off</span></span>
+<span><span class="co">##  - Extracting initial country names without buffer...</span></span>
+<span><span class="co">##  - Buffering naturalearth map by pointBuffer...</span></span>
+<span><span class="co">## dist is assumed to be in decimal degrees (arc_degrees).</span></span>
+<span><span class="co">##  - Extracting FAILED country names WITH buffer...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
+<span><span class="co">## Flagged 2 records.</span></span>
+<span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
+<span><span class="co">##  - Completed in 1.11 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1171,7 +1184,7 @@ fail-safe.</p>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">##  - We will flag all columns starting with '.'</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 50 </span></span>
+<span><span class="co">## Flagged 52 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -1251,8 +1264,7 @@ columns.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">.uncer_terms</span>, <span class="va">names_clean</span><span class="op">)</span></span></code></pre></div>
 <p>Merge names with the complete dataset.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">database</span>, <span class="va">parse_names</span><span class="op">)</span></span>
-<span><span class="co">## Error in eval(expr, envir, enclos): object 'parse_names' not found</span></span>
+<code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">database</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">parse_names</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -1286,7 +1298,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 1.91 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 1.58 secs</span></span></code></pre></div>
 <p>You don’t need this file any more…</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">beesTaxonomy</span><span class="op">)</span></span></code></pre></div>
@@ -1537,7 +1549,6 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span>                          <span class="co"># We have not attempted a scale of 10.</span></span>
 <span>                        scale <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>                        mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">## Spherical geometry (s2) switched off</span></span>
 <span><span class="co">##  - Extracting country data from points...</span></span>
 <span><span class="co">##  - Buffering failed points by pointBuffer...</span></span>
 <span><span class="co">##  - Prepare the neighbouring country dataset...</span></span>
@@ -1556,7 +1567,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 6.99 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 6.22 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1712,7 +1723,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We rescued: </span></span>
 <span><span class="co">## 175 occurrences with missing eventDate.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.412241220474243 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.383747577667236 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1909,8 +1920,9 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Ordering prefixs...</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">## Error: Cannot open file for writing:</span></span>
-<span><span class="co">## * '/tmp/RtmpQahp4o/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-09.csv'</span></span></code></pre></div>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpfxOD14/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-11.csv</span></span>
+<span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
+<span><span class="co">##  - Completed in 0.64 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1952,8 +1964,16 @@ expert outliers.</p>
 <span>  <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
 <span>                            fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span>
-<span><span class="co">## Error in BeeBDC::fileFinder(path = DataPath, fileName = "duplicateRun_"):  - Bugger it, R can't find the file that you're looking for :(</span></span>
-<span><span class="co">## Please check that it exists in the provided directory.</span></span></code></pre></div>
+<span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
+<span><span class="co">##  - Found the following file(s): </span></span>
+<span><span class="co">##  /tmp/RtmpfxOD14/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-11.csv</span></span>
+<span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">## <span style="color: #BB0000;">chr</span> (19): group, database_id, database_id_keep, dupColumn_s, decimalLatitude...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
 <p>Identify the outliers and get a list of their database_ids. This
 would require the source outlier files provided with the <a href="https://www.biorxiv.org/content/10.1101/2023.06.30.547152v1" class="external-link">BeeBDC</a>
 paper. These files can further be modified to include more outliers.</p>
@@ -2035,9 +2055,7 @@ already in your environment.</p>
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"duplicates"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span>
 <span>                            fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span>
-<span><span class="co">## Error in BeeBDC::fileFinder(path = DataPath, fileName = "duplicateRun_"):  - Bugger it, R can't find the file that you're looking for :(</span></span>
-<span><span class="co">## Please check that it exists in the provided directory.</span></span></code></pre></div>
+<span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>Choose the global figure parameters.</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -2106,8 +2124,8 @@ underscore).</p>
 <span>  GBIF <span class="op">=</span> <span class="st">"GBIF"</span>, SCAN <span class="op">=</span> <span class="st">"SCAN"</span>, iDigBio <span class="op">=</span> <span class="st">"iDigBio"</span>, USGS <span class="op">=</span> <span class="st">"USGS"</span>, ALA <span class="op">=</span> <span class="st">"ALA"</span>, </span>
 <span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">## Error in BeeBDC::dupePlotR(data = beeData, outPath = OutPath_Figures, :  - No duplicates flagged in the dataset. Stopping process.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="BeeBDC_main_files/figure-html/9.2ii-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="flags-by-source">9.3 Flags by source<a class="anchor" aria-label="anchor" href="#flags-by-source"></a>
@@ -2148,8 +2166,8 @@ text before the first underscore.)</p>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">##  - Preparing data to plot...</span></span>
-<span><span class="co">##  - Building plot...</span></span>
-<span><span class="co">## Error in grDevices::pdf(file = filename, ..., version = version): cannot open file '/tmp/RtmpQahp4o/Data_acquisition_workflow/Output/Figures/FlagsPlot_2023-09-09.pdf'</span></span></code></pre></div>
+<span><span class="co">##  - Building plot...</span></span></code></pre></div>
+<p><img src="BeeBDC_main_files/figure-html/9.3-1.png" width="1440"></p>
 </div>
 <div class="section level3">
 <h3 id="maps">9.4 Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
@@ -2257,6 +2275,7 @@ to group the summary. While it is intended to work with the
 <span><span class="co">##   .coordinates_empty = 26.19%</span></span>
 <span><span class="co">##   .coordinates_outOfRange = 0%</span></span>
 <span><span class="co">##   .basisOfRecords_notStandard = 1.19%</span></span>
+<span><span class="co">##   .coordinates_country_inconsistent = 1.19%</span></span>
 <span><span class="co">##   .occurrenceAbsent = 8.33%</span></span>
 <span><span class="co">##   .unLicensed = 0%</span></span>
 <span><span class="co">##   .GBIFflags = 0%</span></span>
@@ -2266,7 +2285,8 @@ to group the summary. While it is intended to work with the
 <span><span class="co">##   .countryOutlier = 0%</span></span>
 <span><span class="co">##   .sea = 0%</span></span>
 <span><span class="co">##   .eventDate_empty = 15.48%</span></span>
-<span><span class="co">##   .year_outOfRange = 16.67%</span></span></code></pre></div>
+<span><span class="co">##   .year_outOfRange = 16.67%</span></span>
+<span><span class="co">##   .duplicates = 0%</span></span></code></pre></div>
 </div>
 </div>
   </div>
