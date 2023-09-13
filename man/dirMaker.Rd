@@ -84,8 +84,6 @@ RDoc = NULL,
 useHere = FALSE) \%>\%
   # Add paths created by this function to the environment()
   list2env(envir = environment())  
-# Set the working directory
-setwd(DataPath)
 
 # Custom OutPathName provided
   dirMaker(

@@ -54,14 +54,12 @@
 #' # Standard/basic usage:
 #' RootPath <- tempdir()
 #' dirMaker(
-  #' RootPath = RootPath,
-  #' # Input the location of the workflow script RELATIVE to the RootPath
-  #' RDoc = NULL,
-  #' useHere = FALSE) %>%
-  #'   # Add paths created by this function to the environment()
-  #'   list2env(envir = environment())  
-  #' # Set the working directory
-  #' setwd(DataPath)
+#' RootPath = RootPath,
+#' # Input the location of the workflow script RELATIVE to the RootPath
+#' RDoc = NULL,
+#' useHere = FALSE) %>%
+#'   # Add paths created by this function to the environment()
+#'   list2env(envir = environment())  
 #'
 #' # Custom OutPathName provided
 #'   dirMaker(
@@ -107,7 +105,9 @@ dirMaker <- function(
     RDoc = NULL,
     useHere = TRUE
 ){
-
+  # Ensure that the working directory remains the same on exit
+  oldwd <- getwd()           # code line i 
+  on.exit(setwd(oldwd))        # code line i+1 
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####
@@ -133,7 +133,7 @@ dirMaker <- function(
   if(is.null(ScriptPath)){
   if (!dir.exists(paste0(RootPath, "/BDC_repo/BeeBDC/R"))) {
     dir.create(paste0(RootPath, "/BDC_repo/BeeBDC/R"), recursive = TRUE)
-    warning(paste0(" - We created the ", 
+    message(paste0(" - We created the ", 
                    paste0(RootPath, "/BDC_repo/BeeBDC/R"),
                    "file. This file needs to have the NewFunctions added to it otherise things won't",
                    " work. These can be added from our GitHub"))
@@ -145,7 +145,7 @@ dirMaker <- function(
     if(ScriptPath != FALSE){
     if (!dir.exists(ScriptPath)) {
       dir.create(ScriptPath, recursive = TRUE)
-      warning(paste0(" - We created the ", 
+      message(paste0(" - We created the ", 
                      ScriptPath,
                      "file. This file needs to have the NewFunctions added to it otherise things won't",
                      " work. These can be added from our GitHub"))
@@ -159,8 +159,8 @@ dirMaker <- function(
   if(is.null(DataPath)){
   if (!dir.exists(paste0(RootPath, DataSubPath))) {
     dir.create(paste0(RootPath, DataSubPath), recursive = TRUE)
-    # User warning
-    warning(paste0(" - We created the ", 
+    # User message
+    message(paste0(" - We created the ", 
                    paste0(RootPath, DataSubPath),
                    "file. This file needs to have the occurrence data that you want to use ",
                    "added to it otherise things won't",
@@ -172,8 +172,8 @@ dirMaker <- function(
     if(DataPath != FALSE){
     if (!dir.exists(DataPath)) {
       dir.create(DataPath, recursive = TRUE)
-      # User warning
-      warning(paste0(" - We created the ", 
+      # User message
+      message(paste0(" - We created the ", 
                      DataPath,
                      "file. This file needs to have the occurrence data that you want to use ",
                      "added to it otherise things won't",
@@ -190,8 +190,8 @@ dirMaker <- function(
     dir.create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recursive = TRUE)
     {
       dir.create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recursive = TRUE)
-        # User warning
-      warning(paste0(" - We created the ", 
+        # User message
+      message(paste0(" - We created the ", 
                      paste0(RootPath, "/BDC_repo/DiscoverLife_Data"),
                      "file. This file needs to have the DiscoverLife_Data added to it otherise things won't",
                      " work. These can be added from our GitHub"))
@@ -206,8 +206,8 @@ dirMaker <- function(
       dir.create(DiscLifePath, recursive = TRUE)
       {
         dir.create(DiscLifePath, recursive = TRUE)
-        # User warning
-        warning(paste0(" - We created the ", 
+        # User message
+        message(paste0(" - We created the ", 
                        DiscLifePath,
                        "file. This file needs to have the DiscoverLife_Data added to it otherise things won't",
                        " work. These can be added from our GitHub"))
@@ -225,8 +225,8 @@ dirMaker <- function(
       dir.create(paste0(DataPath,  "/", OutPathName), recursive = TRUE)
       {
         dir.create(paste0(DataPath, "/", OutPathName), recursive = TRUE)
-        # User warning
-        warning(paste0(" - We created the ", 
+        # User message
+        message(paste0(" - We created the ", 
                        paste0(DataPath,  "/", OutPathName),
                        "file."))
       }
@@ -239,8 +239,8 @@ dirMaker <- function(
       dir.create(OutPath, recursive = TRUE)
       {
         dir.create(OutPath, recursive = TRUE)
-        # User warning
-        warning(paste0(" - We created the ", 
+        # User message
+        message(paste0(" - We created the ", 
                        OutPath,
                        "file."))
     }}
