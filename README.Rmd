@@ -78,7 +78,7 @@ USGS, and ALA.
 -   `dataSaver()` Used at the end of 1.x in the example workflow in order to save the occurrence dataset and its associated eml metadata.
 
 
-#### 2. [**Data preperation**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-preperation)
+#### 2. [**Data preperation**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-preparation)
 The reading in and formatting of the major and minor [bee] occurrence repositories as well as some data modifications. This section is mostly, but not entirely, related to bee occurrence data.
 
 -   `fileFinder()` A function which can be used to find files within a user-defined directory based on a user-provided character string.
