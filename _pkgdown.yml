@@ -3,9 +3,8 @@ url: https://jbdorey.github.io/BeeBDC/
 title: "BeeBDC"
 
 template:
-  package: preferably
   params:
-  bootstrap: 5
+    bootswatch: lux
     
 development:
   mode: auto
