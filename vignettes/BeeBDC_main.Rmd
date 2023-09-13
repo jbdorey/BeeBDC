@@ -450,6 +450,7 @@ Remove spent data.
 ## 2.4 Additional datasets
 
 Import additional and potentially private datasets.
+
 **Note:** Private dataset functions are provided but the data itself is not integrated here until those datasets become freely available.
 
 There will be some warnings were a few rows may not be formatted correctly or where dates fail to parse. This is normal.
@@ -518,7 +519,9 @@ Gaiarsa, M. P., Kremen, C. & Ponisio, L. C. Pollinator interaction flexibility a
 ###### g. CAES
 
 From the Connecticut Agricultural Experiment Station.
+
 Zarrillo, T. A., Stoner, K. A. & Ascher, J. S. Biodiversity of bees (Hymenoptera: Apoidea: Anthophila) in Connecticut (USA). Zootaxa (Accepted).
+
 Ecdysis. Occurrence dataset (ID: 16fca9c2-f622-4cb1-aef0-3635a7be5aeb). https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip. (2023)
 
     CAES_Data <- BeeBDC::readr_BeeBDC(dataset = "CAES",
@@ -903,6 +906,7 @@ check_pf <- bdc::bdc_country_standardized(
 ## 3.7 TranspCoords 
 
 Flag and correct records when *decimalLatitude* and *decimalLongitude* appear to be transposed. We created this chunked version of  `bdc::bdc_coordinates_transposed()` because it is very RAM-heavy using our large bee dataset. Like many of our other 'jbd_...' functions there are other improvements - e.g., parallel running. 
+
 NOTE: Usually you would use scale = "large", which requires rnaturalearthhires
 
 ```{r 3.7, message=FALSE, warning=FALSE, collapse = TRUE}
@@ -1221,7 +1225,9 @@ database <-
 ```
 
 ## 5.1 Coordinate precision 
+
 This function identifies records with a coordinate precision below a specified number of decimal places. For example, the precision of a coordinate with 1 decimal place is 11.132 km at the equator, i.e., the scale of a large city. The major difference between the **bdc** and **BeeBDC** functions is that `jbd_coordinates_precision()` will only flag occurrences if BOTH latitude and longitude are rounded (as opposed to only one of these).
+
 Coordinates with one, two, or three decimal places present a precision of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.
 
 ```{r 5.1, collapse = TRUE}
@@ -1514,6 +1520,7 @@ Create figures for the spatial data filtering results.
 
 
 For examining the figures, the options are:
+
 - *.cap* = Records around country capital centroid	
 - *.cen* = Records around country or province centroids
 - *.dbl* = Duplicated coordinates per species
