@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeeBDC vignette • BeeBDC</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/lux/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -190,7 +190,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.1]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmpVdLziM/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/Rtmp8V4iHm/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by BeeBDC. These directories include
 where the data, figures, reports, etc. will be saved. The RDoc needs to
 be a path RELATIVE to the RootPath; i.e., the file path from which the
@@ -1081,7 +1081,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 1.35 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 1.42 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1298,7 +1298,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 1.66 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 1.97 secs</span></span></code></pre></div>
 <p>You don’t need this file any more…</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">beesTaxonomy</span><span class="op">)</span></span></code></pre></div>
@@ -1459,7 +1459,7 @@ depending on your dataset. However, the option is provided.</p>
 <span><span class="co">## diagonAlley:</span></span>
 <span><span class="co">## Flagged 0 records</span></span>
 <span><span class="co">## The .sequential column was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.06 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.07 secs</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than X occurrences.</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
@@ -1567,7 +1567,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 7.45 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 8 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1724,7 +1724,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We modified dates in </span></span>
 <span><span class="co">## 175 occurrences.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.44358491897583 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.538723707199097 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1921,9 +1921,9 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Ordering prefixs...</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpVdLziM/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-13.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/Rtmp8V4iHm/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-13.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.63 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.78 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1967,7 +1967,7 @@ expert outliers.</p>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/RtmpVdLziM/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-13.csv</span></span>
+<span><span class="co">##  /tmp/Rtmp8V4iHm/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-13.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
