@@ -356,4 +356,4 @@ Scientific Data.
 
 Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
 E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 0.2.8. url: <https://github.com/jbdorey/BeeBDC>
+version 1.0.0. url: <https://github.com/jbdorey/BeeBDC>
