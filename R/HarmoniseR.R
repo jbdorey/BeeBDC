@@ -41,12 +41,14 @@
 #' @export
 #'
 #' @examples
+#' # load in the test dataset
+#' system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |> load()
 #' 
-#' beesRaw_out <- harmoniseR(
+#' beesRaw_out <- BeeBDC::harmoniseR(
 #'   #The path to a folder that the output can be saved
 #' path = tempdir(),
 #' # The formatted taxonomy file
-#' taxonomy = BeeBDC::beesTaxonomy(), 
+#' taxonomy = testTaxonomy, 
 #' data = BeeBDC::beesFlagged,
 #' speciesColumn = "scientificName")
 #' table(beesRaw_out$.invalidName, useNA = "always")
@@ -149,9 +151,11 @@ harmoniseR <- function(
   taxonomy <- taxonomy %>%
     dplyr::left_join(x = ., 
                       # left join ONLY the validName, canonical, and canonical_withFlags
-                     y = dplyr::select(taxonomy, c(id, validName, canonical, canonical_withFlags,
-                                                  family, subfamily,
-                                                  genus, subgenus, species, infraspecies, authorship)), 
+                     y = dplyr::select(taxonomy, 
+                                       tidyselect::any_of(
+                                         c("id", "validName", "canonical", "canonical_withFlags", 
+                                           "family", "subfamily", "genus", "subgenus", "species", 
+                                           "infraspecies", "authorship"))), 
                      by = c("accid" = "id"), suffix = c("", "_valid"),
                      multiple = "all")
     # Now, also duplicate the accepted names into the ._matched columns  
