@@ -82,7 +82,7 @@ Integrate and merge different datasets from major the data repositories
 - `dataSaver()` Used at the end of 1.x in the example workflow in order
   to save the occurrence dataset and its associated eml metadata.
 
-#### 2. [**Data preperation**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-preperation)
+#### 2. [**Data preperation**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-preparation)
 
 The reading in and formatting of the major and minor \[bee\] occurrence
 repositories as well as some data modifications. This section is mostly,
