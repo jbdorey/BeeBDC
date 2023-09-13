@@ -73,7 +73,6 @@ This function sets up a directory for saving outputs (i.e. data, figures) genera
 use of the BeeBDC package, if the required folders do not already exist.
 }
 \examples{
-\dontrun{
   # load dplyr
   library(dplyr)
   # Store your original working directory
@@ -119,6 +118,5 @@ dirMaker(
   # Restore your original working directory
  setwd(oldwd) 
 
-}
 
 }

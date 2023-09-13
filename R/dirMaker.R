@@ -49,7 +49,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #'   # load dplyr
 #'   library(dplyr)
 #'   # Store your original working directory
@@ -95,7 +94,6 @@
 #'   # Restore your original working directory
 #'  setwd(oldwd) 
 #' 
-#' }
 #'
 
 
