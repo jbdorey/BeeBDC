@@ -194,7 +194,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.1]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmpqIaaH5/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/Rtmp43WTTy/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by <strong>BeeBDC</strong>. These
 directories include where the data, figures, reports, etc. will be
 saved. The RDoc needs to be a path RELATIVE to the RootPath; i.e., the
@@ -203,8 +203,8 @@ file path from which the two diverge.</p>
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dirMaker.html">dirMaker</a></span><span class="op">(</span></span>
 <span>    RootPath <span class="op">=</span> <span class="va">RootPath</span>,</span>
 <span>    RDoc <span class="op">=</span> <span class="st">"vignettes/BeeBDC_main.Rmd"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>      <span class="co"># Add paths created by this function to the .GlobalEnv</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">.GlobalEnv</span><span class="op">)</span></span></code></pre></div>
+<span>      <span class="co"># Add paths created by this function to the environment()</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="load-packages">0.3 Load packages<a class="anchor" aria-label="anchor" href="#load-packages"></a>
@@ -256,8 +256,10 @@ you can do so quite easily using <strong>dplyr</strong> from the
 bee genus, in our case Anthophorini…</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load some package data — the taxonomy and a flagged example dataset</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesTaxonomy"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesFlagged"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
+<span>  <span class="co"># Download the full beesTaxonomy file</span></span>
+<span><span class="va">beesTaxonomy</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesTaxonomy.html">beesTaxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="co"># Load the example beesFlagged dataset</span></span>
+<span><span class="va">beesFlagged</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="va"><a href="../reference/beesFlagged.html">beesFlagged</a></span></span>
 <span></span>
 <span><span class="va">selectedGenera</span> <span class="op">&lt;-</span> <span class="va">beesTaxonomy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Select only tribe anthophorini (for example)</span></span>

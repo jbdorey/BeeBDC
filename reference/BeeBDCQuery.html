@@ -100,7 +100,13 @@ country occurrences.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BeeBDCQuery</span><span class="op">(</span>beeName <span class="op">=</span> <span class="cn">NULL</span>, searchChecklist <span class="op">=</span> <span class="cn">TRUE</span>, printAllSynonyms <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BeeBDCQuery</span><span class="op">(</span></span>
+<span>  beeName <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  searchChecklist <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  printAllSynonyms <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  beesChecklist <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  beesTaxonomy <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -118,6 +124,16 @@ in the beesTaxonomy and beesChecklist tables.</p></dd>
 <dd><p>Logical. If TRUE, all synonyms will be printed out for each entered name.
 default = FALSE.</p></dd>
 
+
+<dt>beesChecklist</dt>
+<dd><p>A tibble. The bee checklist file for BeeBDC. If is NULL then
+<code><a href="beesChecklist.html">beesChecklist()</a></code> will be called internally to download the file. Default = NULL.</p></dd>
+
+
+<dt>beesTaxonomy</dt>
+<dd><p>A tibble. The bee taxonomy file for BeeBDC. If is NULL then
+<code><a href="beesTaxonomy.html">beesTaxonomy()</a></code> will be called internally to download the file. Default = NULL.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -129,58 +145,69 @@ is TRUE, then 'checklistReport' will also be returned.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="co"># For the sake of these examples, we will use the example taxonomy and checklist</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"testTaxonomy.rda"</span>, package<span class="op">=</span><span class="st">"BeeBDC"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"testChecklist.rda"</span>, package<span class="op">=</span><span class="st">"BeeBDC"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Single entry example</span></span></span>
 <span class="r-in"><span><span class="va">testQuery</span> <span class="op">&lt;-</span> <span class="fu">BeeBDCQuery</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  beeName <span class="op">=</span> <span class="st">"Homalictus fijiensis"</span>,</span></span>
+<span class="r-in"><span>  beeName <span class="op">=</span> <span class="st">"Lasioglossum bicingulatum"</span>,</span></span>
 <span class="r-in"><span>  searchChecklist <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  beesTaxonomy <span class="op">=</span> <span class="va">testTaxonomy</span>,</span></span>
+<span class="r-in"><span>  beesChecklist <span class="op">=</span> <span class="va">testChecklist</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Starting taxonomy report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Homalictus fijiensis is a synonym of Lasioglossum fijiense (Perkins and Cheesman, 1928) with the taxon id number 32620.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Homalictus fijiensis' has the synonyms: Halictus fijiensis Perkins and Cheesman, 1928, Halictus suvaensis Cockerell, 1929, Homalictus fijiensis (Perkins and Cheesman, 1928)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lasioglossum bicingulatum is an accpeted name with the taxon id number 31378.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Lasioglossum bicingulatum' has the synonyms: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Starting checklist report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum fijiense (Perkins and Cheesman, 1928) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fiji, Solomon Islands</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Australia</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The output will be returned as a list with the elements: 'taxonomyReport', 'SynonymReport', and 'checklistReport'. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> These can be accessed using 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or 'output'$failedReport.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Multiple entry example</span></span></span>
 <span class="r-in"><span><span class="va">testQuery</span> <span class="op">&lt;-</span> <span class="fu">BeeBDCQuery</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  beeName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Homalictus fijiensis"</span>, <span class="st">"Homalictus urbanus"</span>,</span></span>
+<span class="r-in"><span>  beeName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lasioglossum bicingulatum"</span>, <span class="st">"Nomada flavopicta"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Lasioglossum fijiense (Perkins and Cheesman, 1928)"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  searchChecklist <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  beesTaxonomy <span class="op">=</span> <span class="va">testTaxonomy</span>,</span></span>
+<span class="r-in"><span>  beesChecklist <span class="op">=</span> <span class="va">testChecklist</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Starting taxonomy report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lasioglossum fijiense (Perkins and Cheesman, 1928) is an accpeted name with the taxon id number 32620.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Homalictus fijiensis is a synonym of Lasioglossum fijiense (Perkins and Cheesman, 1928) with the taxon id number 32620.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Homalictus urbanus is a synonym of Lasioglossum urbanum (Smith, 1879) with the taxon id number 36429.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Lasioglossum fijiense (Perkins and Cheesman, 1928)' has the synonyms: Halictus fijiensis Perkins and Cheesman, 1928, Halictus suvaensis Cockerell, 1929, Homalictus fijiensis (Perkins and Cheesman, 1928), Halictus fijiensis Perkins and Cheesman, 1928, Halictus suvaensis Cockerell, 1929, Homalictus fijiensis (Perkins and Cheesman, 1928)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Homalictus fijiensis' has the synonyms: Halictus fijiensis Perkins and Cheesman, 1928, Halictus suvaensis Cockerell, 1929, Homalictus fijiensis (Perkins and Cheesman, 1928), Halictus fijiensis Perkins and Cheesman, 1928, Halictus suvaensis Cockerell, 1929, Homalictus fijiensis (Perkins and Cheesman, 1928)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Homalictus urbanus' has the synonyms: Halictus urbanus Smith, 1879, Halictus urbanus baudinensis Cockerell, 1905, Halictus cretinicola Friese, 1909, Halictus kesteveni Cockerell, 1912, Halictus hackeriellus Cockerell, 1914, Halictus pavonellus Cockerell, 1915, Halictus olivinus Cockerell, 1922, Halictus urbanus var lomatiae Cockerell, 1922, Halictus microchalceus Cockerell, 1929, Halictus subcarus Cockerell, 1930, Halictus williamsi Cockerell, 1930, Halictus suburbanus Cockerell, 1930, Halictus aponi Cheesman and Perkins, 1939, Halictus aponi var erromangana Cheesman and Perkins, 1939, Homalictus urbanus (Smith, 1879), Homalictus urbanus aponi (Cheesman and Perkins, 1939)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lasioglossum bicingulatum is an accpeted name with the taxon id number 31378.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Nomada flavopicta is an accpeted name with the taxon id number 17033.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Lasioglossum bicingulatum' has the synonyms: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Nomada flavopicta' has the synonyms: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Starting checklist report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum fijiense (Perkins and Cheesman, 1928) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fiji, Solomon Islands</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum fijiense (Perkins and Cheesman, 1928) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fiji, Solomon Islands</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Australia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Nomada flavopicta (Kirby, 1802) is reportedly found in: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Austria, Azerbaijan, Belarus, Brussels, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Georgia, Germany, Greece, Guernsey, Hungary, Iran, Italy, Jersey, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Netherlands, Norway, Poland, Romania, Russian Federation, Slovakia, Slovenia, Spain, Sweden, Switzerland, Tajikistan, Turkey, Ukraine, Uzbekistan, United Kingdom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The output will be returned as a list with the elements: 'taxonomyReport', 'SynonymReport', and 'checklistReport'. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> These can be accessed using 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or 'output'$failedReport.</span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>    <span class="co"># Example way to examine a report from the output list</span></span></span>
 <span class="r-in"><span>  <span class="va">testQuery</span><span class="op">$</span><span class="va">checklistReport</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 18</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   validName      DiscoverLife_name rNaturalEarth_name shortName DiscoverLife_ISO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Lasioglossum … Fiji              Fiji               Fiji      FJ              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Lasioglossum … Solomon Islands   Solomon Islands    Solomon … BP              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Lasioglossum … Australia         Australia          Australia AS              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Lasioglossum … Indonesia         Indonesia          Indonesia ID              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Lasioglossum … New Caledonia     New Caledonia      New Cale… NC              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Lasioglossum … Papua New Guinea  Papua New Guinea   Papua Ne… PP              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Lasioglossum … Vanuatu           Vanuatu            Vanuatu   NH              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 13 more variables: `Alpha-2` &lt;chr&gt;, `Alpha-3` &lt;chr&gt;, Source &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   canonical &lt;chr&gt;, canonical_withFlags &lt;chr&gt;, family &lt;chr&gt;, subfamily &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   genus &lt;chr&gt;, subgenus &lt;lgl&gt;, specificEpithet &lt;chr&gt;, species &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   infraspecies &lt;chr&gt;, scientificNameAuthorship &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 41 × 23</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    validName     DiscoverLife_name rNaturalEarth_name shortName DiscoverLife_ISO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Lasioglossum… Australia         Australia          Australia AS              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nomada flavo… Austria           Austria            Austria   AU              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nomada flavo… Azerbaijan        Azerbaijan         Azerbaij… AJ              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nomada flavo… Belarus           Belarus            Belarus   BO              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nomada flavo… Belgium           Brussels           Belgium   BE              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nomada flavo… Bulgaria          Bulgaria           Bulgaria  BU              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nomada flavo… Croatia           Croatia            Croatia   HR              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nomada flavo… Czechia           Czech Republic     Czechia   EZ              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nomada flavo… Denmark           Denmark            Denmark   DA              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nomada flavo… Estonia           Estonia            Estonia   EN              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 31 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 18 more variables: `Alpha-2` &lt;chr&gt;, `Alpha-3` &lt;chr&gt;, official &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   Source &lt;chr&gt;, matchCertainty &lt;chr&gt;, canonical &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   canonical_withFlags &lt;chr&gt;, family &lt;chr&gt;, subfamily &lt;chr&gt;, genus &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   subgenus &lt;lgl&gt;, specificEpithet &lt;chr&gt;, species &lt;chr&gt;, infraspecies &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   scientificNameAuthorship &lt;chr&gt;, taxon_rank &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   infraspecificEpithet &lt;chr&gt;, Notes &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
