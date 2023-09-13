@@ -4,6 +4,8 @@ title: "BeeBDC"
 
 template:
   package: preferably
+  params:
+    toggle: manual
   bootstrap: 5
     
 development:
