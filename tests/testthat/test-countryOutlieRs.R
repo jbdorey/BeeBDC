@@ -1,10 +1,11 @@
 requireNamespace("dplyr")
 requireNamespace("readr")
 
-# Load in the checklis data
-data("beesChecklist")
+# Load in the test checklist data
+system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
+  load()
 # Load in the test dataset
-data("beesFlagged")
+beesFlagged <- BeeBDC::beesFlagged
 
   # Input a potentially difficult location on the map to test into an NA lat/lon slot
 beesFlagged$decimalLatitude[[1]] <-  31.887646484374983
@@ -13,9 +14,8 @@ beesFlagged$decimalLatitude[[2]] <-  78.719726562500085
 beesFlagged$decimalLongitude[[2]] <- 31.887646484374983 
 
 testOut <- BeeBDC::countryOutlieRs(
-    # Speed up operation by providing only the relevant entries in the beesChecklist
-  checklist = beesChecklist %>%
-    dplyr::filter(validName %in% beesFlagged$scientificName),
+    # Speed up operation by providing only the relevant entries in the testChecklist
+  checklist = testChecklist,
   data = beesFlagged %>% 
     dplyr::select(!tidyselect::any_of(c("countryMatch", ".countryOutlier","iso_a3"))),
   keepAdjacentCountry = FALSE,

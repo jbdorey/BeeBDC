@@ -55,7 +55,7 @@ and CoordinateCleaner.
 > <https://doi.org/10.1101/2023.06.30.547152>; Package GitHub -
 > <https://github.com/jbdorey/BeeBDC/>
 
-#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/0/X4/i-V37Vg2w-X4.jpg)
+#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/Research-images/BeeBDC/n-xP3sqK/i-V37Vg2w/1/198894f2/X2/i-V37Vg2w-X2.jpg)
 
 <br/>
 

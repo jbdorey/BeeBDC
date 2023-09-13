@@ -1,18 +1,42 @@
 
-# load in the dataset
-data("beesChecklist")
+# load in the test dataset
+system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
+  load()
 
 
 # Test the expected results
-testthat::test_that("beesChecklist expected number of columns", {
-  testthat::expect_equal(ncol(beesChecklist), 18)
+testthat::test_that("testChecklist expected number of columns", {
+  testthat::expect_equal(ncol(testChecklist), 23)
 })
 
 # Test classes
-testthat::test_that("beesChecklist expected class", {
-  testthat::expect_type(beesChecklist, "list")
+testthat::test_that("testChecklist expected class", {
+  testthat::expect_type(testChecklist, "list")
 })
-testthat::test_that("beesChecklist expected class", {
-  testthat::expect_equal(attributes(beesChecklist)$class, c("tbl_df","tbl","data.frame" ))
+testthat::test_that("testChecklist expected class", {
+  testthat::expect_equal(attributes(testChecklist)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
 })
 
+
+
+# TEST the full data
+
+
+# load in the full dataset
+beesChecklist <- BeeBDC::beesChecklist()
+
+if(!is.null(beesChecklist)){
+# Test the expected results
+testthat::test_that("testChecklist expected number of columns", {
+  testthat::expect_equal(ncol(testChecklist), 23)
+})
+
+# Test classes
+testthat::test_that("testChecklist expected class", {
+  testthat::expect_type(testChecklist, "list")
+})
+testthat::test_that("testChecklist expected class", {
+  testthat::expect_equal(attributes(testChecklist)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
+})
+
+} #END !is.null

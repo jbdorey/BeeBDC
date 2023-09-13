@@ -1,4 +1,4 @@
-data("beesFlagged")
+beesFlagged <- BeeBDC::beesFlagged
 
 
 # Test the expected results

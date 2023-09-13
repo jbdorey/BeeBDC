@@ -3,7 +3,7 @@ requireNamespace("ggplot2")
 requireNamespace("BeeBDC")
 
 
-data("beesFlagged")
+beesFlagged <- BeeBDC::beesFlagged
 
 
 # Create a figure showing the total number of duplicates, kept duplicates, and unique

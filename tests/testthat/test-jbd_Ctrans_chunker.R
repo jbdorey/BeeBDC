@@ -1,5 +1,5 @@
 requireNamespace("dplyr")
-data("bees3sp")
+bees3sp <- BeeBDC::bees3sp
 
 fakeData <- dplyr::tibble(
   database_id = c("a1","a2","a3","a4", "a5") ,

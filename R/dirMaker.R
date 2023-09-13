@@ -61,8 +61,8 @@
   #' # Input the location of the workflow script RELATIVE to the RootPath
   #' RDoc = NULL,
   #' useHere = FALSE) %>%
-  #'   # Add paths created by this function to the .GlobalEnv
-  #'   list2env(envir = .GlobalEnv)  
+  #'   # Add paths created by this function to the environment()
+  #'   list2env(envir = environment())  
   #' # Set the working directory
   #' setwd(DataPath)
 #'
@@ -75,8 +75,8 @@
 #'  # Input the location of the workflow script RELATIVE to the RootPath
 #'  RDoc = NULL,
 #'  useHere = FALSE) %>%
-#'    # Add paths created by this function to the .GlobalEnv
-#'    list2env(envir = .GlobalEnv)  
+#'    # Add paths created by this function to the environment()
+#'    list2env(envir = environment())  
 #'  # Set the working directory
 #'  setwd(DataPath)
 #'
@@ -89,8 +89,8 @@
 #'   # Input the location of the workflow script RELATIVE to the RootPath
 #'   RDoc = NULL,
 #'   useHere = FALSE) %>%
-#'   # Add paths created by this function to the .GlobalEnv
-#'   list2env(envir = .GlobalEnv)  
+#'   # Add paths created by this function to the environment()
+#'   list2env(envir = environment())  
 #' 
 #'   # Restore your original working directory
 #'  setwd(oldwd) 
@@ -114,22 +114,7 @@ dirMaker <- function(
     RDoc = NULL,
     useHere = TRUE
 ){
-  # Package names
-  packages <- c("dplyr", "here")
-  
-  # Ensure that working directories are maintain on exit from function
-  oldwd <- getwd()           # code line i 
-  on.exit(setwd(oldwd))        # code line i+1 
-  
-  
-  # Install packages not yet installed
-  installed_packages <-  rownames(utils::installed.packages(packages))
-  if (any(installed_packages == FALSE)) {
-    utils::install.packages(packages[!installed_packages])
-  }
-  
-  # Packages loading
-  invisible(lapply(packages, library, character.only = TRUE))
+
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####

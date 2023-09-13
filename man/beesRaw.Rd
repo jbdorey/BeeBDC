@@ -100,7 +100,7 @@ functions. For data types, see \code{\link[=ColTypeR]{ColTypeR()}}.
 }
 \examples{
 
-data("beesRaw", package = "BeeBDC")
+beesRaw <- BeeBDC::beesRaw
 head(beesRaw)
 
 }

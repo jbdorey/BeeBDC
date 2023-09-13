@@ -1,6 +1,6 @@
-data("beesFlagged")
 
-
+  # Load in example data
+beesFlagged <- BeeBDC::beesFlagged
 
 
 # Draw a global summary map for occurrence and species number by country

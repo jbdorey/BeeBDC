@@ -18,8 +18,8 @@ dirMaker(
   RootPath = RootPath,
   # Input the location of the workflow script RELATIVE to the RootPath
   RDoc = "BDC_repo/BeeCleaning_SciData.R") %>%
-  # Add paths created by this function to the .GlobalEnv
-  list2env(envir = .GlobalEnv)  
+  # Add paths created by this function to the environment()
+  list2env(envir = environment())  
 # Set the working directory
 setwd(DataPath)
 # Install reenv, IF NEEDED

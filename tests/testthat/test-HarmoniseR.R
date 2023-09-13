@@ -1,13 +1,17 @@
 requireNamespace("dplyr")
 
   # Load a test dataset
-data("beesRaw")
+beesRaw <- BeeBDC::beesRaw
+
+  # Load the small testTaxonomy file
+system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
+  load()
 
 
   # Run the function
 testOut <- harmoniseR(
   path = tempdir(), #The path to a folder that the output can be saved
-  taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
+  taxonomy = testTaxonomy, # The formatted taxonomy file
   data = beesRaw,
   speciesColumn = "scientificName",
   rm_names_clean = TRUE,

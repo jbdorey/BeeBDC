@@ -7,7 +7,7 @@
 harmoniseR(
   data = NULL,
   path = NULL,
-  taxonomy = BeeBDC::beesTaxonomy,
+  taxonomy = BeeBDC::beesTaxonomy(),
   speciesColumn = "scientificName",
   rm_names_clean = TRUE,
   stepSize = 1e+06,
@@ -19,7 +19,8 @@ harmoniseR(
 
 \item{path}{A directory as character. The path to a folder that the output can be saved.}
 
-\item{taxonomy}{A data frame or tibble. The bee taxonomy to use. Default = BeeBDC::beesTaxonomy.}
+\item{taxonomy}{A data frame or tibble. The bee taxonomy to use.
+Default = \code{\link[=beesTaxonomy]{beesTaxonomy()}}.}
 
 \item{speciesColumn}{Character. The name of the column containing species names. Default = "scientificName".}
 
@@ -46,7 +47,7 @@ the checklist. \code{\link[=harmoniseR]{harmoniseR()}} prefers to use the names_
 by \code{\link[bdc:bdc_clean_names]{bdc::bdc_clean_names()}}. While this is not required, you may find better results by running
 that function on your dataset first.
 This function could be hijacked to service other taxa if a user matched the format of the
-\link{beesTaxonomy} file.
+\code{\link[=beesTaxonomy]{beesTaxonomy()}} file.
 }
 \examples{
 
@@ -54,7 +55,7 @@ beesRaw_out <- harmoniseR(
   #The path to a folder that the output can be saved
 path = tempdir(),
 # The formatted taxonomy file
-taxonomy = BeeBDC::beesTaxonomy, 
+taxonomy = BeeBDC::beesTaxonomy(), 
 data = BeeBDC::beesFlagged,
 speciesColumn = "scientificName")
 table(beesRaw_out$.invalidName, useNA = "always")

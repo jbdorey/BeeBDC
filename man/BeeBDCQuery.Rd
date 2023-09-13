@@ -4,7 +4,13 @@
 \alias{BeeBDCQuery}
 \title{Query the bee taxonomy and country checklist}
 \usage{
-BeeBDCQuery(beeName = NULL, searchChecklist = TRUE, printAllSynonyms = FALSE)
+BeeBDCQuery(
+  beeName = NULL,
+  searchChecklist = TRUE,
+  printAllSynonyms = FALSE,
+  beesChecklist = NULL,
+  beesTaxonomy = NULL
+)
 }
 \arguments{
 \item{beeName}{Character or character vector. A single or several bee species names to search for
@@ -14,6 +20,12 @@ in the beesTaxonomy and beesChecklist tables.}
 
 \item{printAllSynonyms}{Logical. If TRUE, all synonyms will be printed out for each entered name.
 default = FALSE.}
+
+\item{beesChecklist}{A tibble. The bee checklist file for BeeBDC. If is NULL then
+\code{\link[=beesChecklist]{beesChecklist()}} will be called internally to download the file. Default = NULL.}
+
+\item{beesTaxonomy}{A tibble. The bee taxonomy file for BeeBDC. If is NULL then
+\code{\link[=beesTaxonomy]{beesTaxonomy()}} will be called internally to download the file. Default = NULL.}
 }
 \value{
 Returns a list with the elements 'taxonomyReport' and 'SynonymReport'. IF searchChecklist
@@ -24,19 +36,26 @@ A simple function to return information about a particular species, including na
 country occurrences.
 }
 \examples{
+  # For the sake of these examples, we will use the example taxonomy and checklist
+  system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |> load()
+  system.file("extdata", "testChecklist.rda", package="BeeBDC") |> load()
 
   # Single entry example
 testQuery <- BeeBDCQuery(
-  beeName = "Homalictus fijiensis",
+  beeName = "Lasioglossum bicingulatum",
   searchChecklist = TRUE,
-  printAllSynonyms = TRUE)
+  printAllSynonyms = TRUE,
+  beesTaxonomy = testTaxonomy,
+  beesChecklist = testChecklist)
 
   # Multiple entry example
 testQuery <- BeeBDCQuery(
-  beeName = c("Homalictus fijiensis", "Homalictus urbanus",
+  beeName = c("Lasioglossum bicingulatum", "Nomada flavopicta",
   "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
   searchChecklist = TRUE,
-  printAllSynonyms = TRUE)
+  printAllSynonyms = TRUE,
+  beesTaxonomy = testTaxonomy,
+  beesChecklist = testChecklist)
   
     # Example way to examine a report from the output list
   testQuery$checklistReport

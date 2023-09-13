@@ -134,7 +134,7 @@ functions. For data types, see \code{\link[=ColTypeR]{ColTypeR()}}.
 }
 \examples{
 
-data("beesFlagged", package = "BeeBDC")
+beesFlagged <- BeeBDC::beesFlagged
 head(beesFlagged)
 
 }

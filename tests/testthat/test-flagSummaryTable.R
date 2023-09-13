@@ -2,7 +2,7 @@ requireNamespace("dplyr")
 
 
   # Read in the test data
-data("beesFlagged")
+beesFlagged <- BeeBDC::beesFlagged
 
   # Run the function
 flagTibble <- flagSummaryTable(data = beesFlagged,

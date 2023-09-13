@@ -68,14 +68,13 @@ lapply(c("ComplexHeatmap", "BeeBDC", "magrittr"),
 renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 
-
 # Create file paths and prepare for what's to come
 BeeBDC::dirMaker(
   RootPath = RootPath,
   # Input the location of the workflow script RELATIVE to the RootPath
-  RDoc = "Packages/BeeBDC/inst/BeeBDC_fullWorkflow.R") %>%
-  # Add paths created by this function to the .GlobalEnv
-  list2env(envir = .GlobalEnv)  
+  RDoc = "Packages/BeeBDC_development/Workflows/BeeBDC_fullWorkflow.R") %>%
+  # Add paths created by this function to the environment()
+  list2env(envir = environment())  
 
 #### 1.0 Data merge ####
 ##### 1.1 Download ALA data ####

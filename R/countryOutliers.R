@@ -32,12 +32,14 @@
 #'
 #' @examples
 #' library(magrittr)
-#' data("beesRaw", package = "BeeBDC")
-#' data("beesChecklist", package = "BeeBDC")
+#'   # Load in the test dataset
+#' beesRaw <- BeeBDC::beesRaw
+#'   # For the sake of this example, use the testChecklist
+#' system.file("extdata", "testChecklist.rda", package="BeeBDC") |> load()
+#'   # For real examples, you might download the beesChecklist from FigShare using 
+#'   #  [BeeBDC::beesChecklist()]
 #' 
-#' beesRaw_out <- countryOutlieRs(checklist = beesChecklist %>%
-#'                                  # cut down the dataset to run the test quicker
-#'                                  dplyr::filter(validName %in% beesFlagged$scientificName),
+#' beesRaw_out <- countryOutlieRs(checklist = testChecklist,
 #'                                data = beesRaw %>%
 #'                                dplyr::filter(dplyr::row_number() %in% 1:50),
 #'                                keepAdjacentCountry = TRUE,

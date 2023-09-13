@@ -1,4 +1,4 @@
-data("beesRaw")
+beesRaw <- BeeBDC::beesRaw
 
 
 # Test the expected results

@@ -155,8 +155,8 @@ renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"),
 BeeBDC::dirMaker(
     RootPath = RootPath,
     RDoc = "vignettes/BeeBDC_main.Rmd") %>%
-      # Add paths created by this function to the .GlobalEnv
-    list2env(envir = .GlobalEnv)
+      # Add paths created by this function to the environment()
+    list2env(envir = environment())
 ```
       
 ```{r dirMakerSECRETELY, include = FALSE}
@@ -1158,10 +1158,10 @@ rm(parse_names)
 
 ## 4.2 Harmonise taxonomy 
 
-Read in the custom taxonomy file from the BeeBDC package and [Discover Life](https://www.discoverlife.org) website.
+Download the custom taxonomy file from the BeeBDC package and [Discover Life](https://www.discoverlife.org) website.
 
-```{r 4.2, collapse = TRUE}
-data("beesTaxonomy", package = "BeeBDC")
+```{r 4.2, collapse = TRUE, eval = TRUE}
+beesTaxonomy <- BeeBDC::beesTaxonomy()
 ```
 
 
@@ -1420,10 +1420,10 @@ check_space <- BeeBDC::coordUncerFlagR(data = check_space,
 
 This step identifies mismatches between the [Discover Life](https://www.discoverlife.org) country checklist — `beesChecklist` — for bee species and the dataset, identifying potential misidentifications, outliers, etc.’ 
 
-Read in the country-level checklist.
+Download the country-level checklist.
 
-```{r 5.5, collapse = TRUE}
-data("beesChecklist", package = "BeeBDC")
+```{r 5.5, collapse = TRUE, eval = TRUE}
+beesChecklist <- BeeBDC::beesChecklist()
 ```
 
 

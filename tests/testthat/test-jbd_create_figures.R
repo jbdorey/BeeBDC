@@ -1,6 +1,6 @@
 requireNamespace("dplyr")
 
-data("beesFlagged")
+beesFlagged <- BeeBDC::beesFlagged
 
 
 #### 1.0 prefilter ####

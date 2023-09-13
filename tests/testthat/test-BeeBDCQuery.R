@@ -3,26 +3,38 @@ requireNamespace("dplyr")
 requireNamespace("lubridate")
 requireNamespace("mgsub")
 
+# Download the datasets
+beesTaxonomy <- BeeBDC::beesTaxonomy()
+beesChecklist <- BeeBDC::beesChecklist()
+
+
+if(!is.null(beesTaxonomy) & !is.null(beesChecklist)){
   # Run example queries
 # Single entry example
  testQuerySing <- BeeBDCQuery(
    beeName = "Homalictus fijiensis",
    searchChecklist = TRUE,
-   printAllSynonyms = TRUE)
+   printAllSynonyms = TRUE,
+   beesTaxonomy = beesTaxonomy,
+   beesChecklist = beesChecklist)
  
    # Multiple entry example
  testQueryMult <- BeeBDCQuery(
    beeName = c("Homalictus fijiensis", "Homalictus urbanus",
    "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
    searchChecklist = TRUE,
-   printAllSynonyms = TRUE)
+   printAllSynonyms = TRUE,
+   beesTaxonomy = beesTaxonomy,
+   beesChecklist = beesChecklist)
  
   # Simple without checklist
  testQuerySimple <- BeeBDCQuery(
    beeName = c("Homalictus fijiensis", "Homalictus urbanus",
                "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
    searchChecklist = FALSE,
-   printAllSynonyms = TRUE)
+   printAllSynonyms = TRUE,
+   beesTaxonomy = beesTaxonomy,
+   beesChecklist = beesChecklist)
 
  
  # Test class
@@ -53,4 +65,4 @@ requireNamespace("mgsub")
    testthat::expect_equal(length(testQuerySimple), 3)
  })
  
- 
+ }

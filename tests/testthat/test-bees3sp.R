@@ -1,5 +1,5 @@
 
-data("bees3sp")
+bees3sp <- BeeBDC::bees3sp
 
 
 # Test the expected results

@@ -15,10 +15,11 @@
 #' by [bdc::bdc_clean_names()]. While this is not required, you may find better results by running
 #' that function on your dataset first.
 #' This function could be hijacked to service other taxa if a user matched the format of the
-#' [BeeBDC::beesTaxonomy] file.
+#' [BeeBDC::beesTaxonomy()] file.
 #'
 #' @param path A directory as character. The path to a folder that the output can be saved.
-#' @param taxonomy A data frame or tibble. The bee taxonomy to use. Default = BeeBDC::beesTaxonomy.
+#' @param taxonomy A data frame or tibble. The bee taxonomy to use. 
+#' Default = [BeeBDC::beesTaxonomy()].
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param speciesColumn Character. The name of the column containing species names. Default = "scientificName".
 #' @param rm_names_clean Logical. If TRUE then the names_clean column will be removed at the end of
@@ -45,7 +46,7 @@
 #'   #The path to a folder that the output can be saved
 #' path = tempdir(),
 #' # The formatted taxonomy file
-#' taxonomy = BeeBDC::beesTaxonomy, 
+#' taxonomy = BeeBDC::beesTaxonomy(), 
 #' data = BeeBDC::beesFlagged,
 #' speciesColumn = "scientificName")
 #' table(beesRaw_out$.invalidName, useNA = "always")
@@ -53,7 +54,7 @@
 harmoniseR <- function(
   data = NULL,
   path = NULL, #The path to a folder that the output can be saved
-  taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
+  taxonomy = BeeBDC::beesTaxonomy(), # The formatted taxonomy file
   speciesColumn = "scientificName",
   rm_names_clean = TRUE,
   stepSize = 1000000,

@@ -3,7 +3,7 @@ requireNamespace("dplyr")
 
 
 # Load in a test dataset
-data("bees3sp")
+bees3sp <- BeeBDC::bees3sp
 
 
 interactiveMapR(

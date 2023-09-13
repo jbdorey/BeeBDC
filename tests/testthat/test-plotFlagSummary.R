@@ -3,7 +3,7 @@ requireNamespace("ggplot2")
 requireNamespace("dplyr")
 
 # Load in the test data
-data("beesFlagged")
+beesFlagged <- BeeBDC::beesFlagged
 
 
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)

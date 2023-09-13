@@ -2,7 +2,7 @@ requireNamespace("rnaturalearth")
 requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 
-data("bees3sp")  
+bees3sp <- BeeBDC::bees3sp
 
 # Set up some fake data
 fakeData <- dplyr::tibble(

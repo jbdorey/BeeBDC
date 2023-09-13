@@ -2,7 +2,8 @@ requireNamespace("dplyr")
 requireNamespace("stringr")
 
   # Read in a flagged test dataset
-data("beesFlagged")
+beesFlagged <- BeeBDC::beesFlagged
+
   # Create a dummy "priorData" dataset using the first fifty rows
 priorRun <- beesFlagged %>%
   dplyr::slice_head(n = 50)

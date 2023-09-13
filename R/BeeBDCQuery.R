@@ -11,6 +11,10 @@
 #' @param searchChecklist Logical. If TRUE (default), search the country checklist for each species.
 #' @param printAllSynonyms Logical. If TRUE, all synonyms will be printed out for each entered name.
 #' default = FALSE.
+#' @param beesChecklist A tibble. The bee checklist file for BeeBDC. If is NULL then 
+#' [BeeBDC::beesChecklist()] will be called internally to download the file. Default = NULL.
+#' @param beesTaxonomy A tibble. The bee taxonomy file for BeeBDC. If is NULL then 
+#' [BeeBDC::beesTaxonomy()] will be called internally to download the file. Default = NULL.
 #'
 #' @return Returns a list with the elements 'taxonomyReport' and 'SynonymReport'. IF searchChecklist
 #' is TRUE, then 'checklistReport' will also be returned.
@@ -19,19 +23,26 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
+#'   # For the sake of these examples, we will use the example taxonomy and checklist
+#'   system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |> load()
+#'   system.file("extdata", "testChecklist.rda", package="BeeBDC") |> load()
 #' 
 #'   # Single entry example
 #' testQuery <- BeeBDCQuery(
-#'   beeName = "Homalictus fijiensis",
+#'   beeName = "Lasioglossum bicingulatum",
 #'   searchChecklist = TRUE,
-#'   printAllSynonyms = TRUE)
+#'   printAllSynonyms = TRUE,
+#'   beesTaxonomy = testTaxonomy,
+#'   beesChecklist = testChecklist)
 #' 
 #'   # Multiple entry example
 #' testQuery <- BeeBDCQuery(
-#'   beeName = c("Homalictus fijiensis", "Homalictus urbanus",
+#'   beeName = c("Lasioglossum bicingulatum", "Nomada flavopicta",
 #'   "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
 #'   searchChecklist = TRUE,
-#'   printAllSynonyms = TRUE)
+#'   printAllSynonyms = TRUE,
+#'   beesTaxonomy = testTaxonomy,
+#'   beesChecklist = testChecklist)
 #'   
 #'     # Example way to examine a report from the output list
 #'   testQuery$checklistReport
@@ -41,9 +52,11 @@
 BeeBDCQuery <- function(
     beeName = NULL,
     searchChecklist = TRUE,
-    printAllSynonyms = FALSE){
+    printAllSynonyms = FALSE,
+    beesChecklist = NULL,
+    beesTaxonomy = NULL){
   # locally bind variables to the function
-  data <- beesTaxonomy <- validName <- accid <- inputName <- id <- beesChecklist <- 
+  data <- validName <- accid <- inputName <- id <- 
     rowMatched <- . <- NULL
   
   #### 0.0 Prep ####
@@ -55,10 +68,11 @@ BeeBDCQuery <- function(
 
   
   #### 1.0 Data preperation ####
-  # Read in the datasets
-  if(searchChecklist == TRUE){
-  data("beesChecklist", envir = environment())}
-  data("beesTaxonomy", envir = environment())
+  # Download the datasets
+  if(searchChecklist == TRUE & is.null(beesChecklist)){
+    beesChecklist <- BeeBDC::beesChecklist()}
+  if(is.null(beesTaxonomy)){
+    beesTaxonomy <- BeeBDC::beesTaxonomy()}
   
     # Change beeName to be matched exactly
   beeNameExact <- paste0("^",  beeName, "$")

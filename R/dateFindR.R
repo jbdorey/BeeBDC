@@ -42,7 +42,7 @@ dateFindR <-
       ymd_fieldNotes<-ymd_locationRemarks<-locality<-dmy_vEV<-dmy_locality<-dmy_fieldNotes<-
       dmy_locationRemarks<-mdy_vEV<-mdy_locality<-mdy_fieldNotes<-mdy_locationRemarks<-my_vEV<-
       my_locality<-my_fieldNotes<-my_locationRemarks<-amb_vEV<-amb_locality<-amb_fieldNotes<-
-      amb_locationRemarks<-year <- endTime <- startTime <- NULL
+      amb_locationRemarks<-year <- endTime <- startTime <- originalDateCount <- NULL
     
       # load required packages
     requireNamespace("dplyr")
@@ -53,6 +53,8 @@ dateFindR <-
     
     #### 0.0 prep ####
     writeLines(" - Preparing data...")
+      # Get a count of how many eventDate rows are full
+    originalDateCount <- sum(complete.cases(data$eventDate))
       # Create a new running dataset
     noDATEa <- data
       # Convert eventDate to date format 
@@ -693,8 +695,12 @@ dateFindR <-
     writeLines(
       paste(
         " - Finished. \n",
-        "We rescued: \n",
-        format(nrow(datesMerged), big.mark = ","), " occurrences with missing eventDate.\n",
+        "We now have ",
+        format((sum(complete.cases(dates_complete$eventDate)) - originalDateCount),
+               big.mark = ","), 
+        " more full eventDate cells than in the input data.\n",
+        "We modified dates in \n",
+        format(nrow(datesMerged), big.mark = ","), " occurrences.\n",
         " - As it stands, there are ", 
         format( sum(complete.cases(dates_complete$eventDate)), big.mark = ","),
         " complete eventDates and ", 

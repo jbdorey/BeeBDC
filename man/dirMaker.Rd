@@ -85,8 +85,8 @@ RootPath = RootPath,
 # Input the location of the workflow script RELATIVE to the RootPath
 RDoc = NULL,
 useHere = FALSE) \%>\%
-  # Add paths created by this function to the .GlobalEnv
-  list2env(envir = .GlobalEnv)  
+  # Add paths created by this function to the environment()
+  list2env(envir = environment())  
 # Set the working directory
 setwd(DataPath)
 
@@ -99,8 +99,8 @@ setwd(DataPath)
  # Input the location of the workflow script RELATIVE to the RootPath
  RDoc = NULL,
  useHere = FALSE) \%>\%
-   # Add paths created by this function to the .GlobalEnv
-   list2env(envir = .GlobalEnv)  
+   # Add paths created by this function to the environment()
+   list2env(envir = environment())  
  # Set the working directory
  setwd(DataPath)
 
@@ -113,8 +113,8 @@ dirMaker(
   # Input the location of the workflow script RELATIVE to the RootPath
   RDoc = NULL,
   useHere = FALSE) \%>\%
-  # Add paths created by this function to the .GlobalEnv
-  list2env(envir = .GlobalEnv)  
+  # Add paths created by this function to the environment()
+  list2env(envir = environment())  
 
   # Restore your original working directory
  setwd(oldwd) 

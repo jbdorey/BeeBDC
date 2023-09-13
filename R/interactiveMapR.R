@@ -38,7 +38,6 @@
 #' @export
 #' 
 #' @importFrom dplyr %>%
-#' @importFrom utils installed.packages install.packages
 #' @importFrom dplyr across where
 #'
 #' @examples
@@ -123,18 +122,6 @@ interactiveMapR <- function(
   # Save the original directory 
   olddir <- getwd()
   
-# Package names
-packages <- c("leaflet", "htmlwidgets", "plotly", "dplyr")
-
-# Install packages not yet installed
-installed_packages <- packages %in% rownames(installed.packages())
-if (any(installed_packages == FALSE)) {
-  install.packages(packages[!installed_packages])
-}
-
-# Packages loading
-invisible(lapply(packages, library, character.only = TRUE))
-
 
   ##### 0.3 Directories ####
   # Create directory if it does not exist

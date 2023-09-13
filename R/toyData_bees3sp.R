@@ -138,7 +138,7 @@
 #' @keywords datasets
 #' @examples
 #'
-#' data("bees3sp", package = "BeeBDC")
+#' bees3sp <- BeeBDC::bees3sp
 #' head(bees3sp)
 #'
 "bees3sp"
