@@ -340,7 +340,7 @@ explanation on each module.
 
 > If you encounter a clear bug, please file an issue
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
-> suggestion, please send us a email (jbdorey@icloud.com).
+> suggestion, flick us an email (james.dorey@flinders.edu.au).
 
 #### **Citation**
 
