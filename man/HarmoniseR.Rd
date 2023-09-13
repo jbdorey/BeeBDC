@@ -50,12 +50,14 @@ This function could be hijacked to service other taxa if a user matched the form
 \code{\link[=beesTaxonomy]{beesTaxonomy()}} file.
 }
 \examples{
+# load in the test dataset
+system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |> load()
 
-beesRaw_out <- harmoniseR(
+beesRaw_out <- BeeBDC::harmoniseR(
   #The path to a folder that the output can be saved
 path = tempdir(),
 # The formatted taxonomy file
-taxonomy = BeeBDC::beesTaxonomy(), 
+taxonomy = testTaxonomy, 
 data = BeeBDC::beesFlagged,
 speciesColumn = "scientificName")
 table(beesRaw_out$.invalidName, useNA = "always")
