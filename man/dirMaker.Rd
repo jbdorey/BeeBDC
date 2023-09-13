@@ -75,8 +75,6 @@ use of the BeeBDC package, if the required folders do not already exist.
 \examples{
   # load dplyr
   library(dplyr)
-  # Store your original working directory
- oldwd <- getwd() 
 # Standard/basic usage:
 RootPath <- tempdir()
 dirMaker(
@@ -101,7 +99,6 @@ setwd(DataPath)
    # Add paths created by this function to the environment()
    list2env(envir = environment())  
  # Set the working directory
- setwd(DataPath)
 
 # Further customisations are also possible
 dirMaker(
@@ -115,8 +112,6 @@ dirMaker(
   # Add paths created by this function to the environment()
   list2env(envir = environment())  
 
-  # Restore your original working directory
- setwd(oldwd) 
 
 
 }
