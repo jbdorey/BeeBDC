@@ -190,7 +190,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.1]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/Rtmp8V4iHm/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/Rtmp6JSxtC/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by BeeBDC. These directories include
 where the data, figures, reports, etc. will be saved. The RDoc needs to
 be a path RELATIVE to the RootPath; i.e., the file path from which the
@@ -503,8 +503,8 @@ help identify duplicates later.</p>
 <div class="section level3">
 <h3 id="additional-datasets">2.4 Additional datasets<a class="anchor" aria-label="anchor" href="#additional-datasets"></a>
 </h3>
-<p>Import additional and potentially private datasets.
-<strong>Note:</strong> Private dataset functions are provided but the
+<p>Import additional and potentially private datasets.</p>
+<p><strong>Note:</strong> Private dataset functions are provided but the
 data itself is not integrated here until those datasets become freely
 available.</p>
 <p>There will be some warnings were a few rows may not be formatted
@@ -583,10 +583,12 @@ occupancy. <em>Nature Ecology &amp; Evolution</em> 5, 787-793 (2021). <a href="h
 <div class="section level7">
 <h6 id="g--caes">g. CAES<a class="anchor" aria-label="anchor" href="#g--caes"></a>
 </h6>
-<p>From the Connecticut Agricultural Experiment Station. Zarrillo, T.
-A., Stoner, K. A. &amp; Ascher, J. S. Biodiversity of bees (Hymenoptera:
-Apoidea: Anthophila) in Connecticut (USA). Zootaxa (Accepted). Ecdysis.
-Occurrence dataset (ID: 16fca9c2-f622-4cb1-aef0-3635a7be5aeb). <a href="https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip" class="external-link uri">https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip</a>.
+<p>From the Connecticut Agricultural Experiment Station.</p>
+<p>Zarrillo, T. A., Stoner, K. A. &amp; Ascher, J. S. Biodiversity of
+bees (Hymenoptera: Apoidea: Anthophila) in Connecticut (USA). Zootaxa
+(Accepted).</p>
+<p>Ecdysis. Occurrence dataset (ID:
+16fca9c2-f622-4cb1-aef0-3635a7be5aeb). <a href="https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip" class="external-link uri">https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip</a>.
 (2023)</p>
 <pre><code><span><span class="va">CAES_Data</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/readr_BeeBDC.html">readr_BeeBDC</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"CAES"</span>,</span>
 <span>                                path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Additional_Datasets"</span><span class="op">)</span>,</span>
@@ -1011,8 +1013,9 @@ codes, if needed.</p>
 chunked version of <code><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_transposed.html" class="external-link">bdc::bdc_coordinates_transposed()</a></code>
 because it is very RAM-heavy using our large bee dataset. Like many of
 our other ‘jbd_…’ functions there are other improvements - e.g.,
-parallel running. NOTE: Usually you would use scale = “large”, which
-requires rnaturalearthhires</p>
+parallel running.</p>
+<p>NOTE: Usually you would use scale = “large”, which requires
+rnaturalearthhires</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_Ctrans_chunker.html">jbd_Ctrans_chunker</a></span><span class="op">(</span></span>
 <span>  <span class="co"># bdc_coordinates_transposed inputs</span></span>
@@ -1081,7 +1084,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 1.42 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 1.37 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1298,7 +1301,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 1.97 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 1.7 secs</span></span></code></pre></div>
 <p>You don’t need this file any more…</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">beesTaxonomy</span><span class="op">)</span></span></code></pre></div>
@@ -1346,7 +1349,8 @@ scale of a large city. The major difference between the
 <strong>bdc</strong> and <strong>BeeBDC</strong> functions is that
 <code><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> will only flag occurrences if
 BOTH latitude and longitude are rounded (as opposed to only one of
-these). Coordinates with one, two, or three decimal places present a
+these).</p>
+<p>Coordinates with one, two, or three decimal places present a
 precision of ~11.1 km, ~1.1 km, and ~111 m at the equator,
 respectively.</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
@@ -1459,7 +1463,7 @@ depending on your dataset. However, the option is provided.</p>
 <span><span class="co">## diagonAlley:</span></span>
 <span><span class="co">## Flagged 0 records</span></span>
 <span><span class="co">## The .sequential column was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.07 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.06 secs</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than X occurrences.</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
@@ -1567,7 +1571,7 @@ identifying potential misidentifications, outliers, etc.’</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 8 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 7.56 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># A list of failed species-country combinations and their numbers can be output here</span></span>
 <span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1631,18 +1635,26 @@ rebuild the <em>.summary</em> column.</p>
 <span>      workflow_step <span class="op">=</span> <span class="st">"space"</span>,</span>
 <span>      save_figures <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>For examining the figures, the options are: - <em>.cap</em> = Records
-around country capital centroid<br>
-- <em>.cen</em> = Records around country or province centroids -
-<em>.dbl</em> = Duplicated coordinates per species - <em>.equ</em> =
-Identical coordinates - <em>.otl</em> = Geographical outliers -
-<em>.gbf</em> = Records around the GBIF headquarters - <em>.inst</em> =
-Records around biodiversity institutions - <em>.rou</em> = Rounded
-(probably imprecise) coordinates - <em>.urb</em> = Records within urban
-areas — (Likely not relevant for bees.)</p>
-<pre><code>        You can examine these figures, for example, by running:
+<p>For examining the figures, the options are:</p>
+<ul>
+<li><p><em>.cap</em> = Records around country capital centroid<br></p></li>
+<li><p><em>.cen</em> = Records around country or province
+centroids</p></li>
+<li><p><em>.dbl</em> = Duplicated coordinates per species</p></li>
+<li><p><em>.equ</em> = Identical coordinates</p></li>
+<li><p><em>.otl</em> = Geographical outliers</p></li>
+<li><p><em>.gbf</em> = Records around the GBIF headquarters</p></li>
+<li><p><em>.inst</em> = Records around biodiversity
+institutions</p></li>
+<li><p><em>.rou</em> = Rounded (probably imprecise) coordinates</p></li>
+<li>
+<p><em>.urb</em> = Records within urban areas — (Likely not relevant
+for bees.)</p>
+<pre><code>      You can examine these figures, for example, by running:
 
-        figures$.rou</code></pre>
+      figures$.rou</code></pre>
+</li>
+</ul>
 <p>Save interim dataset.</p>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1724,7 +1736,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We modified dates in </span></span>
 <span><span class="co">## 175 occurrences.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.538723707199097 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.453062057495117 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1921,9 +1933,9 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Ordering prefixs...</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/Rtmp8V4iHm/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-13.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/Rtmp6JSxtC/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2023-09-13.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.78 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.69 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1967,7 +1979,7 @@ expert outliers.</p>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/Rtmp8V4iHm/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-13.csv</span></span>
+<span><span class="co">##  /tmp/Rtmp6JSxtC/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2023-09-13.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
