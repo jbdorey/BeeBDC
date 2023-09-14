@@ -3,7 +3,7 @@ BeeBDC
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **BeeBDC** <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MwWGBPK/0/O/i-MwWGBPK.jpg" alt = "BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"/></a>
+# **BeeBDC** <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt = "BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"/></a>
 
 ## **BeeBDC: an occurrence data cleaning package**
 
