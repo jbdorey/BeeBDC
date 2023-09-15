@@ -152,7 +152,7 @@
 </h4>
 <p>The <em>BeeBDC</em> toolkit is organized using the conventions similar to bdc and CoordinateCleaner.</p>
 <blockquote>
-<p>Like in the <strong>bdc</strong> package, we provide a suggested workflow here. While, our functions can mostly be run out of order there are a few exceptions mentioned throughout the documentation. Additionally, many functions require the database_id column that is generated early on in the <strong>BeeBDC</strong> or <strong>bdc</strong> workflows. When running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks. Paper DOI - <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link uri">https://doi.org/10.1101/2023.06.30.547152</a>; Package GitHub - <a href="https://github.com/jbdorey/BeeBDC/" class="external-link uri">https://github.com/jbdorey/BeeBDC/</a></p>
+<p>Like in the <strong>bdc</strong> package, we provide a suggested workflow here. While our functions can mostly be run out of order, there are a few exceptions mentioned throughout the documentation. Additionally, many functions require the database_id column that is generated early on in the <strong>BeeBDC</strong> or <strong>bdc</strong> workflows. When running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks. Paper DOI - <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link uri">https://doi.org/10.1101/2023.06.30.547152</a>; Package GitHub - <a href="https://github.com/jbdorey/BeeBDC/" class="external-link uri">https://github.com/jbdorey/BeeBDC/</a></p>
 </blockquote>
 </div>
 <div class="section level4">
@@ -347,8 +347,7 @@
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># Install BeeBDC</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span>, </span>
-<span>                        auth_token <span class="op">=</span> <span class="st">"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"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, ref <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the package with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
