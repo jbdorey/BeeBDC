@@ -43,7 +43,7 @@ The *BeeBDC* toolkit is organized using the conventions similar to bdc
 and CoordinateCleaner.
 
 > Like in the **bdc** package, we provide a suggested workflow here.
-> While, our functions can mostly be run out of order there are a few
+> While our functions can mostly be run out of order, there are a few
 > exceptions mentioned throughout the documentation. Additionally, many
 > functions require the database_id column that is generated early on in
 > the **BeeBDC** or **bdc** workflows. When running very large datasets
