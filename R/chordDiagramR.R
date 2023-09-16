@@ -181,7 +181,7 @@ chordDiagramR <- function(
       stop(paste("Failed to install the BiocManager package.\n", 
                  instructions))
     }
-    # Begin interactive input
+    # Begin interactive input 
     input <- 1
     if (interactive()){
       input <- utils::menu(c("Yes", "No"), 
