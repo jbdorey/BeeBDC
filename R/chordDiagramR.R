@@ -26,11 +26,11 @@
 #' @param canvas.xlim Canvas limits from [circlize::circos.par()]. Default = c(-0.6, 0.25).
 #' @param text.col A character string. Text colour
 #' @param legendX The x position of the legends, as measured in current viewport.
-#'  Passed to [ComplexHeatmap::draw()]. Default = grid::unit(6, "mm").
+#'  Passed to ComplexHeatmap::draw(). Default = grid::unit(6, "mm").
 #' @param legendY The y position of the legends, as measured in current viewport.
-#'  Passed to [ComplexHeatmap::draw()]. Default = grid::unit(18, "mm").
+#'  Passed to ComplexHeatmap::draw(). Default = grid::unit(18, "mm").
 #' @param legendJustify A character vector declaring the justification of the legends. 
-#' Passed to [ComplexHeatmap::draw()]. Default = c("left", "bottom").
+#' Passed to ComplexHeatmap::draw(). Default = c("left", "bottom").
 #' @param niceFacing TRUE/FALSE. The niceFacing option automatically adjusts the text facing 
 #' according to their positions in the circle. Passed to [circlize::highlight.sector()].
 #' @param self.link 1 or 2 (numeric). Passed to [circlize::chordDiagram()]:	
@@ -39,7 +39,6 @@
 #'
 #' @return Saves a figure to the provided file path.
 #' 
-#' @importFrom ComplexHeatmap Legend packLegend draw
 #' @importFrom circlize circos.clear circos.par chordDiagram mm_h circos.trackPlotRegion get.cell.meta.data highlight.sector circos.clear
 #' @importFrom stringr str_replace str_c
 #' @importFrom dplyr bind_cols full_join mutate select group_by if_else arrange n filter %>%
@@ -52,7 +51,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   # Createa a basic example dataset of duplicates to visualise
+#'   # Create a basic example dataset of duplicates to visualise
 #' basicData <- dplyr::tribble(
 #'                             ~dataSource,    ~dataSource_keep,
 #'                       "GBIF_Halictidae",         "USGS_data",
@@ -123,12 +122,13 @@ chordDiagramR <- function(
   legendJustify = c("left", "bottom"),
   niceFacing = TRUE,
   self.link = 2){
+  
   # locally bind variabls to the function
   Frequency <- Frequency_dupe <- sourceName <- . <- sourceCategories <- groupCount <- cur_group_id <-
     groupNumber <- groupPalette <- groupColours <- par <- NULL
+  error_func_BCM <- CHtest <- error_func_CH <- input <- instructions <- NULL
   
     requireNamespace("circlize")
-  requireNamespace("ComplexHeatmap")
   requireNamespace("dplyr")
   requireNamespace("paletteer")
   requireNamespace("grid")
@@ -149,11 +149,98 @@ chordDiagramR <- function(
     stop(" - There are no duplicates in the dupeData object. Stopping process.")
   }
   
+    ##### 0.2 maintain par ####
   # Make sure to maintain prior par on exit from the function
   oldpar <- par(no.readonly = TRUE) 
   on.exit(oldpar)
   
+  ##### 0.3 BcM + ComplexHeatmap ####
+    ###### a. test ####
+  # Check if BiocManager is installed
+  # TRUE if BiocManager is found
+  suppressWarnings(
+    BcMtest <- system.file(package='BiocManager') %>% 
+      stringr::str_count() > 0 
+  )
+    # Check if ComplexHeatmap is installed
+      # TRUE if ComplexHeatmap is found
+  suppressWarnings(
+  CHtest <- system.file(package='ComplexHeatmap') %>% 
+    stringr::str_count() > 0 
+  )
 
+    ###### b. BiocManager ####
+  if(CHtest == FALSE){
+    if(BcMtest == FALSE){
+    # Set up instructions for download on fail
+    instructions <- paste(" Please try installing the package for yourself", 
+                          "using the following command: \n", 
+                          " install.packages(\"BiocManager\")")
+    # Set up fail function for tryCatch
+    error_func_BCM <- function(e){
+      stop(paste("Failed to install the BiocManager package.\n", 
+                 instructions))
+    }
+    # Begin interactive input
+    input <- 1
+    if (interactive()){
+      input <- utils::menu(c("Yes", "No"), 
+                           title = paste0("Install the BiocManager package? \n",
+                            "NOTE: if you need to install BiocManager, you may need to restart R",
+                            " before installing ComplexHeatmap."))
+    }
+    if(input == 1){
+      # Check for BiocManager
+      if( suppressWarnings(system.file(package='BiocManager')) %>% stringr::str_count() == 0){
+        message("Installing the BiocManager package.")
+        tryCatch(
+          utils::install.packages("BiocManager"), 
+          error = error_func_BCM, warning = error_func_BCM)
+      }# END BiocManager check
+    
+    else{
+      stop(writeLines(paste("The ComplexHeatmap package is necessary for BeeBDC::chordDiagramR.\n", 
+                            instructions)))
+    } # END else
+    } # END input == 1
+    }# END BcMtest == FALSE
+    } # END CHtest == FALSE
+  
+  
+  
+    ###### c. ComplexHeatmap ####
+  if(CHtest == FALSE){
+      # Set up instructions for download on fail
+    instructions <- paste(" Please try installing the package for yourself", 
+                          "using the following command: \n",
+                          "BiocManager::install(\"ComplexHeatmap\")")
+      # Set up fail function for tryCatch
+    error_func_CH <- function(e){
+      stop(paste("Failed to install the ComplexHeatmap package.\n", 
+                 instructions))
+    }
+      # Begin interactive input
+    input <- 1
+    if (interactive()){
+      input <- utils::menu(c("Yes", "No"), 
+                        title = paste0("Install the ComplexHeatmap package? \n"))
+    }
+    if(input == 1){
+        # Start ComplexHeatmap install
+      message("Installing the ComplexHeatmap package.")
+      tryCatch(
+        BiocManager::install("ComplexHeatmap"), 
+        error = error_func_CH, warning = error_func_CH)
+      } # END input == 1
+      
+    else{
+      stop(writeLines(paste("The ComplexHeatmap package is necessary for BeeBDC::chordDiagramR.\n", 
+                 instructions)))
+    } # END else
+  } # END CHtest == FALSE
+  
+
+    #### 1.0 Data prep ####
 # Create a table to go into chord diagram
   suppressMessages(
 chordData <- table(dplyr::bind_cols(dupeData$dataSource, dupeData$dataSource_keep)),
@@ -181,7 +268,7 @@ colourTable <- dplyr::full_join(keptSource, dupeSource, by = "sourceName") %>%
                                        ))) %>%
   dplyr::group_by(sourceCategories) %>%
   dplyr::mutate(  # Count group number
-    groupCount = n(),
+    groupCount = dplyr::n(),
     # Combine small groups (< smallGrpThreshold)
     sourceCategories = dplyr::if_else(
       groupCount < smallGrpThreshold, "Other", sourceCategories)) %>%
@@ -200,6 +287,7 @@ colourTable <- dplyr::full_join(keptSource, dupeSource, by = "sourceName") %>%
                 colour = unlist(groupColours)[dplyr::row_number()])
 
 
+  #### 2.0 Build plot ####
 circlize::circos.clear()
   circlize::circos.par(canvas.ylim = canvas.ylim, canvas.xlim = canvas.xlim)
   
