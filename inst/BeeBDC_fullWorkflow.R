@@ -379,6 +379,13 @@ Dor_Data <- BeeBDC::readr_BeeBDC(dataset = "Dor",
                       outFile = "jbd_Dor_Data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 
+###### p. VicWam #####
+VicWam_Data <- BeeBDC::readr_BeeBDC(dataset = "VicWam",
+                                 path = paste0(DataPath, "/Additional_Datasets"),
+                                 inFile = "/InputDatasets/Combined_Vic_WAM_databases.xlsx",
+                                 outFile = "jbd_VicWam_Data.csv",
+                                 dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
 
 ##### 2.5 Merge all ####
 # Remove these spent datasets

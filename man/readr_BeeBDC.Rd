@@ -27,6 +27,7 @@
 \alias{readr_STRI}
 \alias{readr_PALA}
 \alias{readr_JoLa}
+\alias{readr_VicWam}
 \title{A wrapper for all of the data readr_functions}
 \usage{
 readr_BeeBDC(
@@ -135,6 +136,14 @@ readr_JoLa(
   dataLicense = NULL,
   sheet = c("pre-1950", "post-1950")
 )
+
+readr_VicWam(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = "Combined"
+)
 }
 \arguments{
 \item{dataset}{Character. The name of the dataset to be read in. For example readr_CAES can
@@ -167,7 +176,7 @@ readr_BeeBDC for clarity.
 This function wraps several internal readr functions. Users may call
 readr_BeeBDC and select the dataset name to import a certain dataset. These datasets include:
 
-Excel (.xlsx) formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, and JoLa.
+Excel (.xlsx) formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, JoLa, and VicWam.
 
 CSV (.csv) formatted datasets: EPEL, ASP, BMin, BMont, Ecd, Gai, KP, EcoS, GeoL, EaCo, FSCA, SMC,
 Lic, Dor, BBD, STRI, and PALA
@@ -225,6 +234,8 @@ See Dorey et al. 2023 BeeBDC... for further details.
 \item \code{readr_PALA()}: Reads specific data files into Darwin Core format
 
 \item \code{readr_JoLa()}: Reads specific data files into Darwin Core format
+
+\item \code{readr_VicWam()}: Reads specific data files into Darwin Core format
 
 }}
 \examples{

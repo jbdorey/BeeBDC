@@ -14,7 +14,7 @@
 #' This function wraps several internal readr functions. Users may call
 #' readr_BeeBDC and select the dataset name to import a certain dataset. These datasets include:
 #' 
-#' Excel (.xlsx) formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, and JoLa.
+#' Excel (.xlsx) formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm, JoLa, and VicWam.
 #' 
 #' CSV (.csv) formatted datasets: EPEL, ASP, BMin, BMont, Ecd, Gai, KP, EcoS, GeoL, EaCo, FSCA, SMC,
 #' Lic, Dor, BBD, STRI, and PALA
@@ -91,14 +91,14 @@ readr_BeeBDC <- function(
   
   ##### x.2 Data types ####
   # Create the lists of potential data types for .xlsx or .csv inputs
-  excelTypes <- c("CAES", "MABC", "Col", "Bal", "MEPB", "MPUJ", "Arm", "JoLa")
+  excelTypes <- c("CAES", "MABC", "Col", "Bal", "MEPB", "MPUJ", "Arm", "JoLa", "VicWam")
   csvTypes <- c("EPEL", "ASP", "BMin", "BMont", "Ecd", "Gai", "KP", "EcoS", "GeoL",
                 "EaCo", "FSCA", "SMC", "Lic", "Dor", "BBD", "PALA", "STRI")
   
   # Wrong entry test
   if(!tolower(dataset) %in% tolower(c(paste0("readr_",csvTypes), csvTypes,
                               paste0("readr_",excelTypes), excelTypes)) ){
-    stop("The dataset does not match a readr_ function")
+    stop("The dataset does not match a readr_BeeBDC function")
   }
   
   
@@ -167,6 +167,13 @@ readr_BeeBDC <- function(
                         outFile = outFile,
                         dataLicense = dataLicense,
                         sheet = sheet)}
+    ##### h. VicWam ####
+    if(tolower(dataset) %in% tolower(c("readr_VicWam", "VicWam")) ){
+      dataOut <- readr_VicWam(path = path,
+                            inFile = inFile,
+                            outFile = outFile,
+                            dataLicense = dataLicense,
+                            sheet = sheet)}
   }# END Excel functions
   
   ##### x.2 CSV functions ####
@@ -2662,4 +2669,212 @@ readr_JoLa <- function(path = NULL,
 } # END readr_JoLa
 
 
+
+#### 28.0 VicWam ####
+#' @describeIn readr_BeeBDC
+#' 
+#' Reads specific data files into Darwin Core format
+#' 
+#'
+#' 
+readr_VicWam <- function(path = NULL,
+                       inFile = NULL,
+                       outFile = NULL,
+                       dataLicense = NULL,
+                       sheet = "Combined"){
+  # locally bind variables to the function
+  fieldNotes <- Catalognumber <- recordNumber <- genus <- specificEpithet <-  NULL
+  year <- . <- VicWam_data <- otherCatalogNumbers <- institutionCode <- class <- order <- NULL
+  infraspecificEpithet <- NULL
+  NEAREST <- DISTANCE <- DIST_UNIT <- DIRECTION <- locality <- locality2 <- PLACEACCURACY <- 
+    coordinateUncertaintyInMeters <- DTFR <- day <- month <- year <- eventDate <- eventDate2 <- 
+    DTTO <- dayTO <- monthTO <- yearTO <- eventDateTO <- eventDateTO2 <- LABELFAMILY <- 
+    LABELGENUS <- LABELSPECIES <- associatedTaxa <- stateProvince <- country <- dataSource <- 
+    license <- NULL
+  
+  #### 28.1 Prep ####
+  # This will load the requireNamespaced packages. These packages may still need to be installed to 
+  # R using install.packages("dplyr")... etc.
+  requireNamespace("dplyr")
+  requireNamespace("lubridate")
+  
+  
+  #### 28.2 Read+ ####
+  ###### a. JoLa_data ####
+  # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
+  # Read in both sheets and bind them together
+  VicWam_data <-  openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
+                                    sheet = sheet[1]) %>%
+      # Start by renaming columns
+    dplyr::rename(
+      recordNumber = "Reg_DoreyExtension",
+      otherCatalogNumbers = "COLLNUM",
+      institutionCode = "INSTITUTE",
+      class = "CLASS",
+      order = "ORDER",
+      "superfamily" = "SUPERFAMILY",
+      "family" = "FAMILY",
+      "subfamily" = "SUBFAMILY",
+      "tribe" = "TRIBE",
+      "genus" = "GENUS",
+      "subgenus" = "SUBGENUS",
+      "specificEpithet" = "SPECIES",
+      "infraspecificEpithet" = "SUBSPECIES",
+      "identifiedBy" = "DTMNDBY",
+      "dateIdentified" = "DTMNDDT",
+      "lifeStage" = "LIFEHISTORY",
+      "sex" = "SEX",
+      "identificationQualifier" = "NAMEQUALIFIER",
+      "typeStatus" = "SPCMTYPE",
+      "individualCount" = "SPECNUM",
+      "stateProvince" = "STATE",
+      "locality" = "SITE",
+      "decimalLatitude" = "LATDEC",
+      "decimalLongitude" = "LONGDEC",
+      "recordedBy" = "COLLTOR",
+      "basisOfRecord" = "STORAGE",
+      "verbatimLatitude" = "LATITUDE",
+      "verbatimLongitude" = "LONGITUDE",
+      "occurrenceRemarks" = "NOTES"
+    ) %>%
+      # Create the scientificName
+    dplyr::mutate(scientificName = stringr::str_c(
+      dplyr::if_else(!is.na(genus),
+                     paste0(genus), ""),
+      dplyr::if_else(!is.na(specificEpithet),
+                     paste0(specificEpithet), ""),
+      dplyr::if_else(!is.na(infraspecificEpithet),
+                     paste0(infraspecificEpithet), ""),
+      sep = " "
+    ) %>% stringr::str_squish()) %>%
+      # modify locality
+    dplyr::mutate(locality2 = stringr::str_c(dplyr::if_else(complete.cases(NEAREST),
+                                                             NEAREST, ""),
+                                              dplyr::if_else(complete.cases(DISTANCE),
+                                                             as.character(DISTANCE), ""),
+                                              dplyr::if_else(complete.cases(DIST_UNIT),
+                                                             DIST_UNIT, ""),
+                                              dplyr::if_else(complete.cases(DIRECTION),
+                                                             paste0(DIRECTION, "\u00b0"), 
+                                                             ""),
+                                              sep = " ") %>% as.character() %>%
+                    stringr::str_squish(),
+                  .after = locality) %>%
+    dplyr::mutate(locality = dplyr::if_else(is.na(locality),
+                                            locality2, locality)) %>%
+    dplyr::select(!locality2) %>%
+    # Extract coordinateUncertaintyInMeters
+    dplyr::mutate(
+      coordinateUncertaintyInMeters = PLACEACCURACY %>% stringr::str_extract(
+        "[0-9]+\\s[m(km)(mi)]+") %>% stringr::str_replace_all(c("km" = "000",
+                                                                "m" = "")) %>%
+        stringr::str_replace(" ","") %>% as.numeric(),
+      .after = PLACEACCURACY
+    ) %>%
+      # Create eventDate
+    dplyr::mutate(
+      day = DTFR %>% stringr::str_extract("^[0-9]+/") %>% stringr::str_remove_all("/") %>%
+        dplyr::if_else(. == "00", NA_character_, .),
+      month = DTFR %>% stringr::str_extract("/[0-9]+/") %>% stringr::str_remove_all("/") %>%
+        dplyr::if_else(. == "00", NA_character_, .),
+      year = DTFR %>% stringr::str_extract("/[0-9]+$") %>% stringr::str_remove_all("/") %>%
+        dplyr::if_else(. == "0000", NA_character_, .),
+      eventDate = lubridate::dmy(stringr::str_c(day, month, year, sep = "/"), truncated = 2),
+      eventDate2 = dplyr::if_else(!stringr::str_detect(DTFR, "[a-zA-Z]"),  # convert from silly excel numeric format to real dates...
+        as.Date(as.numeric(DTFR), origin = "1899-12-30") %>% as.character(),
+        DTFR) %>% lubridate::ymd(truncated = 2),
+        # if eventDate is empty, use eventDate2
+      eventDate = dplyr::if_else(is.na(eventDate),
+                                 eventDate2, eventDate),
+      .after = DTFR
+    ) %>% dplyr::select(!eventDate2) %>%
+      # Creat ethe date to
+    dplyr::mutate(
+      dayTO = DTTO %>% stringr::str_extract("^[0-9]+/") %>% stringr::str_remove_all("/") %>%
+        dplyr::if_else(. == "00", NA_character_, .),
+      monthTO = DTTO %>% stringr::str_extract("/[0-9]+/") %>% stringr::str_remove_all("/") %>%
+        dplyr::if_else(. == "00", NA_character_, .),
+      yearTO = DTTO %>% stringr::str_extract("/[0-9]+$") %>% stringr::str_remove_all("/") %>%
+        dplyr::if_else(. == "0000", NA_character_, .),
+      eventDateTO = lubridate::dmy(stringr::str_c(dayTO, monthTO, yearTO, sep = "/"), truncated = 2),
+      eventDateTO2 = dplyr::if_else(!stringr::str_detect(DTTO, "[a-zA-Z]"),  # convert from silly excel numeric format to real dates...
+                                  as.Date(as.numeric(DTTO), origin = "1899-12-30") %>% as.character(),
+                                  DTTO %>% as.character()) %>% lubridate::ymd(truncated = 2),
+      # if eventDateTO is empty, use eventDateTO2
+      eventDateTO = dplyr::if_else(is.na(eventDateTO),
+                                   eventDateTO2, eventDateTO) %>% as.character(),
+      eventDateTO = dplyr::if_else(is.na(eventDateTO),
+                                   stringr::str_c(
+                                     dplyr::if_else(complete.cases(yearTO),
+                                                    yearTO,""),
+                                     dplyr::if_else(complete.cases(monthTO),
+                                                    monthTO,""),
+                                     dplyr::if_else(complete.cases(dayTO),
+                                                    dayTO,""),
+                                     sep = " ") %>% stringr::str_squish() %>% 
+                                     stringr::str_replace(" ", "-"),
+                                   eventDateTO),
+      .after = DTTO
+    ) %>% 
+    dplyr::select(!tidyselect::any_of(c("eventDateTO2", "dayTO", "monthTO", "yearTO"))) %>%
+      # Add field notes
+    dplyr::mutate(
+    fieldNotes = stringr::str_c(
+      dplyr::if_else(!is.na(eventDate),
+                     paste0("startDate: ", eventDate), ""),
+      dplyr::if_else(!is.na(eventDateTO),
+                     paste0("endDate: ", eventDateTO), ""),
+      dplyr::if_else(!is.na(LABELFAMILY),
+                     paste0("associatedFamily: ", LABELFAMILY), ""),
+      dplyr::if_else(!is.na(LABELGENUS),
+                     paste0("associatedGenus: ", LABELGENUS), ""),
+      dplyr::if_else(!is.na(LABELSPECIES),
+                     paste0("associatedSpecies: ", LABELSPECIES), ""),
+      sep = "|")) %>% 
+        # Add associatedTaxa
+    dplyr::mutate(associatedTaxa = stringr::str_c(
+      dplyr::if_else(!is.na(LABELGENUS),
+                     paste0(LABELGENUS), ""),
+      dplyr::if_else(!is.na(LABELSPECIES),
+                     paste0(LABELSPECIES), ""),
+      sep = " ") %>% stringr::str_squish()) %>%
+        # Worst case, use family
+      dplyr::mutate(associatedTaxa = stringr::str_c(
+        dplyr::if_else(is.na(associatedTaxa),
+                       paste0(LABELFAMILY), associatedTaxa)
+      )) %>% 
+      # Format country name
+    dplyr::mutate(country = stringr::str_to_sentence(country)) %>%
+    dplyr::mutate(stateProvince = stringr::str_replace_all(stateProvince,
+                                   c("^ACT$" = "Australian Capital Territory",
+                                     "New South wales" = "New South Wales",
+                                     "^NSW" = "New South Wales",
+                                     "^NT$" = "Northern Territory",
+                                     "^Qld$" = "Queensland",
+                                     "^SA$" = "South Australia",
+                                     "^Tas$" = "Tasmania",
+                                     "^Vic$" = "Victoria",
+                                     "^WA$" = "Western Australia",
+                                     "Western australia" = "Western Australia"))) %>% 
+    # Remove any double white-spaces
+    apply(., 2, stringr::str_squish) %>% dplyr::as_tibble() %>% 
+    # add the database_id column
+    dplyr::mutate(
+      database_id = paste("VicWam_data_", 1:nrow(.), sep = ""),
+      .before = 1)  %>%
+    # Add dataset information
+    dplyr::mutate(dataSource = "VicWam_Anthophila") %>%
+    dplyr::mutate(license = dataLicense)  %>%
+    # add the database_id column
+    dplyr::mutate(
+      datasetName = "VicWam",
+      datasetID = "VicWam"
+    )
+  
+  #### 28.3 Out ####
+  # Save the dataset
+  readr::write_excel_csv(VicWam_data, file = paste(path, outFile, sep = "/"))
+  # Return the data from the function to the user
+  return(VicWam_data)
+} # END readr_VicWam
 

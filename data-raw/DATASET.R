@@ -19,6 +19,8 @@ usethis::use_data(bees3sp, overwrite = TRUE, compress = "xz")
 
 #### 2.0 Discover Life data ####
   ##### 2.1 Full datasets ####
+
+  # CHECKLIST
 beesChecklist <- readr::read_csv(paste0(dataPath, "/CheckL_combined2023-08-21.csv"),
                                  guess_max = 40000) %>%
   # Remove some columns to save space
@@ -28,7 +30,8 @@ base::saveRDS(beesChecklist,
                             "beesChecklist.Rda"),
               compress = "xz")
 
-beesTaxonomy <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-08-20.csv")) 
+  # TAXONOMY
+beesTaxonomy <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-09-18.csv")) 
 base::saveRDS(beesTaxonomy, 
               file = paste0("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_development/",
                             "beesTaxonomy.Rda"),
