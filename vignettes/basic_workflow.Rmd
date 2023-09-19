@@ -157,7 +157,7 @@ BeeBDC::dirMaker(
     RootPath = RootPath,
     RDoc = "vignettes/BeeBDC_main.Rmd") %>%
       # Add paths created by this function to the environment()
-    list2env(envir = environment())
+    list2env(envir = parent.env(environment()))
 ```
       
 ```{r dirMakerSECRETELY, include = FALSE}

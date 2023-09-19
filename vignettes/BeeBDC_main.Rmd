@@ -156,7 +156,7 @@ BeeBDC::dirMaker(
     RootPath = RootPath,
     RDoc = "vignettes/BeeBDC_main.Rmd") %>%
       # Add paths created by this function to the environment()
-    list2env(envir = environment())
+    list2env(envir = parent.env(environment()))
 ```
       
 ```{r dirMakerSECRETELY, include = FALSE}
@@ -593,6 +593,8 @@ Elinor Lichtenberg’s canola data, which go with a manuscript currently under r
 
 ###### n. Arm
 
+Data from Armando Falcon-Brindis from the University of Kentucky.
+
     Arm_Data <- BeeBDC::readr_BeeBDC(dataset = "Arm",
                                    path = paste0(DataPath, "/Additional_Datasets"),
                           inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
@@ -602,13 +604,32 @@ Elinor Lichtenberg’s canola data, which go with a manuscript currently under r
 
 ###### o. Dor
 
-From several papers: <https://doi.org/10.3897/jhr.79.57308>, <https://doi.org/10.3897/jhr.81.59365>, and <https://doi.org/10.11646/zootaxa.4674.1.1>.
+From several papers:
+
+1. Dorey, J. B., Fagan-Jeffries, E. P., Stevens, M. I., & Schwarz, M. P. (2020). Morphometric comparisons and novel observations of diurnal and low-light-foraging bees. *Journal of Hymenoptera Research*, 79, 117–144. doi:<https://doi.org/10.3897/jhr.79.57308>
+2. Dorey, J. B. (2021). Missing for almost 100 years: the rare and potentially threatened bee Pharohylaeus lactiferus (Hymenoptera, Colltidae). *Journal of Hymenoptera Research*, 81, 165-180. doi: <https://doi.org/10.3897/jhr.81.59365>
+3. Dorey, J. B., Schwarz, M. P., & Stevens, M. I. (2019). Review of the bee genus Homalictus Cockerell (Hymenoptera: Halictidae) from Fiji with description of nine new species. *Zootaxa*, 4674(1), 1–46. doi:<https://doi.org/10.11646/zootaxa.4674.1.1>
 
     Dor_Data <- BeeBDC::readr_BeeBDC(dataset = "Dor",
                                    path = paste0(DataPath, "/Additional_Datasets"),
                           inFile = "/InputDatasets/DoreyData.csv",
                           outFile = "jbd_Dor_Data.csv",
                           dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                          
+###### p. VicWam
+
+These data are originally from the Victorian Museum and Western Australian Museum in Australia. However, in their current form they are from Dorey et al. 2021.
+
+1. PADIL. (2020). PaDIL. <https://www.PADIL.gov.au/>
+2. Houston, T. F. (2000). Native bees on wildflowers in Western Australia. *Western Australian Insect Study Society*.
+3. Dorey, J. B., Rebola, C. M., Davies, O. K., Prendergast, K. S., Parslow, B. A., Hogendoorn, K., . . . Caddy-Retalic, S. (2021). Continental risk assessment for understudied taxa post catastrophic wildfire indicates severe impacts on the Australian bee fauna. *Global Change Biology*, 27(24), 6551-6567. doi:<https://doi.org/10.1111/gcb.15879>
+
+    VicWam_Data <- BeeBDC::readr_BeeBDC(dataset = "VicWam",
+                                     path = paste0(DataPath, "/Additional_Datasets"),
+                                     inFile = "/InputDatasets/Combined_Vic_WAM_databases.xlsx",
+                                     outFile = "jbd_VicWam_Data.csv",
+                                     dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                     sheet = "Combined")
     
 
 ### 2.5 Merge all 
@@ -616,7 +637,8 @@ From several papers: <https://doi.org/10.3897/jhr.79.57308>, <https://doi.org/10
 Remove these spent datasets.
 
       rm(EPEL_Data, ASP_Data, BMin_Data, BMont_Data, Ecd_Data, Gai_Data, CAES_Data, 
-      GeoL_Data, EaCO_Data, FSCA_Data, SMC_Data, Bal_Data, Lic_Data, Arm_Data, Dor_Data)
+      GeoL_Data, EaCO_Data, FSCA_Data, SMC_Data, Bal_Data, Lic_Data, Arm_Data, Dor_Data,
+      VicWam_Data)
    
 Read in and merge all. There are more `readr_BeeBDC()` supported than currently implemented and these represent datasets that will be publicly released in the future. See '?`readr_BeeBDC()`' for details.
 
@@ -650,7 +672,9 @@ Read in and merge all. There are more `readr_BeeBDC()` supported than currently 
         readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
                                "/jbd_Arm_Data.csv"), col_types = BeeBDC::ColTypeR()),
         readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                               "/jbd_Dor_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
+                               "/jbd_Dor_Data.csv"), col_types = BeeBDC::ColTypeR()),
+    readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                           "/jbd_VicWam_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
         # END bind_rows
       suppressWarnings(classes = "warning") # End suppressWarnings — due to col_types
 
@@ -686,7 +710,8 @@ This function will attempt to find the *database_id*s from prior runs.
                               "decimalLatitude","decimalLongitude")),
         # You can exclude datasets from prior by matching their prefixs — before first underscore:
       excludeDataset = c("ASP", "BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
-                         "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm"))
+                         "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm",
+                         "VicWam"))
     
      # Remove redundant files
     rm(priorRun)
@@ -1748,7 +1773,7 @@ check_time <- BeeBDC::dupeSummary(
    # try unique(check_time$dataSource)
   sourceOrder = c("CAES", "Gai", "Ecd","BMont", "BMin", "EPEL", "ASP", "KP", "EcoS", "EaCO",
                   "FSCA", "Bal", "SMC", "Lic", "Arm",
-                  "USGS", "ALA", "GBIF","SCAN","iDigBio"),
+                  "USGS", "ALA", "VicWam_Data", "GBIF","SCAN","iDigBio"),
     # Paige ordering is done using the database_id prefix, not the dataSource prefix.
   prefixOrder = c("Paige", "Dorey"),
     # Set the complexity threshold for id letter and number length
@@ -1996,7 +2021,7 @@ BeeBDC::plotFlagSummary(
   # Extra variables can be fed into forcats::fct_recode() to change names on plot
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
   ASP = "ASP", CAES = "CAES", 'BMont' = "BMont", 'BMin' = "BMin", Ecd = "Ecd",
-  Gaiarsa = "Gai", EPEL = "EPEL",
+  Gaiarsa = "Gai", EPEL = "EPEL", VicWam_Data = "VicWam_Data"
   returnPlot = TRUE
 )
 ```

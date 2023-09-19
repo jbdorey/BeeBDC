@@ -19,7 +19,7 @@ dirMaker(
   # Input the location of the workflow script RELATIVE to the RootPath
   RDoc = "BDC_repo/BeeCleaning_SciData.R") %>%
   # Add paths created by this function to the environment()
-  list2env(envir = environment())  
+  list2env(envir = parent.env(environment())) 
 # Set the working directory
 setwd(DataPath)
 # Install reenv, IF NEEDED
@@ -83,8 +83,7 @@ beeData <- readr::read_csv("/Users/jamesdorey/Desktop/Uni/My_papers/Bee_SDM_pape
   ##### 1.2 Bee taxonomy ####
 # Read in the custom taxonomy file
   # This can be used to filter to a particular taxon
-BeeTaxonomy <- readr::read_csv(paste(DiscLifePath, "/Paige_DLdf_2022-12-07.csv", sep = ""),
-                               col_types = c(flags = "c")) 
+BeeTaxonomy <- BeeBDC::beesTaxonomy()
 
 #### 2.0 Taxon example ####
   # Users could filter to a particular taxonomic group by editing the below

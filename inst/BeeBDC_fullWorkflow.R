@@ -16,49 +16,17 @@ setwd(paste0(RootPath,"/Data_acquisition_workflow"))
   # renv::init(project = paste0(RootPath,"/Data_acquisition_workflow")) 
 renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
-##### 0.2 Install packages (if needed) #####
-# Choose packages that need to be installed/loaded
-# You may need to install gdal on your computer. This can be done on mac by using
-  # Homebrew in the terminal and the command "brew install gdal"
-list.of.packages <- c("R.utils",           # To use gunzip
-                      "bdc",               # data cleaning package
-                      "tidyr",             #  Part of the tidyverse
-                      "magrittr",          # to use pipes
-                      "ggplot2",           #  Creates many easthetic plots
-                      "dplyr",             #  Part of the tidyverse
-                      "forcats",           # tidyverse for working with factors
-                      "rlist",             # Package to save lists
-                      "emld",              #  To work with .eml files
-                      "rlang",             #  Part of the tidyverse — core functions
-                      "xml2",              #  Part of the tidyverse — reads .xml files
-                      "stringr",           #  Part of the tidyverse — works with text strings
-                      "lubridate",         #  Part of the tidyverse — works with dates
-                      "tidyselect",        #  Part of the tidyverse
-                      "mgsub",             #  To perform multiple text substitutions
-                      "rvest",             # Package for interfacing with and downloading from the internet
-                      "rnaturalearth",     #  Global vector map data 
-                      "rnaturalearthdata", #  To access the above global map data
-                      "countrycode",       # Package to deal with country codes
-                      "renv",
-                      "janitor",
-                      "circlize", 
-                      "BiocManager",
-                      "paletteer",
-                      "readxl",
-                      "readr",             #  Part of the tidyverse — reads files (e.g., .csv)
-                      "cowplot",           # ggplot2 helper package
-                      "igraph",
-                      "ggspatial")        #  Makes ggplot2 create north arrows or scale bars
+# Install some packages if needed
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 
-# Install all packages from the list specified above,
-lapply(c(list.of.packages, "sf","terra", "galah"), 
-       renv::install, prompt = FALSE, character.only = TRUE)
-# Install ComplexHeatMap seperately
-BiocManager::install("ComplexHeatmap", force = FALSE)
+BiocManager::install("ComplexHeatmap")
 
 # Install BeeBDC 
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", ref = "main", 
-                        force = TRUE)
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+                          # To use the development version, do below, otherwise choose "main"
+                        ref = "devel", 
+                        force = FALSE)
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above,
@@ -74,7 +42,7 @@ BeeBDC::dirMaker(
   # Input the location of the workflow script RELATIVE to the RootPath
   RDoc = "Packages/BeeBDC_development/Workflows/BeeBDC_fullWorkflow.R") %>%
   # Add paths created by this function to the environment()
-  list2env(envir = environment())  
+  list2env(envir = parent.env(environment()))  
 
 #### 1.0 Data merge ####
 ##### 1.1 Download ALA data ####
@@ -384,14 +352,16 @@ VicWam_Data <- BeeBDC::readr_BeeBDC(dataset = "VicWam",
                                  path = paste0(DataPath, "/Additional_Datasets"),
                                  inFile = "/InputDatasets/Combined_Vic_WAM_databases.xlsx",
                                  outFile = "jbd_VicWam_Data.csv",
-                                 dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                                 dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                 sheet = "Combined")
 
 
 ##### 2.5 Merge all ####
 # Remove these spent datasets
 rm(EPEL_Data, ASP_Data, BMin_Data, BMont_Data, Ecd_Data, Gai_Data, CAES_Data, 
    # INHS_Data, MABC_Data, EcoS_Data, KP_Data,
-   GeoL_Data, EaCO_Data, FSCA_Data, SMC_Data, Bal_Data, Lic_Data, Arm_Data, Dor_Data)
+   GeoL_Data, EaCO_Data, FSCA_Data, SMC_Data, Bal_Data, Lic_Data, Arm_Data, Dor_Data,
+   VicWam_Data)
 # Read in and merge all
 db_standardized <- db_standardized %>%
   dplyr::bind_rows(
@@ -422,7 +392,9 @@ db_standardized <- db_standardized %>%
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
                            "/jbd_Arm_Data.csv"), col_types = BeeBDC::ColTypeR()),
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
-                           "/jbd_Dor_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
+                           "/jbd_Dor_Data.csv"), col_types = BeeBDC::ColTypeR()),
+    readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                           "/jbd_VicWam_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
   # END bind_rows
   suppressWarnings(classes = "warning") # End suppressWarnings — due to col_types
 
@@ -451,7 +423,8 @@ db_standardized <- idMatchR(
                           "decimalLatitude","decimalLongitude")),
   # You can exclude datasets from prior by matching their prefixs — before first underscore:
   excludeDataset = c("ASP", "BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
-                     "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm"))
+                     "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm",
+                     "VicWam"))
 
 # Remove redundant files
 rm(priorRun)
@@ -563,7 +536,6 @@ suppressWarnings(
                                    # Start row
                                    chunkStart = 1,
                                    path = OutPath_Intermediate,
-                                   append = FALSE,
                                    scale = "medium",
                                    mc.cores = 4),
   classes = "warning")
@@ -784,14 +756,15 @@ rm(parse_names)
 
 
 ##### 4.2 Harmonise taxonomy ####
-# Read in the custom taxonomy file
-data(beesTaxonomy, package = "BeeBDC")
+# Download the custom taxonomy file
+beesTaxonomy <- BeeBDC::beesTaxonomy()
+
 
 # Harmonise the names in the occurrence tibble
 #   # This flags the occurrences without a matched name and matches names to their correct name 
   # according to DiscoverLife
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
-                       taxonomy = BeeBDC::beesTaxonomy, # The formatted taxonomy file
+                       taxonomy = beesTaxonomy, # The formatted taxonomy file
                        data = database,
                        speciesColumn = "scientificName",
                        stepSize = 1000000,
@@ -907,6 +880,12 @@ check_space %>%
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
 
+if(!exists("check_space")){
+  check_space <- readr::read_csv(paste(OutPath_Intermediate, "03_space_inter_database.csv",
+                                       sep = "/"),
+                                 col_types = BeeBDC::ColTypeR())
+}
+
 
 ##### 5.3 Diagonal + grid ####
 # Finds sequential numbers that could be fill-down errors in lat and long. 
@@ -980,8 +959,8 @@ check_space <- BeeBDC::coordUncerFlagR(data = check_space,
                                threshold = 1000)
 
 ##### 5.5 Country checklist ####
-# Read in the country-level checklist
-data("beesChecklist", package = "BeeBDC")
+# Download the country-level checklist
+beesChecklist <- BeeBDC::beesChecklist()
 
 check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                         data = check_space,
@@ -991,7 +970,7 @@ check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
                           # Smaller numbers will result in much longer calculation times. 
                           # We have not attempted a scale of 10.
                         scale = 50,
-                        mc.cores = 4)
+                        mc.cores = 1)
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%
@@ -1208,7 +1187,7 @@ check_time <- BeeBDC::dupeSummary(
   # try unique(check_time$dataSource)
   sourceOrder = c("CAES", "Gai", "Ecd","BMont", "BMin", "EPEL", "ASP", "KP", "EcoS", "EaCO",
                   "FSCA", "Bal", "SMC", "Lic", "Arm",
-                  "USGS", "ALA", "GBIF","SCAN","iDigBio"),
+                  "USGS", "ALA", "VicWam", "GBIF","SCAN","iDigBio"),
     # Paige ordering is done using the database_id prefix, not the dataSource prefix.
   prefixOrder = c("Paige", "Dorey"),
     # Set the complexity threshold for id letter and number length
@@ -1364,7 +1343,7 @@ BeeBDC::dupePlotR(
   # Extra variables can be fed into forcats::fct_recode() to change names on plot
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
   ASP = "ASP", CAES = "CAES", 'BMont' = "BMont", 'BMin' = "BMin", Ecd = "Ecd",
-  Gaiarsa = "Gai", EPEL = "EPEL"
+  Gaiarsa = "Gai", EPEL = "EPEL", VicWam = "VicWam"
 )
 
 
@@ -1396,7 +1375,7 @@ BeeBDC::plotFlagSummary(
   # Extra variables can be fed into forcats::fct_recode() to change names on plot
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
   ASP = "ASP", CAES = "CAES", 'BMont' = "BMont", 'BMin' = "BMin", Ecd = "Ecd",
-  Gaiarsa = "Gai", EPEL = "EPEL"
+  Gaiarsa = "Gai", EPEL = "EPEL", VicWam = "VicWam"
 )
 
 

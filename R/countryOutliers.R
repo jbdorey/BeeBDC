@@ -229,7 +229,7 @@ points_extract = data %>%
     # Combine the lists of tibbles
     dplyr::bind_rows() 
   
-  if(nrow(points_failed > 0)){
+  if(nrow(points_failed) > 0){
   # Re-merge good with failed
   points_extract <- points_extract %>%
     sf::st_drop_geometry() %>%
