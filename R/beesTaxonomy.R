@@ -84,7 +84,7 @@
 #'
 #'
 
-beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42320595?private_link=bce1f92848c2ced313ee",
+beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42401154?private_link=bce1f92848c2ced313ee",
                          ...){
   destfile <- taxonomy <- attempt <- NULL
 

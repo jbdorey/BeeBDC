@@ -29,11 +29,11 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey",
                         force = TRUE)
 
 ##### 0.3 Load packages ####
+# Save a snapshot of the environment
+renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"))
 # Load all packages from the list specified above,
 lapply(c("ComplexHeatmap", "BeeBDC", "magrittr"), 
        library, character.only = TRUE)
-# Save a snapshot of the environment
-renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 
 # Create file paths and prepare for what's to come

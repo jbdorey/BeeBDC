@@ -27,16 +27,16 @@ beesChecklist <- readr::read_csv(paste0(dataPath, "/CheckL_combined2023-08-21.cs
   dplyr::select(!c(infraspecificEpithet))
 base::saveRDS(beesChecklist, 
               file = paste0("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_development/",
-                            "beesChecklist.Rda"),
+                            "beesChecklist_", Sys.Date(), ".Rda"),
               compress = "xz")
 
   # TAXONOMY
-beesTaxonomy <- readr::read_csv(paste0(dataPath, "/TaxonomyComplete_2023-09-18.csv")) 
+beesTaxonomy <- readr::read_csv(paste0(dataPath, 
+        "/restrictedScripts/TaxonomyFiles/TaxonomyComplete_2023-09-20.csv")) 
 base::saveRDS(beesTaxonomy, 
               file = paste0("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_development/",
-                            "beesTaxonomy.Rda"),
+                            "beesTaxonomy_", Sys.Date(), ".Rda"),
               compress = "xz")
-
 
 
   ##### 2.2 Test datasets ####

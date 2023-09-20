@@ -1310,7 +1310,7 @@ unlink(rownames(testDataPath))
       testthat::expect_equal(resultsT, 37)
     })
     testthat::test_that("readr_VicWam results columns FALSE", {
-      testthat::expect_equal(resultsF, 61)
+      testthat::expect_equal(resultsF, 62)
     })
     testthat::test_that("readr_VicWam correct number of rows", {
       testthat::expect_equal(nrow(testOut1), nrow(testData))
