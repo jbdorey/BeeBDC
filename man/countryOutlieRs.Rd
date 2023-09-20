@@ -36,7 +36,8 @@ are higher resolution. WARNING: This function is tested on 110 and 50.}
 \item{mc.cores}{Numeric. If > 1, the function will run in parallel
 using mclapply using the number of cores specified. If = 1 then it will be run using a serial
 loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
-be aware that each thread can use large chunks of memory.
+be aware that each thread can use large chunks of memory. If the cores throw issues, consider
+setting mc.cores to 1.
 Default = 1.}
 }
 \value{

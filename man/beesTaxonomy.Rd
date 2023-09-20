@@ -6,7 +6,7 @@
 \usage{
 beesTaxonomy(
   URL =
-    "https://figshare.com/ndownloader/files/42320595?private_link=bce1f92848c2ced313ee",
+    "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee",
   ...
 )
 }
