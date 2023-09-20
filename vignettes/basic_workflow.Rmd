@@ -201,11 +201,11 @@ If you want to filter the dataset to a particular taxon of interest, you can do 
 ```{r 2.0}
 # Load some package data — the taxonomy and a flagged example dataset
   # Download the full beesTaxonomy file
-beesTaxonomy <- BeeBDC::beesTaxonomy()
+taxonomyFile <- BeeBDC::beesTaxonomy()
   # Load the example beesFlagged dataset
 beesFlagged <- BeeBDC::beesFlagged
 
-selectedGenera <- beesTaxonomy %>%
+selectedGenera <- taxonomyFile %>%
     # Select only tribe anthophorini (for example)
   dplyr::filter(tolower(tribe) == tolower("anthophorini")) %>%
   distinct(genus)

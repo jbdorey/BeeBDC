@@ -28,7 +28,7 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey",
                         ref = "devel", 
                         force = TRUE)
 
-##### 0.3 Load packages ####
+##### 0.2 Load packages ####
 # Save a snapshot of the environment
 renv::snapshot(project = paste0(RootPath,"/Data_acquisition_workflow"))
 # Load all packages from the list specified above,

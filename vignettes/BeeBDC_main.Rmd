@@ -1190,7 +1190,7 @@ rm(parse_names)
 Download the custom taxonomy file from the BeeBDC package and [Discover Life](https://www.discoverlife.org) website.
 
 ```{r 4.2, collapse = TRUE, eval = TRUE}
-beesTaxonomy <- BeeBDC::beesTaxonomy()
+taxonomyFile <- BeeBDC::beesTaxonomy()
 ```
 
 
@@ -1199,7 +1199,7 @@ Harmonise the names in the occurrence tibble. This flags the occurrences without
 
 ```{r 4.2ii, collapse = TRUE}
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
-                       taxonomy = beesTaxonomy, # The formatted taxonomy file
+                       taxonomy = taxonomyFile, # The formatted taxonomy file
                        data = database,
                        mc.cores = 1)
 ```
@@ -1208,7 +1208,7 @@ database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the o
 You don't need this file any more...
 
 ```{r 4.2iii, collapse = TRUE}
-rm(beesTaxonomy)
+rm(taxonomyFile)
 ```
 
 

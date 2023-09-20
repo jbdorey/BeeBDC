@@ -29,7 +29,7 @@ testthat::test_that("testTaxonomy expected class", {
 
 
 # load in the full dataset
-beesTaxonomy <- BeeBDC::beesTaxonomy()
+taxonomyFile <- BeeBDC::beesTaxonomy()
 
 if(!is.null(beesTaxonomy)){
 # Test the expected results
