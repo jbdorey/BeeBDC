@@ -2021,7 +2021,7 @@ BeeBDC::plotFlagSummary(
   # Extra variables can be fed into forcats::fct_recode() to change names on plot
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
   ASP = "ASP", CAES = "CAES", 'BMont' = "BMont", 'BMin' = "BMin", Ecd = "Ecd",
-  Gaiarsa = "Gai", EPEL = "EPEL", VicWam_Data = "VicWam_Data"
+  Gaiarsa = "Gai", EPEL = "EPEL", VicWam_Data = "VicWam_Data",
   returnPlot = TRUE
 )
 ```

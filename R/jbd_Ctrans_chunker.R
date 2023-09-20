@@ -191,9 +191,9 @@ jbd_Ctrans_chunker <- function(
     # user output
       #### 1.3 User text ####
     # Print use output
-    writeLines(paste(" - Finished chunk ", i, " with ", nChunks,
-                     " remaining",
-                     ". ","Records examined: ", 
+    writeLines(paste(" - Finished chunk ", i, " of ", nChunks,
+                     ". ",
+                     "Total records examined: ", 
                      format(nrow(Tranps_tibble), big.mark=",",scientific=FALSE),
                      sep = "") )
     # Save as a csv after each iteration

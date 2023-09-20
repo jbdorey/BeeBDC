@@ -2690,7 +2690,8 @@ readr_VicWam <- function(path = NULL,
     coordinateUncertaintyInMeters <- DTFR <- day <- month <- year <- eventDate <- eventDate2 <- 
     DTTO <- dayTO <- monthTO <- yearTO <- eventDateTO <- eventDateTO2 <- LABELFAMILY <- 
     LABELGENUS <- LABELSPECIES <- associatedTaxa <- stateProvince <- country <- dataSource <- 
-    license <- NULL
+    license <- decimalLatitude <- decimalLongitude <- lengthTest <- decimalLatitude2 <- 
+    decimalLongitude2 <- NULL
   
   #### 28.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
