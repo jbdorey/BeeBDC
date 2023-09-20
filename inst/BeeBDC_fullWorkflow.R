@@ -759,7 +759,7 @@ rm(parse_names)
 
 ##### 4.2 Harmonise taxonomy ####
 # Download the custom taxonomy file
-beesTaxonomy <- BeeBDC::beesTaxonomy()
+beesTaxonomy <- BeeBDC::beesTaxonomy(URL = "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee")
 
 
 # Harmonise the names in the occurrence tibble
