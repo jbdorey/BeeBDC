@@ -2869,7 +2869,105 @@ readr_VicWam <- function(path = NULL,
     dplyr::mutate(
       datasetName = "VicWam",
       datasetID = "VicWam"
-    )
+    ) %>%
+      # Format some lats and lons to decimal degrees
+    # first, squish out extra spaces
+    dplyr::mutate(
+      decimalLatitude = decimalLatitude %>% stringr::str_squish(),
+      decimalLongitude = decimalLongitude %>% stringr::str_squish(),
+    ) %>%
+      # make a column to test for the lat/lon length
+    dplyr::mutate(lengthTest = dplyr::if_else(decimalLatitude %>% stringr::str_detect("S"),
+                                              dplyr::if_else(stringr::str_count(decimalLatitude,
+                                                                                "\\s") > 2,
+                                                             "Long", "Short"),
+                                              "NA"),
+                  .before = decimalLatitude) %>%
+    # Convert to DD
+    # Long coordinates
+    dplyr::mutate(decimalLatitude2 = dplyr::if_else(decimalLatitude %>% stringr::str_detect("S") &
+                                                      lengthTest == "Long",
+                                                    stringr::str_c(stringr::str_extract(decimalLatitude, "^[0-9]{2}") %>%
+                                                                     as.numeric() +
+                                                                     (stringr::str_extract(decimalLatitude,
+                                                                                           "\\s[0-9]{2}\\s") %>% 
+                                                                        as.numeric() / 60) +
+                                                                     (stringr::str_extract(decimalLatitude, 
+                                                                                           "[0-9]{2}\\sS") %>% 
+                                                                        stringr::str_remove("S") %>% 
+                                                                        as.numeric() / 3600)) %>%
+                                                      as.character(),
+                                                    decimalLatitude),
+                  decimalLongitude2 = dplyr::if_else(decimalLongitude %>% stringr::str_detect("E") &
+                                                       lengthTest == "Long",
+                                                     stringr::str_c(stringr::str_extract(decimalLongitude, "^[0-9]+") %>%
+                                                                      as.numeric() +
+                                                                      (stringr::str_extract(decimalLongitude, 
+                                                                                            "\\s[0-9]{2}\\s") %>%
+                                                                         as.numeric() / 60) +
+                                                                      (stringr::str_extract(decimalLongitude, 
+                                                                                            "\\s[0-9]+\\sE") %>% 
+                                                                         stringr::str_remove("E") %>% 
+                                                                         as.numeric() / 3600)) %>%
+                                                       as.character(),
+                                                     decimalLongitude),
+                  .after = decimalLatitude) %>%
+    # Short coordinates
+    dplyr::mutate(decimalLatitude2 = dplyr::if_else(decimalLatitude %>% stringr::str_detect("S") &
+                                                      lengthTest == "Short",
+                                                    stringr::str_c(stringr::str_extract(decimalLatitude, "^[0-9]{2}") %>%
+                                                                     as.numeric() +
+                                                                     (stringr::str_extract(decimalLatitude,
+                                                                                           "\\s[0-9]{2}\\sS") %>% 
+                                                                        stringr::str_remove("S") %>%
+                                                                        as.numeric() / 60) ) %>%
+                                                      as.character(),
+                                                    decimalLatitude2) %>% as.numeric(),
+                  decimalLongitude2 = dplyr::if_else(decimalLongitude %>% stringr::str_detect("E") &
+                                                       lengthTest == "Short",
+                                                     stringr::str_c(stringr::str_extract(decimalLongitude, "^[0-9]+") %>%
+                                                                      as.numeric() +
+                                                                      (stringr::str_extract(decimalLongitude, 
+                                                                                            "\\s[0-9]{2}+\\sE") %>%
+                                                                         stringr::str_remove("E") %>%
+                                                                         as.numeric() / 60) ) %>%
+                                                       as.character(),
+                                                     decimalLongitude2) %>% as.numeric(),
+                  .after = decimalLatitude) %>%
+      # Change lat/lon to correct accuracy
+    dplyr::mutate(
+      decimalLatitude2 = dplyr::if_else(lengthTest == "Long",
+                                        round(decimalLatitude2, digits = 2),
+                                        dplyr::if_else(lengthTest == "Short",
+                                                       round(decimalLatitude2, digits = 1),
+                                                       decimalLatitude2)),
+      decimalLongitude2 = dplyr::if_else(lengthTest == "Long",
+                                         round(decimalLongitude2, digits = 2),
+                                         dplyr::if_else(lengthTest == "Short",
+                                                        round(decimalLongitude2, digits = 1),
+                                                        decimalLongitude2))
+    ) %>%
+      # Add coordinateUncertaintyInMeters for these as well based on the length of coordinates
+    dplyr::mutate(
+      coordinateUncertaintyInMeters = coordinateUncertaintyInMeters %>% as.numeric(),
+      coordinateUncertaintyInMeters = dplyr::if_else(
+      is.na(coordinateUncertaintyInMeters),
+      dplyr::if_else(lengthTest == "Long", 1000, 10000),
+      coordinateUncertaintyInMeters
+    )) %>%
+      # Replace the lat/lon columns with the working columns
+    dplyr::select(!c("decimalLongitude", "decimalLatitude")) %>%
+    dplyr::rename(decimalLongitude = "decimalLongitude2",
+                  decimalLatitude = "decimalLatitude2") %>%
+    # All of Australia is in the southern hemisphere, correct these latitudes to negative
+    dplyr::mutate(decimalLatitude = dplyr::if_else(
+      stateProvince %in% c("Australian Capital Territory", "New South Wales",
+                           "Northern Territory", "Queensland", "South Australia",
+                           "Tasmania", "Victoria", "Western Australia", ""),
+      abs(decimalLatitude) * - 1,
+      decimalLatitude)) %>%
+      # Do the same for longitude but hte entire dataset is in the eastern hemisphere
+    dplyr::mutate(decimalLongitude = abs(decimalLongitude))
   
   #### 28.3 Out ####
   # Save the dataset

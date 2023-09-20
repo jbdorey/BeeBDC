@@ -26,7 +26,7 @@ BiocManager::install("ComplexHeatmap")
 remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
                           # To use the development version, do below, otherwise choose "main"
                         ref = "devel", 
-                        force = FALSE)
+                        force = TRUE)
 
 ##### 0.3 Load packages ####
 # Load all packages from the list specified above,
@@ -492,6 +492,8 @@ check_pf <- bdc::bdc_basisOfRecords_notStandard(
     "Preservedspecimen",
     "PreservedSpecimen",
     "preservedspecimen",
+    "pinned",
+    "carded/pointed",
     "S",
     "Specimen",
     "Taxon",
@@ -976,8 +978,8 @@ check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%
   dplyr::select(database_id, scientificName, country) %>%
   dplyr::group_by(scientificName) %>% 
-  dplyr::mutate(count_scientificName = n()) %>%
-  distinct(scientificName, country, .keep_all = TRUE) %>% 
+  dplyr::mutate(count_scientificName = dplyr::n()) %>%
+  dplyr::distinct(scientificName, country, .keep_all = TRUE) %>% 
   readr::write_excel_csv(paste(OutPath_Intermediate, "03_space_failedCountryChecklist.csv",
                          sep = "/"))
 

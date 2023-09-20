@@ -21,7 +21,8 @@
 #' @param mc.cores Numeric. If > 1, the function will run in parallel
 #' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
 #' loop. NOTE: Windows machines must use a value of 1 (see ?parallel::mclapply). Additionally,
-#' be aware that each thread can use large chunks of memory.
+#' be aware that each thread can use large chunks of memory. If the cores throw issues, consider
+#' setting mc.cores to 1.
 #'  Default = 1.
 #'
 #' @return The input data with a new column, .countryOutlier. There are three possible values for 
