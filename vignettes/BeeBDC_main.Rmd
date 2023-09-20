@@ -1773,7 +1773,7 @@ check_time <- BeeBDC::dupeSummary(
    # try unique(check_time$dataSource)
   sourceOrder = c("CAES", "Gai", "Ecd","BMont", "BMin", "EPEL", "ASP", "KP", "EcoS", "EaCO",
                   "FSCA", "Bal", "SMC", "Lic", "Arm",
-                  "USGS", "ALA", "VicWam_Data", "GBIF","SCAN","iDigBio"),
+                  "USGS", "ALA", "VicWam", "GBIF","SCAN","iDigBio"),
     # Paige ordering is done using the database_id prefix, not the dataSource prefix.
   prefixOrder = c("Paige", "Dorey"),
     # Set the complexity threshold for id letter and number length
@@ -2021,7 +2021,7 @@ BeeBDC::plotFlagSummary(
   # Extra variables can be fed into forcats::fct_recode() to change names on plot
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
   ASP = "ASP", CAES = "CAES", 'BMont' = "BMont", 'BMin' = "BMin", Ecd = "Ecd",
-  Gaiarsa = "Gai", EPEL = "EPEL", VicWam_Data = "VicWam_Data",
+  Gaiarsa = "Gai", EPEL = "EPEL", VicWam = "VicWam",
   returnPlot = TRUE
 )
 ```
