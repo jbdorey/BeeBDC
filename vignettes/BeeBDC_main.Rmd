@@ -74,7 +74,7 @@ if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
 ```{r global-options, include=FALSE}
 knitr::opts_chunk$set(error = TRUE, 
                       eval = TRUE, 
-                      tidy = TRUE, 
+                      tidy = FALSE, 
                       warning = FALSE,
                       root.dir = normalizePath(tempdir()))
 ```
