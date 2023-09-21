@@ -1196,6 +1196,9 @@ taxonomyFile <- BeeBDC::beesTaxonomy()
   # load in the small test dataset i nthe background
 system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
   load()
+  # Rename the file
+taxonomyFile <- testTaxonomy
+rm(testTaxonomy)
 ```
 
 Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](https://www.discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
@@ -1458,18 +1461,21 @@ This step identifies mismatches between the [Discover Life](https://www.discover
 Download the country-level checklist.
 
 ```{r 5.5, collapse = TRUE, eval = FALSE}
-beesChecklist <- BeeBDC::beesChecklist()
+checklistFile <- BeeBDC::beesChecklist()
 ```
 
 ```{r 5.5secret, collapse = TRUE, eval = TRUE}
   # load in the small test dataset i nthe background
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
   load()
+  # Rename the file
+taxonomyFile <- testChecklist
+rm(testChecklist)
 ```
 
 
 ```{r 5.5ii, collapse = TRUE}
-check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
+check_space <- BeeBDC::countryOutlieRs(checklist = checklistFile,
                         data = check_space,
                         keepAdjacentCountry = TRUE,
                         pointBuffer = 0.05,
