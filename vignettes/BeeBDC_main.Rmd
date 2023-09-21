@@ -1458,7 +1458,7 @@ This step identifies mismatches between the [Discover Life](https://www.discover
 Download the country-level checklist.
 
 ```{r 5.5, collapse = TRUE, eval = FALSE}
-beesChecklist <- BeeBDC::beesChecklist(mode = 'wb',method = 'curl', extra = '-k')
+beesChecklist <- BeeBDC::beesChecklist()
 ```
 
 ```{r 5.5secret, collapse = TRUE, eval = TRUE}
