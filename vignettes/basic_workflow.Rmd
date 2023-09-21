@@ -205,7 +205,7 @@ taxonomyFile <- BeeBDC::beesTaxonomy()
 ```
 
 ```{r 2.0secret, collapse = TRUE, eval = TRUE}
-  # load in the small test dataset i nthe background
+  # load in the small test dataset in the background
 system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
   load()
   # Rename the file

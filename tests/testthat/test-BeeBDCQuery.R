@@ -4,15 +4,26 @@ requireNamespace("lubridate")
 requireNamespace("mgsub")
 
 # Download the datasets
-beesTaxonomy <- BeeBDC::beesTaxonomy()
-beesChecklist <- BeeBDC::beesChecklist()
+# load in the small test dataset in the background
+system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
+  load()
+# Rename the file
+beesTaxonomy <- testTaxonomy
+rm(testTaxonomy)
+
+# load in the small test dataset in the background
+system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
+  load()
+# Rename the file
+beesChecklist <- testChecklist
+rm(testChecklist)
 
 
 if(!is.null(beesTaxonomy) & !is.null(beesChecklist)){
   # Run example queries
 # Single entry example
  testQuerySing <- BeeBDCQuery(
-   beeName = "Homalictus fijiensis",
+   beeName = "Nomia maneei",
    searchChecklist = TRUE,
    printAllSynonyms = TRUE,
    beesTaxonomy = beesTaxonomy,
@@ -20,8 +31,8 @@ if(!is.null(beesTaxonomy) & !is.null(beesChecklist)){
  
    # Multiple entry example
  testQueryMult <- BeeBDCQuery(
-   beeName = c("Homalictus fijiensis", "Homalictus urbanus",
-   "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
+   beeName = c("Nomia maneei", "Bombus hypnorum",
+   "Ceratina nanula Cockerell, 1897"),
    searchChecklist = TRUE,
    printAllSynonyms = TRUE,
    beesTaxonomy = beesTaxonomy,
@@ -29,8 +40,8 @@ if(!is.null(beesTaxonomy) & !is.null(beesChecklist)){
  
   # Simple without checklist
  testQuerySimple <- BeeBDCQuery(
-   beeName = c("Homalictus fijiensis", "Homalictus urbanus",
-               "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
+   beeName = c("Nomia maneei", "Bombus hypnorum",
+               "Ceratina nanula Cockerell, 1897"),
    searchChecklist = FALSE,
    printAllSynonyms = TRUE,
    beesTaxonomy = beesTaxonomy,
