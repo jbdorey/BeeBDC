@@ -1189,10 +1189,14 @@ rm(parse_names)
 
 Download the custom taxonomy file from the BeeBDC package and [Discover Life](https://www.discoverlife.org) website.
 
-```{r 4.2, collapse = TRUE, eval = TRUE}
-taxonomyFile <- BeeBDC::beesTaxonomy(mode = 'wb', method = 'curl', extra = '-k')
+```{r 4.2, collapse = TRUE, eval = FALSE}
+taxonomyFile <- BeeBDC::beesTaxonomy()
 ```
-
+```{r 4.2secret, collapse = TRUE, eval = TRUE}
+  # load in the small test dataset i nthe background
+system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
+  load()
+```
 
 Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](https://www.discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
 
@@ -1453,8 +1457,14 @@ This step identifies mismatches between the [Discover Life](https://www.discover
 
 Download the country-level checklist.
 
-```{r 5.5, collapse = TRUE, eval = TRUE}
+```{r 5.5, collapse = TRUE, eval = FALSE}
 beesChecklist <- BeeBDC::beesChecklist(mode = 'wb',method = 'curl', extra = '-k')
+```
+
+```{r 5.5secret, collapse = TRUE, eval = TRUE}
+  # load in the small test dataset i nthe background
+system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
+  load()
 ```
 
 
