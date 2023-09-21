@@ -929,7 +929,7 @@ unlink(rownames(testDataPath))
     readr::write_excel_csv(testData, paste0(tempdir(), "/testData.csv"))
     
     testOut1 <- BeeBDC::readr_BeeBDC(dataset = "Dor",
-                                 path = paste0(tempdir()),
+                                 path = tempdir(),
                                  inFile = "/testData.csv",
                                  outFile = "testDataOut.csv",
                                  dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
