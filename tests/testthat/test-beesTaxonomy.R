@@ -27,7 +27,7 @@ testthat::test_that("testTaxonomy expected class", {
 
   # TEST the full data
 
-
+taxonomyFile <- NULL
 # load in the full dataset
 taxonomyFile <- BeeBDC::beesTaxonomy()
 

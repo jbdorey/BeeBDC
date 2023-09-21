@@ -21,7 +21,7 @@ testthat::test_that("testChecklist expected class", {
 
 # TEST the full data
 
-
+beesChecklist <- NULL
 # load in the full dataset
 beesChecklist <- BeeBDC::beesChecklist()
 

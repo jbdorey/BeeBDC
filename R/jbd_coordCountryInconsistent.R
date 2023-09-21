@@ -159,8 +159,9 @@ sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
 failed_extract <- country_extracted %>%
     # Find the mis-matched countries
   dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                                   tolower(sovereignt), tolower(name),
-                                         tolower(country_suggested))) %>%
+                                                   tolower(sovereignt), tolower(name))) %>%
+  dplyr::filter(!tolower(country_suggested) %in% c(tolower(name_long), tolower(admin),
+                                                   tolower(sovereignt), tolower(name))) %>%
   dplyr::filter(!tolower(iso_a2) %in% c(tolower(country), tolower(countryCode))) %>%
     # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
@@ -175,8 +176,9 @@ failed_extract$country <-
 failed_extract <- failed_extract %>%
   # Find the mis-matched countries
   dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                         tolower(sovereignt), tolower(name),
-                                         tolower(country_suggested))) %>%
+                                                   tolower(sovereignt), tolower(name))) %>%
+  dplyr::filter(!tolower(country_suggested) %in% c(tolower(name_long), tolower(admin),
+                                                   tolower(sovereignt), tolower(name))) %>%
   dplyr::filter(!tolower(iso_a2) %in% c(tolower(country), tolower(countryCode))) %>%
   # Remove NA countries
   dplyr::filter(!is.na(country)) %>%
@@ -215,18 +217,20 @@ suppressWarnings({
     # Find MATCHES #
   # With country
 fExtr_1 <- failed_extract_2 %>% 
-  dplyr::filter(tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                        tolower(sovereignt), tolower(name),
-                                        tolower(country_suggested)))
+  dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
+                                         tolower(sovereignt), tolower(name))) %>%
+  dplyr::filter(!tolower(country_suggested) %in% c(tolower(name_long), tolower(admin),
+                                                   tolower(sovereignt), tolower(name)))
   # With iso_a2
 fExtr_2 <- failed_extract_2 %>% 
   dplyr::filter(tolower(iso_a2) %in% c(tolower(country), tolower(countryCode)))
 
 ids2keep <- dplyr::bind_rows(fExtr_1, fExtr_2) %>%
   # Find the mis-matched countries
-  dplyr::filter(tolower(country) %in% c(tolower(name_long), tolower(admin),
-                                        tolower(sovereignt), tolower(name),
-                                        tolower(country_suggested))) %>%
+  dplyr::filter(!tolower(country) %in% c(tolower(name_long), tolower(admin),
+                                         tolower(sovereignt), tolower(name))) %>%
+  dplyr::filter(!tolower(country_suggested) %in% c(tolower(name_long), tolower(admin),
+                                                   tolower(sovereignt), tolower(name))) %>%
   dplyr::filter(tolower(iso_a2) %in% c(tolower(country), tolower(countryCode))) %>%
     # Keep only the database id
   dplyr::select(database_id)
