@@ -1190,7 +1190,7 @@ rm(parse_names)
 Download the custom taxonomy file from the BeeBDC package and [Discover Life](https://www.discoverlife.org) website.
 
 ```{r 4.2, collapse = TRUE, eval = TRUE}
-taxonomyFile <- BeeBDC::beesTaxonomy()
+taxonomyFile <- BeeBDC::beesTaxonomy(extra = '-k')
 ```
 
 
@@ -1454,7 +1454,7 @@ This step identifies mismatches between the [Discover Life](https://www.discover
 Download the country-level checklist.
 
 ```{r 5.5, collapse = TRUE, eval = TRUE}
-beesChecklist <- BeeBDC::beesChecklist()
+beesChecklist <- BeeBDC::beesChecklist(extra = '-k')
 ```
 
 
