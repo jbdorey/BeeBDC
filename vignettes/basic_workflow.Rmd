@@ -198,7 +198,7 @@ lapply(c("ComplexHeatmap", "magrittr"),
 
 If you want to filter the dataset to a particular taxon of interest, you can do so quite easily using **dplyr** from the **tidyverse** group of packages. To filter to a selected bee genus, in our case Anthophorini...
 
-```{r 2.0 eval = FALSE}
+```{r 2.0, eval = FALSE}
 # Load some package data — the taxonomy and a flagged example dataset
   # Download the full beesTaxonomy file
 taxonomyFile <- BeeBDC::beesTaxonomy()
