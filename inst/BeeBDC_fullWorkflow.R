@@ -20,7 +20,7 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 
-BiocManager::install("ComplexHeatmap")
+BiocManager::install("ComplexHeatmap", force = FALSE)
 
 # Install BeeBDC 
 remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
@@ -956,7 +956,7 @@ rm(gridded_datasets)
 
 ##### 5.4 Uncertainty ####
 # Flag records that exceed a coordinateUncertaintyInMeters threshold
-check_space <- BeeBDC::coordUncerFlagR(data = check_space,
+check_time <- BeeBDC::coordUncerFlagR(data = check_time,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 

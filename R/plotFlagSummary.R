@@ -329,7 +329,7 @@ plotFlagSummary <- function(
       (PointMap <- ggplot2::ggplot(data = WorldMap_layer ) +
           # CORE plotting of map and data
           # Plot and colour the terrestrial base map
-          ggplot2::geom_sf(aes(fill = NULL), size = 0.15)+ 
+          ggplot2::geom_sf(ggplot2::aes(fill = NULL), size = 0.15)+ 
           # plot point data
             # POINTS IF IS NULL; i.e. DON'T jitter
           {if(is.null(jitterValue))
