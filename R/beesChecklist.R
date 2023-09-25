@@ -75,13 +75,12 @@
 #'\dontrun{
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
-
-  # Set the number of attempts
-nAttempts = 5
-
 beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598?private_link=bce1f92848c2ced313ee",
                           ...){
-  destfile <- checklist <- attempt <- NULL
+  destfile <- checklist <- attempt <- nAttempts <- NULL
+  
+  # Set the number of attempts
+  nAttempts = 5
   
   # Run a code to download the data and deal with potential internet issues
   checklist <- NULL                                 

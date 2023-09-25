@@ -83,10 +83,9 @@
 #'}
 #'
 #'
-
 beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee",
                          ...){
-  destfile <- taxonomy <- attempt <- NULL
+  destfile <- taxonomy <- attempt <- nAttempts <- NULL
 
   # Set the number of attempts
   nAttempts = 5
