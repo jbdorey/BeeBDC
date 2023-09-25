@@ -90,6 +90,15 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
   # Set the number of attempts
   nAttempts = 5
   
+  # Set up the error message function
+  error_func <- function(e){
+    message(paste("Download attempt failed..."))
+  }
+  error_funcFile <- function(e){
+    message(paste("Could not read download..."))
+  }
+  
+  
     # Run a code to download the data and deal with potential internet issues
   taxonomy <- NULL                                 
   attempt <- 1
@@ -99,12 +108,13 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
     if(attempt < nAttempts){
       
     # Download the file to the outPath 
-    try(utils::download.file(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
-        silent = TRUE)
+    tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
+        error = error_func, warning = error_func)
     # Load the file from the outPath
-    try(
+      tryCatch(
     taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
-    silent = TRUE)
+    error = error_funcFile, warning = error_funcFile)
+      
     } # END if
     
       # Count the next attempt
