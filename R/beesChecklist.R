@@ -77,7 +77,7 @@
 #'}
 beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598?private_link=bce1f92848c2ced313ee",
                           ...){
-  destfile <- checklist <- attempt <- nAttempts <- NULL
+  destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   
   # Set the number of attempts
   nAttempts = 5
