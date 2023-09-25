@@ -241,6 +241,9 @@ if(onlySummary == FALSE){
 old <- options()         # code line i 
 on.exit(options(old))      # code line i+1 
 
+# Ensure that there are no NA entries in the species list
+speciesList <- speciesList[complete.cases(speciesList)]
+
 options(encoding = "UTF-8")
 
 data <- data %>% mutate(across(where(is.character), 
