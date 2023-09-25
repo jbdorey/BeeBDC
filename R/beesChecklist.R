@@ -76,6 +76,8 @@
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
 
+  # Set the number of attempts
+nAttempts = 5
 
 beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598?private_link=bce1f92848c2ced313ee",
                           ...){
@@ -83,9 +85,11 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
   
   # Run a code to download the data and deal with potential internet issues
   checklist <- NULL                                 
-  attempt <- 0 
+  attempt <- 1 
   suppressWarnings(
-    while( is.null(checklist) && attempt <= 3) {    
+    while( is.null(checklist) && attempt <= nAttempts) {    
+        # Don't attempt for the last attempt
+      if(attempt < nAttempts){
       # Download the file
       try(utils::download.file(URL, destfile = paste0(tempdir(), "/beesChecklist.Rda")),
           silent = TRUE)
@@ -93,13 +97,17 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
       try(
         checklist <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda")),
         silent = TRUE)
+      } # END if
+
       
       # Count the next attempt
       attempt <- attempt + 1       
+      if(attempt < nAttempts){
       # Wait one second before the next request 
       if(attempt > 1){Sys.sleep(1)            
-        print( paste("Attempt: ", attempt, " of 4"))}    # Inform user of number of attempts
-    } 
+        print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
+      } # END IF #2
+    } # END while 
   )
   
   if(is.null(checklist)){

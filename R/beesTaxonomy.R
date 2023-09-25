@@ -88,11 +88,17 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
                          ...){
   destfile <- taxonomy <- attempt <- NULL
 
+  # Set the number of attempts
+  nAttempts = 5
+  
     # Run a code to download the data and deal with potential internet issues
   taxonomy <- NULL                                 
-  attempt <- 0 
+  attempt <- 1
   suppressWarnings(
-  while( is.null(taxonomy) && attempt <= 3) {    
+  while( is.null(taxonomy) && attempt <= nAttempts) {   
+    # Don't attempt for the last attempt
+    if(attempt < nAttempts){
+      
     # Download the file to the outPath 
     try(utils::download.file(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
         silent = TRUE)
@@ -100,13 +106,16 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
     try(
     taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
     silent = TRUE)
+    } # END if
     
       # Count the next attempt
-    attempt <- attempt + 1       
+    attempt <- attempt + 1   
+    if(attempt < nAttempts){
       # Wait one second before the next request 
     if(attempt > 1){Sys.sleep(1)            
-      print( paste("Attempt: ", attempt, " of 4"))}    # Inform user of number of attempts
-  } 
+      print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
+    } # END IF #2
+  } # END while
   )
   
   if(is.null(taxonomy)){
