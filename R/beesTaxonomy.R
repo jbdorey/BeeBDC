@@ -108,11 +108,12 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
     if(attempt < nAttempts){
       
     # Download the file to the outPath 
-    tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
+    tryCatch(utils::download.file(URL, destfile = normalizePath(paste0(tempdir(), 
+                                                                       "/beesTaxonomy.Rda"))),
         error = error_func, warning = error_func)
     # Load the file from the outPath
       tryCatch(
-    taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
+    taxonomy <- base::readRDS(normalizePath(paste0(tempdir(), "/beesTaxonomy.Rda"))),
     error = error_funcFile, warning = error_funcFile)
       
     } # END if

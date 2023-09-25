@@ -98,11 +98,12 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
         # Don't attempt for the last attempt
       if(attempt < nAttempts){
       # Download the file
-      tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesChecklist.Rda")),
+      tryCatch(utils::download.file(URL, destfile = normalizePath(paste0(tempdir(),
+                                                                         "/beesChecklist.Rda"))),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
-        checklist <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda")),
+        checklist <- base::readRDS(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
         error = error_funcFile, warning = error_funcFile)
       } # END if
 
