@@ -539,7 +539,7 @@ suppressWarnings(
                                    chunkStart = 1,
                                    path = OutPath_Intermediate,
                                    scale = "medium",
-                                   mc.cores = 4),
+                                   mc.cores = 2),
   classes = "warning")
 
 ###### c. re-merge ####
@@ -759,21 +759,21 @@ rm(parse_names)
 
 ##### 4.2 Harmonise taxonomy ####
 # Download the custom taxonomy file
-beesTaxonomy <- BeeBDC::beesTaxonomy(URL = "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee")
+taxonomyFile <- BeeBDC::beesTaxonomy(URL = "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee")
 
 
 # Harmonise the names in the occurrence tibble
 #   # This flags the occurrences without a matched name and matches names to their correct name 
   # according to DiscoverLife
 database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the output can be saved
-                       taxonomy = beesTaxonomy, # The formatted taxonomy file
+                       taxonomy = taxonomyFile, # The formatted taxonomy file
                        data = database,
                        speciesColumn = "scientificName",
                        stepSize = 1000000,
                        mc.cores = 1)
 
 # You don't need this file anymore...
-rm(beesTaxonomy)
+rm(taxonomyFile)
 
 # Save the harmonised file.
 database %>%
@@ -826,6 +826,13 @@ check_space %>%
   readr::write_excel_csv(.,
                    paste(OutPath_Intermediate, "03_space_inter_database.csv",
                          sep = "/"))
+
+if(!exists("check_space")){
+  # Read in the filtered dataset
+  check_space <-
+    readr::read_csv( paste(OutPath_Intermediate, "03_space_inter_database.csv",
+                           sep = "/"), col_types = BeeBDC::ColTypeR())
+}
 
 ##### 5.2 Common spatial issues ####
 # Only run for occurrences through clean_coordinates that are spatially 'valid'.
@@ -956,7 +963,7 @@ rm(gridded_datasets)
 
 ##### 5.4 Uncertainty ####
 # Flag records that exceed a coordinateUncertaintyInMeters threshold
-check_time <- BeeBDC::coordUncerFlagR(data = check_time,
+check_space <- BeeBDC::coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 

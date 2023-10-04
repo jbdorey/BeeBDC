@@ -90,6 +90,11 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
     message(paste("Could not read download..."))
   }
   
+    # Check operating system
+  OS <- dplyr::if_else(.Platform$OS.type == "unix",
+                                             "MacLinux",
+                                             "Windows")
+  
   # Run a code to download the data and deal with potential internet issues
   checklist <- NULL                                 
   attempt <- 1 
@@ -97,6 +102,9 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
     while( is.null(checklist) && attempt <= nAttempts) {    
         # Don't attempt for the last attempt
       if(attempt < nAttempts){
+        
+  # WINDOWS
+        if(OS != "MacLinux"){
       # Download the file
       tryCatch(utils::download.file(URL, destfile = normalizePath(paste0(tempdir(),
                                                                          "/beesChecklist.Rda"))),
@@ -105,16 +113,27 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
         tryCatch(
         checklist <- base::readRDS(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
         error = error_funcFile, warning = error_funcFile)
+        }else{
+  # MAC OR LINUX
+          # Download the file
+          tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesChecklist.Rda")),
+                   error = error_func, warning = error_func)
+          # Load the file 
+          tryCatch(
+            checklist <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda")),
+            error = error_funcFile, warning = error_funcFile)
+        }
+        
       } # END if
 
       
-      # Count the next attempt
-      attempt <- attempt + 1       
       if(attempt < nAttempts){
       # Wait one second before the next request 
       if(attempt > 1){Sys.sleep(1)            
         print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
       } # END IF #2
+      # Count the next attempt
+      attempt <- attempt + 1   
     } # END while 
   )
   

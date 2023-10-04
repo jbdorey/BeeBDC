@@ -97,6 +97,10 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
   error_funcFile <- function(e){
     message(paste("Could not read download..."))
   }
+  # Check operating system
+  OS <- dplyr::if_else(.Platform$OS.type == "unix",
+                       "MacLinux",
+                       "Windows")
   
   
     # Run a code to download the data and deal with potential internet issues
@@ -107,6 +111,8 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
     # Don't attempt for the last attempt
     if(attempt < nAttempts){
       
+# WINDOWS
+      if(OS != "MacLinux"){
     # Download the file to the outPath 
     tryCatch(utils::download.file(URL, destfile = normalizePath(paste0(tempdir(), 
                                                                        "/beesTaxonomy.Rda"))),
@@ -115,16 +121,26 @@ beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?
       tryCatch(
     taxonomy <- base::readRDS(normalizePath(paste0(tempdir(), "/beesTaxonomy.Rda"))),
     error = error_funcFile, warning = error_funcFile)
-      
+      }else{
+        # Download the file to the outPath 
+        tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
+                 error = error_func, warning = error_func)
+        # Load the file from the outPath
+        tryCatch(
+          taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
+          error = error_funcFile, warning = error_funcFile)
+      }
+        
+        
     } # END if
     
-      # Count the next attempt
-    attempt <- attempt + 1   
     if(attempt < nAttempts){
       # Wait one second before the next request 
     if(attempt > 1){Sys.sleep(1)            
       print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
     } # END IF #2
+    # Count the next attempt
+    attempt <- attempt + 1   
   } # END while
   )
   
