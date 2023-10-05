@@ -87,7 +87,9 @@ countryOutlieRs <- function(
   ##### 1.1 data ####
     # Drop .countryOutlier if its already present
   data <- data %>%
-    dplyr::select(!tidyselect::any_of(".countryOutlier"))
+    dplyr::select(!tidyselect::any_of(".countryOutlier")) %>%
+      # Remove other columns made by this function
+    dplyr::select(!tidyselect::starts_with(c("iso_a3", "countryMatch")))
 
   ##### 1.2 rNaturalEarth ####
 # Download world map using rnaturalearth packages
@@ -194,7 +196,9 @@ jbd_bufferedIntersection <- function(inData){
 ##### 2.2 Extraction ####
 ###### a. exactCountry ####
 writeLines(" - Extracting country data from points...")
-points_extract = data %>%
+points_extract <- data %>%
+  # remove the existing iso_a3 column 
+  dplyr::select(!tidyselect::any_of("iso_a3")) %>%
   # Make a new column with the ordering of rows
   dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
   # Group by the row number and step size
@@ -206,7 +210,9 @@ points_extract = data %>%
                      mc.cores = mc.cores
   ) %>%
   # Combine the lists of tibbles
-  dplyr::bind_rows() 
+  dplyr::bind_rows() %>%
+    # Drop those occurrences that did not intersect with a country
+  tidyr::drop_na(name_long)
 
   
   if(!is.null(pointBuffer)){
@@ -216,7 +222,7 @@ points_extract = data %>%
   
   writeLines(" - Buffering failed points by pointBuffer...")
   
-  points_failed = points_failed %>%
+  points_failed <- points_failed %>%
     # Make a new column with the ordering of rows
     dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
     # Group by the row number and step size
@@ -455,6 +461,8 @@ points_extract = data %>%
     format(sum(is.na(bpoints_match$countryMatch)), big.mark = ","), 
     " 'NA' occurrences for this column.\n"
   ))
+    
+  
   
       # Merge with original dataset
     output <- data %>%
