@@ -971,7 +971,7 @@ check_space <- BeeBDC::coordUncerFlagR(data = check_space,
 # Download the country-level checklist
 beesChecklist <- BeeBDC::beesChecklist()
 
-check_space <- BeeBDC::countryOutlieRs(checklist = beesChecklist,
+check_space <- countryOutlieRs(checklist = beesChecklist,
                         data = check_space,
                         keepAdjacentCountry = TRUE,
                         pointBuffer = 0.05,

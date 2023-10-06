@@ -157,7 +157,12 @@ jbd_intersection <- function(inData){
 # Hijack st_intersection to allow it to be run in parallel
 jbd_bufferedIntersection <- function(inData){
   suppressWarnings({ suppressMessages({
-    inData <- inData %>% tidyr::drop_na(decimalLongitude, decimalLatitude)
+    inData <- inData %>% 
+        # Use only complete lat and lon data
+      tidyr::drop_na(decimalLongitude, decimalLatitude) %>%
+        # Remove the previous column names from jbd_intersection
+      dplyr::select(!tidyselect::any_of(c("iso_a2","iso_a3","name","name_long","continent",
+                                          "indexMatch")))
   # Turn inData into a simple point feature
   points <- sf::st_as_sf(inData,
                          coords = c("decimalLongitude", "decimalLatitude"),
@@ -185,7 +190,8 @@ jbd_bufferedIntersection <- function(inData){
     dplyr::left_join(simplePoly,
                      by = "indexMatch") %>%
     # Add in the database_id
-    dplyr::bind_cols(inData %>% sf::st_drop_geometry() %>% dplyr::select(!continent))
+    dplyr::bind_cols(inData %>% sf::st_drop_geometry() %>% 
+                       dplyr::select(!tidyselect::any_of("continent")))
   })  })
   # Return the points
   return(points_extract)
@@ -234,7 +240,9 @@ points_extract <- data %>%
                        mc.cores = mc.cores
     ) %>%
     # Combine the lists of tibbles
-    dplyr::bind_rows() 
+    dplyr::bind_rows() %>%
+    # Drop those occurrences that did not intersect with a country
+    tidyr::drop_na(name_long)
   
   if(nrow(points_failed) > 0){
   # Re-merge good with failed
