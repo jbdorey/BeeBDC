@@ -73,6 +73,9 @@
       <a href="../articles/basic_workflow.html">Basic workflow</a>
     </li>
   </ul></li>
+<li>
+  <a href="https://jbdorey.github.io/BeeBDC/news/index.html">News</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -93,8 +96,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2.1" id="beebdc-021">BeeBDC 0.2.1<a class="anchor" aria-label="anchor" href="#beebdc-021"></a></h2>
-<ul><li>Initial CRAN submission.</li>
+<h2 class="page-header" data-toc-text="1.0.1" id="changes-in-beebdc-version-101">Changes in BeeBDC version 1.0.1<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-101"></a></h2>
+<ul><li><p>ComplexHeatmap has been moved from imports to suggests and chordDiagramR will now ask a user if they want to install BiocManager and ComplexHeatmap (only if each is not already installed) before completing the function. This will simplify the installation process greatly.</p></li>
+<li><p>A new readr function has been added (readr_VicWam), which reads data from the combined Victorian and Western Australian Museums in Australia.</p></li>
+<li><p>A typo and potential pitfall has been fixed in countryOutliers where sometimes .sea records were not flagged and where NA record counts for .countryOutlier were not stated in the text output.</p></li>
+<li><p>How users access the taxonomy and checklist files were slightly modified to include better warnings to help with troubleshooting as well as specific file-path operations for Windows machines.</p></li>
+<li><p>jbd_coordCountryInconsistent was updated to better capture mismatched countries by using more columns to match.</p></li>
+<li><p>Tests and workflows were updated in accordingly.</p></li>
 </ul></div>
   </div>
 
