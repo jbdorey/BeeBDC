@@ -958,9 +958,10 @@ harmoniseR <- function(
 
     ###### d. output ####
   writeLines(paste(
-    " - We matched valid names to ", format(nMatchedRows, big.mark = ","), " of ",
+    " - We matched valid names to ", 
+    format(sum(runningOccurrences$.invalidName == TRUE), big.mark = ","), " of ",
     format(OG_rowNum, big.mark = ","), " occurrence records. This leaves a total of ",
-    format(nUnmatchedRows, big.mark = ","), " unmatched occurrence records.",
+    format(sum(runningOccurrences$.invalidName == FALSE), big.mark = ","), " unmatched occurrence records.",
         #  " Of the unmatched records, approximately ", 
         # format( nrow(failedMatches), big.mark = ","), 
         #  " are only identified to genus rank or higher.",
