@@ -21,7 +21,7 @@ status](https://www.r-pkg.org/badges/version/BeeBDC)](https://CRAN.R-project.org
 
 The consistent implementation of biodiversity data continues to be a
 challenge for researchers. We present the **BeeBDC** package which
-provides novel and udpated functions for flagging, cleaning, and
+provides novel and updated functions for flagging, cleaning, and
 visualising occurrence datasets. Our functions are mostly general in
 regards to taxon; however, we also provide some functions and data that
 are specific for use with bee occurrence data. We build upon functions
@@ -54,7 +54,7 @@ and CoordinateCleaner.
 > <https://doi.org/10.1101/2023.06.30.547152>; Package GitHub -
 > <https://github.com/jbdorey/BeeBDC/>
 
-#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/2/X4/i-V37Vg2w-X4.jpg)
+#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
 
 <br/>
 
@@ -319,8 +319,12 @@ if (!require("devtools", quietly = TRUE))
 devtools::install_github("ropensci/rnaturalearthhires")
 BiocManager::install("ComplexHeatmap")
 
-  # Install BeeBDC
-devtools::install_github("https://github.com/jbdorey/BeeBDC.git", ref = "main")
+  # Install BeeBDC from CRAN
+install.packages("BeeBDC")
+  # Or using the development version (keeping in mind this may not be as stable)
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+                          # To use the development version use "devel"; otherwise choose "main"
+                        ref = "devel", force = TRUE)
 ```
 
 Load the package with:
@@ -349,9 +353,9 @@ Lichtenberg, E. M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A.,
 Guevara, D. A., Ribeiro, B. R., De Pedro, D., Fischer, E., Hung, J.
 K.-L., Parys, K. A., Rogan, M. S., Minckley, R. L., Velzco, S. J. E.,
 Griswold, T., Zarrillo, T. A., Sica, Y., Orr, M. C., Guzman, L. M.,
-Ascher, J., Hughes, A. C. & Cobb, N. S. In review. BeeBDC: A new R
-package and globally synthesised and flagged bee occurrence dataset.
-Scientific Data.
+Ascher, J., Hughes, A. C. & Cobb, N. S. Accepted. A globally synthesised
+and flagged bee occurrence dataset and cleaning workflow. Scientific
+Data.
 
 Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
 E. (2023). BeeBDC: an occurrence data cleaning package. R package

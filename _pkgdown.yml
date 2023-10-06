@@ -40,5 +40,8 @@ navbar:
          href: articles/BeeBDC_main.html#figures-and-tables
       -  text: "Basic workflow"
          href: articles/basic_workflow.html
+    - text: "News"
+      href: https://jbdorey.github.io/BeeBDC/news/index.html
   components: 
     home: ~
+    
