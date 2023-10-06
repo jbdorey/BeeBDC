@@ -218,7 +218,7 @@ points_extract <- data %>%
   # Combine the lists of tibbles
   dplyr::bind_rows() %>%
     # Drop those occurrences that did not intersect with a country
-  tidyr::drop_na(name_long)
+  tidyr::drop_na(iso_a3)
 
   
   if(!is.null(pointBuffer)){
@@ -242,7 +242,7 @@ points_extract <- data %>%
     # Combine the lists of tibbles
     dplyr::bind_rows() %>%
     # Drop those occurrences that did not intersect with a country
-    tidyr::drop_na(name_long)
+    tidyr::drop_na(iso_a3)
   
   if(nrow(points_failed) > 0){
   # Re-merge good with failed
@@ -455,22 +455,6 @@ points_extract <- data %>%
       dplyr::distinct(database_id, .keep_all = TRUE)
     }
   
-  writeLines(paste0(
-    " - Finished. \n",
-    "We have matched ", 
-    format(sum(bpoints_match$countryMatch == "exact", na.rm = TRUE), big.mark = ","),
-    " records to their exact country and ", 
-    format(sum(bpoints_match$countryMatch == "neighbour", na.rm = TRUE), big.mark = ","), 
-    " to an adjacent country\n", 
-    "We failed to match ",
-    format(sum(bpoints_match$countryMatch == "noMatch", na.rm = TRUE), big.mark = ","), 
-    " occurrences to any 'exact' or 'neighbouring' country.\n",
-    "There are ",
-    format(sum(is.na(bpoints_match$countryMatch)), big.mark = ","), 
-    " 'NA' occurrences for this column.\n"
-  ))
-    
-  
   
       # Merge with original dataset
     output <- data %>%
@@ -479,6 +463,23 @@ points_extract <- data %>%
         # Add in .sea usign the seaPoints
       dplyr::mutate(.sea = dplyr::if_else(database_id %in% seaPoints$database_id,
                                           FALSE, TRUE))
+    
+    
+    writeLines(paste0(
+      " - Finished. \n",
+      "We have matched ", 
+      format(sum(bpoints_match$countryMatch == "exact", na.rm = TRUE), big.mark = ","),
+      " records to their exact country and ", 
+      format(sum(bpoints_match$countryMatch == "neighbour", na.rm = TRUE), big.mark = ","), 
+      " to an adjacent country\n", 
+      "We failed to match ",
+      format(sum(bpoints_match$countryMatch == "noMatch", na.rm = TRUE), big.mark = ","), 
+      " occurrences to any 'exact' or 'neighbouring' country.\n",
+      "There are ",
+      format(sum(is.na(output$.countryOutlier)), big.mark = ","), 
+      " 'NA' occurrences for the .countryOutlier column.\n"
+    ))
+    
 
     
     # return message

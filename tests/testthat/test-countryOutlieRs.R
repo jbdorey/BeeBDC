@@ -33,10 +33,10 @@ testthat::test_that("countryOutlieRs results TRUE/passed", {
   testthat::expect_equal(sum(testOut$.countryOutlier == TRUE, na.rm = TRUE), 74)
 })
 testthat::test_that("countryOutlieRs results FALSE/failed", {
-  testthat::expect_equal(sum(testOut$.countryOutlier == FALSE, na.rm = TRUE), 5)
+  testthat::expect_equal(sum(testOut$.countryOutlier == FALSE, na.rm = TRUE), 3)
 })
 testthat::test_that("countryOutlieRs results NA/could not assess", {
-  testthat::expect_equal(sum(is.na(testOut$.countryOutlier)), 21)
+  testthat::expect_equal(sum(is.na(testOut$.countryOutlier)), 23)
 })
 
   # Test format
