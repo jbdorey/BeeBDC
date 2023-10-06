@@ -16,11 +16,6 @@ setwd(paste0(RootPath,"/Data_acquisition_workflow"))
   # renv::init(project = paste0(RootPath,"/Data_acquisition_workflow")) 
 renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
-# Install some packages if needed
-if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager", repos = "http://cran.us.r-project.org")
-
-BiocManager::install("ComplexHeatmap", force = FALSE)
 
 # Install BeeBDC 
 remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
