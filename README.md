@@ -306,25 +306,43 @@ View(testChecklist)
 
 #### **Installation**
 
-You can install *BeeBDC* from GitHub and a CRAN release will be
-forthcoming.
+You can install *BeeBDC* from CRAN or GitHub.
 
 ``` r
-  # If required, download some package management tools
+  # Install BeeBDC from CRAN
+install.packages("BeeBDC")
+
+  # Or using the development version from GitHub (keeping in mind this may not be as stable)
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+                          # To use the development version use "devel"; otherwise choose "main"
+                        ref = "devel", force = TRUE)
+```
+
+Two optional packages can also be downloaded prior to starting your
+workflow, if desired. But, these are not essential. The packages
+BiocManager and devtools may also be required to download the two extra
+packages.
+
+1.  The first package, **rnaturalearthhires**, is a data package that
+    allows the usage of higher-resolution country maps and is very
+    useful for multiple **BeeBDC** functions.
+2.  The second package, **ComplexHeatmap**, is only used for one
+    **BeeBDC** function (`chordDiagramR()`) and is less critical.
+
+When either of these packages are called, the user will be prompted to
+install them. However, the latter may try to restart your R session.
+
+``` r
+  # These two packages may need to be installed in order to install the actual required packages 
+    # below.
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 if (!require("devtools", quietly = TRUE))
     install.packages("devtools")
+
   # Install ComplexHeatmap and rnaturalearthhires
 devtools::install_github("ropensci/rnaturalearthhires")
 BiocManager::install("ComplexHeatmap")
-
-  # Install BeeBDC from CRAN
-install.packages("BeeBDC")
-  # Or using the development version (keeping in mind this may not be as stable)
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
-                          # To use the development version use "devel"; otherwise choose "main"
-                        ref = "devel", force = TRUE)
 ```
 
 Load the package with:
@@ -359,4 +377,4 @@ Data.
 
 Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
 E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 1.0.0. url: <https://github.com/jbdorey/BeeBDC>
+version 1.0.1. url: <https://github.com/jbdorey/BeeBDC>
