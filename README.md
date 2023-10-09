@@ -56,7 +56,52 @@ and CoordinateCleaner.
 
 #### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
 
-<br/>
+#### **Installation**
+
+You can install *BeeBDC* from CRAN or GitHub.
+
+``` r
+  # Install BeeBDC from CRAN
+install.packages("BeeBDC")
+
+  # Or using the development version from GitHub (keeping in mind this may not be as stable)
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+                          # To use the development version use "devel"; otherwise choose "main"
+                        ref = "devel", force = TRUE)
+```
+
+Two optional packages can also be downloaded prior to starting your
+workflow, if desired. But, these are not essential. The packages
+BiocManager and devtools may also be required to download the two extra
+packages.
+
+1.  The first package, **rnaturalearthhires**, is a data package that
+    allows the usage of higher-resolution country maps and is very
+    useful for multiple **BeeBDC** functions.
+2.  The second package, **ComplexHeatmap**, is only used for one
+    **BeeBDC** function (`chordDiagramR()`) and is less critical.
+
+When either of these packages are called, the user will be prompted to
+install them. However, the latter may try to restart your R session.
+
+``` r
+  # These two packages may need to be installed in order to install the actual required packages 
+    # below.
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+if (!require("devtools", quietly = TRUE))
+    install.packages("devtools")
+
+  # Install ComplexHeatmap and rnaturalearthhires
+devtools::install_github("ropensci/rnaturalearthhires")
+BiocManager::install("ComplexHeatmap")
+```
+
+Load the package with:
+
+``` r
+library(BeeBDC)
+```
 
 #### 1. [**Data merge**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge)
 
@@ -302,53 +347,6 @@ View(testTaxonomy)
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |> load()
   # View the file
 View(testChecklist)
-```
-
-#### **Installation**
-
-You can install *BeeBDC* from CRAN or GitHub.
-
-``` r
-  # Install BeeBDC from CRAN
-install.packages("BeeBDC")
-
-  # Or using the development version from GitHub (keeping in mind this may not be as stable)
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
-                          # To use the development version use "devel"; otherwise choose "main"
-                        ref = "devel", force = TRUE)
-```
-
-Two optional packages can also be downloaded prior to starting your
-workflow, if desired. But, these are not essential. The packages
-BiocManager and devtools may also be required to download the two extra
-packages.
-
-1.  The first package, **rnaturalearthhires**, is a data package that
-    allows the usage of higher-resolution country maps and is very
-    useful for multiple **BeeBDC** functions.
-2.  The second package, **ComplexHeatmap**, is only used for one
-    **BeeBDC** function (`chordDiagramR()`) and is less critical.
-
-When either of these packages are called, the user will be prompted to
-install them. However, the latter may try to restart your R session.
-
-``` r
-  # These two packages may need to be installed in order to install the actual required packages 
-    # below.
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-if (!require("devtools", quietly = TRUE))
-    install.packages("devtools")
-
-  # Install ComplexHeatmap and rnaturalearthhires
-devtools::install_github("ropensci/rnaturalearthhires")
-BiocManager::install("ComplexHeatmap")
-```
-
-Load the package with:
-
-``` r
-library(BeeBDC)
 ```
 
 #### **Package website**
