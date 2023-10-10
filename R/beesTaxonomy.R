@@ -81,9 +81,9 @@
 #'\dontrun{
 #' beesTaxonomy <- BeeBDC::beesTaxonomy()
 #'}
+#' 
 #'
-#'
-beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee",
+beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/42613126",
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
 
