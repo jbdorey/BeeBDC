@@ -53,7 +53,7 @@ Suggests:
     devtools,
     emld,
     formatR,
-    galah,
+    galah (>= 2.0.0),
     hexbin,
     htmltools,
     htmlwidgets,
