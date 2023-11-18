@@ -1,3 +1,12 @@
+# Changes in BeeBDC version 1.0.2
+
+- Minor update to bee taxonomy list.
+
+- Minor update to plotFlagSummary to allow individual species maps to get updated.
+
+- Update to atlasDownloader from mjwestgate to work with galah version 2.0.0
+
+
 # Changes in BeeBDC version 1.0.1
 
 - ComplexHeatmap has been moved from imports to suggests and chordDiagramR will now ask a user if they want to install BiocManager and ComplexHeatmap (only if each is not already installed) before completing the function. This will simplify the installation process greatly. 

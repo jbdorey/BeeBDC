@@ -1,3 +1,5 @@
+# Additional inputs were made by mjwestgate to allow continued support with galah V2
+
 
 ##### 1. atlasDownloader ####
 #' Download occurrence data from the Atlas of Living Australia (ALA)
@@ -31,8 +33,8 @@
 #'                DL_reason = 4)
 #'                }
 atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, atlas = "ALA"){
-  # locally bind variabls to the function
-  . <- NULL
+  # locally bind variables to the function
+  . <- file_name <- NULL
   
   #### Intro checks ####
   writeLines(paste("1.","\n",
@@ -52,17 +54,19 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
     stop("The email you entered might be incorrect, please double-check the format.")
   }
   requireNamespace("galah")
-  requireNamespace("rvest")
-  requireNamespace("httr")
   # Define ColsToKeep
   ColsToKeep <- BeeBDC::ColTypeR()[[1]] %>% names()
   # Create a new working directory for ALA data in the path provided
   dir.create(paste0(path, "/", atlas, "_galah_path", sep = ""), showWarnings = FALSE)
-  atlas_galah_path <- paste(path, "/", atlas, "_galah_path", sep = "")
+  atlas_galah_path <- paste0(path, "/", atlas, "_galah_path")
   # Set up the ALA download configuration
   writeLines(" - Setting galah configuration.")
-  galah::galah_config(cache_directory= atlas_galah_path, download_reason_id = DL_reason, verbose=TRUE, 
-                      email = userEmail, send_email = TRUE, atlas = atlas) 
+  galah::galah_config(directory = atlas_galah_path, 
+                      download_reason_id = DL_reason,
+                      verbose=TRUE, 
+                      email = userEmail, 
+                      send_email = TRUE, 
+                      atlas = atlas) 
 
   #### ALA download ####
   # Choose ALA columns to download
@@ -74,31 +78,22 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
                    " - Beginning atlas download via galah.", "\n",
                    "A progress bar of your download should appear shortly. You will also receive an email ",
                    "when your download is complete.", sep = ""))
+  # Use of `Sys.Date()` comes with the risk that consecutive downloads on the same day will 
+    # overwrite each other, even if they are for different queries
+  # Note: `file_name` given above is chosen for consistency with previous version of BeeBDC
+  file_name <- paste0("galah_download_", Sys.Date(), ".zip")
   ALA_Occurence_download <- galah::galah_call() %>%
     galah::galah_identify(ALA_taxon) %>%
     galah::galah_select(tidyselect::any_of(ColsToKeep)) %>% 
-    galah::atlas_occurrences(mint_doi = TRUE)
+    galah::atlas_occurrences(mint_doi = FALSE, file = file_name)
   # get download attributes from file and make it into a dataframe
   attrs_ALA_Occurence_download <- attributes(ALA_Occurence_download) 
   
   writeLines(paste("3.","\n"," - atlas download is complete.", "\n",
-                   "The script will now download and unzip all of the data and metadata to ",
+                   "The script will now unzip all of the data and metadata to ",
                    atlas_galah_path, ". This may take a short while.",
                    sep = ""))
-  # Find the download link using the doi provided
-  doi_link <- rvest::read_html(url(attrs_ALA_Occurence_download$doi, "rb")) %>%
-    rvest::html_elements("a") %>%
-    rvest::html_attr("href") %>%
-    grep("/download$", ., value = TRUE)
   
-  prefixHTML <- if(atlas == "ALA"){"https://doi.ala.org.au"}
-  # Download the file
-  httr::GET(url = paste(prefixHTML, doi_link[1], sep = ""),
-            httr::write_disk(
-              file.path(paste(atlas_galah_path,
-                              "/galah_download_", Sys.Date(), ".zip", 
-                              sep = "")), 
-              overwrite = TRUE))  
   # unzip the file
   unzip(
     # File to unzip
@@ -111,16 +106,17 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
                   sep = ""),
     overwrite = TRUE) 
   
+  browser()
+  
   #### Save data ####
   # Save some download information
   dplyr::tibble(
     downloaders_email = userEmail,
     taxon = ALA_taxon,
-    doi = attrs_ALA_Occurence_download$doi,
-    search_url = attrs_ALA_Occurence_download$search_url,
-    download_link = doi_link,
-    data_type = attrs_ALA_Occurence_download$data_type,
-    data_request = paste(dplyr::lst(attrs_ALA_Occurence_download$data_request)),
+    doi = attr(ALA_Occurence_download, "doi"),
+    search_url = attr(ALA_Occurence_download, "search_url"),
+    # data_type = attrs_ALA_Occurence_download$data_type, # not supported post galah v.2
+    # data_request = paste(dplyr::lst(attrs_ALA_Occurence_download$data_request)), # not supported post galah v.2
     ALA_download_reason = DL_reason,
     download_date = Sys.Date()) %>%
     write_excel_csv(file = paste(atlas_galah_path,

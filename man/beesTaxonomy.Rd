@@ -5,8 +5,7 @@
 \title{Download a nearly complete taxonomy of bees globally}
 \usage{
 beesTaxonomy(
-  URL =
-    "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee",
+  URL = "https://open.flinders.edu.au/ndownloader/files/42613126",
   ...
 )
 }

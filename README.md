@@ -373,4 +373,9 @@ Data.
 
 Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
 E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 1.0.1. url: <https://github.com/jbdorey/BeeBDC>
+version 1.0.2. url: <https://github.com/jbdorey/BeeBDC>
+
+This package and its data sets were created with the support, and as a
+part, of the iDigBees project
+
+<a href='https://idigbees.org'><img src="https://photos.smugmug.com/photos/i-rcd8CCs/0/b291edd1/O/i-rcd8CCs.png" alt = "The iDigBees logo with a colourful bee and the iDigBees text on the right" align="left" width="300"/></a>
