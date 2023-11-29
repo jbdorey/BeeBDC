@@ -21,7 +21,7 @@ run through some filtering functions - so that is can display logical columns st
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -122,10 +122,13 @@ run through some filtering functions - so that is can display logical columns st
 <span>  device <span class="op">=</span> <span class="st">"pdf"</span>,</span>
 <span>  speciesName <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  saveFiltered <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  filterColumn <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  filterColumn <span class="op">=</span> <span class="st">".summary"</span>,</span>
 <span>  nameColumn <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plotMap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  mapAlpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  xbuffer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  ybuffer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  ptSize <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  saveTable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  jitterValue <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -209,6 +212,23 @@ species at a time; i.e., with speciesName is not NULL.</p></dd>
 
 <dt>mapAlpha</dt>
 <dd><p>Optional. Numeric. The opacity for the points on the map.</p></dd>
+
+
+<dt>xbuffer</dt>
+<dd><p>Optional. Numeric vector. A buffer in degrees of the amount to increase the
+min and max bounds along the
+x-axis. This may require some experimentation, keeping in mind
+the negative and positive directionality of hemispheres. Default = c(0,0).</p></dd>
+
+
+<dt>ybuffer</dt>
+<dd><p>Optional. Numeric vector. A buffer in degrees of the amount to increase the
+min and max bounds along the y-axis. This may require some experimentation, keeping in mind
+the negative and positive directionality of hemispheres. Default = c(0,0).</p></dd>
+
+
+<dt>ptSize</dt>
+<dd><p>Optional. Numeric. The size of the points as passed to ggplot2. Default = 1.</p></dd>
 
 
 <dt>saveTable</dt>
