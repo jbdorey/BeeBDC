@@ -14,7 +14,12 @@ nameSplitR <- function(NameInput,
       # Help can be found testing regex here: https://www.regextester.com/95629
     Authority_patterns <- paste0("([a-zA-Z.\\-\\_]+,)", "|", # Find words ending in comma
                            "[a-zA-Z0-9.\\-\\_]+ and ","|", # Or find words before " and "
-                           "(\\s[:upper:])", "|", # Find a space then an upper-case letter (i.e., an author name after the species name)
+                           "\\s[:upper:][a-z]+$", "|", # Find a space then an upper-case letter (i.e., an author name after the species name)
+                                                  # and at the end of the string
+                           "\\s[:upper:][a-z]+\\s\\&", "|", # Find uppercase followed by "&" like "Smith &..."
+                           "\\s[:upper:][a-z]+[A-Z][a-z]+\\s\\&", "|", # As above, but including multiple capitals, like "LaBerge &..."
+                           "\\s[:upper:][a-z]+\\s[0-9]{4}", "|", # Find Author followed by no comma, space, and a year like " Cresson 1863"
+                           "\\s[:upper:]\\'[A-Z]", "|", # Deal with names like "O'Brien"
                            "(\\([A-Z][a-z]+)(?=\\s)", "|", #, "|", # Find a capitalized word (with or without a bracket) - \\([A-Z][a-z]+) - that is followed by a space (not a bracket) - (?=\\s)
                            "(\\([A-Z]{1,2}[\\.]?)(?=\\s)", "|", # Find those few authorities that start with multiple capital letters - (SS Saunders, 1850), or with initials - (W. F. Kirby, 1900)
                            "(\\([A-Z][a-z\\u016f\\u00c0-\\u017e]+\\-[A-Z]+)(?=[\\s\\,])","|", # Match as above, but with special characters
@@ -31,7 +36,10 @@ nameSplitR <- function(NameInput,
                        nchar(SpSplit[[1]])+2, nchar(NameInput[1])) # find authority by removing name
   ##### subgenus test #####
   # Test for presence of subgenus
-  if( grepl( "\\)",SpSplit[1], fixed = FALSE) == TRUE){ # Check to see if there is a subgenus using the presence of a a bracket
+  if( grepl( "\\)",SpSplit[1], fixed = FALSE) == TRUE &
+      !grepl( "\\)\\s\\(", SpSplit[1], fixed = FALSE)|
+      grepl( "\\s[A-Z][a-z]", SpSplit[1], fixed = FALSE) == TRUE &
+      !grepl( "\\)\\s\\(", SpSplit[1], fixed = FALSE)){ # Check to see if there is a subgenus using the presence of a a bracket
     # if there IS a subgenus present
     # SPLIT into individual words (by any white space)
     SynCols_split <- stringr::str_split(SpSplit[1],"\\s", simplify = TRUE)  # Express as matrix

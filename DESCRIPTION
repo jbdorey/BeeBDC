@@ -75,7 +75,7 @@ Suggests:
     rnaturalearthdata,
     rvest,
     terra,
-    testthat (>= 3.0.0),
+    testthat,
     tidyr,
     utils,
     xml2

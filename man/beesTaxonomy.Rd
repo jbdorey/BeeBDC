@@ -5,7 +5,7 @@
 \title{Download a nearly complete taxonomy of bees globally}
 \usage{
 beesTaxonomy(
-  URL = "https://open.flinders.edu.au/ndownloader/files/42613126",
+  URL = "https://open.flinders.edu.au/ndownloader/files/43331472",
   ...
 )
 }
@@ -23,6 +23,10 @@ the environment.
 Downloads the taxonomic information for the bees of the world.
 Source of taxonomy is listed under "source" but are mostly derived from the Discover Life
 website. The data will be sourced from the BeeBDC article's Figshare.
+
+Note that sometimes the download might not work without restarting R. In this case, you could
+alternatively download the dataset from the URL below and then read it in using
+\code{base::readRDS("filePath.Rda")}.
 }
 \details{
 \strong{Column details}
