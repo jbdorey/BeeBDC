@@ -69,6 +69,10 @@ Download the table contains taxonomic and country information for the bees of th
 on data collated on Discover Life. The data will be sourced from the BeeBDC article's
 Figshare.
 
+Note that sometimes the download might not work without restarting R. In this case, you could
+alternatively download the dataset from the URL below and then read it in using
+\code{base::readRDS("filePath.Rda")}.
+
 See \code{\link[=beesTaxonomy]{beesTaxonomy()}} for further context.
 }
 \examples{

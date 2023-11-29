@@ -7,8 +7,7 @@
 
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/BeeBDC)](https://CRAN.R-project.org/package=BeeBDC)
+[![CRANstatus](https://www.r-pkg.org/badges/version/BeeBDC)](https://CRAN.R-project.org/package=BeeBDC)
 [![downloads](https://cranlogs.r-pkg.org/badges/grand-total/BeeBDC)](https://cranlogs.r-pkg.org:443/badges/grand-total/BeeBDC)
 [![R-CMD-check](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jbdorey/BeeBDC/actions/workflows/R-CMD-check.yaml)
 [![License](https://img.shields.io/badge/license-GPL%20(%3E=%203)-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
@@ -373,4 +372,9 @@ Data.
 
 Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
 E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 1.0.1. url: <https://github.com/jbdorey/BeeBDC>
+version 1.0.2. url: <https://github.com/jbdorey/BeeBDC>
+
+This package and its data sets were created with the support, and as a
+part, of the iDigBees project
+
+<a href='https://idigbees.org'><img src="https://photos.smugmug.com/photos/i-rcd8CCs/0/b291edd1/O/i-rcd8CCs.png" alt = "The iDigBees logo with a colourful bee and the iDigBees text on the right" align="left" width="300"/></a>

@@ -3,9 +3,14 @@
 
 #' Download a nearly complete taxonomy of bees globally
 #'
+#'
 #' Downloads the taxonomic information for the bees of the world. 
 #' Source of taxonomy is listed under "source" but are mostly derived from the Discover Life 
 #' website. The data will be sourced from the BeeBDC article's Figshare.
+#'  
+#' Note that sometimes the download might not work without restarting R. In this case, you could
+#' alternatively download the dataset from the URL below and then read it in using 
+#' `base::readRDS("filePath.Rda")`.
 #' 
 #' 
 #' 
@@ -81,9 +86,9 @@
 #'\dontrun{
 #' beesTaxonomy <- BeeBDC::beesTaxonomy()
 #'}
+#' 
 #'
-#'
-beesTaxonomy <- function(URL = "https://figshare.com/ndownloader/files/42402264?private_link=bce1f92848c2ced313ee",
+beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/43331472",
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
 

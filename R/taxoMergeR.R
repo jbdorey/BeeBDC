@@ -122,7 +122,7 @@ taxoMergeR <- function(currentNames = NULL,
       loopName <- newNames$Original_cleaned[i]
       loopSource <- newNames$Source[i]
       # Use nameSplitR to extract the information within
-      loopData <- nameSplitR(loopName, #NameInput
+      loopData <- nameSplitR(NameInput = loopName, #NameInput
                              Authority_patterns = NULL) %>% 
         as.data.frame(stringsAsFactors = FALSE, row.names = FALSE) %>% dplyr::tibble() %>%        
         dplyr::mutate(Source = loopSource)
@@ -393,8 +393,13 @@ taxoMergeR <- function(currentNames = NULL,
   Correct_matched2 <- nameSplit %>%
       # remove already matched
     dplyr::filter(!tempIndex %in% Correct_matched$tempIndex) %>%
-    dplyr::inner_join(currentNames, by = c("Correct" = "validName"), keep = TRUE,
-                      suffix = c("_nameSplit", ""))
+    dplyr::inner_join(currentNames %>%
+                          # Makes ure to sort by acceptednames first
+                        dplyr::arrange(accid),
+                        , by = c("Correct" = "validName"), keep = TRUE,
+                      suffix = c("_nameSplit", ""), 
+                        # Only keep the first match (will be the lowest accid)
+                      multiple ="first")
   #merge
   Correct_matched <- Correct_matched %>%
     dplyr::bind_rows(Correct_matched2)
@@ -418,7 +423,7 @@ taxoMergeR <- function(currentNames = NULL,
          dplyr::filter(taxonomic_status == "accepted")
        
     # Merge these into a single tibble with the correct data 
-  SOM_acc_final <- dplyr::bind_cols(
+  SOM_acc_final <- dplyr::tibble(
     flags = SOM_acc$flags,
     taxonomic_status = "synonym",
     source = SOM_acc$Source,
@@ -695,14 +700,16 @@ taxoMergeR <- function(currentNames = NULL,
   
   #
   
-  #### 2.0 Merge ####
+  #### 4.0 Merge ####
     # Merge the output rows
   merged_names <- dplyr::bind_rows(SOM_acc_final, SOM_syn_final, MO_FINAL) 
-      # Remove " NA" from end of validNames where there was no authority
-  merged_names$validName <- stringr::str_replace(merged_names$validName, 
-                                                 pattern = " NA$", 
-                                                 replacement = "") %>% 
-    stringr::str_squish()
+  
+  # Remove " NA" from end of validNames where there was no authority
+  merged_names <- merged_names %>%
+    dplyr::mutate(validName = stringr::str_replace(validName, 
+                                                         pattern = " NA$", 
+                                                         replacement = "") %>% 
+                          stringr::str_squish())
     
     # Find those rows that did not match
   failed_names <- newNames %>%

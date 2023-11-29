@@ -25,8 +25,10 @@
 #' setting mc.cores to 1.
 #'  Default = 1.
 #'
-#' @return The input data with a new column, .countryOutlier. There are three possible values for 
-#' the new column: TRUE == passed, FALSE == failed, NA == did not overlap with rnaturalearth map.
+#' @return The input data with two new columns, .countryOutlier or .sea. There are three possible 
+#' values for 
+#' the new column: TRUE == passed, FALSE == failed (not in country or in the ocean),
+#'  NA == did not overlap with rnaturalearth map.
 #' 
 #' @export
 #' @importFrom dplyr %>%

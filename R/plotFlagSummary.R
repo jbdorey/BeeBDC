@@ -38,6 +38,14 @@
 #' species at a time; i.e., with speciesName is not NULL.
 #' @param filterColumn Optional. The flag column to display on the map. Default = .summary.
 #' @param mapAlpha Optional. Numeric. The opacity for the points on the map.
+#' @param xbuffer Optional. Numeric vector. A buffer in degrees of the amount to increase the
+#' min and max bounds along the
+#' x-axis. This may require some experimentation, keeping in mind
+#' the negative and positive directionality of hemispheres. Default = c(0,0).
+#' @param ybuffer Optional. Numeric vector. A buffer in degrees of the amount to increase the
+#' min and max bounds along the y-axis. This may require some experimentation, keeping in mind
+#' the negative and positive directionality of hemispheres. Default = c(0,0).
+#' @param ptSize Optional. Numeric. The size of the points as passed to ggplot2. Default = 1.
 #' @param saveTable Optional. Logical. If TRUE, the function will save the data used to produce the 
 #' compound bar plot.
 #' @param jitterValue Optional. Numeric. The value to jitter points by in the map in decimal degrees.
@@ -101,10 +109,13 @@ plotFlagSummary <- function(
       # OPTIONAL:
     speciesName = NULL,
     saveFiltered = FALSE,
-    filterColumn = FALSE,
+    filterColumn = ".summary",
     nameColumn = NULL,
     plotMap = FALSE,
     mapAlpha = 0.5,
+    xbuffer = c(0,0),
+    ybuffer = c(0,0),
+    ptSize = 1,
     saveTable = FALSE,
     # Jitter map? enter jitter amount
     jitterValue = NULL,
@@ -180,8 +191,7 @@ plotFlagSummary <- function(
       mapData <- data %>%
           # Select the columns to use
         dplyr::select(c(decimalLatitude, decimalLongitude,
-                        tidyselect::all_of(nameColumn),
-                        tidyselect::all_of(filterColumn))) 
+                        tidyselect::all_of(c(nameColumn, filterColumn)))) 
           # Sort the filterColumn to have TRUE on top of FALSE
       mapData <- mapData %>%
         dplyr::select(tidyselect::all_of(filterColumn)) %>%
@@ -322,6 +332,12 @@ plotFlagSummary <- function(
     
     ##### b. map ####
     if(plotMap == TRUE){
+        # Make into an ordered factor
+      mapData <- mapData %>%
+        dplyr::mutate(dplyr::across(tidyselect::all_of(filterColumn),
+                        ~factor(.x, levels = c(FALSE, TRUE), ordered = TRUE))) %>%
+        tidyr::drop_na(decimalLatitude, decimalLongitude)
+      
       # Download world map using rnaturalearth packages
       WorldMap_layer <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf", 
                                      country = NULL, type="map_units") 
@@ -336,34 +352,39 @@ plotFlagSummary <- function(
             ggplot2::geom_point(data = mapData %>% dplyr::filter(.[[1]] == "FALSE"),
                      mapping = ggplot2::aes(x = decimalLongitude, y = decimalLatitude,
                                    colour = .data[[filterColumn]]),
+                                   size = ptSize,
                      alpha = mapAlpha)} +
           {if(is.null(jitterValue))
             ggplot2::geom_point(data = mapData %>% dplyr::filter(.[[1]] == "TRUE"),
                        mapping = ggplot2::aes(x = decimalLongitude, y = decimalLatitude,
                                      colour = .data[[filterColumn]]),
+                       size = ptSize,
                        alpha = mapAlpha)} +
         # POINTS IF IS NOT NULL; i.e. jitter
           {if(!is.null(jitterValue))ggplot2::geom_jitter(mapData %>% 
                                                            dplyr::filter(.[[1]] == "FALSE"), 
                            mapping = ggplot2::aes(x = decimalLongitude, y = decimalLatitude,
                                          colour = .data[[filterColumn]]),
+                           size = ptSize,
                            alpha = mapAlpha, width = jitterValue, height = jitterValue)}+ 
           {if(!is.null(jitterValue))ggplot2::geom_jitter(mapData %>% 
                                                            dplyr::filter(.[[1]] == "TRUE"), 
                                                 mapping = ggplot2::aes(x = decimalLongitude, 
                                                                        y = decimalLatitude,
                                                               colour = .data[[filterColumn]]),
+                                                size = ptSize,
                                                 alpha = mapAlpha, width = jitterValue, 
                                                 height = jitterValue)}+ 
-          ggplot2::scale_color_manual(values = c("FALSE" = "#ac0e28",
-                                        "TRUE" = "#013766"),
+          ggplot2::scale_color_manual(values = c(
+                                        "TRUE" = flagColours[[1]], # "#013766",
+                                        "FALSE" = flagColours[[2]]), #"#ac0e28"),
                              name = "Passed occ.") +
           # Set map limits, if wanted
           ggplot2::coord_sf(expand = TRUE, 
-                   ylim = c(min(mapData$decimalLatitude, na.rm = TRUE), 
-                            max(mapData$decimalLatitude, na.rm = TRUE)),
-                   xlim = c(min(mapData$decimalLongitude, na.rm = TRUE), 
-                            max(mapData$decimalLongitude, na.rm = TRUE)),
+                   ylim = c(min(mapData$decimalLatitude, na.rm = TRUE)+ybuffer[[1]], 
+                            max(mapData$decimalLatitude, na.rm = TRUE)+ybuffer[[2]]),
+                   xlim = c(min(mapData$decimalLongitude, na.rm = TRUE)+xbuffer[[1]], 
+                            max(mapData$decimalLongitude, na.rm = TRUE)+xbuffer[[2]]),
                    lims_method = "box") + 
           # Map formatting
           # Add in the map's north arrow

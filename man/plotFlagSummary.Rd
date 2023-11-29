@@ -17,10 +17,13 @@ plotFlagSummary(
   device = "pdf",
   speciesName = NULL,
   saveFiltered = FALSE,
-  filterColumn = FALSE,
+  filterColumn = ".summary",
   nameColumn = NULL,
   plotMap = FALSE,
   mapAlpha = 0.5,
+  xbuffer = c(0, 0),
+  ybuffer = c(0, 0),
+  ptSize = 1,
   saveTable = FALSE,
   jitterValue = NULL,
   returnPlot = FALSE,
@@ -71,6 +74,17 @@ a variety of factors.}
 species at a time; i.e., with speciesName is not NULL.}
 
 \item{mapAlpha}{Optional. Numeric. The opacity for the points on the map.}
+
+\item{xbuffer}{Optional. Numeric vector. A buffer in degrees of the amount to increase the
+min and max bounds along the
+x-axis. This may require some experimentation, keeping in mind
+the negative and positive directionality of hemispheres. Default = c(0,0).}
+
+\item{ybuffer}{Optional. Numeric vector. A buffer in degrees of the amount to increase the
+min and max bounds along the y-axis. This may require some experimentation, keeping in mind
+the negative and positive directionality of hemispheres. Default = c(0,0).}
+
+\item{ptSize}{Optional. Numeric. The size of the points as passed to ggplot2. Default = 1.}
 
 \item{saveTable}{Optional. Logical. If TRUE, the function will save the data used to produce the
 compound bar plot.}
