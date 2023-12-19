@@ -90,9 +90,8 @@ jbd_create_figures <-
       requireNamespace("bdc")
     })
     
-    match.arg(
-      arg = workflow_step,
-      choices = c("prefilter", "space", "time")
+    match.arg(arg = workflow_step,
+              choices = c("prefilter", "space", "time")
     )
     
     temp <- data %>% dplyr::select(tidyselect::starts_with("."))
@@ -156,12 +155,11 @@ jbd_create_figures <-
       
       our_theme <-
         ggplot2::theme_minimal() +
-        ggplot2::theme(
-          axis.title = ggplot2::element_text(size = 18),
-          axis.text = ggplot2::element_text(size = 12),
-          panel.grid.major.x = ggplot2::element_line(color = "#cbcbcb"),
-          panel.grid.major.y = ggplot2::element_blank(),
-          plot.margin = ggplot2::unit(c(0.5, 0.5, 0.5, 0.5), "cm")
+        ggplot2::theme(axis.title = ggplot2::element_text(size = 18),
+                       axis.text = ggplot2::element_text(size = 12),
+                       panel.grid.major.x = ggplot2::element_line(color = "#cbcbcb"),
+                       panel.grid.major.y = ggplot2::element_blank(),
+                       plot.margin = ggplot2::unit(c(0.5, 0.5, 0.5, 0.5), "cm")
         )
       
       # prefilter
@@ -423,10 +421,9 @@ jbd_create_figures <-
         # new theme
         our_theme2 <-
           ggplot2::theme_classic() +
-          ggplot2::theme(
-            panel.border = ggplot2::element_blank(),
-            panel.grid.major = ggplot2::element_blank(),
-            panel.grid.minor = ggplot2::element_blank(),
+          ggplot2::theme(panel.border = ggplot2::element_blank(),
+                         panel.grid.major = ggplot2::element_blank(),
+                         panel.grid.minor = ggplot2::element_blank(),
           )
         
         for (i in 1:length(w_maps)) {
