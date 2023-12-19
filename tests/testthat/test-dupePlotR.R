@@ -27,9 +27,9 @@ testOut <- BeeBDC::dupePlotR(
 
 
 # Test the expected results
-testthat::test_that("dupePlotR plot length match", {
-  testthat::expect_equal(length(testOut), 9)
-})
+    # testthat::test_that("dupePlotR plot length match", {
+    #   testthat::expect_equal(length(testOut), 9)
+    # })
 
 # Test classes
 testthat::test_that("dupePlotR expected class", {

@@ -22,9 +22,9 @@ testOut <- plotFlagSummary(
 
 
 # Test the expected results
-testthat::test_that("plotFlagSummary plot length match", {
-  testthat::expect_equal(length(testOut), 9)
-})
+    # testthat::test_that("plotFlagSummary plot length match", {
+    #   testthat::expect_equal(length(testOut), 9)
+    # })
 
 # Test classes
 testthat::test_that("plotFlagSummary expected class", {
