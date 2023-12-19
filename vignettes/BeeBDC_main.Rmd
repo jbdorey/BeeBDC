@@ -609,12 +609,15 @@ From several papers:
 2. Dorey, J. B. (2021). Missing for almost 100 years: the rare and potentially threatened bee Pharohylaeus lactiferus (Hymenoptera, Colltidae). *Journal of Hymenoptera Research*, 81, 165-180. doi: <https://doi.org/10.3897/jhr.81.59365>
 3. Dorey, J. B., Schwarz, M. P., & Stevens, M. I. (2019). Review of the bee genus Homalictus Cockerell (Hymenoptera: Halictidae) from Fiji with description of nine new species. *Zootaxa*, 4674(1), 1–46. doi:<https://doi.org/10.11646/zootaxa.4674.1.1>
 
-    Dor_Data <- BeeBDC::readr_BeeBDC(dataset = "Dor",
-                                   path = paste0(DataPath, "/Additional_Datasets"),
-                          inFile = "/InputDatasets/DoreyData.csv",
-                          outFile = "jbd_Dor_Data.csv",
-                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
-                          
+```{}
+```
+ 
+      Dor_Data <- BeeBDC::readr_BeeBDC(dataset = "Dor",
+                        path = paste0(DataPath, "/Additional_Datasets"),
+                        inFile = "/InputDatasets/DoreyData.csv",
+                        outFile = "jbd_Dor_Data.csv",
+                        dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
 ###### p. VicWam
 
 These data are originally from the Victorian Museum and Western Australian Museum in Australia. However, in their current form they are from Dorey et al. 2021.
@@ -622,14 +625,15 @@ These data are originally from the Victorian Museum and Western Australian Museu
 1. PADIL. (2020). PaDIL. <https://www.PADIL.gov.au/>
 2. Houston, T. F. (2000). Native bees on wildflowers in Western Australia. *Western Australian Insect Study Society*.
 3. Dorey, J. B., Rebola, C. M., Davies, O. K., Prendergast, K. S., Parslow, B. A., Hogendoorn, K., . . . Caddy-Retalic, S. (2021). Continental risk assessment for understudied taxa post catastrophic wildfire indicates severe impacts on the Australian bee fauna. *Global Change Biology*, 27(24), 6551-6567. doi:<https://doi.org/10.1111/gcb.15879>
-
-    VicWam_Data <- BeeBDC::readr_BeeBDC(dataset = "VicWam",
-                                     path = paste0(DataPath, "/Additional_Datasets"),
-                                     inFile = "/InputDatasets/Combined_Vic_WAM_databases.xlsx",
-                                     outFile = "jbd_VicWam_Data.csv",
-                                     dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-                                     sheet = "Combined")
-    
+  
+  ```{}
+```
+     VicWam_Data <- BeeBDC::readr_BeeBDC(dataset = "VicWam",
+                        path = paste0(DataPath, "/Additional_Datasets"),
+                        inFile = "/InputDatasets/Combined_Vic_WAM_databases.xlsx",
+                        outFile = "jbd_VicWam_Data.csv",
+                        dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                        sheet = "Combined")
 
 ### 2.5 Merge all 
 
