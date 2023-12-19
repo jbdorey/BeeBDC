@@ -1,5 +1,10 @@
 # Changes in BeeBDC version 1.0.2
 
+- Minor update to jbd_correct_coordinates to maintain functionality with sf version 1.0-15.
+
+
+# Changes in BeeBDC version 1.0.2
+
 - Minor update to plotFlagSummary to allow individual species maps to get updated.
 
 - Update to atlasDownloader from mjwestgate to work with galah version 2.0.0

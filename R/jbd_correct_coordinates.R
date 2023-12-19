@@ -105,7 +105,7 @@ jbd_correct_coordinates <-
           if(nrow(caluse) > 0){
             caluse <- caluse %>%
             sf::st_as_sf(., coords = c("x", "y"), crs = sf::st_crs("WGS84")) %>%
-            sf::st_make_valid(s2_options = FALSE)
+            sf::st_make_valid()
           suppressWarnings({
             overresult <- sf::st_intersects(caluse, world_poly) %>%
               # return a tibble with the index of each match or NA where there was no match

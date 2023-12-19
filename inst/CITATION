@@ -18,10 +18,10 @@ bibentry(
   title    = "BeeBDC: an occurrence data cleaning package",
   author   = person("Dorey, James B. [aut],O’Reilly, Robert L. [aut],Bossert, Silas [aut],Fischer, Erica E. [aut]"),
   year     = "2023",
-  note     = "R package version 1.0.2",
+  note     = "R package version 1.0.3",
   url      = "https://github.com/jbdorey/BeeBDC",
   textVersion = paste(
-"Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer, E. E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.0.2. url: <https://github.com/jbdorey/BeeBDC>"
+"Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer, E. E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.0.3. url: <https://github.com/jbdorey/BeeBDC>"
   )
 )
 
