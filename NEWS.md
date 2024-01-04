@@ -1,4 +1,9 @@
-# Changes in BeeBDC version 1.0.2
+# Changes in BeeBDC version 1.0.4 (**devel**)
+
+- Exception found by Elsa Youngsteadt (North Carolina State University) where repoMerge and attr_builder would fail to complete when multiple families were included in a single GBIF, iDigBio, or SCAN download. This has been updated whereby these functions can now work together in order to identify a multi-family download and label the dataSource column accordingly. This will also be reflected in the metadata and EML data to show the different sources, while maintaining the metadata for each download (doi, link, ...).
+
+
+# Changes in BeeBDC version 1.0.3
 
 - Minor update to jbd_correct_coordinates to maintain functionality with sf version 1.0-15.
 

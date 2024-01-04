@@ -3,9 +3,9 @@
 #' @importFrom stringr str_to_sentence
 #' @importFrom dplyr %>%
 
-attr_builder <- function(path_i, occ_input){
+attr_builder <- function(path_i = path_i, occ_input = data_i){
   # locally bind variables to the function
-  lubridate <- stringr <- family <- NULL
+  lubridate <- stringr <- family <- data_i <- NULL
   
   requireNamespace("lubridate")
   requireNamespace("dplyr")
@@ -43,7 +43,8 @@ attr_builder <- function(path_i, occ_input){
                                                             "). ALA Occurrence Download. ",
                                                             galahDL_i$doi,
                                                             sep = ""),
-                                   rights = dplyr::lst("See occurrence records") )
+                                   rights = dplyr::lst("See occurrence records"),
+                                  taxon = galahDL_i$taxon)
     
     # combine the input eml and the attributes tibble into a list for output from the function
     EML_attributes <- list("No_eml_from_ALA", Attributes_i)
@@ -92,7 +93,8 @@ attr_builder <- function(path_i, occ_input){
                                 sourceEML_i$additionalMetadata$metadata$gbif$citation$identifier, 
                                 sep = ""),
                           sep = ""),
-                                   rights = dplyr::lst(rights_i) )
+                                   rights = dplyr::lst(rights_i),
+ taxon = fam_name)
     
     # combine the input eml and the attributes tibble into a list for output from the function
     EML_attributes <- list(sourceEML_i, Attributes_i)
@@ -113,9 +115,18 @@ attr_builder <- function(path_i, occ_input){
                                                         stringr::str_match_all("[A-Za-z]+") %>%
                                                         unlist() %>% 
                                                         dplyr::last(), sep = ""),
-                                   alternateIdentifier =    path_i %>% 
-stringr::str_match_all("[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+") %>%
-                                     unlist(),
+                                  # Check for alt identifier and include if there
+                                   alternateIdentifier =  
+if(length(path_i %>% 
+           stringr::str_match_all("[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+") %>%
+           unlist()) > 0){
+  # TRUE
+               path_i %>% 
+                 stringr::str_match_all("[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+") %>%
+                 unlist()
+      }else{
+        # FALSE
+        NA_character_},
                                    title = citations_i$.[1], 
                                    pubDate = citations_i$.[3] %>% 
   stringr::str_match("[0-9]{4}-[0-9]{2}-[0-9]{2}") %>%
@@ -141,7 +152,12 @@ path_i %>%
   stringr::str_match_all("[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+"),
                                                                   ".zip", sep = ""),
                                                             sep = ""),
-                                   rights = dplyr::lst("See occurrence records"))
+                                   rights = dplyr::lst("See occurrence records"),
+taxon = (citations_i$.[2] %>% 
+  stringr::str_match_all("[A-Za-z]+") %>%
+  unlist() %>% 
+  dplyr::last())
+) # END tibble()
     
     # combine the input eml and the attributes tibble into a list for output from the function
     EML_attributes <- list("No_eml_from_iDigBio", Attributes_i)
@@ -186,7 +202,8 @@ downloadLink = "SCAN does not provide a download link.",
                          "http//:scan-bugs.org/portal/index.php. uuid - ",
                          sourceEML_i$additionalMetadata$metadata$symbiota$citation$identifier,
                          sep = ""),
-                                   rights = dplyr::lst("See .xml for rights"))
+                                   rights = dplyr::lst("See .xml for rights"),
+taxon = unique(stringr::str_to_sentence(occ_input$family)))
     # combine the input eml and the attributes tibble into a list for output from the function
     EML_attributes <- list(sourceEML_i, Attributes_i)
     names(EML_attributes) <- c("source_eml","Source_tibble") 

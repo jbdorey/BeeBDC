@@ -22,7 +22,10 @@ files contained in "eml_files". Also saves these files in the requested format.
 }
 \description{
 Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its eml
-metadata.
+metadata. Please keep the original download folder names and architecture unchanged.
+NOTE: This function uses family-level data to identify taxon downloads. If this, or something new,
+becomes an issue, please contact James Dorey (the developer) as there are likely to be exceptions
+to how files are downloaded. current as of versions 1.0.4.
 }
 \examples{
 \dontrun{

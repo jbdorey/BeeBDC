@@ -17,11 +17,14 @@ setwd(paste0(RootPath,"/Data_acquisition_workflow"))
 renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 
-# Install BeeBDC 
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
-                          # To use the development version, do below, otherwise choose "main"
-                        ref = "devel", 
-                        force = TRUE)
+# Install BeeBDC from CRAN
+install.packages("BeeBDC")
+# You could also install BeeBDC's development version using the below: 
+# WARNING the development version may not pass all CRAN or GitHub tests.
+    # remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+    #                           # To use the development version, do below, otherwise choose "main"
+    #                         ref = "devel", 
+    #                         force = TRUE)
 
 ##### 0.2 Load packages ####
 # Save a snapshot of the environment
