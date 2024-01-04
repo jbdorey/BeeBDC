@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -95,6 +95,10 @@
       <small>Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.4" id="changes-in-beebdc-version-104-devel">Changes in BeeBDC version 1.0.4 (<strong>devel</strong>)<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-104-devel"></a></h2>
+<ul><li>Exception found by Elsa Youngsteadt (North Carolina State University) where repoMerge and attr_builder would fail to complete when multiple families were included in a single GBIF, iDigBio, or SCAN download. This has been updated whereby these functions can now work together in order to identify a multi-family download and label the dataSource column accordingly. This will also be reflected in the metadata and EML data to show the different sources, while maintaining the metadata for each download (doi, link, …).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.3" id="changes-in-beebdc-version-103">Changes in BeeBDC version 1.0.3<small>2023-12-20</small><a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-103"></a></h2>
 <ul><li>Minor update to jbd_correct_coordinates to maintain functionality with sf version 1.0-15.</li>
