@@ -1,4 +1,4 @@
-# Changes in BeeBDC version 1.0.2
+# Changes in BeeBDC version 1.0.3
 
 - Minor update to jbd_correct_coordinates to maintain functionality with sf version 1.0-15.
 
