@@ -10,6 +10,7 @@ harmoniseR(
   taxonomy = BeeBDC::beesTaxonomy(),
   speciesColumn = "scientificName",
   rm_names_clean = TRUE,
+  checkVerbatim = FALSE,
   stepSize = 1e+06,
   mc.cores = 1
 )
@@ -26,6 +27,10 @@ Default = \code{\link[=beesTaxonomy]{beesTaxonomy()}}.}
 
 \item{rm_names_clean}{Logical. If TRUE then the names_clean column will be removed at the end of
 this function to help reduce confusion about this column later. Default = TRUE}
+
+\item{checkVerbatim}{Logical. If TRUE then the verbatimScientificName will be checked as well
+for species matches. This matching will ONLY be done after harmoniseR has failed for the other
+name columns. NOTE: this column is \emph{not} first run through \code{bdc::bdc_clean_names}. Default = FALSE}
 
 \item{stepSize}{Numeric. The number of occurrences to process in each chunk. Default = 1000000.}
 

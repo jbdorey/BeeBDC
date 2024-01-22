@@ -25,10 +25,6 @@ testthat::test_that("summaryMaps expected class", {
 })
 
 
-  # Test list size
-  #   testthat::test_that("summaryMaps list size", {
-  #     testthat::expect_equal(length(testMap), 9)
-  #   })
   # Test some internals
 testthat::test_that("summaryMaps internals - testMap$layers[[1]]$geom_params$grob$name", {
   testthat::expect_equal(testMap$layers[[1]]$geom_params$grob$name, "layout")
