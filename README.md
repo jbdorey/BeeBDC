@@ -62,7 +62,7 @@ You can install *BeeBDC* from CRAN or GitHub.
 install.packages("BeeBDC")
 
   # Or using the development version from GitHub (keeping in mind this may not be as stable)
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", 
                           # To use the development version use "devel"; otherwise choose "main"
                         ref = "devel", force = TRUE)
 ```
