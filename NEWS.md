@@ -1,4 +1,4 @@
-# Changes in BeeBDC version 1.0.4 (**devel**)
+# Changes in BeeBDC version 1.0.4
 
 - Suggestions by Elsa Youngsteadt (North Carolina State University) to allow functionality in harmoniseR to search for name matches in the verbatimScientificName column. This functionality has been optionally added with the checkVerbatim argument (default = FALSE) whereby if TRUE the function will make all checks on the normal name columns and then, *only for those rows that failed*, it will check the verbatimScientificName column for matches. 
 
