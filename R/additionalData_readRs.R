@@ -2789,7 +2789,7 @@ readr_VicWam <- function(path = NULL,
                                  eventDate2, eventDate),
       .after = DTFR
     ) %>% dplyr::select(!eventDate2) %>%
-      # Creat ethe date to
+      # Create the date to
     dplyr::mutate(
       dayTO = DTTO %>% stringr::str_extract("^[0-9]+/") %>% stringr::str_remove_all("/") %>%
         dplyr::if_else(. == "00", NA_character_, .),

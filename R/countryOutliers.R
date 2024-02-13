@@ -62,7 +62,7 @@ countryOutlieRs <- function(
     mc.cores = 1
     ){
   # locally bind variables to the function
-  iso_a2<-iso_a3<-name<-name_long<-continent<-geometry<-countryOutlieRs<-decimalLongitude<-
+  iso_a2<-iso_a3_eh<-name<-name_long<-continent<-geometry<-countryOutlieRs<-decimalLongitude<-
     countryOutlieRs<-decimalLatitude<-database_id<-countryOutlieRs<-scientificName<-species<-
     family<-subfamily<-genus<-countryOutlieRs<-specificEpithet<-countryOutlieRs<-
     scientificNameAuthorship<-country<-stateProvince<-eventDate<-countryOutlieRs<-
@@ -91,7 +91,7 @@ countryOutlieRs <- function(
   data <- data %>%
     dplyr::select(!tidyselect::any_of(".countryOutlier")) %>%
       # Remove other columns made by this function
-    dplyr::select(!tidyselect::starts_with(c("iso_a3", "countryMatch")))
+    dplyr::select(!tidyselect::starts_with(c("iso_a3_eh", "countryMatch")))
 
   ##### 1.2 rNaturalEarth ####
 # Download world map using rnaturalearth packages
@@ -101,9 +101,9 @@ countryMap <- rnaturalearth::ne_countries(returnclass = "sf", country = NULL,
       # buffer by zero and make geometry valid to avoid potential issues with polygon intersection
     sf::st_make_valid() %>%
   # Select only a subset of the naturalearthdata columns to extract
-  dplyr::select(iso_a2, iso_a3, name, name_long, continent, geometry) %>%
+  dplyr::select(iso_a2, iso_a3_eh, name, name_long, continent, geometry) %>%
   # Replace some country codes to match the checklist
-  dplyr::mutate(iso_a3 = iso_a3 %>% stringr::str_replace_all(
+  dplyr::mutate(iso_a3_eh = iso_a3_eh %>% stringr::str_replace_all(
     c("ALA" = "FIN", # Aland Islands == Finland
     "ASM" = "WSM", # American Samoa == Samoa
     "HKG" = "CHN", # Hong Kong == China
@@ -163,7 +163,7 @@ jbd_bufferedIntersection <- function(inData){
         # Use only complete lat and lon data
       tidyr::drop_na(decimalLongitude, decimalLatitude) %>%
         # Remove the previous column names from jbd_intersection
-      dplyr::select(!tidyselect::any_of(c("iso_a2","iso_a3","name","name_long","continent",
+      dplyr::select(!tidyselect::any_of(c("iso_a2","iso_a3_eh","name","name_long","continent",
                                           "indexMatch")))
   # Turn inData into a simple point feature
   points <- sf::st_as_sf(inData,
@@ -205,8 +205,8 @@ jbd_bufferedIntersection <- function(inData){
 ###### a. exactCountry ####
 writeLines(" - Extracting country data from points...")
 points_extract <- data %>%
-  # remove the existing iso_a3 column 
-  dplyr::select(!tidyselect::any_of("iso_a3")) %>%
+  # remove the existing iso_a3_eh column 
+  dplyr::select(!tidyselect::any_of("iso_a3_eh")) %>%
   # Make a new column with the ordering of rows
   dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
   # Group by the row number and step size
@@ -220,7 +220,7 @@ points_extract <- data %>%
   # Combine the lists of tibbles
   dplyr::bind_rows() %>%
     # Drop those occurrences that did not intersect with a country
-  tidyr::drop_na(iso_a3)
+  tidyr::drop_na(iso_a3_eh)
 
   
   if(!is.null(pointBuffer)){
@@ -244,7 +244,7 @@ points_extract <- data %>%
     # Combine the lists of tibbles
     dplyr::bind_rows() %>%
     # Drop those occurrences that did not intersect with a country
-    tidyr::drop_na(iso_a3)
+    tidyr::drop_na(iso_a3_eh)
   
   if(nrow(points_failed) > 0){
   # Re-merge good with failed
@@ -265,7 +265,7 @@ points_extract <- data %>%
     # Make a new tibble with these information
   neighbouringCountries <- dplyr::tibble(
     rowNum = 1:nrow(countryMap),
-    country = countryMap$iso_a3,
+    country = countryMap$iso_a3_eh,
     neighbours = countriesBordering,
       # Modify the text in column
     neighboursText = mgsub::mgsub(string = neighbours,
@@ -313,9 +313,9 @@ points_extract <- data %>%
   writeLines(" - Compare points with the checklist...")
     # Get a smaller subset of the columns AND make a new columns with scientific name and country
   points_simple <- points_extract %>% 
-    dplyr::select(database_id, iso_a3, scientificName, country) %>%
+    dplyr::select(database_id, iso_a3_eh, scientificName, country) %>%
     dplyr::mutate(SciCountry = stringr::str_c(scientificName, 
-                                              iso_a3, sep = "_")) %>% 
+                                              iso_a3_eh, sep = "_")) %>% 
     # Remove grammar and caps from SciCountry
         dplyr::mutate(SciCountry = tolower(SciCountry) %>%
                           # Replace punctuation
@@ -337,9 +337,9 @@ points_extract <- data %>%
       # Select subset
     dplyr::select(validName, 'Alpha-3') %>%
       # Harmonise column names
-         dplyr::rename(iso_a3 = 'Alpha-3') %>%
+         dplyr::rename(iso_a3_eh = 'Alpha-3') %>%
       # Make the new column to match with full species name, authorship, and country
-    dplyr::mutate(SciCountry = stringr::str_c(validName, iso_a3, sep = "_"))%>% 
+    dplyr::mutate(SciCountry = stringr::str_c(validName, iso_a3_eh, sep = "_"))%>% 
     # Remove grammar and caps from SciCountry
     dplyr::mutate(SciCountry = tolower(SciCountry) %>%
                     # Replace punctuation
@@ -420,7 +420,7 @@ points_extract <- data %>%
     ##### 4.1 User output ####
   bpoints_match <- bpoints_match %>%
     # Select the columns to keep
-    dplyr::select(database_id, iso_a3, matchType) %>%
+    dplyr::select(database_id, iso_a3_eh, matchType) %>%
     dplyr::rename(
       countryMatch = matchType) 
       # Set flag for those that don't pass countryMatch

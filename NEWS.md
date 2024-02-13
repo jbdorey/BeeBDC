@@ -4,7 +4,9 @@
 
 - Exception found by Elsa Youngsteadt where repoMerge and attr_builder would fail to complete when multiple families were included in a single GBIF, iDigBio, or SCAN download. This has been updated whereby these functions can now work together in order to identify a multi-family download and label the dataSource column accordingly. This will also be reflected in the metadata and EML data to show the different sources, while maintaining the metadata for each download (doi, link, ...).
 
-- Minor exception found by Elsa Youngsteadt where some synonyms would fail to be matched due to double brackets (e.g., "Lasioglossum (leucocomum) (Lovell)"). This has been fixed by letting harmoniseR stringr::str_replace instead of stringr::str_replace_all when finding matches without subgenus.
+- Minor exception found by Elsa Youngsteadt where some synonyms would fail to be matched due to double brackets (e.g., "Lasioglossum (leucocomum) (Lovell)"). This has been fixed by letting harmoniseR stringr::str_replace instead of stringr::str_replace_all when finding matches without subgenus. Additionally, harmoniseR now ignores "non-ambiguous..." flags as these are more notes than actual issues.
+
+- Update to rnaturalearthdata 1.0.0 breaks BeeBDC::countryOutliers. This function now uses the column "iso_a3_eh" instead of "iso_a3". Thanks to @PMassicotte for identifying the issue and the solution.
 
 
 # Changes in BeeBDC version 1.0.3
