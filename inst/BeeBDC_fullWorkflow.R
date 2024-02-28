@@ -21,10 +21,10 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 install.packages("BeeBDC")
 # You could also install BeeBDC's development version using the below: 
 # WARNING the development version may not pass all CRAN or GitHub tests.
-    # remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
-    #                           # To use the development version, do below, otherwise choose "main"
-    #                         ref = "devel", 
-    #                         force = TRUE)
+     remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+                               # To use the development version, do below, otherwise choose "main"
+                             ref = "devel", 
+                             force = TRUE)
 
 ##### 0.2 Load packages ####
 # Save a snapshot of the environment
@@ -320,8 +320,8 @@ Bal_Data <- BeeBDC::readr_BeeBDC(dataset = "Bal",
 
 ###### m. Palouse Lic ####
 # # *Attached: My canola data. I tried to get this in DarwinCore format. 
-# These data go with a manuscript currently under review. Here’s the bioRxiv version: 
-# https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2. 
+# These data go with the manuscript published here: 
+# https://doi.org/10.1111/jen.13188 
 # These are the data I will be putting on SCAN. 
 # - Elinor Lichtenberg
 Lic_Data <- BeeBDC::readr_BeeBDC(dataset = "Lic",
@@ -1241,7 +1241,7 @@ check_time <- manualOutlierFindeR(
   data = check_time,
   DataPath = DataPath,
   PaigeOutliersName = "removedBecauseDeterminedOutlier.csv",
-  newOutliersName = "^All_outliers_ANB_14March.xlsx",
+  newOutliersName = "^All_outliers_ANB_23Jan24.xlsx",
   ColombiaOutliers_all = "All_Colombian_OutlierIDs.csv",
   # A .csv with manual outlier records that are too close to otherwise TRUE records
   NearTRUE = "nearTRUE.csv",
@@ -1257,8 +1257,9 @@ check_time <- summaryFun(
   filterClean = FALSE)
 # Save the uncleaned dataset
 check_time %>% readr::write_excel_csv(.,
-                                paste(OutPath_Intermediate, "05_unCleaned_database.csv",
-                                      sep = "/"))
+                                paste(OutPath_Intermediate, "/05_unCleaned_database_",
+                                      Sys.Date(), ".csv",
+                                      sep = ""))
 
 ##### 8.3 Save cleaned ####
 # Now clean the dataset of extra columns and failed rows and save it...
@@ -1274,8 +1275,9 @@ cleanData <- BeeBDC::summaryFun(
 # Save this CLEANED dataset
 cleanData %>%
   readr::write_excel_csv(.,
-                   paste(OutPath_Intermediate, "05_cleaned_database.csv",
-                         sep = "/"))
+                         paste(OutPath_Intermediate, "/05_cleaned_database_",
+                               Sys.Date(), ".csv",
+                               sep = ""))
 # Dataset can be re-read here
     #  cleanData <-
     #    readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",

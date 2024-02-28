@@ -582,7 +582,7 @@ Data with GPS coordinates (missing accidentally from records on Dryad) from Ball
 
 ###### m. Palouse Lic
 
-Elinor Lichtenberg’s canola data, which go with a manuscript currently under review. preprint: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J. & Crowder, D. W. Differential effects of soil conservation practices on arthropods and crop yield. *bioRxiv*, (2022) <https://www.biorxiv.org/content/10.1101/2021.12.06.471474v2>. These are the data I will be putting on SCAN. - Elinor Lichtenberg
+Elinor Lichtenberg’s canola data: Lichtenberg, E. M., Milosavljević, I., Campbell, A. J. & Crowder, D. W. Differential effects of soil conservation practices on arthropods and crop yields. *Journal of Applied Entomology*, (2023) <https://doi.org/10.1111/jen.13188>. These are the data I will be putting on SCAN. - Elinor Lichtenberg
  
     Lic_Data <- BeeBDC::readr_BeeBDC(dataset = "Lic",
                                    path = paste0(DataPath, "/Additional_Datasets"),
