@@ -1,6 +1,7 @@
 # Changes in BeeBDC version 1.0.5 (**devel**)
 - Minor alteration to plotFlagSummary to allow the removal of columns to the level where one or more  factor(s), "Initial","Time","Summary","Taxonomy","Space", is no longer present. Basically, a minor upgrade to make the function resilient to different input data. 
 
+
 # Changes in BeeBDC version 1.0.4
 
 - Suggestions by Elsa Youngsteadt (North Carolina State University) to allow functionality in harmoniseR to search for name matches in the verbatimScientificName column. This functionality has been optionally added with the checkVerbatim argument (default = FALSE) whereby if TRUE the function will make all checks on the normal name columns and then, *only for those rows that failed*, it will check the verbatimScientificName column for matches. 
