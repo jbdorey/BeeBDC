@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.5</span>
       </span>
     </div>
 
@@ -96,7 +96,11 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.4" id="changes-in-beebdc-version-104">Changes in BeeBDC version 1.0.4<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-104"></a></h2>
+<h2 class="page-header" data-toc-text="1.0.5" id="changes-in-beebdc-version-105-devel">Changes in BeeBDC version 1.0.5 (<strong>devel</strong>)<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-105-devel"></a></h2>
+<ul><li>Minor alteration to plotFlagSummary to allow the removal of columns to the level where one or more factor(s), “Initial”,“Time”,“Summary”,“Taxonomy”,“Space”, is no longer present. Basically, a minor upgrade to make the function resilient to different input data.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.4" id="changes-in-beebdc-version-104">Changes in BeeBDC version 1.0.4<small>2024-02-14</small><a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-104"></a></h2>
 <ul><li><p>Suggestions by Elsa Youngsteadt (North Carolina State University) to allow functionality in harmoniseR to search for name matches in the verbatimScientificName column. This functionality has been optionally added with the checkVerbatim argument (default = FALSE) whereby if TRUE the function will make all checks on the normal name columns and then, <em>only for those rows that failed</em>, it will check the verbatimScientificName column for matches.</p></li>
 <li><p>Exception found by Elsa Youngsteadt where repoMerge and attr_builder would fail to complete when multiple families were included in a single GBIF, iDigBio, or SCAN download. This has been updated whereby these functions can now work together in order to identify a multi-family download and label the dataSource column accordingly. This will also be reflected in the metadata and EML data to show the different sources, while maintaining the metadata for each download (doi, link, …).</p></li>
 <li><p>Minor exception found by Elsa Youngsteadt where some synonyms would fail to be matched due to double brackets (e.g., “Lasioglossum (leucocomum) (Lovell)”). This has been fixed by letting harmoniseR stringr::str_replace instead of stringr::str_replace_all when finding matches without subgenus. Additionally, harmoniseR now ignores “non-ambiguous…” flags as these are more notes than actual issues.</p></li>
