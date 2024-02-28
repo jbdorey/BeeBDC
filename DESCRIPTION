@@ -23,7 +23,6 @@ Description: Flags and checks occurrence data that are in Darwin Core
     website - Dorey et al. (2023) <https://github.com/jbdorey/BeeBDC>.
 License: GPL (>= 3)
 BugReports: https://github.com/jbdorey/BeeBDC/issues
-URL: https://jbdorey.github.io/BeeBDC/, https://github.com/jbdorey/BeeBDC
 Depends: 
     R (>= 2.10)
 Imports: 

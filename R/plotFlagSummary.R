@@ -240,11 +240,13 @@ plotFlagSummary <- function(
                   .eventDate_empty = "Time", .year_outOfRange = "Time", 
                   # Summary
                   .duplicates = "Summary", .summary = "Summary") %>%
-    forcats::fct_relevel(stringr::str_extract_all(.,
-                                                  paste("Initial","Time","Summary",
-                                                        "Taxonomy","Space",
-                                                        sep = "|")) %>%
-    as.character() %>% unique())
+    factor(levels = c("Initial",
+                         "Taxonomy","Space",
+                         "Time","Summary")) %>% 
+    forcats::fct_relevel("Initial",
+                         "Taxonomy","Space",
+                         "Time","Summary")
+    
   
   # You can turn the flag columns into factors and order them here
   data$flags <- data$flags %>%
