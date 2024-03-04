@@ -246,7 +246,7 @@ speciesList <- speciesList[complete.cases(speciesList)]
 
 options(encoding = "UTF-8")
 
-data <- data %>% mutate(across(where(is.character), 
+data <- data %>% dplyr::mutate(dplyr::across(where(is.character), 
                               function(x){iconv(x, 
                                                 to = "UTF-8",
                                                 sub = "")}))
@@ -272,9 +272,10 @@ for (x in 1:length(speciesList)){
       # Add map panes
     leaflet::addMapPane(name = "maplabels_FALSE", zIndex = 410) %>% 
     leaflet::addMapPane(name = "maplabels_TRUE", zIndex = 420) %>% # higher zIndex rendered on top
+    leaflet::addMapPane(name = "maplabels_default", zIndex = 600) %>%
     # Base groups
     leaflet::addTiles(group = "OSM (default)") %>%
-    leaflet::addProviderTiles("Stamen.TonerLite", group = "Toner Lite",
+    leaflet::addProviderTiles("Stadia.StamenTonerLite", group = "Toner Lite",
                               layerId = 300,
                               options = leaflet::providerTileOptions(zIndex = 500))
     # For the names in the list, apply the points function
@@ -287,10 +288,13 @@ for(i in 1:length(names(databaseLoop))){
                               data = databaseSpp,
                               lng = ~decimalLongitude, lat = ~decimalLatitude, ###then you can specify what do you want in the popup window from your data
                               group = walkName,
-                              if(TrueAlwaysTop == TRUE){
-                              options = leaflet::leafletOptions(
-                                pane = if(walkName == TRUE){"maplabels_TRUE"}else{
-                                  "maplabels_FALSE"})},
+                             if(TrueAlwaysTop == TRUE){
+                             options = leaflet::leafletOptions(
+                               pane = if(walkName == "TRUE"){"maplabels_TRUE"
+                                 }else{"maplabels_FALSE"})}else{
+                                   options = leaflet::leafletOptions(
+                                     pane = "maplabels_default")
+                                 },
                               popup = stringr::str_c(
                                 sep = "",
                                 ###### a. basic data ####
@@ -315,7 +319,8 @@ for(i in 1:length(names(databaseLoop))){
                                                            paste0("Authority: ", databaseSpp$scientificNameAuthorship, 
                                                                   ";   ")},
                                 ###### b. summary data ####
-                                "<p></p> <b>Summary flag</b> - ", databaseSpp$.summary,
+                                if(".summary" %in% colnames(databaseSpp)){
+                                  paste0("<p></p> <b>Summary flag</b> - ", databaseSpp$.summary)},
                                 ###### c. initial data ####
                                 "<p></p><b>Initial flags</b> - ",
                                             if(".coordinates_empty" %in% colnames(databaseSpp)){

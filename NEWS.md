@@ -1,5 +1,6 @@
 # Changes in BeeBDC version 1.0.5 (**devel**)
 - Minor alteration to plotFlagSummary to allow the removal of columns to the level where one or more  factor(s), "Initial","Time","Summary","Taxonomy","Space", is no longer present. Basically, a minor upgrade to make the function resilient to different input data. 
+- Fixed an issue caused by a stability fix from leaflet [#884](https://github.com/rstudio/leaflet/pull/884) where the tonerLite base map did not work and so would stop points from showing on the map.
 
 
 # Changes in BeeBDC version 1.0.4
