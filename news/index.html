@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -96,8 +96,15 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.0" id="changes-in-beebdc-version-110-devel">Changes in BeeBDC version 1.1.0 (<strong>devel</strong>)<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-110-devel"></a></h2>
+<ul><li>A new function added, <code><a href="../reference/taxadbToBeeBDC.html">BeeBDC::taxadbToBeeBDC()</a></code>, that can use the <strong>taxadb</strong> package to download taxonomic data for any taxa. The function will transform the <strong>taxadb</strong> format into the <strong>BeeBDC</strong> format that can be put directly into <code><a href="../reference/HarmoniseR.html">BeeBDC::harmoniseR()</a></code>. Users may choose their data source (e.g., “gbif” or “itis”), but some formats may be better than others. <em>Comments and issues are welcome in regards to how well the function works, or not, for your taxon.</em>
+</li>
+<li>A minor fix where the legend colours for the <code><a href="../reference/interactiveMapR.html">BeeBDC::interactiveMapR()</a></code> function were inverted from what they should have been. Thanks to Neil Cobb for pointing this out.</li>
+<li>Minor fixes to <code><a href="../reference/dateFindR.html">BeeBDC::dateFindR()</a></code> to identify more dates and exceptions on the advice of Elsa Youngsteadt.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.5" id="changes-in-beebdc-version-105-devel">Changes in BeeBDC version 1.0.5 (<strong>devel</strong>)<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-105-devel"></a></h2>
-<ul><li>Minor alteration to plotFlagSummary to allow the removal of columns to the level where one or more factor(s), “Initial”,“Time”,“Summary”,“Taxonomy”,“Space”, is no longer present. Basically, a minor upgrade to make the function resilient to different input data.</li>
+<ul><li>Minor alteration to plotFlagSummary to allow the removal of columns to the level where one or more factors, “Initial”,“Time”,“Summary”,“Taxonomy”,“Space”, are no longer present. Basically, a minor upgrade to make the function resilient to different input data.</li>
 <li>Fixed an issue caused by a stability fix from leaflet <a href="https://github.com/rstudio/leaflet/pull/884" class="external-link">#884</a> where the tonerLite base map did not work and so would stop points from showing on the map.</li>
 </ul></div>
     <div class="section level2">
@@ -105,7 +112,7 @@
 <ul><li><p>Suggestions by Elsa Youngsteadt (North Carolina State University) to allow functionality in harmoniseR to search for name matches in the verbatimScientificName column. This functionality has been optionally added with the checkVerbatim argument (default = FALSE) whereby if TRUE the function will make all checks on the normal name columns and then, <em>only for those rows that failed</em>, it will check the verbatimScientificName column for matches.</p></li>
 <li><p>Exception found by Elsa Youngsteadt where repoMerge and attr_builder would fail to complete when multiple families were included in a single GBIF, iDigBio, or SCAN download. This has been updated whereby these functions can now work together in order to identify a multi-family download and label the dataSource column accordingly. This will also be reflected in the metadata and EML data to show the different sources, while maintaining the metadata for each download (doi, link, …).</p></li>
 <li><p>Minor exception found by Elsa Youngsteadt where some synonyms would fail to be matched due to double brackets (e.g., “Lasioglossum (leucocomum) (Lovell)”). This has been fixed by letting harmoniseR stringr::str_replace instead of stringr::str_replace_all when finding matches without subgenus. Additionally, harmoniseR now ignores “non-ambiguous…” flags as these are more notes than actual issues.</p></li>
-<li><p>Update to rnaturalearthdata 1.0.0 breaks BeeBDC::countryOutliers. This function now uses the column “iso_a3_eh” instead of “iso_a3”. Thanks to <a href="https://github.com/PMassicotte" class="external-link">@PMassicotte</a> for identifying the issue and the solution.</p></li>
+<li><p>Update to rnaturalearthdata 1.0.0 breaks <code>BeeBDC::countryOutliers()</code>. This function now uses the column “iso_a3_eh” instead of “iso_a3”. Thanks to <a href="https://github.com/PMassicotte" class="external-link">@PMassicotte</a> for identifying the issue and the solution.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.3" id="changes-in-beebdc-version-103">Changes in BeeBDC version 1.0.3<small>2023-12-20</small><a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-103"></a></h2>
@@ -115,7 +122,7 @@
 <h2 class="page-header" data-toc-text="1.0.2" id="changes-in-beebdc-version-102">Changes in BeeBDC version 1.0.2<small>2023-11-30</small><a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-102"></a></h2>
 <ul><li><p>Minor update to plotFlagSummary to allow individual species maps to get updated.</p></li>
 <li><p>Update to atlasDownloader from mjwestgate to work with galah version 2.0.0</p></li>
-<li><p>Minor update to the bee taxonomy file (29th November 2023), especially in regards to a few species that were getting associated with genus-only identifications. In particular, users who have downloaded version 1 of the dataset should be careful with the following species: <em>Coelioxys texanus</em>, <em>Lasioglossum albipenne</em>, <em>Megachile brevis</em>, and <em>Xylocopa virginica</em>. Likely the verbatimScientificName column coudl be filtered to remove these issues with something like: beeData %&gt;% dplyr::filter(verbatimScientificName %in% c(“Coelioxys”, “Lasioglossum”, “Megachile”, “Xylocopa”)). Thanks to Angela Nava-Bolaños for identifying this issue.</p></li>
+<li><p>Minor update to the bee taxonomy file (29th November 2023), especially in regards to a few species that were getting associated with genus-only identifications. In particular, users who have downloaded version 1 of the dataset should be careful with the following species: <em>Coelioxys texanus</em>, <em>Lasioglossum albipenne</em>, <em>Megachile brevis</em>, and <em>Xylocopa virginica</em>. Likely the verbatimScientificName column could be filtered to remove these issues with something like: beeData %&gt;% dplyr::filter(verbatimScientificName %in% c(“Coelioxys”, “Lasioglossum”, “Megachile”, “Xylocopa”)). Thanks to Angela Nava-Bolaños for identifying this issue.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.1" id="changes-in-beebdc-version-101">Changes in BeeBDC version 1.0.1<small>2023-10-09</small><a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-101"></a></h2>

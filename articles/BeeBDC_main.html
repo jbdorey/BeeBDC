@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -190,7 +190,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.3]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmpuOrE7v/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/RtmpK8sSZG/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by BeeBDC. These directories include
 where the data, figures, reports, etc. will be saved. The RDoc needs to
 be a path RELATIVE to the RootPath; i.e., the file path from which the
@@ -829,6 +829,10 @@ environment by <code><a href="../reference/dirMaker.html">dirMaker()</a></code>.
 <pre><code><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"db_standardized"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">db_standardized</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"00_prefilter_database.csv"</span>,</span>
 <span>                                    sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre>
+<p>Normally, you would use the full dataset, as read in above. But, for
+the sake of this vignette, we will use a combination of two example
+datasets. These example datasets can further be very useful for testing
+functions if you’re ever feeling a bit confused and overwhelmed!</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"bees3sp"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesRaw"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
@@ -1114,7 +1118,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 1.26 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.97 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1326,7 +1330,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 0.25 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.53 secs</span></span></code></pre></div>
 <p>You don’t need this file any more…</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">taxonomyFile</span><span class="op">)</span></span></code></pre></div>
@@ -1477,7 +1481,7 @@ depending on your dataset. However, the option is provided.</p>
 <span><span class="co">## diagonAlley:</span></span>
 <span><span class="co">## Flagged 0 records</span></span>
 <span><span class="co">## The .sequential column was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.02 secs</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than X occurrences.</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
@@ -1703,11 +1707,11 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">##  - Formating and combining the new data..</span></span>
 <span><span class="co">##  - Merging all data, nearly there...</span></span>
 <span><span class="co">##  - Finished. </span></span>
-<span><span class="co">## We now have 2 more full eventDate cells than in the input data.</span></span>
+<span><span class="co">## We now have -6 more full eventDate cells than in the input data.</span></span>
 <span><span class="co">## We modified dates in </span></span>
-<span><span class="co">## 175 occurrences.</span></span>
-<span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.174432516098022 secs</span></span></code></pre></div>
+<span><span class="co">## 174 occurrences.</span></span>
+<span><span class="co">##  - As it stands, there are 167 complete eventDates and 38 missing dates.</span></span>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.210730075836182 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1717,7 +1721,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_eventDate_empty.html" class="external-link">bdc_eventDate_empty</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, eventDate <span class="op">=</span> <span class="st">"eventDate"</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## bdc_eventDate_empty:</span></span>
-<span><span class="co">## Flagged 30 records.</span></span>
+<span><span class="co">## Flagged 38 records.</span></span>
 <span><span class="co">## One column was added to the database.</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -1751,7 +1755,7 @@ occurrence records.</em> Update the <em>.summary</em> column.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 115 </span></span>
+<span><span class="co">## Flagged 119 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
@@ -1848,7 +1852,7 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
+<span><span class="co">## Flagged 97 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">##  - Working on CustomComparisonsRAW duplicates...</span></span>
 <span><span class="co">## </span></span>
@@ -1886,9 +1890,9 @@ this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - Ordering prefixs...</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpuOrE7v/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2024-03-04.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpK8sSZG/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2024-03-19.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.28 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.29 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1927,7 +1931,7 @@ expert outliers.</p>
 <span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/RtmpuOrE7v/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2024-03-04.csv</span></span>
+<span><span class="co">##  /tmp/RtmpK8sSZG/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2024-03-19.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -1960,7 +1964,7 @@ files can further be modified to include more outliers.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
+<span><span class="co">## Flagged 97 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save the uncleaned dataset</span></span>
@@ -1985,7 +1989,7 @@ it.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
+<span><span class="co">## Flagged 97 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre></div>
 <div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
@@ -2213,7 +2217,7 @@ to group the summary. While it is intended to work with the
 <span>    outPath <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span>
 <span><span class="co">##  - We will flag all columns starting with '.'</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 111 </span></span>
+<span><span class="co">## Flagged 115 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">## The percentages of species impacted by each flag in your analysis are as follows: </span></span>
 <span><span class="co">##   .coordinates_empty = 26.19%</span></span>
@@ -2226,7 +2230,7 @@ to group the summary. While it is intended to work with the
 <span><span class="co">##   .rou = 32.14%</span></span>
 <span><span class="co">##   .sequential = 0%</span></span>
 <span><span class="co">##   .uncertaintyThreshold = 15.48%</span></span>
-<span><span class="co">##   .eventDate_empty = 15.48%</span></span>
+<span><span class="co">##   .eventDate_empty = 19.05%</span></span>
 <span><span class="co">##   .year_outOfRange = 16.67%</span></span>
 <span><span class="co">##   .duplicates = 0%</span></span></code></pre></div>
 </div>

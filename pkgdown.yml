@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   BeeBDC_main: BeeBDC_main.html
   basic_workflow: basic_workflow.html
-last_built: 2024-03-04T00:40Z
+last_built: 2024-03-19T11:34Z
 urls:
   reference: https://jbdorey.github.io/BeeBDC/reference
   article: https://jbdorey.github.io/BeeBDC/articles
