@@ -474,7 +474,7 @@ for(i in 1:length(names(databaseLoop))){
   ###### j. controller ####
     # Add the layers control
     mdatabaseSpp <- mdatabaseSpp %>%
-      leaflet::addLegend(color = pointColours[1:length(names(databaseLoop))],
+      leaflet::addLegend(color = pointColours[length(names(databaseLoop)):1],
                 labels = names(databaseLoop), 
                 group = names(databaseLoop)) %>%
     leaflet::addLayersControl(

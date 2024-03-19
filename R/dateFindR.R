@@ -33,8 +33,7 @@
 #'                          # Years below this are removed (from the recovered dates only)
 #'                          minYear = 1700)
 
-dateFindR <-
-  function(data = NULL,
+dateFindR <- function(data = NULL,
            maxYear = lubridate::year(Sys.Date()),
            minYear = 1700) {
     # locally bind variables to the function
@@ -42,7 +41,8 @@ dateFindR <-
       ymd_fieldNotes<-ymd_locationRemarks<-locality<-dmy_vEV<-dmy_locality<-dmy_fieldNotes<-
       dmy_locationRemarks<-mdy_vEV<-mdy_locality<-mdy_fieldNotes<-mdy_locationRemarks<-my_vEV<-
       my_locality<-my_fieldNotes<-my_locationRemarks<-amb_vEV<-amb_locality<-amb_fieldNotes<-
-      amb_locationRemarks<-year <- endTime <- startTime <- originalDateCount <- NULL
+      amb_locationRemarks<-year <- endTime <- startTime <- originalDateCount <- 
+      eventDate_in <- day <- NULL
     
       # load required packages
     requireNamespace("dplyr")
@@ -56,24 +56,47 @@ dateFindR <-
       # Get a count of how many eventDate rows are full
     originalDateCount <- sum(complete.cases(data$eventDate))
       # Create a new running dataset
-    noDATEa <- data
-      # Convert eventDate to date format 
-        # - might also lose some records
-    noDATEa$eventDate <- lubridate::ymd_hms(noDATEa$eventDate,
-                                            truncated = 5, quiet = TRUE)
-      # Find all of the records without dates
-    noDATEa <- data %>% 
-      dplyr::filter(any(is.na(eventDate) | eventDate %>% as.character() == ""))
-
+    noDATEa <- data %>%
+        # Save the original eventDate column
+      dplyr::mutate(eventDate_in = eventDate,
+                    .before = eventDate) %>%
+      dplyr::mutate(eventDate = eventDate %>% 
+                      lubridate::parse_date_time(eventDate_in, 
+                                                 orders = c("ymd", "ymdHMS","dmy","mdy"),
+                                                 truncated = 5,
+                                                 quiet = TRUE,
+                                                 tz = "UTC",
+                                                 locale = Sys.getlocale("LC_TIME"))) %>%
+      dplyr::mutate(eventDate = dplyr::if_else(is.na(eventDate),
+                                               lubridate::ymd_hms(eventDate_in, quiet = TRUE,
+                                                              truncated = 5),
+                                               eventDate)) %>%
+      dplyr::mutate(dateSuccess = dplyr::if_else(is.na(eventDate),
+                                          FALSE,
+                                          TRUE)) 
+    
+      # Save this dataset to be merged at the end...
+    ymd_hms_0 <- noDATEa %>%
+      dplyr::filter(complete.cases(eventDate)) %>%
+      dplyr::select(database_id, eventDate) %>%
+      setNames(object = ., c("database_id", "date"))
     
     #### 1.0 easyDates ####
       # Retrieve dates that are much easier to recover...
     writeLines(" - Extracting dates from year, month, day columns...")
     ##### 1.1 year month day ####
-      # Some records have date information in the dmy columns
-    noDATEa$eventDate <- lubridate::ymd(paste(noDATEa$year, noDATEa$month, noDATEa$day, sep = "-"),
-                                        quiet = TRUE, truncated = 2)
-      # Save this dataset to be merged at the end...
+    # Filter down to the records that again have no eventDate
+    noDATEa <- noDATEa %>%
+      dplyr::filter(is.na(eventDate))
+      # Some records have date information in the dmy columns that can easily be retrieved
+    noDATEa <- noDATEa %>%
+      dplyr::mutate(eventDate = dplyr::if_else(is.na(as.character(eventDate)),
+                                               lubridate::ymd(stringr::str_c(year, month, day,
+                                                                             sep = "-"),
+                                                              quiet = TRUE, truncated = 2),
+                                               eventDate))
+
+          # Save this dataset to be merged at the end...
     dmy_1 <- noDATEa %>%
       dplyr::filter(complete.cases(eventDate)) %>%
       dplyr::select(database_id, eventDate) %>%
@@ -198,11 +221,12 @@ dateFindR <-
     paste("[0-9]{1,2}[\\s-/ ]+", monthStrings,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
     paste("[0-9]{1,2}[\\s-/ ]+", monthStrings,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
       # 12-XII-2022; 12 XII 2022; 12 xii 2022;
-    paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
+    paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
       # >12 <12 1992 - dmy
-    "([1][3-9]|[2-3][0-9])[\\s-/ ]+([1-9]|1[0-2])[\\s-/ ]+[0-9]{2}",
-    "([1][3-9]|[2-3][0-9])[\\s-/ ]+([1-9]|1[0-2])[\\s-/ ]+[0-9]{4}")
+    "([1][3-9]|[2-3][0-9])[\\s-/ ]+([1-9]|1[0-2])[\\s-/ ]+[0-9]{4}",
+    "([1][3-9]|[2-3][0-9])[\\s-/ ]+([1-9]|1[0-2])[\\s-/ ]+[0-9]{2}"
+    )
     
         # Extract the matching strings
       dmy_unambiguous <- noDATEa %>%
@@ -282,16 +306,23 @@ dateFindR <-
     paste(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+[0-9]{4}", collapse = "|", sep = ""),
     paste(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+[0-9]{2}", collapse = "|", sep = ""),
      # Aug 1-10 2019
-    paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
+    paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
       # V. 17 1901
-    paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
+    paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
+    
      # <12 >12 1992 - mdy
-    "([1-9]|1[0-2])[\\s- /]+([1][3-9])[\\s- /]+[0-9]{2}",
-    "([1-9]|1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
-    "([1-9]|1[0-2])[\\s- /]+([1][3-9])[\\s- /]+[0-9]{4}",
-    "([1-9]|1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}")
+    "(1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}",
+    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{4}",
+    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}",
+    "(1[0-2])|^[1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{4}",
+    "(1[0-2])|^[1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}",
+    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{2}",
+    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
+    "(1[0-2])|^[1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{2}",
+    "(1[0-2])|^[1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
+    "(1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}")
       
       # Get the IDs to remove...
       id2remove_23 <- c(ymd_keepers_21$database_id, dmy_keepers_22$database_id)
@@ -368,14 +399,14 @@ dateFindR <-
       # VIII-1946
     paste(romanNumerals,"[\\s-/ \\.]+[0-9]{4}", collapse = "|", sep = ""),
       # July 1995; July, 1995
-    paste(monthStrings,"[\\s-/ \\.]+[0-9]{2}", collapse = "|", sep = ""),
     paste(monthStrings,"[\\s-/ \\.]+[0-9]{4}", collapse = "|", sep = ""),
+    paste(monthStrings,"[\\s-/ \\.]+[0-9]{2}", collapse = "|", sep = ""),
       # April 1899
-    paste(monthStrings,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
     paste(monthStrings,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
+    paste(monthStrings,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
       # 1899 April 
-    paste("[\\s- /]+[0-9]{2}", monthStrings, collapse = "|", sep = ""),
     paste("[\\s- /]+[0-9]{4}", monthStrings, collapse = "|", sep = ""),
+    paste("[\\s- /]+[0-9]{2}", monthStrings, collapse = "|", sep = ""),
      # 4/1957
     "([1-9]|1[0-2])[\\s- /]+[0-9]{4}"
     )
@@ -463,10 +494,10 @@ dateFindR <-
         "columns in ambiguous formats...", sep = ""))
       ambiguousDateStrings <- c(
         # dmy or mdy; 10 02 1946
-        "[0-9]{1,2}[\\s-/ ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}",
-        "[0-9]{2}[\\s-/ ]+[0-9]{2}[\\s-/ ]+[0-9]{2}",
         "[0-9]{1,2}[\\s-/ ]+[0-9]{1,2}[\\s-/ ]+[0-9]{4}",
-        "[0-9]{2}[\\s-/ ]+[0-9]{2}[\\s-/ ]+[0-9]{4}"
+        "[0-9]{2}[\\s-/ ]+[0-9]{2}[\\s-/ ]+[0-9]{4}",
+        "[0-9]{1,2}[\\s-/ ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}",
+        "[0-9]{2}[\\s-/ ]+[0-9]{2}[\\s-/ ]+[0-9]{2}"
       )
       
       # Get the IDs to remove...
@@ -555,7 +586,7 @@ dateFindR <-
       my_keepers_24$date <- lubridate::ymd(my_keepers_24$date)
         # merge these data...
       
-      saveTheDates <- dplyr::bind_rows(dmy_1, occYr_2, 
+      saveTheDates <- dplyr::bind_rows(ymd_hms_0, dmy_1, occYr_2, 
         ymd_keepers_21, dmy_keepers_22, mdy_keepers_23) %>%
         dplyr::select(database_id, date) 
       

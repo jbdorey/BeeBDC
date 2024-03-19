@@ -118,6 +118,7 @@ taxoDuplicator <- function(
  ambiSyns <- dplyr::tibble()
  nonAmbiSyns <- dplyr::tibble()
     # Run a loop to examine each duplicate pair in the list
+ if(nrow(S1dupes_nest) > 0){
  for(i in 1:nrow(S1dupes_nest)){
    # Get the first tibble
    LoopTibble <- S1dupes_nest$data[[i]] %>% 
@@ -159,6 +160,7 @@ taxoDuplicator <- function(
         } # END else
       } # END n > 2
  } # END Ambiguous loop
+} # END length(S1dupes_nest) > 0
     ###### b. loop_clean ####
  if(nrow(nonAmbiSyns) > 0){
     # Take only one of each non-ambiguous synonyms

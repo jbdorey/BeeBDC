@@ -593,7 +593,7 @@ dupeSummary <- function(
     clusteredDuplicates <- runningDuplicates %>% 
       dplyr::select(database_id_match, database_id) %>% 
       igraph::graph.data.frame() %>%
-      igraph::clusters()
+      igraph::components()
       # Extract the id and the group only
     clusteredDuplicates <- clusteredDuplicates$membership %>% as.data.frame() %>%
       setNames("group") %>%

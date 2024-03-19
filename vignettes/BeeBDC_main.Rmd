@@ -737,6 +737,7 @@ Read data back in if needed. OutPath_Intermediate (and a few other directories) 
       db_standardized <- readr::read_csv(paste(OutPath_Intermediate, "00_prefilter_database.csv",
                                         sep = "/"), col_types = BeeBDC::ColTypeR())}
 
+Normally, you would use the full dataset, as read in above. But, for the sake of this vignette, we will use a combination of two example datasets. These example datasets can further be very useful for testing functions if you're ever feeling a bit confused and overwhelmed! 
 
 ```{r 3.0, collapse = TRUE}
 data("bees3sp", package = "BeeBDC")
