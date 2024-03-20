@@ -41,6 +41,9 @@
 #' 
 #' @importFrom dplyr %>%
 #' 
+#' @seealso [BeeBDC::taxadbToBeeBDC()] to download any taxonomy (of any taxa or of bees) and
+#' [BeeBDC::beesTaxonomy()] for the bee taxonomy download.
+#' 
 #' @export
 #'
 #' @examples

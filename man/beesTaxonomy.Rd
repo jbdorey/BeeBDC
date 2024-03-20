@@ -91,3 +91,8 @@ DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S.,
 The taxonomy data are mostly compiled from Discover Life data, www.discoverlife.org:
 ASCHER, J. S. & PICKERING, J. 2020. Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species.
 }
+\seealso{
+\code{\link[=taxadbToBeeBDC]{taxadbToBeeBDC()}} to download any other taxonomy (of any taxa or of bees)
+and \code{\link[=harmoniseR]{harmoniseR()}} for the
+taxon-cleaning function where these taxonomies are implemented.
+}

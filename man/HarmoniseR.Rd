@@ -67,3 +67,7 @@ data = BeeBDC::beesFlagged,
 speciesColumn = "scientificName")
 table(beesRaw_out$.invalidName, useNA = "always")
 }
+\seealso{
+\code{\link[=taxadbToBeeBDC]{taxadbToBeeBDC()}} to download any taxonomy (of any taxa or of bees) and
+\code{\link[=beesTaxonomy]{beesTaxonomy()}} for the bee taxonomy download.
+}

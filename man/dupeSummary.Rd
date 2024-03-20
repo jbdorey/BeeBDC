@@ -141,3 +141,8 @@ numberOnlyThreshold = 5)
 
 
 }
+\seealso{
+\code{\link[=chordDiagramR]{chordDiagramR()}} for creating a chord diagram to visualise linkages between
+dataSources and \code{\link[=dupePlotR]{dupePlotR()}} to visualise the numbers and proportions of duplicates in
+each dataSource.
+}

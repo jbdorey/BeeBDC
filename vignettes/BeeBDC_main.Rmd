@@ -1205,6 +1205,21 @@ taxonomyFile <- testTaxonomy
 rm(testTaxonomy)
 ```
 
+<div class="alert alert-info">
+  <strong> Attention:</strong> <br>
+As of version 1.1.0, BeeBDC now has a new function that can download taxonomies using the taxadb package and transform them into the BeeBDC format. The function, `BeeBDC::taxadbToBeeBDC()`, allows the user to choose their desired provider (e.g., "gbif", "itis"...), version, taxon name and rank, and to save the taxonomy as a readable csv or not. For example for the bee genus Apis:
+
+    ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
+      name = "Apis",
+      rank = "Genus",
+      provider = "gbif",
+      version = "22.12",
+      outPath = getwd(),
+      fileName = "ApisTaxonomy.csv"
+      )
+
+</div>
+
 Harmonise the names in the occurrence tibble. This flags the occurrences without a matched name and matches names to their correct name according to [Discover Life](https://www.discoverlife.org). You can also use multiple cores to achieve this. See '?`harmoniseR()`' for details.
 
 

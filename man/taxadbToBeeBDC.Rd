@@ -81,3 +81,7 @@ ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
   }
 
 }
+\seealso{
+\code{\link[=beesTaxonomy]{beesTaxonomy()}} for the bee taxonomy and \code{\link[=harmoniseR]{harmoniseR()}} for the
+taxon-cleaning function where these taxonomies are implemented.
+}

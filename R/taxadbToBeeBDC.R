@@ -47,6 +47,9 @@
 #' 
 #' @importFrom dplyr %>%
 #' 
+#' @seealso [BeeBDC::beesTaxonomy()] for the bee taxonomy and [BeeBDC::harmoniseR()] for the 
+#' taxon-cleaning function where these taxonomies are implemented.
+#' 
 #' @export
 #'
 #' @examples
