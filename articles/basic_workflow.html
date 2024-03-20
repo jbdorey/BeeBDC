@@ -151,11 +151,11 @@ found.</p>
 renv package to manage your packages, you can install renv…</p>
 <pre><code><span>        <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"renv"</span>, repos <span class="op">=</span> <span class="st">"http://cran.us.r-project.org"</span><span class="op">)</span></span></code></pre>
 <p>and then initialise renv the project.</p>
-<pre><code><span>        <span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/init.html" class="external-link">init</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>,<span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
+<pre><code><span>        <span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/renv/man/init.html" class="external-link">init</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>,<span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 <p>If you have already initialised a project, you can instead just
 activate it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>, <span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/renv/man/activate.html" class="external-link">activate</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>, <span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="install-packages-if-needed">0.2 Install packages (if needed)<a class="anchor" aria-label="anchor" href="#install-packages-if-needed"></a>
@@ -185,7 +185,7 @@ gdal”.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>, <span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span>, prompt <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/renv/man/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>, <span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span>, prompt <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">## The following package(s) will be updated in the lockfile:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # RSPM -----------------------------------------------------------------------</span></span>
@@ -194,7 +194,7 @@ gdal”.</p>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
 <span><span class="co">## - R      [* -&gt; 4.3.3]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmpWOfNlE/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/RtmpvtbpSG/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by <strong>BeeBDC</strong>. These
 directories include where the data, figures, reports, etc. will be
 saved. The RDoc needs to be a path RELATIVE to the RootPath; i.e., the
@@ -479,7 +479,7 @@ available on CRAN and so must be downloaded using
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/renv/man/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>We don’t actually have an example duplicates dataset with the
 package, so I’ll magic one up behind the scences!</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
