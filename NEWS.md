@@ -3,6 +3,7 @@
 - A new function added, `BeeBDC::taxadbToBeeBDC()`, that can use the **taxadb** package to download taxonomic data for any taxa. The function will transform the **taxadb** format into the **BeeBDC** format that can be put directly into `BeeBDC::harmoniseR()`. Users may choose their data source (e.g., "gbif" or "itis"), but some formats may be better than others. *Comments and issues are welcome in regards to how well the function works, or not, for your taxon.*
 - A minor fix where the legend colours for the `BeeBDC::interactiveMapR()` function were inverted from what they should have been. Thanks to Neil Cobb for pointing this out.
 - Minor fixes to `BeeBDC::dateFindR()` to identify more dates and exceptions on the advice of Elsa Youngsteadt.
+- Minor update to `BeeBDC::dupeSummary()` to update `igraph::clusters ` to `igraph::components()`; a simple renaming.
 
 
 # Changes in BeeBDC version 1.0.5 (**devel**)
