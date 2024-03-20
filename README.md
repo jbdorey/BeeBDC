@@ -21,9 +21,9 @@ challenge for researchers. We present the **BeeBDC** package which
 provides novel and updated functions for flagging, cleaning, and
 visualising occurrence datasets. Our functions are mostly general in
 regards to taxon; however, we also provide some functions and data that
-are specific for use with bee occurrence data. We build upon functions
-and conventions in other fantastic R packages, especially
-[bdc](https://brunobrr.github.io/bdc/) and
+are specific for use with bee occurrence data; specifically due to their
+input data. We build upon functions and conventions in other fantastic R
+packages, especially [bdc](https://brunobrr.github.io/bdc/) and
 [CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html),
 while also removing many dependencies on sp-related packages. Hence, our
 package name is **Bee** **B**iodiversity **D**ata **C**leaning
@@ -62,7 +62,7 @@ You can install *BeeBDC* from CRAN or GitHub.
 install.packages("BeeBDC")
 
   # Or using the development version from GitHub (keeping in mind this may not be as stable)
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", 
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
                           # To use the development version use "devel"; otherwise choose "main"
                         ref = "devel", force = TRUE)
 ```
@@ -189,10 +189,17 @@ more related functions.
 
 #### 4. [**Taxonomy**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#taxonomy)
 
-Harmonisation of scientific names against a custom taxonomy or the
-provided [Discover Life](https://www.discoverlife.org) website’s
-taxonomic reference.
+Harmonisation of scientific names against a taxonomy downloaded from
+**taxadb**, from the provided [Discover
+Life](https://www.discoverlife.org) website’s taxonomic reference, or a
+custom taxonomy.
 
+- `taxadbToBeeBDC()` Uses the **taxadb** to download a species taxonomy
+  from any of their sources and transforms it into the BeeBDC format
+  that can then be exported as a .csv or into the R enviornment to be be
+  fed directly into `BeeBDC::harmoniseR()`. This means that the taxonomy
+  from ANY taxon can be used. See also `BeeBDC::beesTaxonomy()` for the
+  best global bee taxonomy.
 - `harmoniseR()` Uses the Discover Life taxonomy to harmonise bee
   occurrences and flag those that do not match the checklist. This
   function could be hijacked to service other taxa if a user matched the
@@ -311,7 +318,9 @@ functions
 - `beesTaxonomy()` Downloads the taxonomic information for the bees of
   the world. Source of taxonomy is listed under “source” but are mostly
   derived from the Discover Life website. The data will be sourced from
-  the BeeBDC article’s Figshare.
+  the BeeBDC article’s Figshare. Please see also
+  `BeeBDC::taxadbToBeeBDC()` for the download of any other taxonomy (for
+  any taxa or for bees).
 - `beesChecklist()` Download the table contains taxonomic and country
   information for the bees of the world based on data collated on
   Discover Life. The data will be sourced from the BeeBDC article’s
@@ -356,7 +365,7 @@ explanation on each module.
 
 > If you encounter a clear bug, please file an issue
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
-> suggestion, flick us an email (jdorey@uow.edu.au).
+> suggestion, flick us an email (james.dorey@flinders.edu.au).
 
 #### **Citation**
 
@@ -372,7 +381,7 @@ Data.
 
 Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
 E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 1.0.2. url: <https://github.com/jbdorey/BeeBDC>
+version 1.1.0. url: <https://github.com/jbdorey/BeeBDC>
 
 This package and its data sets were created with the support, and as a
 part, of the iDigBees project
