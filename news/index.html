@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -96,7 +96,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.1.0" id="changes-in-beebdc-version-110-devel">Changes in BeeBDC version 1.1.0 (<strong>devel</strong>)<small>2024-03-20</small><a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-110-devel"></a></h2>
+<h2 class="page-header" data-toc-text="1.1.1" id="changes-in-beebdc-version-111">Changes in BeeBDC version 1.1.1<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-111"></a></h2>
+<ul><li>Trying to close unused connections in formattedCombiner tests that throw errors on CRAN’s arm tests (but not reproducible on an M1 or M3 mac that I could test on).</li>
+<li>Removed extra UTF-8 characters causing a note on CRAN’s Linux tests.</li>
+<li>Updating citations and such.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.0" id="changes-in-beebdc-version-110">Changes in BeeBDC version 1.1.0<small>2024-03-20</small><a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-110"></a></h2>
 <ul><li>A new function added, <code><a href="../reference/taxadbToBeeBDC.html">BeeBDC::taxadbToBeeBDC()</a></code>, that can use the <strong>taxadb</strong> package to download taxonomic data for any taxa. The function will transform the <strong>taxadb</strong> format into the <strong>BeeBDC</strong> format that can be put directly into <code><a href="../reference/HarmoniseR.html">BeeBDC::harmoniseR()</a></code>. Users may choose their data source (e.g., “gbif” or “itis”), but some formats may be better than others. <em>Comments and issues are welcome in regards to how well the function works, or not, for your taxon.</em>
 </li>
 <li>A minor fix where the legend colours for the <code><a href="../reference/interactiveMapR.html">BeeBDC::interactiveMapR()</a></code> function were inverted from what they should have been. Thanks to Neil Cobb for pointing this out.</li>
@@ -104,7 +110,7 @@
 <li>Minor update to <code><a href="../reference/dupeSummary.html">BeeBDC::dupeSummary()</a></code> to update <code><a href="https://r.igraph.org/reference/clusters.html" class="external-link">igraph::clusters</a></code> to <code><a href="https://r.igraph.org/reference/components.html" class="external-link">igraph::components()</a></code>; a simple renaming.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.5" id="changes-in-beebdc-version-105-devel">Changes in BeeBDC version 1.0.5 (<strong>devel</strong>)<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-105-devel"></a></h2>
+<h2 class="page-header" data-toc-text="1.0.5" id="changes-in-beebdc-version-105">Changes in BeeBDC version 1.0.5<a class="anchor" aria-label="anchor" href="#changes-in-beebdc-version-105"></a></h2>
 <ul><li>Minor alteration to plotFlagSummary to allow the removal of columns to the level where one or more factors, “Initial”,“Time”,“Summary”,“Taxonomy”,“Space”, are no longer present. Basically, a minor upgrade to make the function resilient to different input data.</li>
 <li>Fixed an issue caused by a stability fix from leaflet <a href="https://github.com/rstudio/leaflet/pull/884" class="external-link">#884</a> where the tonerLite base map did not work and so would stop points from showing on the map.</li>
 </ul></div>

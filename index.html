@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -167,7 +167,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># Or using the development version from GitHub (keeping in mind this may not be as stable)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, user<span class="op">=</span><span class="st">"jbdorey"</span>, </span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, </span>
 <span>                          <span class="co"># To use the development version use "devel"; otherwise choose "main"</span></span>
 <span>                        ref <span class="op">=</span> <span class="st">"devel"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Two optional packages can also be downloaded prior to starting your workflow, if desired. But, these are not essential. The packages BiocManager and devtools may also be required to download the two extra packages.</p>
@@ -195,7 +195,7 @@
 <h4 id="id_1-data-merge">1. <a href="https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge"><strong>Data merge</strong></a>
 <a class="anchor" aria-label="anchor" href="#id_1-data-merge"></a>
 </h4>
-<p>Integrate and merge different datasets from major the data repositories — GBIF, SCAN, iDigBio, the USGS, and ALA.</p>
+<p>Integrate and merge different datasets from major the data repositories - GBIF, SCAN, iDigBio, the USGS, and ALA.</p>
 <ul>
 <li>
 <code><a href="reference/atlasDownloader.html">atlasDownloader()</a></code> Downloads ALA data and creates a new file in the path to put those data. This function can also request downloads from other atlases (<a href="https://galah.ala.org.au/R/articles/choosing_an_atlas.html" class="external-link">see here</a>). However, it will only send the download to your email and you must do the rest yourself at this point.</li>
@@ -378,11 +378,14 @@
 </blockquote>
 </div>
 <div class="section level4">
-<h4 id="citation">
-<strong>Citation</strong><a class="anchor" aria-label="anchor" href="#citation"></a>
+<h4 id="citations">
+<strong>Citations</strong><a class="anchor" aria-label="anchor" href="#citations"></a>
 </h4>
-<p>Paper, dataset, and package citation: Dorey, J. B., Chesshire, P. R., Bolaños, A. N., O’reilly, R. L., Bossert, S., Collins, S. M., Lichtenberg, E. M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D. A., Ribeiro, B. R., De Pedro, D., Fischer, E., Hung, J. K.-L., Parys, K. A., Rogan, M. S., Minckley, R. L., Velzco, S. J. E., Griswold, T., Zarrillo, T. A., Sica, Y., Orr, M. C., Guzman, L. M., Ascher, J., Hughes, A. C. &amp; Cobb, N. S. Accepted. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.</p>
-<p>Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.1.0. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a></p>
+<ul>
+<li><p><strong>Paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a></p></li>
+<li><p><strong>Package citation:</strong> Dorey, J. B., O’Reilly, R. L., Bossert, S. &amp; Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.1.0. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a></p></li>
+<li><p><strong>Discover Life citation (for use of bee taxonomy and checklist):</strong> Ascher, J.S. &amp; Pickering, J. (2020) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). <a href="http://www.discoverlife.org/mp/20q?guide=Apoidea_species" class="external-link uri">http://www.discoverlife.org/mp/20q?guide=Apoidea_species</a></p></li>
+</ul>
 <p>This package and its data sets were created with the support, and as a part, of the iDigBees project</p>
 <p><a href="https://idigbees.org" class="external-link"><img src="https://photos.smugmug.com/photos/i-rcd8CCs/0/b291edd1/O/i-rcd8CCs.png" alt="The iDigBees logo with a colourful bee and the iDigBees text on the right" align="left" width="300"></a></p>
 </div>
