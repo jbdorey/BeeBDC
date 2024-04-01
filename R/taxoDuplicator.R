@@ -1,5 +1,5 @@
   # This function was written by James Dorey to remove duplicates from the combined 
-  # source2 and source1 — user input, but originally Orr 2021 and Discover Life
+  # source2 and source1 - user input, but originally Orr 2021 and Discover Life
     # synonym lists. For questions, please email jbdorey[at]me.com
 # This function was started on 17th May 2022 and last updated 17th May 2022
 #' @importFrom dplyr %>%
@@ -380,7 +380,7 @@ taxoDuplicator <- function(
     } # END big IF
     
     ###### b. loop_clean ####
-      # NON-AMBIGUOUS — because accid matches
+      # NON-AMBIGUOUS - because accid matches
     if(nrow(nonAmbiSyns_51) > 0){
       nonAmbiSyns_51_nAmb <- nonAmbiSyns_51  %>%
         # Filter for ONLY the names that AREN'T already flagged as ambiguous

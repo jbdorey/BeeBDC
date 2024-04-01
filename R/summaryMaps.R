@@ -143,7 +143,7 @@ summaryMaps <- function(
   # If first element is full, unlist each one
   extracted <- extracted %>%
     dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
-                      # deal with problems — Take the first number where two are provided
+                      # deal with problems - Take the first number where two are provided
                     stringr::str_extract("[0-9]+") %>% 
                       # Remove zero to NA
                     stringr::str_replace("^[0]$", NA_character_) %>%
@@ -184,7 +184,7 @@ rm(extracted)
   # If first element is full, unlist each one
   extracted2 <- extracted2 %>%
     dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
-                    # deal with problems — Take the first number where two are provided
+                    # deal with problems - Take the first number where two are provided
                     stringr::str_extract("[0-9]+") %>% 
                     # Remove zero to NA
                     stringr::str_replace("^[0]$", NA_character_) %>%
@@ -230,7 +230,7 @@ rm(extracted2)
   classes <- classInt::classIntervals(spMapData$count, n = class_n, 
                                       style = class_Style, dig.lab=20,
                                       dataPrecision=0)
-  # Next we’ll create a new column in our sf object using the base R cut() function to cut up our 
+  # Next we'll create a new column in our sf object using the base R cut() function to cut up our 
   # percent variable into distinct groups:
   spMapData <- spMapData %>%
     dplyr::mutate(class_count = cut(count, 
@@ -319,7 +319,7 @@ rm(extracted2)
   classes <- classInt::classIntervals(fullMap$occCount, n = class_n, 
                                       style = class_Style, dig.lab=20,
                                       dataPrecision=0)
-  # Next we’ll create a new column in our sf object using the base R cut() function to cut up our 
+  # Next we'll create a new column in our sf object using the base R cut() function to cut up our 
   # percent variable into distinct groups:
   fullMap <- fullMap %>%
     dplyr::mutate(class_count = cut(occCount, 

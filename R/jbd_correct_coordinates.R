@@ -227,7 +227,7 @@ jbd_correct_coordinates <-
     occ_country <-
       split(occ_country, occ_country[cntr_iso2])
     
-    # JBD edit — Remove empty elements from list before testing.
+    # JBD edit - Remove empty elements from list before testing.
     occ_country <- occ_country[sapply(occ_country, function(x) dim(x)[1]) > 0]
     
     
@@ -268,9 +268,9 @@ coord_test <- parallel::mclapply(occ_country, jbd_coord_trans,
         my_country2 <-
           my_country2 %>%
           dplyr::filter(iso2c %in% n) %>%
-          # JBD — France was failing to buffer using raster due to TopologyException. Use sf instead.
+          # JBD - France was failing to buffer using raster due to TopologyException. Use sf instead.
           sf::st_as_sf() %>% sf::st_buffer(border_buffer) 
-        # JBD — turned off for above reason
+        # JBD - turned off for above reason
         # 0.5 degree ~50km near to equator
         # my_country2 <- raster::buffer(my_country, width = border_buffer)
         #  > my_country2

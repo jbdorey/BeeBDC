@@ -93,11 +93,11 @@ flagLicense <- function(data = NULL,
                            grepl(paste(strings_to_restrict, collapse = "|"), data$license) |
                            grepl(paste(strings_to_restrict, collapse = "|"), data$accessRights) == TRUE,
                            dplyr::if_else(dataSource %in% excludeDataSource,
-                                            # Flagged, but EXCLUDED — keep these data
+                                            # Flagged, but EXCLUDED - keep these data
                                          TRUE, 
-                                            # Flagged AND included — DON'T use these data
+                                            # Flagged AND included - DON'T use these data
                                          FALSE), 
-                          # Not flagged — keep these data
+                          # Not flagged - keep these data
                          TRUE))
     
     # Return user output

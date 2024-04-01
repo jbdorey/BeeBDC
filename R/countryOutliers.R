@@ -142,7 +142,7 @@ jbd_intersection <- function(inData){
       dplyr::tibble(indexMatch = .) %>%
       # Convert to numeric
       dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
-                      # deal with problems — Take the first number where two are provided
+                      # deal with problems - Take the first number where two are provided
                       stringr::str_extract("[0-9]+") %>% 
                       # Remove zero to NA
                       stringr::str_replace("^[0]$", NA_character_) %>% as.numeric()) %>%
@@ -185,7 +185,7 @@ jbd_bufferedIntersection <- function(inData){
     dplyr::tibble(indexMatch = . ) %>%
     # Convert to numeric
     dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
-                    # deal with problems — Take the first number where two are provided
+                    # deal with problems - Take the first number where two are provided
                     stringr::str_extract("[0-9]+") %>% 
                     # Remove zero to NA
                     stringr::str_replace("^[0]$", NA_character_) %>% as.numeric()) %>%

@@ -62,7 +62,7 @@ You can install *BeeBDC* from CRAN or GitHub.
 install.packages("BeeBDC")
 
   # Or using the development version from GitHub (keeping in mind this may not be as stable)
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", 
                           # To use the development version use "devel"; otherwise choose "main"
                         ref = "devel", force = TRUE)
 ```
@@ -102,8 +102,8 @@ library(BeeBDC)
 
 #### 1. [**Data merge**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge)
 
-Integrate and merge different datasets from major the data repositories
-— GBIF, SCAN, iDigBio, the USGS, and ALA.
+Integrate and merge different datasets from major the data
+repositories - GBIF, SCAN, iDigBio, the USGS, and ALA.
 
 - `atlasDownloader()` Downloads ALA data and creates a new file in the
   path to put those data. This function can also request downloads from
@@ -367,21 +367,27 @@ explanation on each module.
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
 > suggestion, flick us an email (james.dorey@flinders.edu.au).
 
-#### **Citation**
+#### **Citations**
 
-Paper, dataset, and package citation: Dorey, J. B., Chesshire, P. R.,
-Bolaños, A. N., O’reilly, R. L., Bossert, S., Collins, S. M.,
-Lichtenberg, E. M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A.,
-Guevara, D. A., Ribeiro, B. R., De Pedro, D., Fischer, E., Hung, J.
-K.-L., Parys, K. A., Rogan, M. S., Minckley, R. L., Velzco, S. J. E.,
-Griswold, T., Zarrillo, T. A., Sica, Y., Orr, M. C., Guzman, L. M.,
-Ascher, J., Hughes, A. C. & Cobb, N. S. Accepted. A globally synthesised
-and flagged bee occurrence dataset and cleaning workflow. Scientific
-Data.
+- **Paper, dataset, and package citation:** Dorey, J.B., Fischer, E.E.,
+  Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S.,
+  Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A.,
+  Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung,
+  J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L.,
+  Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V.,
+  Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. & Cobb, N.S. (2023)
+  A globally synthesised and flagged bee occurrence dataset and cleaning
+  workflow. Scientific Data, 10, 1–17.
+  <https://www.doi.org/10.1038/S41597-023-02626-W>
 
-Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
-E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 1.1.0. url: <https://github.com/jbdorey/BeeBDC>
+- **Package citation:** Dorey, J. B., O’Reilly, R. L., Bossert, S. &
+  Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R
+  package version 1.1.0. url: <https://github.com/jbdorey/BeeBDC>
+
+- **Discover Life citation (for use of bee taxonomy and checklist):**
+  Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide
+  and world checklist (Hymenoptera: Apoidea: Anthophila).
+  <http://www.discoverlife.org/mp/20q?guide=Apoidea_species>
 
 This package and its data sets were created with the support, and as a
 part, of the iDigBees project

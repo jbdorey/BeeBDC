@@ -6,7 +6,7 @@
 
 #' Flags coordinates that are inconsistent with the stated country name
 #' 
-#' Compares stated country name in an occurrence record with record’s coordinates using 
+#' Compares stated country name in an occurrence record with record's coordinates using 
 #' rnaturalearth data. The prefix, jbd_ is meant
 #' to distinguish this function from the original [bdc::bdc_coordinates_country_inconsistent()].
 #' This functions will preferably use the countryCode and country_suggested columns 
@@ -17,7 +17,7 @@
 #' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
 #' @param scale Numeric or character. To be passed to [rnaturalearth::ne_countries()]'s scale.
-#' Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”. 
+#' Scale of map to return, one of 110, 50, 10 or "small", "medium", "large". 
 #' Smaller values return higher-resolution maps.
 #' @param pointBuffer Numeric. Amount to buffer points, in decimal degrees. If the point is outside 
 #' of a country, but within this point buffer, it will not be flagged. Default = 0.01.

@@ -42,7 +42,7 @@
 ColTypeR <- function(...){
   ColTypes <- readr::cols_only(
     # Character Strings
-    # CHR — taxonomy
+    # CHR - taxonomy
     database_id  = readr::col_character(), scientificName = readr::col_character(), 
     family = readr::col_character(), subfamily = readr::col_character(), genus = readr::col_character(), 
     subgenus = readr::col_character(), subspecies = readr::col_character(), species = readr::col_character(), 
@@ -53,49 +53,49 @@ ColTypeR <- function(...){
     identificationReferences = readr::col_character(), typeStatus = readr::col_character(), 
     previousIdentifications = readr::col_character(), verbatimIdentification = readr::col_character(), 
     identifiedBy = readr::col_character(), dateIdentified = readr::col_character(),
-    # DBL — Locality info
+    # DBL - Locality info
     decimalLatitude = readr::col_double(), decimalLongitude = readr::col_double(),
     verbatimLatitude = readr::col_character(), verbatimLongitude = readr::col_character(),
     verbatimElevation = readr::col_character(),
-    # CHR/Factor — Locality info
+    # CHR/Factor - Locality info
     stateProvince = readr::col_character(), country = readr::col_character(), continent = readr::col_factor(), 
     locality = readr::col_character(), island = readr::col_character(),
     county = readr::col_character(), municipality = readr::col_character(),
-    # CHR/Factor — Country codes
+    # CHR/Factor - Country codes
     countryCode = readr::col_factor(), level0Gid = readr::col_factor(), level0Name = readr::col_factor(), 
     level1Gid = readr::col_factor(), level1Name = readr::col_factor(), license = readr::col_factor(), 
     issue = readr::col_character(), 
-    # Date/Time — Collection time
+    # Date/Time - Collection time
     eventDate = readr::col_character(), 
     eventTime = readr::col_character(), 
     startDayOfYear = readr::col_integer(),
     endDayOfYear = readr::col_integer(),
-    # Int — Collection time
+    # Int - Collection time
     day = readr::col_integer(), month = readr::col_integer(), year = readr::col_integer(),
-    # Factor — Collection info
+    # Factor - Collection info
     basisOfRecord = readr::col_factor(), type = readr::col_factor(), occurrenceStatus = readr::col_factor(), 
-    # CHR — Collection info
+    # CHR - Collection info
     recordNumber = readr::col_character(), recordedBy = readr::col_character(), eventID = readr::col_character(), 
     Location = readr::col_character(), samplingProtocol = readr::col_character(), 
     samplingEffort = readr::col_character(),
-    # Int — Collection info
+    # Int - Collection info
     individualCount = readr::col_double(), organismQuantity = readr::col_double(), 
-    # mixed — Information uncertainty
+    # mixed - Information uncertainty
     coordinatePrecision = readr::col_double(), coordinateUncertaintyInMeters = readr::col_double(), 
     spatiallyValid = readr::col_logical(),
-    # CHR — Database information
+    # CHR - Database information
     catalogNumber = readr::col_character(), gbifID = readr::col_character(), datasetID = readr::col_character(),
     institutionCode = readr::col_character(), datasetName = readr::col_character(), 
     otherCatalogNumbers = readr::col_character(), occurrenceID = readr::col_character(), 
     taxonKey = readr::col_character(), coreid = readr::col_character(), 
     recordId = readr::col_character(), collectionID = readr::col_character(),
     associatedSequences = readr::col_character(),
-    # CHR — Verbatim information
+    # CHR - Verbatim information
     verbatimScientificName = readr::col_character(), verbatimEventDate = readr::col_character(),
-    # CHR/Factor — Aux info
+    # CHR/Factor - Aux info
     associatedTaxa = readr::col_character(), associatedOrganisms = readr::col_character(), 
     fieldNotes = readr::col_character(), sex = readr::col_character(),
-    # CHR — Rights info
+    # CHR - Rights info
     rights = readr::col_character(), rightsHolder = readr::col_character(), accessRights = readr::col_character(), 
     dctermsLicense = readr::col_character(), dctermsType = readr::col_character(), 
     dctermsAccessRights = readr::col_character(), associatedReferences = readr::col_character(), 
@@ -109,12 +109,12 @@ ColTypeR <- function(...){
     hasCoordinate = readr::col_logical(), hasGeospatialIssues = readr::col_logical(), 
     # Factor
     assertions = readr::col_factor(),
-    # mix — ALA columns
+    # mix - ALA columns
     occurrenceYear = readr::col_datetime(), id = readr::col_character(), duplicateStatus = readr::col_factor(), 
     associatedOccurrences = readr::col_character(), 
-    # CHR — SCAN column
+    # CHR - SCAN column
     locationRemarks = readr::col_character(),
-    # CHR — dataset origin column
+    # CHR - dataset origin column
     dataSource = readr::col_character(),
       # bdc columns
      dataBase_scientificName = readr::col_character(), .rou = readr::col_logical(),                         
