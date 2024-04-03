@@ -382,7 +382,7 @@ explanation on each module.
 
 - **Package citation:** Dorey, J. B., O’Reilly, R. L., Bossert, S. &
   Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R
-  package version 1.1.0. url: <https://github.com/jbdorey/BeeBDC>
+  package version 1.1.1. url: <https://github.com/jbdorey/BeeBDC>
 
 - **Discover Life citation (for use of bee taxonomy and checklist):**
   Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide
