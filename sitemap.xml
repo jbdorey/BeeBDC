@@ -61,6 +61,9 @@
     <loc>https://jbdorey.github.io/BeeBDC/reference/chordDiagramR.html</loc>
   </url>
   <url>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.html</loc>
+  </url>
+  <url>
     <loc>https://jbdorey.github.io/BeeBDC/reference/coordUncerFlagR.html</loc>
   </url>
   <url>
@@ -161,5 +164,11 @@
   </url>
   <url>
     <loc>https://jbdorey.github.io/BeeBDC/reference/taxadbToBeeBDC.html</loc>
+  </url>
+  <url>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/testChecklist.html</loc>
+  </url>
+  <url>
+    <loc>https://jbdorey.github.io/BeeBDC/reference/testTaxonomy.html</loc>
   </url>
 </urlset>

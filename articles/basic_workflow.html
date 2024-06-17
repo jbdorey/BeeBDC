@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Basic workflow • BeeBDC</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -178,23 +178,23 @@ gdal”.</p>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>, repos <span class="op">=</span> <span class="st">"https://ropensci.r-universe.dev"</span>,</span>
 <span>    type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rnaturalearthhires" class="external-link">rnaturalearthhires</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rnaturalearthhires</span><span class="op">)</span></span></code></pre></div>
 <p>Now install <strong>BeeBDC</strong>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BeeBDC"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BeeBDC</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jbdorey.github.io/BeeBDC/;">BeeBDC</a></span><span class="op">)</span></span></code></pre></div>
 <p>Snapshot the renv environment.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span>project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">RootPath</span>, <span class="st">"/Data_acquisition_workflow"</span><span class="op">)</span>, prompt <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">## The following package(s) will be updated in the lockfile:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # RSPM -----------------------------------------------------------------------</span></span>
-<span><span class="co">## - renv   [* -&gt; 1.0.5]</span></span>
+<span><span class="co">## - renv   [* -&gt; 1.0.7]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
-<span><span class="co">## - R      [* -&gt; 4.3.3]</span></span>
+<span><span class="co">## - R      [* -&gt; 4.4.1]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmphZvoWR/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/RtmpJKjGib/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by <strong>BeeBDC</strong>. These
 directories include where the data, figures, reports, etc. will be
 saved. The RDoc needs to be a path RELATIVE to the RootPath; i.e., the
@@ -217,7 +217,7 @@ file path from which the two diverge.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##     depth</span></span>
 <span><span class="co">## ========================================</span></span>
-<span><span class="co">## ComplexHeatmap version 2.18.0</span></span>
+<span><span class="co">## ComplexHeatmap version 2.20.0</span></span>
 <span><span class="co">## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/</span></span>
 <span><span class="co">## Github page: https://github.com/jokergoo/ComplexHeatmap</span></span>
 <span><span class="co">## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference</span></span>
@@ -586,7 +586,7 @@ SCAN = “SCAN”, iDigBio = “iDigBio”, USGS = “USGS”, ALA = “ALA”, 
   In fact, lets build one of these single-species example below using the same data and the omnipresent *Apis mellifera*.
   
 
-```r
+``` r
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
   # A clever user might also realise the potential to summarise and produce outputs in other columns
 BeeBDC::plotFlagSummary(
@@ -675,7 +675,7 @@ unique, then reduce class_n.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
