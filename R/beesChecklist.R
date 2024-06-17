@@ -12,7 +12,7 @@
 #' alternatively download the dataset from the URL below and then read it in using 
 #' `base::readRDS("filePath.Rda")`.
 #'  
-#'  See [BeeBDC::beesTaxonomy()] for further context. 
+#' @seealso [BeeBDC::beesTaxonomy()] for further context. 
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
@@ -28,15 +28,17 @@
 #'  
 #'  **DiscoverLife_name** The full country name as it occurs on Discover Life.
 #'  
-#'  **rNaturalEarth_name** Country name from rnaturalearth's name_long.
+#'  **rNaturalEarth_name** Country name from rnaturalearth's name_long and type = "map_units".
 #'  
 #'  **shortName** A short version of the country name.
+#'  
+#'  **continent** The continent where that country is found.
 #'  
 #'  **DiscoverLife_ISO** The ISO country name as it occurs on Discover Life.
 #'  
 #'  **Alpha-2** Alpha-2 from rnaturalearth.
 #'  
-#'  **Alpha-3** Alpha-3 from rnaturalearth.
+#'  **iso_a3_eh** iso_a3_eh from rnaturalearth.
 #'  
 #'  **official** Official country name = "yes" or only a Discover Life name = "no".
 #'  
@@ -79,7 +81,7 @@
 #'\dontrun{
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
-beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598?private_link=bce1f92848c2ced313ee",
+beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/47090992",
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   
@@ -115,7 +117,7 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
-        checklist <- base::readRDS(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
+        checklist <- base::load(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
         error = error_funcFile, warning = error_funcFile)
         }else{
   # MAC OR LINUX
@@ -124,7 +126,7 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
                    error = error_func, warning = error_func)
           # Load the file 
           tryCatch(
-            checklist <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda")),
+            checklist <- base::load(paste0(tempdir(), "/beesChecklist.Rda")),
             error = error_funcFile, warning = error_funcFile)
         }
         

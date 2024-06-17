@@ -965,10 +965,11 @@ check_space <- BeeBDC::coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 
-##### 5.5 Country checklist ####
+##### 5.5 Country + continent checklist ####
 # Download the country-level checklist
 beesChecklist <- BeeBDC::beesChecklist()
 
+  # Flag records for country outliers
 check_space <- countryOutlieRs(checklist = beesChecklist,
                         data = check_space,
                         keepAdjacentCountry = TRUE,
@@ -978,6 +979,18 @@ check_space <- countryOutlieRs(checklist = beesChecklist,
                           # We have not attempted a scale of 10.
                         scale = 50,
                         mc.cores = 1)
+
+  # Flag records for continent outliers
+check_space <- continentOutlieRs(checklist = beesChecklist,
+                               data = check_space,
+                               keepAdjacentContinent = FALSE,
+                               pointBuffer = 0.05,
+                               # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
+                               # Smaller numbers will result in much longer calculation times. 
+                               # We have not attempted a scale of 10.
+                               scale = 50,
+                               mc.cores = 1)
+
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%

@@ -5,7 +5,7 @@
 \title{Download a nearly complete taxonomy of bees globally}
 \usage{
 beesTaxonomy(
-  URL = "https://open.flinders.edu.au/ndownloader/files/43331472",
+  URL = "https://open.flinders.edu.au/ndownloader/files/47089969",
   ...
 )
 }
@@ -94,5 +94,6 @@ Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide and world ch
 \seealso{
 \code{\link[=taxadbToBeeBDC]{taxadbToBeeBDC()}} to download any other taxonomy (of any taxa or of bees)
 and \code{\link[=harmoniseR]{harmoniseR()}} for the
-taxon-cleaning function where these taxonomies are implemented.
+taxon-cleaning function where these taxonomies are implemented. It may also be worth seeing
+\code{\link[=beesChecklist]{beesChecklist()}}.
 }

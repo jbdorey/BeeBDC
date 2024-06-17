@@ -82,7 +82,8 @@
 #'
 #' @seealso [BeeBDC::taxadbToBeeBDC()] to download any other taxonomy (of any taxa or of bees)
 #' and [BeeBDC::harmoniseR()] for the 
-#' taxon-cleaning function where these taxonomies are implemented.
+#' taxon-cleaning function where these taxonomies are implemented. It may also be worth seeing 
+#' [BeeBDC::beesChecklist()].
 #' 
 #' @export
 #' 
@@ -92,7 +93,7 @@
 #'}
 #' 
 #'
-beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/43331472",
+beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/47089969",
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
 

@@ -30,10 +30,10 @@ testOut <- BeeBDC::countryOutlieRs(
 # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
 # tibbles are a special case of lists)
 testthat::test_that("countryOutlieRs results TRUE/passed", {
-  testthat::expect_equal(sum(testOut$.countryOutlier == TRUE, na.rm = TRUE), 74)
+  testthat::expect_equal(sum(testOut$.countryOutlier == TRUE, na.rm = TRUE), 72)
 })
 testthat::test_that("countryOutlieRs results FALSE/failed", {
-  testthat::expect_equal(sum(testOut$.countryOutlier == FALSE, na.rm = TRUE), 3)
+  testthat::expect_equal(sum(testOut$.countryOutlier == FALSE, na.rm = TRUE), 5)
 })
 testthat::test_that("countryOutlieRs results NA/could not assess", {
   testthat::expect_equal(sum(is.na(testOut$.countryOutlier)), 23)
