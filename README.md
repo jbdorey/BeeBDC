@@ -229,6 +229,10 @@ coordinates.
 - `countryOutlieRs()` This function flags country-level outliers using
   the checklist provided with this package. For additional context and
   column names, see `beesChecklist`.
+- `continentOutliers()` This function flags continent-level outliers
+  using the checklist provided with this package. This function works
+  much the same as `countryOutlieRs()`, but at a lower resolution. For
+  additional context and column names, see `beesChecklist`.
 - `jbd_create_figures()` Creates figures (i.e., bar plots, maps, and
   histograms) reporting the results of data quality tests implemented
   the bdc and BeeBDC packages. Works like `bdc::bdc_create_figures()`,
