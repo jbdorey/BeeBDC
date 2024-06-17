@@ -4,10 +4,7 @@
 \alias{beesChecklist}
 \title{Download a country-level checklist of bees from Discover Life}
 \usage{
-beesChecklist(
-  URL = "https://open.flinders.edu.au/ndownloader/files/47090992",
-  ...
-)
+beesChecklist(URL = "https://figshare.com/ndownloader/files/47092720", ...)
 }
 \arguments{
 \item{URL}{A character vector to the FigShare location of the dataset. The default will be to

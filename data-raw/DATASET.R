@@ -76,7 +76,7 @@ beesChecklist <- readr::read_csv(paste0(dataPath, "/CheckL_combined2024-06-17.cs
   dplyr::rename(iso_a3_eh = "Alpha-3") %>%
   dplyr::select(!geometry)
 
-base::save(beesChecklist, 
+base::saveRDS(beesChecklist, 
               file = paste0("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_development/",
                             "beesChecklist_", Sys.Date(), ".Rda"),
               compress = "xz")

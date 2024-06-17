@@ -81,7 +81,7 @@
 #'\dontrun{
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
-beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/47090992",
+beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/47092720",
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   
@@ -117,7 +117,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
-        checklist <- base::load(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
+        checklist <- base::readRDS(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
         error = error_funcFile, warning = error_funcFile)
         }else{
   # MAC OR LINUX
@@ -126,7 +126,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                    error = error_func, warning = error_func)
           # Load the file 
           tryCatch(
-            checklist <- base::load(paste0(tempdir(), "/beesChecklist.Rda")),
+            checklist <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda")),
             error = error_funcFile, warning = error_funcFile)
         }
         
