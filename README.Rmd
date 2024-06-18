@@ -150,7 +150,7 @@ Flagging of erroneous, suspicious, and low-precision geographic coordinates.
 -   `diagonAlley()` A simple function that looks for potential latitude and longitude fill-down errors by identifying consecutive occurrences with coordinates at regular intervals. This is accomplished by using a sliding window with the length determined by minRepeats.
 -   `coordUncerFlagR()` To use this function, the user must choose a column, probably "coordinateUncertaintyInMeters" and a threshold above which occurrences will be flagged for geographic uncertainty.
 -   `countryOutlieRs()` This function flags country-level outliers using the checklist provided with this package. For additional context and column names, see `beesChecklist`.
--   `continentOutliers()` This function flags continent-level outliers using the checklist provided with this package. This function works much the same as `countryOutlieRs()`, but at a lower resolution. For additional context and column names, see `beesChecklist`.
+-   `continentOutlieRs()` This function flags continent-level outliers using the checklist provided with this package. This function works much the same as `countryOutlieRs()`, but at a lower resolution. For additional context and column names, see `beesChecklist`.
 -   `jbd_create_figures()` Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and BeeBDC packages. Works like `bdc::bdc_create_figures()`, but it allows the user to specify a save path.
 
 #### 6. [**Time**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#time)

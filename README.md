@@ -229,7 +229,7 @@ coordinates.
 - `countryOutlieRs()` This function flags country-level outliers using
   the checklist provided with this package. For additional context and
   column names, see `beesChecklist`.
-- `continentOutliers()` This function flags continent-level outliers
+- `continentOutlieRs()` This function flags continent-level outliers
   using the checklist provided with this package. This function works
   much the same as `countryOutlieRs()`, but at a lower resolution. For
   additional context and column names, see `beesChecklist`.
