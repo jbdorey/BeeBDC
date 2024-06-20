@@ -2,6 +2,9 @@ requireNamespace("rnaturalearth")
 requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 
+# If rnaturalearthdata is present, run tests
+if(requireNamespace("rnaturalearthdata")){
+
 bees3sp <- BeeBDC::bees3sp
 
 # Set up some fake data
@@ -112,4 +115,6 @@ testthat::test_that("jbd_CfC_chunker check that the input and output contries ar
 #     
 #     
 
+
+} # END if require
 

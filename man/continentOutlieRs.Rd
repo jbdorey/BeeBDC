@@ -51,6 +51,7 @@ This function flags continent-level outliers using the checklist provided with t
 For additional context and column names, see \code{\link[=beesChecklist]{beesChecklist()}}.
 }
 \examples{
+if(requireNamespace("rnaturalearthdata")){
 library(magrittr)
   # Load in the test dataset
 beesRaw <- BeeBDC::beesRaw
@@ -68,6 +69,7 @@ beesRaw_out <- continentOutlieRs(checklist = testChecklist,
                                stepSize = 1000000,
                                mc.cores = 1)
 table(beesRaw_out$.continentOutlier, useNA = "always")
+} # END if require
 }
 \seealso{
 \code{\link[=countryOutlieRs]{countryOutlieRs()}} for implementation at the country level. Country-level

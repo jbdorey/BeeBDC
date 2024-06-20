@@ -1,4 +1,8 @@
 requireNamespace("dplyr")
+
+# If rnaturalearthdata is present, run tests
+if(requireNamespace("rnaturalearthdata")){
+
 bees3sp <- BeeBDC::bees3sp
 
 fakeData <- dplyr::tibble(
@@ -59,3 +63,4 @@ testthat::test_that("jbd_Ctrans_chunker expected class", {
   testthat::expect_type(testOut, "list")
 })
 
+} # END if require

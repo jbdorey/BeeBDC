@@ -1,4 +1,6 @@
 
+# If rnaturalearthdata is present, run tests
+if(requireNamespace("rnaturalearthdata")){
   # Load in example data
 beesFlagged <- BeeBDC::beesFlagged
 
@@ -29,3 +31,8 @@ testthat::test_that("summaryMaps expected class", {
 testthat::test_that("summaryMaps internals - testMap$layers[[1]]$geom_params$grob$name", {
   testthat::expect_equal(testMap$layers[[1]]$geom_params$grob$name, "layout")
 })
+
+
+} # END if require
+
+

@@ -1,6 +1,9 @@
 requireNamespace("xml2")
 requireNamespace("dplyr")
 
+# If rnaturalearthdata is present, run tests
+if(requireNamespace("leaflet")){
+
 
 # Load in a test dataset
 bees3sp <- BeeBDC::bees3sp
@@ -67,5 +70,8 @@ testthat::test_that("interactiveMapR detect Perdita octomaculata (Say, 1824)", {
 testthat::test_that("interactiveMapR expected class", {
   testthat::expect_equal(attributes(A_tyleri)$class, c("xml_document", "xml_node" ))
 })
+
+
+} # END if require namespace
 
 

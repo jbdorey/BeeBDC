@@ -40,6 +40,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
+#' if(requireNamespace("rnaturalearthdata")){
 #' library(magrittr)
 #'   # Load in the test dataset
 #' beesRaw <- BeeBDC::beesRaw
@@ -57,6 +58,7 @@
 #'                                stepSize = 1000000,
 #'                                mc.cores = 1)
 #' table(beesRaw_out$.countryOutlier, useNA = "always")
+#' } # END if require
 
 countryOutlieRs <- function(
     checklist = NULL,

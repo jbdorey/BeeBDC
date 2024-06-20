@@ -38,6 +38,7 @@
 #' @importFrom ggplot2 xlab ylab ggtitle
 #'
 #' @examples
+#' if(requireNamespace("rnaturalearthdata")){
 #' # Read in data
 #' data(beesFlagged)
 #' OutPath_Figures <- tempdir()
@@ -51,7 +52,7 @@
 #' outPath = OutPath_Figures,
 #' fileName = paste0("CountryMaps_fisher_TEST.pdf"),
 #' )
-#' 
+#' } # END if require
 #' 
 summaryMaps <- function(
     data = NULL,

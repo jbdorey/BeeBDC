@@ -1,6 +1,11 @@
 requireNamespace("dplyr")
 requireNamespace("readr")
 
+
+
+# If rnaturalearthdata is present, run tests
+if(requireNamespace("rnaturalearthdata")){
+
 # Load in the test checklist data
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
   load()
@@ -59,5 +64,5 @@ testthat::test_that("countryOutlieRs number of columns", {
                          ncol(testOut))
 })
 
-
+} # END if require
 

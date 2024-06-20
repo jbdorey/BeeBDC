@@ -2,6 +2,9 @@ requireNamespace("readr")
 requireNamespace("emld")
 requireNamespace("dplyr")
 
+# If rnaturalearthdata is present, run tests
+if(requireNamespace("rnaturalearthdata")){
+
 # Be sure that the testData is not already in tempdir
 testDataPath <- file.info(list.files(tempdir(), full.names = T, 
                                      pattern = "USGS_formatted_|USGS_attribute_", recursive = TRUE))
@@ -55,6 +58,7 @@ existingTestdb <- dplyr::tribble(
 
   # create an empty eml file
 test_eml <- emld::template("creator")
+
   
 
   # Run the function
@@ -92,5 +96,5 @@ testthat::test_that("formattedCombiner item length", {
 })
 
 
-
+} # END if require namespace
 

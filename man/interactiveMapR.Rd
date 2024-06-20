@@ -69,6 +69,7 @@ in your browser to a specific directory. The maps can highlight if an occurrence
 flagged as expert-identified or country outliers.
 }
 \examples{
+if(requireNamespace("leaflet")){
 OutPath_Figures <- tempdir()
 
 interactiveMapR(
@@ -100,4 +101,5 @@ overWrite = TRUE,
   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 pointColours = c("blue", "darkred","#ff7f00", "black")
 )
+} # END if require
 }
