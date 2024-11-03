@@ -17,8 +17,8 @@
 #' @param outPath A character vector the path to the save location for the output figure.
 #' @param fileName A character vector with file name 
 #' for the output figure, ending with '.pdf'.
-#' @param width Numeric. The width, in inches, of the resulting figure. Default = 10.
-#' @param height Numeric. The height, in inches, of the resulting figure. Default = 5.
+#' @param width Numeric. The width, in inches, of the resulting figure. Default = 5.
+#' @param height Numeric. The height, in inches, of the resulting figure. Default = 10.
 #' @param dpi Numeric. The resolution of the resulting plot. Default = 300.
 #' @param returnPlot Logical. If TRUE, return the plot to the environment. Default = FALSE.
 #' @param scale Numeric or character. Passed to rnaturalearth's ne_countries().
@@ -60,8 +60,8 @@ summaryMaps <- function(
     class_Style = "fisher",
     outPath = NULL,
     fileName = NULL,
-    width = 10, 
-    height = 5,
+    width = 5, 
+    height = 10,
     dpi = 300,
     returnPlot = FALSE,
     scale = 110,

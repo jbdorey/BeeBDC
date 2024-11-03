@@ -134,6 +134,49 @@ setwd(outPath) #directory of work
 
   # data$IDall <- paste0(1:nrow(data)) #to add an ID by row
 
+  
+
+##### 0.4 leaflet test ####
+###### a. test ####
+# Check if leaflet is installed
+# TRUE if leaflet is found
+suppressWarnings(
+  suggestedTest <- system.file(package='leaflet') %>% 
+    stringr::str_count() > 0 
+)
+
+###### b. leaflet ####
+if(suggestedTest == FALSE){
+  # Set up instructions for download on fail
+  instructions <- paste(" Please try installing the package for yourself", 
+                        "using the following command: \n",
+                        "install.packages(\"leaflet\")")
+  # Set up fail function for tryCatch
+  error_func <- function(e){
+    stop(paste("Failed to install the leaflet package.\n", 
+               instructions))
+  }
+  # Begin interactive input
+  input <- 1
+  if (interactive()){
+    input <- utils::menu(c("Yes", "No"), 
+                         title = paste0("Install the leaflet package? \n"))
+  }
+  if(input == 1){
+    # Start leaflet install
+    message("Installing the leaflet package.")
+    tryCatch(
+      install.packages("leaflet"), 
+      error = error_func, warning = error_func)
+  } # END input == 1
+  
+  else{
+    stop(writeLines(paste("The leaflet package is necessary for BeeBDC::interactiveMapR.\n", 
+                          instructions)))
+  } # END else
+} # END suggestedTest == FALSE
+
+
   #### 1.0 Data prep ####
     ##### 1.1 Remove na+ ####
 data <- data %>%

@@ -1,3 +1,6 @@
+# Changes in version 1.2.1
+- `BeeBDC::taxadbToBeeBDC()` now prompts users to install taxadb when it's not already installed. 
+
 # Changes in BeeBDC version 1.2.0
 - Release of a new function, `BeeBDC::continentOutlieRs()`, which is conceptually the same as `BeeBDC::countryOutlieRs()` except on a continental level. This function recognises that sometimes knowledge (including data) are insufficient for country-level analyses. A continent-level function might actually see greater use for taxa beyond bees where country-level checklists may not exist but a continent-level checklist could be created.
 - I also provide updates to `BeeBDC::beesTaxonomy()` and `BeeBDC::beesChecklist()` to allow the new function to be used properly. It will also include new tests and added sections to the vignette. I have also added a warning for use of this function with older versions of beesChecklist and added compatibility with `BeeBDC::plotFlagSummary()`.

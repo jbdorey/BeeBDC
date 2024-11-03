@@ -580,7 +580,11 @@ check_pf <- bdc::bdc_country_standardized(
     # run before)
   data = check_pf %>% dplyr::select(!tidyselect::any_of(c("countryCode", "country_suggested"))),
   country = "country"
-) 
+) %>%
+    # Sometimes when "MX" is the country, "Mexico" is not correctly assigned
+  dplyr::mutate(country_suggested = dplyr::if_else(country == "MX",
+                                                   "Mexico",
+                                                   country_suggested))
 
 ##### 3.7 TranspCoords ####
   # Flag and correct records when lat and long appear to be transposed. We have chunked 

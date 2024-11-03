@@ -1196,8 +1196,8 @@ Download the custom taxonomy file from the BeeBDC package and [Discover Life](ht
 ```{r 4.2, collapse = TRUE, eval = FALSE}
 taxonomyFile <- BeeBDC::beesTaxonomy()
 ```
-```{r 4.2secret, collapse = TRUE, eval = TRUE}
-  # load in the small test dataset i nthe background
+```{r 4.2secret, collapse=TRUE, include=FALSE}
+  # load in the small test dataset in the background
 system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
   load()
   # Rename the file

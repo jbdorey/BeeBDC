@@ -65,7 +65,6 @@ requireNamespace("ggspatial")
 requireNamespace("mgsub")
 requireNamespace("terra")
 
-country
   #### 0.0 Prep ####
     ###### 0.1 fatal errors ####
 if(!any(colnames(data) %in% "country")){
