@@ -6,7 +6,7 @@ occurrences that may have had terminal zeros rounded in one coordinate column.">
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -28,7 +28,7 @@ occurrences that may have had terminal zeros rounded in one coordinate column.">
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -37,9 +37,9 @@ occurrences that may have had terminal zeros rounded in one coordinate column.">
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -82,20 +82,20 @@ occurrences that may have had terminal zeros rounded in one coordinate column.">
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Flags coordinates for imprecision</h1>
-    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/R/jbd_coordinates_precision.R" class="external-link"><code>R/jbd_coordinates_precision.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/jbd_coordinates_precision.R" class="external-link"><code>R/jbd_coordinates_precision.R</code></a></small>
     <div class="hidden name"><code>jbd_coordinates_precision.Rd</code></div>
     </div>
 
@@ -118,32 +118,32 @@ occurrences that may have had terminal zeros rounded in one coordinate column.</
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>data</dt>
+
+
+<dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>A data frame or tibble. Occurrence records as input.</p></dd>
 
 
-<dt>lat</dt>
+<dt id="arg-lat">lat<a class="anchor" aria-label="anchor" href="#arg-lat"></a></dt>
 <dd><p>Character. The name of the column to use as latitude. Default = "decimalLatitude".</p></dd>
 
 
-<dt>lon</dt>
+<dt id="arg-lon">lon<a class="anchor" aria-label="anchor" href="#arg-lon"></a></dt>
 <dd><p>Character. The name of the column to use as longitude. Default = "decimalLongitude".</p></dd>
 
 
-<dt>ndec</dt>
+<dt id="arg-ndec">ndec<a class="anchor" aria-label="anchor" href="#arg-ndec"></a></dt>
 <dd><p>Numeric. The number of decimal places to flag in decimal degrees. For example,
 argument value of 2 would flag occurrences with nothing in the hundredths place (0.0x).</p></dd>
 
 
-<dt>quieter</dt>
+<dt id="arg-quieter">quieter<a class="anchor" aria-label="anchor" href="#arg-quieter"></a></dt>
 <dd><p>Logical. If TRUE, the functino will run a little quieter. Default = FALSE.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Returns the input data frame with a new column, .rou, where FALSE indicates occurrences
+    <p>Returns the input data frame with a new column, .rou, where FALSE indicates occurrences
 that failed the test.</p>
     </div>
 
@@ -177,15 +177,15 @@ that failed the test.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

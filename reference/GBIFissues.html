@@ -3,7 +3,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -25,7 +25,7 @@
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -34,9 +34,9 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -79,20 +79,20 @@
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Flags records with GBIF issues</h1>
-    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/R/GBIFissues.R" class="external-link"><code>R/GBIFissues.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/GBIFissues.R" class="external-link"><code>R/GBIFissues.R</code></a></small>
     <div class="hidden name"><code>GBIFissues.Rd</code></div>
     </div>
 
@@ -106,15 +106,17 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>data</dt>
+
+
+<dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>A data frame or tibble. Occurrence records as input.</p></dd>
 
 
-<dt>issueColumn</dt>
+<dt id="arg-issuecolumn">issueColumn<a class="anchor" aria-label="anchor" href="#arg-issuecolumn"></a></dt>
 <dd><p>Character. The column in which to look for GBIF issues. Default = "issue".</p></dd>
 
 
-<dt>GBIFflags</dt>
+<dt id="arg-gbifflags">GBIFflags<a class="anchor" aria-label="anchor" href="#arg-gbifflags"></a></dt>
 <dd><p>Character vector. The GBIF issues to flag. Users may choose their own vector of issues to flag or
 use a pre-set vector or vectors, including c("allDates", "allMetadata", "allObservations",
 "allSpatial", "allTaxo", or "all").</p>
@@ -123,9 +125,7 @@ use a pre-set vector or vectors, including c("allDates", "allMetadata", "allObse
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Returns the data with a new column, ".GBIFflags", where FALSE = records with any of the provided
+    <p>Returns the data with a new column, ".GBIFflags", where FALSE = records with any of the provided
 GBIFflags.</p>
     </div>
 
@@ -156,15 +156,15 @@ GBIFflags.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

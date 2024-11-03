@@ -4,7 +4,7 @@ flag the restricted records."><!-- mathjax --><script src="https://cdnjs.cloudfl
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -26,7 +26,7 @@ flag the restricted records."><!-- mathjax --><script src="https://cdnjs.cloudfl
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -35,9 +35,9 @@ flag the restricted records."><!-- mathjax --><script src="https://cdnjs.cloudfl
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -80,20 +80,20 @@ flag the restricted records."><!-- mathjax --><script src="https://cdnjs.cloudfl
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Flag license protected records</h1>
-    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/R/flagLicense.R" class="external-link"><code>R/flagLicense.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/flagLicense.R" class="external-link"><code>R/flagLicense.R</code></a></small>
     <div class="hidden name"><code>flagLicense.Rd</code></div>
     </div>
 
@@ -108,16 +108,18 @@ flag the restricted records.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>data</dt>
+
+
+<dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>A data frame or tibble. Occurrence records as input.</p></dd>
 
 
-<dt>strings_to_restrict</dt>
+<dt id="arg-strings-to-restrict">strings_to_restrict<a class="anchor" aria-label="anchor" href="#arg-strings-to-restrict"></a></dt>
 <dd><p>A character vector. Should contain the strings used to detect protected records.
 Default =  c("All Rights Reserved", "All rights reserved", "All rights reserved.", "ND", "Not for public")</p></dd>
 
 
-<dt>excludeDataSource</dt>
+<dt id="arg-excludedatasource">excludeDataSource<a class="anchor" aria-label="anchor" href="#arg-excludedatasource"></a></dt>
 <dd><p>Optional. A character vector. A vector of the data sources (dataSource)
 that will not be flagged as protected, even if they are. This is useful if you have a private
 dataset that should be listed  as "All rights reserved" which you want to be ignored by this flag.</p></dd>
@@ -125,9 +127,7 @@ dataset that should be listed  as "All rights reserved" which you want to be ign
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Returns the data with a new column, .unLicensed, where FALSE = records that are protected by
+    <p>Returns the data with a new column, .unLicensed, where FALSE = records that are protected by
 a license.</p>
     </div>
 
@@ -157,15 +157,15 @@ a license.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

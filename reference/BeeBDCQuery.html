@@ -4,7 +4,7 @@ country occurrences."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -26,7 +26,7 @@ country occurrences."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -35,9 +35,9 @@ country occurrences."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -80,20 +80,20 @@ country occurrences."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Query the bee taxonomy and country checklist</h1>
-    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/R/BeeBDCQuery.R" class="external-link"><code>R/BeeBDCQuery.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/BeeBDCQuery.R" class="external-link"><code>R/BeeBDCQuery.R</code></a></small>
     <div class="hidden name"><code>BeeBDCQuery.Rd</code></div>
     </div>
 
@@ -114,35 +114,35 @@ country occurrences.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>beeName</dt>
+
+
+<dl><dt id="arg-beename">beeName<a class="anchor" aria-label="anchor" href="#arg-beename"></a></dt>
 <dd><p>Character or character vector. A single or several bee species names to search for
 in the beesTaxonomy and beesChecklist tables.</p></dd>
 
 
-<dt>searchChecklist</dt>
+<dt id="arg-searchchecklist">searchChecklist<a class="anchor" aria-label="anchor" href="#arg-searchchecklist"></a></dt>
 <dd><p>Logical. If TRUE (default), search the country checklist for each species.</p></dd>
 
 
-<dt>printAllSynonyms</dt>
+<dt id="arg-printallsynonyms">printAllSynonyms<a class="anchor" aria-label="anchor" href="#arg-printallsynonyms"></a></dt>
 <dd><p>Logical. If TRUE, all synonyms will be printed out for each entered name.
 default = FALSE.</p></dd>
 
 
-<dt>beesChecklist</dt>
+<dt id="arg-beeschecklist">beesChecklist<a class="anchor" aria-label="anchor" href="#arg-beeschecklist"></a></dt>
 <dd><p>A tibble. The bee checklist file for BeeBDC. If is NULL then
 <code><a href="beesChecklist.html">beesChecklist()</a></code> will be called internally to download the file. Default = NULL.</p></dd>
 
 
-<dt>beesTaxonomy</dt>
+<dt id="arg-beestaxonomy">beesTaxonomy<a class="anchor" aria-label="anchor" href="#arg-beestaxonomy"></a></dt>
 <dd><p>A tibble. The bee taxonomy file for BeeBDC. If is NULL then
 <code><a href="beesTaxonomy.html">beesTaxonomy()</a></code> will be called internally to download the file. Default = NULL.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Returns a list with the elements 'taxonomyReport' and 'SynonymReport'. IF searchChecklist
+    <p>Returns a list with the elements 'taxonomyReport' and 'SynonymReport'. IF searchChecklist
 is TRUE, then 'checklistReport' will also be returned.</p>
     </div>
 
@@ -228,15 +228,15 @@ is TRUE, then 'checklistReport' will also be returned.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

@@ -7,7 +7,7 @@ to how files are downloaded. current as of versions 1.0.4."><!-- mathjax --><scr
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -29,7 +29,7 @@ to how files are downloaded. current as of versions 1.0.4."><!-- mathjax --><scr
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -38,9 +38,9 @@ to how files are downloaded. current as of versions 1.0.4."><!-- mathjax --><scr
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -83,20 +83,20 @@ to how files are downloaded. current as of versions 1.0.4."><!-- mathjax --><scr
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Import occurrences from GBIF, ALA, iDigBio, and SCAN downloads</h1>
-    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/R/repoMerge.R" class="external-link"><code>R/repoMerge.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/repoMerge.R" class="external-link"><code>R/repoMerge.R</code></a></small>
     <div class="hidden name"><code>repoMerge.Rd</code></div>
     </div>
 
@@ -114,16 +114,18 @@ to how files are downloaded. current as of versions 1.0.4.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>path</dt>
+
+
+<dl><dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
 <dd><p>A directory as a character. The directory to recursively look in for the above data.</p></dd>
 
 
-<dt>save_type</dt>
+<dt id="arg-save-type">save_type<a class="anchor" aria-label="anchor" href="#arg-save-type"></a></dt>
 <dd><p>Character. The data type to save the resulting file as. Options are:
 csv_files" or "R_file".</p></dd>
 
 
-<dt>occ_paths</dt>
+<dt id="arg-occ-paths">occ_paths<a class="anchor" aria-label="anchor" href="#arg-occ-paths"></a></dt>
 <dd><p>A list of directories. Preferably produced using <code><a href="repoFinder.html">repoFinder()</a></code> the
 function asks for a list of paths to the relevant input datasets. You can fault-find errors
 in this function by checking the output of <code><a href="repoFinder.html">repoFinder()</a></code>.</p></dd>
@@ -131,21 +133,19 @@ in this function by checking the output of <code><a href="repoFinder.html">repoF
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A list with a data frame of merged occurrence records, "Data_WebDL", and a list of eml
+    <p>A list with a data frame of merged occurrence records, "Data_WebDL", and a list of eml
 files contained in "eml_files". Also saves these files in the requested format.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="va">DataImp</span> <span class="op">&lt;-</span> <span class="fu">repoMerge</span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, </span></span>
 <span class="r-in"><span><span class="co"># Find data - Many problems can be solved by running [BeeBDC::repoFinder(path = DataPath)]</span></span></span>
 <span class="r-in"><span><span class="co"># And looking for problems</span></span></span>
 <span class="r-in"><span>occ_paths <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="repoFinder.html">repoFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>save_type <span class="op">=</span> <span class="st">"R_file"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -160,15 +160,15 @@ files contained in "eml_files". Also saves these files in the requested format.<
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

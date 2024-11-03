@@ -7,7 +7,7 @@ the expert outliers."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -29,7 +29,7 @@ the expert outliers."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -38,9 +38,9 @@ the expert outliers."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -83,20 +83,20 @@ the expert outliers."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Finds outliers, and their duplicates, as determined by experts</h1>
-    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/R/manualOutlierFindeR.R" class="external-link"><code>R/manualOutlierFindeR.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/manualOutlierFindeR.R" class="external-link"><code>R/manualOutlierFindeR.R</code></a></small>
     <div class="hidden name"><code>manualOutlierFindeR.Rd</code></div>
     </div>
 
@@ -123,52 +123,52 @@ the expert outliers.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>data</dt>
+
+
+<dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>A data frame or tibble. Occurrence records as input.</p></dd>
 
 
-<dt>DataPath</dt>
+<dt id="arg-datapath">DataPath<a class="anchor" aria-label="anchor" href="#arg-datapath"></a></dt>
 <dd><p>A character path to the directory that contains the outlier spreadsheets.</p></dd>
 
 
-<dt>PaigeOutliersName</dt>
+<dt id="arg-paigeoutliersname">PaigeOutliersName<a class="anchor" aria-label="anchor" href="#arg-paigeoutliersname"></a></dt>
 <dd><p>A character patch. Should lead to outlier spreadsheet from Paige Chesshire (csv file).</p></dd>
 
 
-<dt>newOutliersName</dt>
+<dt id="arg-newoutliersname">newOutliersName<a class="anchor" aria-label="anchor" href="#arg-newoutliersname"></a></dt>
 <dd><p>A character path. Should lead to appropriate outlier spreadsheet (xlsx file).</p></dd>
 
 
-<dt>ColombiaOutliers_all</dt>
+<dt id="arg-colombiaoutliers-all">ColombiaOutliers_all<a class="anchor" aria-label="anchor" href="#arg-colombiaoutliers-all"></a></dt>
 <dd><p>A character path. Should lead to spreadsheet of bee outliers from Colombia (csv file).</p></dd>
 
 
-<dt>duplicates</dt>
+<dt id="arg-duplicates">duplicates<a class="anchor" aria-label="anchor" href="#arg-duplicates"></a></dt>
 <dd><p>A data frame or tibble. The duplicate file produced by <code><a href="dupeSummary.html">dupeSummary()</a></code>.</p></dd>
 
 
-<dt>NearTRUE</dt>
+<dt id="arg-neartrue">NearTRUE<a class="anchor" aria-label="anchor" href="#arg-neartrue"></a></dt>
 <dd><p>Optional. A character file name to the csv file. If you want to remove expert
 outliers that are too close to TRUE points, use the name of the NearTRUE.csv.
 Note: This implementation is only basic for now unless there is a greater need in the future.</p></dd>
 
 
-<dt>NearTRUE_threshold</dt>
+<dt id="arg-neartrue-threshold">NearTRUE_threshold<a class="anchor" aria-label="anchor" href="#arg-neartrue-threshold"></a></dt>
 <dd><p>Numeric. The threshold (in km) for the distance to TRUE points to
 keep expert outliers.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Returns the data with a new column, <code>.expertOutlier</code> where records that are FALSE are
+    <p>Returns the data with a new column, <code>.expertOutlier</code> where records that are FALSE are
 the expert outliers.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Read example data</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">beesFlagged</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Read in the most-recent duplicates file as well</span></span></span>
@@ -184,7 +184,7 @@ the expert outliers.</p>
 <span class="r-in"><span>  newOutliersName <span class="op">=</span> <span class="st">"^All_outliers_ANB_14March.xlsx"</span>,</span></span>
 <span class="r-in"><span>  ColombiaOutliers_all <span class="op">=</span> <span class="st">"All_Colombian_OutlierIDs.csv"</span>,</span></span>
 <span class="r-in"><span>  duplicates <span class="op">=</span> <span class="va">duplicates</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -200,15 +200,15 @@ the expert outliers.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

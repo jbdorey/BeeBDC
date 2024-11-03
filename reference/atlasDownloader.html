@@ -5,7 +5,7 @@ However, it will only send the download to your email and you must do the rest y
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -27,7 +27,7 @@ However, it will only send the download to your email and you must do the rest y
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -36,9 +36,9 @@ However, it will only send the download to your email and you must do the rest y
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fas fa-book"></span>
-     
+
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -81,20 +81,20 @@ However, it will only send the download to your email and you must do the rest y
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Download occurrence data from the Atlas of Living Australia (ALA)</h1>
-    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/HEAD/R/atlasDownloader.R" class="external-link"><code>R/atlasDownloader.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/atlasDownloader.R" class="external-link"><code>R/atlasDownloader.R</code></a></small>
     <div class="hidden name"><code>atlasDownloader.Rd</code></div>
     </div>
 
@@ -116,24 +116,26 @@ However, it will only send the download to your email and you must do the rest y
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>path</dt>
+
+
+<dl><dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
 <dd><p>A character directory. The path to a folder where the download will be stored.</p></dd>
 
 
-<dt>userEmail</dt>
+<dt id="arg-useremail">userEmail<a class="anchor" aria-label="anchor" href="#arg-useremail"></a></dt>
 <dd><p>A character string. The email used associated with the user's ALA account;
 user must make an ALA account to download data.</p></dd>
 
 
-<dt>ALA_taxon</dt>
+<dt id="arg-ala-taxon">ALA_taxon<a class="anchor" aria-label="anchor" href="#arg-ala-taxon"></a></dt>
 <dd><p>A character string. The taxon to download from ALA. Uses <code><a href="https://galah.ala.org.au/R/reference/galah_identify.html" class="external-link">galah::galah_identify()</a></code></p></dd>
 
 
-<dt>DL_reason</dt>
+<dt id="arg-dl-reason">DL_reason<a class="anchor" aria-label="anchor" href="#arg-dl-reason"></a></dt>
 <dd><p>Numeric. The reason for data download according to <code><a href="https://galah.ala.org.au/R/reference/galah_config.html" class="external-link">galah::galah_config()</a></code></p></dd>
 
 
-<dt>atlas</dt>
+<dt id="arg-atlas">atlas<a class="anchor" aria-label="anchor" href="#arg-atlas"></a></dt>
 <dd><p>Character. The atlas to download occurrence data from - see here https://galah.ala.org.au/R/articles/choosing_an_atlas.html for details.
 Note: the default is "ALA" and is probably the only atlas which will work seamlessly with the rest
 of the workflow. However, different atlases can still be downloaded and a doi will be sent to
@@ -142,19 +144,17 @@ your email.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Completes an ALA data download and saves those data to the path provided.</p>
+    <p>Completes an ALA data download and saves those data to the path provided.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu">atlasDownloader</span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>,</span></span>
 <span class="r-in"><span>               userEmail <span class="op">=</span> <span class="st">"InsertYourEmail"</span>,</span></span>
 <span class="r-in"><span>               ALA_taxon <span class="op">=</span> <span class="st">"Apiformes"</span>,</span></span>
 <span class="r-in"><span>               DL_reason <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span>               <span class="op">}</span></span></span>
+<span class="r-in"><span>               <span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -169,15 +169,15 @@ your email.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
