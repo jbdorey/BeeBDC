@@ -9,6 +9,10 @@ if(requireNamespace("rnaturalearthdata")){
 testDataPath <- file.info(list.files(tempdir(), full.names = T, 
                                      pattern = "USGS_formatted_|USGS_attribute_", recursive = TRUE))
 unlink(rownames(testDataPath))
+# Be sure that there isn't already an xml in the tempdir
+testDataPath <- file.info(list.files(tempdir(), full.names = T, 
+                                     pattern = "\\.xml", recursive = TRUE))
+unlink(rownames(testDataPath))
 
   # Create a test USGS dataset and save it to a temporary location
 USGS_testData <- dplyr::tribble(
