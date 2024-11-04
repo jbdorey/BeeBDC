@@ -18,7 +18,7 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 
 # Install BeeBDC from CRAN
-install.packages("BeeBDC")
+utils::install.packages("BeeBDC")
 # You could also install BeeBDC's development version using the below: 
 # WARNING the development version may not pass all CRAN or GitHub tests.
      remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
@@ -1305,7 +1305,6 @@ cleanData %>%
 ##### 9.1 Duplicate chordDiagrams ####
 # install ComplexHeatmap if needed
 if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
 BiocManager::install("ComplexHeatmap")
 
 # Read in the most-RECENT duplicates file.

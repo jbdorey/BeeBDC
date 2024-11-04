@@ -213,11 +213,11 @@ filteredData <-
 
 #### 5. Summary figures ####
 ##### 5.1 Duplicate chordDiagrams ####
-install.packages("circlize")
+utils::install.packages("circlize")
 if(!require("BiocManager", quietly = TRUE)){
-  install.packages("BiocManager")}
+  utils::install.packages("BiocManager")}
 BiocManager::install("ComplexHeatmap", force = TRUE)
-install.packages("paletteer")
+utils::install.packages("paletteer")
 library(paletteer)# Find palettes here
 renv::snapshot()
 

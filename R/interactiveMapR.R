@@ -38,7 +38,7 @@
 #' @export
 #' 
 #' @importFrom dplyr %>%
-#' @importFrom dplyr across where
+#' @importFrom dplyr across
 #'
 #' @examples
 #' if(requireNamespace("leaflet")){
@@ -166,7 +166,7 @@ if(suggestedTest == FALSE){
     # Start leaflet install
     message("Installing the leaflet package.")
     tryCatch(
-      install.packages("leaflet"), 
+      utils::install.packages("leaflet"), 
       error = error_func, warning = error_func)
   } # END input == 1
   
@@ -291,7 +291,7 @@ speciesList <- speciesList[complete.cases(speciesList)]
 
 options(encoding = "UTF-8")
 
-data <- data %>% dplyr::mutate(dplyr::across(where(is.character), 
+data <- data %>% dplyr::mutate(dplyr::across(tidyselect::where(is.character), 
                               function(x){iconv(x, 
                                                 to = "UTF-8",
                                                 sub = "")}))

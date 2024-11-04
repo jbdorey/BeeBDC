@@ -622,7 +622,7 @@ From several papers:
 
 These data are originally from the Victorian Museum and Western Australian Museum in Australia. However, in their current form they are from Dorey et al. 2021.
 
-1. PADIL. (2020). PaDIL. <https://www.PADIL.gov.au/>
+1. PADIL. (2020). PaDIL. <https://www.padil.gov.au>
 2. Houston, T. F. (2000). Native bees on wildflowers in Western Australia. *Western Australian Insect Study Society*.
 3. Dorey, J. B., Rebola, C. M., Davies, O. K., Prendergast, K. S., Parslow, B. A., Hogendoorn, K., . . . Caddy-Retalic, S. (2021). Continental risk assessment for understudied taxa post catastrophic wildfire indicates severe impacts on the Australian bee fauna. *Global Change Biology*, 27(24), 6551-6567. doi:<https://doi.org/10.1111/gcb.15879>
   

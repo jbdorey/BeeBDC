@@ -146,7 +146,7 @@ taxadbToBeeBDC <- function(
       # Start taxadb install
       message("Installing the taxadb package.")
       tryCatch(
-        install.packages("taxadb"), 
+        utils::install.packages("taxadb"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
