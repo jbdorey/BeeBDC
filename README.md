@@ -51,7 +51,7 @@ and CoordinateCleaner.
 > <https://doi.org/10.1101/2023.06.30.547152>; Package GitHub -
 > <https://github.com/jbdorey/BeeBDC/>
 
-#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
+#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
 
 #### **Installation**
 
@@ -67,7 +67,31 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git",
                         ref = "devel", force = TRUE)
 ```
 
-Two optional packages can also be downloaded prior to starting your
+BeeBDC, like many other spatial packages, also relies on the **sf** package in R. **Please follow the [download instructions here](https://r-spatial.github.io/sf/) if you have trouble with installation of sf.**
+
+**Windows**
+
+Installing sf from source works under Windows when 
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed.
+
+**MacOS**
+
+MacOS users are strongly encouraged to install the sf binary packages from CRAN, unless they 
+are familiar with compilers, linking, C++ source code, and homebrew.
+
+The easiest way to install **gdal** is using **Homebrew**. Recent versions of Homebrew include a 
+full-featured up-to-date 
+[gdal formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/g/gdal.rb), 
+which installs `proj` and `gdal` at the same time:
+
+```
+brew install pkg-config
+brew install gdal
+```
+
+**Optional extras**
+
+There are some optional packages can also be downloaded prior to starting your
 workflow, if desired. But, these are not essential. The packages
 BiocManager and devtools may also be required to download the two extra
 packages.
