@@ -440,21 +440,6 @@ explanation on each module.
 
 #### **Citation**
 
-<<<<<<< Updated upstream
-Paper, dataset, and package citation: Dorey, J. B., Chesshire, P. R.,
-Bolaños, A. N., O’reilly, R. L., Bossert, S., Collins, S. M.,
-Lichtenberg, E. M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A.,
-Guevara, D. A., Ribeiro, B. R., De Pedro, D., Fischer, E., Hung, J.
-K.-L., Parys, K. A., Rogan, M. S., Minckley, R. L., Velzco, S. J. E.,
-Griswold, T., Zarrillo, T. A., Sica, Y., Orr, M. C., Guzman, L. M.,
-Ascher, J., Hughes, A. C. & Cobb, N. S. Accepted. A globally synthesised
-and flagged bee occurrence dataset and cleaning workflow. Scientific
-Data.
-
-Package citation: Dorey, J. B., O’Reilly, R. L., Bossert, S., Fischer,
-E. (2023). BeeBDC: an occurrence data cleaning package. R package
-version 1.1.0. url: <https://github.com/jbdorey/BeeBDC>
-=======
 - **Paper, dataset, and package citation:** Dorey, J.B., Fischer, E.E.,
   Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S.,
   Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A.,
@@ -477,7 +462,6 @@ version 1.1.0. url: <https://github.com/jbdorey/BeeBDC>
   Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide
   and world checklist (Hymenoptera: Apoidea: Anthophila).
   <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
->>>>>>> Stashed changes
 
 This package and its data sets were created with the support, and as a
 part, of the iDigBees project

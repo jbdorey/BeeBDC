@@ -95,13 +95,8 @@ ColTypeR <- function(...,
     # CHR — Collection info
     recordNumber = readr::col_character(), recordedBy = readr::col_character(), eventID = readr::col_character(), 
     Location = readr::col_character(), samplingProtocol = readr::col_character(), 
-<<<<<<< Updated upstream
-    samplingEffort = readr::col_character(),
     # Int — Collection info
-=======
-    samplingEffort = readr::col_character(), fieldNumber = readr::col_character(),
-    # Int - Collection info
->>>>>>> Stashed changes
+    samplingEffort = readr::col_character(),
     individualCount = readr::col_double(), organismQuantity = readr::col_double(), 
     # mixed — Information uncertainty
     coordinatePrecision = readr::col_double(), coordinateUncertaintyInMeters = readr::col_double(), 
@@ -112,13 +107,8 @@ ColTypeR <- function(...,
     otherCatalogNumbers = readr::col_character(), occurrenceID = readr::col_character(), 
     taxonKey = readr::col_character(), coreid = readr::col_character(), 
     recordId = readr::col_character(), collectionID = readr::col_character(),
-<<<<<<< Updated upstream
-    associatedSequences = readr::col_character(),
-    # CHR — Verbatim information
-=======
     associatedSequences = readr::col_character(), institutionID = readr::col_character(),
     # CHR - Verbatim information
->>>>>>> Stashed changes
     verbatimScientificName = readr::col_character(), verbatimEventDate = readr::col_character(),
     # CHR/Factor — Aux info
     associatedTaxa = readr::col_character(), associatedOrganisms = readr::col_character(), 
@@ -137,13 +127,9 @@ ColTypeR <- function(...,
     hasCoordinate = readr::col_logical(), hasGeospatialIssues = readr::col_logical(), 
     # Factor
     assertions = readr::col_factor(),
-<<<<<<< Updated upstream
-    # mix — ALA columns
-=======
     # Bee data standard columns
     
     # mix - ALA columns
->>>>>>> Stashed changes
     occurrenceYear = readr::col_datetime(), id = readr::col_character(), duplicateStatus = readr::col_factor(), 
     associatedOccurrences = readr::col_character(), 
     # CHR — SCAN column

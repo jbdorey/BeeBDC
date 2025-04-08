@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-# Changes in BeeBDC version 1.1.0 (**devel**)
-=======
 # Changes in version 1.3.0
 - Updates `BeeBDC::flagAbsent()` to also check the *individualCount* count and flag those where *individualCount == 0*.
 - updated `BeeBDC::ColTypeR()` to include a bee-specific Darwin Core data standard using the new argument *standardFormat = "bee"*.
@@ -21,15 +18,26 @@
 - `BeeBDC::taxadbToBeeBDC()` now prompts users to install taxadb when it's not already installed. 
 - Minor updates to fix breaks with external updates.
 - NOTE: A more major update is planned for next year if users have requests or problems, feel free to get in touch and I'll see what's possible given available time.
->>>>>>> Stashed changes
 
+# Changes in BeeBDC version 1.2.0
+- Release of a new function, `BeeBDC::continentOutlieRs()`, which is conceptually the same as `BeeBDC::countryOutlieRs()` except on a continental level. This function recognises that sometimes knowledge (including data) are insufficient for country-level analyses. A continent-level function might actually see greater use for taxa beyond bees where country-level checklists may not exist but a continent-level checklist could be created.
+- I also provide updates to `BeeBDC::beesTaxonomy()` and `BeeBDC::beesChecklist()` to allow the new function to be used properly. It will also include new tests and added sections to the vignette. I have also added a warning for use of this function with older versions of beesChecklist and added compatibility with `BeeBDC::plotFlagSummary()`.
+- I have added an option in `BeeBDC::summaryFun()` to allow users to specify "onlyFilterThese" instead of "dontFilterThese".
+
+
+# Changes in BeeBDC version 1.1.1
+- Trying to close unused connections in formattedCombiner tests that throw errors on CRAN's arm tests (but not reproducible on an M1 or M3 mac that I could test on).
+- Removed extra UTF-8 characters causing a note on CRAN's Linux tests.
+- Updating citations and such.
+
+# Changes in BeeBDC version 1.1.0 
 - A new function added, `BeeBDC::taxadbToBeeBDC()`, that can use the **taxadb** package to download taxonomic data for any taxa. The function will transform the **taxadb** format into the **BeeBDC** format that can be put directly into `BeeBDC::harmoniseR()`. Users may choose their data source (e.g., "gbif" or "itis"), but some formats may be better than others. *Comments and issues are welcome in regards to how well the function works, or not, for your taxon.*
 - A minor fix where the legend colours for the `BeeBDC::interactiveMapR()` function were inverted from what they should have been. Thanks to Neil Cobb for pointing this out.
 - Minor fixes to `BeeBDC::dateFindR()` to identify more dates and exceptions on the advice of Elsa Youngsteadt.
 - Minor update to `BeeBDC::dupeSummary()` to update `igraph::clusters ` to `igraph::components()`; a simple renaming.
 
 
-# Changes in BeeBDC version 1.0.5 (**devel**)
+# Changes in BeeBDC version 1.0.5 
 
 - Minor alteration to plotFlagSummary to allow the removal of columns to the level where one or more  factors, "Initial","Time","Summary","Taxonomy","Space", are no longer present. Basically, a minor upgrade to make the function resilient to different input data. 
 - Fixed an issue caused by a stability fix from leaflet [#884](https://github.com/rstudio/leaflet/pull/884) where the tonerLite base map did not work and so would stop points from showing on the map.
