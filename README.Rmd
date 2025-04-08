@@ -1,5 +1,10 @@
 ---
-output: github_document
+output: 
+   rmarkdown::github_document:
+     html_preview: true
+pkgdown:
+  as_is: true
+urlcolor: blue
 editor_options: 
   markdown: 
     wrap: 80
@@ -25,7 +30,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# **BeeBDC** <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt = "BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"/></a>
+# <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"/></a>
 
 ## **BeeBDC: an occurrence data cleaning package**
 
@@ -40,21 +45,39 @@ knitr::opts_chunk$set(
 
 #### **Overview**
 
-The consistent implementation of biodiversity data continues to be a challenge for researchers. We present the **BeeBDC** package which provides novel and updated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in regards to taxon; however, we also provide some functions and data that are specific for use with bee occurrence data; specifically due to their input data. We build upon functions and conventions in other fantastic R packages, especially [bdc](https://brunobrr.github.io/bdc/) and [CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html), while also removing many dependencies on sp-related packages. Hence, our package name is **Bee** **B**iodiversity **D**ata **C**leaning (**BeeBDC**).
+The consistent implementation of biodiversity data continues to be a challenge
+for researchers. We present the **BeeBDC** package which provides novel and
+updated functions for flagging, cleaning, and visualising occurrence datasets.
+Our functions are mostly general in regards to taxon; however, we also provide
+some functions and data that are specific for use with bee occurrence data;
+specifically due to their input data. We build upon functions and conventions in
+other fantastic R packages, especially [bdc](https://brunobrr.github.io/bdc/)
+and
+[CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html),
+while also removing many dependencies on sp-related packages. Hence, our package
+name is **Bee** **B**iodiversity **D**ata **C**leaning (**BeeBDC**).
 
-We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite our primary [publication](https://doi.org/10.1101/2023.06.30.547152).
-
+We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean
+occurrence data in our Articles page and encourage users to read and also cite
+this primary [publication](https://doi.org/10.1101/2023.06.30.547152). For our
+parallelised implementation of iChao and iNEXT species richness estimations,
+cite this [primary publication](DOI TO COME).
 
 #### **Structure of *BeeBDC***
 
-The *BeeBDC* toolkit is organized using the conventions similar to bdc and CoordinateCleaner. 
+The *BeeBDC* toolkit is organized using the conventions similar to bdc and
+CoordinateCleaner.
 
-
-> Like in the **bdc** package, we provide a suggested workflow here. While our functions can mostly be run out of order, there are a few exceptions mentioned throughout the documentation. Additionally, many functions require the database_id column that is generated early on in the **BeeBDC** or **bdc** workflows. When running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks.
->Paper DOI - [https://doi.org/10.1101/2023.06.30.547152](https://doi.org/10.1101/2023.06.30.547152);
->Package GitHub - [https://github.com/jbdorey/BeeBDC/](https://github.com/jbdorey/BeeBDC/)
-
-
+> Like in the **bdc** package, we provide a suggested workflow here. While our
+> functions can mostly be run out of order, there are a few exceptions mentioned
+> throughout the documentation. Additionally, many functions require the
+> database_id column that is generated early on in the **BeeBDC** or **bdc**
+> workflows. When running very large datasets (e.g., the global bee occurrence
+> dataset) you may require a machine that has a minimum amount of RAM (\~32 GB).
+> However, we do try to provide work-arounds, especially by alowing some
+> functions to be broken into consumable chunks. Paper DOI -
+> <https://doi.org/10.1101/2023.06.30.547152>; Package GitHub -
+> <https://github.com/jbdorey/BeeBDC/>
 
 #### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
 
@@ -72,12 +95,18 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey",
                         ref = "devel", force = TRUE)
 ```
 
-Two optional packages can also be downloaded prior to starting your workflow, if desired. But, these are not essential. The packages BiocManager and devtools may also be required to download the two extra packages. 
+Two optional packages can also be downloaded prior to starting your workflow, if
+desired. But, these are not essential. The packages BiocManager and devtools may
+also be required to download the two extra packages.
 
-1.    The first package, **rnaturalearthhires**, is a data package that allows the usage of higher-resolution country maps and is very useful for multiple **BeeBDC** functions. 
-2.    The second package, **ComplexHeatmap**, is only used for one **BeeBDC** function (`chordDiagramR()`) and is less critical.
+1.  The first package, **rnaturalearthhires**, is a data package that allows the
+    usage of higher-resolution country maps and is very useful for multiple
+    **BeeBDC** functions.
+2.  The second package, **ComplexHeatmap**, is only used for one **BeeBDC**
+    function (`chordDiagramR()`) and is less critical.
 
-When either of these packages are called, the user will be prompted to install them. However, the latter may try to restart your R session.
+When either of these packages are called, the user will be prompted to install
+them. However, the latter may try to restart your R session.
 
 ```{r eval=FALSE}
   # These two packages may need to be installed in order to install the actual required packages 
@@ -92,39 +121,105 @@ devtools::install_github("ropensci/rnaturalearthhires")
 BiocManager::install("ComplexHeatmap")
 ```
 
+> ### First time using the *sf* or *terra* packages?
+>
+> The first time that you use **terra** or **sf** on a new computer you may need
+> to install some dependencies. Try to install the **terra** and **sf** packages
+> first but then come back here if that doesn't work.
+>
+> ##### Windows:
+>
+> On **Windows**, you need to first install
+> [Rtools](https://cran.r-project.org/bin/windows/Rtools/) to get a C++ compiler
+> that **R** can use. You need a recent version of **Rtools42**
+> (rtools42-5355-5357).
+>
+> ##### MacOS:
+>
+> On **macOS**, you can use [MacPorts](https://www.macports.org/) or
+> [Homebrew](https://brew.sh/).
+>
+> With **MacPorts** you can do
+>
+> `sudo port install R-terra`
+>
+> With **Homebrew**, you need to first install GDAL:
+>
+> `brew install pkg-config`
+>
+> `brew install gdal`
+>
+> Followed by (note the additional configuration argument needed for Homebrew)
+>
+> ```{r, eval = FALSE}
+>   # Install terra
+> install.packages("terra", type = "source", configure.args = "--with-proj-lib=$(brew --prefix)/lib/")
+>   # install sf
+> install.packages("sf", type = "source", configure.args = "--with-proj-lib=$(brew --prefix)/lib/")
+>
+> library(terra)
+> library(sf)
+> ```
+
 Load the package with:
 
 ```{r, message=FALSE, warning=FALSE,echo=TRUE,eval=FALSE}
 library(BeeBDC)
 ```
 
-
 #### 1. [**Data merge**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge)
 
+<<<<<<< Updated upstream
 Integrate and merge different datasets from major the data repositories — GBIF, SCAN, iDigBio, the 
 USGS, and ALA.
+=======
+Integrate and merge different datasets from major the data repositories - GBIF,
+SCAN, iDigBio, the USGS, and ALA.
+>>>>>>> Stashed changes
 
--   `atlasDownloader()` Downloads ALA data and creates a new file in the path to put those data. This function can also request downloads from other atlases ([see here](https://galah.ala.org.au/R/articles/choosing_an_atlas.html)). However, it will only send the download to your email and you must do the rest yourself at this point.
--   `repoMerge()` Locates data from GBIF, ALA, iDigBio, and SCAN within a directory and reads it in along with its eml metadata.
+-   `atlasDownloader()` Downloads ALA data and creates a new file in the path to
+    put those data. This function can also request downloads from other atlases
+    ([see here](https://galah.ala.org.au/R/articles/choosing_an_atlas.html)).
+    However, it will only send the download to your email and you must do the
+    rest yourself at this point.
+-   `repoMerge()` Locates data from GBIF, ALA, iDigBio, and SCAN within a
+    directory and reads it in along with its eml metadata.
 -   `repoFinder()` Find GBIF, ALA, iDigBio, and SCAN files in a directory.
--   `importOccurrences()` Looks for and imports the most-recent version of the occurrence data created by the `BeeBDC::repoMerge()` function.
--   `USGS_formatter()` The function finds, imports, formats, and creates metadata for the USGS dataset.
--   `formattedCombiner()` Merges the Darwin Core version of the USGS dataset that was created using `BeeBDC::USGS_formatter()` with the main dataset.
--   `dataSaver()` Used at the end of 1.x in the example workflow in order to save the occurrence dataset and its associated eml metadata.
-
+-   `importOccurrences()` Looks for and imports the most-recent version of the
+    occurrence data created by the `BeeBDC::repoMerge()` function.
+-   `USGS_formatter()` The function finds, imports, formats, and creates
+    metadata for the USGS dataset.
+-   `formattedCombiner()` Merges the Darwin Core version of the USGS dataset
+    that was created using `BeeBDC::USGS_formatter()` with the main dataset.
+-   `dataSaver()` Used at the end of 1.x in the example workflow in order to
+    save the occurrence dataset and its associated eml metadata.
 
 #### 2. [**Data preperation**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-preparation)
-The reading in and formatting of the major and minor [bee] occurrence repositories as well as some data modifications. This section is mostly, but not entirely, related to bee occurrence data.
 
--   `fileFinder()` A function which can be used to find files within a user-defined directory based on a user-provided character string.
--   `PaigeIntegrater()` Replaces publicly available data with data that has been manually cleaned and error-corrected for use in the paper Chesshire, P. R., Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . . McCabe, L. M. (In Press). Completeness analysis for over 3000 United States bee species identifies persistent data gaps. Ecography.
--   `readr_BeeBDC()` Read in a variety of data files that are specific to certain smaller data providers. There is an internal readr function for each dataset and each one of these functions is called by readr_BeeBDC. While these functions are internal, they are displayed in the documentation of readr_BeeBDC for clarity.
--   `idMatchR()` This function attempts to match database_ids from a prior bdc or BeeBDC run in order to keep this column somewhat consistent between iterations. However, not all records contain sufficient information for this to work flawlessly.
+The reading in and formatting of the major and minor [bee] occurrence
+repositories as well as some data modifications. This section is mostly, but not
+entirely, related to bee occurrence data.
 
+-   `fileFinder()` A function which can be used to find files within a
+    user-defined directory based on a user-provided character string.
+-   `PaigeIntegrater()` Replaces publicly available data with data that has been
+    manually cleaned and error-corrected for use in the paper Chesshire, P. R.,
+    Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., . . .
+    McCabe, L. M. (In Press). Completeness analysis for over 3000 United States
+    bee species identifies persistent data gaps. Ecography.
+-   `readr_BeeBDC()` Read in a variety of data files that are specific to
+    certain smaller data providers. There is an internal readr function for each
+    dataset and each one of these functions is called by readr_BeeBDC. While
+    these functions are internal, they are displayed in the documentation of
+    readr_BeeBDC for clarity.
+-   `idMatchR()` This function attempts to match database_ids from a prior bdc
+    or BeeBDC run in order to keep this column somewhat consistent between
+    iterations. However, not all records contain sufficient information for this
+    to work flawlessly.
 
 #### 3. [**Initial flags**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#initial-flags)
-Flagging and carpentry of several, mostly general, data issues. See bdc's [pre-filter](https://brunobrr.github.io/bdc/articles/prefilter.html) for more related functions.
 
+<<<<<<< Updated upstream
 -   `countryNameCleanR()` This is a basic function for a user to manually fix some country name inconsistencies.
 -   `jbd_CfC_chunker()` Because the `BeeBDC::jbd_country_from_coordinates()` function is very RAM-intensive, this wrapper allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a time. The prefix jbd_ is used to highlight the difference between this function and the original `bdc::bdc_country_from_coordinates()`.
 -   `jbd_Ctrans_chunker()` Because the `BeeBDC::jbd_coordinates_transposed()` function is very RAM-intensive, this wrapper allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a time. The prefix jbd_ is used to highlight the difference between this function and the original bdc::bdc_coordinates_transposed(). These functions will preferably use the countryCode column generated by `bdc::bdc_country_standardized()`.
@@ -137,59 +232,224 @@ Flagging and carpentry of several, mostly general, data issues. See bdc's [pre-f
 
 Harmonisation of scientific names against a taxonomy downloaded from **taxadb**, from the
 provided [Discover Life](https://www.discoverlife.org) website’s
+=======
+Flagging and carpentry of several, mostly general, data issues. See bdc's
+[pre-filter](https://brunobrr.github.io/bdc/articles/prefilter.html) for more
+related functions.
+
+-   `countryNameCleanR()` This is a basic function for a user to manually fix
+    some country name inconsistencies.
+-   `jbd_CfC_chunker()` Because the `BeeBDC::jbd_country_from_coordinates()`
+    function is very RAM-intensive, this wrapper allows a user to specify
+    chunk-sizes and only analyse a small portion of the occurrence data at a
+    time. The prefix jbd\_ is used to highlight the difference between this
+    function and the original `bdc::bdc_country_from_coordinates()`.
+-   `jbd_Ctrans_chunker()` Because the `BeeBDC::jbd_coordinates_transposed()`
+    function is very RAM-intensive, this wrapper allows a user to specify
+    chunk-sizes and only analyse a small portion of the occurrence data at a
+    time. The prefix jbd\_ is used to highlight the difference between this
+    function and the original bdc::bdc_coordinates_transposed(). These functions
+    will preferably use the countryCode column generated by
+    `bdc::bdc_country_standardized()`.
+-   `jbd_coordCountryInconsistent()` Compares stated country name in an
+    occurrence record with record's coordinates using rnaturalearth data. The
+    prefix, jbd\_ is meant to distinguish this function from the original
+    `bdc::bdc_coordinates_country_inconsistent()`. This functions will
+    preferably use the countryCode and country_suggested columns generated by
+    `bdc::bdc_country_standardized()`; please run it on your dataset prior to
+    running this function.
+-   `flagAbsent()` Flags occurrences that are "ABSENT" for the occurrenceStatus
+    (or some other user-specified) column.
+-   `GBIFissues()` This function will flag records which are subject to a
+    user-specified vector of GBIF issues.
+-   `flagRecorder()` This function is used to save the flag data for your
+    occurrence data as you run the BeeBDC script. It will read and append
+    existing files, if asked to. Your flags should also be saved in the
+    occurrence file itself automatically.
+
+#### 4. [**Taxonomy**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#taxonomy)
+
+Harmonisation of scientific names against a taxonomy downloaded from **taxadb**,
+from the provided [Discover Life](https://www.discoverlife.org) website's
+>>>>>>> Stashed changes
 taxonomic reference, or a custom taxonomy.
 
--   `taxadbToBeeBDC()` Uses the **taxadb** to download a species taxonomy from any of their sources and transforms it into the BeeBDC format that can then be exported as a .csv or into the R enviornment to be be fed directly into `BeeBDC::harmoniseR()`. This means that the taxonomy from ANY taxon can be used. See also `BeeBDC::beesTaxonomy()` for the best global bee taxonomy.
--   `harmoniseR()` Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match the checklist. This function could be hijacked to service other taxa if a user matched the format of the beesTaxonomy file. `BeeBDC::harmoniseR()` prefers to use the names_clean columns that is generated by `bdc::bdc_clean_names()`. While this is not required, you may find better results by running that function on your dataset first.
+-   `taxadbToBeeBDC()` Uses the **taxadb** to download a species taxonomy from
+    any of their sources and transforms it into the BeeBDC format that can then
+    be exported as a .csv or into the R enviornment to be be fed directly into
+    `BeeBDC::harmoniseR()`. This means that the taxonomy from ANY taxon can be
+    used. See also `BeeBDC::beesTaxonomy()` for the best global bee taxonomy.
+-   `harmoniseR()` Uses the Discover Life taxonomy to harmonise bee occurrences
+    and flag those that do not match the checklist. This function could be
+    hijacked to service other taxa if a user matched the format of the
+    beesTaxonomy file. `BeeBDC::harmoniseR()` prefers to use the names_clean
+    columns that is generated by `bdc::bdc_clean_names()`. While this is not
+    required, you may find better results by running that function on your
+    dataset first.
 
 #### 5. [**Space**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#space)
 
 Flagging of erroneous, suspicious, and low-precision geographic coordinates.
 
+<<<<<<< Updated upstream
 -   `jbd_coordinates_precision()` This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with the original function, `bdc::bdc_coordinates_precision()` that will flag occurrences where only one of latitude OR longitude are rounded. The BeeBDC approach saves occurrences that may have had terminal zeros rounded in one coordinate column.
 -   `diagonAlley()` A simple function that looks for potential latitude and longitude fill-down errors by identifying consecutive occurrences with coordinates at regular intervals. This is accomplished by using a sliding window with the length determined by minRepeats.
 -   `coordUncerFlagR()` To use this function, the user must choose a column, probably "coordinateUncertaintyInMeters" and a threshold above which occurrences will be flagged for geographic uncertainty.
 -   `countryOutlieRs()` This function flags country-level outliers using the checklist provided with this package. For additional context and column names, see `beesChecklist`.
 -   `jbd_create_figures()` Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and BeeBDC packages. Works like `bdc::bdc_create_figures()`, but it allows the user to specify a save path.
+=======
+-   `jbd_coordinates_precision()` This function flags occurrences where BOTH
+    latitude and longitude values are rounded. This contrasts with the original
+    function, `bdc::bdc_coordinates_precision()` that will flag occurrences
+    where only one of latitude OR longitude are rounded. The BeeBDC approach
+    saves occurrences that may have had terminal zeros rounded in one coordinate
+    column.
+-   `diagonAlley()` A simple function that looks for potential latitude and
+    longitude fill-down errors by identifying consecutive occurrences with
+    coordinates at regular intervals. This is accomplished by using a sliding
+    window with the length determined by minRepeats.
+-   `coordUncerFlagR()` To use this function, the user must choose a column,
+    probably "coordinateUncertaintyInMeters" and a threshold above which
+    occurrences will be flagged for geographic uncertainty.
+-   `countryOutlieRs()` This function flags country-level outliers using the
+    checklist provided with this package. For additional context and column
+    names, see `beesChecklist`.
+-   `continentOutlieRs()` This function flags continent-level outliers using the
+    checklist provided with this package. This function works much the same as
+    `countryOutlieRs()`, but at a lower resolution. For additional context and
+    column names, see `beesChecklist`.
+-   `jbd_create_figures()` Creates figures (i.e., bar plots, maps, and
+    histograms) reporting the results of data quality tests implemented the bdc
+    and BeeBDC packages. Works like `bdc::bdc_create_figures()`, but it allows
+    the user to specify a save path.
+>>>>>>> Stashed changes
 
 #### 6. [**Time**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#time)
 
 Flagging and, whenever possible, correction of inconsistent collection date.
 
--   `dateFindR()` A function made to search other columns for dates and add them to the eventDate column. The function searches the columns locality, fieldNotes, locationRemarks, and verbatimEventDate for the relevant information.
+-   `dateFindR()` A function made to search other columns for dates and add them
+    to the eventDate column. The function searches the columns locality,
+    fieldNotes, locationRemarks, and verbatimEventDate for the relevant
+    information.
 
 #### 7. [**De-duplication**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#de-duplication)
 
--   `dupeSummary()` This function uses user-specified inputs and columns to identify duplicate occurrence records. Duplicates are identified iteratively and will be tallied up, duplicate pairs clustered, and sorted at the end of the function. The function is designed to work with Darwin Core data with a database_id column, but it is also modifiable to work with other columns.
+-   `dupeSummary()` This function uses user-specified inputs and columns to
+    identify duplicate occurrence records. Duplicates are identified iteratively
+    and will be tallied up, duplicate pairs clustered, and sorted at the end of
+    the function. The function is designed to work with Darwin Core data with a
+    database_id column, but it is also modifiable to work with other columns.
 
 #### 8. [**Filtering**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-filtering)
 
--   `manualOutlierFindeR()` Uses expert-identified outliers with source spreadsheets that may be edited by users. The function will also use the duplicates file made using `BeeBDC::dupeSummary()` to identify duplicates of the expert-identified outliers and flag those as well. The function will add a flagging column called .expertOutlier where records that are FALSE are the expert outliers.
--   `summaryFun()` Using all flag columns (column names starting with "."), this function either creates or updates the .summary flag column which is FALSE when ANY of the flag columns are FALSE. Columns can be excluded and removed after creating the .summary column. Additionally, the occurrence dataset can be filtered to only those where .summary = TRUE at the end of the function.
+-   `manualOutlierFindeR()` Uses expert-identified outliers with source
+    spreadsheets that may be edited by users. The function will also use the
+    duplicates file made using `BeeBDC::dupeSummary()` to identify duplicates of
+    the expert-identified outliers and flag those as well. The function will add
+    a flagging column called .expertOutlier where records that are FALSE are the
+    expert outliers.
+-   `summaryFun()` Using all flag columns (column names starting with "."), this
+    function either creates or updates the .summary flag column which is FALSE
+    when ANY of the flag columns are FALSE. Columns can be excluded and removed
+    after creating the .summary column. Additionally, the occurrence dataset can
+    be filtered to only those where .summary = TRUE at the end of the function.
 
 #### 9. [**Figures and tables**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#figures-and-tables)
 
--   `chordDiagramR()` This function outputs a figure which shows the relative size and direction of occurrence points duplicated between data providers, such as, SCAN, GBIF, ALA, etc. This function requires the outputs generated by `BeeBDC::dupeSummary()`.
--   `dupePlotR()` Creates a plot with two bar graphs. One shows the absolute number of duplicate records for each data source while the other shows the proportion of records that are duplicated within each data source. This function requires a dataset that has been run through `BeeBDC::dupeSummary()`.
--   `plotFlagSummary()` Creates a compound bar plot that shows the proportion of records that pass or fail each flag (rows) and for each data source (columns). The function can also optionally return a point map for a user-specified species when plotMap = TRUE. This function requires that your dataset has been run through some filtering functions - so that is can display logical columns starting with ".".
--   `summaryMaps()` Builds an output figure that shows the number of species and the number of occurrences per country. Breaks the data into classes for visualisation. Users may filter data to their taxa of interest to produce figures of interest.
--   `interactiveMapR()` Uses the occurrence data (preferably uncleaned) and outputs interactive .html maps that can be opened in your browser to a specific directory. The maps can highlight if an occurrence has passed all filtering (.summary == TRUE) or failed at least one filter (.summary == FALSE). This can be modified by first running `BeeBDC::summaryFun()` to set the columns that you want to be highlighted. It can also highlight occurrences flagged as expert-identified or country outliers.
--   `dataProvTables()` This function will attempt to find and build a table of data providers that have contributed to the input data, especially using the 'institutionCode' column. It will also look for a variety of other columns to find data providers using a an internally set sequence of if-else statements. Hence, this function is quite specific for bee data, but should work for other taxa in similar institutions.
--   `flagSummaryTable()` Takes a flagged dataset and returns the total number of fails (FALSE) per flag (columns starting with ".") and per species. Users may define the column to group the summary by. While it is intended to work with the scientificName column, users may select any grouping column (e.g., country).
+-   `chordDiagramR()` This function outputs a figure which shows the relative
+    size and direction of occurrence points duplicated between data providers,
+    such as, SCAN, GBIF, ALA, etc. This function requires the outputs generated
+    by `BeeBDC::dupeSummary()`.
+-   `dupePlotR()` Creates a plot with two bar graphs. One shows the absolute
+    number of duplicate records for each data source while the other shows the
+    proportion of records that are duplicated within each data source. This
+    function requires a dataset that has been run through
+    `BeeBDC::dupeSummary()`.
+-   `plotFlagSummary()` Creates a compound bar plot that shows the proportion of
+    records that pass or fail each flag (rows) and for each data source
+    (columns). The function can also optionally return a point map for a
+    user-specified species when plotMap = TRUE. This function requires that your
+    dataset has been run through some filtering functions - so that is can
+    display logical columns starting with ".".
+-   `summaryMaps()` Builds an output figure that shows the number of species and
+    the number of occurrences per country. Breaks the data into classes for
+    visualisation. Users may filter data to their taxa of interest to produce
+    figures of interest.
+-   `interactiveMapR()` Uses the occurrence data (preferably uncleaned) and
+    outputs interactive .html maps that can be opened in your browser to a
+    specific directory. The maps can highlight if an occurrence has passed all
+    filtering (.summary == TRUE) or failed at least one filter (.summary ==
+    FALSE). This can be modified by first running `BeeBDC::summaryFun()` to set
+    the columns that you want to be highlighted. It can also highlight
+    occurrences flagged as expert-identified or country outliers.
+-   `dataProvTables()` This function will attempt to find and build a table of
+    data providers that have contributed to the input data, especially using the
+    'institutionCode' column. It will also look for a variety of other columns
+    to find data providers using a an internally set sequence of if-else
+    statements. Hence, this function is quite specific for bee data, but should
+    work for other taxa in similar institutions.
+-   `flagSummaryTable()` Takes a flagged dataset and returns the total number of
+    fails (FALSE) per flag (columns starting with ".") and per species. Users
+    may define the column to group the summary by. While it is intended to work
+    with the scientificName column, users may select any grouping column (e.g.,
+    country).
 
-#### 10. **Datasets**
+#### 10. Species richness estimation
 
-  We provide two full datasets that are downloadable using the below two functions
-  
--   `beesTaxonomy()` Downloads the taxonomic information for the bees of the world. Source of taxonomy is listed under "source" but are mostly derived from the Discover Life website. The data will be sourced from the BeeBDC article's Figshare. Please see also `BeeBDC::taxadbToBeeBDC()` for the download of any other taxonomy (for any taxa or for bees).
--   `beesChecklist()` Download the table contains taxonomic and country information for the bees of the world based on data collated on Discover Life. The data will be sourced from the BeeBDC article's Figshare.
+-   `diversityPrepR()` Takes your occurrence dataset along with a taxonomy and
+    checklist in order to produce a file that's ready to be passed into the
+    [BeeBDC::richnessEstimateR()] function in order to estimate species richness
+    using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and
+    iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, or
+    the entire globe.
+-   `richnessEstimateR()` Takes an output dataset from
+    [BeeBDC::diversityPrepR()] to estimate species richness using iChao
+    (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill
+    numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, and/or the
+    entire globe. Has parallel functionality.
+-   `iNEXTwrapper()` A wrapper for `iNEXT::iNEXT()` to interpolate and
+    extrapolate Hill numbers with order q (rarify species richness). The wrapper
+    has the ability to estimate species richness for multiple sites (or
+    countries) at once and to do this using multiple cores.
+-   `ChaoWrapper()` A wrapper for `SpadeR::ChaoSpecies()` to non-parametrically
+    estimate species richness. The wrapper has the ability to estimate species
+    richness for multiple sites (or countries) at once and to do this using
+    multiple cores at once.
 
-  We further provide five test datasets that are available with BeeBDC
-  
-- `BeeBDC::bees3sp` This test dataset includes 105 random occurrence records from three bee species. The included species are: "*Agapostemon tyleri* Cockerell, 1917", "*Centris rhodopus* Cockerell, 1897", and "*Perdita octomaculata* (Say, 1824)".
-- `BeeBDC::beesRaw` A small bee occurrence dataset with flags generated by BeeBDC used to run example script and test functions. For data types, see `ColTypeR()`.
-- `BeeBDC::beesFlagged` A small bee occurrence dataset with flags generated by BeeBDC used to run example script and test functions. For data types, see `ColTypeR()`.
-- There are also two small test datasets of the beesTaxonomy and beesChecklist in the system files of the package that are filtered to include *only* those species that occur in bees3sp, beesRaw, and beesFlagged. These are accessible as follows but are only used internally for tests.
+#### 11. **Datasets**
+
+We provide two full datasets that are downloadable using the below two functions
+
+-   `beesTaxonomy()` Downloads the taxonomic information for the bees of the
+    world. Source of taxonomy is listed under "source" but are mostly derived
+    from the Discover Life website. The data will be sourced from the BeeBDC
+    article's Figshare. Please see also `BeeBDC::taxadbToBeeBDC()` for the
+    download of any other taxonomy (for any taxa or for bees).
+-   `beesChecklist()` Download the table contains taxonomic and country
+    information for the bees of the world based on data collated on Discover
+    Life. The data will be sourced from the BeeBDC article's Figshare.
+
+We further provide five test datasets that are available with BeeBDC
+
+-   `BeeBDC::bees3sp` This test dataset includes 105 random occurrence records
+    from three bee species. The included species are: "*Agapostemon tyleri*
+    Cockerell, 1917", "*Centris rhodopus* Cockerell, 1897", and "*Perdita
+    octomaculata* (Say, 1824)".
+-   `BeeBDC::beesRaw` A small bee occurrence dataset with flags generated by
+    BeeBDC used to run example script and test functions. For data types, see
+    `ColTypeR()`.
+-   `BeeBDC::beesFlagged` A small bee occurrence dataset with flags generated by
+    BeeBDC used to run example script and test functions. For data types, see
+    `ColTypeR()`.
+-   `BeeBDC::beesCountrySubset` A very small bee occurrence dataset with the
+    columns "scientificName" and "country_suggested" and data for four
+    countries, Fiji, Uganda, Vietnam, and Zambia. This is the test dataset for
+    the species richness functions.
+-   There are also two small test datasets of the beesTaxonomy and beesChecklist
+    in the system files of the package that are filtered to include *only* those
+    species that occur in bees3sp, beesRaw, and beesFlagged. These are
+    accessible as follows but are only used internally for tests.
 
 ```{r testData, eval = FALSE}
   # Access the test taxonomy file
@@ -204,17 +464,19 @@ View(testChecklist)
 
 #### **Package website**
 
-See *BeeBDC* package website (<https://jbdorey.github.io/BeeBDC/reference/index.html>) for detailed
+See *BeeBDC* package website
+(<https://jbdorey.github.io/BeeBDC/reference/index.html>) for detailed
 explanation on each module.
 
 #### **Getting help**
 
 > If you encounter a clear bug, please file an issue
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
-> suggestion, flick us an email (james.dorey\@flinders.edu.au).
+> suggestion, flick us an email (jdorey\@uow.edu.au).
 
 #### **Citation**
 
+<<<<<<< Updated upstream
 Paper, dataset, and package citation:
 Dorey, J. B., Chesshire, P. R., Bolaños, A. N., O’reilly, R. L., Bossert, S., Collins, S. M., Lichtenberg, E. M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D. A., Ribeiro, B. R., De Pedro, D., Fischer, E., Hung, J. K.-L., Parys, K. A., Rogan, M. S., Minckley, R. L., Velzco, S. J. E., Griswold, T., Zarrillo, T. A., Sica, Y., Orr, M. C., Guzman, L. M., Ascher, J., Hughes, A. C. & Cobb, N. S. Accepted. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.
 
@@ -227,3 +489,30 @@ This package and its data sets were created with the support, and as a part, of 
 
 
   
+=======
+-   **Paper, dataset, and package citation:** Dorey, J.B., Fischer, E.E.,
+    Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins,
+    S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A.,
+    Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A.,
+    McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T.,
+    Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J.,
+    Hughes, A.C. & Cobb, N.S. (2023) A globally synthesised and flagged bee
+    occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17.
+    <https://www.doi.org/10.1038/S41597-023-02626-W>
+    -   **Figshare live data link:**
+        <https://doi.org/10.25451/flinders.21709757>
+-   **Species richness citation:** Dorey J. B., Gilpin, A.-M., Johnson, N.,
+    Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review).
+-   **Package citation:** Dorey, J. B., O'Reilly, R. L., Bossert, S. &
+    Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package
+    version 1.3.0. url: <https://github.com/jbdorey/BeeBDC>
+-   **Discover Life citation (for use of bee taxonomy and checklist):** Ascher,
+    J.S. & Pickering, J. (2020) Discover Life bee species guide and world
+    checklist (Hymenoptera: Apoidea: Anthophila).
+    <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
+
+This package and its data sets were created with the support, and as a part, of
+the iDigBees project
+
+<a href='https://idigbees.org'><img src="https://photos.smugmug.com/photos/i-rcd8CCs/0/b291edd1/O/i-rcd8CCs.png" alt="The iDigBees logo with a colourful bee and the iDigBees text on the right" align="left" width="300"/></a>
+>>>>>>> Stashed changes

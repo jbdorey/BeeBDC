@@ -1,4 +1,27 @@
+<<<<<<< Updated upstream
 # Changes in BeeBDC version 1.1.0 (**devel**)
+=======
+# Changes in version 1.3.0
+- Updates `BeeBDC::flagAbsent()` to also check the *individualCount* count and flag those where *individualCount == 0*.
+- updated `BeeBDC::ColTypeR()` to include a bee-specific Darwin Core data standard using the new argument *standardFormat = "bee"*.
+- Updated `BeeBDC::atlasDownloader()` to use newer `galah` syntax.
+- Updated `BeeBDC::interactiveMapR()` to allow the present plot to be returned in the R environment viewer.
+- Added new functions to estimate species richness across multiple sites and in parallel for added speed. 
+- `BeeBDC::diversityPrepR()` takes input occurrence data, taxonomy, and checklists to produce an R data file for the following functions. 
+- `BeeBDC::iNEXTwrapper()` is a wrapper for `iNEXT::iNEXT()` to interpolate and extrapolate Hill numbers with order q (rarify species richness). 
+- `BeeBDC::ChaoWrapper()` is a wrapper for `SpadeR::ChaoSpecies()` to non-parametrically estimate species richness. 
+- `BeeBDC::richnessEstimateR()` Takes an output dataset from [BeeBDC::diversityPrepR()] to estimate species richness using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, and/or the entire globe.
+- `BeeBDC::ggRichnessWrapper()` Takes the outputs from `BeeBDC::iNEXTwrapper()` and `BeeBDC::ChaoWrapper()` to create a summary table and output figure.
+- `BeeBDC::countryHarmoniseR` added as a helper function to harmonise some country names that are often inconsistent and otherwise problematic. This was going to be an internal function but it has been made available and exported.
+- Added a new test dataset, `beesCountrySubsets` to test the new species richness functions.
+- Added (Vignette)[<https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html>] for implementing the above functions
+
+
+# Changes in version 1.2.1
+- `BeeBDC::taxadbToBeeBDC()` now prompts users to install taxadb when it's not already installed. 
+- Minor updates to fix breaks with external updates.
+- NOTE: A more major update is planned for next year if users have requests or problems, feel free to get in touch and I'll see what's possible given available time.
+>>>>>>> Stashed changes
 
 - A new function added, `BeeBDC::taxadbToBeeBDC()`, that can use the **taxadb** package to download taxonomic data for any taxa. The function will transform the **taxadb** format into the **BeeBDC** format that can be put directly into `BeeBDC::harmoniseR()`. Users may choose their data source (e.g., "gbif" or "itis"), but some formats may be better than others. *Comments and issues are welcome in regards to how well the function works, or not, for your taxon.*
 - A minor fix where the legend colours for the `BeeBDC::interactiveMapR()` function were inverted from what they should have been. Thanks to Neil Cobb for pointing this out.

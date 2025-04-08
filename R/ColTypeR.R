@@ -15,6 +15,8 @@
 #' * newCharacterColumn = [readr::col_character()],
 #' * newNumericColumn = [readr::col_integer()],
 #' * newLogicalColumn = [readr::col_logical()]
+#' @param standardFormat Character. Some taxa may have a standard format for data. Presently,
+#' Only bees have had this encoded here as "bee". Default = NULL.
 #' 
 #' @importFrom readr col_character col_double col_factor col_integer col_logical col_datetime
 #' @importFrom dplyr %>%
@@ -22,6 +24,11 @@
 #' @return Returns an object of class col_spec. 
 #' See [readr::as.col_spec()] for additional context and explication.
 #' @export
+#' 
+#' @references For using the bee standard —  Clos, B. D., Seltmann, K. C., 
+#' Turley, N. E., Maffei, C., Tucker, E. M., Lane, I. G., Levenson, H. K., & Woodard, H. S. 
+#' (2025). Improving the standardization of wild bee occurrence data: towards a formal 
+#' wild bee data standard. Authorea. doi: https://doi.org/10.22541/au.173862402.22787949/v2 
 #'
 #' @examples 
 #'   # You can simply return the below for default values
@@ -38,8 +45,19 @@
 #'   # OR
 #' beesRaw %>% dplyr::as_tibble(col_types = BeeBDC::ColTypeR())
 #' 
+#'   # OR, using the bee standard format from:
+#'   
+#' beesRaw %>% dplyr::as_tibble(col_types = BeeBDC::ColTypeR(standardFormat = "bee"))
 #' 
-ColTypeR <- function(...){
+#' 
+ColTypeR <- function(...,
+                     standardFormat = NULL){
+    # If no standardFormat is assigned, assign it to "NULL"
+  if(is.null(standardFormat)){
+    standardFormat <- "NULL"
+  }
+  
+  if(standardFormat == "NULL"){
   ColTypes <- readr::cols_only(
     # Character Strings
     # CHR — taxonomy
@@ -77,8 +95,13 @@ ColTypeR <- function(...){
     # CHR — Collection info
     recordNumber = readr::col_character(), recordedBy = readr::col_character(), eventID = readr::col_character(), 
     Location = readr::col_character(), samplingProtocol = readr::col_character(), 
+<<<<<<< Updated upstream
     samplingEffort = readr::col_character(),
     # Int — Collection info
+=======
+    samplingEffort = readr::col_character(), fieldNumber = readr::col_character(),
+    # Int - Collection info
+>>>>>>> Stashed changes
     individualCount = readr::col_double(), organismQuantity = readr::col_double(), 
     # mixed — Information uncertainty
     coordinatePrecision = readr::col_double(), coordinateUncertaintyInMeters = readr::col_double(), 
@@ -89,8 +112,13 @@ ColTypeR <- function(...){
     otherCatalogNumbers = readr::col_character(), occurrenceID = readr::col_character(), 
     taxonKey = readr::col_character(), coreid = readr::col_character(), 
     recordId = readr::col_character(), collectionID = readr::col_character(),
+<<<<<<< Updated upstream
     associatedSequences = readr::col_character(),
     # CHR — Verbatim information
+=======
+    associatedSequences = readr::col_character(), institutionID = readr::col_character(),
+    # CHR - Verbatim information
+>>>>>>> Stashed changes
     verbatimScientificName = readr::col_character(), verbatimEventDate = readr::col_character(),
     # CHR/Factor — Aux info
     associatedTaxa = readr::col_character(), associatedOrganisms = readr::col_character(), 
@@ -109,7 +137,13 @@ ColTypeR <- function(...){
     hasCoordinate = readr::col_logical(), hasGeospatialIssues = readr::col_logical(), 
     # Factor
     assertions = readr::col_factor(),
+<<<<<<< Updated upstream
     # mix — ALA columns
+=======
+    # Bee data standard columns
+    
+    # mix - ALA columns
+>>>>>>> Stashed changes
     occurrenceYear = readr::col_datetime(), id = readr::col_character(), duplicateStatus = readr::col_factor(), 
     associatedOccurrences = readr::col_character(), 
     # CHR — SCAN column
@@ -143,6 +177,78 @@ ColTypeR <- function(...){
     # Dynamic dots for extra columns specified by the user
     ...
   ) # END ColTypes
+} # END standarFormat
+  
+  #### 2.0 Standard formats ####
+    ##### 2.1 Bees ####
+  if(tolower(standardFormat) == "bee"){
+    ColTypes <- readr::cols_only(
+    # Core terms
+      # Record-level
+    institutionCode = readr::col_character(), basisOfRecord = readr::col_factor(), informationWithheld = readr::col_character(), 
+      # Occurrence
+    occurrenceID = readr::col_character(), catalogNumber = readr::col_character(), recordedBy = readr::col_character(),
+    individualCount = readr::col_double(), occurrenceStatus = readr::col_factor(), 
+      # Event
+    eventDate = readr::col_character(), 
+    eventTime = readr::col_character(),  year = readr::col_integer(), month = readr::col_integer(),
+    day = readr::col_integer(),samplingProtocol = readr::col_character(), sampleSizeValue = readr::col_double(),
+    sampleSizeUnit = readr::col_character(), samplingEffort = readr::col_character(),
+      # Location
+    decimalLatitude = readr::col_double(), decimalLongitude = readr::col_double(),
+    coordinateUncertaintyInMeters = readr::col_double(), 
+      # Identification
+    identifiedBy = readr::col_character(), 
+      # Taxon
+    scientificName = readr::col_character(), genus = readr::col_character(), specificEpithet = readr::col_character(),
+    
+    # Recommended terms
+      # Record-level
+    license = readr::col_factor(), institutionID = readr::col_character(), collectionID = readr::col_character(), 
+    collectionCode = readr::col_character(), 
+      # Occurrence
+    recordedByID = readr::col_character(), sex = readr::col_character(),  associatedTaxa = readr::col_character(),
+      # Event
+    eventID = readr::col_character(), eventRemarks = readr::col_character(), 
+      # MaterialEntity
+    disposition = readr::col_factor(), 
+      # Location
+    locationID = readr::col_character(), stateProvince = readr::col_character(), 
+    geodeticDatum = readr::col_character(), 
+      # Identification 
+    verbatimIdentification = readr::col_character(), identificationQualifier = readr::col_character(),
+    identifiedByID = readr::col_character(), dateIdentified = readr::col_character(),
+    identificationReferences = readr::col_character(), taxonID  = readr::col_character(),
+    nameAccordingTo = readr::col_character(), family = readr::col_character(),
+    infraspecificEpithet = readr::col_character(), scientificNameAuthorship = readr::col_character(), 
+    
+    # Optional terms
+      # Record-level
+    rightsHolder = readr::col_character(), dynamicProperties = readr::col_character(), 
+      # Occurrence
+    lifeStage = readr::col_factor(), caste = readr::col_factor(), behavior = readr::col_factor(),
+    vitality = readr::col_factor(), associatedMedia = readr::col_character(), 
+    associatedOccurrences = readr::col_character(), occurrenceRemarks = readr::col_character(),
+      # MaterialEntity
+    preparations = readr::col_character(), associatedSequences = readr::col_character(),
+    materialEntityRemarks = readr::col_character(),
+      # Event
+    fieldNumber = readr::col_character(), habitat = readr::col_character(),
+      # Location
+    country = readr::col_character(), county = readr::col_character(),
+    locality = readr::col_character(), verbatimElevation = readr::col_character(),
+    coordinatePrecision = readr::col_double(), georeferencedBy = readr::col_character(),
+    georeferenceRemarks = readr::col_character(),
+      # Identification
+    typeStatus = readr::col_character(), identificationRemarks = readr::col_character(),
+    namePublishedIn = readr::col_character(), tribe = readr::col_character(),
+    subgenus = readr::col_character(), taxonRank = readr::col_character(),
+    vernacularName = readr::col_character(),
+    # Dynamic dots for extra columns specified by the user
+    ...
+    ) # END ColTypes 
+  } 
+  
   return(ColTypes)
 } # END ColTypeR
 

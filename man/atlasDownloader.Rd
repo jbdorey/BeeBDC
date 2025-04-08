@@ -18,7 +18,7 @@ atlasDownloader(
 \item{userEmail}{A character string. The email used associated with the user’s ALA account;
 user must make an ALA account to download data.}
 
-\item{ALA_taxon}{A character string. The taxon to download from ALA. Uses \code{\link[galah:galah_identify]{galah::galah_identify()}}}
+\item{ALA_taxon}{A character string. The taxon to download from ALA. Uses \code{\link[galah:identify.data_request]{galah::galah_identify()}}}
 
 \item{DL_reason}{Numeric. The reason for data download according to \code{\link[galah:galah_config]{galah::galah_config()}}}
 

@@ -4,7 +4,7 @@
 \alias{ColTypeR}
 \title{Sets up column names and types}
 \usage{
-ColTypeR(...)
+ColTypeR(..., standardFormat = NULL)
 }
 \arguments{
 \item{...}{Additional arguments. These can be specified in addition to the ones default to the
@@ -14,6 +14,9 @@ function.  For example:
 \item newNumericColumn = \code{\link[readr:parse_atomic]{readr::col_integer()}},
 \item newLogicalColumn = \code{\link[readr:parse_atomic]{readr::col_logical()}}
 }}
+
+\item{standardFormat}{Character. Some taxa may have a standard format for data. Presently,
+Only bees have had this encoded here as "bee". Default = NULL.}
 }
 \value{
 Returns an object of class col_spec.
@@ -41,5 +44,15 @@ beesFlagged \%>\% dplyr::as_tibble(col_types = BeeBDC::ColTypeR())
   # OR
 beesRaw \%>\% dplyr::as_tibble(col_types = BeeBDC::ColTypeR())
 
+  # OR, using the bee standard format from:
+  
+beesRaw \%>\% dplyr::as_tibble(col_types = BeeBDC::ColTypeR(standardFormat = "bee"))
 
+
+}
+\references{
+For using the bee standard —  Clos, B. D., Seltmann, K. C.,
+Turley, N. E., Maffei, C., Tucker, E. M., Lane, I. G., Levenson, H. K., & Woodard, H. S.
+(2025). Improving the standardization of wild bee occurrence data: towards a formal
+wild bee data standard. Authorea. doi: https://doi.org/10.22541/au.173862402.22787949/v2
 }

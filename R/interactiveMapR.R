@@ -33,6 +33,7 @@
 #' Default = TRUE.
 #' @param pointColours A character vector of colours. In order provide colour for TRUE, FALSE, countryOutlier, and customOutlier.
 #' Default = c("blue", "darkred","#ff7f00", "black").
+#' @param returnPlot Logical. If TRUE, return the plot to the environment. Default = FALSE.
 #'
 #' @return Exports .html interactive maps of bee occurrences to the specified directory.
 #' @export
@@ -91,7 +92,8 @@ interactiveMapR <- function(
     overWrite = TRUE,
     TrueAlwaysTop = FALSE,
     excludeApis_mellifera = TRUE,
-    pointColours = c("blue", "darkred","#ff7f00", "black")
+    pointColours = c("blue", "darkred","#ff7f00", "black"),
+    returnPlot = FALSE
     ){
   # locally bind variables to the function
   country <- .data <- scientificName <- expertOutlier <- .countryOutlier <- .summary <-
@@ -494,6 +496,10 @@ for(i in 1:length(names(databaseLoop))){
 
 # reset to original directory
 setwd(olddir)
+
+if(returnPlot == TRUE){
+return(mdatabaseSpp)
+}
 
 } # END function
 

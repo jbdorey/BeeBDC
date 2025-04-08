@@ -17,7 +17,8 @@ interactiveMapR(
   overWrite = TRUE,
   TrueAlwaysTop = FALSE,
   excludeApis_mellifera = TRUE,
-  pointColours = c("blue", "darkred", "#ff7f00", "black")
+  pointColours = c("blue", "darkred", "#ff7f00", "black"),
+  returnPlot = FALSE
 )
 }
 \arguments{
@@ -57,6 +58,8 @@ Default = TRUE.}
 
 \item{pointColours}{A character vector of colours. In order provide colour for TRUE, FALSE, countryOutlier, and customOutlier.
 Default = c("blue", "darkred","#ff7f00", "black").}
+
+\item{returnPlot}{Logical. If TRUE, return the plot to the environment. Default = FALSE.}
 }
 \value{
 Exports .html interactive maps of bee occurrences to the specified directory.

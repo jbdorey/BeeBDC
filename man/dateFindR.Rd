@@ -22,7 +22,12 @@ searched columns.
 \description{
 A function made to search other columns for dates and add them to the eventDate column.
 The function searches the columns locality, fieldNotes, locationRemarks, and verbatimEventDate
-for the relevant information.
+for the relevant information. Additionally, for date ranges in the eventDate column, these will
+Be translated into startDayOfYear and endDayOfYear and the eventDate will be kept as the last
+date, but formatted in the correct format. Ambiguous dates that can't be parsed reliably as
+day-month-year or month-day-year will be rounded to the nearest certainty; if month or day can
+be identified with a spelled-out month or a day >12, these wil be correctly formatted.
+Year-month-day... is the most-reliable format
 }
 \examples{
 # Using the example dataset, you may not find any missing eventDates are rescued (dependent on 
