@@ -10,8 +10,9 @@ requireNamespace("BeeBDC")
                                         version = "22.12",
                                         removeEmptyNames = TRUE,
                                         outPath = tempdir(),
-                                        fileName = "TEST_out.csv"
-   )
+                                        fileName = "TEST_out.csv",
+                                          # Must be NULL to avoid deprecation warning
+                                        overwrite = NULL, lines = NULL)
  
 
 

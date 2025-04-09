@@ -65,8 +65,8 @@ cite this [primary publication](DOI TO COME).
 
 #### **Structure of *BeeBDC***
 
-The *BeeBDC* toolkit is organized using the conventions similar to bdc and
-CoordinateCleaner.
+The **BeeBDC** toolkit is organized using the conventions similar to **bdc** and
+**CoordinateCleaner**.
 
 > Like in the **bdc** package, we provide a suggested workflow here. While our
 > functions can mostly be run out of order, there are a few exceptions mentioned
@@ -366,16 +366,16 @@ Flagging and, whenever possible, correction of inconsistent collection date.
     with the scientificName column, users may select any grouping column (e.g.,
     country).
 
-#### 10. Species richness estimation
+#### 10. [Species richness estimation](https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html)
 
 -   `diversityPrepR()` Takes your occurrence dataset along with a taxonomy and
     checklist in order to produce a file that's ready to be passed into the
-    [BeeBDC::richnessEstimateR()] function in order to estimate species richness
+    `BeeBDC::richnessEstimateR()` function in order to estimate species richness
     using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and
     iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, or
     the entire globe.
 -   `richnessEstimateR()` Takes an output dataset from
-    [BeeBDC::diversityPrepR()] to estimate species richness using iChao
+    `BeeBDC::diversityPrepR()` to estimate species richness using iChao
     (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill
     numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, and/or the
     entire globe. Has parallel functionality.

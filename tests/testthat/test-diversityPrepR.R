@@ -2,7 +2,8 @@ requireNamespace("dplyr")
 
 
 # Load in a test dataset
-beesCountrySubset <- BeeBDC::beesCountrySubset
+data("beesCountrySubset", package = "BeeBDC")
+
 
 testOut <- BeeBDC::diversityPrepR(
   data = beesCountrySubset,

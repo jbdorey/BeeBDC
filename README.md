@@ -34,7 +34,7 @@ to clean occurrence data in our Articles page and encourage users to
 read and also cite this primary
 [publication](https://doi.org/10.1101/2023.06.30.547152). For our
 parallelised implementation of iChao and iNEXT species richness
-estimations, cite this [primary publication]().
+estimations, cite this [primary publication](DOI%20TO%20COME).
 
 #### **Structure of *BeeBDC***
 
@@ -146,8 +146,8 @@ library(BeeBDC)
 
 #### 1. [**Data merge**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge)
 
-Integrate and merge different datasets from major the data repositories
-— GBIF, SCAN, iDigBio, the USGS, and ALA.
+Integrate and merge different datasets from major the data
+repositories - GBIF, SCAN, iDigBio, the USGS, and ALA.
 
 - `atlasDownloader()` Downloads ALA data and creates a new file in the
   path to put those data. This function can also request downloads from
@@ -273,6 +273,10 @@ coordinates.
 - `countryOutlieRs()` This function flags country-level outliers using
   the checklist provided with this package. For additional context and
   column names, see `beesChecklist`.
+- `continentOutlieRs()` This function flags continent-level outliers
+  using the checklist provided with this package. This function works
+  much the same as `countryOutlieRs()`, but at a lower resolution. For
+  additional context and column names, see `beesChecklist`.
 - `jbd_create_figures()` Creates figures (i.e., bar plots, maps, and
   histograms) reporting the results of data quality tests implemented
   the bdc and BeeBDC packages. Works like `bdc::bdc_create_figures()`,
@@ -354,7 +358,7 @@ date.
   is intended to work with the scientificName column, users may select
   any grouping column (e.g., country).
 
-#### 10. Species richness estimation
+#### 10. [Species richness estimation](https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html)
 
 - `diversityPrepR()` Takes your occurrence dataset along with a taxonomy
   and checklist in order to produce a file that’s ready to be passed
