@@ -4,121 +4,76 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Occurrence Data Cleaning • BeeBDC</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Occurrence Data Cleaning">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Occurrence Data Cleaning">
+<meta name="description" content="Flags and checks occurrence data that are in Darwin Core format. The package includes generic functions and data as well as some that are specific to bees. This package is meant to build upon and be complimentary to other excellent occurrence cleaning packages, including bdc and CoordinateCleaner. This package uses datasets from several sources and particularly from the Discover Life Website, created by Ascher and Pickering (2020). For further information, please see the original publication and package website. Publication - Dorey et al. (2023) &lt;doi:10.1101/2023.06.30.547152&gt; and package website - Dorey et al. (2023) &lt;https://github.com/jbdorey/BeeBDC&gt;.">
 <meta property="og:description" content="Flags and checks occurrence data that are in Darwin Core format. The package includes generic functions and data as well as some that are specific to bees. This package is meant to build upon and be complimentary to other excellent occurrence cleaning packages, including bdc and CoordinateCleaner. This package uses datasets from several sources and particularly from the Discover Life Website, created by Ascher and Pickering (2020). For further information, please see the original publication and package website. Publication - Dorey et al. (2023) &lt;doi:10.1101/2023.06.30.547152&gt; and package website - Dorey et al. (2023) &lt;https://github.com/jbdorey/BeeBDC&gt;.">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">BeeBDC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
-      </span>
-    </div>
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fa fa-home"></span>
+    <a class="navbar-brand me-2" href="index.html">BeeBDC</a>
 
-  </a>
-</li>
-<li>
-  <a href="reference/index.html">Functions</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="fas fa-book"></span>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.0</small>
 
-    Articles
 
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/BeeBDC_main.html">BeeBDC vignette</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#data-merge">  1.0 Data merge</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#data-preparation">  2.0 Data preparation</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#initial-flags">  3.0 Initial flags</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#taxonomy">  4.0 Taxonomy</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#space">  5.0 Space</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#time">  6.0 Time</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#de-duplication">  7.0 De-duplication</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#data-filtering">  8.0 Data filtering</a>
-    </li>
-    <li>
-      <a href="articles/BeeBDC_main.html#figures-and-tables">  9.0 Figures and tables</a>
-    </li>
-    <li>
-      <a href="articles/basic_workflow.html">Basic workflow</a>
-    </li>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="active nav-item"><a class="nav-link" href="index.html" aria-label="Go to package home"><span class="fa fa-home"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning">
+<li><a class="dropdown-item" href="articles/BeeBDC_main.html">BeeBDC cleaning sections</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#data-merge">  1.0 Data merge</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#data-preparation">  2.0 Data preparation</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#initial-flags">  3.0 Initial flags</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#taxonomy">  4.0 Taxonomy</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#space">  5.0 Space</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#time">  6.0 Time</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#de-duplication">  7.0 De-duplication</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#data-filtering">  8.0 Data filtering</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_main.html#figures-and-tables">  9.0 Figures and tables</a></li>
+    <li><a class="dropdown-item" href="articles/basic_workflow.html">BeeBDC basic workflow</a></li>
   </ul>
 </li>
-<li>
-  <a href="https://jbdorey.github.io/BeeBDC/news/index.html">News</a>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation">
+<li><a class="dropdown-item" href="articles/speciesRichness_example.html">BeeBDC richness estimation</a></li>
+    <li><a class="dropdown-item" href="articles/speciesRichness_example.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
+    <li><a class="dropdown-item" href="articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
+  </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="https://jbdorey.github.io/BeeBDC/news/index.html"><span class="fa fas fa-newspaper"></span> News</a></li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/jbdorey/BeeBDC/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/jbdorey/BeeBDC/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-
-
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-<div class="section level1">
-<div class="page-header"><h1 id="beebdc-">
-<strong>BeeBDC</strong> <a href="https://github.com/jbdorey/BeeBDC" class="external-link"><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"></a>
-<a class="anchor" aria-label="anchor" href="#beebdc-"></a>
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="section">
+<a href="https://github.com/jbdorey/BeeBDC" class="external-link"><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"></a><a class="anchor" aria-label="anchor" href="#section"></a>
 </h1></div>
 <div class="section level2">
 <h2 id="beebdc-an-occurrence-data-cleaning-package">
@@ -132,7 +87,7 @@
 <strong>Overview</strong><a class="anchor" aria-label="anchor" href="#overview"></a>
 </h4>
 <p>The consistent implementation of biodiversity data continues to be a challenge for researchers. We present the <strong>BeeBDC</strong> package which provides novel and updated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in regards to taxon; however, we also provide some functions and data that are specific for use with bee occurrence data; specifically due to their input data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>, while also removing many dependencies on sp-related packages. Hence, our package name is <strong>Bee</strong> <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (<strong>BeeBDC</strong>).</p>
-<p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite our primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>.</p>
+<p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite this primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>. For our parallelised implementation of iChao and iNEXT species richness estimations, cite this <a href="">primary publication</a>.</p>
 </div>
 <div class="section level4">
 <h4 id="structure-of-beebdc">
@@ -158,25 +113,16 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># Or using the development version from GitHub (keeping in mind this may not be as stable)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, </span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, user<span class="op">=</span><span class="st">"jbdorey"</span>, </span>
 <span>                          <span class="co"># To use the development version use "devel"; otherwise choose "main"</span></span>
 <span>                        ref <span class="op">=</span> <span class="st">"devel"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>BeeBDC, like many other spatial packages, also relies on the <strong>sf</strong> package in R. <strong>Please follow the <a href="https://r-spatial.github.io/sf/" class="external-link">download instructions here</a> if you have trouble with installation of sf.</strong></p>
-<p><strong>Windows</strong></p>
-<p>Installing sf from source works under Windows when <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is installed.</p>
-<p><strong>MacOS</strong></p>
-<p>MacOS users are strongly encouraged to install the sf binary packages from CRAN, unless they are familiar with compilers, linking, C++ source code, and homebrew.</p>
-<p>The easiest way to install <strong>gdal</strong> is using <strong>Homebrew</strong>. Recent versions of Homebrew include a full-featured up-to-date <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/g/gdal.rb" class="external-link">gdal formula</a>, which installs <code>proj</code> and <code>gdal</code> at the same time:</p>
-<pre><code>brew install pkg-config
-brew install gdal</code></pre>
-<p><strong>Optional extras</strong></p>
-<p>There are some optional packages can also be downloaded prior to starting your workflow, if desired. But, these are not essential. The packages BiocManager and devtools may also be required to download the two extra packages.</p>
+<p>Two optional packages can also be downloaded prior to starting your workflow, if desired. But, these are not essential. The packages BiocManager and devtools may also be required to download the two extra packages.</p>
 <ol style="list-style-type: decimal">
 <li>The first package, <strong>rnaturalearthhires</strong>, is a data package that allows the usage of higher-resolution country maps and is very useful for multiple <strong>BeeBDC</strong> functions.</li>
 <li>The second package, <strong>ComplexHeatmap</strong>, is only used for one <strong>BeeBDC</strong> function (<code><a href="reference/chordDiagramR.html">chordDiagramR()</a></code>) and is less critical.</li>
 </ol>
 <p>When either of these packages are called, the user will be prompted to install them. However, the latter may try to restart your R session.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># These two packages may need to be installed in order to install the actual required packages </span></span>
 <span>    <span class="co"># below.</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
@@ -187,6 +133,28 @@ brew install gdal</code></pre>
 <span>  <span class="co"># Install ComplexHeatmap and rnaturalearthhires</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
+<blockquote>
+<h3 id="first-time-using-the-sf-or-terra-packages">First time using the <em>sf</em> or <em>terra</em> packages?</h3>
+<p>The first time that you use <strong>terra</strong> or <strong>sf</strong> on a new computer you may need to install some dependencies. Try to install the <strong>terra</strong> and <strong>sf</strong> packages first but then come back here if that doesn’t work.</p>
+<h5 id="windows">Windows:</h5>
+<p>On <strong>Windows</strong>, you need to first install <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> to get a C++ compiler that <strong>R</strong> can use. You need a recent version of <strong>Rtools42</strong> (rtools42-5355-5357).</p>
+<h5 id="macos">MacOS:</h5>
+<p>On <strong>macOS</strong>, you can use <a href="https://www.macports.org/" class="external-link">MacPorts</a> or <a href="https://brew.sh/" class="external-link">Homebrew</a>.</p>
+<p>With <strong>MacPorts</strong> you can do</p>
+<p><code>sudo port install R-terra</code></p>
+<p>With <strong>Homebrew</strong>, you need to first install GDAL:</p>
+<p><code>brew install pkg-config</code></p>
+<p><code>brew install gdal</code></p>
+<p>Followed by (note the additional configuration argument needed for Homebrew)</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># Install terra</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"terra"</span>, type <span class="op">=</span> <span class="st">"source"</span>, configure.args <span class="op">=</span> <span class="st">"--with-proj-lib=$(brew --prefix)/lib/"</span><span class="op">)</span></span>
+<span>  <span class="co"># install sf</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"sf"</span>, type <span class="op">=</span> <span class="st">"source"</span>, configure.args <span class="op">=</span> <span class="st">"--with-proj-lib=$(brew --prefix)/lib/"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span></code></pre></div>
+</blockquote>
 <p>Load the package with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jbdorey.github.io/BeeBDC/">BeeBDC</a></span><span class="op">)</span></span></code></pre></div>
@@ -195,7 +163,7 @@ brew install gdal</code></pre>
 <h4 id="id_1-data-merge">1. <a href="https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge"><strong>Data merge</strong></a>
 <a class="anchor" aria-label="anchor" href="#id_1-data-merge"></a>
 </h4>
-<p>Integrate and merge different datasets from major the data repositories - GBIF, SCAN, iDigBio, the USGS, and ALA.</p>
+<p>Integrate and merge different datasets from major the data repositories — GBIF, SCAN, iDigBio, the USGS, and ALA.</p>
 <ul>
 <li>
 <code><a href="reference/atlasDownloader.html">atlasDownloader()</a></code> Downloads ALA data and creates a new file in the path to put those data. This function can also request downloads from other atlases (<a href="https://galah.ala.org.au/R/articles/choosing_an_atlas.html" class="external-link">see here</a>). However, it will only send the download to your email and you must do the rest yourself at this point.</li>
@@ -278,8 +246,6 @@ brew install gdal</code></pre>
 <li>
 <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code> This function flags country-level outliers using the checklist provided with this package. For additional context and column names, see <code>beesChecklist</code>.</li>
 <li>
-<code><a href="reference/continentOutlieRs.html">continentOutlieRs()</a></code> This function flags continent-level outliers using the checklist provided with this package. This function works much the same as <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code>, but at a lower resolution. For additional context and column names, see <code>beesChecklist</code>.</li>
-<li>
 <code><a href="reference/jbd_create_figures.html">jbd_create_figures()</a></code> Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and BeeBDC packages. Works like <code><a href="https://brunobrr.github.io/bdc/reference/bdc_create_figures.html" class="external-link">bdc::bdc_create_figures()</a></code>, but it allows the user to specify a save path.</li>
 </ul>
 </div>
@@ -335,8 +301,22 @@ brew install gdal</code></pre>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="id_10-datasets">10. <strong>Datasets</strong>
-<a class="anchor" aria-label="anchor" href="#id_10-datasets"></a>
+<h4 id="id_10-species-richness-estimation">10. Species richness estimation<a class="anchor" aria-label="anchor" href="#id_10-species-richness-estimation"></a>
+</h4>
+<ul>
+<li>
+<code><a href="reference/diversityPrepR.html">diversityPrepR()</a></code> Takes your occurrence dataset along with a taxonomy and checklist in order to produce a file that’s ready to be passed into the [BeeBDC::richnessEstimateR()] function in order to estimate species richness using iChao (non-parametric species richness; <code><a href="reference/ChaoWrapper.html">BeeBDC::ChaoWrapper()</a></code>) and iNEXT (hill numbers; <code><a href="reference/iNEXTwrapper.html">BeeBDC::iNEXTwrapper()</a></code>) for countries, continents, or the entire globe.</li>
+<li>
+<code><a href="reference/richnessEstimateR.html">richnessEstimateR()</a></code> Takes an output dataset from [BeeBDC::diversityPrepR()] to estimate species richness using iChao (non-parametric species richness; <code><a href="reference/ChaoWrapper.html">BeeBDC::ChaoWrapper()</a></code>) and iNEXT (hill numbers; <code><a href="reference/iNEXTwrapper.html">BeeBDC::iNEXTwrapper()</a></code>) for countries, continents, and/or the entire globe. Has parallel functionality.</li>
+<li>
+<code><a href="reference/iNEXTwrapper.html">iNEXTwrapper()</a></code> A wrapper for <code><a href="https://rdrr.io/pkg/iNEXT/man/iNEXT.html" class="external-link">iNEXT::iNEXT()</a></code> to interpolate and extrapolate Hill numbers with order q (rarify species richness). The wrapper has the ability to estimate species richness for multiple sites (or countries) at once and to do this using multiple cores.</li>
+<li>
+<code><a href="reference/ChaoWrapper.html">ChaoWrapper()</a></code> A wrapper for <code><a href="https://rdrr.io/pkg/SpadeR/man/ChaoSpecies.html" class="external-link">SpadeR::ChaoSpecies()</a></code> to non-parametrically estimate species richness. The wrapper has the ability to estimate species richness for multiple sites (or countries) at once and to do this using multiple cores at once.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="id_11-datasets">11. <strong>Datasets</strong>
+<a class="anchor" aria-label="anchor" href="#id_11-datasets"></a>
 </h4>
 <p>We provide two full datasets that are downloadable using the below two functions</p>
 <ul>
@@ -353,6 +333,8 @@ brew install gdal</code></pre>
 <code><a href="reference/beesRaw.html">BeeBDC::beesRaw</a></code> A small bee occurrence dataset with flags generated by BeeBDC used to run example script and test functions. For data types, see <code><a href="reference/ColTypeR.html">ColTypeR()</a></code>.</li>
 <li>
 <code><a href="reference/beesFlagged.html">BeeBDC::beesFlagged</a></code> A small bee occurrence dataset with flags generated by BeeBDC used to run example script and test functions. For data types, see <code><a href="reference/ColTypeR.html">ColTypeR()</a></code>.</li>
+<li>
+<code><a href="reference/beesCountrySubset.html">BeeBDC::beesCountrySubset</a></code> A very small bee occurrence dataset with the columns “scientificName” and “country_suggested” and data for four countries, Fiji, Uganda, Vietnam, and Zambia. This is the test dataset for the species richness functions.</li>
 <li>There are also two small test datasets of the beesTaxonomy and beesChecklist in the system files of the package that are filtered to include <em>only</em> those species that occur in bees3sp, beesRaw, and beesFlagged. These are accessible as follows but are only used internally for tests.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -376,27 +358,37 @@ brew install gdal</code></pre>
 <strong>Getting help</strong><a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h4>
 <blockquote>
-<p>If you encounter a clear bug, please file an issue <a href="https://github.com/jbdorey/BeeBDC/issues" class="external-link"><strong>here</strong></a>. For questions or suggestion, flick us an email (<a href="mailto:james.dorey@flinders.edu.au" class="email">james.dorey@flinders.edu.au</a>).</p>
+<p>If you encounter a clear bug, please file an issue <a href="https://github.com/jbdorey/BeeBDC/issues" class="external-link"><strong>here</strong></a>. For questions or suggestion, flick us an email (<a href="mailto:jdorey@uow.edu.au" class="email">jdorey@uow.edu.au</a>).</p>
 </blockquote>
 </div>
 <div class="section level4">
-<h4 id="citations">
-<strong>Citations</strong><a class="anchor" aria-label="anchor" href="#citations"></a>
+<h4 id="citation">
+<strong>Citation</strong><a class="anchor" aria-label="anchor" href="#citation"></a>
 </h4>
 <ul>
-<li><p><strong>Paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a></p></li>
-<li><p><strong>Package citation:</strong> Dorey, J. B., O’Reilly, R. L., Bossert, S. &amp; Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.2.0. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a></p></li>
-<li><p><strong>Discover Life citation (for use of bee taxonomy and checklist):</strong> Ascher, J.S. &amp; Pickering, J. (2020) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). <a href="https://www.discoverlife.org/mp/20q?guide=Apoidea_species" class="external-link uri">https://www.discoverlife.org/mp/20q?guide=Apoidea_species</a></p></li>
+<li>
+<strong>Paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a>
+<ul>
+<li>
+<strong>Figshare live data link:</strong> <a href="https://doi.org/10.25451/flinders.21709757" class="external-link uri">https://doi.org/10.25451/flinders.21709757</a>
+</li>
+</ul>
+</li>
+<li>
+<strong>Species richness citation:</strong> Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (Under review).</li>
+<li>
+<strong>Package citation:</strong> Dorey, J. B., O’Reilly, R. L., Bossert, S. &amp; Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.3.0. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a>
+</li>
+<li>
+<strong>Discover Life citation (for use of bee taxonomy and checklist):</strong> Ascher, J.S. &amp; Pickering, J. (2020) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). <a href="https://www.discoverlife.org/mp/20q?guide=Apoidea_species" class="external-link uri">https://www.discoverlife.org/mp/20q?guide=Apoidea_species</a>
+</li>
 </ul>
 <p>This package and its data sets were created with the support, and as a part, of the iDigBees project</p>
 <p><a href="https://idigbees.org" class="external-link"><img src="https://photos.smugmug.com/photos/i-rcd8CCs/0/b291edd1/O/i-rcd8CCs.png" alt="The iDigBees logo with a colourful bee and the iDigBees text on the right" align="left" width="300"></a></p>
 </div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
+  </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=BeeBDC" class="external-link">View on CRAN</a></li>
@@ -432,23 +424,20 @@ brew install gdal</code></pre>
 
 
 
-  </div>
+  </aside>
 </div>
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by James B. Dorey, Robert L. O’Reilly, Silas Bossert, Erica E. Fischer.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by James B. Dorey, Robert L. O’Reilly, Silas Bossert, Erica E. Fischer.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
-
 
 
 
