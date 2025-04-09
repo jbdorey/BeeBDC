@@ -1073,7 +1073,7 @@ check_pf <- BeeBDC::GBIFissues(data = check_pf,
 
 Save the flags so far. This function will make sure that you keep a copy of everything that has been flagged up until now. This will be updated throughout the script and can accessed at the end, so be wary of moving files around manually. However, these data will also still be maintained in the main running file, so this is an optional fail-safe.
 
-```{r 3.13a, eval = FALSE}
+```{r 3.13a, eval = FALSE, tidy=FALSE}
 flagFile <- BeeBDC::flagRecorder(
   data = check_pf,
   outPath = paste(OutPath_Report, sep =""),

@@ -46,7 +46,7 @@ library(kableExtra)
 library(tibble)
 
   # For the sake of making this vignette in the early days, read in the source files 
-devtools::load_all("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC")
+#devtools::load_all("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC")
 
 # Dont detect cores to avoid GitHbub error
 old <- options()         # code line i 

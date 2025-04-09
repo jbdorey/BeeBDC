@@ -315,7 +315,7 @@ filteredData <- beesFlagged %>%
 
 Or, if you're interested in a particular time period, again **dplyr** comes to the rescue with some very straight forward filtering within a year range.
 
-```{r 4.2b}
+```{r 4.2b, tidy=FALSE}
 filteredData <- 
   # The input dataset
   beesFlagged %>%
@@ -438,7 +438,7 @@ The `plotFlagSummary()` function is one of the most important for quickly summar
 
 ### a. all taxa in dataset ####
 
-```{r 5.3a}
+```{r 5.3a, tidy=FALSE}
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 BeeBDC::plotFlagSummary(
   data = beesFlagged,

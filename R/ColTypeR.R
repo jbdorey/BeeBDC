@@ -96,7 +96,7 @@ ColTypeR <- function(...,
     recordNumber = readr::col_character(), recordedBy = readr::col_character(), eventID = readr::col_character(), 
     Location = readr::col_character(), samplingProtocol = readr::col_character(), 
     # Int — Collection info
-    samplingEffort = readr::col_character(),
+    samplingEffort = readr::col_character(), fieldNumber = readr::col_character(), 
     individualCount = readr::col_double(), organismQuantity = readr::col_double(), 
     # mixed — Information uncertainty
     coordinatePrecision = readr::col_double(), coordinateUncertaintyInMeters = readr::col_double(), 
