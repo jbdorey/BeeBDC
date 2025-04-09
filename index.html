@@ -87,7 +87,7 @@
 <strong>Overview</strong><a class="anchor" aria-label="anchor" href="#overview"></a>
 </h4>
 <p>The consistent implementation of biodiversity data continues to be a challenge for researchers. We present the <strong>BeeBDC</strong> package which provides novel and updated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in regards to taxon; however, we also provide some functions and data that are specific for use with bee occurrence data; specifically due to their input data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>, while also removing many dependencies on sp-related packages. Hence, our package name is <strong>Bee</strong> <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (<strong>BeeBDC</strong>).</p>
-<p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite this primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>. For our parallelised implementation of iChao and iNEXT species richness estimations, cite this <a href="">primary publication</a>.</p>
+<p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite this primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>. For our parallelised implementation of iChao and iNEXT species richness estimations, cite this <a href="DOI%20TO%20COME">primary publication</a>.</p>
 </div>
 <div class="section level4">
 <h4 id="structure-of-beebdc">
@@ -163,7 +163,7 @@
 <h4 id="id_1-data-merge">1. <a href="https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge"><strong>Data merge</strong></a>
 <a class="anchor" aria-label="anchor" href="#id_1-data-merge"></a>
 </h4>
-<p>Integrate and merge different datasets from major the data repositories — GBIF, SCAN, iDigBio, the USGS, and ALA.</p>
+<p>Integrate and merge different datasets from major the data repositories - GBIF, SCAN, iDigBio, the USGS, and ALA.</p>
 <ul>
 <li>
 <code><a href="reference/atlasDownloader.html">atlasDownloader()</a></code> Downloads ALA data and creates a new file in the path to put those data. This function can also request downloads from other atlases (<a href="https://galah.ala.org.au/R/articles/choosing_an_atlas.html" class="external-link">see here</a>). However, it will only send the download to your email and you must do the rest yourself at this point.</li>
@@ -246,6 +246,8 @@
 <li>
 <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code> This function flags country-level outliers using the checklist provided with this package. For additional context and column names, see <code>beesChecklist</code>.</li>
 <li>
+<code>continentOutlieRs()</code> This function flags continent-level outliers using the checklist provided with this package. This function works much the same as <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code>, but at a lower resolution. For additional context and column names, see <code>beesChecklist</code>.</li>
+<li>
 <code><a href="reference/jbd_create_figures.html">jbd_create_figures()</a></code> Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and BeeBDC packages. Works like <code><a href="https://brunobrr.github.io/bdc/reference/bdc_create_figures.html" class="external-link">bdc::bdc_create_figures()</a></code>, but it allows the user to specify a save path.</li>
 </ul>
 </div>
@@ -301,7 +303,8 @@
 </ul>
 </div>
 <div class="section level4">
-<h4 id="id_10-species-richness-estimation">10. Species richness estimation<a class="anchor" aria-label="anchor" href="#id_10-species-richness-estimation"></a>
+<h4 id="id_10-species-richness-estimation">10. <a href="https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html">Species richness estimation</a>
+<a class="anchor" aria-label="anchor" href="#id_10-species-richness-estimation"></a>
 </h4>
 <ul>
 <li>
