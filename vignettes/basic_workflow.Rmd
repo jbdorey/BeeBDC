@@ -254,7 +254,7 @@ countryData
 
 The **BeeBDC** package provides a simple function that can re-build the *.summary* column based off of the filtering columns that are present in the dataset (those starting with "."). you can also choose which filters you DO NOT want to implement using the dontFilterThese argument. In this example, we are also removing all of the filtering columns in the output dataset (removeFilterColumns = TRUE) and filtering to only completely clean occurrences (filterClean = TRUE). For the latter, we are only keeping *.summary* == TRUE.
  
-```{r 4.1}
+```{r 4.1, tidy=FALSE}
 filteredData <- 
   BeeBDC::summaryFun(data = beesFlagged,
    # Choose the columns to NOT filter (or NULL to filter all columns)
@@ -271,7 +271,7 @@ filteredData <-
 
 You may also want to change the *.uncertaintyThreshold* as we have chosen a somewhat strict default of 1 km in our dataset. Here, we will instead flag to 10 km (threshold = 10000 [m]). Additionally, we use the **magrittr** package pipe (%>%) to feed the outputs directly into `summaryFun()` to filter our data in one action!
 
-```{r 4.2}
+```{r 4.2, tidy=FALSE}
 filteredData <- beesFlagged %>%
   # Remove any exiting .uncertaintyThreshold column
   dplyr::select(!tidyselect::any_of(".uncertaintyThreshold")) %>%
@@ -372,7 +372,7 @@ oldpar <- par(no.readonly = TRUE)
 on.exit(oldpar)
 ```
 
-```{r 5.1iii, eval = FALSE}
+```{r 5.1iii, eval = FALSE, tidy=FALSE}
 # Choose the global figure parameters
   par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
 
@@ -409,7 +409,7 @@ BeeBDC::chordDiagramR(
 
 In this example, we will use one of the example datasets to show you how this works. We will use beesFlagged, which has been filtered from a larger dataset and contains duplicates from that larger dataset. To print the plot in R, you need to specify returnPlot = TRUE, otherwise it will only save to the disk
 
-```{r 5.2}
+```{r 5.2, tidy=FALSE}
 data("beesFlagged", package = "BeeBDC")
 
 # Create a figure shoring the total number of duplicates, kept duplicates, and unique
@@ -438,6 +438,7 @@ The `plotFlagSummary()` function is one of the most important for quickly summar
 
 ### a. all taxa in dataset ####
 
+```{r 5.3a}
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 BeeBDC::plotFlagSummary(
   data = beesFlagged,
@@ -458,7 +459,7 @@ BeeBDC::plotFlagSummary(
   
   In fact, lets build one of these single-species example below using the same data and the omnipresent *Apis mellifera*.
   
-```{r 5.3b}
+```{r 5.3b, tidy=FALSE}
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
   # A clever user might also realise the potential to summarise and produce outputs in other columns
 BeeBDC::plotFlagSummary(
