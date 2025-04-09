@@ -3,15 +3,15 @@ requireNamespace("dplyr")
 
 # Load in a test dataset
 beesCountrySubset <- BeeBDC::beesCountrySubset
-
-
+taxonomyFile <- BeeBDC::beesTaxonomy()
+checklistFile <- BeeBDC::beesChecklist()
 
 testOut <- BeeBDC::diversityPrepR(
   data = beesCountrySubset,
   # Download the taxonomy
-  taxonomyFile = BeeBDC::beesTaxonomy(),
+  taxonomyFile = taxonomyFile,
   # Download the checklist
-  checklistFile = BeeBDC::beesChecklist(),
+  checklistFile = checklistFile,
   curveFunction = function(x) (228.7531 * x * x^-log(12.1593)),
   sampleSize = 10000,
   countryColumn = "country_suggested",
@@ -21,9 +21,14 @@ testOut <- BeeBDC::diversityPrepR(
 
 
 # Test the expected results
-#testthat::test_that("dateFindR results successfuly matched", {
-#  testthat::expect_equal(sum(complete.cases(testOut$eventDate) ), 23)
-#})
-#testthat::test_that("dateFindR results unsuccessfuly matched", {
-#  testthat::expect_equal(sum(is.na(testOut$eventDate) ), 1)
-#})
+testthat::test_that("diversityPrepR results successfuly matched", {
+  testthat::expect_equal(length(testOut) , 10)
+})
+testthat::test_that("diversityPrepR names match", {
+  testthat::expect_equal(names(testOut) ,
+                         c("curveExtraction","checklistFile","taxonomyFile","taxonomyAcceptedNames",
+                           "taxonomyNoPoints","data_counts","continentChecklist","continentNoPoints",
+                           "worldMap","siteSpeciesCounts"    
+                           ) )
+})
+
