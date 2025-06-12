@@ -12,19 +12,19 @@
 #' @param variableColumn Character. The column to be used to group the data. Probably "country"
 #' or "site". Default =  "groupVariable".
 #' @param valueColumn Character. The column containing the count data. Defualt =  "n".
-#' @param q a number or vector specifying the diversity order(s) of Hill numbers.
+#' @param q a number or vector specifying the richness order(s) of Hill numbers.
 #' @param datatype data type of input data: individual-based abundance data 
 #' (datatype = "abundance"), sampling-unit-based incidence frequencies data 
 #' (datatype = "incidence_freq") or species by sampling-units incidence matrix 
 #' (datatype = "incidence_raw").
 #' @param size an integer vector of sample sizes (number of individuals or sampling units) for 
-#' which diversity estimates will be computed. If NULL, then diversity estimates will be computed 
+#' which richness estimates will be computed. If NULL, then richness estimates will be computed 
 #' for those sample sizes determined by the specified/default endpoint and knots.
 #' @param endpoint an integer specifying the sample size that is the endpoint for 
 #' rarefaction/extrapolation. If NULL, then endpoint = double the reference sample size.
 #' @param knots an integer specifying the number of equally-spaced knots (say K, default is 40) 
 #' between size 1 and the endpoint; each knot represents a particular sample size for which 
-#' diversity estimate will be calculated. If the endpoint is smaller than the reference sample 
+#' richness estimate will be calculated. If the endpoint is smaller than the reference sample 
 #' size, then iNEXT() computes only the rarefaction esimates for approximately K evenly spaced
 #' knots. If the endpoint is larger than the reference sample size, then iNEXT() computes 
 #' rarefaction estimates for approximately K/2 evenly spaced knots between sample size 1 and 
@@ -56,10 +56,10 @@
 #' @examples
 #' 
 #' \dontrun{
-#'   # Read in some example data and use [BeeBDC::diversityPrepR()] to create the example input data
+#'   # Read in some example data and use [BeeBDC::richnessPrepR()] to create the example input data
 #'  #' data(beesCountrySubset)
 #' 
-#' estimateDataExample <- BeeBDC::diversityPrepR(
+#' estimateDataExample <- BeeBDC::richnessPrepR(
 #'   data = beesCountrySubset,
 #'   # Download the taxonomy
 #'   taxonomyFile = BeeBDC::beesTaxonomy(),
@@ -279,14 +279,14 @@ iNEXTwrapper <- function(data = NULL,
   
   ##### 3.2 dataInfo outputs ####
   # Now, combine each level of the list across variables
-  # Extract the diversity table stuff
+  # Extract the richness table stuff
   dataInfoOut <- lapply(iNEXTOutput, function(x) x[["DataInfo"]]) %>%
     # Bind together with the original two columns
     dplyr::bind_rows()
   
   
   ##### 3.3 AsyEst outputs ####
-  # Row bind the diversity statistics into a single table
+  # Row bind the richness statistics into a single table
   iNEXTOutputOut <- lapply(iNEXTOutput, function(x) x[["AsyEst"]]) %>%
     dplyr::bind_rows()
   # Return the variableColumn name to its original state

@@ -51,10 +51,10 @@ see SpadeR-package details for data input formats.
 }
 \examples{
 \dontrun{
-  # Read in some example data and use [BeeBDC::diversityPrepR()] to create the example input data
+  # Read in some example data and use [BeeBDC::richnessPrepR()] to create the example input data
  #' data(beesCountrySubset)
 
-estimateDataExample <- BeeBDC::diversityPrepR(
+estimateDataExample <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
   # Download the taxonomy
   taxonomyFile = BeeBDC::beesTaxonomy(),

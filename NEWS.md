@@ -4,10 +4,10 @@
 - Updated `BeeBDC::atlasDownloader()` to use newer `galah` syntax.
 - Updated `BeeBDC::interactiveMapR()` to allow the present plot to be returned in the R environment viewer.
 - Added new functions to estimate species richness across multiple sites and in parallel for added speed. 
-- `BeeBDC::diversityPrepR()` takes input occurrence data, taxonomy, and checklists to produce an R data file for the following functions. 
+- `BeeBDC::richnessPrepR()` takes input occurrence data, taxonomy, and checklists to produce an R data file for the following functions. 
 - `BeeBDC::iNEXTwrapper()` is a wrapper for `iNEXT::iNEXT()` to interpolate and extrapolate Hill numbers with order q (rarify species richness). 
 - `BeeBDC::ChaoWrapper()` is a wrapper for `SpadeR::ChaoSpecies()` to non-parametrically estimate species richness. 
-- `BeeBDC::richnessEstimateR()` Takes an output dataset from [BeeBDC::diversityPrepR()] to estimate species richness using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, and/or the entire globe.
+- `BeeBDC::richnessEstimateR()` Takes an output dataset from [BeeBDC::richnessPrepR()] to estimate species richness using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, and/or the entire globe.
 - `BeeBDC::ggRichnessWrapper()` Takes the outputs from `BeeBDC::iNEXTwrapper()` and `BeeBDC::ChaoWrapper()` to create a summary table and output figure.
 - `BeeBDC::countryHarmoniseR` added as a helper function to harmonise some country names that are often inconsistent and otherwise problematic. This was going to be an internal function but it has been made available and exported.
 - Added a new test dataset, `beesCountrySubsets` to test the new species richness functions.

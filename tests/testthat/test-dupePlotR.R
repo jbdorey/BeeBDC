@@ -33,13 +33,14 @@ testOut <- BeeBDC::dupePlotR(
 
 # Test classes
 testthat::test_that("dupePlotR expected class", {
-  testthat::expect_type(testOut, "list")
+  testthat::expect_type(testOut, "object")
 })
-testthat::test_that("dupePlotR expected class", {
-  testthat::expect_equal(attributes(testOut)$class, c("gg","ggplot"))
+#  # Check directory that the plot was saved
+testthat::test_that("dupePlotR plot saved?", {
+  testthat::expect_true(inherits(testOut, c("ggplot", "ggplot2::ggplot")))
 })
 
-  # Check directory that the plot was saved
+# Check directory that the plot was saved
 testthat::test_that("dupePlotR plot saved?", {
   testthat::expect_true(any(stringr::str_detect(list.files(tempdir()), "duplicatePlot.pdf")))
 })

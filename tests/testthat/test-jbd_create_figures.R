@@ -21,7 +21,7 @@ testthat::test_that("jbd_create_figures expected class", {
   testthat::expect_type(figuresP, "list")
 })
 testthat::test_that("jbd_create_figures expected class", {
-  testthat::expect_type(figuresP[[1]], "list")
+  testthat::expect_type(figuresP[[1]], "object")
 })
 
 
@@ -43,7 +43,7 @@ testthat::test_that("jbd_create_figures expected class", {
   testthat::expect_type(figuresS, "list")
 })
 testthat::test_that("jbd_create_figures expected class", {
-  testthat::expect_type(figuresS[[1]], "list")
+  testthat::expect_type(figuresS[[1]], "object")
 })
 
 #### 3.0 time ####
@@ -64,7 +64,7 @@ testthat::test_that("jbd_create_figures expected class", {
   testthat::expect_type(figuresT, "list")
 })
 testthat::test_that("jbd_create_figures expected class", {
-  testthat::expect_type(figuresT[[1]], "list")
+  testthat::expect_type(figuresT[[1]], "object")
 })
 
 

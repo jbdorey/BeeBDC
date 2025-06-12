@@ -18,10 +18,10 @@ testMap <- BeeBDC::summaryMaps(
 
 # Test class
 testthat::test_that("summaryMaps expected class", {
-  testthat::expect_type(testMap, "list")
+  testthat::expect_type(testMap, "object")
 })
-testthat::test_that("summaryMaps expected class", {
-  testthat::expect_true(any(stringr::str_detect(attributes(testMap)$class, "gg|ggplot")))
+testthat::test_that("dupePlotR plot saved?", {
+  testthat::expect_true(inherits(testMap, c("ggplot", "ggplot2::ggplot")))
 })
 
 

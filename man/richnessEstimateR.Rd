@@ -19,7 +19,7 @@ richnessEstimateR(
 )
 }
 \arguments{
-\item{data}{an RData file created using the \code{\link[=diversityPrepR]{diversityPrepR()}} function.}
+\item{data}{an RData file created using the \code{\link[=richnessPrepR]{richnessPrepR()}} function.}
 
 \item{sampleSize}{Numeric. The size of the sample randomly drawn from the provided curve.
 See \code{curveFunction}. Default = 10000.}
@@ -62,7 +62,7 @@ estimates, while the remaining three shows the outputs from each iteration (usef
 see relevant vignette). Some figures may also be saved to the selected outPath.
 }
 \description{
-Takes an output dataset from \code{\link[=diversityPrepR]{diversityPrepR()}} to estimate species richness using
+Takes an output dataset from \code{\link[=richnessPrepR]{richnessPrepR()}} to estimate species richness using
 iChao and iNEXT (hill numbers) for countries, continents, and/or the entire globe.
 }
 \examples{
@@ -72,7 +72,7 @@ iChao and iNEXT (hill numbers) for countries, continents, and/or the entire glob
 data(beesCountrySubset)
 
   # First, 
-estimateDataExample <- BeeBDC::diversityPrepR(
+estimateDataExample <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
   # Download the taxonomy
   taxonomyFile = BeeBDC::beesTaxonomy(),
@@ -103,7 +103,7 @@ estimateDataExample <- BeeBDC::diversityPrepR(
 }
 \seealso{
 \code{\link[=countryHarmoniseR]{countryHarmoniseR()}} to harmonise country names based on a short list;
-\code{\link[=diversityPrepR]{diversityPrepR()}} to produce the input data and for the required column names; as well
+\code{\link[=richnessPrepR]{richnessPrepR()}} to produce the input data and for the required column names; as well
 as \code{\link[=ChaoWrapper]{ChaoWrapper()}} and \code{\link[=iNEXTwrapper]{iNEXTwrapper()}} for the parallelised implementation of
 \code{SpadeR} and \code{iNEXT} functions.
 }

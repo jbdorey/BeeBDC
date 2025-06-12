@@ -28,7 +28,7 @@ or "site". Default =  "groupVariable".}
 
 \item{valueColumn}{Character. The column containing the count data. Defualt =  "n".}
 
-\item{q}{a number or vector specifying the diversity order(s) of Hill numbers.}
+\item{q}{a number or vector specifying the richness order(s) of Hill numbers.}
 
 \item{datatype}{data type of input data: individual-based abundance data
 (datatype = "abundance"), sampling-unit-based incidence frequencies data
@@ -43,7 +43,7 @@ interval.}
 \item{nboot}{an integer specifying the number of replications; default is 50.}
 
 \item{size}{an integer vector of sample sizes (number of individuals or sampling units) for
-which diversity estimates will be computed. If NULL, then diversity estimates will be computed
+which richness estimates will be computed. If NULL, then richness estimates will be computed
 for those sample sizes determined by the specified/default endpoint and knots.}
 
 \item{endpoint}{an integer specifying the sample size that is the endpoint for
@@ -51,7 +51,7 @@ rarefaction/extrapolation. If NULL, then endpoint = double the reference sample 
 
 \item{knots}{an integer specifying the number of equally-spaced knots (say K, default is 40)
 between size 1 and the endpoint; each knot represents a particular sample size for which
-diversity estimate will be calculated. If the endpoint is smaller than the reference sample
+richness estimate will be calculated. If the endpoint is smaller than the reference sample
 size, then iNEXT() computes only the rarefaction esimates for approximately K evenly spaced
 knots. If the endpoint is larger than the reference sample size, then iNEXT() computes
 rarefaction estimates for approximately K/2 evenly spaced knots between sample size 1 and
@@ -79,10 +79,10 @@ multiple sites (or countries) at once and to do this using multiple cores.
 \examples{
 
 \dontrun{
-  # Read in some example data and use [BeeBDC::diversityPrepR()] to create the example input data
+  # Read in some example data and use [BeeBDC::richnessPrepR()] to create the example input data
  #' data(beesCountrySubset)
 
-estimateDataExample <- BeeBDC::diversityPrepR(
+estimateDataExample <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
   # Download the taxonomy
   taxonomyFile = BeeBDC::beesTaxonomy(),

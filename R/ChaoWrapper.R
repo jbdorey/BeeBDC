@@ -43,10 +43,10 @@
 #'
 #' @examples
 #' \dontrun{
-#'   # Read in some example data and use [BeeBDC::diversityPrepR()] to create the example input data
+#'   # Read in some example data and use [BeeBDC::richnessPrepR()] to create the example input data
 #'  #' data(beesCountrySubset)
 #' 
-#' estimateDataExample <- BeeBDC::diversityPrepR(
+#' estimateDataExample <- BeeBDC::richnessPrepR(
 #'   data = beesCountrySubset,
 #'   # Download the taxonomy
 #'   taxonomyFile = BeeBDC::beesTaxonomy(),
@@ -85,9 +85,9 @@ ChaoWrapper <- function(
     conf = 0.95,
     mc.cores = 1){
   # locally bind variables to the function
-  i <- . <- inputData_i <- spOutput <- diversityOutput <- diversityTable <- basicOutput <-
+  i <- . <- inputData_i <- spOutput <- richnessOutput <- richnessTable <- basicOutput <-
     df_list <- loopVector <- wrapper <- basicCols <- variable <- rowname <- non_empty_list_test <-
-    diversityOut <- basicOut <- failures <- output <- NULL
+    richnessOut <- basicOut <- failures <- output <- NULL
   
   # Load required packages 
   requireNamespace("stringr")
@@ -163,18 +163,18 @@ ChaoWrapper <- function(
         datatype = datatype,
         k = k, 
         conf = conf)
-        ###### a. diversityOutput ####
-      # Get the diversity measures and re-format
-      diversityOutput <- spOutput$Species_table %>% as.data.frame() %>% 
+        ###### a. richnessOutput ####
+      # Get the richness measures and re-format
+      richnessOutput <- spOutput$Species_table %>% as.data.frame() %>% 
         dplyr::mutate(rowname = rownames(.), .before = "Estimate") 
       # Add these data to one table
-      diversityTable <- dplyr::tibble(
+      richnessTable <- dplyr::tibble(
         variable = names(inputData_i),
-        Name = c(diversityOutput$rowname),
-        Estimate = c(diversityOutput$Estimate),
-        's.e.' = c(diversityOutput$s.e.),
-        '95%Lower' = c(diversityOutput$`95%Lower`),
-        '95%Upper' = c(diversityOutput$`95%Upper`))
+        Name = c(richnessOutput$rowname),
+        Estimate = c(richnessOutput$Estimate),
+        's.e.' = c(richnessOutput$s.e.),
+        '95%Lower' = c(richnessOutput$`95%Lower`),
+        '95%Upper' = c(richnessOutput$`95%Upper`))
       
       
         ##### b. basicOutput ####
@@ -191,8 +191,8 @@ ChaoWrapper <- function(
       # rename Value to the species name
       names(basicTable) <- c("rowname", "variable", names(inputData_i))
       # Return the tables as a list
-      return(list( basicTable, diversityTable) %>%
-               setNames(c( "basicTable", "diversityTable")))
+      return(list( basicTable, richnessTable) %>%
+               setNames(c( "basicTable", "richnessTable")))
     }
   }
   
@@ -215,49 +215,49 @@ df_list <- df_list %>%
   
 #### 2.0 Run functions ####    
 # Run the function per species or variable
-diversityOutput <- parallel::mclapply(
+richnessOutput <- parallel::mclapply(
   X = df_list,
   FUN = wrapper,
   mc.cores = mc.cores
 ) 
 
 
-# Save the diversity table's first two columns
-basicCols <- diversityOutput[[1]]$basicTable %>%
+# Save the richness table's first two columns
+basicCols <- richnessOutput[[1]]$basicTable %>%
   dplyr::select(rowname, variable)
 
 
 #### 3.0 Process outputs ####
   ##### 3.1 Separate F + P ####
   # Find the non-null variables and extract those
-non_empty_list_test <- !sapply(diversityOutput <- diversityOutput, is.null)
+non_empty_list_test <- !sapply(richnessOutput <- richnessOutput, is.null)
   # Save a list of variables that could not be analysed
-failures <- diversityOutput[!non_empty_list_test] %>%
+failures <- richnessOutput[!non_empty_list_test] %>%
     # Get the failure names 
   names()
   # Remove the failed list
-diversityOutput <- diversityOutput[non_empty_list_test]
+richnessOutput <- richnessOutput[non_empty_list_test]
 
 
   ##### 3.2 Basic outputs ####
   # Now, combine each level of the list across variables
-  # Extract the diversity table stuff
-basicOut <- lapply(diversityOutput, function(x) x[["basicTable"]]) %>%
+  # Extract the richness table stuff
+basicOut <- lapply(richnessOutput, function(x) x[["basicTable"]]) %>%
   # Remove the duplicate columns and only keept the output values
   lapply(., function(x) dplyr::select(x, !c("rowname", "variable"))) %>%
     # Bind together with the original two columns
   dplyr::bind_cols(basicCols, .)
   
 
-  ##### 3.3 Diversity outputs ####
-  # Row bind the diversity statistics into a single table
-diversityOut <- lapply(diversityOutput, function(x) x[["diversityTable"]]) %>%
+  ##### 3.3 richness outputs ####
+  # Row bind the richness statistics into a single table
+richnessOut <- lapply(richnessOutput, function(x) x[["richnessTable"]]) %>%
   dplyr::bind_rows()
 
 
   ##### 3.4 Combine ####
-output <- dplyr::lst(basicOut, diversityOut) %>% 
-  setNames(c("basicTable", "diversityTable"))
+output <- dplyr::lst(basicOut, richnessOut) %>% 
+  setNames(c("basicTable", "richnessTable"))
   
 #### 4.0 User output ####
   # provide some user output on the failures
@@ -268,7 +268,7 @@ writeLines(paste0(
 ))}
   # provide user output about the file structure
 writeLines(paste0(" - Outputs can be found in a list with two tibbles called 'basicTable' and",
-                  " 'diversityTable'."))
+                  " 'richnessTable'."))
 
   # Return the output
 return(output)

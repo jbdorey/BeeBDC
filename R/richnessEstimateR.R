@@ -5,10 +5,10 @@
 
 #' Estimate country, continental, and global species richnesses
 #' 
-#' Takes an output dataset from [BeeBDC::diversityPrepR()] to estimate species richness using
+#' Takes an output dataset from [BeeBDC::richnessPrepR()] to estimate species richness using
 #' iChao and iNEXT (hill numbers) for countries, continents, and/or the entire globe. 
 #'
-#' @param data an RData file created using the [BeeBDC::diversityPrepR()] function.
+#' @param data an RData file created using the [BeeBDC::richnessPrepR()] function.
 #' @param sampleSize Numeric. The size of the sample randomly drawn from the provided curve.
 #' See `curveFunction`. Default = 10000.
 #' @param countrySamples Numeric. The number of times to sample the country species richness for both
@@ -42,7 +42,7 @@
 #' @importFrom dplyr %>%
 #' 
 #' @seealso [BeeBDC::countryHarmoniseR()] to harmonise country names based on a short list; 
-#' [BeeBDC::diversityPrepR()] to produce the input data and for the required column names; as well 
+#' [BeeBDC::richnessPrepR()] to produce the input data and for the required column names; as well 
 #' as [BeeBDC::ChaoWrapper()] and [BeeBDC::iNEXTwrapper()] for the parallelised implementation of
 #' `SpadeR` and `iNEXT` functions.
 #' 
@@ -55,7 +55,7 @@
 #' data(beesCountrySubset)
 #' 
 #'   # First, 
-#' estimateDataExample <- BeeBDC::diversityPrepR(
+#' estimateDataExample <- BeeBDC::richnessPrepR(
 #'   data = beesCountrySubset,
 #'   # Download the taxonomy
 #'   taxonomyFile = BeeBDC::beesTaxonomy(),
@@ -209,20 +209,20 @@ richnessEstimateR <- function(
   
   ##### 0.4 data prep ####
   # Building/testing data input
-  diversityData <- data
+  richnessData <- data
   
   # Extract the datasets from data
-  literatureCurve = diversityData$curveExtraction
-  taxonomyAcceptedNames = diversityData$taxonomyAcceptedNames
-  taxonomyNoPoints = diversityData$taxonomyNoPoints
-  taxonomyFile = diversityData$taxonomyFile
-  data_counts = diversityData$data_counts
-  continentChecklist = diversityData$continentChecklist
-  worldMap = diversityData$worldMap
-  continentNoPoints = diversityData$continentNoPoints
-  siteSpeciesCounts = diversityData$siteSpeciesCounts
+  literatureCurve = richnessData$curveExtraction
+  taxonomyAcceptedNames = richnessData$taxonomyAcceptedNames
+  taxonomyNoPoints = richnessData$taxonomyNoPoints
+  taxonomyFile = richnessData$taxonomyFile
+  data_counts = richnessData$data_counts
+  continentChecklist = richnessData$continentChecklist
+  worldMap = richnessData$worldMap
+  continentNoPoints = richnessData$continentNoPoints
+  siteSpeciesCounts = richnessData$siteSpeciesCounts
   # combine some country names
-  checklistFile = diversityData$checklistFile %>% 
+  checklistFile = richnessData$checklistFile %>% 
     # Change country names
     countryHarmoniseR(countryColumn = "rNaturalEarth_name")
   
@@ -248,7 +248,7 @@ richnessEstimateR <- function(
   richnessSampleR <- function(
     # From X:Y iterations
     iterations = NULL,
-    data = diversityData,
+    data = richnessData,
     # What scale?
     scale = NULL, # Country, Continent, or Global
     # Functions
@@ -261,21 +261,21 @@ richnessEstimateR <- function(
     #### 1.1.1 Prep ####
 
     # Extract the datasets from data
-    literatureCurve = diversityData$curveExtraction
-    taxonomyAcceptedNames = diversityData$taxonomyAcceptedNames
-    taxonomyNoPoints = diversityData$taxonomyNoPoints
-    taxonomyFile = diversityData$taxonomyFile
-    data_counts = diversityData$data_counts
-    continentChecklist = diversityData$continentChecklist
-    worldMap = diversityData$worldMap
-    continentNoPoints = diversityData$continentNoPoints
-    siteSpeciesCounts = diversityData$siteSpeciesCounts
+    literatureCurve = richnessData$curveExtraction
+    taxonomyAcceptedNames = richnessData$taxonomyAcceptedNames
+    taxonomyNoPoints = richnessData$taxonomyNoPoints
+    taxonomyFile = richnessData$taxonomyFile
+    data_counts = richnessData$data_counts
+    continentChecklist = richnessData$continentChecklist
+    worldMap = richnessData$worldMap
+    continentNoPoints = richnessData$continentNoPoints
+    siteSpeciesCounts = richnessData$siteSpeciesCounts
     
     # Fix some names in the siteSpeciesCounts
     siteSpeciesCounts <- siteSpeciesCounts %>% 
       countryHarmoniseR(countryColumn = "country_suggested")
     # combine some country names
-    checklistFile = diversityData$checklistFile %>% 
+    checklistFile = richnessData$checklistFile %>% 
       # Change country names
       countryHarmoniseR(countryColumn = "rNaturalEarth_name")
     if(filterToRecordedCountries == TRUE){
@@ -530,7 +530,7 @@ richnessEstimateR <- function(
     FUN = richnessSampleR,
     # FUNCTION INPUTS:
     # Input datasets
-    data = diversityData,
+    data = richnessData,
     # What scale?
     scale = "Global", # Country, Continent, or Global
     # Functions
@@ -654,7 +654,7 @@ richnessEstimateR <- function(
     FUN = richnessSampleR,
     # FUNCTION INPUTS:
     # Input datasets
-    data = diversityData,
+    data = richnessData,
     # What scale?
     scale = "Country", # Country, Continent, or Global
     # Functions
@@ -812,7 +812,7 @@ richnessEstimateR <- function(
     FUN = richnessSampleR,
     # FUNCTION INPUTS:
     # Input datasets
-    data = diversityData,
+    data = richnessData,
     # What scale?
     scale = "Continent", # Country, Continent, or Global
     # Functions

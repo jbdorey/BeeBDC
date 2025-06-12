@@ -6,7 +6,7 @@ beesCountrySubset <- BeeBDC::beesCountrySubset
 taxonomyFile <- BeeBDC::beesTaxonomy()
 checklistFile <- BeeBDC::beesChecklist()
 
-testOut <- BeeBDC::diversityPrepR(
+testOut <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
   # Download the taxonomy
   taxonomyFile = taxonomyFile,
@@ -21,10 +21,10 @@ testOut <- BeeBDC::diversityPrepR(
 
 
 # Test the expected results
-testthat::test_that("diversityPrepR results successfuly matched", {
+testthat::test_that("richnessPrepR results successfuly matched", {
   testthat::expect_equal(length(testOut) , 10)
 })
-testthat::test_that("diversityPrepR names match", {
+testthat::test_that("richnessPrepR names match", {
   testthat::expect_equal(names(testOut) ,
                          c("curveExtraction","checklistFile","taxonomyFile","taxonomyAcceptedNames",
                            "taxonomyNoPoints","data_counts","continentChecklist","continentNoPoints",

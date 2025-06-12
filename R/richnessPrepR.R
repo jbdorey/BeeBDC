@@ -6,7 +6,7 @@
 # at jbdorey [at] me.com
 
 
-#' Prepare occurrence, taxonomy, and checklist data for diversity estimation
+#' Prepare occurrence, taxonomy, and checklist data for richness estimation
 #' 
 #' Takes your occurrence dataset along with a taxonomy and checklist in order to produce 
 #' a file that's ready to be passed into the [BeeBDC::richnessEstimateR()] function in order to 
@@ -48,7 +48,7 @@
 #' \dontrun{
 #' data(beesCountrySubset)
 #' 
-#' estimateDataExample <- diversityPrepR(
+#' estimateDataExample <- richnessPrepR(
 #'   data = beesCountrySubset,
 #'   # Download the taxonomy
 #'   taxonomyFile = BeeBDC::beesTaxonomy(),
@@ -62,7 +62,7 @@
 #' )
 #' }
 
-diversityPrepR <- function(
+richnessPrepR <- function(
     data = NULL,
     # Download the taxonomy
     taxonomyFile = BeeBDC::beesTaxonomy(),

@@ -360,7 +360,7 @@ date.
 
 #### 10. [Species richness estimation](https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html)
 
-- `diversityPrepR()` Takes your occurrence dataset along with a taxonomy
+- `richnessPrepR()` Takes your occurrence dataset along with a taxonomy
   and checklist in order to produce a file that’s ready to be passed
   into the \[BeeBDC::richnessEstimateR()\] function in order to estimate
   species richness using iChao (non-parametric species richness;
@@ -368,7 +368,7 @@ date.
   `BeeBDC::iNEXTwrapper()`) for countries, continents, or the entire
   globe.
 - `richnessEstimateR()` Takes an output dataset from
-  \[BeeBDC::diversityPrepR()\] to estimate species richness using iChao
+  \[BeeBDC::richnessPrepR()\] to estimate species richness using iChao
   (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT
   (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents,
   and/or the entire globe. Has parallel functionality.
