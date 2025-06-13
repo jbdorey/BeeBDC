@@ -12,6 +12,7 @@
 - `BeeBDC::countryHarmoniseR` added as a helper function to harmonise some country names that are often inconsistent and otherwise problematic. This was going to be an internal function but it has been made available and exported.
 - Added a new test dataset, `beesCountrySubsets` to test the new species richness functions.
 - Added (Vignette)[<https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html>] for implementing the above functions
+- Fixed issue with upcoming ggplot2 version causing test failures
 
 
 # Changes in version 1.2.1

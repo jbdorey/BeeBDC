@@ -423,7 +423,9 @@ There are many ways to plot or analyse these kinds of data. The rest I will leav
 
 
 
-
+# Read more
+You can read more about the implementation of this work in the original citation:
+*Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications*
 
 
 

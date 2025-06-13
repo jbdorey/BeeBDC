@@ -38,8 +38,8 @@ estimations, cite this [primary publication](DOI%20TO%20COME).
 
 #### **Structure of *BeeBDC***
 
-The *BeeBDC* toolkit is organized using the conventions similar to bdc
-and CoordinateCleaner.
+The **BeeBDC** toolkit is organized using the conventions similar to
+**bdc** and **CoordinateCleaner**.
 
 > Like in the **bdc** package, we provide a suggested workflow here.
 > While our functions can mostly be run out of order, there are a few
@@ -360,15 +360,15 @@ date.
 
 #### 10. [Species richness estimation](https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html)
 
-- `richnessPrepR()` Takes your occurrence dataset along with a taxonomy
+- `diversityPrepR()` Takes your occurrence dataset along with a taxonomy
   and checklist in order to produce a file that’s ready to be passed
-  into the \[BeeBDC::richnessEstimateR()\] function in order to estimate
+  into the `BeeBDC::richnessEstimateR()` function in order to estimate
   species richness using iChao (non-parametric species richness;
   `BeeBDC::ChaoWrapper()`) and iNEXT (hill numbers;
   `BeeBDC::iNEXTwrapper()`) for countries, continents, or the entire
   globe.
 - `richnessEstimateR()` Takes an output dataset from
-  \[BeeBDC::richnessPrepR()\] to estimate species richness using iChao
+  `BeeBDC::diversityPrepR()` to estimate species richness using iChao
   (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT
   (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents,
   and/or the entire globe. Has parallel functionality.
@@ -458,7 +458,8 @@ explanation on each module.
     <https://doi.org/10.25451/flinders.21709757>
 - **Species richness citation:** Dorey J. B., Gilpin, A.-M., Johnson,
   N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under
-  review).
+  review). How many bee species are there? A quantitative global
+  estimate. Nature Communications
 - **Package citation:** Dorey, J. B., O’Reilly, R. L., Bossert, S. &
   Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R
   package version 1.3.0. url: <https://github.com/jbdorey/BeeBDC>
