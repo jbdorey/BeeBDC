@@ -16,6 +16,9 @@ testOut <- BeeBDC::idMatchR(
                                                 stringr::str_replace("[0-9]+","") %>%
                                                 paste0(., dplyr::row_number())),
   priorData = priorRun,
+    # default completeness_cols
+  completeness_cols = c("decimalLatitude",  "decimalLongitude",
+                        "scientificName", "eventDate"),
   # First matches will be given preference over later ones
   matchBy = dplyr::lst(c("gbifID"),
                         c("catalogNumber", "institutionCode", "dataSource"),
