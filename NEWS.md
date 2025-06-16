@@ -13,6 +13,7 @@
 - Added a new test dataset, `beesCountrySubsets` to test the new species richness functions.
 - Added (Vignette)[<https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html>] for implementing the above functions
 - Fixed issue with upcoming ggplot2 version causing test failures
+- Depends on "R (>= 4.1.0)" to being usage of |> pipe operator 
 
 
 # Changes in version 1.2.1

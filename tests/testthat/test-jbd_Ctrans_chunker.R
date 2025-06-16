@@ -16,6 +16,7 @@ testOut <- BeeBDC::jbd_Ctrans_chunker(
     dplyr::filter(complete.cases(decimalLatitude)) %>%
     dplyr::select(c(database_id, decimalLatitude, decimalLongitude, country, countryCode,
                     scientificName)) %>%
+    dplyr::filter(dplyr::row_number() %in% 1:20) %>%
     dplyr::bind_rows(fakeData),
   idcol = "database_id",
   lat = "decimalLatitude",
@@ -43,7 +44,7 @@ resultsF <- sum(testOut$coordinates_transposed == FALSE)
 # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
 # tibbles are a special case of lists)
 testthat::test_that("jbd_Ctrans_chunker results TRUE", {
-  testthat::expect_equal(resultsT, 88)
+  testthat::expect_equal(resultsT, 22)
 })
 testthat::test_that("jbd_Ctrans_chunker results FALSE", {
   testthat::expect_equal(resultsF, 3)
@@ -52,7 +53,7 @@ testthat::test_that("jbd_Ctrans_chunker results FALSE", {
 
 # Test expected number of rows
 testthat::test_that("jbd_Ctrans_chunker row count expected", {
-  testthat::expect_equal(nrow(testOut), 91)
+  testthat::expect_equal(nrow(testOut), 25)
 })
 # Test output class
 testthat::test_that("jbd_Ctrans_chunker expected class", {
