@@ -32,7 +32,7 @@ Imports:
     cowplot,
     dplyr,
     forcats,
-    ggplot2,
+    ggplot2 (>= 3.5.2),
     ggspatial,
     here,
     igraph,
