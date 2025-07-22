@@ -419,13 +419,13 @@ knitr::include_graphics( normalizePath(
 
 ```
 
-There are many ways to plot or analyse these kinds of data. The rest I will leave up to you! But, for more ideas, do feel free to check out the [original publication](DOI) for this workflow as well as the [original R workflow](LINK?) itself.
+There are many ways to plot or analyse these kinds of data. The rest I will leave up to you! But, for more ideas, do feel free to check out the [original publication](https://doi.org/10.21203/rs.3.rs-6372769/v1) for this workflow as well as the [original R workflow](LINK?) itself.
 
 
 
 # Read more
 You can read more about the implementation of this work in the original citation:
-*Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications*
+*Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications. https://doi.org/10.21203/rs.3.rs-6372769/v1*
 
 
 
