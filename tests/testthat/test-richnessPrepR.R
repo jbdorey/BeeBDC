@@ -1,17 +1,21 @@
 requireNamespace("dplyr")
 
 
-# Load in a test dataset
-beesCountrySubset <- BeeBDC::beesCountrySubset
-taxonomyFile <- BeeBDC::beesTaxonomy()
-checklistFile <- BeeBDC::beesChecklist()
+# Load a test dataset
+beesRaw <- BeeBDC::beesRaw
+# Load the small testTaxonomy file
+system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
+  load()
+# Load the small checklist file
+system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
+  load()
 
 testOut <- richnessPrepR(
-  data = beesCountrySubset,
+  data = beesRaw,
   # Download the taxonomy
-  taxonomyFile = taxonomyFile,
+  taxonomyFile = testTaxonomy,
   # Download the checklist
-  checklistFile = checklistFile,
+  checklistFile = testChecklist,
   curveFunction = function(x) (228.7531 * x * x^-log(12.1593)),
   sampleSize = 10000,
   countryColumn = "country_suggested",

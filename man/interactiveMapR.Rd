@@ -18,7 +18,7 @@ interactiveMapR(
   customColumn1 = NULL,
   customColumn2 = NULL,
   TrueAlwaysTop = FALSE,
-  excludeApis_mellifera = TRUE,
+  excludeSpecies = c("Apis mellifera Linnaeus, 1758"),
   pointColours = c("blue", "darkred", "#ff7f00", "black"),
   returnPlot = FALSE
 )
@@ -59,9 +59,9 @@ Default = TRUE.}
 \item{TrueAlwaysTop}{If TRUE, the quality (TRUE) points will always be displayed on top of other points.
 If FALSE, then whichever layer was turned on most-recently will be displayed on top.}
 
-\item{excludeApis_mellifera}{Logical. If TRUE, will not map records for Apis mellifera. Note: in most cases
-A. mellifera has too many points, and the resulting map will take a long time to make and be difficult to open.
-Default = TRUE.}
+\item{excludeSpecies}{Character. A character vector of species names to exclude, especially
+if they are so large as to become a problem when making maps. For bee data, for example,
+"Apis mellifera Linnaeus, 1758" has too many data points and is default excluded.}
 
 \item{pointColours}{A character vector of colours. In order provide colour for TRUE, FALSE, countryOutlier, and customOutlier.
 Default = c("blue", "darkred","#ff7f00", "black").}
@@ -105,7 +105,7 @@ jitterValue = 0.01,
 # If TRUE, it will only map the .summary column. Otherwise, it will map .summary
 # which will be over-written by countryOutliers and manualOutliers
 onlySummary = TRUE,
-excludeApis_mellifera = TRUE,
+excludeSpecies = c("Apis mellifera Linnaeus, 1758"),
 overWrite = TRUE,
   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 pointColours = c("blue", "darkred","#ff7f00", "black")
