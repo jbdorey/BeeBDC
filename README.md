@@ -34,7 +34,8 @@ to clean occurrence data in our Articles page and encourage users to
 read and also cite this primary
 [publication](https://doi.org/10.1101/2023.06.30.547152). For our
 parallelised implementation of iChao and iNEXT species richness
-estimations, cite this [primary publication](DOI%20TO%20COME).
+estimations, cite this [primary
+publication](https://doi.org/10.21203/rs.3.rs-6372769/v1).
 
 #### **Structure of *BeeBDC***
 
