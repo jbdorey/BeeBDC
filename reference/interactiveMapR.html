@@ -78,7 +78,7 @@ flagged as expert-identified or country outliers.</p>
 <span>  customColumn1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  customColumn2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  TrueAlwaysTop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  excludeApis_mellifera <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  excludeSpecies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Apis mellifera Linnaeus, 1758"</span><span class="op">)</span>,</span>
 <span>  pointColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"darkred"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"black"</span><span class="op">)</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -149,10 +149,10 @@ Default = TRUE.</p></dd>
 If FALSE, then whichever layer was turned on most-recently will be displayed on top.</p></dd>
 
 
-<dt id="arg-excludeapis-mellifera">excludeApis_mellifera<a class="anchor" aria-label="anchor" href="#arg-excludeapis-mellifera"></a></dt>
-<dd><p>Logical. If TRUE, will not map records for Apis mellifera. Note: in most cases
-A. mellifera has too many points, and the resulting map will take a long time to make and be difficult to open.
-Default = TRUE.</p></dd>
+<dt id="arg-excludespecies">excludeSpecies<a class="anchor" aria-label="anchor" href="#arg-excludespecies"></a></dt>
+<dd><p>Character. A character vector of species names to exclude, especially
+if they are so large as to become a problem when making maps. For bee data, for example,
+"Apis mellifera Linnaeus, 1758" has too many data points and is default excluded.</p></dd>
 
 
 <dt id="arg-pointcolours">pointColours<a class="anchor" aria-label="anchor" href="#arg-pointcolours"></a></dt>
@@ -197,7 +197,7 @@ Default = c("blue", "darkred","#ff7f00", "black").</p></dd>
 <span class="r-in"><span><span class="co"># If TRUE, it will only map the .summary column. Otherwise, it will map .summary</span></span></span>
 <span class="r-in"><span><span class="co"># which will be over-written by countryOutliers and manualOutliers</span></span></span>
 <span class="r-in"><span>onlySummary <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>excludeApis_mellifera <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>excludeSpecies <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Apis mellifera Linnaeus, 1758"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>overWrite <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  <span class="co"># Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier</span></span></span>
 <span class="r-in"><span>pointColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"darkred"</span>,<span class="st">"#ff7f00"</span>, <span class="st">"black"</span><span class="op">)</span></span></span>
