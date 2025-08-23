@@ -26,7 +26,7 @@
 flagAbsent <-
   function(data = NULL,
            PresAbs = "occurrenceStatus") {
-    .data <- .occurrenceAbsent <- NULL
+    .data <- .occurrenceAbsent <- individualCount <- NULL
     requireNamespace("dplyr")
     
       # Make a new column called .occurrenceAbsent to be TRUE when occurrenceStatus is "present" or NA
@@ -34,8 +34,13 @@ flagAbsent <-
       data %>%
       dplyr::mutate(
         .occurrenceAbsent =
-          !.data[[PresAbs]] %in% c("ABSENT")) 
-    
+          !.data[[PresAbs]] %in% c("ABSENT", "Absent", "absent")) %>%
+        # Catch and flag individualCount == 0
+      dplyr::mutate(.occurrenceAbsent = dplyr::if_else(complete.cases(individualCount),
+                      dplyr::if_else(individualCount == 0,
+                                                       FALSE, .occurrenceAbsent),
+                      .occurrenceAbsent
+                    ))
     
 
     # Return user output

@@ -2,7 +2,7 @@
 % Please edit documentation in R/HarmoniseR.R
 \name{harmoniseR}
 \alias{harmoniseR}
-\title{Harmonise taxonomy of bee occurrence data}
+\title{Harmonise taxonomy of occurrence data}
 \usage{
 harmoniseR(
   data = NULL,
@@ -20,8 +20,8 @@ harmoniseR(
 
 \item{path}{A directory as character. The path to a folder that the output can be saved.}
 
-\item{taxonomy}{A data frame or tibble. The bee taxonomy to use.
-Default = \code{\link[=beesTaxonomy]{beesTaxonomy()}}.}
+\item{taxonomy}{A data frame or tibble. The taxonomy file to use.
+Default = \code{\link[=beesTaxonomy]{beesTaxonomy()}}; for other taxa see first \code{\link[=taxadbToBeeBDC]{taxadbToBeeBDC()}}.}
 
 \item{speciesColumn}{Character. The name of the column containing species names. Default = "scientificName".}
 
@@ -47,16 +47,20 @@ scientificNameAuthorship. A new column, .invalidName, is also added and is FALSE
 name did not match the supplied taxonomy.
 }
 \description{
-Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match
-the checklist. \code{\link[=harmoniseR]{harmoniseR()}} prefers to use the names_clean columns that is generated
+Uses BeeBDC-formatted taxonomy data to harmonise occurrence records and flag those that do not match
+the taxonomy \code{\link[=harmoniseR]{harmoniseR()}} prefers to use the names_clean columns that is generated
 by \code{\link[bdc:bdc_clean_names]{bdc::bdc_clean_names()}}. While this is not required, you may find better results by running
 that function on your dataset first.
-This function could be hijacked to service other taxa if a user matched the format of the
+It is possible to download taxonomy file for other taxa using \code{\link[=taxadbToBeeBDC]{taxadbToBeeBDC()}}
+which can download taxonomies from ITIS, GBIF, and more. You could also match the format of the
 \code{\link[=beesTaxonomy]{beesTaxonomy()}} file.
 }
 \examples{
 # load in the test dataset
 system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |> load()
+
+# See also
+?BeeBDC::taxadbToBeeBDC()
 
 beesRaw_out <- BeeBDC::harmoniseR(
   #The path to a folder that the output can be saved

@@ -3,6 +3,7 @@ url: https://jbdorey.github.io/BeeBDC/
 title: "BeeBDC"
 
 template:
+  bootstrap: 5
   params:
     bootswatch: lumen
     
@@ -13,34 +14,33 @@ navbar:
   left:
     - icon: fa-home
       href: index.html
-    - text: "Functions"
+      aria-label: Go to package home
+    - icon: fas fa-r
+      text: "Functions"
       href: reference/index.html
-    - icon: fas fa-book
-      text: "Articles"
+      aria-label: Function list
+    - icon: fas fa-broom
+      text: "Occurrence cleaning"
+      aria-label: Occurrence data cleaning vignettes
       menu:
-      -  text: "BeeBDC vignette"
+      -  text: "BeeBDC full cleaning workflow (0.0–9.0)"
          href: articles/BeeBDC_main.html
-      -  text: "  1.0 Data merge"
-         href: articles/BeeBDC_main.html#data-merge
-      -  text: "  2.0 Data preparation"
-         href: articles/BeeBDC_main.html#data-preparation
-      -  text: "  3.0 Initial flags"
-         href: articles/BeeBDC_main.html#initial-flags
-      -  text: "  4.0 Taxonomy"
-         href: articles/BeeBDC_main.html#taxonomy 
-      -  text: "  5.0 Space"
-         href: articles/BeeBDC_main.html#space
-      -  text: "  6.0 Time"
-         href: articles/BeeBDC_main.html#time
-      -  text: "  7.0 De-duplication"
-         href: articles/BeeBDC_main.html#de-duplication
-      -  text: "  8.0 Data filtering"
-         href: articles/BeeBDC_main.html#data-filtering
-      -  text: "  9.0 Figures and tables"
-         href: articles/BeeBDC_main.html#figures-and-tables
-      -  text: "Basic workflow"
+      -  text: "BeeBDC basic workflow"
          href: articles/basic_workflow.html
-    - text: "News"
+      -  text: "Bee-specific data preparation"
+         href: articles/dataPrep.html
+    - icon: fas fa-arrow-up-right-dots
+      text: "Species richness estimation"
+      aria-label: Species richness estimation vignettes
+      menu:
+      -  text: "BeeBDC richness estimation"
+         href: articles/speciesRichness_example.html
+      -  text: "  1.0 Parallel estimation"
+         href: articles/speciesRichness_example.html#Parallel-estimations
+      -  text: "  2.0 Estimation with checklists"
+         href: articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns
+    - icon: fas fa-newspaper
+      text: "News"
       href: https://jbdorey.github.io/BeeBDC/news/index.html
   components: 
     home: ~

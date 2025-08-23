@@ -6,13 +6,10 @@ requireNamespace("dplyr")
 if(requireNamespace("rnaturalearthdata")){
 
 # Be sure that the testData is not already in tempdir
-testDataPath <- file.info(list.files(tempdir(), full.names = T, 
-                                     pattern = "USGS_formatted_|USGS_attribute_", recursive = TRUE))
-unlink(rownames(testDataPath))
-# Be sure that there isn't already an xml in the tempdir
-testDataPath <- file.info(list.files(tempdir(), full.names = T, 
-                                     pattern = "\\.xml", recursive = TRUE))
-unlink(rownames(testDataPath))
+tempdirFiles <- list.files(tempdir(), include.dirs = F, full.names = T, recursive = FALSE)
+# Remove tempdir files from the prior run
+unlink(tempdirFiles[stringr::str_detect(tempdirFiles, "files")] %>% normalizePath(),
+       recursive = TRUE)
 
   # Create a test USGS dataset and save it to a temporary location
 USGS_testData <- dplyr::tribble(

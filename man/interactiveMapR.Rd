@@ -10,14 +10,17 @@ interactiveMapR(
   lon = "decimalLongitude",
   lat = "decimalLatitude",
   speciesColumn = "scientificName",
-  speciesList = NULL,
+  speciesList = "ALL",
   countryList = NULL,
   jitterValue = NULL,
   onlySummary = TRUE,
   overWrite = TRUE,
+  customColumn1 = NULL,
+  customColumn2 = NULL,
   TrueAlwaysTop = FALSE,
-  excludeApis_mellifera = TRUE,
-  pointColours = c("blue", "darkred", "#ff7f00", "black")
+  excludeSpecies = c("Apis mellifera Linnaeus, 1758"),
+  pointColours = c("blue", "darkred", "#ff7f00", "black"),
+  returnPlot = FALSE
 )
 }
 \arguments{
@@ -34,7 +37,8 @@ to build individual maps from. Default = "scientificName".}
 
 \item{speciesList}{A character vector. Should contain species names as they appear in the
 speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all
-species present in the data. Hence, a user may first filter their data and then use "ALL".}
+species present in the data. Hence, a user may first filter their data and then use "ALL".
+Default = "ALL".}
 
 \item{countryList}{A character vector. Country names to map, or NULL for to map ALL countries.}
 
@@ -48,15 +52,21 @@ expert-identified outliers in different colours.}
 directory that have the same name.
 Default = TRUE.}
 
+\item{customColumn1}{Character. Allows the user to report on a column of their choosing in the output.}
+
+\item{customColumn2}{Character. Allows the user to report on a column of their choosing in the output.}
+
 \item{TrueAlwaysTop}{If TRUE, the quality (TRUE) points will always be displayed on top of other points.
 If FALSE, then whichever layer was turned on most-recently will be displayed on top.}
 
-\item{excludeApis_mellifera}{Logical. If TRUE, will not map records for Apis mellifera. Note: in most cases
-A. mellifera has too many points, and the resulting map will take a long time to make and be difficult to open.
-Default = TRUE.}
+\item{excludeSpecies}{Character. A character vector of species names to exclude, especially
+if they are so large as to become a problem when making maps. For bee data, for example,
+"Apis mellifera Linnaeus, 1758" has too many data points and is default excluded.}
 
 \item{pointColours}{A character vector of colours. In order provide colour for TRUE, FALSE, countryOutlier, and customOutlier.
 Default = c("blue", "darkred","#ff7f00", "black").}
+
+\item{returnPlot}{Logical. If TRUE, return the plot to the environment. Default = FALSE.}
 }
 \value{
 Exports .html interactive maps of bee occurrences to the specified directory.
@@ -96,7 +106,7 @@ jitterValue = 0.01,
 # If TRUE, it will only map the .summary column. Otherwise, it will map .summary
 # which will be over-written by countryOutliers and manualOutliers
 onlySummary = TRUE,
-excludeApis_mellifera = TRUE,
+excludeSpecies = c("Apis mellifera Linnaeus, 1758"),
 overWrite = TRUE,
   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 pointColours = c("blue", "darkred","#ff7f00", "black")

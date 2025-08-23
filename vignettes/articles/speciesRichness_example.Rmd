@@ -1,0 +1,432 @@
+---
+title: "Species richness estimation"
+
+output:
+  rmarkdown::html_vignette:
+  
+vignette: >
+  %\VignetteIndexEntry{Species richness estimation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+--- 
+
+# <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"/></a>
+
+  
+```{r libraryChunk, load-packages, include=FALSE}
+# markdown packages
+library(rgnparser)
+library(magrittr)
+library(knitr)
+library(rmarkdown)
+library(rmdformats)
+library(prettydoc)
+library(htmltools)
+library(pkgdown)
+
+# Load core packages
+library(devtools)
+library(BiocManager)
+library(purrr)
+library(here)
+library(dplyr)
+library(readr)
+library(stringr)
+library(lubridate)
+library(tidyselect)
+library(R.utils)
+library(tidyr)
+library(ggplot2)
+library(mgsub)
+library(igraph)
+library(parallel)
+library(iNEXT)
+library(SpadeR)
+library(kableExtra)
+library(tibble)
+
+  # For the sake of making this vignette in the early days, read in the source files 
+#devtools::load_all("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC")
+
+# Dont detect cores to avoid GitHbub error
+old <- options()         # code line i 
+on.exit(options(old))      # code line i+1 
+options(mc.cores = parallel::detectCores())
+```
+
+
+```{r secretRootPath, include=FALSE}
+# Set the RootPath to tempdir
+RootPath <- tempdir()
+if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
+    dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
+}
+```
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(error = TRUE, 
+                      eval = TRUE, 
+                      tidy = TRUE, 
+                      warning = FALSE,
+                      root.dir = normalizePath(tempdir()))
+```
+
+This is a basic workflow for feeding species occurrence data, a group's taxonomy, and a group's country checklist into BeeBDC in order to produce species richness estimates. Some of these functions are also generic wrappers around `SpadeR` and `iNEXT` functions that can be used with any abundance data. These functions have grown from an [original publication](DOI).
+
+# Script preparation 
+## Working directory 
+
+Choose the path to the root folder in which all other folders can be found.
+```{r falseRootPath, eval=FALSE}
+RootPath <- paste0("/your/path/here")
+```
+
+```{r CreateRootPath, warning=FALSE, collapse = TRUE}
+  # Create the working directory in the RootPath if it doesn't exist already
+if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
+    dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
+}
+  # Set the working directory
+setwd(paste0(RootPath,"/Data_acquisition_workflow"))
+```
+
+
+## Install packages (if needed) 
+
+You may need to install some packages for using this workflow. In particular, `SpadeR` and `iNEXT` are required. They should prompt you to download them the first time that you run the functions, however, let's install them here and now.
+
+```{r installPackages, message=FALSE, warning=FALSE, results=FALSE, collapse = TRUE, eval = FALSE}
+install.packages("SpadeR")
+install.packages("iNEXT")
+```
+   
+   
+```{r dirMakerSECRETELY, include = FALSE}
+# For the sake of this tutorial, we will not use here::i_am in dirMaker, because we aren't allowed
+  # to mess with package directories in this way. This will work-around to use the tempdir()
+DataPath <- paste0(RootPath, "/Data_acquisition_workflow")
+OutPath_Check <- paste0(RootPath, "/Data_acquisition_workflow/Output/Check")
+OutPath_Figures <- paste0(RootPath, "/Data_acquisition_workflow/Output/Figures")
+OutPath_Intermediate <- paste0(RootPath, "/Data_acquisition_workflow/Output/Intermediate")
+OutPath_Report <- paste0(RootPath, "/Data_acquisition_workflow/Output/Report")
+  # Create these files
+if (!dir.exists(DataPath)) {
+    dir.create(DataPath, recursive = TRUE)}
+if (!dir.exists(OutPath_Check)) {
+    dir.create(OutPath_Check, recursive = TRUE)}
+if (!dir.exists(OutPath_Figures)) {
+    dir.create(OutPath_Figures, recursive = TRUE)}
+if (!dir.exists(OutPath_Intermediate)) {
+    dir.create(OutPath_Intermediate, recursive = TRUE)}
+if (!dir.exists(OutPath_Report)) {
+    dir.create(OutPath_Report, recursive = TRUE)}
+```
+
+# Parallel estimations
+
+We can start by looking at the relatively simple `iNEXT` and `SpadeR` wrapper functions that can take the usual inputs for those functions in their host packages. (See `iNEXT::iNEXT()` and `SpadeR::ChaoSpecies()` for more info.) These functions can take your data and run multiple sites/countries/whatever level you want to throw at them and run them in parallel. This greatly simplifies the code needed to run them and also makes its implementation MUCH faster!
+
+## iNEXTwrapper
+
+`BeeBDC::iNEXTwrapper()` parallelizes `iNEXT::iNEXT()`, which estimates species richness patterns by extrapolating and interpolating Hill numbers. By and large this kinda equates to estimating richness by rarefaction. We can start by reading in an example dataset with 1,488 *scientificName-country_suggested* combinations across four countries; Fiji, Uganda, Vietnam, and Zambia.
+
+```{r exampleData}
+beesCountrySubset <- BeeBDC::beesCountrySubset
+```
+
+Next, let's look at how we would usually use iNEXT... By first transforming our *(very simple example)* occurrence dataset into the right format and then running the function.
+
+```{r iNEXT_simple}
+  # Transform the data
+transformedAbundance <- beesCountrySubset %>%
+  dplyr::group_by(scientificName, country_suggested) %>% 
+  dplyr::count() %>% 
+  dplyr::select(scientificName, country_suggested, n) %>%
+  tidyr::pivot_wider(names_from = country_suggested,
+                     values_from = n,
+                     values_fill = 0) %>%
+  # Create the rownames
+  tibble::column_to_rownames("scientificName") %>%
+  dplyr::tibble() %>% as.data.frame()
+  # Run iNEXT
+output_iNEXT <- iNEXT::iNEXT(transformedAbundance, datatype="abundance")
+```
+
+We can also view the output of this function by running `output_iNEXT$AsyEst`
+
+```{r, outputTable1, echo=FALSE}
+kableExtra::kbl(output_iNEXT$AsyEst) %>%
+  kableExtra::kable_material(c("striped", "hover")) %>%
+  kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "350px")
+```
+
+The implementation of `BeeBDC::iNEXTwrapper()` is also relatively simple; including the implementation of running in parallel (**Note: Windows machines can't use R's parallel functions**). We can again modify the input data to work with the function as below and we could leave most of the inputs to iNEXTwrapper to the defaults or change them as we saw fit. The key variable is to change `mc.cores` to however many threads you'd liek to use on your computer!
+
+
+```{r iNEXT_wrapper}
+  # Transform data
+data_nextWrapper <- beesCountrySubset %>%
+    dplyr::group_by(scientificName, country_suggested) %>%
+    dplyr::count() 
+
+ # Calculate iNEXT with the wrapper function
+output_iNEXTwrapper <- BeeBDC::iNEXTwrapper(data = data_nextWrapper,
+                                    variableColumn = "country_suggested",
+                                    valueColumn = "n",
+                                    q = 0,
+                                    datatype = "abundance",
+                                    conf = 0.95,
+                                    se = TRUE,
+                                    nboot = 50,
+                                    size = NULL,
+                                    endpoint = NULL,
+                                    knots = 40,
+                                    mc.cores = 1)
+```
+
+
+```{r, outputTable2, echo=FALSE}
+kableExtra::kbl(output_iNEXTwrapper$AsyEst) %>%
+  kableExtra::kable_material(c("striped", "hover")) %>%
+  kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "350px")
+```
+
+## ChaoWrapper
+
+`BeeBDC::ChaoWrapper()` parallelizes `SpadeR::ChaoSpecies()`, which estimates species richness using various non-parametric estimators. The primary one that I tend to use is iChao. Let's use the same example dataset to first run the **SpadeR** function.
+
+```{r iChao_simple}
+  # Transform data
+data_iChao <- beesCountrySubset %>%
+  dplyr::group_by(scientificName, country_suggested) %>%
+  dplyr::count() %>%
+  dplyr::select(scientificName, country_suggested, n) %>%
+  tidyr::pivot_wider(names_from = country_suggested,
+                     values_from = n,
+                     values_fill = 0) %>%
+  # Create the rownames
+  tibble::column_to_rownames("scientificName") %>%
+  dplyr::tibble()
+
+  # Run ChaoSpecies for the country Fiji
+output_iChao <- SpadeR::ChaoSpecies(data_iChao$Fiji, datatype="abundance")
+```
+
+Let's view the output of this function by running `output_iChao$Species_table`. Once again, you'll be able to see that there are actually quite a few species richness estimators available here.
+
+```{r, outputTable3, echo=FALSE}
+kableExtra::kbl(output_iChao$Species_table) %>%
+  kableExtra::kable_material(c("striped", "hover")) %>%
+  kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "350px")
+```
+
+The implementation of the parallel wrapper is also quite simple for `BeeBDC::ChaoWrapper()`. And the number of cores can also be changed using the `mc.cores` argument. Note, that in this case, we can run all sites (or countries) at once! 
+
+```{r iChao_wrapper}
+ # Run the wrapper function
+output_iChaowrapper <- BeeBDC::ChaoWrapper(data = data_iChao,
+                                   datatype = "abundance",
+                                   k = 10,
+                                   conf = 0.95,
+                                   mc.cores = 1)
+
+```
+
+View the output with `output_iChaowrapper$diversityTable`.
+
+```{r, outputTable4, echo=FALSE}
+kableExtra::kbl(output_iChaowrapper$diversityTable) %>%
+  kableExtra::kable_material(c("striped", "hover")) %>%
+  kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "350px")
+```
+
+## Visualising
+
+These are both easy and simple to use wrapper functions. However, the complexity of the output data types can actually be a little bit confusing to work with. Especially if you want to visualise those data. So, we also provide the function, `BeeBDC::ggRichnessWrapper()` to display the results of both wrapper functions by site. Not only does this functino save a plot that visualises the data (below), it also outputs a summary of the estimates.
+
+```{r visualiseWrappers}
+plot_summary <- BeeBDC::ggRichnessWrapper(
+  iNEXT_in = output_iNEXTwrapper,
+  iChao_in = output_iChaowrapper,
+  nrow = 2,
+  ncol = 2,
+  labels = NULL,
+  fileName = "speciesRichnessPlots",
+  outPath = tempdir(),
+  base_width = 8.3,
+  base_height = 11.7, 
+  dpi = 300)
+```
+
+
+```{r echo = FALSE,  out.width="450px", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*"}
+suppressWarnings({
+knitr::include_graphics( normalizePath(
+                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), full.names = TRUE),
+                                          "/speciesRichnessPlots")]))
+})
+
+```
+
+Note that Fiji's diversity seems to be reaching asymptote, but the remaining country's species richnesses are still climbing. Vietnam in particular has a huge amount of uncertainty with the iChao estimates (green) reaching over 60 species! We knew that this was a really small dataset (in fact we chose it as a test dataset because it is small), but it goes to show that if your data are inadequate you may not get a great answer. On the plus side, the 95% confidence intervals all overlap.
+
+```{r, ggRichnesstbale, echo=FALSE}
+kableExtra::kbl(plot_summary) %>%
+  kableExtra::kable_material(c("striped", "hover")) %>%
+  kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "350px")
+```
+
+You can see, that these functions are moving towards simplifying quick and mass-estimation of species richness across sites or countries! The is the idea behind these improvements. But, we take this further below by also attempting to sample known taxa that are otherwise missing from our datasets! 
+
+# Estimating richness from the known unknowns
+
+Seems like a bit of an odd title, no? Well, many taxa have country-level checklists. Even insect taxa can be well represented in global country-level checklists; for example, [ants](https://www.antwiki.org/wiki/Welcome_to_AntWiki), [butterflies](https://doi.org/10.1111/geb.13475), [dragonflies](https://doi.org/10.1111/jbi.14457), and [bees](https://www.discoverlife.org/mp/20q?guide=Apoidea_species&flags=HAS:). While for vertebrates the situation is even better. Country-level global checklists often incorporate knowledge that isn't contianed in species occurrence datasets but that, perhaps, we can take advantage of. 
+
+## Preparing the inputs
+
+In our [bee species richness estimates paper](DOI), we had 4,819 species (from a total of ~21,000 species) that had no occurrence records globally. We could have run the above species richness estimates using just the occurrences that we had, but we wanted to incorporate that knowledge in our estimates. To do so, we found the samples sizes from most-recent literature for 497 species and generated a curve (we also generated this curve using the global- and country-level occurrence datasets and found the former to match the literature curve well).
+
+
+![*Curves generated using 497 literature species (yellow), the global occurrence records (light blue), and occurrences at the country-level (dark blue).*](<https://photos.smugmug.com/photos/i-sXCctD2/0/NCPsSsmb4PSncqxVGkkC9SSSdv99NNQFN2rx6q6rn/O/i-sXCctD2.png>){width="400px"}
+
+We can then extract the formula from this curve and use it to randomly generate data for those missing species. These curves can be built using your own data; see section 1.6 of the R code for the [bee species richness estimates paper](DOI), which uses **ggplot2** and **mosaic**'s `fitModel` function to generate the curve function that goes into `BeeBDC::diversityPrepR()` below.
+
+Let's dig in... To start with, we will *make an R object* using our occurrence data (*beesCountrySubset*), taxonomy (from `BeeBDC::beesTaxonomy()` or `BeeBDC::taxadbToBeeBDC()`), and country checklist(`BeeBDC::beesChecklist()` or a manually-made checklist with the countries in the *rNaturalEarth_name* column and species in the *validName* column; the latter must match the remaining data — see `BeeBDC::HarmoniseR()`). Feel free to explore the input files or the output list of files for modifying your own and pay attention to match the column names.
+
+Note as well that the `curveFunction` is the one generated from the Literature curve above.
+
+```{r diversityPrepping, tidy=FALSE}
+  # Generate the R file
+estimateData <- BeeBDC::diversityPrepR(
+  data = beesCountrySubset,
+    # Download the bee taxonomy. Download other taxonomies using BeeBDC::taxadbToBeeBDC()
+  taxonomyFile = BeeBDC::beesTaxonomy(),
+    # Download the bee country checklist. See notes above about making a checklist for other taxa
+  checklistFile = BeeBDC::beesChecklist(),
+  curveFunction = function(x) (228.7531 * x * x^-log(12.1593)),
+  sampleSize = 10000,
+  countryColumn = "country_suggested"
+)
+```
+
+## Making estimates
+
+The output file from the above code is then used to feed into the `BeeBDC::richnessEstimator()` function which will repeatedly sample the provided curve and estimate species richness (a user-defined number of times) at the country (*or site*), continental, or global level. This function can also be run in parallel and run at whatever scale the user asks for. If `globalSamples`, `continentSamples`, or `countrySamples` are set to zero, they will not be run. If they are set to >0, they will be estimated that many times. Let's run our estimates at the country (*or site*) level ten times below, drawing sample sizes from the non-occurrence species each time (*capped at the maximum sample size for each country*). 
+
+```{r richnessEstimating, results='hide', tidy=FALSE}
+estimates <- BeeBDC::richnessEstimateR(
+  data = estimateData,
+  sampleSize = 10000,
+  globalSamples = 0,
+  continentSamples = 0,
+  countrySamples = 10,
+    # Increase the number of cores to use R's parallel package and speed estimates up.
+  mc.cores = 1,
+    # Directory where to save files
+  outPath = tempdir(),
+  fileName = "Sampled.pdf"
+)
+```
+
+We can look at the median outputs of our analysis with `estimates$Summary`.
+
+```{r, estimates_tableSummary, echo=FALSE}
+kableExtra::kbl(estimates$Summary) %>%
+  kableExtra::kable_material(c("striped", "hover")) %>%
+  kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "350px")
+```
+
+ Or, we can look at the outputs from each iteration together with `estimates$SiteOutput`.
+
+```{r, estimates_tableCountry, echo=FALSE}
+kableExtra::kbl(estimates$SiteOutput) %>%
+  kableExtra::kable_material(c("striped", "hover")) %>%
+  kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "350px")
+```
+
+## Visualising estimates
+
+Of course, these values are super helpful for papers on these topics. But similarly, we can easily make some further useful visualisations! 
+
+```{r visualiseEstimates, out.width="100%", tidy=FALSE}
+# To build the manual legend, make a small fake dataset
+legendData <- dplyr::tibble(name = c("yes","yes"),
+                                              statistic = c("iChao", "iNEXT") %>%
+                                                factor(levels = c("iChao", "iNEXT")),
+                                              est = c(1,1))
+# Build a legend manually
+violinLegend <- ggplot2::ggplot(legendData, ggplot2::aes(x = name, y = est)) + 
+  ggplot2::geom_point(data = legendData, ggplot2::aes(y=est, x = name, colour = "red")) + 
+   scale_color_manual(labels = c('Observed'), values = c('grey30'))  +
+   ggplot2::geom_bar(aes(fill = statistic, y = est), position = position_dodge(0.90),  
+                     stat = "identity") +
+   ggplot2::scale_fill_manual(name = "Statistic",
+                              labels = c("iChao", "iNEXT"),
+                              values = c("iChao" = "#55AD9B", "iNEXT" = "#FD9B63")) +
+   ggplot2::theme_classic() +
+   theme(legend.title = element_blank(), legend.position = 'right', 
+         legend.margin = margin(0, 0, 0, 0), legend.spacing.y = unit(0, "pt")) +
+   ggplot2::guides(fill = ggplot2::guide_legend(ncol = 1, byrow = TRUE, reverse = TRUE, order = 1))
+
+# plot the countries 
+violinPlot <- ggplot2::ggplot(estimates$SiteOutput, ggplot2::aes(x = name, y = est)) + 
+   ggplot2::geom_violin(position="dodge", alpha=0.5, ggplot2::aes(fill=Name, 
+                                                                  y=`95%Lower`, x=variable), 
+                        colour =  NA) +
+   ggplot2::geom_violin(position="dodge", alpha=0.5, ggplot2::aes(fill=Name, y=`95%Upper`,
+                                                                  x=variable), colour =  NA) +
+   ggplot2::geom_violin(position="dodge", alpha=1, ggplot2::aes(fill=Name, y=Estimate, 
+                                                                x=variable), colour =  "black") +
+   ggplot2::scale_fill_manual(values=c("#55AD9B", "#FD9B63")) +
+    ggplot2::geom_point(data = estimates$SiteOutput %>%
+                          dplyr::distinct(variable, Observed) %>% 
+                          tidyr::drop_na(), 
+                        ggplot2::aes(x = variable, y = Observed), col = "grey40") +
+  ggplot2::theme_classic() + 
+  ggplot2::xlab("Continent") + 
+  ggplot2::ylab("Species estimate") +
+  guides(fill=guide_legend(title="Statistic")) +
+  ggplot2::theme_classic() +
+  ggplot2::theme(legend.position = "none", 
+                 axis.text.x = ggplot2::element_text(angle = 60, vjust = 1, hjust=1)) +
+  ggplot2::xlab(c( "")) + ggplot2::ylab(c("Species"))  +
+  ggplot2::annotation_custom(cowplot::ggdraw(cowplot::get_legend(violinLegend)) %>%
+                               ggplot2::ggplotGrob(), xmin = 1, xmax = 1, 
+                               ymin = 350, ymax = 500)
+
+  ## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time
+
+# Save the plot
+cowplot::save_plot(filename = paste0(tempdir(), "/violinPlot.pdf"),
+                   plot = violinPlot,
+                   base_width = 10,
+                   base_height = 7)
+```
+
+```{r echo = FALSE,  out.width="550", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*"}
+suppressWarnings({
+knitr::include_graphics( normalizePath(
+                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), full.names = TRUE),
+                                          "/violinPlot.pdf")]))
+})
+
+```
+
+There are many ways to plot or analyse these kinds of data. The rest I will leave up to you! But, for more ideas, do feel free to check out the [original publication](https://doi.org/10.21203/rs.3.rs-6372769/v1) for this workflow as well as the [original R workflow](LINK?) itself.
+
+
+
+# Read more
+You can read more about the implementation of this work in the original citation:
+*Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications. https://doi.org/10.21203/rs.3.rs-6372769/v1*
+
+
+
+

@@ -22,6 +22,10 @@ bibentry(
   url      = "https://github.com/jbdorey/BeeBDC",
   textVersion = paste(
 "Dorey, J. B., O'Reilly, R. L., Bossert, S., Fischer, E. E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.2.0. url: <https://github.com/jbdorey/BeeBDC>"
+  note     = "R package version 1.3.0",
+  url      = "https://github.com/jbdorey/BeeBDC",
+  textVersion = paste(
+"Dorey, J. B., O'Reilly, R. L., Bossert, S., Fischer, E. E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.3.0. url: <https://github.com/jbdorey/BeeBDC>"
   )
 )
 

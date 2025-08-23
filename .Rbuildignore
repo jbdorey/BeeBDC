@@ -8,3 +8,5 @@
 ^docs$
 ^pkgdown$
 ^README\.Rmd$
+^vignettes/articles$
+^CRAN-SUBMISSION$

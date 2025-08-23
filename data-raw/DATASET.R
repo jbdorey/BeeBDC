@@ -18,6 +18,9 @@ usethis::use_data(beesRaw, overwrite = TRUE, compress = "xz")
 bees3sp <- readr::read_csv(paste0(dataPath, "/bees3sp.csv"))
 usethis::use_data(bees3sp, overwrite = TRUE, compress = "xz")
 
+beesCountrySubset <- readr::read_csv(paste0(dataPath, "/beesCountry.csv"))
+usethis::use_data(beesCountrySubset, overwrite = TRUE, compress = "xz")
+
 #### 2.0 Discover Life data ####
   ##### 2.1 Full datasets ####
 

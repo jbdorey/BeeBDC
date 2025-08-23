@@ -8,7 +8,7 @@ dupePlotR(
   data = NULL,
   outPath = NULL,
   fileName = NULL,
-  legend.position = c(0.85, 0.8),
+  legend.position.inside = c(0.85, 0.8),
   base_height = 7,
   base_width = 7,
   ...,
@@ -23,7 +23,7 @@ dupePlotR(
 
 \item{fileName}{Character. The name of the output file, ending in '.pdf'.}
 
-\item{legend.position}{The position of the legend as coordinates. Default = c(0.85, 0.8).}
+\item{legend.position.inside}{The position of the legend as coordinates. Default = c(0.85, 0.8).}
 
 \item{base_height}{Numeric. The height of the plot in inches. Default = 7.}
 
@@ -59,7 +59,7 @@ dupePlotR(
   dupeColours = c("#F2D2A2","#B9D6BC", "#349B90"),
   # Plot size and height
   base_height = 7, base_width = 7,
-  legend.position = c(0.85, 0.8),
+  legend.position.inside = c(0.85, 0.8),
   # Extra variables can be fed into forcats::fct_recode() to change names on plot
   GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
   ASP = "ASP", CAES = "CAES", 'B. Mont.' = "BMont", 'B. Minckley' = "BMin", Ecd = "Ecd",

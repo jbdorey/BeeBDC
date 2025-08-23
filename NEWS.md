@@ -1,3 +1,25 @@
+# Changes in version 1.3.0
+- Updates `BeeBDC::flagAbsent()` to also check the *individualCount* count and flag those where *individualCount == 0*.
+- updated `BeeBDC::ColTypeR()` to include a bee-specific Darwin Core data standard using the new argument *standardFormat = "bee"*.
+- Updated `BeeBDC::atlasDownloader()` to use newer `galah` syntax.
+- Updated `BeeBDC::interactiveMapR()` to allow the present plot to be returned in the R environment viewer.
+- Added new functions to estimate species richness across multiple sites and in parallel for added speed. 
+- `BeeBDC::richnessPrepR()` takes input occurrence data, taxonomy, and checklists to produce an R data file for the following functions. 
+- `BeeBDC::iNEXTwrapper()` is a wrapper for `iNEXT::iNEXT()` to interpolate and extrapolate Hill numbers with order q (rarify species richness). 
+- `BeeBDC::ChaoWrapper()` is a wrapper for `SpadeR::ChaoSpecies()` to non-parametrically estimate species richness. 
+- `BeeBDC::richnessEstimateR()` Takes an output dataset from [BeeBDC::richnessPrepR()] to estimate species richness using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, and/or the entire globe.
+- `BeeBDC::ggRichnessWrapper()` Takes the outputs from `BeeBDC::iNEXTwrapper()` and `BeeBDC::ChaoWrapper()` to create a summary table and output figure.
+- `BeeBDC::countryHarmoniseR` added as a helper function to harmonise some country names that are often inconsistent and otherwise problematic. This was going to be an internal function but it has been made available and exported.
+- Added a new test dataset, `beesCountrySubsets` to test the new species richness functions.
+- Added (Vignette)[<https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html>] for implementing the above functions.
+- Fixed issue with upcoming ggplot2 version causing test failures. Temporarily will disable tests of ggplot2 type to enable successful publication to CRAN for both BeeBDC and ggplot2.
+- Depends on "R (>= 4.1.0)" to being usage of |> pipe operator.
+- `BeeBDC::atlasDownloader()` now also returns the galah download file to the environment.
+- `BeeBDC::interactiverMapR()` now builds the .countryOutlier and .summary columns if they are not already present in the dataset to allow the function to work on more datasets.
+- `BeeBDC::interactiverMapR()` now allows the inclusion of up to two custom columns to report on in the map. These are input with customColumn1 and customColumn2.
+- Slight re-jig of the main vignettes by splitting out the bee-specific data preparation into its own page.
+
+
 # Changes in version 1.2.1
 - `BeeBDC::taxadbToBeeBDC()` now prompts users to install taxadb when it's not already installed. 
 - Minor updates to fix breaks with external updates.

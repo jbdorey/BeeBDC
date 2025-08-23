@@ -14,7 +14,8 @@ taxadbToBeeBDC(
   db = NULL,
   removeEmptyNames = TRUE,
   outPath = getwd(),
-  fileName = NULL
+  fileName = NULL,
+  ...
 )
 }
 \arguments{
@@ -55,6 +56,8 @@ for specificEpithet.}
 \item{outPath}{Character. The path to a directory (folder) in which the output should be saved.}
 
 \item{fileName}{Character. The name of the output file, ending in '.csv'.}
+
+\item{...}{Arguments passed to \code{taxadb::td_create()}.}
 }
 \value{
 Returns a taxonomy file (to the R environment and to the disk, if a fileName is
@@ -76,7 +79,8 @@ ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
   version = "22.12",
   removeEmptyNames = TRUE,
   outPath = getwd(),
-  fileName = NULL
+  fileName = NULL,
+  ...
   )
   }
 

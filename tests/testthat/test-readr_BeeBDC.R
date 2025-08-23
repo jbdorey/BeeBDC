@@ -184,10 +184,10 @@ unlink(rownames(testDataPath))
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
     testthat::test_that("readr_BMont results columns TRUE", {
-      testthat::expect_equal(resultsT, 33)
+      testthat::expect_equal(resultsT, 34)
     })
     testthat::test_that("readr_BMont results columns FALSE", {
-      testthat::expect_equal(resultsF, 13)
+      testthat::expect_equal(resultsF, 12)
     })
     
     testthat::test_that("readr_BMont expected class", {
@@ -231,11 +231,11 @@ unlink(rownames(testDataPath))
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
     testthat::test_that("readr_Ecd results columns TRUE", {
-      testthat::expect_equal(resultsT, 53)
+      testthat::expect_equal(resultsT, 54)
     })
     
     testthat::test_that("readr_Ecd results columns FALSE", {
-      testthat::expect_equal(resultsF, 43)
+      testthat::expect_equal(resultsF, 42)
     })
     
     testthat::test_that("readr_Ecd expected class", {
@@ -694,7 +694,7 @@ unlink(rownames(testDataPath))
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
     testthat::test_that("readr_FSCA results columns TRUE", {
-      testthat::expect_equal(resultsT, 52)
+      testthat::expect_equal(resultsT, 53)
     })
     
     testthat::test_that("readr_FSCA results columns FALSE", {
@@ -995,11 +995,11 @@ unlink(rownames(testDataPath))
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
     testthat::test_that("readr_MEPB results columns TRUE", {
-      testthat::expect_equal(resultsT, 46)
+      testthat::expect_equal(resultsT, 47)
     })
     
     testthat::test_that("readr_MEPB results columns FALSE", {
-      testthat::expect_equal(resultsF, 24)
+      testthat::expect_equal(resultsF, 23)
     })
     
     testthat::test_that("readr_MEPB expected class", {
@@ -1144,10 +1144,10 @@ unlink(rownames(testDataPath))
     # Test the number of expected TRUE and FALSE columns and then test the output format (data frames and
     # tibbles are a special case of lists)
     testthat::test_that("readr_STRI results columns TRUE", {
-      testthat::expect_equal(resultsT, 60)
+      testthat::expect_equal(resultsT, 61)
     })
     testthat::test_that("readr_STRI results columns FALSE", {
-      testthat::expect_equal(resultsF, 39)
+      testthat::expect_equal(resultsF, 38)
     })
     
     testthat::test_that("readr_STRI expected class", {

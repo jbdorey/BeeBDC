@@ -8,18 +8,19 @@
 # at jbdorey[at]me.com
 
 
-#' Harmonise taxonomy of bee occurrence data
+#' Harmonise taxonomy of occurrence data
 #' 
-#' Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match
-#' the checklist. [BeeBDC::harmoniseR()] prefers to use the names_clean columns that is generated 
+#' Uses BeeBDC-formatted taxonomy data to harmonise occurrence records and flag those that do not match
+#' the taxonomy [BeeBDC::harmoniseR()] prefers to use the names_clean columns that is generated 
 #' by [bdc::bdc_clean_names()]. While this is not required, you may find better results by running
 #' that function on your dataset first.
-#' This function could be hijacked to service other taxa if a user matched the format of the
+#' It is possible to download taxonomy file for other taxa using [BeeBDC::taxadbToBeeBDC()]
+#' which can download taxonomies from ITIS, GBIF, and more. You could also match the format of the
 #' [BeeBDC::beesTaxonomy()] file.
 #'
 #' @param path A directory as character. The path to a folder that the output can be saved.
-#' @param taxonomy A data frame or tibble. The bee taxonomy to use. 
-#' Default = [BeeBDC::beesTaxonomy()].
+#' @param taxonomy A data frame or tibble. The taxonomy file to use. 
+#' Default = [BeeBDC::beesTaxonomy()]; for other taxa see first [BeeBDC::taxadbToBeeBDC()].
 #' @param data A data frame or tibble. Occurrence records as input.
 #' @param speciesColumn Character. The name of the column containing species names. Default = "scientificName".
 #' @param rm_names_clean Logical. If TRUE then the names_clean column will be removed at the end of
@@ -49,6 +50,9 @@
 #' @examples
 #' # load in the test dataset
 #' system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |> load()
+#' 
+#' # See also
+#' ?BeeBDC::taxadbToBeeBDC()
 #' 
 #' beesRaw_out <- BeeBDC::harmoniseR(
 #'   #The path to a folder that the output can be saved
