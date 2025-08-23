@@ -23,17 +23,9 @@ file itself automatically."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC cleaning sections</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-merge">  1.0 Data merge</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-preparation">  2.0 Data preparation</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#initial-flags">  3.0 Initial flags</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#taxonomy">  4.0 Taxonomy</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#space">  5.0 Space</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#time">  6.0 Time</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#de-duplication">  7.0 De-duplication</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-filtering">  8.0 Data filtering</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#figures-and-tables">  9.0 Figures and tables</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
@@ -128,7 +120,7 @@ tidyselect::starts_with(".")</p></dd>
 <span class="r-in"><span>  <span class="co"># TRUE if you want to find a file from a previous part of the script to append to</span></span></span>
 <span class="r-in"><span>  append <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - .summary column detected. This will be over-written.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Data saved to /tmp/RtmpCMDfCD/flagsRecorded_2025-06-19.csv</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Data saved to /tmp/RtmpYfm4Gr/flagsRecorded_2025-08-23.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - Selected 34 columns. These include:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> database_id, id, catalogNumber, occurrenceID, dataSource, .scientificName_empty, .coordinates_empty, .coordinates_outOfRange, .basisOfRecords_notStandard, .coordinates_country_inconsistent, .occurrenceAbsent, .unLicensed, .GBIFflags, .uncer_terms, .invalidName, .rou, .val, .equ, .zer, .cap, .cen, .gbf, .inst, .sequential, .lonFlag, .latFlag, .gridSummary, .uncertaintyThreshold, .countryOutlier, .sea, .summary, .eventDate_empty, .year_outOfRange, and .duplicates</span>
 </code></pre></div>

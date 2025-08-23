@@ -21,17 +21,9 @@ use of the BeeBDC package, if the required folders do not already exist."></head
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC cleaning sections</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-merge">  1.0 Data merge</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-preparation">  2.0 Data preparation</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#initial-flags">  3.0 Initial flags</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#taxonomy">  4.0 Taxonomy</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#space">  5.0 Space</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#time">  6.0 Time</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#de-duplication">  7.0 De-duplication</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-filtering">  8.0 Data filtering</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#figures-and-tables">  9.0 Figures and tables</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
@@ -172,13 +164,13 @@ directory</p>
 <span class="r-in"><span>useHere <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># Add paths created by this function to the environment()</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>  </span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpCMDfCD/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpCMDfCD/Data_acquisition_workflowfile. This file needs to have the occurrence data that you want to use added to it otherise things won't work. Please choose this data or download it from the supp. materials of our paper</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpCMDfCD/BDC_repo/DiscoverLife_Data' already exists</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpCMDfCD/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpCMDfCD/Data_acquisition_workflow/Output' already exists</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpCMDfCD/Data_acquisition_workflow/Outputfile.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d3dc5a9b48&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpYfm4Gr/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpYfm4Gr/Data_acquisition_workflowfile. This file needs to have the occurrence data that you want to use added to it otherise things won't work. Please choose this data or download it from the supp. materials of our paper</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpYfm4Gr/BDC_repo/DiscoverLife_Data' already exists</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpYfm4Gr/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpYfm4Gr/Data_acquisition_workflow/Output' already exists</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpYfm4Gr/Data_acquisition_workflow/Outputfile.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x562f5f1dd618&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Custom OutPathName provided</span></span></span>
 <span class="r-in"><span>  <span class="fu">dirMaker</span><span class="op">(</span></span></span>
@@ -191,9 +183,9 @@ directory</p>
 <span class="r-in"><span> useHere <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="co"># Add paths created by this function to the environment()</span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>  </span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpCMDfCD/Data_acquisition_workflow/T2T_Output' already exists</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpCMDfCD/Data_acquisition_workflow/T2T_Outputfile.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d3dc43ab00&gt;</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpYfm4Gr/Data_acquisition_workflow/T2T_Output' already exists</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpYfm4Gr/Data_acquisition_workflow/T2T_Outputfile.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x562f5cef9e48&gt;</span>
 <span class="r-in"><span> <span class="co"># Set the working directory</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Further customisations are also possible</span></span></span>
@@ -210,9 +202,9 @@ directory</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the ...path/Bee_SDM_paper/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'...path/BDC_repo/DiscoverLife_Data' already exists</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the ...path/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpCMDfCD/Data_acquisition_workflow/AsianPerspective_Output' already exists</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpCMDfCD/Data_acquisition_workflow/AsianPerspective_Outputfile.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d3dc30c6f8&gt;</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpYfm4Gr/Data_acquisition_workflow/AsianPerspective_Output' already exists</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - We created the /tmp/RtmpYfm4Gr/Data_acquisition_workflow/AsianPerspective_Outputfile.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x562f5c46c010&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

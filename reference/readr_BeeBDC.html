@@ -25,17 +25,9 @@ readr_BeeBDC for clarity."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC cleaning sections</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-merge">  1.0 Data merge</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-preparation">  2.0 Data preparation</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#initial-flags">  3.0 Initial flags</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#taxonomy">  4.0 Taxonomy</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#space">  5.0 Space</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#time">  6.0 Time</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#de-duplication">  7.0 De-duplication</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-filtering">  8.0 Data filtering</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#figures-and-tables">  9.0 Figures and tables</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
@@ -231,36 +223,6 @@ readr_BeeBDC and select the dataset name to import a certain dataset. These data
 Lic, Dor, BBD, STRI, and PALA</p>
 <p>See Dorey et al. 2023 BeeBDC... for further details.</p>
     </div>
-    <div class="section level2">
-    <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
-
-<ul><li><p><code>readr_EPEL()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_ASP()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_BMin()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_BMont()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_Ecd()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_Gai()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_CAES()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_KP()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_EcoS()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_GeoL()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_EaCO()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_MABC()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_Col()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_FSCA()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_SMC()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_Bal()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_Lic()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_Arm()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_Dor()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_MEPB()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_BBD()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_MPUJ()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_STRI()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_PALA()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_JoLa()</code>: Reads specific data files into Darwin Core format</p></li>
-<li><p><code>readr_VicWam()</code>: Reads specific data files into Darwin Core format</p></li>
-</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

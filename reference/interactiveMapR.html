@@ -27,17 +27,9 @@ flagged as expert-identified or country outliers."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC cleaning sections</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-merge">  1.0 Data merge</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-preparation">  2.0 Data preparation</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#initial-flags">  3.0 Initial flags</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#taxonomy">  4.0 Taxonomy</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#space">  5.0 Space</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#time">  6.0 Time</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#de-duplication">  7.0 De-duplication</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#data-filtering">  8.0 Data filtering</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_main.html#figures-and-tables">  9.0 Figures and tables</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
@@ -78,11 +70,13 @@ flagged as expert-identified or country outliers.</p>
 <span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span>
 <span>  speciesColumn <span class="op">=</span> <span class="st">"scientificName"</span>,</span>
-<span>  speciesList <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  speciesList <span class="op">=</span> <span class="st">"ALL"</span>,</span>
 <span>  countryList <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  jitterValue <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  onlySummary <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  overWrite <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  customColumn1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  customColumn2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  TrueAlwaysTop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  excludeApis_mellifera <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  pointColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"darkred"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"black"</span><span class="op">)</span>,</span>
@@ -118,7 +112,8 @@ to build individual maps from. Default = "scientificName".</p></dd>
 <dt id="arg-specieslist">speciesList<a class="anchor" aria-label="anchor" href="#arg-specieslist"></a></dt>
 <dd><p>A character vector. Should contain species names as they appear in the
 speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all
-species present in the data. Hence, a user may first filter their data and then use "ALL".</p></dd>
+species present in the data. Hence, a user may first filter their data and then use "ALL".
+Default = "ALL".</p></dd>
 
 
 <dt id="arg-countrylist">countryList<a class="anchor" aria-label="anchor" href="#arg-countrylist"></a></dt>
@@ -139,6 +134,14 @@ expert-identified outliers in different colours.</p></dd>
 <dd><p>Logical. If TRUE, the function will overwrite existing files in the provided
 directory that have the same name.
 Default = TRUE.</p></dd>
+
+
+<dt id="arg-customcolumn-">customColumn1<a class="anchor" aria-label="anchor" href="#arg-customcolumn-"></a></dt>
+<dd><p>Character. Allows the user to report on a column of their choosing in the output.</p></dd>
+
+
+<dt id="arg-customcolumn-">customColumn2<a class="anchor" aria-label="anchor" href="#arg-customcolumn-"></a></dt>
+<dd><p>Character. Allows the user to report on a column of their choosing in the output.</p></dd>
 
 
 <dt id="arg-truealwaystop">TrueAlwaysTop<a class="anchor" aria-label="anchor" href="#arg-truealwaystop"></a></dt>
