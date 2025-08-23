@@ -18,6 +18,7 @@
 #' @param speciesList A character vector. Should contain species names as they appear in the 
 #' speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all 
 #' species present in the data. Hence, a user may first filter their data and then use "ALL".
+#' Default = "ALL".
 #' @param countryList A character vector. Country names to map, or NULL for to map ALL countries.
 #' @param jitterValue Numeric. The amount, in decimal degrees, to jitter the map points by - this 
 #' is important for separating stacked points with the same coordinates.
@@ -26,6 +27,8 @@
 #' @param overWrite Logical. If TRUE, the function will overwrite existing files in the provided
 #' directory that have the same name.
 #' Default = TRUE.
+#' @param customColumn1 Character. Allows the user to report on a column of their choosing in the output.
+#' @param customColumn2 Character. Allows the user to report on a column of their choosing in the output.
 #' @param TrueAlwaysTop If TRUE, the quality (TRUE) points will always be displayed on top of other points. 
 #' If FALSE, then whichever layer was turned on most-recently will be displayed on top.
 #' @param excludeApis_mellifera Logical. If TRUE, will not map records for Apis mellifera. Note: in most cases 
@@ -34,6 +37,7 @@
 #' @param pointColours A character vector of colours. In order provide colour for TRUE, FALSE, countryOutlier, and customOutlier.
 #' Default = c("blue", "darkred","#ff7f00", "black").
 #' @param returnPlot Logical. If TRUE, return the plot to the environment. Default = FALSE.
+#' 
 #'
 #' @return Exports .html interactive maps of bee occurrences to the specified directory.
 #' @export
@@ -85,11 +89,13 @@ interactiveMapR <- function(
       # Occurrence dataset column with species names
     speciesColumn = "scientificName",
       # Which species to map - a character vector of names or "ALL"
-    speciesList = NULL,
+    speciesList = "ALL",
     countryList = NULL,
     jitterValue = NULL,
     onlySummary = TRUE,
     overWrite = TRUE,
+    customColumn1 = NULL,
+    customColumn2 = NULL,
     TrueAlwaysTop = FALSE,
     excludeApis_mellifera = TRUE,
     pointColours = c("blue", "darkred","#ff7f00", "black"),
@@ -119,6 +125,32 @@ interactiveMapR <- function(
   if(is.null(outPath)){
     stop(paste0(" - No outPath was given. Please specify the directory to save the maps to."))
   }
+    #customColumn1
+  if(!is.null(customColumn1)){
+    if(!is.character(customColumn1)){
+      stop(paste0(" - customColumn1 must be character."))
+    }
+    if(!customColumn1 %in% colnames(data)){
+      stop(paste0(" - customColumn1 must be a column in the input data"))
+    }
+    # Temporarily rename the customColumn1 to "customColumn1" within the function
+    data <- data %>%
+      dplyr::rename("customColumn1" = tidyselect::any_of(customColumn1))
+    
+  } # END customColumn1
+  #customColumn2
+  if(!is.null(customColumn2)){
+    if(!is.character(customColumn2)){
+      stop(paste0(" - customColumn2 must be character."))
+    }
+    if(!customColumn2 %in% colnames(data)){
+      stop(paste0(" - customColumn2 must be a column in the input data"))
+    }
+    # Temporarily rename the customColumn2 to "customColumn2" within the function
+    data <- data %>%
+      dplyr::rename("customColumn2" = tidyselect::any_of(customColumn2))
+  } # END customColumn2
+  
   
   ##### 0.2 Packages ####
   # Save the original directory 
@@ -153,6 +185,20 @@ if(!".expertOutlier" %in% colnames(data)){
   data <- data %>% 
     dplyr::mutate(.expertOutlier = TRUE)
 }
+# If there is no .countryOutlier then add one as all NA
+if(!".countryOutlier" %in% colnames(data)){
+  message("The column .countryOutlier was not found. One will be created with all values = TRUE.")
+  data <- data %>% 
+    dplyr::mutate(.countryOutlier = TRUE)
+}
+# If there is no .summary then add one as all NA
+if(!".summary" %in% colnames(data)){
+  message("The column .summary was not found. One will be created with all values = TRUE.")
+  data <- data %>% 
+    dplyr::mutate(.summary = TRUE)
+}
+
+
 
 ##### 1.2 Country list ####
 # Select only the countries user provides
@@ -441,6 +487,18 @@ for(i in 1:length(names(databaseLoop))){
                                          ";   ")},
                                 if("references" %in% colnames(databaseSpp)){
                                   paste0("References: ", databaseSpp$references, 
+                                         "   ")},
+                                
+                                # Custom column reporting
+                                if(!is.null(customColumn1)|!is.null(customColumn2)){
+                                  "<p></p><b>Custom column(s)</b> - "
+                                },
+                              
+                                if(!is.null(customColumn1)){
+                                  paste0(customColumn1, ": ", databaseSpp$customColumn1, 
+                                         "   ")},
+                                if(!is.null(customColumn2)){
+                                  paste0(customColumn2, ": ", databaseSpp$customColumn2, 
                                          "   ")}
    
                                 

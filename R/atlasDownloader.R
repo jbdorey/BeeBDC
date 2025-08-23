@@ -105,8 +105,7 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
                   "/galah_download_folder", 
                   sep = ""),
     overwrite = TRUE) 
-  
-  browser()
+
   
   #### Save data ####
   # Save some download information
@@ -126,5 +125,7 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
   # Write user instructions
   writeLines(paste("4.","\n"," - Fin.",
                    sep = ""))
+  
+  return(ALA_Occurence_download)
 }
 ##### Current end ALA ####

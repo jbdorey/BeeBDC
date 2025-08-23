@@ -11,9 +11,13 @@
 - `BeeBDC::ggRichnessWrapper()` Takes the outputs from `BeeBDC::iNEXTwrapper()` and `BeeBDC::ChaoWrapper()` to create a summary table and output figure.
 - `BeeBDC::countryHarmoniseR` added as a helper function to harmonise some country names that are often inconsistent and otherwise problematic. This was going to be an internal function but it has been made available and exported.
 - Added a new test dataset, `beesCountrySubsets` to test the new species richness functions.
-- Added (Vignette)[<https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html>] for implementing the above functions
-- Fixed issue with upcoming ggplot2 version causing test failures
-- Depends on "R (>= 4.1.0)" to being usage of |> pipe operator 
+- Added (Vignette)[<https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html>] for implementing the above functions.
+- Fixed issue with upcoming ggplot2 version causing test failures. Temporarily will disable tests of ggplot2 type to enable successful publication to CRAN for both BeeBDC and ggplot2.
+- Depends on "R (>= 4.1.0)" to being usage of |> pipe operator.
+- `BeeBDC::atlasDownloader()` now also returns the galah download file to the environment.
+- `BeeBDC::interactiverMapR()` now builds the .countryOutlier and .summary columns if they are not already present in the dataset to allow the function to work on more datasets.
+- `BeeBDC::interactiverMapR()` now allows the inclusion of up to two custom columns to report on in the map. These are input with customColumn1 and customColumn2.
+- Slight re-jig of the main vignettes by splitting out the bee-specific data preparation into its own page.
 
 
 # Changes in version 1.2.1

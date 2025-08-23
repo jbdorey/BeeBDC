@@ -459,7 +459,8 @@ explanation on each module.
 - **Species richness citation:** Dorey J. B., Gilpin, A.-M., Johnson,
   N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under
   review). How many bee species are there? A quantitative global
-  estimate. Nature Communications
+  estimate. Nature Communications.
+  <https://doi.org/10.21203/rs.3.rs-6372769/v1>
 - **Package citation:** Dorey, J. B., O’Reilly, R. L., Bossert, S. &
   Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R
   package version 1.3.0. url: <https://github.com/jbdorey/BeeBDC>

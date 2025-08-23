@@ -10,11 +10,13 @@ interactiveMapR(
   lon = "decimalLongitude",
   lat = "decimalLatitude",
   speciesColumn = "scientificName",
-  speciesList = NULL,
+  speciesList = "ALL",
   countryList = NULL,
   jitterValue = NULL,
   onlySummary = TRUE,
   overWrite = TRUE,
+  customColumn1 = NULL,
+  customColumn2 = NULL,
   TrueAlwaysTop = FALSE,
   excludeApis_mellifera = TRUE,
   pointColours = c("blue", "darkred", "#ff7f00", "black"),
@@ -35,7 +37,8 @@ to build individual maps from. Default = "scientificName".}
 
 \item{speciesList}{A character vector. Should contain species names as they appear in the
 speciesColumn to make maps of. User can also specify "ALL" in order to make maps of all
-species present in the data. Hence, a user may first filter their data and then use "ALL".}
+species present in the data. Hence, a user may first filter their data and then use "ALL".
+Default = "ALL".}
 
 \item{countryList}{A character vector. Country names to map, or NULL for to map ALL countries.}
 
@@ -48,6 +51,10 @@ expert-identified outliers in different colours.}
 \item{overWrite}{Logical. If TRUE, the function will overwrite existing files in the provided
 directory that have the same name.
 Default = TRUE.}
+
+\item{customColumn1}{Character. Allows the user to report on a column of their choosing in the output.}
+
+\item{customColumn2}{Character. Allows the user to report on a column of their choosing in the output.}
 
 \item{TrueAlwaysTop}{If TRUE, the quality (TRUE) points will always be displayed on top of other points.
 If FALSE, then whichever layer was turned on most-recently will be displayed on top.}

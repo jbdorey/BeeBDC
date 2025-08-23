@@ -6,7 +6,7 @@ beesCountrySubset <- BeeBDC::beesCountrySubset
 taxonomyFile <- BeeBDC::beesTaxonomy()
 checklistFile <- BeeBDC::beesChecklist()
 
-testOut <- BeeBDC::richnessPrepR(
+testOut <- richnessPrepR(
   data = beesCountrySubset,
   # Download the taxonomy
   taxonomyFile = taxonomyFile,

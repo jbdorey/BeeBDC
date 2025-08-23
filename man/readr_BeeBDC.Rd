@@ -183,61 +183,6 @@ Lic, Dor, BBD, STRI, and PALA
 
 See Dorey et al. 2023 BeeBDC... for further details.
 }
-\section{Functions}{
-\itemize{
-\item \code{readr_EPEL()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_ASP()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_BMin()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_BMont()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Ecd()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Gai()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_CAES()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_KP()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_EcoS()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_GeoL()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_EaCO()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_MABC()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Col()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_FSCA()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_SMC()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Bal()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Lic()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Arm()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_Dor()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_MEPB()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_BBD()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_MPUJ()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_STRI()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_PALA()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_JoLa()}: Reads specific data files into Darwin Core format
-
-\item \code{readr_VicWam()}: Reads specific data files into Darwin Core format
-
-}}
 \examples{
 \dontrun{
 # An example using a .xlsx file
