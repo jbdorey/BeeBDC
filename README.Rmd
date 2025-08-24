@@ -374,7 +374,7 @@ Flagging and, whenever possible, correction of inconsistent collection date.
     `BeeBDC::richnessEstimateR()` function in order to estimate species richness
     using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and
     iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, or
-    the entire globe.
+    the entire globe. 
 -   `richnessEstimateR()` Takes an output dataset from
     `BeeBDC::diversityPrepR()` to estimate species richness using iChao
     (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill
