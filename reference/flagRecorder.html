@@ -23,7 +23,7 @@ file itself automatically."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
     <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
@@ -46,7 +46,7 @@ file itself automatically."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Loads, appends, and saves occurrence flag data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/R/flagRecorder.R" class="external-link"><code>R/flagRecorder.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/flagRecorder.R" class="external-link"><code>R/flagRecorder.R</code></a></small>
       <div class="d-none name"><code>flagRecorder.Rd</code></div>
     </div>
 
@@ -120,7 +120,7 @@ tidyselect::starts_with(".")</p></dd>
 <span class="r-in"><span>  <span class="co"># TRUE if you want to find a file from a previous part of the script to append to</span></span></span>
 <span class="r-in"><span>  append <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - .summary column detected. This will be over-written.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Data saved to /tmp/RtmpDTthq1/flagsRecorded_2025-08-23.csv</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Data saved to /tmp/Rtmp79d9n6/flagsRecorded_2025-08-24.csv</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - Selected 34 columns. These include:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> database_id, id, catalogNumber, occurrenceID, dataSource, .scientificName_empty, .coordinates_empty, .coordinates_outOfRange, .basisOfRecords_notStandard, .coordinates_country_inconsistent, .occurrenceAbsent, .unLicensed, .GBIFflags, .uncer_terms, .invalidName, .rou, .val, .equ, .zer, .cap, .cen, .gbf, .inst, .sequential, .lonFlag, .latFlag, .gridSummary, .uncertaintyThreshold, .countryOutlier, .sea, .summary, .eventDate_empty, .year_outOfRange, and .duplicates</span>
 </code></pre></div>

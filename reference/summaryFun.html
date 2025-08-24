@@ -25,7 +25,7 @@ can be filtered to only those where .summary = TRUE at the end of the function.'
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
     <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
@@ -48,7 +48,7 @@ can be filtered to only those where .summary = TRUE at the end of the function.'
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create or update the .summary flag column</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/R/summaryFun.R" class="external-link"><code>R/summaryFun.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/summaryFun.R" class="external-link"><code>R/summaryFun.R</code></a></small>
       <div class="d-none name"><code>summaryFun.Rd</code></div>
     </div>
 
@@ -64,6 +64,7 @@ can be filtered to only those where .summary = TRUE at the end of the function.<
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">summaryFun</span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dontFilterThese <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  onlyFilterThese <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -79,7 +80,12 @@ can be filtered to only those where .summary = TRUE at the end of the function.<
 
 <dt id="arg-dontfilterthese">dontFilterThese<a class="anchor" aria-label="anchor" href="#arg-dontfilterthese"></a></dt>
 <dd><p>A character vector of flag columns to be ignored in the creation or updating
-of the .summary column.</p></dd>
+of the .summary column. Cannot be specified with onlyFilterThese.</p></dd>
+
+
+<dt id="arg-onlyfilterthese">onlyFilterThese<a class="anchor" aria-label="anchor" href="#arg-onlyfilterthese"></a></dt>
+<dd><p>A character vector. The inverse of dontFilterThese, where columns identified
+here will be filtered and no others. Cannot be specified with dontFilterThese.</p></dd>
 
 
 <dt id="arg-removefiltercolumns">removeFilterColumns<a class="anchor" aria-label="anchor" href="#arg-removefiltercolumns"></a></dt>

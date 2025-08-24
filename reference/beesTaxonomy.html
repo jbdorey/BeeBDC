@@ -29,7 +29,7 @@ base::readRDS(&quot;filePath.Rda&quot;)."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
     <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
@@ -52,7 +52,7 @@ base::readRDS(&quot;filePath.Rda&quot;)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Download a nearly complete taxonomy of bees globally</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/R/beesTaxonomy.R" class="external-link"><code>R/beesTaxonomy.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/beesTaxonomy.R" class="external-link"><code>R/beesTaxonomy.R</code></a></small>
       <div class="d-none name"><code>beesTaxonomy.Rd</code></div>
     </div>
 
@@ -68,7 +68,7 @@ alternatively download the dataset from the URL below and then read it in using
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">beesTaxonomy</span><span class="op">(</span></span>
-<span>  URL <span class="op">=</span> <span class="st">"https://open.flinders.edu.au/ndownloader/files/43331472"</span>,</span>
+<span>  URL <span class="op">=</span> <span class="st">"https://open.flinders.edu.au/ndownloader/files/47089969"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -107,7 +107,7 @@ the environment.</p>
 <p><strong>subfamily</strong> The subfamily of bee which the species belongs to.</p>
 <p><strong>tribe</strong> The tribe of bee which the species belongs to.</p>
 <p><strong>subtribe</strong> The subtribe of bee which the species belongs to.</p>
-<p><strong>validName</strong> The valid scientific name as it should occur in the “scientificName” column in a Darwin Core file.</p>
+<p><strong>validName</strong> The valid scientific name as it should occur in the 'scientificName" column in a Darwin Core file.</p>
 <p><strong>canonical</strong> The scientificName without the scientificNameAuthority.</p>
 <p><strong>canonical_withFlags</strong> The scientificName without the scientificNameAuthority and with Discover Life taxonomy flags.</p>
 <p><strong>genus</strong> The genus the bee species belongs to.</p>
@@ -122,15 +122,16 @@ the environment.</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>This dataset was created using the Discover Life taxonomy.
 Dataset is from the publication:
-DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. &amp; COBB, N. S. In review. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.
+Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. https://www.doi.org/10.1038/S41597-023-02626-W
 The taxonomy data are mostly compiled from Discover Life data, www.discoverlife.org:
-ASCHER, J. S. &amp; PICKERING, J. 2020. Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species.</p>
+Ascher, J.S. &amp; Pickering, J. (2020) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="taxadbToBeeBDC.html">taxadbToBeeBDC()</a></code> to download any other taxonomy (of any taxa or of bees)
 and <code><a href="HarmoniseR.html">harmoniseR()</a></code> for the
-taxon-cleaning function where these taxonomies are implemented.</p></div>
+taxon-cleaning function where these taxonomies are implemented. It may also be worth seeing
+<code><a href="beesChecklist.html">beesChecklist()</a></code>.</p></div>
     </div>
 
     <div class="section level2">

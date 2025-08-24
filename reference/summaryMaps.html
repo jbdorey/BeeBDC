@@ -23,7 +23,7 @@ of interest to produce figures of interest."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
     <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
@@ -46,7 +46,7 @@ of interest to produce figures of interest."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create country-level summary maps of species and occurrence numbers</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/R/summaryMaps.R" class="external-link"><code>R/summaryMaps.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/summaryMaps.R" class="external-link"><code>R/summaryMaps.R</code></a></small>
       <div class="d-none name"><code>summaryMaps.Rd</code></div>
     </div>
 
@@ -64,8 +64,8 @@ of interest to produce figures of interest.</p>
 <span>  class_Style <span class="op">=</span> <span class="st">"fisher"</span>,</span>
 <span>  outPath <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fileName <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  width <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  height <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  dpi <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  scale <span class="op">=</span> <span class="fl">110</span>,</span>
@@ -101,11 +101,11 @@ for the output figure, ending with '.pdf'.</p></dd>
 
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
-<dd><p>Numeric. The width, in inches, of the resulting figure. Default = 10.</p></dd>
+<dd><p>Numeric. The width, in inches, of the resulting figure. Default = 5.</p></dd>
 
 
 <dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
-<dd><p>Numeric. The height, in inches, of the resulting figure. Default = 5.</p></dd>
+<dd><p>Numeric. The height, in inches, of the resulting figure. Default = 10.</p></dd>
 
 
 <dt id="arg-dpi">dpi<a class="anchor" aria-label="anchor" href="#arg-dpi"></a></dt>
@@ -135,7 +135,8 @@ occurrence species and count data from the input dataset.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Read in data</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rnaturalearthdata"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Read in data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">beesFlagged</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">OutPath_Figures</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># This simple example using the test data has very few classes due to the small amount of input </span></span></span>
@@ -148,6 +149,7 @@ occurrence species and count data from the input dataset.</p>
 <span class="r-in"><span>outPath <span class="op">=</span> <span class="va">OutPath_Figures</span>,</span></span>
 <span class="r-in"><span>fileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"CountryMaps_fisher_TEST.pdf"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># END if require</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Spherical geometry (s2) switched off</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting country data from points...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> although coordinates are longitude/latitude, st_intersects assumes that they</span>
@@ -161,7 +163,6 @@ occurrence species and count data from the input dataset.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> are planar</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> although coordinates are longitude/latitude, st_intersects assumes that they</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> are planar</span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
