@@ -412,45 +412,49 @@ richnessEstimateR <- function(
     ##### a. Country ####
     if(tolower(scale) == "country"){
       ###### i. Chao ####
+      suppressMessages(
       ChaoOut <- ChaoWrapper(data = countryChaoData_checklist,
                              k = 5,
                              datatype = "abundance",
                              conf = 0.95,
-                             mc.cores = 1)
+                             mc.cores = 1))
       
     } # END if country
     
     if(tolower(scale) == "country"){
       ###### ii. iNext ####
       # Run iNEXT for each country using the iNEXT wrapper
+      suppressMessages(
       iNEXTout <- iNEXTwrapper(data = country_speciesChecklistCounts,
                                variableColumn = "rNaturalEarth_name",
                                valueColumn = "n",
                                datatype = "abundance",
-                               mc.cores = 1)
+                               mc.cores = 1))
     } # END if continent
     
     
     ##### b. Continent ####
     if(tolower(scale) == "continent"){
       ###### i. Chao ####
+      suppressMessages(
       ChaoOut <- ChaoWrapper(data = continentWider,
                              k = 5,
                              datatype = "abundance",
                              conf = 0.95,
-                             mc.cores = 1)
+                             mc.cores = 1))
       
     } # END if country
     
     if(tolower(scale) == "continent"){
       ###### ii. iNext ####
       # Run iNEXT for each country using the iNEXT wrapper
+      suppressMessages(
       iNEXTout <- iNEXTwrapper(data = continentCounts,
                                k = 5,
                                variableColumn = "continent",
                                datatype = "abundance",
                                conf = 0.95,
-                               mc.cores = 1)
+                               mc.cores = 1))
     } # END if continent
     
     
@@ -670,7 +674,7 @@ richnessEstimateR <- function(
            function(x){
              V1 <- rowname<- NULL
              counter <<- counter + 1
-             extraction <- x[[1]]$ChaoOut$diversityTable %>%
+             extraction <- x[[1]]$ChaoOut$richnessTable %>%
                dplyr::mutate(Name = stringr::str_squish(Name))
              # Extract the sample size
              sampleSize <- x[[1]]$ChaoOut$basicTable %>% 
@@ -828,7 +832,7 @@ richnessEstimateR <- function(
            function(x){
              V1 <- rowname <- NULL
              counter <<- counter + 1
-             extraction <- x[[1]]$ChaoOut$diversityTable
+             extraction <- x[[1]]$ChaoOut$richnessTable
              # Extract the sample size
              sampleSize <- x[[1]]$ChaoOut$basicTable %>% 
                t() %>% base::as.data.frame() %>% 
@@ -1001,8 +1005,10 @@ richnessEstimateR <- function(
     dplyr::rename(name = variable)
   
     # Combine all of the outputs into a list for return from the function
-  output <- list(combinedStatistics, combined_site_ChaoiNext, 
-               combined_cont_ChaoiNext, combined_global_ChaoiNext) %>% 
+  output <- list(combinedStatistics, 
+       if(exists("combined_site_ChaoiNext")){combined_site_ChaoiNext},
+       if(exists("combined_cont_ChaoiNext")){combined_cont_ChaoiNext},
+       if(exists("combined_global_ChaoiNext")){combined_global_ChaoiNext}) %>% 
     stats::setNames(c("Summary", "SiteOutput", "ContinentOutput", "GlobalOutput"))
   
   # Return the output 

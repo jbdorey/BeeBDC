@@ -1,3 +1,7 @@
+# Changes in version 1.3.1
+- Turn back on ggplot2 tests after update.
+- Fix issues with richness functions and vignette - name problems and make multi core functions run quietly
+
 # Changes in version 1.3.0
 - Updates `BeeBDC::flagAbsent()` to also check the *individualCount* count and flag those where *individualCount == 0*.
 - updated `BeeBDC::ColTypeR()` to include a bee-specific Darwin Core data standard using the new argument *standardFormat = "bee"*.

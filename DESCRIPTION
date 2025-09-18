@@ -1,6 +1,6 @@
 Package: BeeBDC
 Title: Occurrence Data Cleaning
-Version: 1.3.0
+Version: 1.3.1
 Authors@R: c(
     person("James B.", "Dorey", , "jbdorey@me.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-2721-3842")),
@@ -55,6 +55,7 @@ Suggests:
     emld,
     formatR,
     galah,
+    hexbin,
     htmltools,
     htmlwidgets,
     httr,
@@ -84,8 +85,6 @@ Suggests:
     tidyr,
     utils,
     xml2
-VignetteBuilder: 
-    knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-gb

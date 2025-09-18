@@ -52,6 +52,9 @@ library(tibble)
 old <- options()         # code line i 
 on.exit(options(old))      # code line i+1 
 options(mc.cores = parallel::detectCores())
+  # Load functions for testing
+#devtools::load_all(path = "/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/R")
+
 ```
 
 
@@ -302,7 +305,7 @@ Note as well that the `curveFunction` is the one generated from the Literature c
 
 ```{r diversityPrepping, tidy=FALSE}
   # Generate the R file
-estimateData <- BeeBDC::diversityPrepR(
+estimateData <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
     # Download the bee taxonomy. Download other taxonomies using BeeBDC::taxadbToBeeBDC()
   taxonomyFile = BeeBDC::beesTaxonomy(),

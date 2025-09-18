@@ -217,7 +217,7 @@ ggRichnessWrapper <- function(
     
     if(!is.null(iChao_in)){
       # Get the chao data for the current level
-      levelChao <- iChao_in$diversityTable %>%
+      levelChao <- iChao_in$richnessTable %>%
         dplyr::filter(variable == dataIn$DataInfo$Assemblage) %>%
         dplyr::filter(Name %>% stringr::str_squish() == Chao_estimate)
     }
@@ -358,7 +358,7 @@ ggRichnessWrapper <- function(
     
     if(!is.null(iChao_in)){
       # Get the chao data for the current level
-      levelChao <- iChao_in$diversityTable %>%
+      levelChao <- iChao_in$richnessTable %>%
         dplyr::filter(variable == dataIn$DataInfo$Assemblage) %>%
         dplyr::filter(Name %>% stringr::str_squish() == Chao_estimate)
     }

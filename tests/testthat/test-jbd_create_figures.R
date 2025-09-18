@@ -17,12 +17,12 @@ figuresP <-
 testthat::test_that("jbd_create_figures number of figures", {
   testthat::expect_equal(length(figuresP), 5)
 })
-    #   testthat::test_that("jbd_create_figures expected class", {
-    #     testthat::expect_type(figuresP, "list")
-    #   })
-    #   testthat::test_that("jbd_create_figures expected class", {
-    #     testthat::expect_type(figuresP[[1]], "object")
-    #   })
+   testthat::test_that("jbd_create_figures expected class", {
+     testthat::expect_type(figuresP, "list")
+   })
+   testthat::test_that("jbd_create_figures expected class", {
+     testthat::expect_type(figuresP[[1]], "object")
+   })
 
 
 
@@ -39,12 +39,12 @@ figuresS <-
 testthat::test_that("jbd_create_figures number of figures", {
   testthat::expect_equal(length(figuresS), 4)
 })
-    #   testthat::test_that("jbd_create_figures expected class", {
-    #     testthat::expect_type(figuresS, "list")
-    #   })
-    #   testthat::test_that("jbd_create_figures expected class", {
-    #     testthat::expect_type(figuresS[[1]], "object")
-    #   })
+   testthat::test_that("jbd_create_figures expected class", {
+     testthat::expect_type(figuresS, "list")
+   })
+   testthat::test_that("jbd_create_figures expected class", {
+     testthat::expect_type(figuresS[[1]], "object")
+   })
 
 #### 3.0 time ####
 figuresT <-
@@ -60,11 +60,11 @@ figuresT <-
 testthat::test_that("jbd_create_figures number of figures", {
   testthat::expect_equal(length(figuresT), 5)
 })
-    # testthat::test_that("jbd_create_figures expected class", {
-    #   testthat::expect_type(figuresT, "list")
-    # })
-    # testthat::test_that("jbd_create_figures expected class", {
-    #   testthat::expect_type(figuresT[[1]], "object")
-    # })
+ testthat::test_that("jbd_create_figures expected class", {
+   testthat::expect_type(figuresT, "list")
+ })
+ testthat::test_that("jbd_create_figures expected class", {
+   testthat::expect_type(figuresT[[1]], "object")
+ })
 
 
