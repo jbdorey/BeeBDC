@@ -10,7 +10,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 --- 
 
-# <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"/></a>
+# <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="400"/></a>
 
   
 ```{r libraryChunk, load-packages, include=FALSE}
@@ -238,10 +238,10 @@ output_iChaowrapper <- BeeBDC::ChaoWrapper(data = data_iChao,
 
 ```
 
-View the output with `output_iChaowrapper$diversityTable`.
+View the output with `output_iChaowrapper$richnessTable`.
 
 ```{r, outputTable4, echo=FALSE}
-kableExtra::kbl(output_iChaowrapper$diversityTable) %>%
+kableExtra::kbl(output_iChaowrapper$richnessTable) %>%
   kableExtra::kable_material(c("striped", "hover")) %>%
   kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
   kableExtra::scroll_box(height = "350px")
@@ -265,13 +265,14 @@ These are both easy and simple to use wrapper functions. However, the complexity
   dpi = 300))
 ```
 
+# <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-jWR5zXJ/0/LrL7mvcxFJRzd45BbDJbvm8SSn39H86sFzSZh8pP8/X4/i-jWR5zXJ-X4.jpg" alt="Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals." width="155"/></a>
 
-```{r echo = FALSE,  out.width="450px", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*"}
-suppressWarnings({
-knitr::include_graphics( normalizePath(
-                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), full.names = TRUE),
-                                          "/speciesRichnessPlots")]))
-})
+
+```{r echo = FALSE,  out.width="450px", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*", eval = FALSE}
+# suppressWarnings({
+# knitr::include_graphics( normalizePath(
+#                      list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), # full.names = TRUE), "/speciesRichnessPlots")]))
+# })
 
 ```
 
@@ -435,12 +436,12 @@ cowplot::save_plot(filename = paste0(tempdir(), "/violinPlot.pdf"),
                    base_height = 7)
 ```
 
-```{r echo = FALSE,  out.width="550", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*"}
-suppressWarnings({
-knitr::include_graphics( normalizePath(
-                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), full.names = TRUE),
-                                          "/violinPlot.pdf")]))
-})
+```{r echo = FALSE,  out.width="550", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*", eval = FALSE}
+#suppressWarnings({
+#knitr::include_graphics( normalizePath(
+#                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), #full.names = TRUE),
+#                                          "/violinPlot.pdf")]))
+#})
 
 ```
 
