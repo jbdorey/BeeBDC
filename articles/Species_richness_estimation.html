@@ -78,7 +78,7 @@
     
 <div class="section level2">
 <h2 id="section">
-<a href="https://github.com/jbdorey/BeeBDC" class="external-link"><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"></a><a class="anchor" aria-label="anchor" href="#section"></a>
+<a href="https://github.com/jbdorey/BeeBDC" class="external-link"><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="400"></a><a class="anchor" aria-label="anchor" href="#section"></a>
 </h2>
 <p>This is a basic workflow for feeding species occurrence data, a
 group’s taxonomy, and a group’s country checklist into BeeBDC in order
@@ -998,9 +998,752 @@ case, we can run all sites (or countries) at once!</p>
 <span>    k <span class="op">=</span> <span class="fl">10</span>, conf <span class="op">=</span> <span class="fl">0.95</span>, mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  - Outputs can be found in a list with two tibbles called 'basicTable' and 'richnessTable'.</span></span></code></pre>
 <p>View the output with
-<code>output_iChaowrapper$diversityTable</code>.</p>
+<code>output_iChaowrapper$richnessTable</code>.</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:350px; ">
-<table class="table  lightable-material lightable-striped lightable-hover table table-responsive" style='font-family: "Source Sans Pro", helvetica, sans-serif; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;'><tbody><tr></tr></tbody></table>
+<table class="table  lightable-material lightable-striped lightable-hover table table-responsive" style='font-family: "Source Sans Pro", helvetica, sans-serif; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead><tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+variable
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Name
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Estimate
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+s.e.
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+95%Lower
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+95%Upper
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+Homogeneous Model
+</td>
+<td style="text-align:right;">
+159.936
+</td>
+<td style="text-align:right;">
+8.471
+</td>
+<td style="text-align:right;">
+147.263
+</td>
+<td style="text-align:right;">
+181.402
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+Homogeneous (MLE)
+</td>
+<td style="text-align:right;">
+140.234
+</td>
+<td style="text-align:right;">
+3.957
+</td>
+<td style="text-align:right;">
+134.748
+</td>
+<td style="text-align:right;">
+150.959
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+Chao1 (Chao, 1984)
+</td>
+<td style="text-align:right;">
+186.854
+</td>
+<td style="text-align:right;">
+20.305
+</td>
+<td style="text-align:right;">
+158.664
+</td>
+<td style="text-align:right;">
+241.834
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+Chao1-bc
+</td>
+<td style="text-align:right;">
+183.879
+</td>
+<td style="text-align:right;">
+19.243
+</td>
+<td style="text-align:right;">
+157.155
+</td>
+<td style="text-align:right;">
+235.970
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iChao1 (Chiu et al. 2014)
+</td>
+<td style="text-align:right;">
+199.091
+</td>
+<td style="text-align:right;">
+12.645
+</td>
+<td style="text-align:right;">
+178.353
+</td>
+<td style="text-align:right;">
+228.541
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+ACE (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+183.240
+</td>
+<td style="text-align:right;">
+15.921
+</td>
+<td style="text-align:right;">
+159.876
+</td>
+<td style="text-align:right;">
+224.286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+ACE-1 (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+197.138
+</td>
+<td style="text-align:right;">
+22.684
+</td>
+<td style="text-align:right;">
+165.093
+</td>
+<td style="text-align:right;">
+257.634
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+1st order jackknife
+</td>
+<td style="text-align:right;">
+185.839
+</td>
+<td style="text-align:right;">
+10.654
+</td>
+<td style="text-align:right;">
+168.488
+</td>
+<td style="text-align:right;">
+210.814
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+2nd order jackknife
+</td>
+<td style="text-align:right;">
+214.754
+</td>
+<td style="text-align:right;">
+18.422
+</td>
+<td style="text-align:right;">
+185.553
+</td>
+<td style="text-align:right;">
+259.032
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+Homogeneous Model
+</td>
+<td style="text-align:right;">
+59.952
+</td>
+<td style="text-align:right;">
+7.062
+</td>
+<td style="text-align:right;">
+50.961
+</td>
+<td style="text-align:right;">
+80.554
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+Homogeneous (MLE)
+</td>
+<td style="text-align:right;">
+47.113
+</td>
+<td style="text-align:right;">
+2.032
+</td>
+<td style="text-align:right;">
+44.969
+</td>
+<td style="text-align:right;">
+54.004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+Chao1 (Chao, 1984)
+</td>
+<td style="text-align:right;">
+70.243
+</td>
+<td style="text-align:right;">
+14.659
+</td>
+<td style="text-align:right;">
+53.450
+</td>
+<td style="text-align:right;">
+116.878
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+Chao1-bc
+</td>
+<td style="text-align:right;">
+66.820
+</td>
+<td style="text-align:right;">
+12.672
+</td>
+<td style="text-align:right;">
+52.261
+</td>
+<td style="text-align:right;">
+107.041
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iChao1 (Chiu et al. 2014)
+</td>
+<td style="text-align:right;">
+76.243
+</td>
+<td style="text-align:right;">
+8.394
+</td>
+<td style="text-align:right;">
+63.519
+</td>
+<td style="text-align:right;">
+97.262
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+ACE (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+78.927
+</td>
+<td style="text-align:right;">
+16.764
+</td>
+<td style="text-align:right;">
+58.308
+</td>
+<td style="text-align:right;">
+129.256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+ACE-1 (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+95.184
+</td>
+<td style="text-align:right;">
+30.929
+</td>
+<td style="text-align:right;">
+61.149
+</td>
+<td style="text-align:right;">
+196.767
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+1st order jackknife
+</td>
+<td style="text-align:right;">
+66.820
+</td>
+<td style="text-align:right;">
+6.743
+</td>
+<td style="text-align:right;">
+56.944
+</td>
+<td style="text-align:right;">
+84.233
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+2nd order jackknife
+</td>
+<td style="text-align:right;">
+79.695
+</td>
+<td style="text-align:right;">
+11.623
+</td>
+<td style="text-align:right;">
+63.160
+</td>
+<td style="text-align:right;">
+110.499
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+Homogeneous Model
+</td>
+<td style="text-align:right;">
+17.182
+</td>
+<td style="text-align:right;">
+0.474
+</td>
+<td style="text-align:right;">
+17.011
+</td>
+<td style="text-align:right;">
+20.015
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+Homogeneous (MLE)
+</td>
+<td style="text-align:right;">
+17.000
+</td>
+<td style="text-align:right;">
+0.633
+</td>
+<td style="text-align:right;">
+17.000
+</td>
+<td style="text-align:right;">
+18.858
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+Chao1 (Chao, 1984)
+</td>
+<td style="text-align:right;">
+17.499
+</td>
+<td style="text-align:right;">
+1.322
+</td>
+<td style="text-align:right;">
+17.030
+</td>
+<td style="text-align:right;">
+25.434
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+Chao1-bc
+</td>
+<td style="text-align:right;">
+17.000
+</td>
+<td style="text-align:right;">
+0.633
+</td>
+<td style="text-align:right;">
+17.000
+</td>
+<td style="text-align:right;">
+18.858
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iChao1 (Chiu et al. 2014)
+</td>
+<td style="text-align:right;">
+17.624
+</td>
+<td style="text-align:right;">
+1.322
+</td>
+<td style="text-align:right;">
+17.048
+</td>
+<td style="text-align:right;">
+25.048
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+ACE (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+17.342
+</td>
+<td style="text-align:right;">
+0.775
+</td>
+<td style="text-align:right;">
+17.024
+</td>
+<td style="text-align:right;">
+21.788
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+ACE-1 (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+17.366
+</td>
+<td style="text-align:right;">
+0.835
+</td>
+<td style="text-align:right;">
+17.026
+</td>
+<td style="text-align:right;">
+22.168
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+1st order jackknife
+</td>
+<td style="text-align:right;">
+17.999
+</td>
+<td style="text-align:right;">
+1.413
+</td>
+<td style="text-align:right;">
+17.128
+</td>
+<td style="text-align:right;">
+24.796
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+2nd order jackknife
+</td>
+<td style="text-align:right;">
+18.000
+</td>
+<td style="text-align:right;">
+2.446
+</td>
+<td style="text-align:right;">
+17.065
+</td>
+<td style="text-align:right;">
+32.367
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+Homogeneous Model
+</td>
+<td style="text-align:right;">
+16.000
+</td>
+<td style="text-align:right;">
+12.450
+</td>
+<td style="text-align:right;">
+7.501
+</td>
+<td style="text-align:right;">
+72.612
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+Homogeneous (MLE)
+</td>
+<td style="text-align:right;">
+6.009
+</td>
+<td style="text-align:right;">
+0.096
+</td>
+<td style="text-align:right;">
+6.000
+</td>
+<td style="text-align:right;">
+6.644
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+Chao1 (Chao, 1984)
+</td>
+<td style="text-align:right;">
+13.795
+</td>
+<td style="text-align:right;">
+11.372
+</td>
+<td style="text-align:right;">
+6.961
+</td>
+<td style="text-align:right;">
+69.218
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+Chao1-bc
+</td>
+<td style="text-align:right;">
+8.923
+</td>
+<td style="text-align:right;">
+4.085
+</td>
+<td style="text-align:right;">
+6.380
+</td>
+<td style="text-align:right;">
+28.471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao1 (Chiu et al. 2014)
+</td>
+<td style="text-align:right;">
+13.795
+</td>
+<td style="text-align:right;">
+11.372
+</td>
+<td style="text-align:right;">
+6.961
+</td>
+<td style="text-align:right;">
+69.218
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+ACE (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+16.000
+</td>
+<td style="text-align:right;">
+12.450
+</td>
+<td style="text-align:right;">
+7.501
+</td>
+<td style="text-align:right;">
+72.612
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+ACE-1 (Chao &amp; Lee, 1992)
+</td>
+<td style="text-align:right;">
+16.000
+</td>
+<td style="text-align:right;">
+12.450
+</td>
+<td style="text-align:right;">
+7.501
+</td>
+<td style="text-align:right;">
+72.612
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+1st order jackknife
+</td>
+<td style="text-align:right;">
+9.897
+</td>
+<td style="text-align:right;">
+2.774
+</td>
+<td style="text-align:right;">
+7.111
+</td>
+<td style="text-align:right;">
+19.668
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+2nd order jackknife
+</td>
+<td style="text-align:right;">
+12.769
+</td>
+<td style="text-align:right;">
+4.734
+</td>
+<td style="text-align:right;">
+7.965
+</td>
+<td style="text-align:right;">
+29.318
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section level3">
@@ -1028,12 +1771,12 @@ estimates.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> Zambia    354              129       187         151         223</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 5 more variables: iNEXT_increasePercent &lt;dbl&gt;, iChao_est &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   iChao_lower &lt;dbl&gt;, iChao_upper &lt;dbl&gt;, iChao_increasePercent &lt;dbl&gt;</span></span></span></code></pre>
-<div class="figure">
-<embed src="/tmp/RtmpcclgZu/speciesRichnessPlots_Fiji_to_NA.pdf" title="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*" width="450px" height="500px" type="application/pdf"></embed><p class="caption">
-<em>Plots showing the rarefied iNext and non-parametric iChao estimates
-for four countries with 95% confidence intervals.</em>
-</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="section-1">
+<a href="https://github.com/jbdorey/BeeBDC" class="external-link"><img src="https://photos.smugmug.com/photos/i-jWR5zXJ/0/LrL7mvcxFJRzd45BbDJbvm8SSn39H86sFzSZh8pP8/X4/i-jWR5zXJ-X4.jpg" alt="Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals." width="155"></a><a class="anchor" aria-label="anchor" href="#section-1"></a>
+</h2>
 <p>Note that Fiji’s diversity seems to be reaching asymptote, but the
 remaining country’s species richnesses are still climbing. Vietnam in
 particular has a huge amount of uncertainty with the iChao estimates
@@ -1227,7 +1970,6 @@ quick and mass-estimation of species richness across sites or countries!
 The is the idea behind these improvements. But, we take this further
 below by also attempting to sample known taxa that are otherwise missing
 from our datasets!</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="estimating-richness-from-the-known-unknowns">Estimating richness from the known unknowns<a class="anchor" aria-label="anchor" href="#estimating-richness-from-the-known-unknowns"></a>
@@ -3993,12 +4735,6 @@ visualisations!</p>
 <span>                   plot <span class="op">=</span> <span class="va">violinPlot</span>,</span>
 <span>                   base_width <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>                   base_height <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<embed src="/tmp/RtmpcclgZu/violinPlot.pdf" title="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*" width="550" height="500px" type="application/pdf"></embed><p class="caption">
-<em>Plots showing the rarefied iNext and non-parametric iChao estimates
-for four countries with 95% confidence intervals.</em>
-</p>
-</div>
 <p>There are many ways to plot or analyse these kinds of data. The rest
 I will leave up to you! But, for more ideas, do feel free to check out
 the <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link">original
