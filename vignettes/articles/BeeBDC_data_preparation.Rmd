@@ -1,11 +1,11 @@
 ---
-title: "BeeBDC data prep."
+title: "BeeBDC data preparation"
 
 output:
    rmarkdown::html_vignette:
 
 vignette: >
-  %\VignetteIndexEntry{BeeBDC vignette}
+  %\VignetteIndexEntry{BeeBDC data preparation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 --- 

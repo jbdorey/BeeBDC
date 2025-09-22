@@ -28,7 +28,7 @@ navbar:
       -  text: "BeeBDC basic workflow"
          href: articles/basic_workflow.html
       -  text: "Bee-specific data preparation"
-         href: articles/dataPrep.html
+         href: articles/BeeBDC_data_preparation.html
     - icon: fas fa-arrow-up-right-dots
       text: "Species richness estimation"
       aria-label: Species richness estimation vignettes
