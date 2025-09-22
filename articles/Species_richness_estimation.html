@@ -1015,12 +1015,21 @@ wrapper functions by site. Not only does this functino save a plot that
 visualises the data (below), it also outputs a summary of the
 estimates.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot_summary</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ggRichnessWrapper.html">ggRichnessWrapper</a></span><span class="op">(</span>iNEXT_in <span class="op">=</span> <span class="va">output_iNEXTwrapper</span>, iChao_in <span class="op">=</span> <span class="va">output_iChaowrapper</span>,</span>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">plot_summary</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ggRichnessWrapper.html">ggRichnessWrapper</a></span><span class="op">(</span>iNEXT_in <span class="op">=</span> <span class="va">output_iNEXTwrapper</span>, iChao_in <span class="op">=</span> <span class="va">output_iChaowrapper</span>,</span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span>, labels <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"speciesRichnessPlots"</span>, outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    base_width <span class="op">=</span> <span class="fl">8.3</span>, base_height <span class="op">=</span> <span class="fl">11.7</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
+<span>    base_width <span class="op">=</span> <span class="fl">8.3</span>, base_height <span class="op">=</span> <span class="fl">11.7</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required namespace: cowplot</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 11</span></span></span>
+<span><span class="co">##   level       n observedRichness iNEXT_est iNEXT_lower iNEXT_upper</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Fiji      967               17        17          14          21</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Uganda    128               44        70          20         121</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Vietnam    39                6        14           2          26</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Zambia    354              129       187         151         223</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 5 more variables: iNEXT_increasePercent &lt;dbl&gt;, iChao_est &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   iChao_lower &lt;dbl&gt;, iChao_upper &lt;dbl&gt;, iChao_increasePercent &lt;dbl&gt;</span></span></span></code></pre>
 <div class="figure">
-<embed src="/tmp/RtmpXN9YEP/speciesRichnessPlots_Fiji_to_NA.pdf" title="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*" width="450px" height="500px" type="application/pdf"></embed><p class="caption">
+<embed src="/tmp/RtmpcclgZu/speciesRichnessPlots_Fiji_to_NA.pdf" title="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*" width="450px" height="500px" type="application/pdf"></embed><p class="caption">
 <em>Plots showing the rarefied iNext and non-parametric iChao estimates
 for four countries with 95% confidence intervals.</em>
 </p>
@@ -1263,11 +1272,11 @@ explore the input files or the output list of files for modifying your
 own and pay attention to match the column names.</p>
 <p>Note as well that the <code>curveFunction</code> is the one generated
 from the Literature curve above.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download the taxonomy and checklist files</span></span>
 <span><span class="va">taxonomyFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesTaxonomy.html">beesTaxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">checklistFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesChecklist.html">beesChecklist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Generate the R file</span></span>
 <span><span class="va">estimateData</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/richnessPrepR.html">richnessPrepR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beesCountrySubset</span>,</span>
@@ -1295,7 +1304,7 @@ estimated that many times. Let’s run our estimates at the country
 (<em>or site</em>) level ten times below, drawing sample sizes from the
 non-occurrence species each time (<em>capped at the maximum sample size
 for each country</em>).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estimates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/richnessEstimateR.html">richnessEstimateR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">estimateData</span>,</span>
 <span>  sampleSize <span class="op">=</span> <span class="fl">10000</span>,</span>
@@ -3930,7 +3939,7 @@ NA
 <p>Of course, these values are super helpful for papers on these topics.
 But similarly, we can easily make some further useful
 visualisations!</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To build the manual legend, make a small fake dataset</span></span>
 <span><span class="va">legendData</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yes"</span>,<span class="st">"yes"</span><span class="op">)</span>,</span>
 <span>                                              statistic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"iChao"</span>, <span class="st">"iNEXT"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -3951,7 +3960,7 @@ visualisations!</p>
 <span>   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">1</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span>, order <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot the countries </span></span>
-<span><span class="va">violinPlot</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">$</span><span class="va">SiteOutput</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">name</span>, y <span class="op">=</span> <span class="va">est</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="op">(</span><span class="va">violinPlot</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">$</span><span class="va">SiteOutput</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">name</span>, y <span class="op">=</span> <span class="va">est</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html" class="external-link">geom_violin</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"dodge"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">Name</span>, </span>
 <span>                                                                  y<span class="op">=</span><span class="va">`95%Lower`</span>, x<span class="op">=</span><span class="va">variable</span><span class="op">)</span>, </span>
 <span>                        colour <span class="op">=</span>  <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
@@ -3974,9 +3983,10 @@ visualisations!</p>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">ggdraw</a></span><span class="op">(</span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/get_legend.html" class="external-link">get_legend</a></span><span class="op">(</span><span class="va">violinLegend</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>                               <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="op">)</span>, xmin <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>                               ymin <span class="op">=</span> <span class="fl">350</span>, ymax <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co">## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time</span></span>
+<span>                               ymin <span class="op">=</span> <span class="fl">350</span>, ymax <span class="op">=</span> <span class="fl">500</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Species_richness_estimation_files/figure-html/visualiseEstimates-1.png" width="100%"></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co">## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time</span></span>
 <span></span>
 <span><span class="co"># Save the plot</span></span>
 <span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/save_plot.html" class="external-link">save_plot</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/violinPlot.pdf"</span><span class="op">)</span>,</span>
@@ -3984,7 +3994,7 @@ visualisations!</p>
 <span>                   base_width <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>                   base_height <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<embed src="/tmp/RtmpXN9YEP/violinPlot.pdf" title="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*" width="550" height="500px" type="application/pdf"></embed><p class="caption">
+<embed src="/tmp/RtmpcclgZu/violinPlot.pdf" title="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*" width="550" height="500px" type="application/pdf"></embed><p class="caption">
 <em>Plots showing the rarefied iNext and non-parametric iChao estimates
 for four countries with 95% confidence intervals.</em>
 </p>
