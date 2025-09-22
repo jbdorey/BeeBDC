@@ -21,13 +21,13 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/BeeBDC_data_preparation.html">Bee-specific data preparation</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation"><li><a class="dropdown-item" href="../articles/speciesRichness_example.html">BeeBDC richness estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation"><li><a class="dropdown-item" href="../articles/Species_richness_estimation.html">BeeBDC richness estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="https://jbdorey.github.io/BeeBDC/news/index.html"><span class="fa fas fa-newspaper"></span> News</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -48,7 +48,9 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.1" id="changes-in-version-131">Changes in version 1.3.1<a class="anchor" aria-label="anchor" href="#changes-in-version-131"></a></h2>
 <ul><li>Turn back on ggplot2 tests after update.</li>
-<li>Fix issues with richness functions and vignette - name problems and make multi core functions run quietly</li>
+<li>Fix issues with richness functions and vignette - name problems and make multi core functions run quietly.</li>
+<li>Small changes to <code>BeeBDC::BeesTaxonomy()</code> and <code>BeeBDC::BeesChecklist()</code> to allow users to choose their download method.</li>
+<li>Fixes for the richness estimation vignette where the download would not work within a markdown environment.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.0" id="changes-in-version-130">Changes in version 1.3.0<a class="anchor" aria-label="anchor" href="#changes-in-version-130"></a></h2><p class="text-muted">CRAN release: 2025-08-23</p>
