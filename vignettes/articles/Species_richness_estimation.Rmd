@@ -252,7 +252,7 @@ kableExtra::kbl(output_iChaowrapper$diversityTable) %>%
 These are both easy and simple to use wrapper functions. However, the complexity of the output data types can actually be a little bit confusing to work with. Especially if you want to visualise those data. So, we also provide the function, `BeeBDC::ggRichnessWrapper()` to display the results of both wrapper functions by site. Not only does this functino save a plot that visualises the data (below), it also outputs a summary of the estimates.
 
 ```{r visualiseWrappers}
-plot_summary <- BeeBDC::ggRichnessWrapper(
+(plot_summary <- BeeBDC::ggRichnessWrapper(
   iNEXT_in = output_iNEXTwrapper,
   iChao_in = output_iChaowrapper,
   nrow = 2,
@@ -262,7 +262,7 @@ plot_summary <- BeeBDC::ggRichnessWrapper(
   outPath = tempdir(),
   base_width = 8.3,
   base_height = 11.7, 
-  dpi = 300)
+  dpi = 300))
 ```
 
 
@@ -401,7 +401,7 @@ violinLegend <- ggplot2::ggplot(legendData, ggplot2::aes(x = name, y = est)) +
    ggplot2::guides(fill = ggplot2::guide_legend(ncol = 1, byrow = TRUE, reverse = TRUE, order = 1))
 
 # plot the countries 
-violinPlot <- ggplot2::ggplot(estimates$SiteOutput, ggplot2::aes(x = name, y = est)) + 
+(violinPlot <- ggplot2::ggplot(estimates$SiteOutput, ggplot2::aes(x = name, y = est)) + 
    ggplot2::geom_violin(position="dodge", alpha=0.5, ggplot2::aes(fill=Name, 
                                                                   y=`95%Lower`, x=variable), 
                         colour =  NA) +
@@ -424,7 +424,7 @@ violinPlot <- ggplot2::ggplot(estimates$SiteOutput, ggplot2::aes(x = name, y = e
   ggplot2::xlab(c( "")) + ggplot2::ylab(c("Species"))  +
   ggplot2::annotation_custom(cowplot::ggdraw(cowplot::get_legend(violinLegend)) %>%
                                ggplot2::ggplotGrob(), xmin = 1, xmax = 1, 
-                               ymin = 350, ymax = 500)
+                               ymin = 350, ymax = 500))
 
   ## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time
 
