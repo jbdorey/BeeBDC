@@ -46,7 +46,7 @@ library(kableExtra)
 library(tibble)
 
   # For the sake of making this vignette in the early days, read in the source files 
-#devtools::load_all("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC")
+devtools::load_all("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC")
 
 # Dont detect cores to avoid GitHbub error
 old <- options()         # code line i 
@@ -303,14 +303,36 @@ Let's dig in... To start with, we will *make an R object* using our occurrence d
 
 Note as well that the `curveFunction` is the one generated from the Literature curve above.
 
-```{r diversityPrepping, tidy=FALSE}
+
+```{r secretDownload, include=FALSE}
+#  # Secretly read in the taxonomy and checklist files because rmarkdown can't handle it
+curl::curl_download(
+  url = "https://open.flinders.edu.au/ndownloader/files/47089969",
+  destfile = paste0(tempdir(), "/beesTaxonomy.Rda"))
+taxonomyFile <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda"))
+
+curl::curl_download(
+  url = "https://figshare.com/ndownloader/files/47092720",
+  destfile = paste0(tempdir(), "/beesChecklist.Rda"))
+checklistFile <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda"))
+```
+
+
+```{r secretDownload2, include=TRUE, eval = FALSE}
+  # Download the taxonomy and checklist files
+taxonomyFile <- BeeBDC::beesTaxonomy()
+checklistFile <- BeeBDC::beesChecklist()
+```
+
+
+```{r diversityPrepping, tidy=FALSE, message=TRUE, warning=TRUE}
   # Generate the R file
 estimateData <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
     # Download the bee taxonomy. Download other taxonomies using BeeBDC::taxadbToBeeBDC()
-  taxonomyFile = BeeBDC::beesTaxonomy(),
+  taxonomyFile = taxonomyFile,
     # Download the bee country checklist. See notes above about making a checklist for other taxa
-  checklistFile = BeeBDC::beesChecklist(),
+  checklistFile = checklistFile,
   curveFunction = function(x) (228.7531 * x * x^-log(12.1593)),
   sampleSize = 10000,
   countryColumn = "country_suggested"

@@ -51,6 +51,7 @@ Suggests:
     classInt,
     ComplexHeatmap,
     countrycode,
+    curl,
     devtools,
     emld,
     formatR,

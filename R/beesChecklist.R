@@ -16,6 +16,13 @@
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
+#' @param destfile a character string (or vector, see the url argument) with the file path where 
+#' the downloaded file is to be saved. Tilde-expansion is performed. If NULL (default), then destfile
+#' is set as `paste0(tempdir(), "/beesChecklist.Rda")` (normalizePath for Windows).
+#' @param method The method to be used for downloading files. Current download methods are 
+#' "internal", "libcurl", "wget", "curl" and "wininet" (Windows only), and there is a value 
+#' "auto": see ‘Details’ and ‘Note’. The method can also be set through the option 
+#' "download.file.method": see options(). description
 #' @param ... Extra variables that can be passed to [utils::download.file()]
 #' 
 #' @return A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
@@ -82,6 +89,7 @@
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
 beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/47092720",
+                          destfile = NULL, method = "auto",
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   
@@ -90,10 +98,10 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/47092720
     
     # Set up the error message function
   error_func <- function(e){
-    message(paste("Download attempt failed..."))
+    message(paste("Checklist download attempt failed..."))
   }
   error_funcFile <- function(e){
-    message(paste("Could not read download..."))
+    message(paste("Could not read checklist download..."))
   }
   
     # Check operating system
@@ -111,9 +119,15 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/47092720
         
   # WINDOWS
         if(OS != "MacLinux"){
+            # Set destfile if it's not provided by user
+          if(is.null(destfile)){
+          destfile <- normalizePath(paste0(tempdir(),
+                               "/beesChecklist.Rda"))}
       # Download the file
-      tryCatch(utils::download.file(URL, destfile = normalizePath(paste0(tempdir(),
-                                                                         "/beesChecklist.Rda"))),
+      tryCatch(utils::download.file(URL, 
+                                    destfile = destfile,
+                                    method = method,
+                                    ...),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
@@ -121,8 +135,14 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/47092720
         error = error_funcFile, warning = error_funcFile)
         }else{
   # MAC OR LINUX
+          
+          # Set destfile if it's not provided by user
+          if(is.null(destfile)){
+            destfile <- paste0(tempdir(), "/beesChecklist.Rda")}
           # Download the file
-          tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesChecklist.Rda")),
+          tryCatch(utils::download.file(URL, destfile = destfile,
+                                        method = method,
+                                        ...),
                    error = error_func, warning = error_func)
           # Load the file 
           tryCatch(

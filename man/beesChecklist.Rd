@@ -4,11 +4,25 @@
 \alias{beesChecklist}
 \title{Download a country-level checklist of bees from Discover Life}
 \usage{
-beesChecklist(URL = "https://figshare.com/ndownloader/files/47092720", ...)
+beesChecklist(
+  URL = "https://figshare.com/ndownloader/files/47092720",
+  destfile = NULL,
+  method = "auto",
+  ...
+)
 }
 \arguments{
 \item{URL}{A character vector to the FigShare location of the dataset. The default will be to
 the most-recent version.}
+
+\item{destfile}{a character string (or vector, see the url argument) with the file path where
+the downloaded file is to be saved. Tilde-expansion is performed. If NULL (default), then destfile
+is set as \code{paste0(tempdir(), "/beesChecklist.Rda")} (normalizePath for Windows).}
+
+\item{method}{The method to be used for downloading files. Current download methods are
+"internal", "libcurl", "wget", "curl" and "wininet" (Windows only), and there is a value
+"auto": see ‘Details’ and ‘Note’. The method can also be set through the option
+"download.file.method": see options(). description}
 
 \item{...}{Extra variables that can be passed to \code{\link[utils:download.file]{utils::download.file()}}}
 }

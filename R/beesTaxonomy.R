@@ -66,6 +66,13 @@
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
+#' @param destfile a character string (or vector, see the url argument) with the file path where 
+#' the downloaded file is to be saved. Tilde-expansion is performed. If NULL (default), then destfile
+#' is set as `paste0(tempdir(), "/beesTaxonomy.Rda")` (normalizePath for Windows).
+#' @param method The method to be used for downloading files. Current download methods are 
+#' "internal", "libcurl", "wget", "curl" and "wininet" (Windows only), and there is a value 
+#' "auto": see ‘Details’ and ‘Note’. The method can also be set through the option 
+#' "download.file.method": see options(). description
 #' @param ... Extra variables that can be passed to [utils::download.file()]
 #'
 #'
@@ -94,6 +101,7 @@
 #' 
 #'
 beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/47089969",
+                         destfile = NULL, method = "auto",
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
 
@@ -102,10 +110,10 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/4
   
   # Set up the error message function
   error_func <- function(e){
-    message(paste("Download attempt failed..."))
+    message(paste("Taxonomy download attempt failed..."))
   }
   error_funcFile <- function(e){
-    message(paste("Could not read download..."))
+    message(paste("Could not read taxonomy download..."))
   }
   # Check operating system
   OS <- dplyr::if_else(.Platform$OS.type == "unix",
@@ -123,17 +131,28 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/4
       
 # WINDOWS
       if(OS != "MacLinux"){
+        # Set destfile if it's not provided by user
+        if(is.null(destfile)){
+          destfile <- normalizePath(paste0(tempdir(),
+                                           "/beesTaxonomy.Rda"))}
     # Download the file to the outPath 
-    tryCatch(utils::download.file(URL, destfile = normalizePath(paste0(tempdir(), 
-                                                                       "/beesTaxonomy.Rda"))),
+    tryCatch(utils::download.file(URL, destfile = destfile,
+                                  method = method,
+                                  ...),
         error = error_func, warning = error_func)
     # Load the file from the outPath
       tryCatch(
     taxonomy <- base::readRDS(normalizePath(paste0(tempdir(), "/beesTaxonomy.Rda"))),
     error = error_funcFile, warning = error_funcFile)
       }else{
+        
+        # Set destfile if it's not provided by user
+        if(is.null(destfile)){
+          destfile <- paste0(tempdir(), "/beesTaxonomy.Rda")}
         # Download the file to the outPath 
-        tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
+        tryCatch(utils::download.file(URL, destfile = destfile,
+                                      method = method,
+                                      ...),
                  error = error_func, warning = error_func)
         # Load the file from the outPath
         tryCatch(
