@@ -34,11 +34,11 @@ navbar:
       aria-label: Species richness estimation vignettes
       menu:
       -  text: "BeeBDC richness estimation"
-         href: articles/speciesRichness_example.html
+         href: articles/Species_richness_estimation.html
       -  text: "  1.0 Parallel estimation"
-         href: articles/speciesRichness_example.html#Parallel-estimations
+         href: articles/Species_richness_estimation.html#Parallel-estimations
       -  text: "  2.0 Estimation with checklists"
-         href: articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns
+         href: articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns
     - icon: fas fa-newspaper
       text: "News"
       href: https://jbdorey.github.io/BeeBDC/news/index.html
