@@ -138,6 +138,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/4
     # Download the file to the outPath 
     tryCatch(utils::download.file(URL, destfile = destfile,
                                   method = method,
+                                  mode="wb",
                                   ...),
         error = error_func, warning = error_func)
     # Load the file from the outPath

@@ -127,6 +127,7 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/47092720
       tryCatch(utils::download.file(URL, 
                                     destfile = destfile,
                                     method = method,
+                                    mode="wb",
                                     ...),
           error = error_func, warning = error_func)
       # Load the file 
