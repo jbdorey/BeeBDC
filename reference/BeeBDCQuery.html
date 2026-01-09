@@ -9,7 +9,7 @@ country occurrences."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,15 +21,15 @@ country occurrences."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_data_preparation.html">Bee-specific data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation"><li><a class="dropdown-item" href="../articles/Species_richness_estimation.html">BeeBDC richness estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation"><li><a class="dropdown-item" href="../articles/speciesRichness_example.html">BeeBDC richness estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="https://jbdorey.github.io/BeeBDC/news/index.html"><span class="fa fas fa-newspaper"></span> News</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -44,7 +44,7 @@ country occurrences."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Query the bee taxonomy and country checklist</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/BeeBDCQuery.R" class="external-link"><code>R/BeeBDCQuery.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/R/BeeBDCQuery.R" class="external-link"><code>R/BeeBDCQuery.R</code></a></small>
       <div class="d-none name"><code>BeeBDCQuery.Rd</code></div>
     </div>
 
@@ -111,14 +111,7 @@ is TRUE, then 'checklistReport' will also be returned.</p>
 <span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  beesTaxonomy <span class="op">=</span> <span class="va">testTaxonomy</span>,</span></span>
 <span class="r-in"><span>  beesChecklist <span class="op">=</span> <span class="va">testChecklist</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting taxonomy report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lasioglossum bicingulatum is an accpeted name with the taxon id number 30809.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Lasioglossum bicingulatum' has the synonyms: </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting checklist report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Australia</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The output will be returned as a list with the elements: 'taxonomyReport', 'SynonymReport', and 'checklistReport'. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> These can be accessed using 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or 'output'$failedReport.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in BeeBDCQuery(beeName = "Lasioglossum bicingulatum", searchChecklist = TRUE,     printAllSynonyms = TRUE, beesTaxonomy = testTaxonomy, beesChecklist = testChecklist):</span> could not find function "BeeBDCQuery"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Multiple entry example</span></span></span>
 <span class="r-in"><span><span class="va">testQuery</span> <span class="op">&lt;-</span> <span class="fu">BeeBDCQuery</span><span class="op">(</span></span></span>
@@ -128,41 +121,11 @@ is TRUE, then 'checklistReport' will also be returned.</p>
 <span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  beesTaxonomy <span class="op">=</span> <span class="va">testTaxonomy</span>,</span></span>
 <span class="r-in"><span>  beesChecklist <span class="op">=</span> <span class="va">testChecklist</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting taxonomy report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lasioglossum bicingulatum is an accpeted name with the taxon id number 30809.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nomada flavopicta is an accpeted name with the taxon id number 16654.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Lasioglossum bicingulatum' has the synonyms: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Nomada flavopicta' has the synonyms: </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting checklist report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Australia</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Nomada flavopicta (Kirby, 1802) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Austria, Azerbaijan, Belarus, Brussels, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Georgia, Germany, Greece, Greenland, Guernsey, Hungary, Iran, Italy, Jersey, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Netherlands, Norway, Poland, Romania, Russian Federation, Slovakia, Slovenia, Spain, Sweden, Switzerland, Tajikistan, Turkey, Ukraine, Uzbekistan, United Kingdom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The output will be returned as a list with the elements: 'taxonomyReport', 'SynonymReport', and 'checklistReport'. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> These can be accessed using 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or 'output'$failedReport.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in BeeBDCQuery(beeName = c("Lasioglossum bicingulatum", "Nomada flavopicta",     "Lasioglossum fijiense (Perkins and Cheesman, 1928)"), searchChecklist = TRUE,     printAllSynonyms = TRUE, beesTaxonomy = testTaxonomy, beesChecklist = testChecklist):</span> could not find function "BeeBDCQuery"</span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>    <span class="co"># Example way to examine a report from the output list</span></span></span>
 <span class="r-in"><span>  <span class="va">testQuery</span><span class="op">$</span><span class="va">checklistReport</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 42 × 24</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    validName            DiscoverLife_name rNaturalEarth_name shortName continent</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Lasioglossum bicing… Australia         Australia          Australia Oceania  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nomada flavopicta (… Austria           Austria            Austria   Europe   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nomada flavopicta (… Azerbaijan        Azerbaijan         Azerbaij… Asia     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nomada flavopicta (… Belarus           Belarus            Belarus   Europe   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nomada flavopicta (… Belgium           Brussels           Belgium   <span style="color: #BB0000;">NA</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nomada flavopicta (… Bulgaria          Bulgaria           Bulgaria  Europe   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nomada flavopicta (… Croatia           Croatia            Croatia   Europe   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nomada flavopicta (… Czechia           Czech Republic     Czechia   Europe   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nomada flavopicta (… Denmark           Denmark            Denmark   Europe   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nomada flavopicta (… Estonia           Estonia            Estonia   Europe   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 32 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 19 more variables: DiscoverLife_ISO &lt;chr&gt;, `Alpha-2` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   iso_a3_eh &lt;chr&gt;, official &lt;chr&gt;, Source &lt;chr&gt;, matchCertainty &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   canonical &lt;chr&gt;, canonical_withFlags &lt;chr&gt;, family &lt;chr&gt;, subfamily &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   genus &lt;chr&gt;, subgenus &lt;lgl&gt;, specificEpithet &lt;chr&gt;, species &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   infraspecies &lt;chr&gt;, scientificNameAuthorship &lt;chr&gt;, taxon_rank &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   Notes &lt;chr&gt;, name &lt;chr&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'testQuery' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -177,7 +140,7 @@ is TRUE, then 'checklistReport' will also be returned.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

@@ -1,0 +1,66 @@
+# Download occurrence data from the Atlas of Living Australia (ALA)
+
+Downloads ALA data and creates a new file in the path to put those data.
+This function can also request downloads from other atlases (see:
+http://galah.ala.org.au/articles/choosing_an_atlas.html). However, it
+will only send the download to your email and you must do the rest
+yourself at this point.
+
+## Usage
+
+``` r
+atlasDownloader(
+  path,
+  userEmail = NULL,
+  ALA_taxon,
+  DL_reason = 4,
+  atlas = "ALA"
+)
+```
+
+## Arguments
+
+- path:
+
+  A character directory. The path to a folder where the download will be
+  stored.
+
+- userEmail:
+
+  A character string. The email used associated with the user’s ALA
+  account; user must make an ALA account to download data.
+
+- ALA_taxon:
+
+  A character string. The taxon to download from ALA. Uses
+  [`galah::galah_identify()`](https://galah.ala.org.au/R/reference/identify.data_request.html)
+
+- DL_reason:
+
+  Numeric. The reason for data download according to
+  [`galah::galah_config()`](https://galah.ala.org.au/R/reference/galah_config.html)
+
+- atlas:
+
+  Character. The atlas to download occurrence data from - see here
+  https://galah.ala.org.au/R/articles/choosing_an_atlas.html for
+  details. Note: the default is "ALA" and is probably the only atlas
+  which will work seamlessly with the rest of the workflow. However,
+  different atlases can still be downloaded and a doi will be sent to
+  your email.
+
+## Value
+
+Completes an ALA data download and saves those data to the path
+provided.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+atlasDownloader(path = DataPath,
+               userEmail = "InsertYourEmail",
+               ALA_taxon = "Apiformes",
+               DL_reason = 4)
+               } # }
+```

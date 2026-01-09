@@ -1,0 +1,754 @@
+# BeeBDC data prep.
+
+## [![BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America](https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png)](https://github.com/jbdorey/BeeBDC)
+
+## 0.0 Script preparation
+
+### 0.1 Working directory
+
+To start off with, have a think about where you want to work from.
+**BeeBDC** and **bdc** can create quite a few files and so setting this
+up well from the start is a good idea. If you are afraid that you might
+run out of storage, this could also be on a hard drive; but you can
+always change that later. Defining your RootPath at the top of your
+script, only once, shoudl make your life easier.
+
+Choose the path to the root folder in which all other folders can be
+found.
+
+``` r
+RootPath <- paste0("/your/path/here")
+```
+
+``` r
+# Create the working directory in the RootPath if it doesn't exist already
+if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
+    dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
+}
+# Set the working directory
+setwd(paste0(RootPath, "/Data_acquisition_workflow"))
+```
+
+### 0.2 Install packages (if needed)
+
+> #### Is this your first time using the *sf* or *terra* packages?
+>
+> The first time that you use **terra** or **sf** on a new computer you
+> may need to install some dependencies. Try to install the **terra**
+> and **sf** packages first but then come back here if that doesn’t
+> work.
+>
+> ###### Windows:
+>
+> On **Windows**, you need to first install
+> [Rtools](https://cran.r-project.org/bin/windows/Rtools/) to get a C++
+> compiler that **R** can use. You need a recent version of **Rtools42**
+> (rtools42-5355-5357).
+>
+> ###### MacOS:
+>
+> On **macOS**, you can use [MacPorts](https://www.macports.org/) or
+> [Homebrew](https://brew.sh/).
+>
+> With **MacPorts** you can do
+>
+> `sudo port install R-terra`
+>
+> With **Homebrew**, you need to first install GDAL:
+>
+> `brew install pkg-config`
+>
+> `brew install gdal`
+>
+> Followed by (note the additional configuration argument needed for
+> Homebrew)
+>
+> ``` r
+> # Install terra
+> install.packages("terra", type = "source", configure.args = "--with-proj-lib=$(brew --prefix)/lib/")
+> # install sf
+> install.packages("sf", type = "source", configure.args = "--with-proj-lib=$(brew --prefix)/lib/")
+>
+> library(terra)
+> library(sf)
+> ```
+
+If you have **sf** and **terra** isntalled, you can now install
+**BeeBDC**.
+
+``` r
+install.packages("BeeBDC")
+library(BeeBDC)
+```
+
+**BeeBDC** also has a few optional packages that are required for a
+subset of the functions. You don’t need to isntall these now, if you
+don’t want to, but you can do so later!
+
+You can optionally install **BiocManager**, **devtools**,
+**ComplexHeatmap**, **rnaturalearthhires**, and **taxadb** or do it
+later as you wish.
+
+``` r
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager", repos = "http://cran.us.r-project.org")
+
+BiocManager::install("ComplexHeatmap")
+```
+
+``` r
+# Install remotes if needed
+if (!require("remotes", quietly = TRUE)) install.packages("remotes", repos = "http://cran.us.r-project.org")
+# Download and then load rnaturalearthhires
+remotes::install_github("ropensci/rnaturalearthhires")
+install.packages("rnaturalearthhires", repos = "https://ropensci.r-universe.dev",
+    type = "source")
+library(rnaturalearthhires)
+```
+
+``` r
+install.packages("taxadb")
+```
+
+Set up the directories used by **BeeBDC**. These directories include
+where the data, figures, reports, etc. will be saved. The RDoc needs to
+be a path RELATIVE to the RootPath; i.e., the file path from which the
+two diverge.
+
+``` r
+BeeBDC::dirMaker(RootPath = RootPath, RDoc = "vignettes/BeeBDC_main.Rmd") %>%
+    # Add paths created by this function to the environment()
+list2env(envir = parent.env(environment()))
+```
+
+### 0.3 Load packages
+
+Let’s go ahead and load our packages before we start!
+
+``` r
+lapply(c("ComplexHeatmap", "magrittr"), library, character.only = TRUE)
+## Loading required package: grid
+## 
+## Attaching package: 'grid'
+## The following object is masked from 'package:terra':
+## 
+##     depth
+## ========================================
+## ComplexHeatmap version 2.26.0
+## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
+## Github page: https://github.com/jokergoo/ComplexHeatmap
+## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
+## 
+## If you use it in published research, please cite either one:
+## - Gu, Z. Complex Heatmap Visualization. iMeta 2022.
+## - Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
+##     genomic data. Bioinformatics 2016.
+## 
+## 
+## The new InteractiveComplexHeatmap package can directly export static 
+## complex heatmaps into an interactive Shiny app with zero effort. Have a try!
+## 
+## This message can be suppressed by:
+##   suppressPackageStartupMessages(library(ComplexHeatmap))
+## ========================================
+## 
+## Attaching package: 'ComplexHeatmap'
+## The following object is masked from 'package:terra':
+## 
+##     draw
+## The following object is masked from 'package:R.utils':
+## 
+##     draw
+```
+
+------------------------------------------------------------------------
+
+## 1.0 Data merge
+
+**Attention:**  
+Although each line of code has been validated, in order to save time
+knitting the R **markdown** document the next section is display only.
+If you are not data merging (section 1.0) or preparing the data (section
+2.0), feel free to skip to Section 3.0 Initial flags.
+
+### 1.1 Download ALA data
+
+If you’re interested in using data from the *Atlas of Living Australia
+(ALA)* or one of the other Atlas repositories, you can use
+[`BeeBDC::atlasDownloader()`](https://jbdorey.github.io/BeeBDC/reference/atlasDownloader.md)
+below to access and download those files and their metadata easily
+enough. You may, however, need to ensure that you have an account that
+you can link to the download. Especially fo the sake of a doi.
+
+To make an account with ALA in order to download your data visit this
+link — <https://auth.ala.org.au/userdetails/registration/createAccount>
+
+      BeeBDC::atlasDownloader(path = DataPath,
+               userEmail = "your@email.edu.au",
+               atlas = "ALA",
+               ALA_taxon = "Apiformes")
+
+### 1.2 Import and merge ALA, SCAN, iDigBio, and GBIF data
+
+If you are planning on combining data from ALA, SCAN, iDigBio, and/or
+GBIF,
+[`BeeBDC::repoMerge()`](https://jbdorey.github.io/BeeBDC/reference/repoMerge.md)
+is a handy function that should help you with this and help you to
+extract all of the metadata and citations that you need. Remember, that
+the main workflow only needs a nice Darwin Core-formatted dataset with
+which to work!
+
+Supply the path to where the data are, the save_type is either
+“csv_files” or “R_file”.
+
+      DataImp <- BeeBDC::repoMerge(path = DataPath, 
+                      occ_paths = BeeBDC::repoFinder(path = DataPath),
+                      save_type = "R_file")
+
+If there is an error in finding a file, run
+[`repoFinder()`](https://jbdorey.github.io/BeeBDC/reference/repoFinder.md)
+by itself to troubleshoot. For example:
+
+                #BeeBDC::repoFinder(path = DataPath)
+                #OUTPUT:
+                #$ALA_data
+                #[1] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/ALA_galah_path/galah_download_2022-09-15/data.csv"
+      
+                #$GBIF_data
+                #[1] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/GBIF_webDL_30Aug2022/0000165-220831081235567/occurrence.txt"
+                #[2] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/GBIF_webDL_30Aug2022/0436695-210914110416597/occurrence.txt"
+                #[3] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/GBIF_webDL_30Aug2022/0436697-210914110416597/occurrence.txt"
+                #[4] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/GBIF_webDL_30Aug2022/0436704-210914110416597/occurrence.txt"
+                #[5] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/GBIF_webDL_30Aug2022/0436732-210914110416597/occurrence.txt"
+                #[6] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/GBIF_webDL_30Aug2022/0436733-210914110416597/occurrence.txt"
+                #[7] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/GBIF_webDL_30Aug2022/0436734-210914110416597/occurrence.txt"
+                        
+                #$iDigBio_data
+                #[1] "F:/BeeDataCleaning2022/BeeDataCleaning/BeeDataCleaning/BeeData/iDigBio_webDL_30Aug2022/5aa5abe1-62e0-4d8c-bebf-4ac13bd9e56f/occurrence_raw.csv"
+      
+                #$SCAN_data
+                #character(0)
+                #Failing because SCAN_data seems to be missing. Downloaded separatly from the one drive
+
+Load in the most-recent version of these data if needed. This will
+return a list with:
+
+1.  The occurrence dataset with attributes (.\$Data_WebDL)
+
+2.  The appended eml file (.\$eml_files)
+
+        DataImp <- BeeBDC::importOccurrences(path = DataPath,
+                               fileName = "BeeData_")
+
+### 1.3 Import USGS Data
+
+The [USGS **Bee**
+Lab](https://www.usgs.gov/centers/eesc/science/usgs-bee-lab-eastern-ecological-science-center)
+makes a large and excellent bee dataset publicly available. You can
+download, integrate, and use their data from our 2023 paper using the
+[`BeeBDC::USGS_formatter()`](https://jbdorey.github.io/BeeBDC/reference/USGS_formatter.md)
+function.
+
+The
+[`BeeBDC::USGS_formatter()`](https://jbdorey.github.io/BeeBDC/reference/USGS_formatter.md)
+will find, import, format, and create metadata for the USGS dataset. The
+pubDate must be in day-month-year format.
+
+      USGS_data <- BeeBDC::USGS_formatter(path = DataPath, pubDate = "19-11-2022")
+
+### 1.4 Formatted Source Importer
+
+Use this importer to find files that have been formatted and need to be
+added to the larger data file.
+
+The attributes file must contain “attribute” in its name, and the
+occurrence file must not.
+
+      Complete_data <- BeeBDC::formattedCombiner(path = DataPath, 
+                                    strings = c("USGS_[a-zA-Z_]+[0-9]{4}-[0-9]{2}-[0-9]{2}"), 
+                                      # This should be the list-format with eml attached
+                                    existingOccurrences = DataImp$Data_WebDL,
+                                    existingEMLs = DataImp$eml_files) 
+
+In the column *catalogNumber*, remove “.\*specimennumber:” as what comes
+after should be the USGS number to match for duplicates.
+
+      Complete_data$Data_WebDL <- Complete_data$Data_WebDL %>%
+        dplyr::mutate(catalogNumber = stringr::str_replace(catalogNumber,
+                                                           pattern = ".*\\| specimennumber:",
+                                                           replacement = ""))
+      
+
+### 1.5 Save data
+
+Choose the type of data format you want to use in saving your work in
+1.x.
+
+      BeeBDC::dataSaver(path = DataPath,# The main path to look for data in
+           save_type = "CSV_file", # "R_file" OR "CSV_file"
+           occurrences = Complete_data$Data_WebDL, # The existing datasheet
+           eml_files = Complete_data$eml_files, # The existing EML files
+           file_prefix = "Fin_") # The prefix for the fileNames
+    rm(Complete_data, DataImp)
+
+## 2.0 Data preparation
+
+The data preparation section of the script relates mostly to integrating
+**bee** occurrence datasets and corrections and so may be skipped by
+many general taxon users.
+
+### 2.1 Standardise datasets
+
+You may either use:
+
+- 1.  the bdc import method (works well with general datasets) ***or***
+- 2.  the jbd import method (works well with above data merge)
+
+#### a. bdc import
+
+The bdc import is **NOT** truly supported here, but provided as an
+example. Please go to section 2.1b below. Read in the **bdc** metadata
+and standardise the dataset to bdc.
+
+            bdc_metadata <- readr::read_csv(paste(DataPath, "out_file", "bdc_integration.csv", sep = "/"))
+            # ?issue — datasetName is a darwinCore field already!
+            # Standardise the dataset to bdc
+            db_standardized <- bdc::bdc_standardize_datasets(
+              metadata = bdc_metadata,
+              format = "csv",
+              overwrite = TRUE,
+              save_database = TRUE)
+            # read in configuration description file of the column header info
+            config_description <- readr::read_csv(paste(DataPath, "Output", "bdc_configDesc.csv",
+                                                        sep = "/"), 
+                                                  show_col_types = FALSE, trim_ws = TRUE)
+      
+
+#### b. jbd import
+
+Find the path, read in the file, and add the *database_id* column.
+
+      occPath <- BeeBDC::fileFinder(path = DataPath, fileName = "Fin_BeeData_combined_")
+
+
+      db_standardized <- readr::read_csv(occPath, 
+                                           # Use the basic ColTypeR function to determine types
+                                         col_types = BeeBDC::ColTypeR(), trim_ws = TRUE) %>%
+                                         dplyr::mutate(database_id = paste("Dorey_data_", 
+                                         1:nrow(.), sep = ""),
+                                         .before = family)
+
+### 2.2 Paige dataset
+
+Paige Chesshire’s cleaned American dataset —
+<https://doi.org/10.1111/ecog.06584>
+
+#### Import data
+
+If you haven’t figured it out by now, don’t worry about the column name
+warning — not all columns occur here.
+
+      PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
+                                        sep = "/"), col_types = BeeBDC::ColTypeR()) %>%
+         # Change the column name from Source to dataSource to match the rest of the data.
+        dplyr::rename(dataSource = Source) %>%
+         # EXTRACT WAS HERE
+          # add a NEW database_id column
+        dplyr::mutate(
+          database_id = paste0("Paige_data_", 1:nrow(.)),
+          .before = scientificName)
+
+**Attention:**  
+It is recommended to run the below code on the full bee dataset with
+more than 16GB RAM. Robert ran this on a laptop with 16GB RAM and an
+Intel(R) Core(TM) i7-8550U processor (4 cores and 8 threads) — it
+struggled.
+
+#### Merge Paige’s data with downloaded data
+
+      db_standardized <- BeeBDC::PaigeIntegrater(
+          db_standardized = db_standardized,
+          PaigeNAm = PaigeNAm,
+            # This is a list of columns by which to match Paige's data to the most-recent download with. 
+            # Each vector will be matched individually
+          columnStrings = list(
+            c("decimalLatitude", "decimalLongitude", 
+              "recordNumber", "recordedBy", "individualCount", "samplingProtocol",
+              "associatedTaxa", "sex", "catalogNumber", "institutionCode", "otherCatalogNumbers",
+              "recordId", "occurrenceID", "collectionID"),         # Iteration 1
+            c("catalogNumber", "institutionCode", "otherCatalogNumbers",
+              "recordId", "occurrenceID", "collectionID"), # Iteration 2
+            c("decimalLatitude", "decimalLongitude", 
+              "recordedBy", "genus", "specificEpithet"),# Iteration 3
+            c("id", "decimalLatitude", "decimalLongitude"),# Iteration 4
+            c("recordedBy", "genus", "specificEpithet", "locality"), # Iteration 5
+            c("recordedBy", "institutionCode", "genus", 
+              "specificEpithet","locality"),# Iteration 6
+            c("occurrenceID","decimalLatitude", "decimalLongitude"),# Iteration 7
+            c("catalogNumber","decimalLatitude", "decimalLongitude"),# Iteration 8
+            c("catalogNumber", "locality") # Iteration 9
+          ) )
+
+Remove spent data.
+
+      rm(PaigeNAm)
+
+### 2.3 USGS
+
+The USGS dataset also partially occurs on GBIF from BISON. However, the
+occurrence codes are in a silly place… We will correct these here to
+help identify duplicates later.
+
+        db_standardized <- db_standardized %>%
+              # Remove the discoverlife html if it is from USGS
+          dplyr::mutate(occurrenceID = dplyr::if_else(
+            stringr::str_detect(occurrenceID, "USGS_DRO"),
+            stringr::str_remove(occurrenceID, "http://www\\.discoverlife\\.org/mp/20l\\?id="),
+            occurrenceID)) %>%
+              # Use otherCatalogNumbers when occurrenceID is empty AND when USGS_DRO is detected there
+          dplyr::mutate(
+            occurrenceID = dplyr::if_else(
+              stringr::str_detect(otherCatalogNumbers, "USGS_DRO") & is.na(occurrenceID),
+              otherCatalogNumbers, occurrenceID)) %>%
+               # Make sure that no eventIDs have snuck into the occurrenceID columns 
+               # For USGS_DRO, codes with <6 digits are event ids
+          dplyr::mutate(
+            occurrenceID = dplyr::if_else(stringr::str_detect(occurrenceID, "USGS_DRO", negate = TRUE),
+                 # Keep occurrenceID if it's NOT USGS_DRO
+               occurrenceID, 
+                 # If it IS USGS_DRO and it has => 6 numbers, keep it, else, NA
+              dplyr::if_else(stringr::str_detect(occurrenceID, "USGS_DRO[0-9]{6,10}"),
+                             occurrenceID, NA_character_)),
+            catalogNumber = dplyr::if_else(stringr::str_detect(catalogNumber, "USGS_DRO", negate = TRUE),
+                 # Keep catalogNumber if it's NOT USGS_DRO
+              catalogNumber, 
+                 # If it IS USGS_DRO and it has => 6 numbers, keep it, else, NA
+              dplyr::if_else(stringr::str_detect(catalogNumber, "USGS_DRO[0-9]{6,10}"),
+                             catalogNumber, NA_character_)))
+
+### 2.4 Additional datasets
+
+Import additional and potentially private datasets.
+
+**Note:** Private dataset functions are provided but the data itself is
+not integrated here until those datasets become freely available.
+
+There will be some warnings were a few rows may not be formatted
+correctly or where dates fail to parse. This is normal.
+
+###### a. EPEL
+
+Guzman, L. M., Kelly, T. & Elle, E. A data set for pollinator diversity
+and their interactions with plants in the Pacific Northwest. Ecology,
+e3927 (2022). <https://doi.org/10.1002/ecy.3927>
+
+    EPEL_Data <- BeeBDC::readr_BeeBDC(dataset = "EPEL",
+                                    path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/bee_data_canada.csv",
+                          outFile = "jbd_EPEL_data.csv",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                          
+
+###### b. Allan Smith-Pardo
+
+Data from Allan Smith-Pardo
+
+    ASP_Data <- BeeBDC::readr_BeeBDC(dataset = "ASP",
+                                   path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/Allan_Smith-Pardo_Dorey_ready2.csv",
+                          outFile = "jbd_ASP_data.csv",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                          
+
+###### c. Minckley
+
+Data from Robert Minckley
+
+    BMin_Data <- BeeBDC::readr_BeeBDC(dataset = "BMin",
+                                    path = paste0(DataPath, "/Additional_Datasets"),
+                            inFile = "/InputDatasets/Bob_Minckley_6_1_22_ScanRecent-mod_Dorey.csv",
+                            outFile = "jbd_BMin_data.csv",
+                            dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                            
+
+###### d. BMont
+
+Delphia, C. M. Bumble bees of Montana.
+<https://www.mtent.org/projects/Bumble_Bees/bombus_species.html>. (2022)
+
+    BMont_Data <- BeeBDC::readr_BeeBDC(dataset = "BMont",
+                                     path = paste0(DataPath, "/Additional_Datasets"),
+                              inFile = "/InputDatasets/Bombus_Montana_dorey.csv",
+                              outFile = "jbd_BMont_data.csv",
+                              dataLicense = "https://creativecommons.org/licenses/by-sa/4.0/")
+                              
+
+###### e. Ecd
+
+Ecdysis. Ecdysis: a portal for live-data arthropod collections,
+<https://ecdysis.org/index.php> (2022).
+
+    Ecd_Data <- BeeBDC::readr_BeeBDC(dataset = "Ecd",
+                                   path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/Ecdysis_occs.csv",
+                          outFile = "jbd_Ecd_data.csv",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                          
+
+###### f. Gai
+
+Gaiarsa, M. P., Kremen, C. & Ponisio, L. C. Pollinator interaction
+flexibility across scales affects patch colonization and occupancy.
+*Nature Ecology & Evolution* 5, 787-793 (2021).
+<https://doi.org/10.1038/s41559-021-01434-y>
+
+    Gai_Data <- BeeBDC::readr_BeeBDC(dataset = "Gai",
+                                   path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/upload_to_scan_Gaiarsa et al_Dorey.csv",
+                          outFile = "jbd_Gai_data.csv",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                          
+
+###### g. CAES
+
+From the Connecticut Agricultural Experiment Station.
+
+Zarrillo, T. A., Stoner, K. A. & Ascher, J. S. Biodiversity of bees
+(Hymenoptera: Apoidea: Anthophila) in Connecticut (USA). Zootaxa
+(Accepted).
+
+Ecdysis. Occurrence dataset (ID: 16fca9c2-f622-4cb1-aef0-3635a7be5aeb).
+<https://ecdysis.org/content/dwca/CAES-CAES_DwC-A.zip>. (2023)
+
+    CAES_Data <- BeeBDC::readr_BeeBDC(dataset = "CAES",
+                                    path = paste0(DataPath, "/Additional_Datasets"),
+                            inFile = "/InputDatasets/CT_BEE_DATA_FROM_PBI.xlsx",
+                            outFile = "jbd_CT_Data.csv",
+                            sheet = "Sheet1",
+                            dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### h. GeoL
+
+    GeoL_Data <- BeeBDC::readr_BeeBDC(dataset = "GeoL",
+                                    path = paste0(DataPath, "/Additional_Datasets"),
+                            inFile = "/InputDatasets/Geolocate and BELS_certain and accurate.xlsx",
+                            outFile = "jbd_GeoL_Data.csv",
+                            dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### i. EaCO
+
+    EaCO_Data <- BeeBDC::readr_BeeBDC(dataset = "EaCO",
+                                    path = paste0(DataPath, "/Additional_Datasets"),
+                            inFile = "/InputDatasets/Eastern Colorado bee 2017 sampling.xlsx",
+                            outFile = "jbd_EaCo_Data.csv",
+                            dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### j. FSCA
+
+Florida State Collection of Arthropods
+
+    FSCA_Data <- BeeBDC::readr_BeeBDC(dataset = "FSCA",
+                                    path = paste0(DataPath, "/Additional_Datasets"),
+                            inFile = "InputDatasets/fsca_9_15_22_occurrences.csv",
+                            outFile = "jbd_FSCA_Data.csv",
+                            dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### k. Texas SMC
+
+Published or unpublished data from Texas literature not in an online
+database, usually copied into spreadsheet from document format, or
+otherwise copied from a very differently-formatted spreadsheet.
+Unpublished or partially published data were obtained with express
+permission from the lead author.
+
+    SMC_Data <- BeeBDC::readr_BeeBDC(dataset = "SMC",
+                                   path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/TXbeeLitOccs_31Oct22.csv", 
+                          outFile = "jbd_SMC_Data.csv",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+                          
+
+###### l. Texas Bal
+
+Data with GPS coordinates (missing accidentally from records on Dryad)
+from Ballare, K. M., Neff, J. L., Ruppel, R. & Jha, S. Multi-scalar
+drivers of biodiversity: local management mediates wild bee community
+response to regional urbanization. Ecological Applications 29, e01869
+(2019), <https://doi.org/10.1002/eap.1869>. The version on Dryad is
+missing site GPS coordinates (by accident). Kim is okay with these data
+being made public as long as her paper is referenced. - Elinor
+Lichtenberg
+
+    Bal_Data <- BeeBDC::readr_BeeBDC(dataset = "Bal",
+                                   path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/Beedata_ballare.xlsx", 
+                          outFile = "jbd_Bal_Data.csv",
+                          sheet = "animal_data",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### m. Palouse Lic
+
+Elinor Lichtenberg’s canola data: Lichtenberg, E. M., Milosavljević, I.,
+Campbell, A. J. & Crowder, D. W. Differential effects of soil
+conservation practices on arthropods and crop yields. *Journal of
+Applied Entomology*, (2023) <https://doi.org/10.1111/jen.13188>. These
+are the data I will be putting on SCAN. - Elinor Lichtenberg
+
+    Lic_Data <- BeeBDC::readr_BeeBDC(dataset = "Lic",
+                                   path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/Lichtenberg_canola_records.csv", 
+                          outFile = "jbd_Lic_Data.csv",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### n. Arm
+
+Data from Armando Falcon-Brindis from the University of Kentucky.
+
+    Arm_Data <- BeeBDC::readr_BeeBDC(dataset = "Arm",
+                                   path = paste0(DataPath, "/Additional_Datasets"),
+                          inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
+                          outFile = "jbd_Arm_Data.csv",
+                          sheet = "Sheet1",
+                          dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### o. Dor
+
+From several papers:
+
+1.  Dorey, J. B., Fagan-Jeffries, E. P., Stevens, M. I., &
+    Schwarz, M. P. (2020). Morphometric comparisons and novel
+    observations of diurnal and low-light-foraging bees. *Journal of
+    Hymenoptera Research*, 79, 117–144.
+    doi:<https://doi.org/10.3897/jhr.79.57308>
+2.  Dorey, J. B. (2021). Missing for almost 100 years: the rare and
+    potentially threatened bee Pharohylaeus lactiferus (Hymenoptera,
+    Colltidae). *Journal of Hymenoptera Research*, 81, 165-180. doi:
+    <https://doi.org/10.3897/jhr.81.59365>
+3.  Dorey, J. B., Schwarz, M. P., & Stevens, M. I. (2019). Review of the
+    bee genus Homalictus Cockerell (Hymenoptera: Halictidae) from Fiji
+    with description of nine new species. *Zootaxa*, 4674(1), 1–46.
+    doi:<https://doi.org/10.11646/zootaxa.4674.1.1>
+
+&nbsp;
+
+      Dor_Data <- BeeBDC::readr_BeeBDC(dataset = "Dor",
+                        path = paste0(DataPath, "/Additional_Datasets"),
+                        inFile = "/InputDatasets/DoreyData.csv",
+                        outFile = "jbd_Dor_Data.csv",
+                        dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+
+###### p. VicWam
+
+These data are originally from the Victorian Museum and Western
+Australian Museum in Australia. However, in their current form they are
+from Dorey et al. 2021.
+
+1.  PADIL. (2020). PaDIL. <https://www.PADIL.gov.au/>
+2.  Houston, T. F. (2000). Native bees on wildflowers in Western
+    Australia. *Western Australian Insect Study Society*.
+3.  Dorey, J. B., Rebola, C. M., Davies, O. K., Prendergast, K. S.,
+    Parslow, B. A., Hogendoorn, K., . . . Caddy-Retalic, S. (2021).
+    Continental risk assessment for understudied taxa post catastrophic
+    wildfire indicates severe impacts on the Australian bee fauna.
+    *Global Change Biology*, 27(24), 6551-6567.
+    doi:<https://doi.org/10.1111/gcb.15879>
+
+&nbsp;
+
+     VicWam_Data <- BeeBDC::readr_BeeBDC(dataset = "VicWam",
+                        path = paste0(DataPath, "/Additional_Datasets"),
+                        inFile = "/InputDatasets/Combined_Vic_WAM_databases.xlsx",
+                        outFile = "jbd_VicWam_Data.csv",
+                        dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                        sheet = "Combined")
+
+#### 2.5 Merge all
+
+Remove these spent datasets.
+
+      rm(EPEL_Data, ASP_Data, BMin_Data, BMont_Data, Ecd_Data, Gai_Data, CAES_Data, 
+      GeoL_Data, EaCO_Data, FSCA_Data, SMC_Data, Bal_Data, Lic_Data, Arm_Data, Dor_Data,
+      VicWam_Data)
+
+Read in and merge all. There are more
+[`readr_BeeBDC()`](https://jbdorey.github.io/BeeBDC/reference/readr_BeeBDC.md)
+supported than currently implemented and these represent datasets that
+will be publicly released in the future. See
+‘?[`readr_BeeBDC()`](https://jbdorey.github.io/BeeBDC/reference/readr_BeeBDC.md)’
+for details.
+
+    db_standardized <- db_standardized %>%
+      dplyr::bind_rows(
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_ASP_data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_EPEL_data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_BMin_data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_BMont_data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_Ecd_data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_Gai_data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_CT_Data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_GeoL_Data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_EaCo_Data.csv"), col_types = BeeBDC::ColTypeR()), 
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_SMC_Data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_Bal_Data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_Lic_Data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_Arm_Data.csv"), col_types = BeeBDC::ColTypeR()),
+        readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                               "/jbd_Dor_Data.csv"), col_types = BeeBDC::ColTypeR()),
+    readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
+                           "/jbd_VicWam_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
+        # END bind_rows
+      suppressWarnings(classes = "warning") # End suppressWarnings — due to col_types
+
+#### 2.6 Match database_id
+
+If you have prior runs from which you’d like to match *database_id*s
+with from the current run, you may use the below script to try to match
+*database_id*s with prior runs.
+
+Read in a prior run of choice.
+
+      priorRun <- BeeBDC::fileFinder(path = DataPath,
+                              file = "01_prefilter_database_9Aug22.csv") %>%
+        readr::read_csv(file = ., col_types = BeeBDC::ColTypeR())
+
+This function will attempt to find the *database_id*s from prior runs.
+
+      db_standardized <- BeeBDC::idMatchR(
+      currentData = db_standardized,
+      priorData = priorRun,
+        # First matches will be given preference over later ones
+      matchBy = tibble::lst(c("gbifID", "dataSource"),
+                            c("catalogNumber", "institutionCode", "dataSource", "decimalLatitude",
+                              "decimalLongitude"),
+                            c("occurrenceID", "dataSource","decimalLatitude","decimalLongitude"),
+                            c("recordId", "dataSource","decimalLatitude","decimalLongitude"),
+                            c("id", "dataSource","decimalLatitude","decimalLongitude"),
+                            # Because INHS was entered as it's own dataset but is now included in the GBIF    download...
+                            c("catalogNumber", "institutionCode", "dataSource",
+                              "decimalLatitude","decimalLongitude")),
+        # You can exclude datasets from prior by matching their prefixs — before first underscore:
+      excludeDataset = c("ASP", "BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
+                         "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm",
+                         "VicWam"))
+
+     # Remove redundant files
+    rm(priorRun)
+
+Save the dataset.
+
+      db_standardized %>%
+        readr::write_excel_csv(.,
+                         paste(OutPath_Intermediate, "00_prefilter_database.csv",
+                               sep = "/"))

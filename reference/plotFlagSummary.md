@@ -1,0 +1,214 @@
+# Generate a plot summarising flagged data
+
+Creates a compound bar plot that shows the proportion of records that
+pass or fail each flag (rows) and for each data source (columns). The
+function can also optionally return a point map for a user-specified
+species when plotMap = TRUE. This function requires that your dataset
+has been run through some filtering functions - so that is can display
+logical columns starting with ".".
+
+## Usage
+
+``` r
+plotFlagSummary(
+  data = NULL,
+  flagColours = c("#127852", "#A7002D", "#BDBABB"),
+  fileName = NULL,
+  outPath = OutPath_Figures,
+  width = 15,
+  height = 9,
+  units = "in",
+  dpi = 300,
+  bg = "white",
+  device = "pdf",
+  speciesName = NULL,
+  saveFiltered = FALSE,
+  filterColumn = ".summary",
+  nameColumn = NULL,
+  plotMap = FALSE,
+  mapAlpha = 0.5,
+  xbuffer = c(0, 0),
+  ybuffer = c(0, 0),
+  ptSize = 1,
+  saveTable = FALSE,
+  jitterValue = NULL,
+  returnPlot = FALSE,
+  ...
+)
+```
+
+## Arguments
+
+- data:
+
+  A data frame or tibble. Occurrence records as input.
+
+- flagColours:
+
+  A character vector. Colours in order of pass (TRUE), fail (FALSE), and
+  NA. Default = c("#127852", "#A7002D", "#BDBABB").
+
+- fileName:
+
+  Character. The name of the file to be saved, ending in ".pdf". If
+  saving as a different file type, change file type suffix - See
+  `device`.
+
+- outPath:
+
+  A character path. The path to the directory in which the figure will
+  be saved. Default = OutPath_Figures.
+
+- width:
+
+  Numeric. The width of the output figure in user-defined units Default
+  = 15.
+
+- height:
+
+  Numeric. The height of the output figure in user-defined units Default
+  = 9.
+
+- units:
+
+  Character. The units for the figure width and height passed to
+  [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html)
+  ("in", "cm", "mm", or "px"). Default = "in".
+
+- dpi:
+
+  Numeric. Passed to
+  [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html).
+  Plot resolution. Also accepts a string input: "retina" (320), "print"
+  (300), or "screen" (72). Applies only to raster output types. Default
+  = 300.
+
+- bg:
+
+  Character. Passed to
+  [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html).
+  Background colour. If NULL, uses the plot.background fill value from
+  the plot theme. Default = "white."
+
+- device:
+
+  Character. Passed to
+  [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html).
+  Device to use. Can either be a device function (e.g. png), or one of
+  "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp",
+  "svg" or "wmf" (windows only). Default = "pdf". If not using default,
+  change file name suffix in fileName argument.
+
+- speciesName:
+
+  Optional. Character. A species name, as it occurs in the user-input
+  nameColumn. If provided, the data will be filtered to this species for
+  the plot.
+
+- saveFiltered:
+
+  Optional. Logical. If TRUE, the filtered data will be saved to the
+  computer as a .csv file.
+
+- filterColumn:
+
+  Optional. The flag column to display on the map. Default = .summary.
+
+- nameColumn:
+
+  Optional. Character. If speciesName is not NULL, enter the column to
+  look for the species in. A User might realise that, combined with
+  speciesName, figures can be made for a variety of factors.
+
+- plotMap:
+
+  Logical. If TRUE, the function will produce a point map. Tested for
+  use with one species at a time; i.e., with speciesName is not NULL.
+
+- mapAlpha:
+
+  Optional. Numeric. The opacity for the points on the map.
+
+- xbuffer:
+
+  Optional. Numeric vector. A buffer in degrees of the amount to
+  increase the min and max bounds along the x-axis. This may require
+  some experimentation, keeping in mind the negative and positive
+  directionality of hemispheres. Default = c(0,0).
+
+- ybuffer:
+
+  Optional. Numeric vector. A buffer in degrees of the amount to
+  increase the min and max bounds along the y-axis. This may require
+  some experimentation, keeping in mind the negative and positive
+  directionality of hemispheres. Default = c(0,0).
+
+- ptSize:
+
+  Optional. Numeric. The size of the points as passed to ggplot2.
+  Default = 1.
+
+- saveTable:
+
+  Optional. Logical. If TRUE, the function will save the data used to
+  produce the compound bar plot.
+
+- jitterValue:
+
+  Optional. Numeric. The value to jitter points by in the map in decimal
+  degrees.
+
+- returnPlot:
+
+  Logical. If TRUE, return the plot to the environment. Default = FALSE.
+
+- ...:
+
+  Optional. Extra variables to be fed into
+  [`forcats::fct_recode()`](https://forcats.tidyverse.org/reference/fct_recode.html)
+  to change names on plot. For example... 'B. Mont.' = "BMont", 'B.
+  Minkley' = "BMin", Ecd = "Ecd", Gaiarsa = "Gai"
+
+## Value
+
+Exports a compound bar plot that summarises all flag columns. Optionally
+can also return a point map for a particular species in tandem with the
+summary plot.
+
+## Examples
+
+``` r
+# import data
+data(beesFlagged)
+OutPath_Figures <- tempdir()
+ # Visualise all flags for each dataSource (simplified to the text before the first underscore)
+plotFlagSummary(
+  data = beesFlagged,
+  # Colours in order of pass (TRUE), fail (FALSE), and NA
+  flagColours = c("#127852", "#A7002D", "#BDBABB"),
+  fileName = paste0("FlagsPlot_TEST_", Sys.Date(),".pdf"),
+  outPath = OutPath_Figures,
+  width = 15, height = 9,
+  # OPTIONAL:
+  #\   #  # Filter to species
+  #\   speciesName = "Holcopasites heliopsis",
+  #\   # column to look in
+  #\   nameColumn = "species",
+  #\   # Save the filtered data
+  #\   saveFiltered = TRUE,
+  #\   # Filter column to display on map
+  #\   filterColumn = ".summary",
+  #\   plotMap = TRUE,
+  #\   # amount to jitter points if desired, e.g. 0.25 or NULL
+  #\   jitterValue = NULL,
+  #\   # Map opacity value for points between 0 and 1
+  #\   mapAlpha = 1,
+  # Extra variables can be fed into forcats::fct_recode() to change names on plot
+  GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA", 
+  ASP = "ASP", CAES = "CAES", 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd",
+  Gaiarsa = "Gai", EPEL = "EPEL"
+)
+#> Error in plotFlagSummary(data = beesFlagged, flagColours = c("#127852",     "#A7002D", "#BDBABB"), fileName = paste0("FlagsPlot_TEST_",     Sys.Date(), ".pdf"), outPath = OutPath_Figures, width = 15,     height = 9, GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio",     USGS = "USGS", ALA = "ALA", ASP = "ASP", CAES = "CAES", `B. Mont.` = "BMont",     `B. Minkley` = "BMin", Ecd = "Ecd", Gaiarsa = "Gai", EPEL = "EPEL"): could not find function "plotFlagSummary"
+
+
+```

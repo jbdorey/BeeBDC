@@ -1,0 +1,708 @@
+# A flagged dataset of 105 random bee occurrence records from the three species
+
+This test dataset includes 105 random occurrence records from three bee
+species. The included species are: "Agapostemon tyleri Cockerell, 1917",
+"Centris rhodopus Cockerell, 1897", and "Perdita octomaculata (Say,
+1824)".
+
+## Usage
+
+``` r
+data("bees3sp", package = "BeeBDC")
+```
+
+## Format
+
+An object of class `"tibble"`
+
+- database_id:
+
+  Occurrence code generated in bdc or BeeBDC
+
+- scientificName:
+
+  Full scientificName as shown on DiscoverLife
+
+- family:
+
+  Family name
+
+- subfamily:
+
+  Subfamily name
+
+- genus:
+
+  Genus name
+
+- subgenus:
+
+  Subgenus name
+
+- subspecies:
+
+  Full scientific name with subspecies name — ALA column
+
+- specificEpithet:
+
+  The species name (specific epithet) only
+
+- infraspecificEpithet:
+
+  The subspecies name (intraspecific epithet) only
+
+- acceptedNameUsage:
+
+  The full scientific name, with authorship and date information if
+  known, of the currently valid (zoological) or accepted (botanical)
+  taxon.
+
+- taxonRank:
+
+  The taxonomic rank of the most specific name in the scientificName
+  column.
+
+- scientificNameAuthorship:
+
+  The authorship information for the scientificName column formatted
+  according to the conventions of the applicable nomenclaturalCode.
+
+- identificationQualifier:
+
+  A brief phrase or a standard term ("cf.", "aff.") to express the
+  determiner's doubts about the identification.
+
+- higherClassification:
+
+  A list (concatenated and separated) of taxon names terminating at the
+  rank immediately superior to the taxon referenced in the taxon record.
+
+- identificationReferences:
+
+  A list (concatenated and separated) of references (e.g. publications,
+  global unique identifier, URI, etc.) used in the identification of the
+  occurrence.
+
+- typeStatus:
+
+  A list (concatenated and separated) of nomenclatural types (e.g. type
+  status, typified scientific name, publication) applied to the
+  occurrence.
+
+- previousIdentifications:
+
+  A list (concatenated and separated) of previous assignments of names
+  to the occurrence.
+
+- verbatimIdentification:
+
+  This term is meant to allow the capture of an unaltered original
+  identification/determination, including identification qualifiers,
+  hybrid formulas, uncertainties, etc. This term is meant to be used in
+  addition to scientificName (and identificationQualifier etc.), not
+  instead of it.
+
+- identifiedBy:
+
+  A list (concatenated and separated) of names of people, groups, or
+  organizations who assigned the Taxon to the subject.
+
+- dateIdentified:
+
+  The date on which the occurrence was identified as belonging to a
+  taxon.
+
+- decimalLatitude:
+
+  The geographic latitude (in decimal degrees, using the spatial
+  reference system given in geodeticDatum) of the geographic center of a
+  location. Positive values are north of the Equator, negative values
+  are south of it, and valid values lie between -90 and 90, inclusive.
+
+- decimalLongitude:
+
+  The geographic longitude (in decimal degrees, using the spatial
+  reference system given in geodeticDatum) of the geographic center of a
+  location. Positive values are east of the Greenwich Meridian, and
+  negative values are west of it. Valid values lie between -180 and 180,
+  inclusive.
+
+- stateProvince:
+
+  The name of the next smaller administrative region than country (e.g.
+  state, province, canton, department, region, etc.) in which the
+  location for the occurrence is found.
+
+- continent:
+
+  The name of the continent in which the location for the occurrence is
+  found.
+
+- locality:
+
+  A specific description of the place the occurrence was found.
+
+- island:
+
+  The name of the island on or near which the location for the
+  occurrence is found, if applicable.
+
+- county:
+
+  The full, unabbreviated name of the next smaller administrative region
+  than stateProvince (e.g. county, shire, department, etc.) in which the
+  location for the occurrence is found.
+
+- municipality:
+
+  The full, unabbreviated name of the next smaller administrative region
+  than county (e.g. city, municipality, etc.) in which the location for
+  the occurrence is found. Do not use this term for a nearby named place
+  that does not contain the actual location for the occurrence.
+
+- license:
+
+  A legal document giving official permission to do something with the
+  resource.
+
+- issue:
+
+  A GBIF-defined issue.
+
+- eventDate:
+
+  The time or interval during which the Event occurred. For occurrences,
+  this is the time or interval when the event was recorded.
+
+- eventTime:
+
+  The time or interval during which an Event occurred.
+
+- day:
+
+  The integer day of the month on which the Event occurred. For
+  occurrences, this is the day when the event was recorded.
+
+- month:
+
+  The integer month in which the Event occurred. For occurrences, this
+  is the month of when the event was recorded.
+
+- year:
+
+  The four-digit year in which the Event occurred, according to the
+  Common Era Calendar. For occurrences, this is the year when the event
+  was recorded.
+
+- basisOfRecord:
+
+  The specific nature of the data record. Recommended best practice is
+  to use the standard label of one of the Darwin Core
+  classes.PreservedSpecimen, FossilSpecimen, LivingSpecimen,
+  MaterialSample, Event, HumanObservation, MachineObservation, Taxon,
+  Occurrence, MaterialCitation
+
+- country:
+
+  The name of the country or major administrative unit in which the
+  location for the occurrence is found.
+
+- type:
+
+  The nature or genre of the resource. StillImage, MovingImage, Sound,
+  PhysicalObject, Event, Text.
+
+- occurrenceStatus:
+
+  A statement about the presence or absence of a Taxon at a Location.
+  present, absent.
+
+- recordNumber:
+
+  An identifier given to the Occurrence at the time it was recorded.
+  Often serves as a link between field notes and an Occurrence record,
+  such as a specimen collector's number.
+
+- recordedBy:
+
+  A list (concatenated and separated) of names of people, groups, or
+  organizations responsible for recording the original Occurrence. The
+  primary collector or observer, especially one who applies a personal
+  identifier (recordNumber), should be listed first.
+
+- eventID:
+
+  An identifier for the set of information associated with an Event
+  (something that occurs at a place and time). May be a global unique
+  identifier or an identifier specific to the data set.
+
+- Location:
+
+  A spatial region or named place.
+
+- samplingProtocol:
+
+  The names of, references to, or descriptions of the methods or
+  protocols used during an Event. Examples UV light trap, mist net,
+  bottom trawl, ad hoc observation \| point count, Penguins from space:
+  faecal stains reveal the location of emperor penguin colonies,
+  https://doi.org/10.1111/j.1466-8238.2009.00467.x, Takats et al. 2001.
+
+- samplingEffort:
+
+  The amount of effort expended during an Event. Examples 40
+  trap-nights, 10 observer-hours, 10 km by foot, 30 km by car.
+
+- individualCount:
+
+  The number of individuals present at the time of the Occurrence.
+  Integer.
+
+- organismQuantity:
+
+  A number or enumeration value for the quantity of organisms. Examples
+  27 (organismQuantity) with individuals (organismQuantityType). 12.5
+  (organismQuantity) with percentage biomass (organismQuantityType). r
+  (organismQuantity) with Braun Blanquet Scale (organismQuantityType).
+  many (organismQuantity) with individuals (organismQuantityType).
+
+- coordinatePrecision:
+
+  A decimal representation of the precision of the coordinates given in
+  the decimalLatitude and decimalLongitude.
+
+- coordinateUncertaintyInMeters:
+
+  The horizontal distance (in meters) from the given decimalLatitude and
+  decimalLongitude describing the smallest circle containing the whole
+  of the Location. Leave the value empty if the uncertainty is unknown,
+  cannot be estimated, or is not applicable (because there are no
+  coordinates). Zero is not a valid value for this term.
+
+- spatiallyValid:
+
+  Occurrence records in the ALA can be filtered by using the spatially
+  valid flag. This flag combines a set of tests applied to the record to
+  see how reliable are its spatial data components.
+
+- catalogNumber:
+
+  An identifier (preferably unique) for the record within the data set
+  or collection.
+
+- gbifID:
+
+  The identifier assigned by GBIF for each record.
+
+- datasetID:
+
+  An identifier for the set of data. May be a global unique identifier
+  or an identifier specific to a collection or institution.
+
+- institutionCode:
+
+  The name (or acronym) in use by the institution having custody of the
+  object(s) or information referred to in the record. Examples MVZ,
+  FMNH, CLO, UCMP.
+
+- datasetName:
+
+  The name identifying the data set from which the record was derived.
+
+- otherCatalogNumbers:
+
+  A list (concatenated and separated) of previous or alternate fully
+  qualified catalog numbers or other human-used identifiers for the same
+  Occurrence, whether in the current or any other data set or
+  collection.
+
+- occurrenceID:
+
+  An identifier for the Occurrence (as opposed to a particular digital
+  record of the occurrence). In the absence of a persistent global
+  unique identifier, construct one from a combination of identifiers in
+  the record that will most closely make the occurrenceID globally
+  unique.
+
+- taxonKey:
+
+  The GBIF-assigned taxon identifier number.
+
+- collectionID:
+
+  An identifier for the collection or dataset from which the record was
+  derived.
+
+- verbatimScientificName:
+
+  Scientific name as recorded on specimen label, not necessarily valid.
+
+- verbatimEventDate:
+
+  The verbatim original representation of the date and time information
+  for an event. For occurrences, this is the date-time when the event
+  was recorded as noted by the collector.
+
+- associatedTaxa:
+
+  A list (concatenated and separated) of identifiers or names of taxa
+  and the associations of this occurrence to each of them.
+
+- associatedOrganisms:
+
+  A list (concatenated and separated) of identifiers of other Organisms
+  and the associations of this occurrence to each of them.
+
+- fieldNotes:
+
+  One of (a) an indicator of the existence of, (b) a reference to
+  (publication, URI), or (c) the text of notes taken in the field about
+  the Event.
+
+- sex:
+
+  The sex of the biological individual(s) represented in the Occurrence.
+
+- rights:
+
+  A description of the usage rights applicable to the record.
+
+- rightsHolder:
+
+  A person or organization owning or managing rights over the resource.
+
+- accessRights:
+
+  Information about who can access the resource or an indication of its
+  security status.
+
+- associatedReferences:
+
+  A list (concatenated and separated) of identifiers (publication,
+  bibliographic reference, global unique identifier, URI) of literature
+  associated with the Occurrence.
+
+- bibliographicCitation:
+
+  A bibliographic reference for the resource as a statement indicating
+  how this record should be cited (attributed) when used.
+
+- references:
+
+  A related resource that is referenced, cited, or otherwise pointed to
+  by the described resource.
+
+- informationWithheld:
+
+  Additional information that exists, but that has not been shared in
+  the given record.
+
+- isDuplicateOf:
+
+  The code for another occerrence but for the same specimen.
+
+- hasCoordinate:
+
+  Variable indicating presence/absence of location coordinates.
+
+- hasGeospatialIssues:
+
+  Variable indicating validity of geospatial data associated with
+  record.
+
+- occurrenceYear:
+
+  Year associated with Occurrence.
+
+- id:
+
+  Variable with identifying value for the Occurrenc.
+
+- duplicateStatus:
+
+  Variable indicating is Occurrence is duplicate or not.
+
+- associatedOccurrences:
+
+  A list (concatenated and separated) of identifiers of other occurrence
+  records and their associations to this occurrence.
+
+- locationRemarks:
+
+  Comments or notes about the Location.
+
+- dataSource:
+
+  BeeBDC assigned source of the data. Often written when the data is
+  formatted by a BeeBDC::xxx_readr function or similar.
+
+- verbatim_scientificName:
+
+  The verbatim (originally-provided) scientific name
+
+- .scientificName_empty:
+
+  Flag produced by
+  [`bdc::bdc_scientificName_empty()`](https://brunobrr.github.io/bdc/reference/bdc_scientificName_empty.html)
+  where FALSE == no scientific name provided and TRUE means that there
+  is text in that column.
+
+- .coordinates_empty:
+
+  Flag produced by
+  [`bdc::bdc_coordinates_empty()`](https://brunobrr.github.io/bdc/reference/bdc_coordinates_empty.html)
+  where FALSE == no coordinates provided.
+
+- .coordinates_outOfRange:
+
+  Flag column produced by bdc::bdc_coordinates_outOfRange() where FALSE
+  == coordinates represent a point off of the Earth. This is to say, the
+  function identifies records with out-of-range coordinates (not between
+  -90 and 90 for latitude; not between -180 and 180 for longitude).
+
+- .basisOfRecords_notStandard:
+
+  Flag produced by
+  [`bdc::bdc_basisOfRecords_notStandard()`](https://brunobrr.github.io/bdc/reference/bdc_basisOfRecords_notStandard.html)
+  where FALSE == an occurrence with a basisOfRecord not defined as
+  acceptable by the user.
+
+- country_suggested:
+
+  A country name suggested by the
+  [`bdc::bdc_country_standardized()`](https://brunobrr.github.io/bdc/reference/bdc_country_standardized.html)
+  function.
+
+- countryCode:
+
+  A country code suggested by the
+  [`bdc::bdc_country_standardized()`](https://brunobrr.github.io/bdc/reference/bdc_country_standardized.html)
+  function.
+
+- coordinates_transposed:
+
+  A column indicating if coordinates were identified as being transposed
+  by the function
+  [`jbd_Ctrans_chunker()`](https://jbdorey.github.io/BeeBDC/reference/jbd_Ctrans_chunker.md)
+  where FALSE == transposed.
+
+- .coordinates_country_inconsistent:
+
+  A flag generated by
+  [`jbd_coordCountryInconsistent()`](https://jbdorey.github.io/BeeBDC/reference/jbd_coordCountryInconsistent.md)
+  where FALSE == an occurrence where the country name and coordinates
+  did not match.
+
+- .occurrenceAbsent:
+
+  A flag generated by
+  [`flagAbsent()`](https://jbdorey.github.io/BeeBDC/reference/flagAbsent.md)
+  where FALSE == occurrences marked as "ABSENT" in the
+  "occurrenceStatus" column
+
+- .unLicensed:
+
+  A flag generated by
+  [`flagLicense()`](https://jbdorey.github.io/BeeBDC/reference/flagLicense.md)
+  where FALSE == those occurrences protected by a restrictive license.
+
+- .GBIFflags:
+
+  A flag generated by
+  [`GBIFissues()`](https://jbdorey.github.io/BeeBDC/reference/GBIFissues.md)
+  where FALSE == an occurrence with user-specified GBIF issues to flag.
+
+- .uncer_terms:
+
+  A flag generated by
+  [`bdc::bdc_clean_names()`](https://brunobrr.github.io/bdc/reference/bdc_clean_names.html)
+  where FALSE == the presence of taxonomic uncertainty terms.
+
+- names_clean:
+
+  A column made by
+  [`bdc::bdc_clean_names()`](https://brunobrr.github.io/bdc/reference/bdc_clean_names.html)
+  indicating the cleaned scientificName
+
+- .invalidName:
+
+  A flag generated by
+  [`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
+  where FALSE == occurrences whose scientificName did not match the
+  Discover Life taxonomy.
+
+- .rou:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == rounded (probably imprecise) coordinates.
+
+- .val:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == invalid coordinates.
+
+- .equ:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == equal coordinates (e.g., 0.1, 0.1).
+
+- .zer:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == zeros as coordinates
+
+- .cap:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == records around country capital centroid.
+
+- .cen:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == records around country or province centroids.
+
+- .gbf:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == records around the GBIF headquarters.
+
+- .inst:
+
+  A flag generated by
+  [`CoordinateCleaner::clean_coordinates()`](https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html)
+  where FALSE == records around biodiversity institutions.
+
+- .sequential:
+
+  A flag generated by
+  [`diagonAlley()`](https://jbdorey.github.io/BeeBDC/reference/diagonAlley.md)
+  where FALSE == records that are possibly the result of fill-down
+  errors in sequence.
+
+- .lonFlag:
+
+  A flag generated by
+  [`CoordinateCleaner::cd_round()`](https://ropensci.github.io/CoordinateCleaner/reference/cd_round.html)
+  where FALSE == potential gridding in the longitude column within
+  dataset.
+
+- .latFlag:
+
+  A flag generated by
+  [`CoordinateCleaner::cd_round()`](https://ropensci.github.io/CoordinateCleaner/reference/cd_round.html)
+  where FALSE == potential gridding in the latitude column within
+  dataset.
+
+- .gridSummary:
+
+  A flag generated by
+  [`CoordinateCleaner::cd_round()`](https://ropensci.github.io/CoordinateCleaner/reference/cd_round.html)
+  where FALSE == potential gridding in either the longitude or latitude
+  columns within dataset.
+
+- .uncertaintyThreshold:
+
+  A flag generated by
+  [`coordUncerFlagR()`](https://jbdorey.github.io/BeeBDC/reference/coordUncerFlagR.md)
+  where FALSE == occurrences that did not pass a user-specified
+  threshold in the "coordinateUncertaintyInMeters" column.
+
+- countryMatch:
+
+  A column made by
+  [`countryOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/countryOutlieRs.md).
+  Summarises the occurrence-level result: where the species is not known
+  to occur in that country (noMatch), it is known from a bordering
+  country (neighbour), or it is known to occur in that country (exact).
+
+- .countryOutlier:
+
+  A flag generated by
+  [`countryOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/countryOutlieRs.md)
+  where FALSE == occurrences the do not occur in a country that concurs
+  with the Discover Life country checklist OR an adjacent country.
+
+- .sea:
+
+  A flag generated by
+  [`countryOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/countryOutlieRs.md)
+  where FALSE == occurrences that are in the ocean.
+
+- .summary:
+
+  A flag generated by
+  [`summaryFun()`](https://jbdorey.github.io/BeeBDC/reference/summaryFun.md)
+  where FALSE == occurrences flagged as FALSE in any of the .flag
+  columns. In this example it excludes flags in the ".gridSummary",
+  ".lonFlag", ".latFlag", and ".uncer_terms" columns.
+
+- .eventDate_empty:
+
+  A flag generated by
+  [`bdc::bdc_eventDate_empty()`](https://brunobrr.github.io/bdc/reference/bdc_eventDate_empty.html)
+  where FALSE == occurrences with no eventDate provided.
+
+- .year_outOfRange:
+
+  A flag column generated by
+  [`bdc::bdc_year_outOfRange()`](https://brunobrr.github.io/bdc/reference/bdc_year_outOfRange.html)
+  where FALSE == occurrences older than a threshold date. In the case of
+  the bee dataset used in this package, the lower threshold is 1950
+
+- .duplicates:
+
+  A flag generated by
+  [`dupeSummary()`](https://jbdorey.github.io/BeeBDC/reference/dupeSummary.md)
+  where FALSE == occurrences identified as duplicates. There will be an
+  associated kept duplicate (.duplictes == TRUE) for all duplicate
+  clusters.
+
+## Details
+
+A small bee occurrence dataset with flags generated by BeeBDC which can
+be used to run the example script and to test functions. For data types,
+see
+[`ColTypeR()`](https://jbdorey.github.io/BeeBDC/reference/ColTypeR.md).
+
+## References
+
+This data set was created by generating a random subset of 105 rows from
+the full BeeBDC dataset from the publication: DOREY, J. B., CHESSHIRE,
+P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M.,
+LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A.,
+GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J.
+K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E.,
+GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M.,
+ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. A globally
+synthesised and flagged bee occurrence dataset and cleaning workflow.
+Scientific Data.
+
+## Examples
+
+``` r
+bees3sp <- BeeBDC::bees3sp
+head(bees3sp)
+#> # A tibble: 6 × 124
+#>   database_id  scientificName family subfamily genus subgenus subspecies species
+#>   <chr>        <chr>          <chr>  <chr>     <chr> <lgl>    <lgl>      <chr>  
+#> 1 Dorey_data_… Agapostemon t… Halic… Halictin… Agap… NA       NA         Agapos…
+#> 2 Dorey_data_… Agapostemon t… Halic… Halictin… Agap… NA       NA         Agapos…
+#> 3 Dorey_data_… Centris rhodo… Apidae Apinae    Cent… NA       NA         Centri…
+#> 4 Dorey_data_… Centris rhodo… Apidae Apinae    Cent… NA       NA         Centri…
+#> 5 Dorey_data_… Centris rhodo… Apidae Apinae    Cent… NA       NA         Centri…
+#> 6 Dorey_data_… Centris rhodo… Apidae Apinae    Cent… NA       NA         Centri…
+#> # ℹ 116 more variables: specificEpithet <chr>, infraspecificEpithet <lgl>,
+#> #   acceptedNameUsage <chr>, taxonRank <chr>, scientificNameAuthorship <chr>,
+#> #   identificationQualifier <lgl>, higherClassification <chr>,
+#> #   identificationReferences <lgl>, typeStatus <chr>,
+#> #   previousIdentifications <chr>, verbatimIdentification <lgl>,
+#> #   identifiedBy <chr>, dateIdentified <chr>, decimalLatitude <dbl>,
+#> #   decimalLongitude <dbl>, stateProvince <chr>, continent <chr>, …
+```

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,17 +34,17 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning">
-<li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
+<li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_data_preparation.html">Bee-specific data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation">
-<li><a class="dropdown-item" href="../articles/Species_richness_estimation.html">BeeBDC richness estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
+<li><a class="dropdown-item" href="../articles/speciesRichness_example.html">BeeBDC richness estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="https://jbdorey.github.io/BeeBDC/news/index.html"><span class="fa fas fa-newspaper"></span> News</a></li>
@@ -70,7 +70,7 @@
       <h1>Basic workflow</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/vignettes/articles/basic_workflow.Rmd" class="external-link"><code>vignettes/articles/basic_workflow.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/vignettes/articles/basic_workflow.Rmd" class="external-link"><code>vignettes/articles/basic_workflow.Rmd</code></a></small>
       <div class="d-none name"><code>basic_workflow.Rmd</code></div>
     </div>
 
@@ -133,7 +133,7 @@ gdal”.</p>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>, repos <span class="op">=</span> <span class="st">"https://ropensci.r-universe.dev"</span>,</span>
 <span>    type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rnaturalearthhires" class="external-link">rnaturalearthhires</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rnaturalearthhires</span><span class="op">)</span></span></code></pre></div>
 <p>Now install <strong>BeeBDC</strong>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BeeBDC"</span><span class="op">)</span></span>
@@ -147,9 +147,9 @@ gdal”.</p>
 <span><span class="co">## - renv   [* -&gt; 1.1.5]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## The version of R recorded in the lockfile will be updated:</span></span>
-<span><span class="co">## - R      [* -&gt; 4.5.1]</span></span>
+<span><span class="co">## - R      [* -&gt; 4.5.2]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Lockfile written to "/tmp/RtmplwN3hT/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
+<span><span class="co">## - Lockfile written to "/tmp/RtmpMEk9kS/Data_acquisition_workflow/renv.lock".</span></span></code></pre></div>
 <p>Set up the directories used by <strong>BeeBDC</strong>. These
 directories include where the data, figures, reports, etc. will be
 saved. The RDoc needs to be a path RELATIVE to the RootPath; i.e., the
@@ -172,7 +172,7 @@ file path from which the two diverge.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##     depth</span></span>
 <span><span class="co">## ========================================</span></span>
-<span><span class="co">## ComplexHeatmap version 2.24.1</span></span>
+<span><span class="co">## ComplexHeatmap version 2.26.0</span></span>
 <span><span class="co">## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/</span></span>
 <span><span class="co">## Github page: https://github.com/jokergoo/ComplexHeatmap</span></span>
 <span><span class="co">## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference</span></span>
@@ -305,12 +305,8 @@ For the latter, we are only keeping <em>.summary</em> == TRUE.</p>
 <span>   <span class="co"># In the output, do you want to only keep clean data according to your filtering (TRUE),</span></span>
 <span>    <span class="co"># Or keep all data and simply update the .summary column (FALSE)</span></span>
 <span>  filterClean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
-<pre><code><span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span></code></pre>
-<pre><code><span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 74 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="uncertainty-threshold">4.2 Uncertainty threshold<a class="anchor" aria-label="anchor" href="#uncertainty-threshold"></a>
@@ -321,7 +317,7 @@ will instead flag to 10 km (threshold = 10000 [m]). Additionally, we use
 the <strong>magrittr</strong> package pipe (%&gt;%) to feed the outputs
 directly into <code><a href="../reference/summaryFun.html">summaryFun()</a></code> to filter our data in one
 action!</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">filteredData</span> <span class="op">&lt;-</span> <span class="va">beesFlagged</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># Remove any exiting .uncertaintyThreshold column</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">".uncertaintyThreshold"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -336,15 +332,8 @@ action!</p>
 <span>  dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>, <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>, <span class="st">".uncer_terms"</span><span class="op">)</span>,</span>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  filterClean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## \coordUncerFlagR:</span></span>
-<span><span class="co">##  Flagged 3 geographically uncertain records:</span></span>
-<span><span class="co">##  The column '.uncertaintyThreshold' was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms</span></span></code></pre>
-<pre><code><span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 75 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="date-filter">4.2 Date filter<a class="anchor" aria-label="anchor" href="#date-filter"></a>
@@ -358,7 +347,7 @@ dataset. In this case, <strong>bdc</strong> provides the function where
 users can change the year_threshold argument to, in this case, 1970. As
 with above, we then use <code><a href="../reference/summaryFun.html">summaryFun()</a></code> to get results in one
 go.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">filteredData</span> <span class="op">&lt;-</span> <span class="va">beesFlagged</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Remove any exisitng .year_outOfRange column</span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="st">".year_outOfRange"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -367,16 +356,8 @@ go.</p>
 <span>    <span class="co"># Now re-do the .summary column and filter the data using this new value</span></span>
 <span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">.</span>, dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>, <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>,</span>
 <span>    <span class="st">".uncer_terms"</span>, <span class="st">".uncertaintyThreshold"</span><span class="op">)</span>, removeFilterColumns <span class="op">=</span> <span class="cn">TRUE</span>, filterClean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
-<span><span class="co">## bdc_year_outOfRange:</span></span>
-<span><span class="co">## Flagged 23 records.</span></span>
-<span><span class="co">## One column was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span></code></pre>
-<pre><code><span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 76 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="b--year-range">b. year range<a class="anchor" aria-label="anchor" href="#b--year-range"></a>
@@ -384,7 +365,7 @@ go.</p>
 <p>Or, if you’re interested in a particular time period, again
 <strong>dplyr</strong> comes to the rescue with some very straight
 forward filtering within a year range.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">filteredData</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="co"># The input dataset</span></span>
 <span>  <span class="va">beesFlagged</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -402,12 +383,8 @@ forward filtering within a year range.</p>
 <span>    <span class="co"># In the output, do you want to only keep clean data according to your filtering (TRUE),</span></span>
 <span>    <span class="co"># Or keep all data and simply update the .summary column (FALSE)</span></span>
 <span>    filterClean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span></code></pre>
-<pre><code><span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 8 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre>
-<pre><code><span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 <p>Users may choose any number of filtering steps form the main workflow
 to include above <code><a href="../reference/summaryFun.html">summaryFun()</a></code>, just use pipes ‘%&gt;%’
 between the function and use ‘.’ as the data input because this will
@@ -429,7 +406,7 @@ relies on two great packages, <strong>circlize</strong> and
 <strong>ComplexHeatmap</strong>. Unfortunately, the latter is not
 available on CRAN and so must be downloaded using
 <strong>BiocManager</strong>.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -437,7 +414,7 @@ available on CRAN and so must be downloaded using
 <span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>We don’t actually have an example duplicates dataset with the
 package, so I’ll magic one up behind the scences!</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"PATH TO A FOLDER CONTAINING THE duplicateRun_ — could be supp. materials folder"</span>,</span>
 <span>    fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -446,7 +423,7 @@ package, so I’ll magic one up behind the scences!</p>
 <span>    <span class="va">stinglessData</span><span class="op">$</span><span class="va">database_id</span><span class="op">)</span></span></code></pre></div>
 <p>Then, set some parameters for figure borders and run your data
 through <code><a href="../reference/chordDiagramR.html">chordDiagramR()</a></code>.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Choose the global figure parameters</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -485,7 +462,7 @@ how this works. We will use beesFlagged, which has been filtered from a
 larger dataset and contains duplicates from that larger dataset. To
 print the plot in R, you need to specify returnPlot = TRUE, otherwise it
 will only save to the disk</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"beesFlagged"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create a figure shoring the total number of duplicates, kept duplicates, and unique</span></span>
@@ -506,7 +483,8 @@ will only save to the disk</p>
 <span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="basic_workflow_files/figure-html/5.2-1.png" width="700"></p>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'dupePlotR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="flags-by-source">5.3 Flags by source<a class="anchor" aria-label="anchor" href="#flags-by-source"></a>
@@ -520,7 +498,7 @@ those species.</p>
 <div class="section level4">
 <h4 id="a--all-taxa-in-dataset">a. all taxa in dataset<a class="anchor" aria-label="anchor" href="#a--all-taxa-in-dataset"></a>
 </h4>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualise all flags for each dataSource (simplified to the text before the first underscore)</span></span>
 <span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/plotFlagSummary.html">plotFlagSummary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beesFlagged</span>,</span>
@@ -534,13 +512,12 @@ those species.</p>
 <span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  - Preparing data to plot...</span></span>
-<span><span class="co">##  - Building plot...</span></span></code></pre>
-<p><img src="basic_workflow_files/figure-html/5.3a-1.png" width="700"></p>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'plotFlagSummary' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 <p>###### b. Single sp. summary ####</p>
 <p>In fact, lets build one of these single-species example below using
 the same data and the omnipresent <em>Apis mellifera</em>.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualise all flags for each dataSource (simplified to the text before the first underscore)</span></span>
 <span>  <span class="co"># A clever user might also realise the potential to summarise and produce outputs in other columns</span></span>
 <span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/plotFlagSummary.html">plotFlagSummary</a></span><span class="op">(</span></span>
@@ -572,11 +549,8 @@ the same data and the omnipresent <em>Apis mellifera</em>.</p>
 <span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, <span class="st">'B. Mont.'</span> <span class="op">=</span> <span class="st">"BMont"</span>, <span class="st">'B. Minkley'</span> <span class="op">=</span> <span class="st">"BMin"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
 <span>  Gaiarsa <span class="op">=</span> <span class="st">"Gai"</span>, EPEL <span class="op">=</span> <span class="st">"EPEL"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  - Filtering to selected species...</span></span>
-<span><span class="co">##  - Selected species has 8 occurrences.</span></span>
-<span><span class="co">##  - Preparing data to plot...</span></span>
-<span><span class="co">##  - Building plot...</span></span></code></pre>
-<p><img src="basic_workflow_files/figure-html/5.3b-1.png" width="700"></p>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'plotFlagSummary' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -585,29 +559,17 @@ the same data and the omnipresent <em>Apis mellifera</em>.</p>
 <p>We can also make some overall summary maps at the country level using
 <code><a href="../reference/summaryMaps.html">summaryMaps()</a></code>. If you get an error about breaks not being
 unique, then reduce class_n.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryMaps.html">summaryMaps</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">beesFlagged</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">10</span>, class_n <span class="op">=</span> <span class="fl">3</span>, class_Style <span class="op">=</span> <span class="st">"jenks"</span>,</span>
 <span>    outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, fileName <span class="op">=</span> <span class="st">"CountryMaps_jenks.pdf"</span>, returnPlot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Spherical geometry (s2) switched off</span></span></code></pre>
-<pre><code><span><span class="co">##  - Extracting country data from points...</span></span></code></pre>
-<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
-<span><span class="co">## are planar</span></span></code></pre>
-<pre><code><span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
-<span><span class="co">## are planar</span></span></code></pre>
-<pre><code><span><span class="co">## Extraction complete.</span></span>
-<span><span class="co">##  - Buffering naturalearth map by pointBuffer...</span></span></code></pre>
-<pre><code><span><span class="co">## dist is assumed to be in decimal degrees (arc_degrees).</span></span>
-<span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
-<span><span class="co">## are planar</span></span>
-<span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
-<span><span class="co">## are planar</span></span></code></pre>
-<p><img src="basic_workflow_files/figure-html/5.4-1.png" width="700"></p>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryMaps' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="save-data">6.0 Save data<a class="anchor" aria-label="anchor" href="#save-data"></a>
 </h2>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mapData</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"/Output/Intermediate/"</span>, <span class="st">"cleanTaxon_"</span>,</span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -623,7 +585,7 @@ unique, then reduce class_n.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

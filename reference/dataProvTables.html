@@ -15,7 +15,7 @@ taxa in similar institutions."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,15 +27,15 @@ taxa in similar institutions."></head><body>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html" aria-label="Function list"><span class="fa fas fa-r"></span> Functions</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning"><li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/BeeBDC_data_preparation.html">Bee-specific data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation"><li><a class="dropdown-item" href="../articles/Species_richness_estimation.html">BeeBDC richness estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation"><li><a class="dropdown-item" href="../articles/speciesRichness_example.html">BeeBDC richness estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="https://jbdorey.github.io/BeeBDC/news/index.html"><span class="fa fas fa-newspaper"></span> News</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -50,7 +50,7 @@ taxa in similar institutions."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Build a table of data providers for bee occurrence records</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/dataProvTables.R" class="external-link"><code>R/dataProvTables.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/R/dataProvTables.R" class="external-link"><code>R/dataProvTables.R</code></a></small>
       <div class="d-none name"><code>dataProvTables.Rd</code></div>
     </div>
 
@@ -109,6 +109,7 @@ Default = OutPath_Report.</p></dd>
 <span class="r-in"><span>runBeeDataChecks <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>fileName <span class="op">=</span> <span class="st">"testFile.csv"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dataProvTables(data = beesFlagged, runBeeDataChecks = TRUE, outPath = tempdir(),     fileName = "testFile.csv"):</span> could not find function "dataProvTables"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -121,7 +122,7 @@ Default = OutPath_Report.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

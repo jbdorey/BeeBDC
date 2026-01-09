@@ -1,0 +1,201 @@
+# A wrapper for all of the data readr_functions
+
+Read in a variety of data files that are specific to certain smaller
+data providers. There is an internal readr function for each dataset and
+each one of these functions is called by readr_BeeBDC. While these
+functions are internal, they are displayed in the documentation of
+readr_BeeBDC for clarity.
+
+## Usage
+
+``` r
+readr_BeeBDC(
+  dataset = NULL,
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = NULL
+)
+
+readr_EPEL(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_ASP(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_BMin(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_BMont(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_Ecd(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_Gai(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_CAES(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = "Sheet1"
+)
+
+readr_KP(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_EcoS(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_GeoL(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_EaCO(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_MABC(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = "Hoja1"
+)
+
+readr_Col(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = sheet
+)
+
+readr_FSCA(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_SMC(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_Bal(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = "animal_data"
+)
+
+readr_Lic(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_Arm(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = "Sheet1"
+)
+
+readr_Dor(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_MEPB(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = NULL
+)
+
+readr_BBD(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_MPUJ(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = sheet
+)
+
+readr_STRI(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_PALA(path = NULL, inFile = NULL, outFile = NULL, dataLicense = NULL)
+
+readr_JoLa(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = c("pre-1950", "post-1950")
+)
+
+readr_VicWam(
+  path = NULL,
+  inFile = NULL,
+  outFile = NULL,
+  dataLicense = NULL,
+  sheet = "Combined"
+)
+```
+
+## Arguments
+
+- dataset:
+
+  Character. The name of the dataset to be read in. For example
+  readr_CAES can be called using "readr_CAES" or "CAES". This is not
+  caps sensitive.
+
+- path:
+
+  A character path. The path to the directory containing the data.
+
+- inFile:
+
+  Character or character path. The name of the file itself (can also be
+  the remainder of a path including the file name).
+
+- outFile:
+
+  Character or character path. The name of the Darwin Core format file
+  to be saved.
+
+- dataLicense:
+
+  Character. The license to accompany each record in the Darwin Core
+  'license' column.
+
+- sheet:
+
+  A character String. For those datasets read from an .xlsx format,
+  provide the sheet name. NOTE: This will be ignored for .csv readr\_
+  functions and required for .xlsx readr\_ functions.
+
+## Value
+
+A data frame that is in Darwin Core format.
+
+## Details
+
+This function wraps several internal readr functions. Users may call
+readr_BeeBDC and select the dataset name to import a certain dataset.
+These datasets include:
+
+Excel (.xlsx) formatted datasets: CAES, MABC, Col, Bal, MEPB, MUPJ, Arm,
+JoLa, and VicWam.
+
+CSV (.csv) formatted datasets: EPEL, ASP, BMin, BMont, Ecd, Gai, KP,
+EcoS, GeoL, EaCo, FSCA, SMC, Lic, Dor, BBD, STRI, and PALA
+
+See Dorey et al. 2023 BeeBDC... for further details.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# An example using a .xlsx file
+Arm_Data <- readr_BeeBDC(
+    dataset = "Arm",
+    path = paste0(tempdir(), "/Additional_Datasets"),
+    inFile = "/InputDatasets/Bee database Armando_Final.xlsx",
+    outFile = "jbd_Arm_Data.csv",
+    sheet = "Sheet1",
+    dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+    
+    
+    # An example using a .csv file
+EPEL_Data <- readr_BeeBDC(
+  dataset = "readr_EPEL",
+  path = paste0(tempdir(), "/Additional_Datasets"),
+  inFile = "/InputDatasets/bee_data_canada.csv",
+  outFile = "jbd_EPEL_data.csv",
+  dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
+} # }
+```

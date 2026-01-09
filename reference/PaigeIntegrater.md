@@ -1,0 +1,79 @@
+# Integrate manually-cleaned data from Paige Chesshire
+
+Replaces publicly available data with data that has been manually
+cleaned and error-corrected for use in the paper Chesshire, P. R.,
+Fischer, E. E., Dowdy, N. J., Griswold, T., Hughes, A. C., Orr, M. J., .
+. . McCabe, L. M. (In Press). Completeness analysis for over 3000 United
+States bee species identifies persistent data gaps. Ecography.
+
+## Usage
+
+``` r
+PaigeIntegrater(db_standardized = NULL, PaigeNAm = NULL, columnStrings = NULL)
+```
+
+## Arguments
+
+- db_standardized:
+
+  A data frame or tibble. Occurrence records as input.
+
+- PaigeNAm:
+
+  A data frame or tibble. The Paige Chesshire dataset.
+
+- columnStrings:
+
+  A list of character vectors. Each vector is a set of columns that will
+  be used to iteratively match the public dataset against the Paige
+  dataset.
+
+## Value
+
+Returns db_standardized (input occurrence records) with the Paige
+Chesshire data integrated.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+library(dplyr)
+# set the DataPath to tempdir for this example
+DataPath <- tempdir()
+# Integrate Paige Chesshire's cleaned dataset.
+PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
+                                 sep = "/"), col_types = ColTypeR()) %>%
+ # Change the column name from Source to dataSource to match the rest of the data.
+ dplyr::rename(dataSource = Source) %>%
+ # add a NEW database_id column
+ dplyr::mutate(
+   database_id = paste0("Paige_data_", 1:nrow(.)),
+   .before = scientificName)
+
+ # Set up the list of character vectors to iteratively check for matches with public data.
+columnList <- list(
+ c("decimalLatitude", "decimalLongitude", 
+   "recordNumber", "recordedBy", "individualCount", "samplingProtocol",
+   "associatedTaxa", "sex", "catalogNumber", "institutionCode", "otherCatalogNumbers",
+   "recordId", "occurrenceID", "collectionID"), # Iteration 1
+ c("catalogNumber", "institutionCode", "otherCatalogNumbers",
+   "recordId", "occurrenceID", "collectionID"), # Iteration 2
+ c("decimalLatitude", "decimalLongitude", 
+   "recordedBy", "genus", "specificEpithet"), # Iteration 3
+ c("id", "decimalLatitude", "decimalLongitude"), # Iteration 4
+ c("recordedBy", "genus", "specificEpithet", "locality"), # Iteration 5
+ c("recordedBy", "institutionCode", "genus", 
+   "specificEpithet","locality"),# Iteration 6
+ c("occurrenceID","decimalLatitude", "decimalLongitude"), # Iteration 7
+ c("catalogNumber","decimalLatitude", "decimalLongitude"), # Iteration 8
+ c("catalogNumber", "locality") # Iteration 9
+) 
+
+# Merge Paige's data with downloaded data
+db_standardized <- BeeBDC::PaigeIntegrater(
+ db_standardized = db_standardized,
+ PaigeNAm = PaigeNAm,
+ columnStrings = columnList)
+} # }
+
+```
