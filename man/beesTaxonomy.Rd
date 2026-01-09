@@ -29,6 +29,9 @@ alternatively download the dataset from the URL below and then read it in using
 \code{base::readRDS("filePath.Rda")}.
 }
 \details{
+Note that as of version 1.3.2, this function internally uses the "download" function from the
+\code{downloader} package on CRAN.
+
 \strong{Column details}
 
 \strong{flags} Flags or comments about the taxon name.

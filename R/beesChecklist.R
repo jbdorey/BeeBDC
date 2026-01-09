@@ -11,6 +11,9 @@
 #' Note that sometimes the download might not work without restarting R. In this case, you could
 #' alternatively download the dataset from the URL below and then read it in using 
 #' `base::readRDS("filePath.Rda")`.
+#' 
+#' Note that as of version 1.3.2, this function internally uses the "download" function from the 
+#' `downloader` package on CRAN.
 #'  
 #'  See [BeeBDC::beesTaxonomy()] for further context. 
 #'
@@ -83,9 +86,11 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   
+  #### 0.0 Prep ####
   # Set the number of attempts
   nAttempts = 5
     
+    ##### 0.1 Errors ####
     # Set up the error message function
   error_func <- function(e){
     message(paste("Download attempt failed..."))
@@ -94,11 +99,90 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
     message(paste("Could not read download..."))
   }
   
+    ##### 0.2 Check OS ####
     # Check operating system
   OS <- dplyr::if_else(.Platform$OS.type == "unix",
                                              "MacLinux",
                                              "Windows")
   
+    ##### 0.3 Downloader function ####
+  # Please note that this function is taken directly from the "downloader" package version 0.4.1
+  # This is the purpose of the package, but I have taken their excellent function to avoid
+  # Another dependency for BeeBDC. MY apologies and thanks to the authors.
+  download <- function(url, ...) {
+    # First, check protocol. If http or https, check platform:
+    if (grepl('^https?://', url)) {
+      
+      # Check whether we are running R 3.2
+      isR32 <- getRversion() >= "3.2"
+      
+      # Windows
+      if (.Platform$OS.type == "windows") {
+        
+        if (isR32) {
+          method <- "wininet"
+        } else {
+          
+          # If we directly use setInternet2, R CMD CHECK gives a Note on Mac/Linux
+          seti2 <- `::`(utils, 'setInternet2')
+          
+          # Check whether we are already using internet2 for internal
+          internet2_start <- seti2(NA)
+          
+          # If not then temporarily set it
+          if (!internet2_start) {
+            # Store initial settings, and restore on exit
+            on.exit(suppressWarnings(seti2(internet2_start)))
+            
+            # Needed for https. Will get warning if setInternet2(FALSE) already run
+            # and internet routines are used. But the warnings don't seem to matter.
+            suppressWarnings(seti2(TRUE))
+          }
+          
+          method <- "internal"
+        }
+        
+        # download.file will complain about file size with something like:
+        #       Warning message:
+        #         In download.file(url, ...) : downloaded length 19457 != reported length 200
+        # because apparently it compares the length with the status code returned (?)
+        # so we supress that
+        suppressWarnings(utils::download.file(url, method = method, ...))
+        
+      } else {
+        # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
+        # appropriate method.
+        
+        if (isR32 && capabilities("libcurl")) {
+          method <- "libcurl"
+        } else if (nzchar(Sys.which("wget")[1])) {
+          method <- "wget"
+        } else if (nzchar(Sys.which("curl")[1])) {
+          method <- "curl"
+          
+          # curl needs to add a -L option to follow redirects.
+          # Save the original options and restore when we exit.
+          orig_extra_options <- getOption("download.file.extra")
+          on.exit(options(download.file.extra = orig_extra_options))
+          
+          options(download.file.extra = paste("-L", orig_extra_options))
+          
+        } else if (nzchar(Sys.which("lynx")[1])) {
+          method <- "lynx"
+        } else {
+          stop("no download method found")
+        }
+        
+        utils::download.file(url, method = method, ...)
+      }
+      
+    } else {
+      utils::download.file(url, ...)
+    }
+  } # END download function
+  
+  
+  #### 1.0 Download ####
   # Run a code to download the data and deal with potential internet issues
   checklist <- NULL                                 
   attempt <- 1 
@@ -141,10 +225,18 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
     } # END while 
   )
   
+
   if(is.null(checklist)){
     message(" - Checklist download failed. Please check your internet connection.")
+    stop(paste0("Checklist download failed. Please check your internet connection.\n",
+                "Alternatively, feel free to paste the download url into your browser (",
+                URL, ")",
+                " and download the file directly. \n",
+                "This file can then be read into R using:\n",
+                "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')"))
   }
   
+  #### 2.0 Return ####
     # Return the data to the user
   return(checklist)
 } # END function

@@ -51,7 +51,8 @@
 #' additional files. Default = 4.
 #' @param labels Character. The labels for each sub-plot (a, b, c, ...). The default is NULL,
 #' which will provide labels a-z as required.
-#' @param fileName Character. Prefix to the output files. Default = "richnessPlots".
+#' @param fileName Character. Prefix to the output files. Default = "richnessPlots.pdf". 
+#' Changing the suffix is a convenient way to alter the file format.
 #' @param outPath Character. The fodler in which to save the plots. Default = `tempdir()`
 #' @param base_width Numeric. The width, in inches, to save the plot. Default = 8.3.
 #' @param base_height Numeric. The height, in inches, to save the plot. Default = 11.7.
@@ -108,7 +109,7 @@
 #' nrow = 2,
 #' ncol = 2,
 #' labels = NULL,
-#' fileName = "speciesRichnessPlots",
+#' fileName = "speciesRichnessPlots.pdf",
 #' outPath = tempdir(),
 #' base_width = 8.3,
 #' base_height = 11.7, 
@@ -136,7 +137,7 @@ ggRichnessWrapper <- function(
     nrow = 3,
     ncol = 4,
     labels = NULL,
-    fileName = "richnessPlots",
+    fileName = "richnessPlots.pdf",
     outPath = tempdir(),
     base_width = 8.3,
     base_height = 11.7, 
@@ -442,7 +443,7 @@ ggRichnessWrapper <- function(
     cowplot::save_plot(
       plot = plotOut,
       filename = paste(outPath, "/", fileName, "_", names(plotData)[[1]], "_to_",
-                       names(plotData)[[length(plotData)]], ".pdf", sep = ""),
+                       names(plotData)[[length(plotData)]], sep = ""),
       base_width = base_height,
       base_height = base_height, 
       dpi = dpi)

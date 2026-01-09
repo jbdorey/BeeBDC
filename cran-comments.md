@@ -7,6 +7,7 @@ Duration: 5m 28s
 0 errors ✔ | 0 warnings ✔ | 1 note ✖
 
 
- - I have silenced the ggplot2 test errors until ggplot updates and I can un-silence them as the yare compliant with their new formats
+ - I have re-activated the ggplot2 tests with the new version's release.
+ - I have also updated some small issues with the new functions and improved the vignette on GitHub Pages.
 
 

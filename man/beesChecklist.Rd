@@ -75,6 +75,10 @@ alternatively download the dataset from the URL below and then read it in using
 
 See \code{\link[=beesTaxonomy]{beesTaxonomy()}} for further context.
 }
+\details{
+Note that as of version 1.3.2, this function internally uses the "download" function from the
+\code{downloader} package on CRAN.
+}
 \examples{
 \dontrun{
 beesChecklist <- BeeBDC::beesChecklist()
