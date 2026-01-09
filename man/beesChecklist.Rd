@@ -79,6 +79,10 @@ See \code{\link[=beesTaxonomy]{beesTaxonomy()}} for further context.
 Note that as of version 1.3.2, this function internally uses the "download" function from the
 \code{downloader} package on CRAN.
 }
+\details{
+Note that as of version 1.3.2, this function internally uses the "download" function from the
+\code{downloader} package on CRAN.
+}
 \examples{
 \dontrun{
 beesChecklist <- BeeBDC::beesChecklist()
