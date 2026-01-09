@@ -110,16 +110,311 @@ wild bee data standard. Authorea. doi: https://doi.org/10.22541/au.173862402.227
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
 <span class="r-in"><span><span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">ColTypeR</span><span class="op">(</span><span class="op">)</span> </span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> 'ColTypeR' is not an exported object from 'namespace:BeeBDC'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cols_only(</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   database_id = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   scientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   family = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subfamily = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   genus = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subgenus = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subspecies = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   species = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   specificEpithet = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   infraspecificEpithet = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   acceptedNameUsage = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   taxonRank = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   scientificNameAuthorship = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   identificationQualifier = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   higherClassification = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   identificationReferences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   typeStatus = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   previousIdentifications = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimIdentification = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   identifiedBy = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dateIdentified = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   decimalLatitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   decimalLongitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimLatitude = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimLongitude = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimElevation = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   stateProvince = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   country = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   continent = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   locality = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   island = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   county = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   municipality = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   countryCode = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level0Gid = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level0Name = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level1Gid = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level1Name = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   license = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   issue = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   eventDate = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   eventTime = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   startDayOfYear = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   endDayOfYear = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   day = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   month = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   year = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   basisOfRecord = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   type = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   occurrenceStatus = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   recordNumber = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   recordedBy = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   eventID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Location = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   samplingProtocol = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   samplingEffort = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fieldNumber = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   individualCount = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   organismQuantity = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coordinatePrecision = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coordinateUncertaintyInMeters = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   spatiallyValid = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   catalogNumber = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gbifID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasetID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   institutionCode = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasetName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   otherCatalogNumbers = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   occurrenceID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   taxonKey = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coreid = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   recordId = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   collectionID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedSequences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   institutionID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimScientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimEventDate = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedTaxa = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedOrganisms = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fieldNotes = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sex = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rights = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rightsHolder = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   accessRights = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsLicense = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsType = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsAccessRights = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedReferences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bibliographicCitation = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsBibliographicCitation = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   references = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   flags = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   informationWithheld = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   isDuplicateOf = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   hasCoordinate = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   hasGeospatialIssues = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   assertions = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   occurrenceYear = <span style="color: #0000BB;">col_datetime(format = "")</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   duplicateStatus = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedOccurrences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   locationRemarks = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dataSource = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dataBase_scientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .rou = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .val = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .equ = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .zer = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .cap = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .cen = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .sea = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .otl = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .gbf = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .inst = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .dpl = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .summary = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   names_clean = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatim_scientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .uncer_terms = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .eventDate_empty = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .year_outOfRange = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .duplicates = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .lonFlag = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .latFlag = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .gridSummary = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .basisOfRecords_notStandard = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .scientificName_empty = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_empty = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_outOfRange = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coordinates_transposed = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   country_suggested = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .countryOutlier = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   countryMatch = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .expertOutlier = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .occurrenceAbsent = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_country_inconsistent = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .unLicensed = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .invalidName = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .sequential = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   idContinuity = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .uncertaintyThreshold = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .GBIFflags = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   finalLatitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   finalLongitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Source = <span style="color: #BB0000;">col_character()</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> )</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># To add new columns you can write</span></span></span>
 <span class="r-in"><span><span class="fu">ColTypeR</span><span class="op">(</span>newCharacterColumn <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html" class="external-link">col_character</a></span><span class="op">(</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>         newNumericColumn <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html" class="external-link">col_integer</a></span><span class="op">(</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>         newLogicalColumn <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html" class="external-link">col_logical</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ColTypeR(newCharacterColumn = readr::col_character(), newNumericColumn = readr::col_integer(),     newLogicalColumn = readr::col_logical()):</span> could not find function "ColTypeR"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cols_only(</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   database_id = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   scientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   family = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subfamily = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   genus = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subgenus = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subspecies = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   species = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   specificEpithet = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   infraspecificEpithet = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   acceptedNameUsage = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   taxonRank = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   scientificNameAuthorship = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   identificationQualifier = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   higherClassification = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   identificationReferences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   typeStatus = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   previousIdentifications = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimIdentification = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   identifiedBy = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dateIdentified = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   decimalLatitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   decimalLongitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimLatitude = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimLongitude = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimElevation = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   stateProvince = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   country = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   continent = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   locality = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   island = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   county = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   municipality = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   countryCode = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level0Gid = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level0Name = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level1Gid = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   level1Name = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   license = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   issue = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   eventDate = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   eventTime = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   startDayOfYear = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   endDayOfYear = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   day = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   month = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   year = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   basisOfRecord = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   type = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   occurrenceStatus = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   recordNumber = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   recordedBy = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   eventID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Location = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   samplingProtocol = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   samplingEffort = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fieldNumber = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   individualCount = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   organismQuantity = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coordinatePrecision = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coordinateUncertaintyInMeters = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   spatiallyValid = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   catalogNumber = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gbifID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasetID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   institutionCode = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasetName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   otherCatalogNumbers = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   occurrenceID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   taxonKey = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coreid = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   recordId = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   collectionID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedSequences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   institutionID = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimScientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatimEventDate = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedTaxa = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedOrganisms = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fieldNotes = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sex = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rights = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rightsHolder = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   accessRights = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsLicense = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsType = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsAccessRights = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedReferences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bibliographicCitation = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dctermsBibliographicCitation = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   references = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   flags = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   informationWithheld = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   isDuplicateOf = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   hasCoordinate = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   hasGeospatialIssues = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   assertions = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   occurrenceYear = <span style="color: #0000BB;">col_datetime(format = "")</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   duplicateStatus = <span style="color: #BB0000;">col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   associatedOccurrences = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   locationRemarks = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dataSource = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dataBase_scientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .rou = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .val = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .equ = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .zer = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .cap = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .cen = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .sea = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .otl = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .gbf = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .inst = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .dpl = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .summary = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   names_clean = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   verbatim_scientificName = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .uncer_terms = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .eventDate_empty = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .year_outOfRange = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .duplicates = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .lonFlag = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .latFlag = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .gridSummary = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .basisOfRecords_notStandard = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .scientificName_empty = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_empty = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_outOfRange = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   coordinates_transposed = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   country_suggested = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .countryOutlier = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   countryMatch = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .expertOutlier = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .occurrenceAbsent = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_country_inconsistent = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .unLicensed = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .invalidName = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .sequential = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   idContinuity = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .uncertaintyThreshold = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .GBIFflags = <span style="color: #BBBB00;">col_logical()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   finalLatitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   finalLongitude = <span style="color: #00BB00;">col_double()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Source = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   newCharacterColumn = <span style="color: #BB0000;">col_character()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   newNumericColumn = <span style="color: #00BB00;">col_integer()</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   newLogicalColumn = <span style="color: #BBBB00;">col_logical()</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> )</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Try reading in one of the test datasets as an example:</span></span></span>
-<span class="r-in"><span><span class="va">beesFlagged</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">ColTypeR</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">beesFlagged</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">ColTypeR</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 124</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    database_id scientificName family subfamily genus subgenus subspecies species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
@@ -141,7 +436,7 @@ wild bee data standard. Authorea. doi: https://doi.org/10.22541/au.173862402.227
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   previousIdentifications &lt;chr&gt;, verbatimIdentification &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   identifiedBy &lt;chr&gt;, dateIdentified &lt;chr&gt;, decimalLatitude &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span>  <span class="co"># OR</span></span></span>
-<span class="r-in"><span><span class="va">beesRaw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">ColTypeR</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">beesRaw</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">ColTypeR</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 90</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    database_id scientificName family subfamily genus subgenus subspecies species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
@@ -165,7 +460,7 @@ wild bee data standard. Authorea. doi: https://doi.org/10.22541/au.173862402.227
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># OR, using the bee standard format from:</span></span></span>
 <span class="r-in"><span>  </span></span>
-<span class="r-in"><span><span class="va">beesRaw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">ColTypeR</span><span class="op">(</span>standardFormat <span class="op">=</span> <span class="st">"bee"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">beesRaw</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">ColTypeR</span><span class="op">(</span>standardFormat <span class="op">=</span> <span class="st">"bee"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 90</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    database_id scientificName family subfamily genus subgenus subspecies species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>

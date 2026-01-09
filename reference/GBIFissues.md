@@ -45,6 +45,8 @@ data(beesRaw)
 beesRaw_Out <- GBIFissues(data = beesRaw, 
    issueColumn = "issue", 
    GBIFflags = c("COORDINATE_INVALID", "ZERO_COORDINATE")) 
-#> Error in GBIFissues(data = beesRaw, issueColumn = "issue", GBIFflags = c("COORDINATE_INVALID",     "ZERO_COORDINATE")): could not find function "GBIFissues"
+#>  - jbd_GBIFissues:
+#> Flagged 0 
+#>   The .GBIFflags column was added to the database. 
 
 ```

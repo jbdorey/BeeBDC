@@ -7,7 +7,9 @@ article's Figshare.
 
 Note that sometimes the download might not work without restarting R. In
 this case, you could alternatively download the dataset from the URL
-below and then read it in using `base::readRDS("filePath.Rda")`.
+below and then read it in using `base::readRDS("filePath.Rda")`. Note
+that as of version 1.3.2, this function internally uses the "download"
+function from the `downloader` package on CRAN.
 
 ## Usage
 
@@ -37,9 +39,6 @@ A downloaded beesTaxonomy.Rda file in the
 returned to the environment.
 
 ## Details
-
-Note that as of version 1.3.2, this function internally uses the
-"download" function from the `downloader` package on CRAN.
 
 **Column details**
 

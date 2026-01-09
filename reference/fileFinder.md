@@ -45,9 +45,15 @@ library(dplyr)
 
  # Now go find it!
 fileFinder(path = RootPath, fileName = "beesRaw")
-#> Error in fileFinder(path = RootPath, fileName = "beesRaw"): could not find function "fileFinder"
+#>  - No dates in file name(s). Finding most-recent from file save time...
+#>  - Found the following file(s): 
+#>  /tmp/Rtmpvrz4HI/beesRaw.csv
+#> [1] "/tmp/Rtmpvrz4HI/beesRaw.csv"
 # more specifically the .csv version
 fileFinder(path = RootPath, fileName = "beesRaw.csv")
-#> Error in fileFinder(path = RootPath, fileName = "beesRaw.csv"): could not find function "fileFinder"
+#>  - No dates in file name(s). Finding most-recent from file save time...
+#>  - Found the following file(s): 
+#>  /tmp/Rtmpvrz4HI/beesRaw.csv
+#> [1] "/tmp/Rtmpvrz4HI/beesRaw.csv"
 # }
 ```

@@ -58,10 +58,16 @@ beesFlagged_out <- summaryFun(
     dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms", ".unLicensed"),
     removeFilterColumns = FALSE,
     filterClean = FALSE)
-#> Error in summaryFun(data = beesFlagged, dontFilterThese = c(".gridSummary",     ".lonFlag", ".latFlag", ".uncer_terms", ".unLicensed"), removeFilterColumns = FALSE,     filterClean = FALSE): could not find function "summaryFun"
+#>  - We will NOT flag the following columns. However, they will remain in the data file.
+#> .gridSummary, .lonFlag, .latFlag, .uncer_terms, .unLicensed
+#>  - summaryFun:
+#> Flagged 81 
+#>   The .summary column was added to the database.
   # View output
 table(beesFlagged_out$.summary, useNA = "always")
-#> Error: object 'beesFlagged_out' not found
+#> 
+#> FALSE  TRUE  <NA> 
+#>    81    19     0 
 
 # Now filter to only the clean data and remove the flag columns
 beesFlagged_out <- summaryFun(
@@ -69,10 +75,18 @@ beesFlagged_out <- summaryFun(
   dontFilterThese = c(".gridSummary", ".lonFlag", ".latFlag", ".uncer_terms", ".unLicensed"),
   removeFilterColumns = TRUE,
   filterClean = TRUE)
-#> Error in summaryFun(data = BeeBDC::beesFlagged, dontFilterThese = c(".gridSummary",     ".lonFlag", ".latFlag", ".uncer_terms", ".unLicensed"), removeFilterColumns = TRUE,     filterClean = TRUE): could not find function "summaryFun"
+#>  - We will NOT flag the following columns. However, they will remain in the data file.
+#> .gridSummary, .lonFlag, .latFlag, .uncer_terms, .unLicensed
+#>  - summaryFun:
+#> Flagged 81 
+#>   The .summary column was added to the database.
+#>  - REMOVED all occurrences that were FALSE for the 'summary' column.
 # View output
 table(beesFlagged_out$.summary, useNA = "always")
-#> Error: object 'beesFlagged_out' not found
+#> Warning: Unknown or uninitialised column: `.summary`.
+#> 
+#> <NA> 
+#>    0 
 
 
 ```

@@ -43,5 +43,7 @@ beesRaw_out <- flagLicense(data = beesRaw,
                         strings_to_restrict = "all",
                         # DON'T flag if in the following data# source(s)
                         excludeDataSource = NULL)
-#> Error in flagLicense(data = beesRaw, strings_to_restrict = "all", excludeDataSource = NULL): could not find function "flagLicense"
+#> \.unLicensed:
+#>  Flagged 0 records that may NOT be used.
+#>  One column was added to the database.
 ```

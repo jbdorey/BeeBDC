@@ -79,5 +79,27 @@ beesRaw_out <- jbd_coordCountryInconsistent(
   lat = "decimalLatitude",
   scale = 50,
   pointBuffer = 0.01)
-#> Error in jbd_coordCountryInconsistent(data = BeeBDC::beesRaw, lon = "decimalLongitude",     lat = "decimalLatitude", scale = 50, pointBuffer = 0.01): could not find function "jbd_coordCountryInconsistent"
+#> No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...
+#> 
+#> bdc_coordinates_outOfRange:
+#> Flagged 0 records.
+#> One column was added to the database.
+#> No '.coordinates_empty' column found, running bdc_coordinates_empty
+#> 
+#> bdc_coordinates_empty:
+#> Flagged 23 records.
+#> One column was added to the database.
+#> No 'country_suggested' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.
+#> No 'countryCode' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.
+#>  - Downloading naturalearth map...
+#> Spherical geometry (s2) switched off
+#>  - Extracting initial country names without buffer...
+#>  - Buffering naturalearth map by pointBuffer...
+#> dist is assumed to be in decimal degrees (arc_degrees).
+#>  - Extracting FAILED country names WITH buffer...
+#> 
+#> jbd_coordinates_country_inconsistent:
+#> Flagged 2 records.
+#> The column, '.coordinates_country_inconsistent', was added to the database.
+#>  - Completed in 1.13 secs
 ```

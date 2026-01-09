@@ -49,5 +49,16 @@ beesRaw_out <- dateFindR(data = beesRaw,
                          maxYear = lubridate::year(Sys.Date()),
                          # Years below this are removed (from the recovered dates only)
                          minYear = 1700)
-#> Error in dateFindR(data = beesRaw, maxYear = lubridate::year(Sys.Date()),     minYear = 1700): could not find function "dateFindR"
+#>  - Preparing data...
+#>  - Extracting dates from year, month, day columns...
+#>  - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate columns in unambiguous ymd, dmy, mdy, and my formats...
+#>  - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate columns in ambiguous formats...
+#>  - Formating and combining the new data..
+#>  - Merging all data, nearly there...
+#>  - Finished. 
+#> We now have 1 more full eventDate cells than in the input data.
+#> We modified dates in 
+#> 89 occurrences.
+#>  - As it stands, there are 89 complete eventDates and 11 missing dates.
+#>  - There are also 89 complete year occurrences to filter from. This is up from an initial count of 88 At this rate, you will stand to lose 11 occurrences on the basis of missing year - Operation time: 0.485791206359863 secs
 ```

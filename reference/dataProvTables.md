@@ -53,5 +53,4 @@ data = beesFlagged,
 runBeeDataChecks = TRUE,
 outPath = tempdir(),
 fileName = "testFile.csv")
-#> Error in dataProvTables(data = beesFlagged, runBeeDataChecks = TRUE, outPath = tempdir(),     fileName = "testFile.csv"): could not find function "dataProvTables"
 ```

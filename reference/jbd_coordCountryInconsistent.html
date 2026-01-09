@@ -131,7 +131,29 @@ Default = 1.</p></dd>
 <span class="r-in"><span>  lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>,</span></span>
 <span class="r-in"><span>  scale <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span>  pointBuffer <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jbd_coordCountryInconsistent(data = BeeBDC::beesRaw, lon = "decimalLongitude",     lat = "decimalLatitude", scale = 50, pointBuffer = 0.01):</span> could not find function "jbd_coordCountryInconsistent"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_outOfRange:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 0 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_empty' column found, running bdc_coordinates_empty</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_empty:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 23 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> No 'country_suggested' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> No 'countryCode' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Downloading naturalearth map...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Spherical geometry (s2) switched off</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting initial country names without buffer...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Buffering naturalearth map by pointBuffer...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> dist is assumed to be in decimal degrees (arc_degrees).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting FAILED country names WITH buffer...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> jbd_coordinates_country_inconsistent:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 2 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The column, '.coordinates_country_inconsistent', was added to the database.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Completed in 1.13 secs</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

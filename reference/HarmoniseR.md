@@ -110,7 +110,24 @@ path = tempdir(),
 taxonomy = testTaxonomy, 
 data = BeeBDC::beesFlagged,
 speciesColumn = "scientificName")
-#> Error: 'harmoniseR' is not an exported object from 'namespace:BeeBDC'
+#>  - Formatting taxonomy for matching...
+#> 
+#>  - Harmonise the occurrence data with unambiguous names...
+#> 
+#>  - Attempting to harmonise the occurrence data with ambiguous names...
+#>  - Formatting merged datasets...
+#> Removing the names_clean column...
+#>  - We matched valid names to 96 of 100 occurrence records. This leaves a total of 4 unmatched occurrence records.
+#> 
+#> harmoniseR:
+#> 4
+#> records were flagged.
+#> The column, '.invalidName' was added to the database.
+#> 
+#>  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName
+#>  - Completed in 0.22 secs
 table(beesRaw_out$.invalidName, useNA = "always")
-#> Error: object 'beesRaw_out' not found
+#> 
+#> FALSE  TRUE  <NA> 
+#>     4    96     0 
 ```

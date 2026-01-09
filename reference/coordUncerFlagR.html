@@ -90,10 +90,14 @@ threshold will be flagged.</p></dd>
 <span class="r-in"><span><span class="va">beesRaw_out</span> <span class="op">&lt;-</span> <span class="fu">coordUncerFlagR</span><span class="op">(</span>data <span class="op">=</span> <span class="va">beesRaw</span>,</span></span>
 <span class="r-in"><span>                               uncerColumn <span class="op">=</span> <span class="st">"coordinateUncertaintyInMeters"</span>,</span></span>
 <span class="r-in"><span>                               threshold <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in coordUncerFlagR(data = beesRaw, uncerColumn = "coordinateUncertaintyInMeters",     threshold = 1000):</span> could not find function "coordUncerFlagR"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> \coordUncerFlagR:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  Flagged 15 geographically uncertain records:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  The column '.uncertaintyThreshold' was added to the database.</span>
 <span class="r-in"><span><span class="co"># View the output</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">beesRaw_out</span><span class="op">$</span><span class="va">.uncertaintyThreshold</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'beesRaw_out' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE  &lt;NA&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    15    23    62 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
