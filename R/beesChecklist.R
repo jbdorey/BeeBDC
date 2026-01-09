@@ -227,7 +227,6 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
   
 
   if(is.null(checklist)){
-    message(" - Checklist download failed. Please check your internet connection.")
     stop(paste0("Checklist download failed. Please check your internet connection.\n",
                 "Alternatively, feel free to paste the download url into your browser (",
                 URL, ")",

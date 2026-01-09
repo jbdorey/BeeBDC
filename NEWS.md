@@ -13,6 +13,8 @@
 
 # Changes in version 1.3.0
 
+-   Updates `BeeBDC::flagAbsent()` to also check the *individualCount* count and flag those where *individualCount == 0*.
+-   updated `BeeBDC::ColTypeR()` to include a bee-specific Darwin Core data standard using the new argument *standardFormat = "bee"*.
 -   Updated `BeeBDC::atlasDownloader()` to use newer `galah` syntax.
 -   Updated `BeeBDC::interactiveMapR()` to allow the present plot to be returned in the R environment viewer.
 -   Added new functions to estimate species richness across multiple sites and in parallel for added speed.
@@ -49,6 +51,7 @@
 -   Removed extra UTF-8 characters causing a note on CRAN's Linux tests.
 -   Updating citations and such.
 
+# Changes in BeeBDC version 1.1.0
 
 -   A new function added, `BeeBDC::taxadbToBeeBDC()`, that can use the **taxadb** package to download taxonomic data for any taxa. The function will transform the **taxadb** format into the **BeeBDC** format that can be put directly into `BeeBDC::harmoniseR()`. Users may choose their data source (e.g., "gbif" or "itis"), but some formats may be better than others. *Comments and issues are welcome in regards to how well the function works, or not, for your taxon.*
 -   A minor fix where the legend colours for the `BeeBDC::interactiveMapR()` function were inverted from what they should have been. Thanks to Neil Cobb for pointing this out.
@@ -68,6 +71,7 @@
 
 -   Minor exception found by Elsa Youngsteadt where some synonyms would fail to be matched due to double brackets (e.g., "Lasioglossum (leucocomum) (Lovell)"). This has been fixed by letting harmoniseR stringr::str_replace instead of stringr::str_replace_all when finding matches without subgenus. Additionally, harmoniseR now ignores "non-ambiguous..." flags as these are more notes than actual issues.
 
+-   Update to rnaturalearthdata 1.0.0 breaks `BeeBDC::countryOutliers()`. This function now uses the column "iso_a3_eh" instead of "iso_a3". Thanks to @PMassicotte for identifying the issue and the solution.
 
 # Changes in BeeBDC version 1.0.3
 
@@ -79,6 +83,7 @@
 
 -   Update to atlasDownloader from mjwestgate to work with galah version 2.0.0
 
+-   Minor update to the bee taxonomy file (29th November 2023), especially in regards to a few species that were getting associated with genus-only identifications. In particular, users who have downloaded version 1 of the dataset should be careful with the following species: *Coelioxys texanus*, *Lasioglossum albipenne*, *Megachile brevis*, and *Xylocopa virginica*. Likely the verbatimScientificName column could be filtered to remove these issues with something like: beeData %\>% dplyr::filter(verbatimScientificName %in% c("Coelioxys", "Lasioglossum", "Megachile", "Xylocopa")). Thanks to Angela Nava-Bolaños for identifying this issue.
 
 # Changes in BeeBDC version 1.0.1
 
@@ -90,5 +95,6 @@
 
 -   How users access the taxonomy and checklist files were slightly modified to include better warnings to help with troubleshooting as well as specific file-path operations for Windows machines.
 
+-   jbd_coordCountryInconsistent was updated to better capture mismatched countries by using more columns to match.
 
 -   Tests and workflows were updated in accordingly.
