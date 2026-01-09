@@ -203,18 +203,18 @@ taxoMergeR <- function(currentNames = NULL,
     tribe = SOM_acc$tribe,
     subtribe = SOM_acc$subtribe,
     validName = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
                      SOM_acc$genusNew, ""),
-      dplyr::if_else(complete.cases(SOM_acc$authorship.y) & SOM_acc$authorship.y != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$authorship.y) & SOM_acc$authorship.y != "NA",
                      SOM_acc$authorship.y, ""),
       sep = " "),
     canonical_withFlags = "NA",
     canonical = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
                      SOM_acc$genusNew, ""),
-      dplyr::if_else(complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$genusNew) & SOM_acc$genusNew != "NA",
                      SOM_acc$genusNew, ""),
-      dplyr::if_else(complete.cases(SOM_acc$speciesNew) & SOM_acc$speciesNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$speciesNew) & SOM_acc$speciesNew != "NA",
                      SOM_acc$speciesNew, ""),
       sep = " "),
     genus = SOM_acc$genusNew,
@@ -249,18 +249,18 @@ taxoMergeR <- function(currentNames = NULL,
     tribe = SOM_syn$tribe,
     subtribe = SOM_syn$subtribe,
     validName = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_syn$genusNew) & SOM_syn$genusNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$genusNew) & SOM_syn$genusNew != "NA",
                      SOM_syn$genusNew, ""),
-      dplyr::if_else(complete.cases(SOM_syn$speciesNew) & SOM_syn$speciesNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$speciesNew) & SOM_syn$speciesNew != "NA",
                      SOM_syn$speciesNew, ""),
-      dplyr::if_else(complete.cases(SOM_syn$authorship.y) & SOM_syn$authorship.y != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$authorship.y) & SOM_syn$authorship.y != "NA",
                      SOM_syn$authorship.y, ""),
       sep = " "),
     canonical_withFlags = "NA",
     canonical = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_syn$genusNew) & SOM_syn$genusNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$genusNew) & SOM_syn$genusNew != "NA",
                      SOM_syn$genusNew, ""),
-      dplyr::if_else(complete.cases(SOM_syn$speciesNew) & SOM_syn$speciesNew != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$speciesNew) & SOM_syn$speciesNew != "NA",
                      SOM_syn$speciesNew, ""),
       sep = " "),
     genus = SOM_syn$genusNew,
@@ -351,18 +351,18 @@ taxoMergeR <- function(currentNames = NULL,
     tribe = Mult_newAcc$tribe,
     subtribe = Mult_newAcc$subtribe,
     validName = stringr::str_c(
-      dplyr::if_else(complete.cases(Mult_newAcc$genus) & Mult_newAcc$genus != "NA",
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$genus) & Mult_newAcc$genus != "NA",
                      Mult_newAcc$genus, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$species) & Mult_newAcc$species != "NA",
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$species) & Mult_newAcc$species != "NA",
                      Mult_newAcc$species, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$authorship) & Mult_newAcc$authorship != "NA",
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$authorship) & Mult_newAcc$authorship != "NA",
                      Mult_newAcc$authorship, ""),
       sep = " "),
     canonical_withFlags = "NA",
     canonical = stringr::str_c(
-      dplyr::if_else(complete.cases(Mult_newAcc$genus) & Mult_newAcc$genus != "NA",
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$genus) & Mult_newAcc$genus != "NA",
                      Mult_newAcc$genus, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$species) & Mult_newAcc$species != "NA",
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$species) & Mult_newAcc$species != "NA",
                      Mult_newAcc$species, ""),
       sep = " "),
     genus = Mult_newAcc$genus,
@@ -438,37 +438,37 @@ taxoMergeR <- function(currentNames = NULL,
     tribe = SOM_acc$tribe,
     subtribe = SOM_acc$subtribe,
     validName = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_acc$genus_nameSplit) & SOM_acc$genus_nameSplit != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$genus_nameSplit) & SOM_acc$genus_nameSplit != "NA",
                      SOM_acc$genus_nameSplit, ""),
         # subgenus
-      dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_acc$subgenus_nameSplit) & 
                        SOM_acc$subgenus_nameSplit != "NA",
                      paste0("(",SOM_acc$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(SOM_acc$species_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_acc$species_nameSplit) & 
                        SOM_acc$species_nameSplit != "NA",
                      SOM_acc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_acc$infraspecies_nameSplit) & 
                        SOM_acc$infraspecies_nameSplit != "NA",
                      SOM_acc$infraspecies_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_acc$authorship) & SOM_acc$authorship != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$authorship) & SOM_acc$authorship != "NA",
                      SOM_acc$authorship, ""),
       sep = " "),
     canonical_withFlags = "NA",
     canonical = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_acc$genus_nameSplit) & SOM_acc$genus_nameSplit != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$genus_nameSplit) & SOM_acc$genus_nameSplit != "NA",
                      SOM_acc$genus_nameSplit, ""),
       # subgenus
-      dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_acc$subgenus_nameSplit) & 
                        SOM_acc$subgenus_nameSplit != "NA",
                      paste0("(",SOM_acc$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(SOM_acc$species_nameSplit) & SOM_acc$species_nameSplit != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_acc$species_nameSplit) & SOM_acc$species_nameSplit != "NA",
                      SOM_acc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_acc$infraspecies_nameSplit) & 
                        SOM_acc$infraspecies_nameSplit != "NA",
                      SOM_acc$infraspecies_nameSplit, ""),
       sep = " "),
     genus = SOM_acc$genus_nameSplit,
-    subgenus = dplyr::if_else(complete.cases(SOM_acc$subgenus_nameSplit) & 
+    subgenus = dplyr::if_else(stats::complete.cases(SOM_acc$subgenus_nameSplit) & 
                                 SOM_acc$subgenus_nameSplit != "NA",
                               SOM_acc$subgenus_nameSplit, ""),
     species = SOM_acc$species_nameSplit,
@@ -476,13 +476,13 @@ taxoMergeR <- function(currentNames = NULL,
     infraspecies = SOM_acc$infraspecies_nameSplit,
     authorship = SOM_acc$authorship,
       # EDIT:
-    taxon_rank = dplyr::if_else(complete.cases(SOM_acc$infraspecies_nameSplit) & 
+    taxon_rank = dplyr::if_else(stats::complete.cases(SOM_acc$infraspecies_nameSplit) & 
                                   SOM_acc$infraspecies_nameSplit != "NA",
                                 "infraspecies", 
-                                dplyr::if_else(complete.cases(SOM_acc$species) & 
+                                dplyr::if_else(stats::complete.cases(SOM_acc$species) & 
                                                  SOM_acc$species != "NA", 
                                                "species",
-                                               dplyr::if_else(complete.cases(SOM_acc$genus), 
+                                               dplyr::if_else(stats::complete.cases(SOM_acc$genus), 
                                                               "genus", "higher"))),
     valid = FALSE,
     tempIndex = SOM_acc$tempIndex,
@@ -510,37 +510,37 @@ taxoMergeR <- function(currentNames = NULL,
     tribe = SOM_syn$tribe,
     subtribe = SOM_syn$subtribe,
     validName = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_syn$genus_nameSplit) & SOM_syn$genus_nameSplit != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$genus_nameSplit) & SOM_syn$genus_nameSplit != "NA",
                      SOM_syn$genus_nameSplit, ""),
       # subgenus
-      dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_syn$subgenus_nameSplit) & 
                        SOM_syn$subgenus_nameSplit != "NA",
                      paste0("(",SOM_syn$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(SOM_syn$species_nameSplit) & SOM_syn$species_nameSplit != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$species_nameSplit) & SOM_syn$species_nameSplit != "NA",
                      SOM_syn$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_syn$infraspecies_nameSplit) & 
                        SOM_syn$infraspecies_nameSplit != "NA",
                      SOM_syn$infraspecies_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_syn$authorship) & SOM_syn$authorship != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$authorship) & SOM_syn$authorship != "NA",
                      SOM_syn$authorship, ""),
       sep = " "),    
     canonical_withFlags = "NA",
       # EDIT:
     canonical = stringr::str_c(
-      dplyr::if_else(complete.cases(SOM_syn$genus_nameSplit) & SOM_syn$genus_nameSplit != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$genus_nameSplit) & SOM_syn$genus_nameSplit != "NA",
                      SOM_syn$genus_nameSplit, ""),
       # subgenus
-      dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_syn$subgenus_nameSplit) & 
                        SOM_syn$subgenus_nameSplit != "NA",
                      paste0("(",SOM_syn$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(SOM_syn$species_nameSplit) & SOM_syn$species_nameSplit != "NA",
+      dplyr::if_else(stats::complete.cases(SOM_syn$species_nameSplit) & SOM_syn$species_nameSplit != "NA",
                      SOM_syn$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(SOM_syn$infraspecies_nameSplit) & 
                        SOM_syn$infraspecies_nameSplit != "NA",
                      SOM_syn$infraspecies_nameSplit, ""),
       sep = " "),
     genus = SOM_syn$genus_nameSplit,
-    subgenus = dplyr::if_else(complete.cases(SOM_syn$subgenus_nameSplit) & 
+    subgenus = dplyr::if_else(stats::complete.cases(SOM_syn$subgenus_nameSplit) & 
                                 SOM_syn$subgenus_nameSplit != "NA",
                               paste0(SOM_syn$subgenus_nameSplit), ""),
     species = SOM_syn$species_nameSplit,
@@ -548,13 +548,13 @@ taxoMergeR <- function(currentNames = NULL,
     infraspecies = SOM_syn$infraspecies_nameSplit,
     authorship = SOM_syn$authorship,
     # EDIT:
-    taxon_rank = dplyr::if_else(complete.cases(SOM_syn$infraspecies_nameSplit) & 
+    taxon_rank = dplyr::if_else(stats::complete.cases(SOM_syn$infraspecies_nameSplit) & 
                                   SOM_syn$infraspecies_nameSplit != "NA",
                                 "infraspecies", 
-                                dplyr::if_else(complete.cases(SOM_syn$species) & 
+                                dplyr::if_else(stats::complete.cases(SOM_syn$species) & 
                                                  SOM_syn$species != "NA",
                                                "species",
-                                               dplyr::if_else(complete.cases(SOM_syn$genus) & 
+                                               dplyr::if_else(stats::complete.cases(SOM_syn$genus) & 
                                                                 SOM_syn$genus != "NA",
                                                               "genus", "higher"))),
     valid = FALSE,
@@ -642,40 +642,40 @@ taxoMergeR <- function(currentNames = NULL,
     tribe = Mult_newAcc$tribe,
     subtribe = Mult_newAcc$subtribe,
     validName = stringr::str_c(
-      dplyr::if_else(complete.cases(Mult_newAcc$genus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$genus_nameSplit) & 
                        Mult_newAcc$genus_nameSplit != "NA",
                      Mult_newAcc$genus_nameSplit, ""),
         #subgenus
-      dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$subgenus_nameSplit) & 
                        Mult_newAcc$subgenus_nameSplit != "NA",
                      paste0("(",Mult_newAcc$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$species_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$species_nameSplit) & 
                        Mult_newAcc$species_nameSplit != "NA",
                      Mult_newAcc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$infraspecies_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$infraspecies_nameSplit) & 
                        Mult_newAcc$infraspecies_nameSplit != "NA",
                      Mult_newAcc$infraspecies_nameSplit, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$authorship) & Mult_newAcc$authorship != "NA",
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$authorship) & Mult_newAcc$authorship != "NA",
                      Mult_newAcc$authorship, ""),
       sep = " "),
     canonical_withFlags = "NA",
     canonical = stringr::str_c(
-      dplyr::if_else(complete.cases(Mult_newAcc$genus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$genus_nameSplit) & 
                        Mult_newAcc$genus_nameSplit != "NA",
                      Mult_newAcc$genus_nameSplit, ""),
       #subgenus
-      dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$subgenus_nameSplit) & 
                        Mult_newAcc$subgenus_nameSplit != "NA",
                      paste0("(",Mult_newAcc$subgenus_nameSplit ,")"), ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$species_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$species_nameSplit) & 
                        Mult_newAcc$species_nameSplit != "NA",
                      Mult_newAcc$species_nameSplit, ""),
-      dplyr::if_else(complete.cases(Mult_newAcc$infraspecies_nameSplit) & 
+      dplyr::if_else(stats::complete.cases(Mult_newAcc$infraspecies_nameSplit) & 
                        Mult_newAcc$infraspecies_nameSplit != "NA",
                      Mult_newAcc$infraspecies_nameSplit, ""),
       sep = " "),
     genus = Mult_newAcc$genus_nameSplit,
-    subgenus = dplyr::if_else(complete.cases(Mult_newAcc$subgenus_nameSplit) & 
+    subgenus = dplyr::if_else(stats::complete.cases(Mult_newAcc$subgenus_nameSplit) & 
                                 Mult_newAcc$subgenus_nameSplit != "NA",
                               paste0(Mult_newAcc$subgenus_nameSplit), ""),
     species = Mult_newAcc$species_nameSplit,
@@ -684,12 +684,12 @@ taxoMergeR <- function(currentNames = NULL,
     authorship = Mult_newAcc$authorship,
     # EDIT:
     taxon_rank = dplyr::if_else(
-      complete.cases(Mult_newAcc$infraspecies_nameSplit) & Mult_newAcc$infraspecies_nameSplit != "NA",
+      stats::complete.cases(Mult_newAcc$infraspecies_nameSplit) & Mult_newAcc$infraspecies_nameSplit != "NA",
                                 "infraspecies", 
-                                dplyr::if_else(complete.cases(Mult_newAcc$species) & 
+                                dplyr::if_else(stats::complete.cases(Mult_newAcc$species) & 
                                                  Mult_newAcc$species != "NA", 
                                                "species",
-                                               dplyr::if_else(complete.cases(Mult_newAcc$genus) & 
+                                               dplyr::if_else(stats::complete.cases(Mult_newAcc$genus) & 
                                                                 Mult_newAcc$genus != "NA", 
                                                               "genus", "higher"))),
     valid = FALSE,

@@ -71,17 +71,10 @@ Figshare.
 
 Note that sometimes the download might not work without restarting R. In this case, you could
 alternatively download the dataset from the URL below and then read it in using
-\code{base::readRDS("filePath.Rda")}.
+\code{base::readRDS("filePath.Rda")}. Note that as of version 1.3.2, this function internally uses the "download" function from the
+\code{downloader} package on CRAN.
 
 See \code{\link[=beesTaxonomy]{beesTaxonomy()}} for further context.
-}
-\details{
-Note that as of version 1.3.2, this function internally uses the "download" function from the
-\code{downloader} package on CRAN.
-}
-\details{
-Note that as of version 1.3.2, this function internally uses the "download" function from the
-\code{downloader} package on CRAN.
 }
 \examples{
 \dontrun{

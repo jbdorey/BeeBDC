@@ -56,7 +56,7 @@ dataSaver <- function(path = NULL,
   
   # Find the empty columns
   colTest <- occurrences %>% 
-    summarise(dplyr::across(tidyselect::everything(), ~ sum(complete.cases(.)))) 
+    dplyr::summarise(dplyr::across(tidyselect::everything(), ~ sum(complete.cases(.)))) 
   colKeeps <- dplyr::tibble(column = colnames(colTest),
                  countComplete = t(colTest)[,1]) %>%
     dplyr::filter(countComplete > 0)
@@ -259,7 +259,7 @@ fileFinder <- function(path, fileName){
   # Insert the full locations in the Locs column
   FileName_dates$Locs <- rownames(locations)
   # Sort from most- to least-recent files
-  FileName_dates <- dplyr::arrange(FileName_dates, desc(dates))
+  FileName_dates <- dplyr::arrange(FileName_dates, dplyr::desc(dates))
   
   ##### Date from ctime ####
   # IF there are NO dates in the file names, use the file's ctime
@@ -284,3 +284,15 @@ fileFinder <- function(path, fileName){
   # Return this file location
   return(most_recent[[1]])
 } # END fileFinder
+
+#### ++++++ ####
+#### e. re-export pipe operator ####
+#' Pipe operator
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom dplyr %>%
+#' @usage lhs \%>\% rhs
+NULL

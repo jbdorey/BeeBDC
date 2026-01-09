@@ -294,7 +294,7 @@ speciesList <- speciesList[complete.cases(speciesList)]
 
 options(encoding = "UTF-8")
 
-data <- data %>% dplyr::mutate(dplyr::across(where(is.character), 
+data <- data %>% dplyr::mutate(dplyr::across(dplyr::where(is.character), 
                               function(x){iconv(x, 
                                                 to = "UTF-8",
                                                 sub = "")}))

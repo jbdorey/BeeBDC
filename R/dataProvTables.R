@@ -55,7 +55,7 @@ dataProvTables <- function(
   # locally bind variables to the function
   dataSource<-institutionCode<-recordNumber<-institutionCodeNew<-recordedBy<-occurrenceID<-
     catalogNumber<-bibliographicCitation<-datasetName<-otherCatalogNumbers<-rightsHolder<-
-    references<-eventID<-datasetID<-database_id<-id<-scientificName<-DataPath <- NULL
+    references<-eventID<-datasetID<-database_id<-id<-scientificName<-DataPath <- n <-NULL
   
   #### 1.0 Data prep ####
   if(runBeeDataChecks == TRUE){

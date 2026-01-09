@@ -107,7 +107,7 @@ richnessEstimateR <- function(
     iNEXT_lower<- iNEXT_upper<- iNEXT_increasePercent<- iNEXT_increase<- nChao<- iChao_est<- 
     iChao_lower<- iChao_upper<- Assemblage<- continent <- NULL
   rNaturalEarth_name <- combined_site_ChaoiNext <- combined_cont_ChaoiNext <- 
-    combined_global_ChaoiNext <- output <- Est_s.e. <- NULL
+    combined_global_ChaoiNext <- output <- Est_s.e. <-n<- NULL
   
     #### 0.0 data prep ####
   ##### 0.1 Errors ####

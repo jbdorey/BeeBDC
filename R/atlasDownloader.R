@@ -95,7 +95,7 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
                    sep = ""))
   
   # unzip the file
-  unzip(
+  utils::unzip(
     # File to unzip
     zipfile = paste(atlas_galah_path,
                     "/galah_download_", Sys.Date(), ".zip", 

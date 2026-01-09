@@ -308,7 +308,7 @@ readr_EPEL <- function(path = NULL,
   catalog_number<-pollinator_family<-pollinator_genus<-pollinator_species<-collection_method<-
     day_collected<-month_collected<-year_collected<-location_description<-latitude<-longitude<-
     basis_of_record<-genus<-specificEpithet<-year<-day<-eventDate<-collector_number<-
-    location_name<-habitat<-.<-catalogNumber <- NULL
+    location_name<-habitat<-.<-catalogNumber <- month<-NULL
   
   #### 1.1 Prep ####
   requireNamespace("dplyr")
@@ -511,7 +511,7 @@ readr_BMont <- function(path = NULL,
                       dataLicense = NULL){
   # locally bind variables to the function
   occurence_lsid <- fieldNotes <- GPS_device <- . <- catalogNumber <- eventDate <- dateTest <- NULL
-  tempDate <- mdy <- VerbatimEventDate <- NULL
+  tempDate <- mdy <- VerbatimEventDate <- ymd<-NULL
   
   
   #### 4.1 Prep ####
@@ -593,7 +593,7 @@ readr_Ecd <- function(path = NULL,
                        outFile = NULL,
                       dataLicense = NULL){
   # locally bind variables to the function
-  year <- day <- institutionCode <- id <- . <- catalogNumber <- recordID <- NULL
+  year <- day <- institutionCode <- id <- . <- catalogNumber <- recordID <-month<- NULL
   
   #### 5.1 Prep ####
   requireNamespace("dplyr")
@@ -777,7 +777,7 @@ CAES_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"), sheet = sheet) 
     dplyr::mutate(
     # Add previousIdentifications
     previousIdentifications = paste0(
-        # ONLY do this IF there is something in the cell - is.na() finds "NA" values. the "!" reverses this to find complete.cases only.
+        # ONLY do this IF there is something in the cell - is.na() finds "NA" values. the "!" reverses this to find stats::complete.cases only.
       dplyr::if_else(!is.na(Tribe), paste0("Tribe: ", Tribe),"")),
     # Add associatedTaxa
       # This will ONLY concatenate columns where they have a value.
@@ -1126,7 +1126,7 @@ readr_GeoL <- function(path = NULL,
   GeoL_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                sheet = "GEOLOCATE HIGH") %>%
     # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
       # Convert GeoLocate columns into dwc columns
     dplyr::rename(
       decimalLatitude = geolocate_Latitude, decimalLongitude = geolocate_Longitude,
@@ -1277,7 +1277,7 @@ readr_EaCO <- function(path = NULL,
   # Reads in the .csv file, trims the white spaces, and formats the columns to the correct type
   EaCO_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/")) %>%
     # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Rename columns
     dplyr::rename(
       recordNumber = 'Specimen Number',
@@ -1401,7 +1401,7 @@ readr_MABC <- function(path = NULL,
   MABC_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                   sheet = sheet) %>%
     # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = 'Ejemplar',
@@ -1496,7 +1496,7 @@ readr_Col <- function(path = NULL,
                       sheet = sheet){
   # locally bind variables to the function
   day <- year <- eventDateInitial <- eventDate <- month2 <- day2 <- eventDate2 <- NULL
-  scientificName <- . <- catalogNumber <- NULL
+  scientificName <- . <- catalogNumber <-month<- NULL
   
   #### 15.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -1513,10 +1513,10 @@ readr_Col <- function(path = NULL,
   Col_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                  sheet = sheet) %>%
     # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
       # Fix some special cases that already involve "." in the column names
-    setNames(., stringr::str_replace_all(colnames(.), "  ", ". ")) %>%
-    setNames(., stringr::str_replace_all(colnames(.), " $", ".")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "  ", ". ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), " $", ".")) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = paste0('C\u00f3digo de Barras'),
@@ -1793,7 +1793,7 @@ readr_Bal <- function(path = NULL,
   Bal_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                  sheet = sheet, startRow = 2) %>%
     # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Make columns DarwinCore-compatible
     dplyr::rename(
       locationID = siteID,
@@ -1959,7 +1959,7 @@ readr_Arm <- function(path = NULL,
                        sheet = "Sheet1"){
   # locally bind variables to the function
   fam<-genus<-sp<-species<-sex<-locality<-munic<-state<-y<-x<-elev<-specificEpithet<-ecoregion<-
-    veget<-g<-m<-s<-G<-M<-S<-day<-year<-.<-family <- NULL
+    veget<-g<-m<-s<-G<-M<-S<-day<-year<-.<-family <- month<-NULL
   
   #### 20.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -2142,7 +2142,7 @@ readr_MEPB <- function(path = NULL,
   #### 22.2 Read+ ####
   MEPB_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"), sheet = sheet)  %>%
     # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Fix broken encodings
     dplyr:: mutate(
       dplyr::across(
@@ -2194,7 +2194,7 @@ readr_BBD <- function(path = NULL,
                       dataLicense = NULL){
   # locally bind variables to the function
   . <- catalogNumber <- year <- day <- dateLastModified <- dateLastModified2 <- NULL
-  identifiedBy <- Spcslink.identifiedby <- NULL
+  identifiedBy <- Spcslink.identifiedby <-month <- NULL
   
   #### 23.1 Prep ####
   requireNamespace("dplyr")
@@ -2315,7 +2315,7 @@ readr_MPUJ <- function(path = NULL,
   # locally bind variables to the function
   collector1stName <- collectorsLastName <- determined1stName <- determinedLastName <- NULL
   day <- year <- eventDate <- endDate <- . <- catalogNumber <- fieldNotes <- NULL
-  `Start Date (Year)` <- `Start Date (Month)` <- `Start Date (Day)` <- NULL
+  `Start Date (Year)` <- `Start Date (Month)` <- `Start Date (Day)` <- month<-NULL
   
   #### 24.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -2331,7 +2331,7 @@ readr_MPUJ <- function(path = NULL,
   MPUJ_data <- openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                  sheet = sheet) %>%
       # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
     # Rename columns
     dplyr::rename(
       catalogNumber = 'Catalog Number',
@@ -2433,7 +2433,7 @@ readr_STRI <- function(path = NULL,
                        outFile = NULL,
                        dataLicense = NULL){
   # locally bind variables to the function
-  fieldNotes <- Catalognumber <- . <- day <- year <- catalogNumber <-  recordId <- NULL
+  fieldNotes <- Catalognumber <- . <- day <- year <- catalogNumber <-  recordId <-month<- NULL
   
   #### 25.1 Prep ####
   # This will load the requireNamespaced packages. These packages may still need to be installed to 
@@ -2624,7 +2624,7 @@ readr_JoLa <- function(path = NULL,
     dplyr::bind_rows(openxlsx::read.xlsx(paste(path, inFile, sep = "/"),
                                         sheet = sheet[2])) %>%
     # Return spaces in column names to keep the consistent with file before renaming
-    setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
+    stats::setNames(., stringr::str_replace_all(colnames(.), "\\.", " ")) %>%
       # Rename the columns
     dplyr::rename(
       specificEpithet = "Species",
@@ -2745,13 +2745,13 @@ readr_VicWam <- function(path = NULL,
       sep = " "
     ) %>% stringr::str_squish()) %>%
       # modify locality
-    dplyr::mutate(locality2 = stringr::str_c(dplyr::if_else(complete.cases(NEAREST),
+    dplyr::mutate(locality2 = stringr::str_c(dplyr::if_else(stats::complete.cases(NEAREST),
                                                              NEAREST, ""),
-                                              dplyr::if_else(complete.cases(DISTANCE),
+                                              dplyr::if_else(stats::complete.cases(DISTANCE),
                                                              as.character(DISTANCE), ""),
-                                              dplyr::if_else(complete.cases(DIST_UNIT),
+                                              dplyr::if_else(stats::complete.cases(DIST_UNIT),
                                                              DIST_UNIT, ""),
-                                              dplyr::if_else(complete.cases(DIRECTION),
+                                              dplyr::if_else(stats::complete.cases(DIRECTION),
                                                              paste0(DIRECTION, "\u00b0"), 
                                                              ""),
                                               sep = " ") %>% as.character() %>%
@@ -2802,11 +2802,11 @@ readr_VicWam <- function(path = NULL,
                                    eventDateTO2, eventDateTO) %>% as.character(),
       eventDateTO = dplyr::if_else(is.na(eventDateTO),
                                    stringr::str_c(
-                                     dplyr::if_else(complete.cases(yearTO),
+                                     dplyr::if_else(stats::complete.cases(yearTO),
                                                     yearTO,""),
-                                     dplyr::if_else(complete.cases(monthTO),
+                                     dplyr::if_else(stats::complete.cases(monthTO),
                                                     monthTO,""),
-                                     dplyr::if_else(complete.cases(dayTO),
+                                     dplyr::if_else(stats::complete.cases(dayTO),
                                                     dayTO,""),
                                      sep = " ") %>% stringr::str_squish() %>% 
                                      stringr::str_replace(" ", "-"),

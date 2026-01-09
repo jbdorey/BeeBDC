@@ -80,7 +80,7 @@ PaigeIntegrater <- function(
 #### 1.0 occurrenceID ####
 # Make a temporary dataset
 tempData <- db_standardized %>%
-  dplyr::filter(complete.cases(occurrenceID))
+  dplyr::filter(stats::complete.cases(occurrenceID))
 # Find the matches for occurrenceID
 occMatched <- dplyr::tibble(
   Dorey_match = tempData$database_id[cbind(
@@ -90,13 +90,13 @@ occMatched <- dplyr::tibble(
 # User output
 writeLines(paste0(
   " - INITIAL match with occurrenceID only ", 
-  format(sum(complete.cases(occMatched$Dorey_match)), big.mark = ","), " of ",
+  format(sum(stats::complete.cases(occMatched$Dorey_match)), big.mark = ","), " of ",
   format(nrow(occMatched), big.mark = ","), " Paige occurrences.\n",
   "There are ", 
-  format(nrow(occMatched) - sum(complete.cases(occMatched$Dorey_match)), big.mark = ","),
+  format(nrow(occMatched) - sum(stats::complete.cases(occMatched$Dorey_match)), big.mark = ","),
   " occurrences remaining to match."))
 # Save the number remaining
-numMatched <- (nrow(occMatched) - sum(complete.cases(occMatched$Dorey_match)))
+numMatched <- (nrow(occMatched) - sum(stats::complete.cases(occMatched$Dorey_match)))
   # Set matchedPaige to feed into the loop
 matchedPaige <- occMatched
 
@@ -106,7 +106,7 @@ for(i in 1:length(columnStrings)){
   message(paste0(" - Starting iteration ", i))
   # Get the Paige occurrence records that are not matched above
   matchedPaige <- matchedPaige %>%
-    dplyr::filter(complete.cases(matchedPaige$Dorey_match))
+    dplyr::filter(stats::complete.cases(matchedPaige$Dorey_match))
   unMatchedPaige <- PaigeNAm %>%
     # Remove the already-matched records
     dplyr::filter(!database_id %in% matchedPaige$Paige_match)
@@ -129,7 +129,7 @@ for(i in 1:length(columnStrings)){
     # Select the id columns
     dplyr::select(database_id_p, database_id_d) %>%
     # Keep ONLY the matched columns
-    dplyr::filter(complete.cases(database_id_p)) %>%
+    dplyr::filter(stats::complete.cases(database_id_p)) %>%
     # Rename those columns
     dplyr::rename(Dorey_match = database_id_d, Paige_match = database_id_p) %>%
     # bind with the last lot of matched names
@@ -138,19 +138,19 @@ for(i in 1:length(columnStrings)){
   # User output
   writeLines(paste0(
     "Matched ",
-    format(sum(complete.cases(matchedPaige$Dorey_match)), big.mark = ","), " of ",
+    format(sum(stats::complete.cases(matchedPaige$Dorey_match)), big.mark = ","), " of ",
     format(nrow(matchedPaige), big.mark = ","), " Paige occurrences.\n",
     "There are ", 
-    format(nrow(matchedPaige) - sum(complete.cases(matchedPaige$Dorey_match)), big.mark = ","),
+    format(nrow(matchedPaige) - sum(stats::complete.cases(matchedPaige$Dorey_match)), big.mark = ","),
     " occurrences remaining to match.\n",
     "This step has found ", 
     format(
-      numMatched - (nrow(matchedPaige) - sum(complete.cases(matchedPaige$Dorey_match))),
+      numMatched - (nrow(matchedPaige) - sum(stats::complete.cases(matchedPaige$Dorey_match))),
     big.mark = ","),
     " extra occurrences from the last iteration."
     ))
       # Update numMatched for next iteration
-  numMatched = (nrow(matchedPaige) - sum(complete.cases(matchedPaige$Dorey_match)))
+  numMatched = (nrow(matchedPaige) - sum(stats::complete.cases(matchedPaige$Dorey_match)))
 } # END loop
 
 #### 3.0 Append #### 
@@ -181,24 +181,24 @@ db_standardized <- db_standardized %>%
       by = c("database_id" = "Dorey_match"), suffix = c("", "_m")) %>%
         # Rename those fields to replace existing fields 
   dplyr::mutate(
-    decimalLatitude = dplyr::if_else(complete.cases(decimalLatitude_m), decimalLatitude_m,
+    decimalLatitude = dplyr::if_else(stats::complete.cases(decimalLatitude_m), decimalLatitude_m,
                                      decimalLatitude),
-    database_id = dplyr::if_else(complete.cases(database_id_m), database_id_m,
+    database_id = dplyr::if_else(stats::complete.cases(database_id_m), database_id_m,
                                  database_id),
-    decimalLongitude = dplyr::if_else(complete.cases(decimalLongitude_m), decimalLongitude_m,
+    decimalLongitude = dplyr::if_else(stats::complete.cases(decimalLongitude_m), decimalLongitude_m,
                                       decimalLongitude),
-    scientificName = dplyr::if_else(complete.cases(scientificName_m), scientificName_m,
+    scientificName = dplyr::if_else(stats::complete.cases(scientificName_m), scientificName_m,
                                     scientificName),
-    genus = dplyr::if_else(complete.cases(genus_m), genus_m,
+    genus = dplyr::if_else(stats::complete.cases(genus_m), genus_m,
                            genus),
-    specificEpithet = dplyr::if_else(complete.cases(specificEpithet_m), specificEpithet_m,
+    specificEpithet = dplyr::if_else(stats::complete.cases(specificEpithet_m), specificEpithet_m,
                                      specificEpithet),
-    infraspecificEpithet = dplyr::if_else(complete.cases(infraspecificEpithet_m), 
+    infraspecificEpithet = dplyr::if_else(stats::complete.cases(infraspecificEpithet_m), 
                                           infraspecificEpithet_m,
                                           infraspecificEpithet),
-    country = dplyr::if_else(complete.cases(country_m), country_m,
+    country = dplyr::if_else(stats::complete.cases(country_m), country_m,
                              country),
-    coordinateUncertaintyInMeters = dplyr::if_else(complete.cases(coordinateUncertaintyInMeters_m),
+    coordinateUncertaintyInMeters = dplyr::if_else(stats::complete.cases(coordinateUncertaintyInMeters_m),
                                                    coordinateUncertaintyInMeters_m,
                                                    coordinateUncertaintyInMeters)) %>%
     # Remove the additional columns
