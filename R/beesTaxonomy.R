@@ -63,11 +63,25 @@
 #'  **taxon_rank** Rank for the bee taxon addressed in the entry.
 #'  
 #'  **notes** Additional notes about the name/taxon.
+#'  
+#'  **Previous taxonomies:**
+#'  
+#'   - 2026-01-12 **current**: https://open.flinders.edu.au/ndownloader/files/60945820
+#'  
+#'   - 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
+#'   
+#'   - 2023-11-29: https://open.flinders.edu.au/ndownloader/files/43331472
+#'   
+#'   - 2023-10-10: https://open.flinders.edu.au/ndownloader/files/42613126
+#'   
+#'   - 2023-09-20: https://open.flinders.edu.au/ndownloader/files/42402264
+#'   
+#'   - Original: https://open.flinders.edu.au/ndownloader/files/42320595
 #' 
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
-#' @param ... Extra variables that can be passed to [utils::download.file()]
+#' @param ... Extra variables that can be passed to `downloader::download()`.
 #'
 #'
 #'  
@@ -93,7 +107,7 @@
 #'}
 #' 
 #'
-beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/43331472",
+beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
 
@@ -104,10 +118,10 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/4
       ##### 0.1 Errors ####
   # Set up the error message function
   error_func <- function(e){
-    message(paste("Download attempt failed..."))
+    message(paste("Taxonomy download attempt failed..."))
   }
   error_funcFile <- function(e){
-    message(paste("Could not read download..."))
+    message(paste("Could not read taxonomy download..."))
   }
   
     ##### 0.2 Check OS ####
@@ -201,29 +215,27 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/4
   while( is.null(taxonomy) && attempt <= nAttempts) {   
     # Don't attempt for the last attempt
     if(attempt < nAttempts){
-      
 # WINDOWS
       if(OS != "MacLinux"){
     # Download the file to the outPath 
-    tryCatch(download(URL, destfile = destfile,
-                                  ...),
+    tryCatch(download(URL, destfile = normalizePath(paste0(tempdir(),
+                                                           "/beesTaxonomy.Rda"))),
         error = error_func, warning = error_func)
     # Load the file from the outPath
       tryCatch(
     taxonomy <- base::readRDS(normalizePath(paste0(tempdir(), "/beesTaxonomy.Rda"))),
     error = error_funcFile, warning = error_funcFile)
+# MAC/LINUX
       }else{
         # Download the file to the outPath 
-        tryCatch(download(URL, destfile = destfile,
-                                      ...),
+        tryCatch(download(URL, destfile = paste0(tempdir(), 
+                                                 "/beesTaxonomy.Rda")),
                  error = error_func, warning = error_func)
         # Load the file from the outPath
         tryCatch(
           taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
           error = error_funcFile, warning = error_funcFile)
       }
-        
-        
     } # END if
     
     if(attempt < nAttempts){

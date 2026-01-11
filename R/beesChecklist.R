@@ -17,7 +17,7 @@
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
-#' @param ... Extra variables that can be passed to [utils::download.file()]
+#' @param ... Extra variables that can be passed to `downloader::download()`.
 #' 
 #' @return A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
 #' the environment.
@@ -67,6 +67,14 @@
 #'  
 #'  **Notes** Discover Life country name notes.
 #'  
+#'  **Previous checklists:**
+#'  
+#'   - 2026-01-12 **current**: https://open.flinders.edu.au/ndownloader/files/60945823
+#'  
+#'   - 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47092720
+#'   
+#'   - Original: https://open.flinders.edu.au/ndownloader/files/42320598
+#'  
 #' 
 #' @references This dataset was created using the Discover Life checklist and taxonomy. 
 #' Dataset is from the publication: 
@@ -80,7 +88,7 @@
 #'\dontrun{
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
-beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598?private_link=bce1f92848c2ced313ee",
+beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   
@@ -91,10 +99,10 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
     ##### 0.1 Errors ####
     # Set up the error message function
   error_func <- function(e){
-    message(paste("Download attempt failed..."))
+    message(paste("Checklist download attempt failed..."))
   }
   error_funcFile <- function(e){
-    message(paste("Could not read download..."))
+    message(paste("Could not read checklist download..."))
   }
   
     ##### 0.2 Check OS ####
@@ -189,27 +197,29 @@ beesChecklist <- function(URL = "https://figshare.com/ndownloader/files/42320598
         # Don't attempt for the last attempt
       if(attempt < nAttempts){
         
-  # WINDOWS
+# WINDOWS
         if(OS != "MacLinux"){
       # Download the file
-      tryCatch(utils::download.file(URL, destfile = normalizePath(paste0(tempdir(),
-                                                                         "/beesChecklist.Rda"))),
+      tryCatch(download(
+        URL, 
+        destfile = normalizePath(paste0(tempdir(),
+                                        "/beesChecklist.Rda"))),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
         checklist <- base::readRDS(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
         error = error_funcFile, warning = error_funcFile)
         }else{
-  # MAC OR LINUX
+# MAC/LINUX
           # Download the file
-          tryCatch(utils::download.file(URL, destfile = paste0(tempdir(), "/beesChecklist.Rda")),
+          tryCatch(download(URL, destfile = paste0(tempdir(), 
+                                                               "/beesChecklist.Rda")),
                    error = error_func, warning = error_func)
           # Load the file 
           tryCatch(
             checklist <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda")),
             error = error_funcFile, warning = error_funcFile)
         }
-        
       } # END if
 
       

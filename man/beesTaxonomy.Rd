@@ -5,7 +5,7 @@
 \title{Download a nearly complete taxonomy of bees globally}
 \usage{
 beesTaxonomy(
-  URL = "https://open.flinders.edu.au/ndownloader/files/43331472",
+  URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
   ...
 )
 }
@@ -13,7 +13,7 @@ beesTaxonomy(
 \item{URL}{A character vector to the FigShare location of the dataset. The default will be to
 the most-recent version.}
 
-\item{...}{Extra variables that can be passed to \code{\link[utils:download.file]{utils::download.file()}}}
+\item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }
 \value{
 A downloaded beesTaxonomy.Rda file in the \code{\link[=tempdir]{tempdir()}} and the same tibble returned to
@@ -77,6 +77,16 @@ alternatively download the dataset from the URL below and then read it in using
 \strong{taxon_rank} Rank for the bee taxon addressed in the entry.
 
 \strong{notes} Additional notes about the name/taxon.
+
+\strong{Previous taxonomies:}
+\itemize{
+\item 2026-01-12 \strong{current}: https://open.flinders.edu.au/ndownloader/files/60945820
+\item 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
+\item 2023-11-29: https://open.flinders.edu.au/ndownloader/files/43331472
+\item 2023-10-10: https://open.flinders.edu.au/ndownloader/files/42613126
+\item 2023-09-20: https://open.flinders.edu.au/ndownloader/files/42402264
+\item Original: https://open.flinders.edu.au/ndownloader/files/42320595
+}
 }
 \examples{
 \dontrun{

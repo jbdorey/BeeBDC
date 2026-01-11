@@ -24,19 +24,19 @@ usethis::use_data(beesCountrySubset, overwrite = TRUE, compress = "xz")
   ##### 2.1 Full datasets ####
 
   # CHECKLIST
-beesChecklist <- readr::read_csv(paste0(dataPath, "/CheckL_combined2023-08-21.csv"),
-                                 guess_max = 40000) %>%
+beeChecklist <- readr::read_csv(paste0(dataPath, "/CheckL_combined2026-01-12.csv"),
+                                 guess_max = 400000) %>%
   # Remove some columns to save space
   dplyr::select(!c(infraspecificEpithet))
-base::saveRDS(beesChecklist, 
+base::saveRDS(beeChecklist, 
               file = paste0("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_development/",
                             "beesChecklist_", Sys.Date(), ".Rda"),
               compress = "xz")
 
   # TAXONOMY
-beesTaxonomy <- readr::read_csv(paste0(dataPath, 
-        "/restrictedScripts/TaxonomyFiles/TaxonomyComplete_2023-11-29.csv")) 
-base::saveRDS(beesTaxonomy, 
+beeTaxonomy <- readr::read_csv(paste0(dataPath, 
+        "/restrictedScripts/TaxonomyFiles/TaxonomyComplete_2026-01-12.csv")) 
+base::saveRDS(beeTaxonomy, 
               file = paste0("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_development/",
                             "beesTaxonomy_", Sys.Date(), ".Rda"),
               compress = "xz")

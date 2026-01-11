@@ -5,8 +5,7 @@
 \title{Download a country-level checklist of bees from Discover Life}
 \usage{
 beesChecklist(
-  URL =
-    "https://figshare.com/ndownloader/files/42320598?private_link=bce1f92848c2ced313ee",
+  URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
   ...
 )
 }
@@ -14,7 +13,7 @@ beesChecklist(
 \item{URL}{A character vector to the FigShare location of the dataset. The default will be to
 the most-recent version.}
 
-\item{...}{Extra variables that can be passed to \code{\link[utils:download.file]{utils::download.file()}}}
+\item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }
 \value{
 A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
@@ -63,6 +62,13 @@ the environment.
 \strong{taxon_rank} Rank of the taxon name.
 
 \strong{Notes} Discover Life country name notes.
+
+\strong{Previous checklists:}
+\itemize{
+\item 2026-01-12 \strong{current}: https://open.flinders.edu.au/ndownloader/files/60945823
+\item 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47092720
+\item Original: https://open.flinders.edu.au/ndownloader/files/42320598
+}
 }
 \description{
 Download the table contains taxonomic and country information for the bees of the world based

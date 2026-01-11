@@ -192,8 +192,8 @@ outFile_maker <- function(path = path, file2make = "out_file"){
 #' @param path A directory as character. The directory to recursively search.
 #' @param fileName A character/regex string. The file name to find.
 #'
-#' @return Returns a directory to the most-recent file that matches the provied file Using regex
-#' can greatly improve specificity. Using regex can greatly improve specificity. 
+#' @return Returns a directory to the most-recent file that matches the provide file. Using regex
+#' can greatly improve specificity.
 #' The function will also write into the console the file that it has found - it is worthwhile to
 #'  check that this is the correct file to avoid complications down the line
 #' 
