@@ -273,7 +273,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       "\n - Has curl? ", nzchar(Sys.which("curl")[1])
     ))
     
-    warning(paste0("Checklist download failed. Please check your internet connection.\n",
+    message(paste0("Checklist download failed. Please check your internet connection.\n",
                 "Alternatively, feel free to paste the download url into your browser (",
                 URL, ")",
                 " and download the file directly. \n",
@@ -281,7 +281,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                 "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')",
                 "\nSee the error(s) returned."))
       # Return the download error(s)
-    stop(paste0(names(downloadReturn), ": ", TEST, sep = "\n"))
+    message(paste0(names(downloadReturn), ": ", TEST, sep = "\n"))
   }
   
   #### 2.0 Return ####
