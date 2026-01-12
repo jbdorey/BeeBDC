@@ -12,6 +12,10 @@
   Klaus and Nicolas Leclercq) for finding problems and bringing them to
   my attention! I have also now incorporated more error messages to
   hopefully better guide users when things are going wrong.
+  Additionally, the function now uses
+  [`file.path()`](https://rdrr.io/r/base/file.path.html) in order to
+  resolve directories and so does not rely on checking the OS (however,
+  the OS test is still in place to help troubleshooting).
 - Updates to the `BeeBDC::BeesTaxonomy()` and `BeeBDC::BeesChecklist()`
   datasets to a 2026 version of Discover Life — J.S. &
   Pickering, J. (2026) Discover Life bee species guide and world

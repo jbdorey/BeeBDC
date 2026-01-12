@@ -108,7 +108,7 @@ beesRaw_out <- countryOutlieRs(checklist = testChecklist,
 #>  1.  The '.countryOutlier' column was added which is a filtering column. 
 #>  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. 
 #>  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.
-#>  - Completed in 1.75 secs
+#>  - Completed in 1.64 secs
 table(beesRaw_out$.countryOutlier, useNA = "always")
 #> 
 #> TRUE <NA> 
