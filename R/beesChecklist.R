@@ -17,6 +17,7 @@
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
+#' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
 #' @param ... Extra variables that can be passed to `downloader::download()`.
 #' 
 #' @return A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
@@ -89,6 +90,7 @@
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
 beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
+                          mode = NULL,
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   
@@ -140,13 +142,21 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
             suppressWarnings(seti2(TRUE))
           }
           method <- "internal"
+            # If mode is not provided, then define it
+          if(is.null(mode)){
+            mode <- "wb"  
+          }
         }
         # download.file will complain about file size with something like:
         #       Warning message:
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
-        suppressWarnings(utils::download.file(URL, method = method, destfile = destfile, ...))
+        suppressWarnings(utils::download.file(URL, 
+                                              method = method, 
+                                              destfile = destfile, 
+                                              mode = mode,
+                                              ...))
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
@@ -167,7 +177,10 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         } else {
           stop("no download method found")
         }
-        utils::download.file(URL, method = method, destfile = destfile, ...)
+        if(is.null(mode)){
+          mode <- "w"  
+        }
+        utils::download.file(URL, method = method, destfile = destfile, mode = mode, ...)
       }
       
     } else {

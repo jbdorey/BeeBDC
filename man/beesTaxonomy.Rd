@@ -6,12 +6,15 @@
 \usage{
 beesTaxonomy(
   URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+  mode = NULL,
   ...
 )
 }
 \arguments{
 \item{URL}{A character vector to the FigShare location of the dataset. The default will be to
 the most-recent version.}
+
+\item{mode}{A character passed on to \code{utils::download.file()}. Default = "wb" for Windows or "w" for Mac/Linux.}
 
 \item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }

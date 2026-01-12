@@ -81,6 +81,7 @@
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
+#' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
 #' @param ... Extra variables that can be passed to `downloader::download()`.
 #'
 #'
@@ -108,6 +109,7 @@
 #' 
 #'
 beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+                         mode = NULL,
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
 
@@ -145,62 +147,60 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
       
       # Windows
       if (.Platform$OS.type == "windows") {
-        
         if (isR32) {
           method <- "wininet"
         } else {
-          
           # If we directly use setInternet2, R CMD CHECK gives a Note on Mac/Linux
           seti2 <- `::`(utils, 'setInternet2')
-          
           # Check whether we are already using internet2 for internal
           internet2_start <- seti2(NA)
-          
           # If not then temporarily set it
           if (!internet2_start) {
             # Store initial settings, and restore on exit
             on.exit(suppressWarnings(seti2(internet2_start)))
-            
             # Needed for https. Will get warning if setInternet2(FALSE) already run
             # and internet routines are used. But the warnings don't seem to matter.
             suppressWarnings(seti2(TRUE))
           }
-          
           method <- "internal"
+          if(is.null(mode)){
+            mode <- "wb"  
+          }
         }
-        
         # download.file will complain about file size with something like:
         #       Warning message:
         #         In download.file(URL, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
-        suppressWarnings(utils::download.file(URL, method = method, destfile = destfile, ...))
+        suppressWarnings(utils::download.file(URL, 
+                                              method = method, 
+                                              destfile = destfile, 
+                                              mode = mode,
+                                              ...))
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
         # appropriate method.
-        
         if (isR32 && capabilities("libcurl")) {
           method <- "libcurl"
         } else if (nzchar(Sys.which("wget")[1])) {
           method <- "wget"
         } else if (nzchar(Sys.which("curl")[1])) {
           method <- "curl"
-          
           # curl needs to add a -L option to follow redirects.
           # Save the original options and restore when we exit.
           orig_extra_options <- getOption("download.file.extra")
           on.exit(options(download.file.extra = orig_extra_options))
-          
           options(download.file.extra = paste("-L", orig_extra_options))
-          
         } else if (nzchar(Sys.which("lynx")[1])) {
           method <- "lynx"
         } else {
           stop("no download method found")
         }
-        
-        utils::download.file(URL, method = method, destfile = destfile, ...)
+        if(is.null(mode)){
+          mode <- "w"  
+        }
+        utils::download.file(URL, method = method, destfile = destfile, mode = mode, ...)
       }
       
     } else {
@@ -220,21 +220,16 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
 # WINDOWS
       if(OS != "MacLinux"){
     # Download the file to the outPath 
-    tryCatch(download(URL, destfile = file.path(tempdir(), "/beesTaxonomy.Rda")),
-        error = error_func, warning = error_func)
+    download(URL, destfile = file.path(tempdir(), "/beesTaxonomy.Rda"))
     # Load the file from the outPath
-      tryCatch(
-    taxonomy <- base::readRDS(file.path(tempdir(), "/beesTaxonomy.Rda")),
-    error = error_funcFile, warning = error_funcFile)
+    taxonomy <- base::readRDS(file.path(tempdir(), "/beesTaxonomy.Rda"))
 # MAC/LINUX
       }else{
         # Download the file to the outPath 
-        tryCatch(download(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
-                 error = error_func, warning = error_func)
+        download(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda"))
         # Load the file from the outPath
-        tryCatch(
-          taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
-          error = error_funcFile, warning = error_funcFile)
+        
+          taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda"))
       }
     } # END if
     
