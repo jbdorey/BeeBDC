@@ -245,6 +245,8 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     # Run a code to download the data and deal with potential internet issues
   taxonomy <- NULL                                 
   attempt <- 1
+  savePath <- file.path(tempdir(), "beesTaxonomy.Rda")
+  writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   
     # Don't attempt for the last attempt
@@ -252,20 +254,20 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
 # WINDOWS
       if(OS != "MacLinux"){
     # Download the file to the outPath 
-    tryCatch(downloadReturn <- download(URL, destfile = file.path(tempdir(), "beesTaxonomy.Rda")),
+    tryCatch(downloadReturn <- download(URL, destfile = savePath),
         error = error_func, warning = error_func)
     # Load the file from the outPath
       tryCatch(
-    taxonomy <- base::readRDS(file.path(tempdir(), "beesTaxonomy.Rda")),
+    taxonomy <- base::readRDS(savePath),
     error = error_funcFile, warning = error_funcFile)
 # MAC/LINUX
       }else{
         # Download the file to the outPath 
-        tryCatch(downloadReturn <- download(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
+        tryCatch(downloadReturn <- download(URL, destfile = savePath),
                  error = error_func, warning = error_func)
         # Load the file from the outPath
         tryCatch(
-          taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
+          taxonomy <- base::readRDS(savePath),
           error = error_funcFile, warning = error_funcFile)
       }
     } # END if
@@ -280,6 +282,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   } # END while
   )
   
+  #### 2.0 Error list ####
   if(is.null(taxonomy)){
       # Check system capacities
     message(paste0(
@@ -303,7 +306,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
         names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
     
         # Check file errors
-    fileError <- base::readRDS(file.path(tempdir(), "beesTaxonomy.Rda")) %>% 
+    fileError <- base::readRDS(savePath) %>% 
       errorCatcher()
     if(!stringr::str_detect(paste0(fileError, collapse = ""), 
                             "could not find function")){
@@ -313,7 +316,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     stop("Errors finished.")
   }
 
-  #### 2.0 Return ####
+  #### 3.0 Return ####
   # Return the data to the user
   return(taxonomy)
 } # END function

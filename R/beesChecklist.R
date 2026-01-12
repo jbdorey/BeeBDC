@@ -263,7 +263,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
     } # END while 
   )
   
-
+    #### 2.0 Error list ####
   if(is.null(checklist)){
     # Check system capacities
     message(paste0(
@@ -297,7 +297,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
     stop("Errors finished.")
   }
   
-  #### 2.0 Return ####
+  #### 3.0 Return ####
     # Return the data to the user
   return(checklist)
 } # END function
