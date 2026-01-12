@@ -60,5 +60,5 @@ beesRaw_out <- dateFindR(data = beesRaw,
 #> We modified dates in 
 #> 89 occurrences.
 #>  - As it stands, there are 89 complete eventDates and 11 missing dates.
-#>  - There are also 89 complete year occurrences to filter from. This is up from an initial count of 88 At this rate, you will stand to lose 11 occurrences on the basis of missing year - Operation time: 0.466374397277832 secs
+#>  - There are also 89 complete year occurrences to filter from. This is up from an initial count of 88 At this rate, you will stand to lose 11 occurrences on the basis of missing year - Operation time: 0.462584733963013 secs
 ```

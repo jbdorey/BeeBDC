@@ -123,13 +123,13 @@ RDoc = NULL,
 useHere = FALSE) %>%
   # Add paths created by this function to the environment()
   list2env(envir = environment())  
-#>  - We created the /tmp/RtmpL4w8WM/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub
-#>  - We created the /tmp/RtmpL4w8WM/Data_acquisition_workflowfile. This file needs to have the occurrence data that you want to use added to it otherise things won't work. Please choose this data or download it from the supp. materials of our paper
-#> Warning: '/tmp/RtmpL4w8WM/BDC_repo/DiscoverLife_Data' already exists
-#>  - We created the /tmp/RtmpL4w8WM/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub
-#> Warning: '/tmp/RtmpL4w8WM/Data_acquisition_workflow/Output' already exists
-#>  - We created the /tmp/RtmpL4w8WM/Data_acquisition_workflow/Outputfile.
-#> <environment: 0x5621ed8b8c18>
+#>  - We created the /tmp/Rtmp1QqlhJ/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub
+#>  - We created the /tmp/Rtmp1QqlhJ/Data_acquisition_workflowfile. This file needs to have the occurrence data that you want to use added to it otherise things won't work. Please choose this data or download it from the supp. materials of our paper
+#> Warning: '/tmp/Rtmp1QqlhJ/BDC_repo/DiscoverLife_Data' already exists
+#>  - We created the /tmp/Rtmp1QqlhJ/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub
+#> Warning: '/tmp/Rtmp1QqlhJ/Data_acquisition_workflow/Output' already exists
+#>  - We created the /tmp/Rtmp1QqlhJ/Data_acquisition_workflow/Outputfile.
+#> <environment: 0x55e2921bd210>
 
 # Custom OutPathName provided
   dirMaker(
@@ -142,9 +142,9 @@ useHere = FALSE) %>%
  useHere = FALSE) %>%
    # Add paths created by this function to the environment()
    list2env(envir = environment())  
-#> Warning: '/tmp/RtmpL4w8WM/Data_acquisition_workflow/T2T_Output' already exists
-#>  - We created the /tmp/RtmpL4w8WM/Data_acquisition_workflow/T2T_Outputfile.
-#> <environment: 0x5621ec19d210>
+#> Warning: '/tmp/Rtmp1QqlhJ/Data_acquisition_workflow/T2T_Output' already exists
+#>  - We created the /tmp/Rtmp1QqlhJ/Data_acquisition_workflow/T2T_Outputfile.
+#> <environment: 0x55e291fa8070>
  # Set the working directory
 
 # Further customisations are also possible
@@ -161,9 +161,9 @@ dirMaker(
 #>  - We created the ...path/Bee_SDM_paper/BDC_repo/BeeBDC/Rfile. This file needs to have the NewFunctions added to it otherise things won't work. These can be added from our GitHub
 #> Warning: '...path/BDC_repo/DiscoverLife_Data' already exists
 #>  - We created the ...path/BDC_repo/DiscoverLife_Datafile. This file needs to have the DiscoverLife_Data added to it otherise things won't work. These can be added from our GitHub
-#> Warning: '/tmp/RtmpL4w8WM/Data_acquisition_workflow/AsianPerspective_Output' already exists
-#>  - We created the /tmp/RtmpL4w8WM/Data_acquisition_workflow/AsianPerspective_Outputfile.
-#> <environment: 0x5621ebfc4090>
+#> Warning: '/tmp/Rtmp1QqlhJ/Data_acquisition_workflow/AsianPerspective_Output' already exists
+#>  - We created the /tmp/Rtmp1QqlhJ/Data_acquisition_workflow/AsianPerspective_Outputfile.
+#> <environment: 0x55e291e3bc10>
 
 
 ```
