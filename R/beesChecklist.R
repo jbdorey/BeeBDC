@@ -100,21 +100,33 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   nAttempts = 5
     
     ##### 0.1 Errors ####
+      ###### a. messages ####
     # Set up the error message function
   error_func <- function(e){
     message(paste("Checklist download attempt failed..."))
-    print(downloadReturn)
   }
   error_funcFile <- function(e){
     message(paste("Could not read checklist download..."))
-    print(downloadReturn)
-    message(past0(
-      "System capabilities are:\n",
-      " - Has libcurl? ", capabilities("libcurl"),
-      " - Has wget? ", nzchar(Sys.which("wget")[1]),
-      " - Has curl? ", nzchar(Sys.which("curl")[1])
-    ))
   }
+  
+      ###### b. error catcher ####
+  # Function to capture error outputs from here
+        # Source - https://stackoverflow.com/a
+        # Posted by Martin Morgan, modified by community. See post 'Timeline' for 
+        # change history
+        # Retrieved 2026-01-12, License - CC BY-SA 2.5
+  errorCatcher <- function(fun) {
+      warn <- err <- NULL
+      res <- withCallingHandlers(
+        tryCatch(fun(...), error=function(e) {
+          err <<- conditionMessage(e)
+          NULL
+        }), warning=function(w) {
+          warn <<- append(warn, conditionMessage(w))
+          invokeRestart("muffleWarning")
+        })
+      list(res, warn=warn, err=err)
+    }
   
     ##### 0.2 Check OS ####
     # Check operating system
@@ -166,7 +178,8 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                                                  method = method, 
                                                  destfile = destfile, 
                                                  mode = mode,
-                                                 ...))
+                                                 ...)) %>%
+          errorCatcher()
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
@@ -193,11 +206,13 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
                                                destfile = destfile, 
-                                               mode = mode, ...)
+                                               mode = mode, ...) %>%
+          errorCatcher()
       }
       
     } else {
-      downloadReturn <- utils::download.file(URL, destfile = destfile, ...)
+      downloadReturn <- utils::download.file(URL, destfile = destfile, ...) %>%
+        errorCatcher()
     }
     return(downloadReturn)
   } # END download function
@@ -250,12 +265,23 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   
 
   if(is.null(checklist)){
-    stop(paste0("Checklist download failed. Please check your internet connection.\n",
+    # Check system capacities
+    message(paste0(
+      "System capabilities are:\n",
+      " - Has libcurl? ", capabilities("libcurl"),
+      "\n - Has wget? ", nzchar(Sys.which("wget")[1]),
+      "\n - Has curl? ", nzchar(Sys.which("curl")[1])
+    ))
+    
+    warning(paste0("Checklist download failed. Please check your internet connection.\n",
                 "Alternatively, feel free to paste the download url into your browser (",
                 URL, ")",
                 " and download the file directly. \n",
                 "This file can then be read into R using:\n",
-                "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')"))
+                "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')",
+                "\nSee the error(s) returned."))
+      # Return the download error(s)
+    return(downloadReturn)
   }
   
   #### 2.0 Return ####
