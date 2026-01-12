@@ -18,8 +18,7 @@ for further context.
 
 ``` r
 beesChecklist(
-  URL =
-    "https://figshare.com/ndownloader/files/42320598?private_link=bce1f92848c2ced313ee",
+  URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
   ...
 )
 ```
@@ -33,8 +32,7 @@ beesChecklist(
 
 - ...:
 
-  Extra variables that can be passed to
-  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html)
+  Extra variables that can be passed to `downloader::download()`.
 
 ## Value
 
@@ -90,6 +88,15 @@ scientificNameAuthority but with Discover Life flags.
 **taxon_rank** Rank of the taxon name.
 
 **Notes** Discover Life country name notes.
+
+**Previous checklists:**
+
+- 2026-01-12 **current**:
+  https://open.flinders.edu.au/ndownloader/files/60945823
+
+- 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47092720
+
+- Original: https://open.flinders.edu.au/ndownloader/files/42320598
 
 ## References
 

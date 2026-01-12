@@ -15,7 +15,7 @@ function from the `downloader` package on CRAN.
 
 ``` r
 beesTaxonomy(
-  URL = "https://open.flinders.edu.au/ndownloader/files/43331472",
+  URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
   ...
 )
 ```
@@ -29,8 +29,7 @@ beesTaxonomy(
 
 - ...:
 
-  Extra variables that can be passed to
-  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html)
+  Extra variables that can be passed to `downloader::download()`.
 
 ## Value
 
@@ -95,6 +94,21 @@ scientificNameAuthority and with Discover Life taxonomy flags.
 **taxon_rank** Rank for the bee taxon addressed in the entry.
 
 **notes** Additional notes about the name/taxon.
+
+**Previous taxonomies:**
+
+- 2026-01-12 **current**:
+  https://open.flinders.edu.au/ndownloader/files/60945820
+
+- 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
+
+- 2023-11-29: https://open.flinders.edu.au/ndownloader/files/43331472
+
+- 2023-10-10: https://open.flinders.edu.au/ndownloader/files/42613126
+
+- 2023-09-20: https://open.flinders.edu.au/ndownloader/files/42402264
+
+- Original: https://open.flinders.edu.au/ndownloader/files/42320595
 
 ## References
 
