@@ -19,6 +19,7 @@ for further context.
 ``` r
 beesChecklist(
   URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
+  mode = NULL,
   ...
 )
 ```
@@ -29,6 +30,12 @@ beesChecklist(
 
   A character vector to the FigShare location of the dataset. The
   default will be to the most-recent version.
+
+- mode:
+
+  A character passed on to
+  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html).
+  Default = "wb" for Windows or "w" for Mac/Linux.
 
 - ...:
 

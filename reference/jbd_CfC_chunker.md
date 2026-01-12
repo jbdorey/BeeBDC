@@ -121,7 +121,7 @@ suppressWarnings(
 #> chunkEnd = 1,000,000
 #>  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.
 #> Loading required package: rnaturalearth
-#>  - Completed in 0.31 secs
+#>  - Completed in 0.29 secs
 #>  - We have updated the country names of 5 occurrences that previously had no country name assigned.
 
 

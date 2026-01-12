@@ -72,6 +72,7 @@ alternatively download the dataset from the URL below and then read it in using
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">beesTaxonomy</span><span class="op">(</span></span>
 <span>  URL <span class="op">=</span> <span class="st">"https://open.flinders.edu.au/ndownloader/files/60945820"</span>,</span>
+<span>  mode <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -83,6 +84,10 @@ alternatively download the dataset from the URL below and then read it in using
 <dl><dt id="arg-url">URL<a class="anchor" aria-label="anchor" href="#arg-url"></a></dt>
 <dd><p>A character vector to the FigShare location of the dataset. The default will be to
 the most-recent version.</p></dd>
+
+
+<dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
+<dd><p>A character passed on to <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">utils::download.file()</a></code>. Default = "wb" for Windows or "w" for Mac/Linux.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

@@ -16,6 +16,7 @@ function from the `downloader` package on CRAN.
 ``` r
 beesTaxonomy(
   URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+  mode = NULL,
   ...
 )
 ```
@@ -26,6 +27,12 @@ beesTaxonomy(
 
   A character vector to the FigShare location of the dataset. The
   default will be to the most-recent version.
+
+- mode:
+
+  A character passed on to
+  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html).
+  Default = "wb" for Windows or "w" for Mac/Linux.
 
 - ...:
 
