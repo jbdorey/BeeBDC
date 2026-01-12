@@ -719,7 +719,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.8 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.79 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -956,7 +956,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 0.23 secs</span></span>
+<span><span class="co">##  - Completed in 0.24 secs</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">taxonomyFile</span><span class="op">)</span></span></code></pre></div>
 <p>Save the harmonised file.</p>
@@ -1339,7 +1339,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We modified dates in </span></span>
 <span><span class="co">## 174 occurrences.</span></span>
 <span><span class="co">##  - As it stands, there are 174 complete eventDates and 31 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.611026048660278 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.597652196884155 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1516,9 +1516,9 @@ details as this function is quite modifiable to user needs.</p>
 <span><span class="co">## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmplvXzcw/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-12.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpMZbCDC/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-12.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.3 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.29 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1557,7 +1557,7 @@ of the expert outliers.</p>
 <span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/RtmplvXzcw/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-12.csv</span></span>
+<span><span class="co">##  /tmp/RtmpMZbCDC/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-12.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>

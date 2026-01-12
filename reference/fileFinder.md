@@ -47,13 +47,13 @@ library(dplyr)
 fileFinder(path = RootPath, fileName = "beesRaw")
 #>  - No dates in file name(s). Finding most-recent from file save time...
 #>  - Found the following file(s): 
-#>  /tmp/RtmpsYxQOE/beesRaw.csv
-#> [1] "/tmp/RtmpsYxQOE/beesRaw.csv"
+#>  /tmp/RtmpZguahi/beesRaw.csv
+#> [1] "/tmp/RtmpZguahi/beesRaw.csv"
 # more specifically the .csv version
 fileFinder(path = RootPath, fileName = "beesRaw.csv")
 #>  - No dates in file name(s). Finding most-recent from file save time...
 #>  - Found the following file(s): 
-#>  /tmp/RtmpsYxQOE/beesRaw.csv
-#> [1] "/tmp/RtmpsYxQOE/beesRaw.csv"
+#>  /tmp/RtmpZguahi/beesRaw.csv
+#> [1] "/tmp/RtmpZguahi/beesRaw.csv"
 # }
 ```
