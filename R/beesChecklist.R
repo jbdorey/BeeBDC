@@ -102,9 +102,11 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
     # Set up the error message function
   error_func <- function(e){
     message(paste("Checklist download attempt failed..."))
+    print(downloadReturn)
   }
   error_funcFile <- function(e){
     message(paste("Could not read checklist download..."))
+    print(downloadReturn)
   }
   
     ##### 0.2 Check OS ####
@@ -152,11 +154,12 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
-        suppressWarnings(utils::download.file(URL, 
-                                              method = method, 
-                                              destfile = destfile, 
-                                              mode = mode,
-                                              ...))
+        suppressWarnings(
+          downloadReturn <- utils::download.file(URL, 
+                                                 method = method, 
+                                                 destfile = destfile, 
+                                                 mode = mode,
+                                                 ...))
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
@@ -180,12 +183,13 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         if(is.null(mode)){
           mode <- "w"  
         }
-        utils::download.file(URL, method = method, destfile = destfile, mode = mode, ...)
+        downloadReturn <- utils::download.file(URL, method = method, destfile = destfile, mode = mode, ...)
       }
       
     } else {
-      utils::download.file(URL, destfile = destfile, ...)
+      downloadReturn <- utils::download.file(URL, destfile = destfile, ...)
     }
+    return(downloadReturn)
   } # END download function
   
   

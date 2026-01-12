@@ -121,9 +121,11 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   # Set up the error message function
   error_func <- function(e){
     message(paste("Taxonomy download attempt failed..."))
+    print(downloadReturn)
   }
   error_funcFile <- function(e){
     message(paste("Could not read taxonomy download..."))
+    print(downloadReturn)
   }
   
     ##### 0.2 Check OS ####
@@ -162,7 +164,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
             # and internet routines are used. But the warnings don't seem to matter.
             suppressWarnings(seti2(TRUE))
           }
-          method <- "internal"
+          method <- "libcurl"
           if(is.null(mode)){
             mode <- "wb"  
           }
@@ -172,11 +174,12 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
         #         In download.file(URL, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
-        suppressWarnings(utils::download.file(URL, 
-                                              method = method, 
-                                              destfile = destfile, 
-                                              mode = mode,
-                                              ...))
+        suppressWarnings(
+          downloadReturn <- utils::download.file(URL, 
+                                                 method = method, 
+                                                 destfile = destfile, 
+                                                 mode = mode,
+                                                 ...))
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
@@ -200,12 +203,14 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
         if(is.null(mode)){
           mode <- "w"  
         }
-        utils::download.file(URL, method = method, destfile = destfile, mode = mode, ...)
+        downloadReturn <- utils::download.file(URL, method = method, destfile = destfile, mode = mode, ...)
       }
       
     } else {
-      utils::download.file(URL, destfile = destfile, ...)
+      downloadReturn <- utils::download.file(URL, destfile = destfile, 
+                           mode = "wb", ...)
     }
+    return(downloadReturn)
   } # END download function
   
   
