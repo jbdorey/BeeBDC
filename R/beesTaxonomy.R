@@ -223,7 +223,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
           stop("no download method found")
         }
         if(is.null(mode)){
-          mode <- "w"  
+          mode <- "wb"  
         }
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
