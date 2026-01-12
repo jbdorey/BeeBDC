@@ -281,15 +281,15 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                 "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')"))
     
     # Check download errors
-    if(!is.null(downloadReturn$warn)){
-      message(paste0(" - See the *download* error(s) returned.", paste0(
+    if(!stringr::str_detect(downloadReturn$err, "could not find function")){
+      message(paste0(" - See the possible *download* error(s) returned.", paste0(
         names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
 
     # Check file errors
-    fileError <- base::readRDS(file.path(tempdir(), "/beesCheasdcklist.Rda")) %>% 
+    fileError <- base::readRDS(file.path(tempdir(), "/beesChecklist.Rda")) %>% 
       errorCatcher()
-    if(!is.null(fileError$warn)){
-      message(paste0(" - See the *file* error(s) returned.", paste0(
+    if(!stringr::str_detect(fileError$err, "could not find function")){
+      message(paste0(" - See the possible *file* error(s) returned.", paste0(
         names(fileError), ": ", fileError, collapse = "\n")))}
     
     stop("Errors finished.")
