@@ -298,7 +298,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     "\nSee the error(s) returned."))
     
       # Return the download error(s)
-    paste(downloadReturn)
+    stop(paste0(names(downloadReturn), ": ", TEST, sep = "\n"))
   }
 
   #### 2.0 Return ####
