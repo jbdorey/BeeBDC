@@ -281,7 +281,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                 "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')",
                 "\nSee the error(s) returned."))
       # Return the download error(s)
-    message(paste0(names(downloadReturn), ": ", TEST, sep = "\n"))
+    message(paste0(names(downloadReturn), ": ", downloadReturn, sep = "\n"))
   }
   
   #### 2.0 Return ####
