@@ -970,7 +970,7 @@ database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the o
 ## records were flagged.
 ## The column, '.invalidName' was added to the database.
 ##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName
-##  - Completed in 0.22 secs
+##  - Completed in 0.23 secs
 
 rm(taxonomyFile)
 ```
@@ -1428,7 +1428,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 ## We modified dates in 
 ## 174 occurrences.
 ##  - As it stands, there are 174 complete eventDates and 31 missing dates.
-##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.579891920089722 secs
+##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.597219705581665 secs
 ```
 
 ### 6.2 No eventDate
@@ -1621,9 +1621,9 @@ check_time <- BeeBDC::dupeSummary(
 ## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
 ##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
 ##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-##  - Duplicates have been saved in the file and location: /tmp/RtmpxsY5sQ/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-12.csv
+##  - Duplicates have been saved in the file and location: /tmp/Rtmp2TjTRm/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-12.csv
 ##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.
-##  - Completed in 0.27 secs
+##  - Completed in 0.28 secs
 ```
 
 Save the dataset into the intermediate folder.
@@ -1668,7 +1668,7 @@ if (!exists("duplicates")) {
 }
 ##  - Dates found in file name(s). Finding most-recent file from file name...
 ##  - Found the following file(s): 
-##  /tmp/RtmpxsY5sQ/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-12.csv
+##  /tmp/Rtmp2TjTRm/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-12.csv
 ## Rows: 0 Columns: 19
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
