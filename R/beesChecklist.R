@@ -268,20 +268,31 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
     # Check system capacities
     message(paste0(
       "System capabilities are:\n",
-      " - Has libcurl? ", capabilities("libcurl"),
-      "\n - Has wget? ", nzchar(Sys.which("wget")[1]),
-      "\n - Has curl? ", nzchar(Sys.which("curl")[1])
+      " * Has libcurl? ", capabilities("libcurl"),
+      "\n * Has wget? ", nzchar(Sys.which("wget")[1]),
+      "\n * Has curl? ", nzchar(Sys.which("curl")[1])
     ))
     
-    message(paste0("Checklist download failed. Please check your internet connection.\n",
+    message(paste0(" - Checklist download failed. Please check your internet connection.\n",
                 "Alternatively, feel free to paste the download url into your browser (",
                 URL, ")",
                 " and download the file directly. \n",
                 "This file can then be read into R using:\n",
-                "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')",
-                "\nSee the error(s) returned."))
-      # Return the download error(s)
-    message(paste0(names(downloadReturn), ": ", downloadReturn, sep = "\n"))
+                "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')"))
+    
+    # Check download errors
+    if(!is.null(downloadReturn$warn)){
+      message(paste0(" - See the *download* error(s) returned.", paste0(
+        names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
+
+    # Check file errors
+    fileError <- base::readRDS(file.path(tempdir(), "/beesCheasdcklist.Rda")) %>% 
+      errorCatcher()
+    if(!is.null(fileError$warn)){
+      message(paste0(" - See the *file* error(s) returned.", paste0(
+        names(fileError), ": ", fileError, collapse = "\n")))}
+    
+    stop("Errors finished.")
   }
   
   #### 2.0 Return ####

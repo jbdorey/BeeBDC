@@ -284,18 +284,18 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
       # Check system capacities
     message(paste0(
       "System capabilities are:\n",
-      " - Has libcurl? ", capabilities("libcurl"),
-      "\n - Has wget? ", nzchar(Sys.which("wget")[1]),
-      "\n - Has curl? ", nzchar(Sys.which("curl")[1])
+        " * Has libcurl? ", capabilities("libcurl"),
+      "\n * Has wget? ", nzchar(Sys.which("wget")[1]),
+      "\n * Has curl? ", nzchar(Sys.which("curl")[1])
     ))
       
-    warning(paste0("Taxonomy download failed. Please check your internet connection.\n",
+    warning(paste0(" - Taxonomy download failed. Please check your internet connection.\n",
     "Alternatively, feel free to paste the download url into your browser (",
     URL, ")",
                    " and download the file directly. \n",
     "This file can then be read into R using:\n",
                    "beesTaxonomy <- readRDS('path/to/downloaded/file/beesTaxonomy.Rda')",
-    "\nSee the error(s) returned."))
+    "\n - See the *download* error(s) returned."))
     
       # Return the download error(s)
     stop(paste0(names(downloadReturn), ": ", downloadReturn, sep = "\n"))
