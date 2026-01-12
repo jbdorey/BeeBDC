@@ -297,14 +297,16 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
                    "beesTaxonomy <- readRDS('path/to/downloaded/file/beesTaxonomy.Rda')"))
     
        # Check download errors
-    if(any(!stringr::str_detect(downloadReturn$err, "could not find function"))){
-    message(paste0(" - See the possible *download* error(s) returned.", paste0(
-      names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
+    if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
+                            "could not find function")){
+      message(paste0(" - See the possible *download* error(s) returned.", paste0(
+        names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
     
         # Check file errors
     fileError <- base::readRDS(file.path(tempdir(), "beesTaxonomy.Rda")) %>% 
       errorCatcher()
-    if(any(!stringr::str_detect(fileError$err, "could not find function"))){
+    if(!stringr::str_detect(paste0(fileError, collapse = ""), 
+                            "could not find function")){
       message(paste0(" - See the possible *file* error(s) returned.", paste0(
         names(fileError), ": ", fileError, collapse = "\n")))}
     
