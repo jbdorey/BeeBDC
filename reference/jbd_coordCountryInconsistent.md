@@ -101,5 +101,5 @@ beesRaw_out <- jbd_coordCountryInconsistent(
 #> jbd_coordinates_country_inconsistent:
 #> Flagged 2 records.
 #> The column, '.coordinates_country_inconsistent', was added to the database.
-#>  - Completed in 1.12 secs
+#>  - Completed in 1.1 secs
 ```
