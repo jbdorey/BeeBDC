@@ -466,7 +466,7 @@ explanation on each module.
     Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package
     version 1.3.0. url: <https://github.com/jbdorey/BeeBDC>
 -   **Discover Life citation (for use of bee taxonomy and checklist):** Ascher,
-    J.S. & Pickering, J. (2020) Discover Life bee species guide and world
+    J.S. & Pickering, J. (2026) Discover Life bee species guide and world
     checklist (Hymenoptera: Apoidea: Anthophila).
     <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
 

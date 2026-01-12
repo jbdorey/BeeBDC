@@ -130,6 +130,8 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
                        "MacLinux",
                        "Windows")
   
+  writeLines(paste0("The operating system detected is ", OS, "."))
+  
     ##### 0.3 Downloader function ####
     # Please note that this function is taken directly from the "downloader" package version 0.4.1
     # This is the purpose of the package, but I have taken their excellent function to avoid
@@ -218,8 +220,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
 # WINDOWS
       if(OS != "MacLinux"){
     # Download the file to the outPath 
-    tryCatch(download(URL, destfile = normalizePath(paste0(tempdir(),
-                                                           "/beesTaxonomy.Rda"))),
+    tryCatch(download(URL, destfile = normalizePath(paste0(tempdir(), "/beesTaxonomy.Rda"))),
         error = error_func, warning = error_func)
     # Load the file from the outPath
       tryCatch(
@@ -228,8 +229,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
 # MAC/LINUX
       }else{
         # Download the file to the outPath 
-        tryCatch(download(URL, destfile = paste0(tempdir(), 
-                                                 "/beesTaxonomy.Rda")),
+        tryCatch(download(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
                  error = error_func, warning = error_func)
         # Load the file from the outPath
         tryCatch(

@@ -3,6 +3,7 @@
 - Problems with both `BeeBDC::beesTaxonomy()` and `BeeBDC::beesChecklist()` are resolved by using the `downloader::download()` (from version 0.4.2) function internally. A huge thanks to mitchwebb for offering to fix some of these download issues and to users (Felix Klaus and Nicolas Leclercq) for finding problems and bringing them to my attention! 
 - For `BeeBDC::ggRichnessWrapper()`, users may change the *fileName* suffix to change the output format (e.g., "pdf" or "jpg"). 
 - [May not immediately be updated on devel version] Changes to `BeeBDC::dateFindR()` by mitchwebb (a huge thanks for your active help to BeeBDC and the broader community). The major changes relate to finding and correctly extracting exceptions. More info can bee seen at the pull request here — https://github.com/jbdorey/BeeBDC/pull/15; mitchwebb:dateFindR-improvements
+- Updates to the `BeeBDC::BeesTaxonomy()` and `BeeBDC::BeesChecklist()` datasets to a 2026 version of Discover Life — J.S. & Pickering, J. (2026) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
 
 # Changes in version 1.3.1
 

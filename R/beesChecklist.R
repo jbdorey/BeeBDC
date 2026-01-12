@@ -110,6 +110,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   OS <- dplyr::if_else(.Platform$OS.type == "unix",
                                              "MacLinux",
                                              "Windows")
+  writeLines(paste0("The operating system detected is ", OS, "."))
   
     ##### 0.3 Downloader function ####
   # Please note that this function is taken directly from the "downloader" package version 0.4.1
@@ -202,18 +203,18 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       # Download the file
       tryCatch(download(
         URL, 
-        destfile = normalizePath(paste0(tempdir(),
-                                        "/beesChecklist.Rda"))),
+        destfile = normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
-        checklist <- base::readRDS(normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
+        checklist <- base::readRDS(
+          normalizePath(paste0(tempdir(), "/beesChecklist.Rda"))),
         error = error_funcFile, warning = error_funcFile)
         }else{
 # MAC/LINUX
           # Download the file
-          tryCatch(download(URL, destfile = paste0(tempdir(), 
-                                                               "/beesChecklist.Rda")),
+          tryCatch(download(URL, 
+                            destfile = paste0(tempdir(), "/beesChecklist.Rda")),
                    error = error_func, warning = error_func)
           # Load the file 
           tryCatch(
