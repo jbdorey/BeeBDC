@@ -255,7 +255,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       
       if(attempt < nAttempts){
       # Wait one second before the next request 
-      if(attempt > 1){Sys.sleep(1)            
+      if(attempt > 1){Sys.sleep(10)            
         print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
       } # END IF #2
       # Count the next attempt
@@ -281,14 +281,14 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                 "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')"))
     
     # Check download errors
-    if(!stringr::str_detect(downloadReturn$err, "could not find function")){
+    if(any(!stringr::str_detect(downloadReturn$err, "could not find function"))){
       message(paste0(" - See the possible *download* error(s) returned.", paste0(
         names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
 
     # Check file errors
-    fileError <- base::readRDS(file.path(tempdir(), "/beesChecklist.Rda")) %>% 
+    fileError <- base::readRDS(file.path(tempdir(), "beesChecklist.Rda")) %>% 
       errorCatcher()
-    if(!stringr::str_detect(fileError$err, "could not find function")){
+    if(any(!stringr::str_detect(fileError$err, "could not find function"))){
       message(paste0(" - See the possible *file* error(s) returned.", paste0(
         names(fileError), ": ", fileError, collapse = "\n")))}
     
