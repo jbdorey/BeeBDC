@@ -252,11 +252,11 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
 # WINDOWS
       if(OS != "MacLinux"){
     # Download the file to the outPath 
-    tryCatch(downloadReturn <- download(URL, destfile = file.path(tempdir(), "/beesTaxonomy.Rda")),
+    tryCatch(downloadReturn <- download(URL, destfile = file.path(tempdir(), "beesTaxonomy.Rda")),
         error = error_func, warning = error_func)
     # Load the file from the outPath
       tryCatch(
-    taxonomy <- base::readRDS(file.path(tempdir(), "/beesTaxonomy.Rda")),
+    taxonomy <- base::readRDS(file.path(tempdir(), "beesTaxonomy.Rda")),
     error = error_funcFile, warning = error_funcFile)
 # MAC/LINUX
       }else{

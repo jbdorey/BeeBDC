@@ -232,12 +232,12 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       # Download the file
       tryCatch(downloadReturn <- download(
         URL, 
-        destfile = file.path(tempdir(), "/beesChecklist.Rda")),
+        destfile = file.path(tempdir(), "beesChecklist.Rda")),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
         checklist <- base::readRDS(
-          file.path(tempdir(), "/beesChecklist.Rda")),
+          file.path(tempdir(), "beesChecklist.Rda")),
         error = error_funcFile, warning = error_funcFile)
         }else{
 # MAC/LINUX
