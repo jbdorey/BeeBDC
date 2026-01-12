@@ -116,7 +116,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   # Please note that this function is taken directly from the "downloader" package version 0.4.1
   # This is the purpose of the package, but I have taken their excellent function to avoid
   # Another dependency for BeeBDC. MY apologies and thanks to the authors.
-  download <- function(URL, ...) {
+  download <- function(URL, destfile = NULL, ...) {
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
       # Check whether we are running R 3.2
@@ -146,7 +146,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
-        suppressWarnings(utils::download.file(URL, method = method, ...))
+        suppressWarnings(utils::download.file(URL, method = method, destfile = destfile, ...))
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
@@ -167,11 +167,11 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         } else {
           stop("no download method found")
         }
-        utils::download.file(URL, method = method, ...)
+        utils::download.file(URL, method = method, destfile = destfile, ...)
       }
       
     } else {
-      utils::download.file(URL, ...)
+      utils::download.file(URL, destfile = destfile, ...)
     }
   } # END download function
   
