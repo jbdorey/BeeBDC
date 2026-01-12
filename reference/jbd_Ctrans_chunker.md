@@ -172,7 +172,7 @@ mc.cores = 1
 #> 0 occurrences will be tested
 #> No latitude and longitude were transposed
 #>  - Finished chunk 1 of 1. Total records examined: 20
-#>  - Completed in 3.67 secs
+#>  - Completed in 3.92 secs
 table(beesFlagged_out$coordinates_transposed, useNA = "always")
 #> 
 #> TRUE <NA> 
