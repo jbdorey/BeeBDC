@@ -22,6 +22,11 @@
   extracting exceptions. More info can bee seen at the pull request here
   — <https://github.com/jbdorey/BeeBDC/pull/15>;
   mitchwebb:dateFindR-improvements
+- Updates to the `BeeBDC::BeesTaxonomy()` and `BeeBDC::BeesChecklist()`
+  datasets to a 2026 version of Discover Life — J.S. &
+  Pickering, J. (2026) Discover Life bee species guide and world
+  checklist (Hymenoptera: Apoidea: Anthophila).
+  <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
 
 ## Changes in version 1.3.1
 
