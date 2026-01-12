@@ -72,5 +72,23 @@ beesRaw_out <- idMatchR(
                         c("catalogNumber", "institutionCode")),
   # You can exclude datasets from prior by matching their prefixs - before first underscore:
   excludeDataset = excludeDataset)
-#> Error in idMatchR(currentData = beesRaw, priorData = beesRaw, matchBy = dplyr::lst(c("gbifID"),     c("catalogNumber", "institutionCode", "dataSource"), c("occurrenceID",         "dataSource"), c("recordId", "dataSource"), c("id"),     c("catalogNumber", "institutionCode")), excludeDataset = excludeDataset): could not find function "idMatchR"
+#> Warning message: 
+#>  - No completeness_cols provided. Using default of: c('decimalLatitude',  'decimalLongitude', 'scientificName', and 'eventDate')
+#>  - Generating a basic completeness summary from the decimalLatitude, decimalLongitude, scientificName, eventDate columns.
+#> This summary is simply the sum of complete.cases in each column. It ranges from zero to the N of columns. This will be used to sort duplicate rows and select the most-complete rows.
+#>  - Starting core loop...
+#>  - we matched 47 records using gbifID.
+#> This leaves 51 unmatched data in the priorData file
+#>  - we matched 45 records using catalogNumber, institutionCode, dataSource.
+#> This leaves 6 unmatched data in the priorData file
+#>  - we matched 4 records using occurrenceID, dataSource.
+#> This leaves 2 unmatched data in the priorData file
+#>  - we matched 0 records using recordId, dataSource.
+#> This leaves 2 unmatched data in the priorData file
+#>  - we matched 1 records using id.
+#> This leaves 1 unmatched data in the priorData file
+#>  - we matched 0 records using catalogNumber, institutionCode.
+#> This leaves 1 unmatched data in the priorData file
+#>  - Combining ids and assigning new ones where needed...
+#>  - We matched a total of 97 database_id numbers. We then assigned new database_id numbers to 1 unmatched occurrences.
 ```

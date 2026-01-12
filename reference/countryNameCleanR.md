@@ -44,5 +44,5 @@ commonProblems = dplyr::tibble(problem = c('U.S.A.', 'US','USA','usa','UNITED ST
                                 'United States of America','United States of America',
                                 'United States of America','Mexico','Canada','Brazil',
                                 'Brazil','Brazil','Northern Mariana Islands','PUERTO.RICO')))
-#> Error in countryNameCleanR(data = BeeBDC::beesFlagged, commonProblems = dplyr::tibble(problem = c("U.S.A.",     "US", "USA", "usa", "UNITED STATES", "United States", "U.S.A",     "MX", "CA", "Bras.", "Braz.", "Brasil", "CNMI", "USA TERRITORY: PUERTO RICO"),     fix = c("United States of America", "United States of America",         "United States of America", "United States of America",         "United States of America", "United States of America",         "United States of America", "Mexico", "Canada", "Brazil",         "Brazil", "Brazil", "Northern Mariana Islands", "PUERTO.RICO"))): could not find function "countryNameCleanR"
+#>  - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.
 ```

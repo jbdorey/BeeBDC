@@ -50,5 +50,4 @@ harmonisedCountries <- countryHarmoniseR(
   data = testTaxonomy,
   countryColumn = "country_suggested"
 )
-#> Error in countryHarmoniseR(data = testTaxonomy, countryColumn = "country_suggested"): could not find function "countryHarmoniseR"
 ```

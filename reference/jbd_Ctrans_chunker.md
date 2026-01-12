@@ -159,7 +159,22 @@ append = FALSE,
 scale = "medium",
 mc.cores = 1
 ) 
-#> Error in jbd_Ctrans_chunker(data = beesFlagged, idcol = "database_id",     lat = "decimalLatitude", lon = "decimalLongitude", country = "country_suggested",     countryCode = "countryCode", border_buffer = 1, save_outputs = FALSE,     sci_names = "scientificName", stepSize = 1e+06, chunkStart = 1,     progressiveSave = FALSE, path = tempdir(), append = FALSE,     scale = "medium", mc.cores = 1): could not find function "jbd_Ctrans_chunker"
+#>  - Running chunker with:
+#> stepSize = 1,000,000
+#> chunkStart = 1
+#> chunkEnd = 1,000,000
+#> append = FALSE
+#>  - Starting chunk 1...
+#> From 1 to 1,000,000
+#> Loading required package: readr
+#> Spherical geometry (s2) switched on
+#> Correcting latitude and longitude transposed
+#> 0 occurrences will be tested
+#> No latitude and longitude were transposed
+#>  - Finished chunk 1 of 1. Total records examined: 20
+#>  - Completed in 3.77 secs
 table(beesFlagged_out$coordinates_transposed, useNA = "always")
-#> Error: object 'beesFlagged_out' not found
+#> 
+#> TRUE <NA> 
+#>   20    0 
 ```

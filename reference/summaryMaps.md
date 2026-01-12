@@ -101,6 +101,18 @@ class_Style = "fisher",
 outPath = OutPath_Figures,
 fileName = paste0("CountryMaps_fisher_TEST.pdf"),
 )
-#> Error in summaryMaps(data = beesFlagged, width = 10, height = 10, class_n = 4,     class_Style = "fisher", outPath = OutPath_Figures, fileName = paste0("CountryMaps_fisher_TEST.pdf"),     ): could not find function "summaryMaps"
+#> Spherical geometry (s2) switched off
+#>  - Extracting country data from points...
+#> although coordinates are longitude/latitude, st_intersects assumes that they
+#> are planar
+#> although coordinates are longitude/latitude, st_intersects assumes that they
+#> are planar
+#> Extraction complete.
+#>  - Buffering naturalearth map by pointBuffer...
+#> dist is assumed to be in decimal degrees (arc_degrees).
+#> although coordinates are longitude/latitude, st_intersects assumes that they
+#> are planar
+#> although coordinates are longitude/latitude, st_intersects assumes that they
+#> are planar
 
 ```

@@ -126,11 +126,22 @@ output_iNEXTwrapper <- BeeBDC::iNEXTwrapper(data = data_nextWrapper, variableCol
     size = NULL, endpoint = NULL, knots = 40, mc.cores = 1)
 ```
 
-    ## Error:
-    ## ! 'iNEXTwrapper' is not an exported object from 'namespace:BeeBDC'
+    ##  - Outputs can be found in a list with two tibbles called 'DataInfo' and 'AsyEst' and a list of iNext outputs per groupVariable in iNextEst'.
 
-    ## Error:
-    ## ! object 'output_iNEXTwrapper' not found
+| country_suggested | statistic         |   Observed |  Estimator |   Est_s.e. |  95% Lower |  95% Upper |
+|:------------------|:------------------|-----------:|-----------:|-----------:|-----------:|-----------:|
+| Fiji              | Species Richness  |  17.000000 |  17.499483 |  1.6650163 |  14.236111 |  20.762855 |
+| Fiji              | Shannon diversity |   4.712056 |   4.754101 |  0.2271829 |   4.308831 |   5.199372 |
+| Fiji              | Simpson diversity |   2.653013 |   2.657561 |  0.1264695 |   2.409685 |   2.905436 |
+| Uganda            | Species Richness  |  44.000000 |  70.243359 | 25.7541584 |  19.766137 | 120.720582 |
+| Uganda            | Shannon diversity |  19.651483 |  26.633143 |  4.2573468 |  18.288896 |  34.977389 |
+| Uganda            | Simpson diversity |   7.699248 |   8.128000 |  1.8631187 |   4.476354 |  11.779646 |
+| Vietnam           | Species Richness  |   6.000000 |  13.794872 |  6.1393736 |   1.761921 |  25.827823 |
+| Vietnam           | Shannon diversity |   1.953128 |   2.307552 |  0.5633747 |   1.203358 |   3.411746 |
+| Vietnam           | Simpson diversity |   1.386509 |   1.400756 |  0.1830418 |   1.042001 |   1.759511 |
+| Zambia            | Species Richness  | 129.000000 | 186.853965 | 18.1990609 | 151.184461 | 222.523469 |
+| Zambia            | Shannon diversity |  77.832700 | 104.647375 |  6.8285323 |  91.263698 | 118.031053 |
+| Zambia            | Simpson diversity |  32.753790 |  35.991359 |  5.5923079 |  25.030637 |  46.952081 |
 
 ### ChaoWrapper
 
@@ -185,13 +196,13 @@ output_iChaowrapper <- BeeBDC::ChaoWrapper(data = data_iChao, datatype = "abunda
     k = 10, conf = 0.95, mc.cores = 1)
 ```
 
-    ## Error:
-    ## ! 'ChaoWrapper' is not an exported object from 'namespace:BeeBDC'
+    ##  - Outputs can be found in a list with two tibbles called 'basicTable' and 'richnessTable'.
 
 View the output with `output_iChaowrapper$diversityTable`.
 
-    ## Error:
-    ## ! object 'output_iChaowrapper' not found
+||
+||
+||
 
 ### Visualising
 
@@ -210,8 +221,10 @@ plot_summary <- BeeBDC::ggRichnessWrapper(iNEXT_in = output_iNEXTwrapper, iChao_
     base_width = 8.3, base_height = 11.7, dpi = 300)
 ```
 
-    ## Error:
-    ## ! 'ggRichnessWrapper' is not an exported object from 'namespace:BeeBDC'
+    ## Loading required namespace: cowplot
+
+    ## Error in `UseMethod()`:
+    ## ! no applicable method for 'filter' applied to an object of class "NULL"
 
 Note that Fiji’s diversity seems to be reaching asymptote, but the
 remaining country’s species richnesses are still climbing. Vietnam in
@@ -335,7 +348,7 @@ estimates <- BeeBDC::richnessEstimateR(
 ```
 
     ## Error:
-    ## ! 'richnessEstimateR' is not an exported object from 'namespace:BeeBDC'
+    ## ! object 'estimateData' not found
 
 We can look at the median outputs of our analysis with
 `estimates$Summary`.

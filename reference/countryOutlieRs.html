@@ -135,9 +135,31 @@ NA == did not overlap with rnaturalearth map.</p>
 <span class="r-in"><span>                               scale <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span>                               stepSize <span class="op">=</span> <span class="fl">1000000</span>,</span></span>
 <span class="r-in"><span>                               mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in countryOutlieRs(checklist = testChecklist, data = beesRaw %&gt;%     dplyr::filter(dplyr::row_number() %in% 1:50), keepAdjacentCountry = TRUE,     pointBuffer = 1, scale = 50, stepSize = 1e+06, mc.cores = 1):</span> could not find function "countryOutlieRs"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Spherical geometry (s2) switched off</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting country data from points...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Buffering failed points by pointBuffer...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Prepare the neighbouring country dataset...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> although coordinates are longitude/latitude, st_intersects assumes that they</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> are planar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Compare points with the checklist...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Combining data...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Sorting and removing potentially duplicated buffered points...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - Finished. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> We have matched 25 records to their exact country and 2 to an adjacent country</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> We failed to match 0 occurrences to any 'exact' or 'neighbouring' country.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> There are 23 'NA' occurrences for the .countryOutlier column.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> countryOutlieRs:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 0  for country outlier and flagged  0  for in the .sea records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Three columns were added to the database:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  1.  The '.countryOutlier' column was added which is a filtering column. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Completed in 1.68 secs</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">beesRaw_out</span><span class="op">$</span><span class="va">.countryOutlier</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'beesRaw_out' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TRUE &lt;NA&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   27   23 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

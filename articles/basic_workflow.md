@@ -87,7 +87,7 @@ renv::snapshot(project = paste0(RootPath, "/Data_acquisition_workflow"), prompt 
 ## The version of R recorded in the lockfile will be updated:
 ## - R      [* -> 4.5.2]
 ## 
-## - Lockfile written to "/tmp/RtmpJnj9ns/Data_acquisition_workflow/renv.lock".
+## - Lockfile written to "/tmp/RtmpQce7c0/Data_acquisition_workflow/renv.lock".
 ```
 
 Set up the directories used by **BeeBDC**. These directories include
@@ -255,8 +255,14 @@ filteredData <-
   filterClean = TRUE) 
 ```
 
-    ## Error:
-    ## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
+    ##  - We will NOT flag the following columns. However, they will remain in the data file.
+    ## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold
+
+    ##  - summaryFun:
+    ## Flagged 74 
+    ##   The .summary column was added to the database.
+
+    ##  - REMOVED all occurrences that were FALSE for the 'summary' column.
 
 ### 4.2 Uncertainty threshold
 
@@ -284,8 +290,18 @@ filteredData <- beesFlagged %>%
   filterClean = TRUE)
 ```
 
-    ## Error:
-    ## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
+    ## \coordUncerFlagR:
+    ##  Flagged 3 geographically uncertain records:
+    ##  The column '.uncertaintyThreshold' was added to the database.
+
+    ##  - We will NOT flag the following columns. However, they will remain in the data file.
+    ## .gridSummary, .lonFlag, .latFlag, .uncer_terms
+
+    ##  - summaryFun:
+    ## Flagged 75 
+    ##   The .summary column was added to the database.
+
+    ##  - REMOVED all occurrences that were FALSE for the 'summary' column.
 
 ### 4.2 Date filter
 
@@ -310,8 +326,19 @@ BeeBDC::summaryFun(data = ., dontFilterThese = c(".gridSummary", ".lonFlag", ".l
     ".uncer_terms", ".uncertaintyThreshold"), removeFilterColumns = TRUE, filterClean = TRUE)
 ```
 
-    ## Error:
-    ## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
+    ## 
+    ## bdc_year_outOfRange:
+    ## Flagged 23 records.
+    ## One column was added to the database.
+
+    ##  - We will NOT flag the following columns. However, they will remain in the data file.
+    ## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold
+
+    ##  - summaryFun:
+    ## Flagged 76 
+    ##   The .summary column was added to the database.
+
+    ##  - REMOVED all occurrences that were FALSE for the 'summary' column.
 
 #### b. year range
 
@@ -339,8 +366,14 @@ filteredData <-
     filterClean = TRUE)
 ```
 
-    ## Error:
-    ## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
+    ##  - We will NOT flag the following columns. However, they will remain in the data file.
+    ## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold
+
+    ##  - summaryFun:
+    ## Flagged 8 
+    ##   The .summary column was added to the database.
+
+    ##  - REMOVED all occurrences that were FALSE for the 'summary' column.
 
 Users may choose any number of filtering steps form the main workflow to
 include above
@@ -448,8 +481,7 @@ BeeBDC::dupePlotR(
 )
 ```
 
-    ## Error:
-    ## ! 'dupePlotR' is not an exported object from 'namespace:BeeBDC'
+![](basic_workflow_files/figure-html/5.2-1.png)
 
 ### 5.3 Flags by source
 
@@ -480,8 +512,10 @@ BeeBDC::plotFlagSummary(
 )
 ```
 
-    ## Error:
-    ## ! 'plotFlagSummary' is not an exported object from 'namespace:BeeBDC'
+    ##  - Preparing data to plot...
+    ##  - Building plot...
+
+![](basic_workflow_files/figure-html/5.3a-1.png)
 
 \###### b. Single sp. summary \####
 
@@ -522,8 +556,12 @@ BeeBDC::plotFlagSummary(
 )
 ```
 
-    ## Error:
-    ## ! 'plotFlagSummary' is not an exported object from 'namespace:BeeBDC'
+    ##  - Filtering to selected species...
+    ##  - Selected species has 8 occurrences.
+    ##  - Preparing data to plot...
+    ##  - Building plot...
+
+![](basic_workflow_files/figure-html/5.3b-1.png)
 
 ### 5.4 Maps
 
@@ -536,8 +574,26 @@ BeeBDC::summaryMaps(data = beesFlagged, width = 10, height = 10, class_n = 3, cl
     outPath = tempdir(), fileName = "CountryMaps_jenks.pdf", returnPlot = TRUE)
 ```
 
-    ## Error:
-    ## ! 'summaryMaps' is not an exported object from 'namespace:BeeBDC'
+    ## Spherical geometry (s2) switched off
+
+    ##  - Extracting country data from points...
+
+    ## although coordinates are longitude/latitude, st_intersects assumes that they
+    ## are planar
+
+    ## although coordinates are longitude/latitude, st_intersects assumes that they
+    ## are planar
+
+    ## Extraction complete.
+    ##  - Buffering naturalearth map by pointBuffer...
+
+    ## dist is assumed to be in decimal degrees (arc_degrees).
+    ## although coordinates are longitude/latitude, st_intersects assumes that they
+    ## are planar
+    ## although coordinates are longitude/latitude, st_intersects assumes that they
+    ## are planar
+
+![](basic_workflow_files/figure-html/5.4-1.png)
 
 ## 6.0 Save data
 
