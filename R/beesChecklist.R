@@ -146,7 +146,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       isR32 <- getRversion() >= "3.2"
       
     # Windows
-      if (.Platform$OS.type == "windows") {
+      if (tolower(.Platform$OS.type) == "windows") {
         if (isR32) {
           method <- "wininet"
         } else {
@@ -163,11 +163,10 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
             suppressWarnings(seti2(TRUE))
           }
           method <- "internal"
-            # If mode is not provided, then define it
-          if(is.null(mode)){
+        }
+                  if(is.null(mode)){
             mode <- "wb"  
           }
-        }
         # download.file will complain about file size with something like:
         #       Warning message:
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
@@ -178,8 +177,8 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                                                  method = method, 
                                                  destfile = destfile, 
                                                  mode = mode,
-                                                 ...)) %>%
-          errorCatcher()
+                                                 ...) %>%
+          errorCatcher())
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
@@ -201,7 +200,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
           stop("no download method found")
         }
         if(is.null(mode)){
-          mode <- "w"  
+          mode <- "wb"  
         }
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
@@ -211,7 +210,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       }
       
     } else {
-      downloadReturn <- utils::download.file(URL, destfile = destfile, ...) %>%
+      downloadReturn <- utils::download.file(URL, destfile = destfile, mode = "wb", ...) %>%
         errorCatcher()
     }
     return(downloadReturn)
@@ -222,35 +221,22 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   # Run a code to download the data and deal with potential internet issues
   checklist <- NULL                                 
   attempt <- 1 
+  savePath <- file.path(tempdir(), "beesChecklist.Rda")
+  savePath <- normalizePath(savePath)
+  writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
     while( is.null(checklist) && attempt <= nAttempts) {    
         # Don't attempt for the last attempt
       if(attempt < nAttempts){
-        
-# WINDOWS
-        if(OS != "MacLinux"){
+# Windows or Mac/Linux
       # Download the file
-      tryCatch(downloadReturn <- download(
-        URL, 
-        destfile = file.path(tempdir(), "beesChecklist.Rda")),
+      tryCatch(downloadReturn <- download(URL, destfile = savePath),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
-        checklist <- base::readRDS(
-          file.path(tempdir(), "beesChecklist.Rda")),
+        checklist <- base::readRDS(savePath),
         error = error_funcFile, warning = error_funcFile)
-        }else{
-# MAC/LINUX
-          # Download the file
-          tryCatch(downloadReturn <- download(URL, 
-                            destfile = paste0(tempdir(), "/beesChecklist.Rda")),
-                   error = error_func, warning = error_func)
-          # Load the file 
-          tryCatch(
-            checklist <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda")),
-            error = error_funcFile, warning = error_funcFile)
-        }
-      } # END if
+      } # END if attempt < nAttempts
 
       
       if(attempt < nAttempts){
@@ -287,7 +273,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
 
     # Check file errors
-    fileError <- base::readRDS(file.path(tempdir(), "beesChecklist.Rda")) %>% 
+    fileError <- base::readRDS(savePath) %>% 
       errorCatcher()
     if(!stringr::str_detect(paste0(fileError, collapse = ""), 
                             "could not find function")){

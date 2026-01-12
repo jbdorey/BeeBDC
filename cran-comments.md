@@ -1,13 +1,10 @@
-── R CMD check results ─────────────────────────────────────────────────────────────────── BeeBDC 1.3.0 ────
-Duration: 5m 28s
+── R CMD check results ──────────────────────────────────────────────────────────────────────── BeeBDC 1.3.2 ────
+Duration: 5m 43.9s
 
-❯ checking for future file timestamps ... NOTE
-  unable to verify current time
-
-0 errors ✔ | 0 warnings ✔ | 1 note ✖
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 
- - I have re-activated the ggplot2 tests with the new version's release.
- - I have also updated some small issues with the new functions and improved the vignette on GitHub Pages.
+ - This updated version fixes issues with the beesTaxonomy and beesChecklist download issues, allows flexibilty with ggRichnessWrapper's file format, and provides improvements to dateFindR.
+ - There are no major outstanding issues according to my tests
 
 

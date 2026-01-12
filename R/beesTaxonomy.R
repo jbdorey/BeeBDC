@@ -164,12 +164,11 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   download <- function(URL, destfile = NULL, ...) {
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
-      
       # Check whether we are running R 3.2
       isR32 <- getRversion() >= "3.2"
       
       # Windows
-      if (.Platform$OS.type == "windows") {
+      if (tolower(.Platform$OS.type) == "windows") {
         if (isR32) {
           method <- "wininet"
         } else {
@@ -185,14 +184,14 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
             # and internet routines are used. But the warnings don't seem to matter.
             suppressWarnings(seti2(TRUE))
           }
-          method <- "libcurl"
-          if(is.null(mode)){
-            mode <- "wb"  
-          }
+          method <- "internal"
+        }
+        if(is.null(mode)){
+          mode <- "wb"  
         }
         # download.file will complain about file size with something like:
         #       Warning message:
-        #         In download.file(URL, ...) : downloaded length 19457 != reported length 200
+        #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
         suppressWarnings(
@@ -200,8 +199,8 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
                                                  method = method, 
                                                  destfile = destfile, 
                                                  mode = mode,
-                                                 ...)) %>%
-          errorCatcher()
+                                                 ...) %>%
+            errorCatcher())
         
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
@@ -233,8 +232,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
       }
       
     } else {
-      downloadReturn <- utils::download.file(URL, destfile = destfile, 
-                           mode = "wb", ...) %>%
+      downloadReturn <- utils::download.file(URL, destfile = destfile, mode = "wb", ...) %>%
         errorCatcher()
     }
     return(downloadReturn)
@@ -246,22 +244,13 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   taxonomy <- NULL                                 
   attempt <- 1
   savePath <- file.path(tempdir(), "beesTaxonomy.Rda")
+  savePath <- normalizePath(savePath)
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   
     # Don't attempt for the last attempt
     if(attempt < nAttempts){
-# WINDOWS
-      if(OS != "MacLinux"){
-    # Download the file to the outPath 
-    tryCatch(downloadReturn <- download(URL, destfile = savePath),
-        error = error_func, warning = error_func)
-    # Load the file from the outPath
-      tryCatch(
-    taxonomy <- base::readRDS(savePath),
-    error = error_funcFile, warning = error_funcFile)
-# MAC/LINUX
-      }else{
+# WINDOWS or MAC/Linux
         # Download the file to the outPath 
         tryCatch(downloadReturn <- download(URL, destfile = savePath),
                  error = error_func, warning = error_func)
@@ -269,8 +258,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
         tryCatch(
           taxonomy <- base::readRDS(savePath),
           error = error_funcFile, warning = error_funcFile)
-      }
-    } # END if
+    } # END if attempt < nAttempts
     
     if(attempt < nAttempts){
       # Wait one second before the next request 
