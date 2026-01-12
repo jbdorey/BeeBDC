@@ -71,7 +71,7 @@ flagFile <- flagRecorder(
   # TRUE if you want to find a file from a previous part of the script to append to
   append = FALSE)
 #>  - .summary column detected. This will be over-written.
-#>  - Data saved to /tmp/RtmpJILIzf/flagsRecorded_2026-01-12.csv
+#>  - Data saved to /tmp/RtmpTtIYSh/flagsRecorded_2026-01-12.csv
 #>  - Selected 34 columns. These include:
 #> database_id, id, catalogNumber, occurrenceID, dataSource, .scientificName_empty, .coordinates_empty, .coordinates_outOfRange, .basisOfRecords_notStandard, .coordinates_country_inconsistent, .occurrenceAbsent, .unLicensed, .GBIFflags, .uncer_terms, .invalidName, .rou, .val, .equ, .zer, .cap, .cen, .gbf, .inst, .sequential, .lonFlag, .latFlag, .gridSummary, .uncertaintyThreshold, .countryOutlier, .sea, .summary, .eventDate_empty, .year_outOfRange, and .duplicates
 ```
