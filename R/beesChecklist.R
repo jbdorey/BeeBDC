@@ -93,6 +93,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                           mode = NULL,
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
+  downloadReturn <- NULL
   
   #### 0.0 Prep ####
   # Set the number of attempts
@@ -107,6 +108,12 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   error_funcFile <- function(e){
     message(paste("Could not read checklist download..."))
     print(downloadReturn)
+    message(past0(
+      "System capabilities are:\n",
+      " - Has libcurl? ", capabilities("libcurl"),
+      " - Has wget? ", nzchar(Sys.which("wget")[1]),
+      " - Has curl? ", nzchar(Sys.which("curl")[1])
+    ))
   }
   
     ##### 0.2 Check OS ####
@@ -183,7 +190,10 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         if(is.null(mode)){
           mode <- "w"  
         }
-        downloadReturn <- utils::download.file(URL, method = method, destfile = destfile, mode = mode, ...)
+        downloadReturn <- utils::download.file(URL, 
+                                               method = method, 
+                                               destfile = destfile, 
+                                               mode = mode, ...)
       }
       
     } else {
@@ -205,7 +215,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
 # WINDOWS
         if(OS != "MacLinux"){
       # Download the file
-      tryCatch(download(
+      tryCatch(downloadReturn <- download(
         URL, 
         destfile = file.path(tempdir(), "/beesChecklist.Rda")),
           error = error_func, warning = error_func)
@@ -217,7 +227,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         }else{
 # MAC/LINUX
           # Download the file
-          tryCatch(download(URL, 
+          tryCatch(downloadReturn <- download(URL, 
                             destfile = paste0(tempdir(), "/beesChecklist.Rda")),
                    error = error_func, warning = error_func)
           # Load the file 

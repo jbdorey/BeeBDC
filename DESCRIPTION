@@ -26,6 +26,13 @@ URL: https://jbdorey.github.io/BeeBDC/ https://github.com/jbdorey/BeeBDC
 BugReports: https://github.com/jbdorey/BeeBDC/issues
 Depends: 
     R (>= 4.1.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-gb
+LazyData: TRUE
+LazyDataCompression: xz
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
 Imports: 
     circlize,
     CoordinateCleaner,
@@ -87,10 +94,3 @@ Suggests:
     tidyr,
     utils,
     xml2
-Config/testthat/edition: 3
-Encoding: UTF-8
-Language: en-gb
-LazyData: TRUE
-LazyDataCompression: xz
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3

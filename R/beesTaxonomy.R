@@ -112,6 +112,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
                          mode = NULL,
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
+  downloadReturn <- NULL
 
     #### 0.0 Prep ####
   # Set the number of attempts
@@ -126,6 +127,12 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   error_funcFile <- function(e){
     message(paste("Could not read taxonomy download..."))
     print(downloadReturn)
+    message(past0(
+      "System capabilities are:\n",
+      " - Has libcurl? ", capabilities("libcurl"),
+      " - Has wget? ", nzchar(Sys.which("wget")[1]),
+      " - Has curl? ", nzchar(Sys.which("curl")[1])
+    ))
   }
   
     ##### 0.2 Check OS ####
@@ -225,7 +232,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
 # WINDOWS
       if(OS != "MacLinux"){
     # Download the file to the outPath 
-    tryCatch(download(URL, destfile = file.path(tempdir(), "/beesTaxonomy.Rda")),
+    tryCatch(downloadReturn <- download(URL, destfile = file.path(tempdir(), "/beesTaxonomy.Rda")),
         error = error_func, warning = error_func)
     # Load the file from the outPath
       tryCatch(
@@ -234,7 +241,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
 # MAC/LINUX
       }else{
         # Download the file to the outPath 
-        tryCatch(download(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
+        tryCatch(downloadReturn <- download(URL, destfile = paste0(tempdir(), "/beesTaxonomy.Rda")),
                  error = error_func, warning = error_func)
         # Load the file from the outPath
         tryCatch(
