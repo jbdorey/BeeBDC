@@ -236,53 +236,7 @@ each dataSource.</p></div>
 <span class="r-in"><span>numberThreshold <span class="op">=</span> <span class="fl">3</span>,</span></span>
 <span class="r-in"><span><span class="co"># Minimum number of numbers WITHOUT any characters</span></span></span>
 <span class="r-in"><span>numberOnlyThreshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: igraph</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Generating a basic completeness summary from the decimalLatitude, decimalLongitude, scientificName, eventDate columns.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> This summary is simply the sum of complete.cases in each column. It ranges from zero to the N of columns. This will be used to sort duplicate rows and select the most-complete rows.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Updating the .summary column to sort by...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - We will NOT flag the following columns. However, they will remain in the data file.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - summaryFun:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 74 </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   The .summary column was added to the database.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Working on CustomComparisonsRAW duplicates...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Completed iteration 1 of 1:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> catalogNumber, institutionCode, scientificName</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Working on CustomComparisons duplicates...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Completed iteration 1 of 4:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gbifID, scientificName</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Completed iteration 2 of 4:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> occurrenceID, scientificName</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Completed iteration 3 of 4:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> recordId, scientificName</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Completed iteration 4 of 4:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> id, scientificName</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Working on collectionInfo duplicates...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Completed iteration 1 of 2:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Identified 0 duplicate records and kept 0 unique records using the columns: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and catalogNumber</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Completed iteration 2 of 2:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Identified 0 duplicate records and kept 0 unique records using the columns: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and otherCatalogNumbers</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Clustering duplicate pairs...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Duplicates have been saved in the file and location: /tmp/RtmpGW8kC1/duplicateRun_collectionInfo_2026-01-12.csv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Across the entire dataset, there are now 0 duplicates from a total of 100 occurrences.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Completed in 0.3 secs</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dupeSummary(data = BeeBDC::beesFlagged, path = paste0(tempdir(),     "/"), duplicatedBy = "collectionInfo", completeness_cols = c("decimalLatitude",     "decimalLongitude", "scientificName", "eventDate"), collectionCols = c("decimalLatitude",     "decimalLongitude", "scientificName", "eventDate", "recordedBy"),     collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),     CustomComparisonsRAW = dplyr::lst(c("catalogNumber", "institutionCode",         "scientificName")), CustomComparisons = dplyr::lst(c("gbifID",         "scientificName"), c("occurrenceID", "scientificName"),         c("recordId", "scientificName"), c("id", "scientificName")),     sourceOrder = c("CAES", "Gai", "Ecd", "BMont", "BMin", "EPEL",         "ASP", "KP", "EcoS", "EaCO", "FSCA", "Bal", "SMC", "Lic",         "Arm", "USGS", "ALA", "GBIF", "SCAN", "iDigBio"), characterThreshold = 2,     numberThreshold = 3, numberOnlyThreshold = 5):</span> could not find function "dupeSummary"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

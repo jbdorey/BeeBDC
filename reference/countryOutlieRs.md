@@ -88,29 +88,7 @@ beesRaw_out <- countryOutlieRs(checklist = testChecklist,
                                scale = 50,
                                stepSize = 1000000,
                                mc.cores = 1)
-#> Spherical geometry (s2) switched off
-#>  - Extracting country data from points...
-#>  - Buffering failed points by pointBuffer...
-#>  - Prepare the neighbouring country dataset...
-#> although coordinates are longitude/latitude, st_intersects assumes that they
-#> are planar
-#>  - Compare points with the checklist...
-#>  - Combining data...
-#>  - Sorting and removing potentially duplicated buffered points...
-#>  - Finished. 
-#> We have matched 25 records to their exact country and 2 to an adjacent country
-#> We failed to match 0 occurrences to any 'exact' or 'neighbouring' country.
-#> There are 23 'NA' occurrences for the .countryOutlier column.
-#> 
-#> countryOutlieRs:
-#> Flagged 0  for country outlier and flagged  0  for in the .sea records.
-#> Three columns were added to the database:
-#>  1.  The '.countryOutlier' column was added which is a filtering column. 
-#>  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. 
-#>  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.
-#>  - Completed in 1.73 secs
+#> Error in countryOutlieRs(checklist = testChecklist, data = beesRaw %>%     dplyr::filter(dplyr::row_number() %in% 1:50), keepAdjacentCountry = TRUE,     pointBuffer = 1, scale = 50, stepSize = 1e+06, mc.cores = 1): could not find function "countryOutlieRs"
 table(beesRaw_out$.countryOutlier, useNA = "always")
-#> 
-#> TRUE <NA> 
-#>   27   23 
+#> Error: object 'beesRaw_out' not found
 ```

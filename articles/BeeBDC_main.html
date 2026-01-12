@@ -544,7 +544,8 @@ too caught up in it :)</p>
 <span>                                          <span class="st">'United States of America'</span>,<span class="st">'Mexico'</span>,<span class="st">'Canada'</span>,<span class="st">'Brazil'</span>,</span>
 <span>                                          <span class="st">'Brazil'</span>,<span class="st">'Brazil'</span>,<span class="st">'Northern Mariana Islands'</span>,<span class="st">'PUERTO.RICO'</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">##  - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'countryNameCleanR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="b--run-function">b. run function<a class="anchor" aria-label="anchor" href="#b--run-function"></a>
@@ -573,8 +574,8 @@ actual run you should use scale = “large”</p>
 <span>                                   scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>                                   mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
-<span><span class="co">##  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.</span></span>
-<span><span class="co">##  - We have updated the country names of 39 occurrences that previously had no country name assigned.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'jbd_CfC_chunker' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="c--re-merge">c. re-merge<a class="anchor" aria-label="anchor" href="#c--re-merge"></a>
@@ -586,7 +587,9 @@ actual run you should use scale = “large”</p>
 <span>    <span class="co"># Take the new country name if the original is NA</span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>country <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span>, <span class="va">countryCO</span>, <span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="co"># Remove duplicates if they arose from left_join!</span></span>
-<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'countryOutput' not found</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -631,7 +634,6 @@ codes, if needed.</p>
 <span><span class="co">## country found: Finland</span></span>
 <span><span class="co">## country found: France</span></span>
 <span><span class="co">## country found: Germany</span></span>
-<span><span class="co">## country found: Ireland</span></span>
 <span><span class="co">## country found: Mexico</span></span>
 <span><span class="co">## country found: Norway</span></span>
 <span><span class="co">## country found: South Africa</span></span>
@@ -677,14 +679,8 @@ rnaturalearthhires</p>
 <span>  path <span class="op">=</span> <span class="va">OutPath_Check</span>,</span>
 <span>  mc.cores <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span> </span>
-<span><span class="co">##  - Running chunker with:</span></span>
-<span><span class="co">## stepSize = 1,000,000</span></span>
-<span><span class="co">## chunkStart = 1</span></span>
-<span><span class="co">## chunkEnd = 1,000,000</span></span>
-<span><span class="co">## append = FALSE</span></span>
-<span><span class="co">##  - Starting chunk 1...</span></span>
-<span><span class="co">## From 1 to 1,000,000</span></span>
-<span><span class="co">##  - Finished chunk 1 of 1. Total records examined: 205</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'jbd_Ctrans_chunker' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Get a quick summary of the number of transposed records.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">check_pf</span><span class="op">$</span><span class="va">coordinates_transposed</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></code></pre></div>
@@ -709,17 +705,8 @@ coordinates are inconsistent with the provided country name.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordCountryInconsistent.html">jbd_coordCountryInconsistent</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>, lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>    lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>, scale <span class="op">=</span> <span class="fl">50</span>, pointBuffer <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
-<span><span class="co">##  - Downloading naturalearth map...</span></span>
-<span><span class="co">## Spherical geometry (s2) switched off</span></span>
-<span><span class="co">##  - Extracting initial country names without buffer...</span></span>
-<span><span class="co">##  - Buffering naturalearth map by pointBuffer...</span></span>
-<span><span class="co">## dist is assumed to be in decimal degrees (arc_degrees).</span></span>
-<span><span class="co">##  - Extracting FAILED country names WITH buffer...</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
-<span><span class="co">## Flagged 2 records.</span></span>
-<span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.81 secs</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'jbd_coordCountryInconsistent' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -757,9 +744,8 @@ record… well, you’ll be doing a no-no to say the very least!</p>
 <p>Flag the records marked as “absent”.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagAbsent.html">flagAbsent</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>, PresAbs <span class="op">=</span> <span class="st">"occurrenceStatus"</span><span class="op">)</span></span>
-<span><span class="co">## \.occurrenceAbsent:</span></span>
-<span><span class="co">##  Flagged 8 absent records:</span></span>
-<span><span class="co">##  One column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'flagAbsent' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="flag-license">3.11 flag License<a class="anchor" aria-label="anchor" href="#flag-license"></a>
@@ -771,9 +757,8 @@ information.</p>
 <span>                    strings_to_restrict <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>                    <span class="co"># DON'T flag if in the following dataSource(s)</span></span>
 <span>                    excludeDataSource <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">## \.unLicensed:</span></span>
-<span><span class="co">##  Flagged 0 records that may NOT be used.</span></span>
-<span><span class="co">##  One column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'flagLicense' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="gbif-issue">3.12 GBIF issue<a class="anchor" aria-label="anchor" href="#gbif-issue"></a>
@@ -782,9 +767,8 @@ information.</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/GBIFissues.html">GBIFissues</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_pf</span>, issueColumn <span class="op">=</span> <span class="st">"issue"</span>, GBIFflags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"COORDINATE_INVALID"</span>,</span>
 <span>    <span class="st">"ZERO_COORDINATE"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">##  - jbd_GBIFissues:</span></span>
-<span><span class="co">## Flagged 0 </span></span>
-<span><span class="co">##   The .GBIFflags column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'GBIFissues' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="flag-reports">3.13 Flag Reports<a class="anchor" aria-label="anchor" href="#flag-reports"></a>
@@ -817,10 +801,8 @@ fail-safe.</p>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    <span class="co"># Filter to ONLY cleaned data?</span></span>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">##  - We will flag all columns starting with '.'</span></span>
-<span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 52 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="c--reporting">c. Reporting<a class="anchor" aria-label="anchor" href="#c--reporting"></a>
@@ -941,22 +923,8 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span>                       taxonomy <span class="op">=</span> <span class="va">taxonomyFile</span>, <span class="co"># The formatted taxonomy file</span></span>
 <span>                       data <span class="op">=</span> <span class="va">database</span>,</span>
 <span>                       mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">##  - Formatting taxonomy for matching...</span></span>
-<span><span class="co">## The names_clean column was not found and will be temporarily copied from scientificName</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">##  - Harmonise the occurrence data with unambiguous names...</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">##  - Attempting to harmonise the occurrence data with ambiguous names...</span></span>
-<span><span class="co">##  - Formatting merged datasets...</span></span>
-<span><span class="co">## Removing the names_clean column...</span></span>
-<span><span class="co">##  - We matched valid names to 201 of 205 occurrence records. This leaves a total of 4 unmatched occurrence records.</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## harmoniseR:</span></span>
-<span><span class="co">## 4</span></span>
-<span><span class="co">## records were flagged.</span></span>
-<span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
-<span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 0.25 secs</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'harmoniseR' is not an exported object from 'namespace:BeeBDC'</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">taxonomyFile</span><span class="op">)</span></span></code></pre></div>
 <p>Save the harmonised file.</p>
@@ -1007,9 +975,8 @@ respectively.</p>
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">database</span>, lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>    lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>, ndec <span class="op">=</span> <span class="fl">2</span>  <span class="co"># number of decimals to be tested</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">## jbd_coordinates_precision:</span></span>
-<span><span class="co">## Flagged 61 records</span></span>
-<span><span class="co">## The '.rou' column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'jbd_coordinates_precision' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Remove the spent dataset.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">database</span><span class="op">)</span></span></code></pre></div>
@@ -1099,15 +1066,8 @@ depending on your dataset. However, the option is provided.</p>
 <span>  ndec <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  groupingColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"eventDate"</span>, <span class="st">"recordedBy"</span>, <span class="st">"datasetName"</span><span class="op">)</span>,</span>
 <span>  mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">## Removing rounded coordinates with BeeBDC::jbd_coordinates_precision...</span></span>
-<span><span class="co">## jbd_coordinates_precision:</span></span>
-<span><span class="co">## Removed 68 records.</span></span>
-<span><span class="co">##  - Merging results and adding the .sequential column...</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## diagonAlley:</span></span>
-<span><span class="co">## Flagged 0 records</span></span>
-<span><span class="co">## The .sequential column was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'diagonAlley' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than <code>X</code> occurrences.</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
@@ -1120,7 +1080,9 @@ more than <code>X</code> occurrences.</p>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">decimalLongitude</span>, <span class="va">decimalLatitude</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="co"># Find the groups with 4 or more occurrence records</span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'check_space' not found</span></span></code></pre></div>
 <p>Run the gridding analysis to find datasets that might be gridded.</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gridded_datasets</span> <span class="op">&lt;-</span> <span class="fu">CoordinateCleaner</span><span class="fu">::</span><span class="fu"><a href="https://ropensci.github.io/CoordinateCleaner/reference/cd_round.html" class="external-link">cd_round</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">griddingDF</span>, lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
@@ -1160,9 +1122,8 @@ threshold in meters.</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/coordUncerFlagR.html">coordUncerFlagR</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_space</span>, uncerColumn <span class="op">=</span> <span class="st">"coordinateUncertaintyInMeters"</span>,</span>
 <span>    threshold <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
-<span><span class="co">## \coordUncerFlagR:</span></span>
-<span><span class="co">##  Flagged 33 geographically uncertain records:</span></span>
-<span><span class="co">##  The column '.uncertaintyThreshold' was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'coordUncerFlagR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="country-checklist">5.5 Country checklist<a class="anchor" aria-label="anchor" href="#country-checklist"></a>
@@ -1193,7 +1154,7 @@ in this; if anyone is willing!</p>
 <span>                        scale <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>                        mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'checklistFile' not found</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'countryOutlieRs' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A list of failed species-country combinations and their numbers can be output</span></span>
 <span><span class="co"># here</span></span>
@@ -1303,17 +1264,26 @@ for bees.)</p>
 <span>    <span class="va">check_time</span> <span class="op">&lt;-</span> <span class="va">check_space</span></span>
 <span>    <span class="co"># Remove the spent file</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_space</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'ColTypeR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>You can plot a histogram of dates here.</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html" class="external-link">ymd_hms</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">eventDate</span>, truncated <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">20</span>, main <span class="op">=</span> <span class="st">"Histogram of eventDates"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="BeeBDC_main_files/figure-html/6.0ii-1.png" class="r-plt" alt="" width="700"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html" class="external-link">ymd_hms</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">eventDate</span>, truncated <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">20</span>, main <span class="op">=</span> <span class="st">"Histogram of eventDates"</span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `h()`:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> error in evaluating the argument 'x' in selecting a method for function 'hist': object 'check_time' not found</span></span></code></pre></div>
 <p>Filter some silly dates that don’t make sense.</p>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;</span></span>
 <span>    <span class="fl">1600</span>, <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'check_time' not found</span></span>
 <span><span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&gt;</span> <span class="fl">12</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">month</span> <span class="op">&lt;</span> <span class="fl">1</span>, <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">month</span><span class="op">)</span></span>
-<span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&gt;</span> <span class="fl">31</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;</span> <span class="fl">1</span>, <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">day</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'check_time' not found</span></span>
+<span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&gt;</span> <span class="fl">31</span> <span class="op">|</span> <span class="va">check_time</span><span class="op">$</span><span class="va">day</span> <span class="op">&lt;</span> <span class="fl">1</span>, <span class="cn">NA</span>, <span class="va">check_time</span><span class="op">$</span><span class="va">day</span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'check_time' not found</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="recover-dates">6.1 Recover dates<a class="anchor" aria-label="anchor" href="#recover-dates"></a>
 </h3>
@@ -1328,18 +1298,8 @@ were a) missing and b) located in one of the searched columns.</p>
 <span>                        maxYear <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                        <span class="co"># Years below this are removed (from the recovered dates only)</span></span>
 <span>                        minYear <span class="op">=</span> <span class="fl">1700</span><span class="op">)</span></span>
-<span><span class="co">##  - Preparing data...</span></span>
-<span><span class="co">##  - Extracting dates from year, month, day columns...</span></span>
-<span><span class="co">##  - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate columns in unambiguous ymd, dmy, mdy, and my formats...</span></span>
-<span><span class="co">##  - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate columns in ambiguous formats...</span></span>
-<span><span class="co">##  - Formating and combining the new data..</span></span>
-<span><span class="co">##  - Merging all data, nearly there...</span></span>
-<span><span class="co">##  - Finished. </span></span>
-<span><span class="co">## We now have 1 more full eventDate cells than in the input data.</span></span>
-<span><span class="co">## We modified dates in </span></span>
-<span><span class="co">## 174 occurrences.</span></span>
-<span><span class="co">##  - As it stands, there are 174 complete eventDates and 31 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.623941421508789 secs</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'dateFindR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1347,10 +1307,8 @@ were a) missing and b) located in one of the searched columns.</p>
 <p>Flag records that simply lack collection date. :(</p>
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_eventDate_empty.html" class="external-link">bdc_eventDate_empty</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, eventDate <span class="op">=</span> <span class="st">"eventDate"</span><span class="op">)</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## bdc_eventDate_empty:</span></span>
-<span><span class="co">## Flagged 31 records.</span></span>
-<span><span class="co">## One column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'check_time' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="old-records">6.3 Old records<a class="anchor" aria-label="anchor" href="#old-records"></a>
@@ -1364,10 +1322,8 @@ for example, if you want to make a distribution map for a taxonomic
 work.</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_year_outOfRange.html" class="external-link">bdc_year_outOfRange</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, eventDate <span class="op">=</span> <span class="st">"year"</span>, year_threshold <span class="op">=</span> <span class="fl">1950</span><span class="op">)</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## bdc_year_outOfRange:</span></span>
-<span><span class="co">## Flagged 21 records.</span></span>
-<span><span class="co">## One column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'check_time' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="time-report">6.4 Time report<a class="anchor" aria-label="anchor" href="#time-report"></a>
@@ -1383,11 +1339,8 @@ occurrence records.</em> Update the <em>.summary</em> column.</p>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="co"># Filter to ONLY cleaned data?</span></span>
 <span>  filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms</span></span>
-<span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 115 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
 <span>    workflow_step <span class="op">=</span> <span class="st">"time"</span>, save_report <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1473,52 +1426,8 @@ details as this function is quite modifiable to user needs.</p>
 <span>  numberOnlyThreshold <span class="op">=</span> <span class="fl">5</span></span>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># END dupeSummary</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">##  - Generating a basic completeness summary from the decimalLatitude, decimalLongitude, scientificName, eventDate columns.</span></span>
-<span><span class="co">## This summary is simply the sum of complete.cases in each column. It ranges from zero to the N of columns. This will be used to sort duplicate rows and select the most-complete rows.</span></span>
-<span><span class="co">##  - Updating the .summary column to sort by...</span></span>
-<span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed</span></span>
-<span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span>
-<span><span class="co">##  - Working on CustomComparisonsRAW duplicates...</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Completed iteration 1 of 1:</span></span>
-<span><span class="co">##  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span></span>
-<span><span class="co">## catalogNumber, institutionCode, scientificName</span></span>
-<span><span class="co">##  - Working on CustomComparisons duplicates...</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Completed iteration 1 of 4:</span></span>
-<span><span class="co">##  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span></span>
-<span><span class="co">## gbifID, scientificName</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Completed iteration 2 of 4:</span></span>
-<span><span class="co">##  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span></span>
-<span><span class="co">## occurrenceID, scientificName</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Completed iteration 3 of 4:</span></span>
-<span><span class="co">##  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span></span>
-<span><span class="co">## recordId, scientificName</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Completed iteration 4 of 4:</span></span>
-<span><span class="co">##  - Identified 0 duplicate records and kept 0 unique records using the column(s): </span></span>
-<span><span class="co">## id, scientificName</span></span>
-<span><span class="co">##  - Working on collectionInfo duplicates...</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Completed iteration 1 of 2:</span></span>
-<span><span class="co">##  - Identified 0 duplicate records and kept 0 unique records using the columns: </span></span>
-<span><span class="co">## decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and catalogNumber</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Completed iteration 2 of 2:</span></span>
-<span><span class="co">##  - Identified 0 duplicate records and kept 0 unique records using the columns: </span></span>
-<span><span class="co">## decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and otherCatalogNumbers</span></span>
-<span><span class="co">##  - Clustering duplicate pairs...</span></span>
-<span><span class="co">## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.</span></span>
-<span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
-<span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/Rtmp0CNzZc/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-12.csv</span></span>
-<span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.3 secs</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'dupeSummary' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1555,16 +1464,8 @@ of the expert outliers.</p>
 <span>    <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>        <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
-<span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/Rtmp0CNzZc/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-12.csv</span></span>
-<span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
-<span><span class="co">## <span style="color: #BB0000;">chr</span> (19): group, database_id, database_id_keep, dupColumn_s, decimalLatitude...</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'fileFinder' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Identify the outliers and get a list of their database_ids. This
 would require the source outlier files provided with the <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">BeeBDC</a> paper. These
 files can further be modified to include more outliers.</p>
@@ -1587,11 +1488,8 @@ files can further be modified to include more outliers.</p>
 <span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/summaryFun.html">summaryFun</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, dontFilterThese <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".gridSummary"</span>,</span>
 <span>    <span class="st">".lonFlag"</span>, <span class="st">".latFlag"</span>, <span class="st">".uncer_terms"</span>, <span class="st">".uncertaintyThreshold"</span><span class="op">)</span>, removeFilterColumns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    filterClean <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
-<span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save the uncleaned dataset</span></span>
 <span><span class="va">check_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1612,12 +1510,8 @@ it.</p>
 <span>  removeFilterColumns <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="co"># Filter to ONLY cleaned data?</span></span>
 <span>  filterClean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
-<span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
-<span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span>
-<span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'summaryFun' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save this CLEANED dataset</span></span>
 <span><span class="va">cleanData</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1642,7 +1536,9 @@ already in your environment.</p>
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"duplicates"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">duplicates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/fileFinder.html">fileFinder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, fileName <span class="op">=</span> <span class="st">"duplicateRun_"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>        <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'fileFinder' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Choose the global figure parameters.</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1689,7 +1585,9 @@ dataset below.</p>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>    <span class="va">beeData</span> <span class="op">&lt;-</span> <span class="va">check_time</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">check_time</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'ColTypeR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>Create a plot with two bar graphs. One shows the absolute number of
 duplicate records for each data source, while the other shows the
 proportion of records that are duplicated within each data source.
@@ -1710,8 +1608,9 @@ underscore).</p>
 <span>  GBIF <span class="op">=</span> <span class="st">"GBIF"</span>, SCAN <span class="op">=</span> <span class="st">"SCAN"</span>, iDigBio <span class="op">=</span> <span class="st">"iDigBio"</span>, USGS <span class="op">=</span> <span class="st">"USGS"</span>, ALA <span class="op">=</span> <span class="st">"ALA"</span>, </span>
 <span>  ASP <span class="op">=</span> <span class="st">"ASP"</span>, CAES <span class="op">=</span> <span class="st">"CAES"</span>, Ecd <span class="op">=</span> <span class="st">"Ecd"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="BeeBDC_main_files/figure-html/9.2ii-1.png" class="r-plt" alt="" width="700"></p>
+<span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'dupePlotR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <p>![Full duplicate diagram from Dorey et al. 2023]
 <img src="https://photos.smugmug.com/photos/i-CjrvS3d/0/NWnPWxvP8VGmTwZKjtJbgc5xCzjJwCt4P2PK7Rvqz/X4/i-CjrvS3d-X4.jpg" align="left"></p>
 </div>
@@ -1753,9 +1652,8 @@ text before the first underscore.)</p>
 <span>  Gaiarsa <span class="op">=</span> <span class="st">"Gai"</span>, EPEL <span class="op">=</span> <span class="st">"EPEL"</span>, VicWam <span class="op">=</span> <span class="st">"VicWam"</span>,</span>
 <span>  returnPlot <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">##  - Preparing data to plot...</span></span>
-<span><span class="co">##  - Building plot...</span></span></code></pre></div>
-<p><img src="BeeBDC_main_files/figure-html/9.3-1.png" class="r-plt" alt="" width="1440"></p>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'plotFlagSummary' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="maps">9.4 Maps<a class="anchor" aria-label="anchor" href="#maps"></a>
@@ -1765,7 +1663,9 @@ text before the first underscore.)</p>
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"cleanData"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">cleanData</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"05_cleaned_database.csv"</span>,</span>
 <span>        sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'ColTypeR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="a--summary-maps">a. Summary maps<a class="anchor" aria-label="anchor" href="#a--summary-maps"></a>
 </h4>
@@ -1828,7 +1728,9 @@ lesser degree).</p>
 <div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Note, if outPath = NULL then no file will be saved</span></span>
 <span><span class="va">dataProvTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/dataProvTables.html">dataProvTables</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cleanData</span>, runBeeDataChecks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    outPath <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"dataProvTable.csv"</span><span class="op">)</span></span></code></pre></div>
+<span>    outPath <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"dataProvTable.csv"</span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'dataProvTables' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="flag-summary">9.6 Flag summary<a class="anchor" aria-label="anchor" href="#flag-summary"></a>
@@ -1843,24 +1745,8 @@ by which to group the summary. While it is intended to work with the
 <code class="sourceCode R"><span><span class="co"># Note, if outPath = NULL then no file will be saved</span></span>
 <span><span class="va">summaryTable</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagSummaryTable.html">flagSummaryTable</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">beeData</span>, column <span class="op">=</span> <span class="st">"scientificName"</span>,</span>
 <span>    outPath <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span>
-<span><span class="co">##  - We will flag all columns starting with '.'</span></span>
-<span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 111 </span></span>
-<span><span class="co">##   The .summary column was added to the database.</span></span>
-<span><span class="co">## The percentages of species impacted by each flag in your analysis are as follows: </span></span>
-<span><span class="co">##   .coordinates_empty = 26.19%</span></span>
-<span><span class="co">##   .coordinates_outOfRange = 0%</span></span>
-<span><span class="co">##   .basisOfRecords_notStandard = 1.19%</span></span>
-<span><span class="co">##   .coordinates_country_inconsistent = 1.19%</span></span>
-<span><span class="co">##   .occurrenceAbsent = 8.33%</span></span>
-<span><span class="co">##   .unLicensed = 0%</span></span>
-<span><span class="co">##   .GBIFflags = 0%</span></span>
-<span><span class="co">##   .rou = 32.14%</span></span>
-<span><span class="co">##   .sequential = 0%</span></span>
-<span><span class="co">##   .uncertaintyThreshold = 15.48%</span></span>
-<span><span class="co">##   .eventDate_empty = 15.48%</span></span>
-<span><span class="co">##   .year_outOfRange = 16.67%</span></span>
-<span><span class="co">##   .duplicates = 0%</span></span></code></pre></div>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'flagSummaryTable' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -87,7 +87,5 @@ dupePlotR(
   ASP = "ASP", CAES = "CAES", 'B. Mont.' = "BMont", 'B. Minckley' = "BMin", Ecd = "Ecd",
   Gaiarsa = "Gai", EPEL = "EPEL", Lic = "Lic", Bal = "Bal", Arm = "Arm"
   )
-#> Loading required namespace: forcats
-#> Loading required namespace: cowplot
-#> Warning: Unknown levels in `f`: CAES, BMont, BMin, Ecd, Gai, EPEL, Lic, Bal, Arm
+#> Error in dupePlotR(data = beesFlagged, outPath = tempdir(), fileName = "duplicatePlot_TEST.pdf",     dupeColours = c("#F2D2A2", "#B9D6BC", "#349B90"), base_height = 7,     base_width = 7, legend.position.inside = c(0.85, 0.8), GBIF = "GBIF",     SCAN = "SCAN", iDigBio = "iDigBio", USGS = "USGS", ALA = "ALA",     ASP = "ASP", CAES = "CAES", `B. Mont.` = "BMont", `B. Minckley` = "BMin",     Ecd = "Ecd", Gaiarsa = "Gai", EPEL = "EPEL", Lic = "Lic",     Bal = "Bal", Arm = "Arm"): could not find function "dupePlotR"
 ```

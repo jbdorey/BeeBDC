@@ -110,13 +110,9 @@ that failed the test.</p>
 <span class="r-in"><span>    <span class="co"># number of decimals to be tested</span></span></span>
 <span class="r-in"><span>  ndec <span class="op">=</span> <span class="fl">2</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> jbd_coordinates_precision:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 30 records</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The '.rou' column was added to the database.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in jbd_coordinates_precision(data = BeeBDC::beesRaw, lon = "decimalLongitude",     lat = "decimalLatitude", ndec = 2):</span> could not find function "jbd_coordinates_precision"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">beesRaw_out</span><span class="op">$</span><span class="va">.rou</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE  &lt;NA&gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    30    70     0 </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'beesRaw_out' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -164,21 +164,6 @@ jbd_coordinates_transposed(
   save_outputs = FALSE,
   scale = "medium"
 ) 
-#> Spherical geometry (s2) switched on
-#> Correcting latitude and longitude transposed
-#> 3 occurrences will be tested
-#> 
-#> jbd_coordinates_transposed:
-#> Corrected 3 records.
-#> One columns were added to the database.
-#> # A tibble: 4 × 8
-#>   database_id scientificName        decimalLatitude decimalLongitude country
-#>         <dbl> <chr>                           <dbl>            <dbl> <chr>  
-#> 1           1 Rhinella major                  -17.9            -63.4 BOLIVIA
-#> 2           2 Scinax ruber                    -14.4            -67.9 bolivia
-#> 3           3 Siparuna guianensis             -13.2            -41.9 Brasil 
-#> 4           4 Psychotria vellosiana           -13.8            -46.7 Brazil 
-#> # ℹ 3 more variables: country_suggested <chr>, countryCode <chr>,
-#> #   coordinates_transposed <lgl>
+#> Error in jbd_coordinates_transposed(data = x, idcol = "database_id", sci_names = "scientificName",     lat = "decimalLatitude", lon = "decimalLongitude", country = "country_suggested",     countryCode = "countryCode", border_buffer = 0.2, save_outputs = FALSE,     scale = "medium"): could not find function "jbd_coordinates_transposed"
 # }
 ```

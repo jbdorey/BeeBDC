@@ -481,312 +481,10 @@ on your computer!</p>
 <span><span class="va">output_iNEXTwrapper</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/iNEXTwrapper.html">iNEXTwrapper</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_nextWrapper</span>, variableColumn <span class="op">=</span> <span class="st">"country_suggested"</span>,</span>
 <span>    valueColumn <span class="op">=</span> <span class="st">"n"</span>, q <span class="op">=</span> <span class="fl">0</span>, datatype <span class="op">=</span> <span class="st">"abundance"</span>, conf <span class="op">=</span> <span class="fl">0.95</span>, se <span class="op">=</span> <span class="cn">TRUE</span>, nboot <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>    size <span class="op">=</span> <span class="cn">NULL</span>, endpoint <span class="op">=</span> <span class="cn">NULL</span>, knots <span class="op">=</span> <span class="fl">40</span>, mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  - Outputs can be found in a list with two tibbles called 'DataInfo' and 'AsyEst' and a list of iNext outputs per groupVariable in iNextEst'.</span></span></code></pre>
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:350px; ">
-<table class="table  lightable-material lightable-striped lightable-hover table table-responsive" style='font-family: "Source Sans Pro", helvetica, sans-serif; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;'>
-<thead><tr>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-country_suggested
-</th>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-statistic
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-Observed
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-Estimator
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-Est_s.e.
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-95% Lower
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-95% Upper
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-Species Richness
-</td>
-<td style="text-align:right;">
-17.000000
-</td>
-<td style="text-align:right;">
-17.499483
-</td>
-<td style="text-align:right;">
-1.6650163
-</td>
-<td style="text-align:right;">
-14.236111
-</td>
-<td style="text-align:right;">
-20.762855
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-Shannon diversity
-</td>
-<td style="text-align:right;">
-4.712056
-</td>
-<td style="text-align:right;">
-4.754101
-</td>
-<td style="text-align:right;">
-0.2271829
-</td>
-<td style="text-align:right;">
-4.308831
-</td>
-<td style="text-align:right;">
-5.199372
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-Simpson diversity
-</td>
-<td style="text-align:right;">
-2.653013
-</td>
-<td style="text-align:right;">
-2.657561
-</td>
-<td style="text-align:right;">
-0.1264695
-</td>
-<td style="text-align:right;">
-2.409685
-</td>
-<td style="text-align:right;">
-2.905436
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-Species Richness
-</td>
-<td style="text-align:right;">
-44.000000
-</td>
-<td style="text-align:right;">
-70.243359
-</td>
-<td style="text-align:right;">
-25.7541584
-</td>
-<td style="text-align:right;">
-19.766137
-</td>
-<td style="text-align:right;">
-120.720582
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-Shannon diversity
-</td>
-<td style="text-align:right;">
-19.651483
-</td>
-<td style="text-align:right;">
-26.633143
-</td>
-<td style="text-align:right;">
-4.2573468
-</td>
-<td style="text-align:right;">
-18.288896
-</td>
-<td style="text-align:right;">
-34.977389
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-Simpson diversity
-</td>
-<td style="text-align:right;">
-7.699248
-</td>
-<td style="text-align:right;">
-8.128000
-</td>
-<td style="text-align:right;">
-1.8631187
-</td>
-<td style="text-align:right;">
-4.476354
-</td>
-<td style="text-align:right;">
-11.779646
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-Species Richness
-</td>
-<td style="text-align:right;">
-6.000000
-</td>
-<td style="text-align:right;">
-13.794872
-</td>
-<td style="text-align:right;">
-6.1393736
-</td>
-<td style="text-align:right;">
-1.761921
-</td>
-<td style="text-align:right;">
-25.827823
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-Shannon diversity
-</td>
-<td style="text-align:right;">
-1.953128
-</td>
-<td style="text-align:right;">
-2.307552
-</td>
-<td style="text-align:right;">
-0.5633747
-</td>
-<td style="text-align:right;">
-1.203358
-</td>
-<td style="text-align:right;">
-3.411746
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-Simpson diversity
-</td>
-<td style="text-align:right;">
-1.386509
-</td>
-<td style="text-align:right;">
-1.400756
-</td>
-<td style="text-align:right;">
-0.1830418
-</td>
-<td style="text-align:right;">
-1.042001
-</td>
-<td style="text-align:right;">
-1.759511
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-Species Richness
-</td>
-<td style="text-align:right;">
-129.000000
-</td>
-<td style="text-align:right;">
-186.853965
-</td>
-<td style="text-align:right;">
-18.1990609
-</td>
-<td style="text-align:right;">
-151.184461
-</td>
-<td style="text-align:right;">
-222.523469
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-Shannon diversity
-</td>
-<td style="text-align:right;">
-77.832700
-</td>
-<td style="text-align:right;">
-104.647375
-</td>
-<td style="text-align:right;">
-6.8285323
-</td>
-<td style="text-align:right;">
-91.263698
-</td>
-<td style="text-align:right;">
-118.031053
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-Simpson diversity
-</td>
-<td style="text-align:right;">
-32.753790
-</td>
-<td style="text-align:right;">
-35.991359
-</td>
-<td style="text-align:right;">
-5.5923079
-</td>
-<td style="text-align:right;">
-25.030637
-</td>
-<td style="text-align:right;">
-46.952081
-</td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'iNEXTwrapper' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'output_iNEXTwrapper' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="chaowrapper">ChaoWrapper<a class="anchor" aria-label="anchor" href="#chaowrapper"></a>
@@ -796,7 +494,7 @@ Simpson diversity
 using various non-parametric estimators. The primary one that I tend to
 use is iChao. Let’s use the same example dataset to first run the
 <strong>SpadeR</strong> function.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform data</span></span>
 <span><span class="va">data_iChao</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -992,16 +690,16 @@ ACE-1 (Chao &amp; Lee, 1992)
 <code><a href="../reference/ChaoWrapper.html">BeeBDC::ChaoWrapper()</a></code>. And the number of cores can also be
 changed using the <code>mc.cores</code> argument. Note, that in this
 case, we can run all sites (or countries) at once!</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run the wrapper function</span></span>
 <span><span class="va">output_iChaowrapper</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ChaoWrapper.html">ChaoWrapper</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_iChao</span>, datatype <span class="op">=</span> <span class="st">"abundance"</span>,</span>
 <span>    k <span class="op">=</span> <span class="fl">10</span>, conf <span class="op">=</span> <span class="fl">0.95</span>, mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  - Outputs can be found in a list with two tibbles called 'basicTable' and 'richnessTable'.</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'ChaoWrapper' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 <p>View the output with
 <code>output_iChaowrapper$diversityTable</code>.</p>
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:350px; ">
-<table class="table  lightable-material lightable-striped lightable-hover table table-responsive" style='font-family: "Source Sans Pro", helvetica, sans-serif; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;'><tbody><tr></tr></tbody></table>
-</div>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'output_iChaowrapper' not found</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="visualising">Visualising<a class="anchor" aria-label="anchor" href="#visualising"></a>
@@ -1014,13 +712,12 @@ So, we also provide the function,
 wrapper functions by site. Not only does this functino save a plot that
 visualises the data (below), it also outputs a summary of the
 estimates.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_summary</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ggRichnessWrapper.html">ggRichnessWrapper</a></span><span class="op">(</span>iNEXT_in <span class="op">=</span> <span class="va">output_iNEXTwrapper</span>, iChao_in <span class="op">=</span> <span class="va">output_iChaowrapper</span>,</span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span>, labels <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"speciesRichnessPlots"</span>, outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    base_width <span class="op">=</span> <span class="fl">8.3</span>, base_height <span class="op">=</span> <span class="fl">11.7</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Loading required namespace: cowplot</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `UseMethod()`:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> no applicable method for 'filter' applied to an object of class "NULL"</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'ggRichnessWrapper' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 <p>Note that Fiji’s diversity seems to be reaching asymptote, but the
 remaining country’s species richnesses are still climbing. Vietnam in
 particular has a huge amount of uncertainty with the iChao estimates
@@ -1080,7 +777,7 @@ explore the input files or the output list of files for modifying your
 own and pay attention to match the column names.</p>
 <p>Note as well that the <code>curveFunction</code> is the one generated
 from the Literature curve above.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Generate the R file</span></span>
 <span><span class="va">estimateData</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">diversityPrepR</span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beesCountrySubset</span>,</span>
@@ -1110,7 +807,7 @@ estimated that many times. Let’s run our estimates at the country
 (<em>or site</em>) level ten times below, drawing sample sizes from the
 non-occurrence species each time (<em>capped at the maximum sample size
 for each country</em>).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estimates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/richnessEstimateR.html">richnessEstimateR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">estimateData</span>,</span>
 <span>  sampleSize <span class="op">=</span> <span class="fl">10000</span>,</span>
@@ -1124,7 +821,7 @@ for each country</em>).</p>
 <span>  fileName <span class="op">=</span> <span class="st">"Sampled.pdf"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'estimateData' not found</span></span></code></pre>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> 'richnessEstimateR' is not an exported object from 'namespace:BeeBDC'</span></span></code></pre>
 <p>We can look at the median outputs of our analysis with
 <code>estimates$Summary</code>.</p>
 <pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
@@ -1140,7 +837,7 @@ for each country</em>).</p>
 <p>Of course, these values are super helpful for papers on these topics.
 But similarly, we can easily make some further useful
 visualisations!</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To build the manual legend, make a small fake dataset</span></span>
 <span><span class="va">legendData</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yes"</span>,<span class="st">"yes"</span><span class="op">)</span>,</span>
 <span>                                              statistic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"iChao"</span>, <span class="st">"iNEXT"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1187,7 +884,7 @@ visualisations!</p>
 <span>                               ymin <span class="op">=</span> <span class="fl">350</span>, ymax <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
 <span><span class="co">## <span style="color: #BBBB00;">!</span> object 'estimates' not found</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co">## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time</span></span>
 <span></span>
 <span><span class="co"># Save the plot</span></span>

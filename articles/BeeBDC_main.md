@@ -499,7 +499,8 @@ check_pf_noNa <- BeeBDC::countryNameCleanR(
                                           'United States of America','Mexico','Canada','Brazil',
                                           'Brazil','Brazil','Northern Mariana Islands','PUERTO.RICO'))
   )
-##  - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.
+## Error:
+## ! 'countryNameCleanR' is not an exported object from 'namespace:BeeBDC'
 ```
 
 #### b. run function
@@ -528,8 +529,8 @@ suppressWarnings(
                                    scale = "medium",
                                    mc.cores = 1),
   classes = "warning")
-##  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.
-##  - We have updated the country names of 39 occurrences that previously had no country name assigned.
+## Error:
+## ! 'jbd_CfC_chunker' is not an exported object from 'namespace:BeeBDC'
 ```
 
 #### c. re-merge
@@ -543,6 +544,8 @@ check_pf <- dplyr::left_join(check_pf, countryOutput, by = "database_id", suffix
 dplyr::mutate(country = dplyr::if_else(is.na(country), countryCO, country)) %>%
     # Remove duplicates if they arose from left_join!
 dplyr::distinct()
+## Error:
+## ! object 'countryOutput' not found
 ```
 
 Save the dataset.
@@ -596,7 +599,6 @@ check_pf <- bdc::bdc_country_standardized(
 ## country found: Finland
 ## country found: France
 ## country found: Germany
-## country found: Ireland
 ## country found: Mexico
 ## country found: Norway
 ## country found: South Africa
@@ -644,14 +646,8 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
   path = OutPath_Check,
   mc.cores = 1
 ) 
-##  - Running chunker with:
-## stepSize = 1,000,000
-## chunkStart = 1
-## chunkEnd = 1,000,000
-## append = FALSE
-##  - Starting chunk 1...
-## From 1 to 1,000,000
-##  - Finished chunk 1 of 1. Total records examined: 205
+## Error:
+## ! 'jbd_Ctrans_chunker' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Get a quick summary of the number of transposed records.
@@ -686,17 +682,8 @@ inconsistent with the provided country name.
 ``` r
 check_pf <- BeeBDC::jbd_coordCountryInconsistent(data = check_pf, lon = "decimalLongitude",
     lat = "decimalLatitude", scale = 50, pointBuffer = 0.01)
-##  - Downloading naturalearth map...
-## Spherical geometry (s2) switched off
-##  - Extracting initial country names without buffer...
-##  - Buffering naturalearth map by pointBuffer...
-## dist is assumed to be in decimal degrees (arc_degrees).
-##  - Extracting FAILED country names WITH buffer...
-## 
-## jbd_coordinates_country_inconsistent:
-## Flagged 2 records.
-## The column, '.coordinates_country_inconsistent', was added to the database.
-##  - Completed in 0.81 secs
+## Error:
+## ! 'jbd_coordCountryInconsistent' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Save the dataset.
@@ -745,9 +732,8 @@ Flag the records marked as “absent”.
 
 ``` r
 check_pf <- BeeBDC::flagAbsent(data = check_pf, PresAbs = "occurrenceStatus")
-## \.occurrenceAbsent:
-##  Flagged 8 absent records:
-##  One column was added to the database.
+## Error:
+## ! 'flagAbsent' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ### 3.11 flag License
@@ -760,9 +746,8 @@ check_pf <- BeeBDC::flagLicense(data = check_pf,
                     strings_to_restrict = "all",
                     # DON'T flag if in the following dataSource(s)
                     excludeDataSource = NULL)
-## \.unLicensed:
-##  Flagged 0 records that may NOT be used.
-##  One column was added to the database.
+## Error:
+## ! 'flagLicense' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ### 3.12 GBIF issue
@@ -772,9 +757,8 @@ Flag select issues that are flagged by GBIF.
 ``` r
 check_pf <- BeeBDC::GBIFissues(data = check_pf, issueColumn = "issue", GBIFflags = c("COORDINATE_INVALID",
     "ZERO_COORDINATE"))
-##  - jbd_GBIFissues:
-## Flagged 0 
-##   The .GBIFflags column was added to the database.
+## Error:
+## ! 'GBIFissues' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ### 3.13 Flag Reports
@@ -809,10 +793,8 @@ check_pf <- BeeBDC::summaryFun(
   removeFilterColumns = FALSE,
     # Filter to ONLY cleaned data?
   filterClean = FALSE)
-##  - We will flag all columns starting with '.'
-##  - summaryFun:
-## Flagged 52 
-##   The .summary column was added to the database.
+## Error:
+## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
 ```
 
 #### c. Reporting
@@ -955,22 +937,8 @@ database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the o
                        taxonomy = taxonomyFile, # The formatted taxonomy file
                        data = database,
                        mc.cores = 1)
-##  - Formatting taxonomy for matching...
-## The names_clean column was not found and will be temporarily copied from scientificName
-## 
-##  - Harmonise the occurrence data with unambiguous names...
-## 
-##  - Attempting to harmonise the occurrence data with ambiguous names...
-##  - Formatting merged datasets...
-## Removing the names_clean column...
-##  - We matched valid names to 201 of 205 occurrence records. This leaves a total of 4 unmatched occurrence records.
-## 
-## harmoniseR:
-## 4
-## records were flagged.
-## The column, '.invalidName' was added to the database.
-##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName
-##  - Completed in 0.25 secs
+## Error:
+## ! 'harmoniseR' is not an exported object from 'namespace:BeeBDC'
 
 rm(taxonomyFile)
 ```
@@ -1029,9 +997,8 @@ of ~11.1 km, ~1.1 km, and ~111 m at the equator, respectively.
 check_space <- BeeBDC::jbd_coordinates_precision(data = database, lon = "decimalLongitude",
     lat = "decimalLatitude", ndec = 2  # number of decimals to be tested
 )
-## jbd_coordinates_precision:
-## Flagged 61 records
-## The '.rou' column was added to the database.
+## Error:
+## ! 'jbd_coordinates_precision' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Remove the spent dataset.
@@ -1138,15 +1105,8 @@ check_space <- BeeBDC::diagonAlley(
   ndec = 3,
   groupingColumns = c("eventDate", "recordedBy", "datasetName"),
   mc.cores = 1)
-## Removing rounded coordinates with BeeBDC::jbd_coordinates_precision...
-## jbd_coordinates_precision:
-## Removed 68 records.
-##  - Merging results and adding the .sequential column...
-## 
-## diagonAlley:
-## Flagged 0 records
-## The .sequential column was added to the database.
-##  - Completed in 0.03 secs
+## Error:
+## ! 'diagonAlley' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Spatial gridding from rasterisation: Select only the records with more
@@ -1163,6 +1123,8 @@ dplyr::distinct(decimalLongitude, decimalLatitude, .keep_all = TRUE) %>%
     # Find the groups with 4 or more occurrence records
 dplyr::filter(dplyr::n() >= 4) %>%
     dplyr::ungroup()
+## Error:
+## ! object 'check_space' not found
 ```
 
 Run the gridding analysis to find datasets that might be gridded.
@@ -1212,9 +1174,8 @@ meters.
 ``` r
 check_space <- BeeBDC::coordUncerFlagR(data = check_space, uncerColumn = "coordinateUncertaintyInMeters",
     threshold = 1000)
-## \coordUncerFlagR:
-##  Flagged 33 geographically uncertain records:
-##  The column '.uncertaintyThreshold' was added to the database.
+## Error:
+## ! 'coordUncerFlagR' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ### 5.5 Country checklist
@@ -1253,7 +1214,7 @@ check_space <- BeeBDC::countryOutlieRs(checklist = checklistFile,
                         scale = 50,
                         mc.cores = 1)
 ## Error:
-## ! object 'checklistFile' not found
+## ! 'countryOutlieRs' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ``` r
@@ -1382,23 +1343,31 @@ if (!exists("check_space")) {
     # Remove the spent file
     rm(check_space)
 }
+## Error:
+## ! 'ColTypeR' is not an exported object from 'namespace:BeeBDC'
 ```
 
 You can plot a histogram of dates here.
 
 ``` r
 hist(lubridate::ymd_hms(check_time$eventDate, truncated = 5), breaks = 20, main = "Histogram of eventDates")
+## Error in `h()`:
+## ! error in evaluating the argument 'x' in selecting a method for function 'hist': object 'check_time' not found
 ```
-
-![](BeeBDC_main_files/figure-html/6.0ii-1.png)
 
 Filter some silly dates that don’t make sense.
 
 ``` r
 check_time$year <- ifelse(check_time$year > lubridate::year(Sys.Date()) | check_time$year <
     1600, NA, check_time$year)
+## Error:
+## ! object 'check_time' not found
 check_time$month <- ifelse(check_time$month > 12 | check_time$month < 1, NA, check_time$month)
+## Error:
+## ! object 'check_time' not found
 check_time$day <- ifelse(check_time$day > 31 | check_time$day < 1, NA, check_time$day)
+## Error:
+## ! object 'check_time' not found
 ```
 
 ### 6.1 Recover dates
@@ -1417,18 +1386,8 @@ check_time <- BeeBDC::dateFindR(data = check_time,
                         maxYear = lubridate::year(Sys.Date()),
                         # Years below this are removed (from the recovered dates only)
                         minYear = 1700)
-##  - Preparing data...
-##  - Extracting dates from year, month, day columns...
-##  - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate columns in unambiguous ymd, dmy, mdy, and my formats...
-##  - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate columns in ambiguous formats...
-##  - Formating and combining the new data..
-##  - Merging all data, nearly there...
-##  - Finished. 
-## We now have 1 more full eventDate cells than in the input data.
-## We modified dates in 
-## 174 occurrences.
-##  - As it stands, there are 174 complete eventDates and 31 missing dates.
-##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.623941421508789 secs
+## Error:
+## ! 'dateFindR' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ### 6.2 No eventDate
@@ -1437,10 +1396,8 @@ Flag records that simply lack collection date. :(
 
 ``` r
 check_time <- bdc::bdc_eventDate_empty(data = check_time, eventDate = "eventDate")
-## 
-## bdc_eventDate_empty:
-## Flagged 31 records.
-## One column was added to the database.
+## Error:
+## ! object 'check_time' not found
 ```
 
 ### 6.3 Old records
@@ -1455,10 +1412,8 @@ example, if you want to make a distribution map for a taxonomic work.
 
 ``` r
 check_time <- bdc::bdc_year_outOfRange(data = check_time, eventDate = "year", year_threshold = 1950)
-## 
-## bdc_year_outOfRange:
-## Flagged 21 records.
-## One column was added to the database.
+## Error:
+## ! object 'check_time' not found
 ```
 
 ### 6.4 Time report
@@ -1475,11 +1430,8 @@ check_time <- BeeBDC::summaryFun(
   removeFilterColumns = FALSE,
   # Filter to ONLY cleaned data?
   filterClean = FALSE)
-##  - We will NOT flag the following columns. However, they will remain in the data file.
-## .gridSummary, .lonFlag, .latFlag, .uncer_terms
-##  - summaryFun:
-## Flagged 115 
-##   The .summary column was added to the database.
+## Error:
+## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ``` r
@@ -1578,52 +1530,8 @@ check_time <- BeeBDC::dupeSummary(
   numberOnlyThreshold = 5
 ) %>% # END dupeSummary
   dplyr::as_tibble(col_types = BeeBDC::ColTypeR())
-##  - Generating a basic completeness summary from the decimalLatitude, decimalLongitude, scientificName, eventDate columns.
-## This summary is simply the sum of complete.cases in each column. It ranges from zero to the N of columns. This will be used to sort duplicate rows and select the most-complete rows.
-##  - Updating the .summary column to sort by...
-##  - We will NOT flag the following columns. However, they will remain in the data file.
-## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed
-##  - summaryFun:
-## Flagged 91 
-##   The .summary column was added to the database.
-##  - Working on CustomComparisonsRAW duplicates...
-## 
-## Completed iteration 1 of 1:
-##  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-## catalogNumber, institutionCode, scientificName
-##  - Working on CustomComparisons duplicates...
-## 
-## Completed iteration 1 of 4:
-##  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-## gbifID, scientificName
-## 
-## Completed iteration 2 of 4:
-##  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-## occurrenceID, scientificName
-## 
-## Completed iteration 3 of 4:
-##  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-## recordId, scientificName
-## 
-## Completed iteration 4 of 4:
-##  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-## id, scientificName
-##  - Working on collectionInfo duplicates...
-## 
-## Completed iteration 1 of 2:
-##  - Identified 0 duplicate records and kept 0 unique records using the columns: 
-## decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and catalogNumber
-## 
-## Completed iteration 2 of 2:
-##  - Identified 0 duplicate records and kept 0 unique records using the columns: 
-## decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and otherCatalogNumbers
-##  - Clustering duplicate pairs...
-## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
-##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
-##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-##  - Duplicates have been saved in the file and location: /tmp/Rtmp0CNzZc/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-12.csv
-##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.
-##  - Completed in 0.3 secs
+## Error:
+## ! 'dupeSummary' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Save the dataset into the intermediate folder.
@@ -1666,16 +1574,8 @@ if (!exists("duplicates")) {
     duplicates <- BeeBDC::fileFinder(path = DataPath, fileName = "duplicateRun_") %>%
         readr::read_csv()
 }
-##  - Dates found in file name(s). Finding most-recent file from file name...
-##  - Found the following file(s): 
-##  /tmp/Rtmp0CNzZc/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-12.csv
-## Rows: 0 Columns: 19
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## chr (19): group, database_id, database_id_keep, dupColumn_s, decimalLatitude...
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Error:
+## ! 'fileFinder' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Identify the outliers and get a list of their database_ids. This would
@@ -1702,11 +1602,8 @@ Save the uncleaned dataset.
 check_time <- BeeBDC::summaryFun(data = check_time, dontFilterThese = c(".gridSummary",
     ".lonFlag", ".latFlag", ".uncer_terms", ".uncertaintyThreshold"), removeFilterColumns = FALSE,
     filterClean = FALSE)
-##  - We will NOT flag the following columns. However, they will remain in the data file.
-## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold
-##  - summaryFun:
-## Flagged 91 
-##   The .summary column was added to the database.
+## Error:
+## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ``` r
@@ -1729,12 +1626,8 @@ cleanData <- BeeBDC::summaryFun(
   removeFilterColumns = TRUE,
   # Filter to ONLY cleaned data?
   filterClean = TRUE)
-##  - We will NOT flag the following columns. However, they will remain in the data file.
-## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold
-##  - summaryFun:
-## Flagged 91 
-##   The .summary column was added to the database.
-##  - REMOVED all occurrences that were FALSE for the 'summary' column.
+## Error:
+## ! 'summaryFun' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ``` r
@@ -1764,6 +1657,8 @@ if (!exists("duplicates")) {
     duplicates <- BeeBDC::fileFinder(path = DataPath, fileName = "duplicateRun_") %>%
         readr::read_csv()
 }
+## Error:
+## ! 'fileFinder' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Choose the global figure parameters.
@@ -1818,6 +1713,8 @@ if (!exists("check_time")) {
     beeData <- check_time
     rm(check_time)
 }
+## Error:
+## ! 'ColTypeR' is not an exported object from 'namespace:BeeBDC'
 ```
 
 Create a plot with two bar graphs. One shows the absolute number of
@@ -1841,9 +1738,9 @@ BeeBDC::dupePlotR(
   ASP = "ASP", CAES = "CAES", Ecd = "Ecd",
   returnPlot = TRUE
 )
+## Error:
+## ! 'dupePlotR' is not an exported object from 'namespace:BeeBDC'
 ```
-
-![](BeeBDC_main_files/figure-html/9.2ii-1.png)
 
 \![Full duplicate diagram from Dorey et al. 2023\]
 ![](https://photos.smugmug.com/photos/i-CjrvS3d/0/NWnPWxvP8VGmTwZKjtJbgc5xCzjJwCt4P2PK7Rvqz/X4/i-CjrvS3d-X4.jpg)
@@ -1886,11 +1783,9 @@ BeeBDC::plotFlagSummary(
   Gaiarsa = "Gai", EPEL = "EPEL", VicWam = "VicWam",
   returnPlot = TRUE
 )
-##  - Preparing data to plot...
-##  - Building plot...
+## Error:
+## ! 'plotFlagSummary' is not an exported object from 'namespace:BeeBDC'
 ```
-
-![](BeeBDC_main_files/figure-html/9.3-1.png)
 
 ### 9.4 Maps
 
@@ -1901,6 +1796,8 @@ if (!exists("cleanData")) {
     cleanData <- readr::read_csv(paste(OutPath_Intermediate, "05_cleaned_database.csv",
         sep = "/"), col_types = BeeBDC::ColTypeR())
 }
+## Error:
+## ! 'ColTypeR' is not an exported object from 'namespace:BeeBDC'
 ```
 
 #### a. Summary maps
@@ -1970,6 +1867,8 @@ lesser degree).
 # Note, if outPath = NULL then no file will be saved
 dataProvTable <- BeeBDC::dataProvTables(data = cleanData, runBeeDataChecks = TRUE,
     outPath = NULL, fileName = "dataProvTable.csv")
+## Error:
+## ! 'dataProvTables' is not an exported object from 'namespace:BeeBDC'
 ```
 
 ### 9.6 Flag summary
@@ -1986,22 +1885,6 @@ column (e.g., *country*).
 # Note, if outPath = NULL then no file will be saved
 summaryTable <- BeeBDC::flagSummaryTable(data = beeData, column = "scientificName",
     outPath = NULL, fileName = "flagTable.csv")
-##  - We will flag all columns starting with '.'
-##  - summaryFun:
-## Flagged 111 
-##   The .summary column was added to the database.
-## The percentages of species impacted by each flag in your analysis are as follows: 
-##   .coordinates_empty = 26.19%
-##   .coordinates_outOfRange = 0%
-##   .basisOfRecords_notStandard = 1.19%
-##   .coordinates_country_inconsistent = 1.19%
-##   .occurrenceAbsent = 8.33%
-##   .unLicensed = 0%
-##   .GBIFflags = 0%
-##   .rou = 32.14%
-##   .sequential = 0%
-##   .uncertaintyThreshold = 15.48%
-##   .eventDate_empty = 15.48%
-##   .year_outOfRange = 16.67%
-##   .duplicates = 0%
+## Error:
+## ! 'flagSummaryTable' is not an exported object from 'namespace:BeeBDC'
 ```

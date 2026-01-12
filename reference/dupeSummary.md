@@ -196,52 +196,6 @@ characterThreshold = 2,
 numberThreshold = 3,
 # Minimum number of numbers WITHOUT any characters
 numberOnlyThreshold = 5)
-#> Loading required namespace: igraph
-#>  - Generating a basic completeness summary from the decimalLatitude, decimalLongitude, scientificName, eventDate columns.
-#> This summary is simply the sum of complete.cases in each column. It ranges from zero to the N of columns. This will be used to sort duplicate rows and select the most-complete rows.
-#>  - Updating the .summary column to sort by...
-#>  - We will NOT flag the following columns. However, they will remain in the data file.
-#> .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed
-#>  - summaryFun:
-#> Flagged 74 
-#>   The .summary column was added to the database.
-#>  - Working on CustomComparisonsRAW duplicates...
-#> 
-#> Completed iteration 1 of 1:
-#>  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-#> catalogNumber, institutionCode, scientificName
-#>  - Working on CustomComparisons duplicates...
-#> 
-#> Completed iteration 1 of 4:
-#>  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-#> gbifID, scientificName
-#> 
-#> Completed iteration 2 of 4:
-#>  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-#> occurrenceID, scientificName
-#> 
-#> Completed iteration 3 of 4:
-#>  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-#> recordId, scientificName
-#> 
-#> Completed iteration 4 of 4:
-#>  - Identified 0 duplicate records and kept 0 unique records using the column(s): 
-#> id, scientificName
-#>  - Working on collectionInfo duplicates...
-#> 
-#> Completed iteration 1 of 2:
-#>  - Identified 0 duplicate records and kept 0 unique records using the columns: 
-#> decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and catalogNumber
-#> 
-#> Completed iteration 2 of 2:
-#>  - Identified 0 duplicate records and kept 0 unique records using the columns: 
-#> decimalLatitude, decimalLongitude, scientificName, eventDate, recordedBy, and otherCatalogNumbers
-#>  - Clustering duplicate pairs...
-#> Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
-#>  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
-#>  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-#>  - Duplicates have been saved in the file and location: /tmp/RtmpGW8kC1/duplicateRun_collectionInfo_2026-01-12.csv
-#>  - Across the entire dataset, there are now 0 duplicates from a total of 100 occurrences.
-#>  - Completed in 0.3 secs
+#> Error in dupeSummary(data = BeeBDC::beesFlagged, path = paste0(tempdir(),     "/"), duplicatedBy = "collectionInfo", completeness_cols = c("decimalLatitude",     "decimalLongitude", "scientificName", "eventDate"), collectionCols = c("decimalLatitude",     "decimalLongitude", "scientificName", "eventDate", "recordedBy"),     collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),     CustomComparisonsRAW = dplyr::lst(c("catalogNumber", "institutionCode",         "scientificName")), CustomComparisons = dplyr::lst(c("gbifID",         "scientificName"), c("occurrenceID", "scientificName"),         c("recordId", "scientificName"), c("id", "scientificName")),     sourceOrder = c("CAES", "Gai", "Ecd", "BMont", "BMin", "EPEL",         "ASP", "KP", "EcoS", "EaCO", "FSCA", "Bal", "SMC", "Lic",         "Arm", "USGS", "ALA", "GBIF", "SCAN", "iDigBio"), characterThreshold = 2,     numberThreshold = 3, numberOnlyThreshold = 5): could not find function "dupeSummary"
 
 ```

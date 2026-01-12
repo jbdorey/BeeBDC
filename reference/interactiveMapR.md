@@ -157,6 +157,5 @@ overWrite = TRUE,
   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 pointColours = c("blue", "darkred","#ff7f00", "black")
 )
-#> Loading required namespace: leaflet
-#> The column .expertOutlier was not found. One will be created with all values = TRUE.
+#> Error in interactiveMapR(data = BeeBDC::bees3sp, outPath = paste0(OutPath_Figures,     "/interactiveMaps_TEST"), lon = "decimalLongitude", lat = "decimalLatitude",     speciesColumn = "scientificName", speciesList = "ALL", countryList = NULL,     jitterValue = 0.01, onlySummary = TRUE, excludeSpecies = c("Apis mellifera Linnaeus, 1758"),     overWrite = TRUE, pointColours = c("blue", "darkred", "#ff7f00",         "black")): could not find function "interactiveMapR"
 ```

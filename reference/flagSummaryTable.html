@@ -125,37 +125,7 @@ number of failed records, and (iii) the percentage of failed records.</p>
 <span class="r-in"><span>                              column <span class="op">=</span> <span class="st">"scientificName"</span>,</span></span>
 <span class="r-in"><span>                              outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                              fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - We will flag all columns starting with '.'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - summaryFun:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 77 </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   The .summary column was added to the database.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The percentages of species impacted by each flag in your analysis are as follows: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_empty = 23.46%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_outOfRange = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .basisOfRecords_notStandard = 1.23%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .coordinates_country_inconsistent = 1.23%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .occurrenceAbsent = 8.64%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .unLicensed = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .GBIFflags = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .uncer_terms = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .rou = 29.63%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .val = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .equ = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .zer = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .cap = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .cen = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .gbf = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .inst = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .sequential = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .lonFlag = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .latFlag = 2.47%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .gridSummary = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .uncertaintyThreshold = 12.35%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .countryOutlier = 0%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .sea = 1.23%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .eventDate_empty = 13.58%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .year_outOfRange = 13.58%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .duplicates = 56.79%</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in flagSummaryTable(data = beesFlagged, column = "scientificName",     outPath = paste0(tempdir()), fileName = "flagTable.csv"):</span> could not find function "flagSummaryTable"</span>
 <span class="r-in"><span>                              </span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

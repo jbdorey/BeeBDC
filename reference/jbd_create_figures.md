@@ -87,8 +87,6 @@ jbd_create_figures(
   workflow_step = "prefilter",
   save_figures = FALSE
 )
-#> Warning: Please provide a path!
-#> Loading required package: cowplot
-#> Loading required package: ggspatial
+#> Error in jbd_create_figures(data = x, database_id = "database_id", workflow_step = "prefilter",     save_figures = FALSE): could not find function "jbd_create_figures"
 # }
 ```

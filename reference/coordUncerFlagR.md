@@ -40,12 +40,8 @@ The input data with a new column, .uncertaintyThreshold.
 beesRaw_out <- coordUncerFlagR(data = beesRaw,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
-#> \coordUncerFlagR:
-#>  Flagged 15 geographically uncertain records:
-#>  The column '.uncertaintyThreshold' was added to the database.
+#> Error in coordUncerFlagR(data = beesRaw, uncerColumn = "coordinateUncertaintyInMeters",     threshold = 1000): could not find function "coordUncerFlagR"
 # View the output
 table(beesRaw_out$.uncertaintyThreshold, useNA = "always")
-#> 
-#> FALSE  TRUE  <NA> 
-#>    15    23    62 
+#> Error: object 'beesRaw_out' not found
 ```

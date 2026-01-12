@@ -111,14 +111,7 @@ is TRUE, then 'checklistReport' will also be returned.</p>
 <span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  beesTaxonomy <span class="op">=</span> <span class="va">testTaxonomy</span>,</span></span>
 <span class="r-in"><span>  beesChecklist <span class="op">=</span> <span class="va">testChecklist</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting taxonomy report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lasioglossum bicingulatum is an accpeted name with the taxon id number 31378.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Lasioglossum bicingulatum' has the synonyms: </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting checklist report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Australia</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The output will be returned as a list with the elements: 'taxonomyReport', 'SynonymReport', and 'checklistReport'. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> These can be accessed using 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or 'output'$failedReport.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in BeeBDCQuery(beeName = "Lasioglossum bicingulatum", searchChecklist = TRUE,     printAllSynonyms = TRUE, beesTaxonomy = testTaxonomy, beesChecklist = testChecklist):</span> could not find function "BeeBDCQuery"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Multiple entry example</span></span></span>
 <span class="r-in"><span><span class="va">testQuery</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu">BeeBDCQuery</span><span class="op">(</span></span></span>
@@ -128,41 +121,11 @@ is TRUE, then 'checklistReport' will also be returned.</p>
 <span class="r-in"><span>  printAllSynonyms <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  beesTaxonomy <span class="op">=</span> <span class="va">testTaxonomy</span>,</span></span>
 <span class="r-in"><span>  beesChecklist <span class="op">=</span> <span class="va">testChecklist</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting taxonomy report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lasioglossum bicingulatum is an accpeted name with the taxon id number 31378.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nomada flavopicta is an accpeted name with the taxon id number 17033.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Lasioglossum bicingulatum' has the synonyms: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - 'Nomada flavopicta' has the synonyms: </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting checklist report...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Australia</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Nomada flavopicta (Kirby, 1802) is reportedly found in: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Austria, Azerbaijan, Belarus, Brussels, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Georgia, Germany, Greece, Guernsey, Hungary, Iran, Italy, Jersey, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Netherlands, Norway, Poland, Romania, Russian Federation, Slovakia, Slovenia, Spain, Sweden, Switzerland, Tajikistan, Turkey, Ukraine, Uzbekistan, United Kingdom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The output will be returned as a list with the elements: 'taxonomyReport', 'SynonymReport', and 'checklistReport'. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> These can be accessed using 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or 'output'$failedReport.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> 'BeeBDCQuery' is not an exported object from 'namespace:BeeBDC'</span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>    <span class="co"># Example way to examine a report from the output list</span></span></span>
 <span class="r-in"><span>  <span class="va">testQuery</span><span class="op">$</span><span class="va">checklistReport</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 41 × 23</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    validName     DiscoverLife_name rNaturalEarth_name shortName DiscoverLife_ISO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Lasioglossum… Australia         Australia          Australia AS              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nomada flavo… Austria           Austria            Austria   AU              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nomada flavo… Azerbaijan        Azerbaijan         Azerbaij… AJ              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nomada flavo… Belarus           Belarus            Belarus   BO              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nomada flavo… Belgium           Brussels           Belgium   BE              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nomada flavo… Bulgaria          Bulgaria           Bulgaria  BU              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nomada flavo… Croatia           Croatia            Croatia   HR              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nomada flavo… Czechia           Czech Republic     Czechia   EZ              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nomada flavo… Denmark           Denmark            Denmark   DA              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nomada flavo… Estonia           Estonia            Estonia   EN              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 31 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 18 more variables: `Alpha-2` &lt;chr&gt;, `Alpha-3` &lt;chr&gt;, official &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   Source &lt;chr&gt;, matchCertainty &lt;chr&gt;, canonical &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   canonical_withFlags &lt;chr&gt;, family &lt;chr&gt;, subfamily &lt;chr&gt;, genus &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   subgenus &lt;lgl&gt;, specificEpithet &lt;chr&gt;, species &lt;chr&gt;, infraspecies &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   scientificNameAuthorship &lt;chr&gt;, taxon_rank &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   infraspecificEpithet &lt;chr&gt;, Notes &lt;chr&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'testQuery' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

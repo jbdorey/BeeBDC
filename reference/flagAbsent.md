@@ -33,12 +33,8 @@ data(beesRaw)
   # Run the function
 beesRaw_out <- flagAbsent(data = beesRaw,
 PresAbs = "occurrenceStatus")
-#> \.occurrenceAbsent:
-#>  Flagged 8 absent records:
-#>  One column was added to the database.
+#> Error in flagAbsent(data = beesRaw, PresAbs = "occurrenceStatus"): could not find function "flagAbsent"
   # See the result
 table(beesRaw_out$.occurrenceAbsent, useNA = "always")
-#> 
-#> FALSE  TRUE  <NA> 
-#>     8    92     0 
+#> Error: object 'beesRaw_out' not found
 ```

@@ -208,8 +208,7 @@ plotFlagSummary(
   ASP = "ASP", CAES = "CAES", 'B. Mont.' = "BMont", 'B. Minkley' = "BMin", Ecd = "Ecd",
   Gaiarsa = "Gai", EPEL = "EPEL"
 )
-#>  - Preparing data to plot...
-#>  - Building plot...
+#> Error in plotFlagSummary(data = beesFlagged, flagColours = c("#127852",     "#A7002D", "#BDBABB"), fileName = paste0("FlagsPlot_TEST_",     Sys.Date(), ".pdf"), outPath = OutPath_Figures, width = 15,     height = 9, GBIF = "GBIF", SCAN = "SCAN", iDigBio = "iDigBio",     USGS = "USGS", ALA = "ALA", ASP = "ASP", CAES = "CAES", `B. Mont.` = "BMont",     `B. Minkley` = "BMin", Ecd = "Ecd", Gaiarsa = "Gai", EPEL = "EPEL"): could not find function "plotFlagSummary"
 
 
 ```

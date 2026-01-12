@@ -61,11 +61,7 @@ beesRaw_out <- jbd_coordinates_precision(
     # number of decimals to be tested
   ndec = 2
 )
-#> jbd_coordinates_precision:
-#> Flagged 30 records
-#> The '.rou' column was added to the database.
+#> Error in jbd_coordinates_precision(data = BeeBDC::beesRaw, lon = "decimalLongitude",     lat = "decimalLatitude", ndec = 2): could not find function "jbd_coordinates_precision"
 table(beesRaw_out$.rou, useNA = "always")
-#> 
-#> FALSE  TRUE  <NA> 
-#>    30    70     0 
+#> Error: object 'beesRaw_out' not found
 ```

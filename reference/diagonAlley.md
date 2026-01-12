@@ -81,15 +81,6 @@ empty, that record will be excluded.
     ndec = 3,
     stepSize = 1000000,
     mc.cores = 1)
-#> Removing rounded coordinates with BeeBDC::jbd_coordinates_precision...
-#> jbd_coordinates_precision:
-#> Removed 32 records.
-#> Warning: object 'runningData_LonGrp' not found
-#>  - Merging results and adding the .sequential column...
-#> 
-#> diagonAlley:
-#> Flagged 0 records
-#> The .sequential column was added to the database.
-#>  - Completed in 0.03 secs
+#> Error in diagonAlley(data = beesRaw, minRepeats = 4, groupingColumns = c("eventDate",     "recordedBy", "datasetName"), ndec = 3, stepSize = 1e+06,     mc.cores = 1): could not find function "diagonAlley"
   
 ```

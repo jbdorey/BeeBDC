@@ -109,18 +109,7 @@ searched columns.</p>
 <span class="r-in"><span>                         maxYear <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         <span class="co"># Years below this are removed (from the recovered dates only)</span></span></span>
 <span class="r-in"><span>                         minYear <span class="op">=</span> <span class="fl">1700</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Preparing data...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting dates from year, month, day columns...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate columns in unambiguous ymd, dmy, mdy, and my formats...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate columns in ambiguous formats...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Formating and combining the new data..</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Merging all data, nearly there...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Finished. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> We now have 1 more full eventDate cells than in the input data.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> We modified dates in </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89 occurrences.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - As it stands, there are 89 complete eventDates and 11 missing dates.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - There are also 89 complete year occurrences to filter from. This is up from an initial count of 88 At this rate, you will stand to lose 11 occurrences on the basis of missing year - Operation time: 0.494686126708984 secs</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dateFindR(data = beesRaw, maxYear = lubridate::year(Sys.Date()),     minYear = 1700):</span> could not find function "dateFindR"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

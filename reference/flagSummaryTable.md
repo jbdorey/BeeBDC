@@ -72,36 +72,6 @@ flagTibble <- flagSummaryTable(data = beesFlagged,
                               column = "scientificName",
                               outPath = paste0(tempdir()),
                               fileName = "flagTable.csv")
-#>  - We will flag all columns starting with '.'
-#>  - summaryFun:
-#> Flagged 77 
-#>   The .summary column was added to the database.
-#> The percentages of species impacted by each flag in your analysis are as follows: 
-#>   .coordinates_empty = 23.46%
-#>   .coordinates_outOfRange = 0%
-#>   .basisOfRecords_notStandard = 1.23%
-#>   .coordinates_country_inconsistent = 1.23%
-#>   .occurrenceAbsent = 8.64%
-#>   .unLicensed = 0%
-#>   .GBIFflags = 0%
-#>   .uncer_terms = 0%
-#>   .rou = 29.63%
-#>   .val = 0%
-#>   .equ = 0%
-#>   .zer = 0%
-#>   .cap = 0%
-#>   .cen = 0%
-#>   .gbf = 0%
-#>   .inst = 0%
-#>   .sequential = 0%
-#>   .lonFlag = 0%
-#>   .latFlag = 2.47%
-#>   .gridSummary = 0%
-#>   .uncertaintyThreshold = 12.35%
-#>   .countryOutlier = 0%
-#>   .sea = 1.23%
-#>   .eventDate_empty = 13.58%
-#>   .year_outOfRange = 13.58%
-#>   .duplicates = 56.79%
+#> Error in flagSummaryTable(data = beesFlagged, column = "scientificName",     outPath = paste0(tempdir()), fileName = "flagTable.csv"): could not find function "flagSummaryTable"
                               
 ```
