@@ -227,7 +227,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   attempt <- 1 
   savePath <- file.path(tempdir(), "beesChecklist.Rda") %>% 
       # Change all backlashes to forward slashes -- sometimes they mix on Windows...
-    stringr::str_replace_all("\\\\","/") 
+    stringr::str_replace_all("\\\\","/")
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
     while( is.null(checklist) && attempt <= nAttempts) {    
