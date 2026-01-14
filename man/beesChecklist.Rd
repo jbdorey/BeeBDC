@@ -80,8 +80,11 @@ Figshare.
 
 Note that sometimes the download might not work without restarting R. In this case, you could
 alternatively download the dataset from the URL below and then read it in using
-\code{base::readRDS("filePath.Rda")}. Note that as of version 1.3.2, this function internally uses the "download" function from the
-\code{downloader} package on CRAN.
+\code{base::readRDS("filePath.Rda")}. Note that as of version 1.3.2, this function internally uses
+a modified version of the "download" function from the
+\code{downloader} package on CRAN. Additionally, for Windows machines, BeeBDC will try a different
+download method with each failed attempt ("auto" > "internal" > "libcurl" > "wget" > "curl";
+or "auto" if any particular method is not available).
 
 See \code{\link[=beesTaxonomy]{beesTaxonomy()}} for further context.
 }

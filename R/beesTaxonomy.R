@@ -10,9 +10,11 @@
 #'  
 #' Note that sometimes the download might not work without restarting R. In this case, you could
 #' alternatively download the dataset from the URL below and then read it in using 
-#' `base::readRDS("filePath.Rda")`. Note that as of version 1.3.2, this function internally uses the "download" function from the 
-#' `downloader` package on CRAN.
-#' 
+#' `base::readRDS("filePath.Rda")`. Note that as of version 1.3.2, this function internally uses 
+#'  a modified version of the "download" function from the 
+#' `downloader` package on CRAN. Additionally, for Windows machines, BeeBDC will try a different 
+#' download method with each failed attempt ("auto" > "internal" > "libcurl" > "wget" > "curl"; 
+#' or "auto" if any particular method is not available).
 #' 
 #' 
 #'  **Column details** 
@@ -166,12 +168,26 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     if (grepl('^https?://', URL)) {
       # Windows
       if (tolower(.Platform$OS.type) == "windows") {
-          # Try different methods if failed
+        # Try different methods if failed
         if(methodNum == 1){method <- "auto"}
+        
         if(methodNum == 2){method <- "internal"}
-        if(methodNum == 3){method <- "libcurl"}
-        if(methodNum == 4){method <- "wget"}
-        if(methodNum == 5){method <- "auto"}
+        
+        # Check also if libcurl is an option
+        if(methodNum == 3 && capabilities("libcurl")){
+          method <- "libcurl"
+        }else{method = "auto"}
+        
+        # Check also if wget is an option
+        if(methodNum == 4 && nzchar(Sys.which("wget")[1])){
+          method <- "wget"
+        }else{method = "auto"}
+        
+        # Check also if curl is an option
+        if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
+          method <- "curl"}else{method = "auto"}
+        
+        message(paste0("Trying download method ", method, "..."))
         
         if(is.null(mode)){
           mode <- "wb"}
