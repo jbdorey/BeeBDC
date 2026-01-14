@@ -12,8 +12,9 @@
 #' alternatively download the dataset from the URL below and then read it in using 
 #' `base::readRDS("filePath.Rda")`. Note that as of version 1.3.2, this function internally uses 
 #'  a modified version of the "download" function from the 
-#' `downloader` package on CRAN. Additionally, for Windows machines, BeeBDC will try a different 
-#' download method with each failed attempt ("auto" > "internal" > "libcurl" > "wget" > "curl"; 
+#' `downloader` package on CRAN. Additionally, BeeBDC will try a different 
+#' download method with each failed attempt (for Windows: "auto" > "internal" > "libcurl" > "wget" > "curl"; 
+#` for Mac/Unix: "libcurl" > "wget" > "curl" > "auto";
 #' or "auto" if any particular method is not available).
 #'  
 #'  See [BeeBDC::beesTaxonomy()] for further context. 
@@ -184,23 +185,27 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
             errorCatcher())
         
       } else {
+        method <- NULL
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
         # appropriate method.
-        if (capabilities("libcurl")) {
+        if (capabilities("libcurl") && methodNum == 1) {
           method <- "libcurl"
-        } else if (nzchar(Sys.which("wget")[1])) {
+        } else if (nzchar(Sys.which("wget")[1]) && methodNum == 2) {
           method <- "wget"
-        } else if (nzchar(Sys.which("curl")[1])) {
+        } else if (nzchar(Sys.which("curl")[1]) && methodNum == 3) {
           method <- "curl"
           # curl needs to add a -L option to follow redirects.
           # Save the original options and restore when we exit.
           orig_extra_options <- getOption("download.file.extra")
           on.exit(options(download.file.extra = orig_extra_options))
           options(download.file.extra = paste("-L", orig_extra_options))
-        } else if (nzchar(Sys.which("lynx")[1])) {
+        } else if (nzchar(Sys.which("lynx")[1]) && methodNum == 4) {
           method <- "lynx"
-        } else {
-          stop("no download method found")
+        } else if(methodNum == 5){
+          method <- "auto"
+        }
+        if(is.null(method)){
+          method <- "auto"
         }
         if(is.null(mode)){
           mode <- "wb"  
