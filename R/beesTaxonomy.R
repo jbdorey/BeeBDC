@@ -186,7 +186,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
       } else {
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
         # appropriate method.
-        if (isR32 && capabilities("libcurl")) {
+        if (capabilities("libcurl")) {
           method <- "libcurl"
         } else if (nzchar(Sys.which("wget")[1])) {
           method <- "wget"
