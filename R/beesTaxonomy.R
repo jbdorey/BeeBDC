@@ -182,15 +182,15 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
         # Check also if curl is an option
         if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
           method <- "curl"}
-        # If one of the above fails, use "auto"
+        # If one of the above fails, use "wininet"
         if(is.null(method)){
-          method <- "auto"
+          method <- "wininet"
         }
-        
-        message(paste0("Trying download method ", method, "..."))
         
         if(is.null(mode)){
           mode <- "wb"}
+        
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         # download.file will complain about file size with something like:
         #       Warning message:
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
@@ -226,6 +226,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
         if(is.null(mode)){
           mode <- "wb"  
         }
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
                                                destfile = destfile, 
@@ -248,7 +249,6 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   savePath <- file.path(tempdir(), "beesTaxonomy.Rda") %>% 
       # Change all backlashes to forward slashes -- sometimes they mix on Windows...
     stringr::str_replace_all("\\\\","/") 
-  savePath <- normalizePath(savePath)
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   

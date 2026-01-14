@@ -166,11 +166,10 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
           method <- "auto"
         }
         
-        message(paste0("Trying download method ", method, "..."))
-        
-        
         if(is.null(mode)){
           mode <- "wb"}
+        
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         # download.file will complain about file size with something like:
         #       Warning message:
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
@@ -206,6 +205,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         if(is.null(mode)){
           mode <- "wb"  
         }
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
                                                destfile = destfile, 
@@ -225,7 +225,9 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   # Run a code to download the data and deal with potential internet issues
   checklist <- NULL                                 
   attempt <- 1 
-  savePath <- file.path(tempdir(), "beesChecklist.Rda") 
+  savePath <- file.path(tempdir(), "beesChecklist.Rda") %>% 
+      # Change all backlashes to forward slashes -- sometimes they mix on Windows...
+    stringr::str_replace_all("\\\\","/")
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
     while( is.null(checklist) && attempt <= nAttempts) {    
