@@ -125,7 +125,7 @@ speciesColumn = "scientificName")
 #> The column, '.invalidName' was added to the database.
 #> 
 #>  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName
-#>  - Completed in 0.23 secs
+#>  - Completed in 0.22 secs
 table(beesRaw_out$.invalidName, useNA = "always")
 #> 
 #> FALSE  TRUE  <NA> 
