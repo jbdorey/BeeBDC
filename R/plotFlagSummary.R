@@ -195,9 +195,9 @@ plotFlagSummary <- function(
           # Sort the filterColumn to have TRUE on top of FALSE
       mapData <- mapData %>%
         dplyr::select(tidyselect::all_of(filterColumn)) %>%
-        dplyr::mutate(across(1, as.character)) %>%
+        dplyr::mutate(dplyr::across(1, as.character)) %>%
         dplyr::bind_cols(mapData %>% dplyr::select(!tidyselect::all_of(filterColumn))) %>% 
-        dplyr::arrange(desc(.))
+        dplyr::arrange(dplyr::desc(.))
     }
   } # END !is.null(speciesName)
   

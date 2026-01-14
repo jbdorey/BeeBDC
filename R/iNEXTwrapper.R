@@ -213,7 +213,7 @@ iNEXTwrapper <- function(data = NULL,
       
       # Return the data as a list
       return(list( dataInfo_out, AsyEst_out, iNextEst) %>%
-               setNames(c( "DataInfo", "AsyEst", "iNextEst")))
+               stats::setNames(c( "DataInfo", "AsyEst", "iNextEst")))
     # }
   }
   
@@ -242,7 +242,7 @@ iNEXTwrapper <- function(data = NULL,
     # Extract the list and give it the country name
     loopList <- data_list[[i]] %>%
       dplyr::lst() %>%
-      setNames(data_list[[i]]$groupVariable[[1]])
+      stats::setNames(data_list[[i]]$groupVariable[[1]])
     # Add to the variable list to the greater list
     df_list <- df_list %>%
       append( dplyr::lst(loopList))
@@ -302,7 +302,7 @@ iNEXTwrapper <- function(data = NULL,
   
   ##### 3.5 Combine ####
   output <- dplyr::lst(dataInfoOut, iNEXTOutputOut, iNextEstOut) %>% 
-    setNames(c("DataInfo", "AsyEst", "iNextEst"))
+    stats::setNames(c("DataInfo", "AsyEst", "iNextEst"))
   
   #### 4.0 User output ####
   # provide some user output

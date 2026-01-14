@@ -233,7 +233,7 @@ dupeSummary <- function(
   Loop_data <- data %>%
   dplyr::mutate(completeness = data %>% 
                      dplyr::select(tidyselect::all_of(completeness_cols)) %>% 
-                     apply(., MARGIN = 1, function(x) sum(complete.cases(x)))
+                     apply(., MARGIN = 1, function(x) sum(stats::complete.cases(x)))
   )
   
     ###### b. catalogSwitch ####
@@ -299,7 +299,7 @@ dupeSummary <- function(
           # Add the matching column as a column
           dplyr::mutate(
             dupColumn_s = stringr::str_c(
-              dplyr::if_else(complete.cases( dupColumn_s),
+              dplyr::if_else(stats::complete.cases( dupColumn_s),
                              stringr::str_c(dupColumn_s, 
                                             paste0(currentColumn, collapse = ", "), sep = " & "), 
                              paste0(currentColumn, collapse = ", "))))
@@ -310,13 +310,13 @@ dupeSummary <- function(
           dplyr::filter( dplyr::row_number() > 1) %>%
           nrow()
         keptCount = dupSummary %>%
-          n_groups()
+          dplyr::n_groups()
         
         ##### b. Running outputs ####
         # Bind the rows to a running file. Missing columns will be "NA"
         runningDuplicates = dplyr::bind_rows(runningDuplicates,
                                              dupSummary) %>% 
-          distinct(database_id, database_id_match, .keep_all = TRUE)
+          dplyr::distinct(database_id, database_id_match, .keep_all = TRUE)
         
         ##### c. User output ####
         message(paste0(
@@ -413,7 +413,7 @@ dupeSummary <- function(
           # Add the matching column as a column
           dplyr::mutate(
             dupColumn_s = stringr::str_c(
-              dplyr::if_else(complete.cases( dupColumn_s),
+              dplyr::if_else(stats::complete.cases( dupColumn_s),
                              stringr::str_c(dupColumn_s, 
                                             paste0(currentColumn, collapse = ", "), sep = " & "), 
                              paste0(currentColumn, collapse = ", "))))
@@ -424,13 +424,13 @@ dupeSummary <- function(
           dplyr::filter( dplyr::row_number() > 1) %>%
           nrow()
         keptCount = dupSummary %>%
-          n_groups()
+          dplyr::n_groups()
         
         ##### b. Running outputs ####
         # Bind the rows to a running file. Missing columns will be "NA"
         runningDuplicates = dplyr::bind_rows(runningDuplicates,
                                              dupSummary) %>% 
-          distinct(database_id, database_id_match, .keep_all = TRUE)
+          dplyr::distinct(database_id, database_id_match, .keep_all = TRUE)
         
         ##### c. User output ####
         message(paste0(
@@ -488,14 +488,14 @@ dupeSummary <- function(
         dplyr::filter( dplyr::row_number() > 1) %>%
         nrow()
       keptCount = dupSummary %>%
-        n_groups()
+        dplyr::n_groups()
       
       
       ##### b. Running outputs ####
       # Bind the rows to a running file. Missing columns will be "NA"
       runningDuplicates = dplyr::bind_rows(runningDuplicates,
                                            dupSummary) %>% 
-        distinct(database_id, database_id_match, .keep_all = TRUE)
+        dplyr::distinct(database_id, database_id_match, .keep_all = TRUE)
 
       
       ##### c. User output ####
@@ -560,14 +560,14 @@ dupeSummary <- function(
       dplyr::filter( dplyr::row_number() > 1) %>%
       nrow()
     keptCount = dupSummary %>%
-      n_groups()
+      dplyr::n_groups()
     
     
     ##### b. Running outputs ####
     # Bind the rows to a running file. Missing columns will be "NA"
     runningDuplicates = dplyr::bind_rows(runningDuplicates,
                                          dupSummary)%>% 
-      distinct(database_id, database_id_match, .keep_all = TRUE)
+      dplyr::distinct(database_id, database_id_match, .keep_all = TRUE)
 
 
         ##### c. User output ####
@@ -600,7 +600,7 @@ dupeSummary <- function(
       igraph::components()
       # Extract the id and the group only
     clusteredDuplicates <- clusteredDuplicates$membership %>% as.data.frame() %>%
-      setNames("group") %>%
+      stats::setNames("group") %>%
       dplyr::mutate(database_id = rownames(.)) %>% dplyr::as_tibble()
       
       # Re-merge the relevant columns
@@ -617,7 +617,7 @@ dupeSummary <- function(
                                                        completeness_cols,
                                                        collectionCols,
                                                        collectInfoColumns,
-                                                       lst(CustomComparisons) %>% 
+                                                       dplyr::lst(CustomComparisons) %>% 
                                                          unlist() %>% as.character(),
                                                        "dataSource", "completeness",
                                                        ".summary"),
@@ -630,9 +630,9 @@ dupeSummary <- function(
     # User output
     writeLines(paste0(
       "Duplicate pairs clustered. There are ", 
-      format(nrow(clusteredDuplicates) - clusteredDuplicates %>% n_groups(), 
+      format(nrow(clusteredDuplicates) - clusteredDuplicates %>% dplyr::n_groups(), 
              big.mark = ","), " duplicates across ", 
-      format(clusteredDuplicates %>% n_groups(), big.mark = ","),
+      format(clusteredDuplicates %>% dplyr::n_groups(), big.mark = ","),
       " kept duplicates."))
     
     ##### 6.2 Arrange data ####
@@ -664,9 +664,9 @@ dupeSummary <- function(
       # Sort so that certain datasets will be given preference over one another as user-defined.
       dplyr::arrange(dataSourceMain) %>%
       # Sort so that higher completeness is given FIRST preference
-      dplyr::arrange( desc(completeness)) %>%
+      dplyr::arrange( dplyr::desc(completeness)) %>%
       # Sort by .summary so that TRUE is selected over FALSE
-      dplyr::arrange( desc(.summary)) %>%
+      dplyr::arrange( dplyr::desc(.summary)) %>%
       # Remove these sorting columns
       dplyr::select(!c(dataSourceMain)) 
     

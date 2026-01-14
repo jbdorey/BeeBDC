@@ -70,7 +70,7 @@ summaryMaps <- function(
   # locally bind variables to the function
   name_long<-iso_a3<-name<-geometry<-decimalLongitude<-decimalLatitude<-database_id<-
     scientificName<-species<-country<-stateProvince<-dataSource<-count<-class_count<-
-    class_count2<-occCount <- indexMatch <- . <- iso_a2 <- NULL
+    class_count2<-occCount <- indexMatch <- . <- iso_a2 <- n<-NULL
   
   requireNamespace("dplyr")
   requireNamespace("classInt")
@@ -178,7 +178,7 @@ rm(extracted)
   #Extract polygon information to points
   suppressWarnings({
   extracted2 <- sf::st_intersects(dataPoints %>% dplyr::filter(
-    database_id %in% (data %>% dplyr::filter(is.na(name_long)) %>% pull(database_id))),
+    database_id %in% (data %>% dplyr::filter(is.na(name_long)) %>% dplyr::pull(database_id))),
                                  worldMap %>% sf::st_make_valid(), sparse = TRUE) %>% 
     # return a tibble with the index of each match or NA where there was no match
     dplyr::tibble(indexMatch = .) 
@@ -267,7 +267,7 @@ rm(extracted2)
       # Map formatting
       # Add in the map's north arrow
       ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
-                             pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
+                             pad_x = ggplot2::unit(0.1, "cm"), pad_y = ggplot2::unit(0.1, "cm"), 
                              style = ggspatial::north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
       ggplot2::theme(panel.grid.major = ggplot2::element_line(color = grDevices::gray(.1, alpha = 0.1), 
                                             linetype = "dashed", linewidth = 0.5), # Add grid lines
@@ -350,7 +350,7 @@ rm(extracted2)
      # Map formatting
       # Add in the map's north arrow
       ggspatial::annotation_north_arrow(location = "tl", which_north = "true", 
-                                        pad_x = unit(0.1, "cm"), pad_y = unit(0.1, "cm"), 
+                                        pad_x = ggplot2::unit(0.1, "cm"), pad_y = ggplot2::unit(0.1, "cm"), 
                                         style = ggspatial::north_arrow_fancy_orienteering()) + # Add in NORTH ARROW
       ggplot2::theme(panel.grid.major = ggplot2::element_line(color = grDevices::gray(.1, alpha = 0.1), 
                                                               linetype = "dashed", 

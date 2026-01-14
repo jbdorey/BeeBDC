@@ -10,8 +10,12 @@
 #'  
 #' Note that sometimes the download might not work without restarting R. In this case, you could
 #' alternatively download the dataset from the URL below and then read it in using 
-#' `base::readRDS("filePath.Rda")`.
-#' 
+#' `base::readRDS("filePath.Rda")`. Note that as of version 1.3.2, this function internally uses 
+#'  a modified version of the "download" function from the 
+#' `downloader` package on CRAN. Additionally, for Windows machines, BeeBDC will try a different 
+#' download method with each failed attempt (for Windows: "auto" > "internal" > "libcurl" > "wget" > "curl"; 
+#` for Mac/Unix: "libcurl" > "wget" > "curl" > "auto";
+#' or "auto" if any particular method is not available).
 #' 
 #' 
 #'  **Column details** 
@@ -43,7 +47,7 @@
 #'  
 #'  **subtribe** The subtribe of bee which the species belongs to.
 #'  
-#'  **validName** The valid scientific name as it should occur in the 'scientificName" column in a Darwin Core file.
+#'  **validName** The valid scientific name as it should occur in the “scientificName” column in a Darwin Core file.
 #'  
 #'  **canonical** The scientificName without the scientificNameAuthority.
 #'  
@@ -62,18 +66,26 @@
 #'  **taxon_rank** Rank for the bee taxon addressed in the entry.
 #'  
 #'  **notes** Additional notes about the name/taxon.
+#'  
+#'  **Previous taxonomies:**
+#'  
+#'   - 2026-01-12 **current**: https://open.flinders.edu.au/ndownloader/files/60945820
+#'  
+#'   - 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
+#'   
+#'   - 2023-11-29: https://open.flinders.edu.au/ndownloader/files/43331472
+#'   
+#'   - 2023-10-10: https://open.flinders.edu.au/ndownloader/files/42613126
+#'   
+#'   - 2023-09-20: https://open.flinders.edu.au/ndownloader/files/42402264
+#'   
+#'   - Original: https://open.flinders.edu.au/ndownloader/files/42320595
 #' 
 #'
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
-#' @param destfile a character string (or vector, see the url argument) with the file path where 
-#' the downloaded file is to be saved. Tilde-expansion is performed. If NULL (default), then destfile
-#' is set as `paste0(tempdir(), "/beesTaxonomy.Rda")` (normalizePath for Windows).
-#' @param method The method to be used for downloading files. Current download methods are 
-#' "internal", "libcurl", "wget", "curl" and "wininet" (Windows only), and there is a value 
-#' "auto": see ‘Details’ and ‘Note’. The method can also be set through the option 
-#' "download.file.method": see options(). description
-#' @param ... Extra variables that can be passed to [utils::download.file()]
+#' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
+#' @param ... Extra variables that can be passed to `downloader::download()`.
 #'
 #'
 #'  
@@ -83,14 +95,13 @@
 #' 
 #' @references This dataset was created using the Discover Life taxonomy.
 #' Dataset is from the publication: 
-#' Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. & Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. https://www.doi.org/10.1038/S41597-023-02626-W
+#' DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.
 #' The taxonomy data are mostly compiled from Discover Life data, www.discoverlife.org:
-#' Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species
+#' ASCHER, J. S. & PICKERING, J. 2020. Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species.
 #'
 #' @seealso [BeeBDC::taxadbToBeeBDC()] to download any other taxonomy (of any taxa or of bees)
 #' and [BeeBDC::harmoniseR()] for the 
-#' taxon-cleaning function where these taxonomies are implemented. It may also be worth seeing 
-#' [BeeBDC::beesChecklist()].
+#' taxon-cleaning function where these taxonomies are implemented.
 #' 
 #' @export
 #' 
@@ -100,14 +111,18 @@
 #'}
 #' 
 #'
-beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/47089969",
-                         destfile = NULL, method = "auto",
+beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+                         mode = NULL,
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
+  downloadReturn <- NULL
 
+    #### 0.0 Prep ####
   # Set the number of attempts
   nAttempts = 5
-  
+    
+      ##### 0.1 Errors ####
+        ###### a. messages ####
   # Set up the error message function
   error_func <- function(e){
     message(paste("Taxonomy download attempt failed..."))
@@ -115,69 +130,200 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/4
   error_funcFile <- function(e){
     message(paste("Could not read taxonomy download..."))
   }
+  
+  
+        ###### b. error catcher ####
+  # Function to capture error outputs from here
+  # Source - https://stackoverflow.com/a
+  # Posted by Martin Morgan, modified by community. See post 'Timeline' for 
+  # change history
+  # Retrieved 2026-01-12, License - CC BY-SA 2.5
+  errorCatcher <- function(fun){
+      warn <- err <- NULL
+      res <- withCallingHandlers(
+        tryCatch(fun(...), error=function(e) {
+          err <<- conditionMessage(e)
+          NULL
+        }), warning=function(w) {
+          warn <<- append(warn, conditionMessage(w))
+          invokeRestart("muffleWarning")
+        })
+      list(res, warn=warn, err=err)
+    }
+  
+  
+    ##### 0.2 Check OS ####
   # Check operating system
   OS <- dplyr::if_else(.Platform$OS.type == "unix",
                        "MacLinux",
                        "Windows")
   
+  writeLines(paste0("The operating system detected is ", OS, "."))
   
+    ##### 0.3 Downloader function ####
+    # Please note that this function is taken directly from the "downloader" package version 0.4.1
+    # This is the purpose of the package, but I have taken their excellent function to avoid
+    # Another dependency for BeeBDC. MY apologies and thanks to the authors.
+  download <- function(URL, destfile = NULL, methodNum = NULL, ...) {
+    # First, check protocol. If http or https, check platform:
+    if (grepl('^https?://', URL)) {
+      #### Windows ####
+      if (tolower(.Platform$OS.type) == "windows") {
+        # Set method to NULL to then be over-written
+        method <- NULL
+        # Try different methods if failed
+        if(methodNum == 1){method <- "auto"}
+        if(methodNum == 2){method <- "wininet"}
+        # Check also if libcurl is an option
+        if(methodNum == 3 && capabilities("libcurl")){
+          method <- "libcurl"}
+        # Check also if wget is an option
+        if(methodNum == 4 && nzchar(Sys.which("wget")[1])){
+          method <- "wget"}
+        # Check also if curl is an option
+        if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
+          method <- "curl"}
+        # If one of the above fails, use "internal"
+        if(is.null(method)){
+          method <- "internal"
+        }
+        
+        if(is.null(mode)){
+          mode <- "wb"}
+        
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+        # download.file will complain about file size with something like:
+        #       Warning message:
+        #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
+        # because apparently it compares the length with the status code returned (?)
+        # so we supress that
+        suppressWarnings(
+          downloadReturn <- utils::download.file(URL, 
+                                                 method = method, 
+                                                 destfile = destfile, 
+                                                 mode = mode,
+                                                 ...) %>%
+            errorCatcher())
+        
+      } else {
+        #### Mac/Linux ####
+        method <- NULL
+        # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
+        # appropriate method.
+        if (capabilities("libcurl") && methodNum == 1) {
+          method <- "libcurl"
+        } else if (nzchar(Sys.which("wget")[1]) && methodNum == 2) {
+          method <- "wget"
+        } else if (nzchar(Sys.which("curl")[1]) && methodNum == 3) {
+          method <- "curl"
+          # curl needs to add a -L option to follow redirects.
+          # Save the original options and restore when we exit.
+          orig_extra_options <- getOption("download.file.extra")
+          on.exit(options(download.file.extra = orig_extra_options))
+          options(download.file.extra = paste("-L", orig_extra_options))
+        } else if (nzchar(Sys.which("lynx")[1]) && methodNum == 4) {
+          method <- "lynx"
+        } else if(methodNum == 5){
+          method <- "auto"
+        }
+        if(is.null(method)){
+          method <- "auto"
+        }
+        if(is.null(mode)){
+          mode <- "wb"  
+        }
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+        downloadReturn <- utils::download.file(URL, 
+                                               method = method, 
+                                               destfile = destfile, 
+                                               mode = mode, ...) %>%
+          errorCatcher()
+      }
+      
+    } else {
+      downloadReturn <- utils::download.file(URL, destfile = destfile, mode = "wb", ...) %>%
+        errorCatcher()
+    }
+    return(downloadReturn)
+  } # END download function
+  
+  
+  #### 1.0 Download ####
     # Run a code to download the data and deal with potential internet issues
   taxonomy <- NULL                                 
   attempt <- 1
+  savePath <- file.path(tempdir(), "beesTaxonomy.Rda") %>% 
+      # Change all backlashes to forward slashes -- sometimes they mix on Windows...
+    stringr::str_replace_all("\\\\","/") 
+  writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   
+      # Initial message
+    print( paste("Attempt: ", attempt, " of ", nAttempts))
     # Don't attempt for the last attempt
-    if(attempt < nAttempts){
-      
-# WINDOWS
-      if(OS != "MacLinux"){
-        # Set destfile if it's not provided by user
-        if(is.null(destfile)){
-          destfile <- normalizePath(paste0(tempdir(),
-                                           "/beesTaxonomy.Rda"))}
-    # Download the file to the outPath 
-    tryCatch(utils::download.file(URL, destfile = destfile,
-                                  method = method,
-                                  ...),
-        error = error_func, warning = error_func)
-    # Load the file from the outPath
-      tryCatch(
-    taxonomy <- base::readRDS(normalizePath(paste0(tempdir(), "/beesTaxonomy.Rda"))),
-    error = error_funcFile, warning = error_funcFile)
-      }else{
-        
-        # Set destfile if it's not provided by user
-        if(is.null(destfile)){
-          destfile <- paste0(tempdir(), "/beesTaxonomy.Rda")}
+    if(attempt <= nAttempts){
+# WINDOWS or MAC/Linux
         # Download the file to the outPath 
-        tryCatch(utils::download.file(URL, destfile = destfile,
-                                      method = method,
-                                      ...),
+        tryCatch(downloadReturn <- download(URL, destfile = savePath, 
+                                              # Change the method based on attempt number
+                                            methodNum = attempt),
                  error = error_func, warning = error_func)
         # Load the file from the outPath
         tryCatch(
-          taxonomy <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda")),
+          taxonomy <- base::readRDS(savePath),
           error = error_funcFile, warning = error_funcFile)
-      }
-        
-        
-    } # END if
+    } # END if attempt < nAttempts
     
-    if(attempt < nAttempts){
-      # Wait one second before the next request 
-    if(attempt > 1){Sys.sleep(1)            
-      print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
+    if(attempt <= nAttempts){
+      # Wait five seconds before the next request 
+    if(is.null(taxonomy)){Sys.sleep(5)}            
     } # END IF #2
     # Count the next attempt
     attempt <- attempt + 1   
+    
+    # Output errors per run
+    # Check download errors
+    if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
+                            "could not find function")){
+        # Remove NULL elements
+      downloadReturn <- downloadReturn[-which(sapply(downloadReturn, is.null))]
+        # Paste message
+      message(paste0("\n - Possible *download* error(s) returned:\n", paste0(
+        names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
+    # Check file errors
+    fileError <- base::readRDS(savePath) %>% 
+      errorCatcher()
+    if(!stringr::str_detect(paste0(fileError, collapse = ""), 
+                            "could not find function")){
+      # Remove NULL elements
+      fileError <- fileError[-which(sapply(fileError, is.null))]
+        # Paste message
+      message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
+        names(fileError), ": ", fileError, collapse = "\n")))}
   } # END while
   )
   
+  #### 2.0 Error list ####
   if(is.null(taxonomy)){
-    message(" - Taxonomy download failed. Please check your internet connection.")
+      # Check system capacities
+    message(paste0(
+      "System capabilities are:\n",
+        " * Has libcurl? ", capabilities("libcurl"),
+      "\n * Has wget? ", nzchar(Sys.which("wget")[1]),
+      "\n * Has curl? ", nzchar(Sys.which("curl")[1])
+    ))
+      
+    warning(paste0(" - Taxonomy download failed. Please check your internet connection.\n",
+    "Alternatively, feel free to paste the download url into your browser (",
+    URL, ")",
+                   " and download the file directly. \n",
+    "This file can then be read into R using:\n",
+                   "beesTaxonomy <- readRDS('path/to/downloaded/file/beesTaxonomy.Rda')"))
+    
+    stop("Errors finished.")
   }
 
-  
+  #### 3.0 Return ####
   # Return the data to the user
   return(taxonomy)
 } # END function

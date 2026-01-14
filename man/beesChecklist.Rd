@@ -5,9 +5,8 @@
 \title{Download a country-level checklist of bees from Discover Life}
 \usage{
 beesChecklist(
-  URL = "https://figshare.com/ndownloader/files/47092720",
-  destfile = NULL,
-  method = "auto",
+  URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
+  mode = NULL,
   ...
 )
 }
@@ -15,16 +14,9 @@ beesChecklist(
 \item{URL}{A character vector to the FigShare location of the dataset. The default will be to
 the most-recent version.}
 
-\item{destfile}{a character string (or vector, see the url argument) with the file path where
-the downloaded file is to be saved. Tilde-expansion is performed. If NULL (default), then destfile
-is set as \code{paste0(tempdir(), "/beesChecklist.Rda")} (normalizePath for Windows).}
+\item{mode}{A character passed on to \code{utils::download.file()}. Default = "wb" for Windows or "w" for Mac/Linux.}
 
-\item{method}{The method to be used for downloading files. Current download methods are
-"internal", "libcurl", "wget", "curl" and "wininet" (Windows only), and there is a value
-"auto": see ‘Details’ and ‘Note’. The method can also be set through the option
-"download.file.method": see options(). description}
-
-\item{...}{Extra variables that can be passed to \code{\link[utils:download.file]{utils::download.file()}}}
+\item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }
 \value{
 A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
@@ -36,17 +28,15 @@ the environment.
 
 \strong{DiscoverLife_name} The full country name as it occurs on Discover Life.
 
-\strong{rNaturalEarth_name} Country name from rnaturalearth's name_long and type = "map_units".
+\strong{rNaturalEarth_name} Country name from rnaturalearth's name_long.
 
 \strong{shortName} A short version of the country name.
-
-\strong{continent} The continent where that country is found.
 
 \strong{DiscoverLife_ISO} The ISO country name as it occurs on Discover Life.
 
 \strong{Alpha-2} Alpha-2 from rnaturalearth.
 
-\strong{iso_a3_eh} iso_a3_eh from rnaturalearth.
+\strong{Alpha-3} Alpha-3 from rnaturalearth.
 
 \strong{official} Official country name = "yes" or only a Discover Life name = "no".
 
@@ -75,6 +65,13 @@ the environment.
 \strong{taxon_rank} Rank of the taxon name.
 
 \strong{Notes} Discover Life country name notes.
+
+\strong{Previous checklists:}
+\itemize{
+\item 2026-01-12 \strong{current}: https://open.flinders.edu.au/ndownloader/files/60945823
+\item 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47092720
+\item Original: https://open.flinders.edu.au/ndownloader/files/42320598
+}
 }
 \description{
 Download the table contains taxonomic and country information for the bees of the world based
@@ -83,7 +80,13 @@ Figshare.
 
 Note that sometimes the download might not work without restarting R. In this case, you could
 alternatively download the dataset from the URL below and then read it in using
-\code{base::readRDS("filePath.Rda")}.
+\code{base::readRDS("filePath.Rda")}. Note that as of version 1.3.2, this function internally uses
+a modified version of the "download" function from the
+\code{downloader} package on CRAN. Additionally, BeeBDC will try a different
+download method with each failed attempt (for Windows: "auto" > "internal" > "libcurl" > "wget" > "curl";
+or "auto" if any particular method is not available).
+
+See \code{\link[=beesTaxonomy]{beesTaxonomy()}} for further context.
 }
 \examples{
 \dontrun{
@@ -93,10 +96,7 @@ beesChecklist <- BeeBDC::beesChecklist()
 \references{
 This dataset was created using the Discover Life checklist and taxonomy.
 Dataset is from the publication:
-Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. & Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. https://www.doi.org/10.1038/S41597-023-02626-W
+DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.
 The checklist data are mostly compiled from Discover Life data, www.discoverlife.org:
-Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species
-}
-\seealso{
-\code{\link[=beesTaxonomy]{beesTaxonomy()}} for further context.
+ASCHER, J. S. & PICKERING, J. 2020. Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species.
 }

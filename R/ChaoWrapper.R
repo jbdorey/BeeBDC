@@ -192,7 +192,7 @@ ChaoWrapper <- function(
       names(basicTable) <- c("rowname", "variable", names(inputData_i))
       # Return the tables as a list
       return(list( basicTable, richnessTable) %>%
-               setNames(c( "basicTable", "richnessTable")))
+               stats::setNames(c( "basicTable", "richnessTable")))
     }
   }
   
@@ -257,7 +257,7 @@ richnessOut <- lapply(richnessOutput, function(x) x[["richnessTable"]]) %>%
 
   ##### 3.4 Combine ####
 output <- dplyr::lst(basicOut, richnessOut) %>% 
-  setNames(c("basicTable", "richnessTable"))
+  stats::setNames(c("basicTable", "richnessTable"))
   
 #### 4.0 User output ####
   # provide some user output on the failures

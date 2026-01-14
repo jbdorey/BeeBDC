@@ -74,7 +74,7 @@ jbd_create_figures <-
            workflow_step = NULL, 
            save_figures = FALSE) {
     . <- .data <- n_flagged <- n_total <- freq <- NULL
-    . <- V1 <- Name <- freq <- year <- decimalLongitude <- NULL
+    . <- V1 <- Name <- freq <- year <- decimalLongitude <- n <- NULL
     decimalLatitude <- . <- long <- lat <- group <- `NA` <- .summary <- NULL
     OutPath_Figures <- OutPath_Report <- NULL
     
@@ -262,7 +262,7 @@ jbd_create_figures <-
             dplyr::summarise_all(., .funs = sum) %>%
             t() %>%
             dplyr::as_tibble(rownames = "NA", .name_repair = "unique") %>%
-            setNames(c('NA', "V1")) %>%
+            stats::setNames(c('NA', "V1")) %>%
             dplyr::mutate(V1 = nrow(data) - V1) %>%
             dplyr::mutate(
               freq =

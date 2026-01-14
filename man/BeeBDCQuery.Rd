@@ -49,7 +49,7 @@ testQuery <- BeeBDCQuery(
   beesChecklist = testChecklist)
 
   # Multiple entry example
-testQuery <- BeeBDCQuery(
+testQuery <- BeeBDC::BeeBDCQuery(
   beeName = c("Lasioglossum bicingulatum", "Nomada flavopicta",
   "Lasioglossum fijiense (Perkins and Cheesman, 1928)"),
   searchChecklist = TRUE,

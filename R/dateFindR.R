@@ -214,7 +214,7 @@ dateFindR <- function(data = NULL,
           ###### b. date ranges ####
     writeLines(" - Preparing data...")
       # Get a count of how many eventDate rows are full
-    originalDateCount <- sum(complete.cases(data$eventDate))
+    originalDateCount <- sum(stats::complete.cases(data$eventDate))
     
       # Create sets of strings that can be used to match date ranges based on delimiter
     dateRangeStrings_forwardSlash <- stringr::str_c(
@@ -372,9 +372,9 @@ dateFindR <- function(data = NULL,
     
       # Save this dataset to be merged at the end...
     ymd_hms_0 <- noDATEa %>%
-      dplyr::filter(complete.cases(eventDate)) %>%
+      dplyr::filter(stats::complete.cases(eventDate)) %>%
       dplyr::select(database_id, eventDate, startDayOfYear, endDayOfYear) %>%
-      setNames(object = ., c("database_id", "date", "startDayOfYear", "endDayOfYear"))
+      stats::setNames(object = ., c("database_id", "date", "startDayOfYear", "endDayOfYear"))
     
     #### 1.0 easyDates ####
       # Retrieve dates that are much easier to recover...
@@ -393,9 +393,9 @@ dateFindR <- function(data = NULL,
 
           # Save this dataset to be merged at the end...
     dmy_1 <- noDATEa %>%
-      dplyr::filter(complete.cases(eventDate)) %>%
+      dplyr::filter(stats::complete.cases(eventDate)) %>%
       dplyr::select(database_id, eventDate) %>%
-      setNames(object = ., c("database_id", "date"))
+      stats::setNames(object = ., c("database_id", "date"))
 
       # Filter down to the records that again have no eventDate
     noDATEa <- noDATEa %>%
@@ -405,9 +405,9 @@ dateFindR <- function(data = NULL,
     noDATEa$eventDate <- noDATEa$occurrenceYear}
       # Save this dataset to be merged at the end...
     occYr_2 <- noDATEa %>%
-      dplyr::filter(complete.cases(eventDate))%>%
+      dplyr::filter(stats::complete.cases(eventDate))%>%
       dplyr::select(database_id, eventDate) %>%
-      setNames(object = ., c("database_id", "date"))
+      stats::setNames(object = ., c("database_id", "date"))
     
       ##### 1.1 Sept ####
         # Because some people write "Sept" which cannot be read by lubridate, it needs to be 
@@ -499,9 +499,9 @@ dateFindR <- function(data = NULL,
 
         # Combine the columns
       ymd_keepers_21 <- ymd_unambiguous %>%
-        dplyr::filter(complete.cases(ymd_vEV)|
-          complete.cases(ymd_locationRemarks) | complete.cases(ymd_fieldNotes) |
-            complete.cases(ymd_eventDate_in)) %>%
+        dplyr::filter(stats::complete.cases(ymd_vEV)|
+                        stats::complete.cases(ymd_locationRemarks) | stats::complete.cases(ymd_fieldNotes) |
+                        stats::complete.cases(ymd_eventDate_in)) %>%
         tidyr::unite(col = date,
                      ymd_vEV, ymd_locationRemarks, ymd_fieldNotes, ymd_eventDate_in, na.rm = TRUE) %>% 
         rangeFinder(rangeData = .,
@@ -634,11 +634,11 @@ dateFindR <- function(data = NULL,
       #
       # Combine the columns
       dmy_keepers_22 <- dmy_unambiguous %>%
-        dplyr::filter(complete.cases(dmy_vEV) |
-                      complete.cases(dmy_locality) | 
-                        complete.cases(dmy_locationRemarks) | 
-                        complete.cases(dmy_fieldNotes) |
-                        complete.cases(dmy_eventDate_in)) %>%
+        dplyr::filter(stats::complete.cases(dmy_vEV) |
+                        stats::complete.cases(dmy_locality) | 
+                        stats::complete.cases(dmy_locationRemarks) | 
+                        stats::complete.cases(dmy_fieldNotes) |
+                        stats::complete.cases(dmy_eventDate_in)) %>%
         tidyr::unite(col = date, 
                      dmy_vEV, dmy_locality, dmy_locationRemarks, dmy_fieldNotes, dmy_eventDate_in,
                      na.rm = TRUE) %>% 
@@ -745,11 +745,11 @@ dateFindR <- function(data = NULL,
 
       # Combine the columns
       mdy_keepers_23 <- mdy_unambiguous %>%
-        dplyr::filter( complete.cases(mdy_vEV) |
-                       complete.cases(mdy_locality) | 
-                        complete.cases(mdy_locationRemarks) | 
-                        complete.cases(mdy_fieldNotes) | 
-                         complete.cases(mdy_eventDate_in)) %>%
+        dplyr::filter( stats::complete.cases(mdy_vEV) |
+                         stats::complete.cases(mdy_locality) | 
+                        stats::complete.cases(mdy_locationRemarks) | 
+                         stats::complete.cases(mdy_fieldNotes) | 
+                         stats::complete.cases(mdy_eventDate_in)) %>%
         tidyr::unite(col = date, 
                      mdy_vEV, mdy_locality, mdy_locationRemarks, mdy_fieldNotes, mdy_eventDate_in,
                      na.rm = TRUE, sep = "") %>% 
@@ -837,10 +837,10 @@ dateFindR <- function(data = NULL,
 
       # Combine the columns
       my_keepers_24 <- my_unambiguous %>%
-        dplyr::filter(complete.cases(my_vEV) |
-                      complete.cases(my_locality) | 
-                        complete.cases(my_locationRemarks) | 
-                        complete.cases(my_fieldNotes)) %>%
+        dplyr::filter(stats::complete.cases(my_vEV) |
+                        stats::complete.cases(my_locality) | 
+                        stats::complete.cases(my_locationRemarks) | 
+                        stats::complete.cases(my_fieldNotes)) %>%
         tidyr::unite(col = date, 
                      my_vEV, my_locality, my_locationRemarks, my_fieldNotes, 
                      na.rm = TRUE, sep = "-")  %>% 
@@ -942,10 +942,10 @@ dateFindR <- function(data = NULL,
 
       # Combine the columns
       amb_keepers_30 <- ambiguousNames %>%
-        dplyr::filter(complete.cases(amb_vEV)|
-                      complete.cases(amb_locality) | 
-                        complete.cases(amb_locationRemarks) | 
-                        complete.cases(amb_fieldNotes)) %>%
+        dplyr::filter(stats::complete.cases(amb_vEV)|
+                        stats::complete.cases(amb_locality) | 
+                        stats::complete.cases(amb_locationRemarks) | 
+                        stats::complete.cases(amb_fieldNotes)) %>%
         tidyr::unite(col = date, amb_vEV,  
                      amb_locality, amb_locationRemarks, amb_fieldNotes, 
                      na.rm = TRUE) %>% 
@@ -1109,20 +1109,20 @@ dateFindR <- function(data = NULL,
         paste0(
         " - Finished. \n",
         "We now have ",
-        format((sum(complete.cases(dates_complete$eventDate)) - originalDateCount),
+        format((sum(stats::complete.cases(dates_complete$eventDate)) - originalDateCount),
                big.mark = ","), 
         " more full eventDate cells than in the input data.\n",
         "We modified dates in \n",
         format(nrow(datesMerged), big.mark = ","), " occurrences.\n",
         " - As it stands, there are ", 
-        format( sum(complete.cases(dates_complete$eventDate)), big.mark = ","),
+        format( sum(stats::complete.cases(dates_complete$eventDate)), big.mark = ","),
         " complete eventDates and ", 
         format( sum(is.na(dates_complete$eventDate)), big.mark = ","), 
         " missing dates.\n", 
         " - There are also ", 
-        format( sum(complete.cases(dates_complete$year)), big.mark = ","), 
+        format( sum(stats::complete.cases(dates_complete$year)), big.mark = ","), 
         " complete year occurrences to filter from. This is up from an initial count of ",
-        format( sum(complete.cases(data$year)), big.mark = ","),
+        format( sum(stats::complete.cases(data$year)), big.mark = ","),
         " At this rate, you will stand to lose ",
         format( sum(is.na(dates_complete$year)), big.mark = ","), 
         " occurrences on the basis of missing",

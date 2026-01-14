@@ -23,13 +23,22 @@ testthat::test_that("testTaxonomy expected class", {
   testthat::expect_equal(attributes(testTaxonomy)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
 })
 
-
+# Set some options for accessing the data
+options(timeout=400,
+        HTTPUserAgent = "Test download for BeeBDC's R package")
 
   # TEST the full data
-
+OS <- dplyr::if_else(.Platform$OS.type == "unix",
+                     "MacLinux",
+                     "Windows")
+if(OS == "Windows"){
+  mode <- "wb"
+}else{
+  mode <- "wb"
+}
 taxonomyFile <- NULL
 # load in the full dataset
-taxonomyFile <- BeeBDC::beesTaxonomy()
+taxonomyFile <- BeeBDC::beesTaxonomy(mode = mode)
 
 
 if(!is.null(taxonomyFile)){

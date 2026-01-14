@@ -22,7 +22,7 @@ rm(testChecklist)
 if(!is.null(beesTaxonomy) & !is.null(beesChecklist)){
   # Run example queries
 # Single entry example
- testQuerySing <- BeeBDCQuery(
+ testQuerySing <- BeeBDC::BeeBDCQuery(
    beeName = "Nomia maneei",
    searchChecklist = TRUE,
    printAllSynonyms = TRUE,
@@ -30,7 +30,7 @@ if(!is.null(beesTaxonomy) & !is.null(beesChecklist)){
    beesChecklist = beesChecklist)
  
    # Multiple entry example
- testQueryMult <- BeeBDCQuery(
+ testQueryMult <- BeeBDC::BeeBDCQuery(
    beeName = c("Nomia maneei", "Bombus hypnorum",
    "Ceratina nanula Cockerell, 1897"),
    searchChecklist = TRUE,
@@ -39,7 +39,7 @@ if(!is.null(beesTaxonomy) & !is.null(beesChecklist)){
    beesChecklist = beesChecklist)
  
   # Simple without checklist
- testQuerySimple <- BeeBDCQuery(
+ testQuerySimple <- BeeBDC::BeeBDCQuery(
    beeName = c("Nomia maneei", "Bombus hypnorum",
                "Ceratina nanula Cockerell, 1897"),
    searchChecklist = FALSE,

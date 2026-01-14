@@ -81,9 +81,9 @@ GBIF_occs <- data_noNa %>%
 # Join the ISO2_table names with the countryCode df
 GBIF_occs <- GBIF_occs %>%
   # If there is NO countryCode, but there IS a country, add this to countryCode in case
-  dplyr::mutate(countryCode = dplyr::if_else(countryCode == "" & complete.cases(as.character(country)),
+  dplyr::mutate(countryCode = dplyr::if_else(countryCode == "" & stats::complete.cases(as.character(country)),
                                              country, as.character(countryCode))) %>%
-  left_join(ISO2_table, by = c("countryCode" = "ISO2")) %>%
+  dplyr::left_join(ISO2_table, by = c("countryCode" = "ISO2")) %>%
   # Insert the country information to the correct spot
   dplyr::mutate(country = FullName) %>%
   dplyr::select(!FullName)
@@ -101,10 +101,10 @@ rm(GBIF_occs)
 data_all <- data_noNa %>%
   # If there is NO countryCode, but there IS a country, add this to countryCode in case
   dplyr::mutate(countryCode = dplyr::if_else(countryCode == "" | is.na(countryCode)
-                                               & complete.cases(country) & 
+                                               & stats::complete.cases(country) & 
                                                tolower(country) != "namibia",
                                              country, countryCode)) %>%
-  left_join(ISO2_table, by = c("countryCode" = "ISO2")) %>%
+  dplyr::left_join(ISO2_table, by = c("countryCode" = "ISO2")) %>%
   # Insert the country information to the correct spot
   dplyr::mutate(country = FullName) %>%
   dplyr::select(!FullName)
