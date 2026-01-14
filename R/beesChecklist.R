@@ -256,6 +256,20 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       } # END IF #2
       # Count the next attempt
       attempt <- attempt + 1   
+      
+      # Output errors per run
+      # Check download errors
+      if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
+                              "could not find function")){
+        message(paste0(" - Possible *download* error(s) returned:\n", paste0(
+          names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
+      # Check file errors
+      fileError <- base::readRDS(savePath) %>% 
+        errorCatcher()
+      if(!stringr::str_detect(paste0(fileError, collapse = ""), 
+                              "could not find function")){
+        message(paste0(" - Possiblee *file* error(s) returned:\n", paste0(
+          names(fileError), ": ", fileError, collapse = "\n")))}
     } # END while 
   )
   
@@ -276,19 +290,6 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                 "This file can then be read into R using:\n",
                 "beesChecklist <- readRDS('path/to/downloaded/file/beesChecklist.Rda')"))
     
-    # Check download errors
-    if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
-                            "could not find function")){
-      message(paste0(" - See the possible *download* error(s) returned.", paste0(
-        names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
-
-    # Check file errors
-    fileError <- base::readRDS(savePath) %>% 
-      errorCatcher()
-    if(!stringr::str_detect(paste0(fileError, collapse = ""), 
-                            "could not find function")){
-      message(paste0(" - See the possible *file* error(s) returned.", paste0(
-        names(fileError), ": ", fileError, collapse = "\n")))}
     
     stop("Errors finished.")
   }
