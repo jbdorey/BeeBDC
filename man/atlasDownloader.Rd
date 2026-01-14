@@ -15,7 +15,7 @@ atlasDownloader(
 \arguments{
 \item{path}{A character directory. The path to a folder where the download will be stored.}
 
-\item{userEmail}{A character string. The email used associated with the user’s ALA account;
+\item{userEmail}{A character string. The email used associated with the user's ALA account;
 user must make an ALA account to download data.}
 
 \item{ALA_taxon}{A character string. The taxon to download from ALA. Uses \code{\link[galah:identify.data_request]{galah::galah_identify()}}}

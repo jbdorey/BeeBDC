@@ -43,6 +43,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
+#' if(requireNamespace("rnaturalearthdata")){
 #' library(dplyr)
 #'   # Import and prepare the data
 #' data(beesFlagged)
@@ -77,7 +78,7 @@
 #' mc.cores = 1
 #' ) 
 #' table(beesFlagged_out$coordinates_transposed, useNA = "always")
-
+#' } # END if require
 #' 
 jbd_Ctrans_chunker <- function(
     data = NULL,

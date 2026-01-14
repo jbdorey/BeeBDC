@@ -52,6 +52,9 @@ library(tibble)
 old <- options()         # code line i 
 on.exit(options(old))      # code line i+1 
 options(mc.cores = parallel::detectCores())
+  # Load functions for testing
+#devtools::load_all(path = "/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/R")
+
 ```
 
 
@@ -235,10 +238,10 @@ output_iChaowrapper <- BeeBDC::ChaoWrapper(data = data_iChao,
 
 ```
 
-View the output with `output_iChaowrapper$diversityTable`.
+View the output with `output_iChaowrapper$richnessTable`.
 
 ```{r, outputTable4, echo=FALSE}
-kableExtra::kbl(output_iChaowrapper$diversityTable) %>%
+kableExtra::kbl(output_iChaowrapper$richnessTable) %>%
   kableExtra::kable_material(c("striped", "hover")) %>%
   kableExtra::kable_styling(bootstrap_options = "responsive", full_width = F, fixed_thead = T) %>%
   kableExtra::scroll_box(height = "350px")
@@ -249,7 +252,7 @@ kableExtra::kbl(output_iChaowrapper$diversityTable) %>%
 These are both easy and simple to use wrapper functions. However, the complexity of the output data types can actually be a little bit confusing to work with. Especially if you want to visualise those data. So, we also provide the function, `BeeBDC::ggRichnessWrapper()` to display the results of both wrapper functions by site. Not only does this functino save a plot that visualises the data (below), it also outputs a summary of the estimates.
 
 ```{r visualiseWrappers}
-plot_summary <- BeeBDC::ggRichnessWrapper(
+(plot_summary <- BeeBDC::ggRichnessWrapper(
   iNEXT_in = output_iNEXTwrapper,
   iChao_in = output_iChaowrapper,
   nrow = 2,
@@ -259,16 +262,17 @@ plot_summary <- BeeBDC::ggRichnessWrapper(
   outPath = tempdir(),
   base_width = 8.3,
   base_height = 11.7, 
-  dpi = 300)
+  dpi = 300))
 ```
 
+# <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-jWR5zXJ/0/LrL7mvcxFJRzd45BbDJbvm8SSn39H86sFzSZh8pP8/X4/i-jWR5zXJ-X4.jpg" alt="Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals."/></a>
 
-```{r echo = FALSE,  out.width="450px", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*"}
-suppressWarnings({
-knitr::include_graphics( normalizePath(
-                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), full.names = TRUE),
-                                          "/speciesRichnessPlots")]))
-})
+
+```{r echo = FALSE,  out.width="450px", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*", eval = FALSE}
+# suppressWarnings({
+# knitr::include_graphics( normalizePath(
+#                      list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), # full.names = TRUE), "/speciesRichnessPlots")]))
+# })
 
 ```
 
@@ -300,14 +304,36 @@ Let's dig in... To start with, we will *make an R object* using our occurrence d
 
 Note as well that the `curveFunction` is the one generated from the Literature curve above.
 
-```{r diversityPrepping, tidy=FALSE}
+
+```{r secretDownload, include=FALSE}
+#  # Secretly read in the taxonomy and checklist files because rmarkdown can't handle it
+curl::curl_download(
+  url = "https://open.flinders.edu.au/ndownloader/files/47089969",
+  destfile = paste0(tempdir(), "/beesTaxonomy.Rda"))
+taxonomyFile <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda"))
+
+curl::curl_download(
+  url = "https://figshare.com/ndownloader/files/47092720",
+  destfile = paste0(tempdir(), "/beesChecklist.Rda"))
+checklistFile <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda"))
+```
+
+
+```{r secretDownload2, include=TRUE, eval = FALSE}
+  # Download the taxonomy and checklist files
+taxonomyFile <- BeeBDC::beesTaxonomy()
+checklistFile <- BeeBDC::beesChecklist()
+```
+
+
+```{r diversityPrepping, tidy=FALSE, message=TRUE, warning=TRUE}
   # Generate the R file
-estimateData <- BeeBDC::diversityPrepR(
+estimateData <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
     # Download the bee taxonomy. Download other taxonomies using BeeBDC::taxadbToBeeBDC()
-  taxonomyFile = BeeBDC::beesTaxonomy(),
+  taxonomyFile = taxonomyFile,
     # Download the bee country checklist. See notes above about making a checklist for other taxa
-  checklistFile = BeeBDC::beesChecklist(),
+  checklistFile = checklistFile,
   curveFunction = function(x) (228.7531 * x * x^-log(12.1593)),
   sampleSize = 10000,
   countryColumn = "country_suggested"
@@ -376,7 +402,7 @@ violinLegend <- ggplot2::ggplot(legendData, ggplot2::aes(x = name, y = est)) +
    ggplot2::guides(fill = ggplot2::guide_legend(ncol = 1, byrow = TRUE, reverse = TRUE, order = 1))
 
 # plot the countries 
-violinPlot <- ggplot2::ggplot(estimates$SiteOutput, ggplot2::aes(x = name, y = est)) + 
+(violinPlot <- ggplot2::ggplot(estimates$SiteOutput, ggplot2::aes(x = name, y = est)) + 
    ggplot2::geom_violin(position="dodge", alpha=0.5, ggplot2::aes(fill=Name, 
                                                                   y=`95%Lower`, x=variable), 
                         colour =  NA) +
@@ -399,7 +425,7 @@ violinPlot <- ggplot2::ggplot(estimates$SiteOutput, ggplot2::aes(x = name, y = e
   ggplot2::xlab(c( "")) + ggplot2::ylab(c("Species"))  +
   ggplot2::annotation_custom(cowplot::ggdraw(cowplot::get_legend(violinLegend)) %>%
                                ggplot2::ggplotGrob(), xmin = 1, xmax = 1, 
-                               ymin = 350, ymax = 500)
+                               ymin = 350, ymax = 500))
 
   ## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time
 
@@ -410,12 +436,12 @@ cowplot::save_plot(filename = paste0(tempdir(), "/violinPlot.pdf"),
                    base_height = 7)
 ```
 
-```{r echo = FALSE,  out.width="550", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*"}
-suppressWarnings({
-knitr::include_graphics( normalizePath(
-                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), full.names = TRUE),
-                                          "/violinPlot.pdf")]))
-})
+```{r echo = FALSE,  out.width="550", out.height="500px", fig.cap="*Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.*", eval = FALSE}
+#suppressWarnings({
+#knitr::include_graphics( normalizePath(
+#                     list.files(tempdir(), full.names = TRUE)[stringr::str_detect(list.files(tempdir(), #full.names = TRUE),
+#                                          "/violinPlot.pdf")]))
+#})
 
 ```
 

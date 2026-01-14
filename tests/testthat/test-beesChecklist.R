@@ -7,7 +7,7 @@ system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
 
 # Test the expected results
 testthat::test_that("testChecklist expected number of columns", {
-  testthat::expect_equal(ncol(testChecklist), 23)
+  testthat::expect_equal(ncol(testChecklist), 24)
 })
 
 # Test classes
@@ -15,7 +15,7 @@ testthat::test_that("testChecklist expected class", {
   testthat::expect_type(testChecklist, "list")
 })
 testthat::test_that("testChecklist expected class", {
-  testthat::expect_equal(attributes(testChecklist)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
+  testthat::expect_equal(attributes(testChecklist)$class, c("tbl_df","tbl","data.frame" ))
 })
 
 # Set some options for accessing the data
@@ -40,7 +40,7 @@ beesChecklist <- BeeBDC::beesChecklist(mode = mode)
 if(!is.null(beesChecklist)){
 # Test the expected results
 testthat::test_that("testChecklist expected number of columns", {
-  testthat::expect_equal(ncol(testChecklist), 23)
+  testthat::expect_equal(ncol(testChecklist), 24)
 })
 
 # Test classes
@@ -48,7 +48,7 @@ testthat::test_that("testChecklist expected class", {
   testthat::expect_type(testChecklist, "list")
 })
 testthat::test_that("testChecklist expected class", {
-  testthat::expect_equal(attributes(testChecklist)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
+  testthat::expect_equal(attributes(testChecklist)$class, c("tbl_df","tbl","data.frame" ))
 })
 
 } #END !is.null

@@ -234,7 +234,7 @@ plotFlagSummary <- function(
                   .rou = "Space", .uncertaintyThreshold = "Space", .cap = "Space", .cen = "Space",
                   .equ = "Space",.gbf = "Space", .inst = "Space", .zer = "Space",.sea = "Space",
                   .val = "Space",
-                  .countryOutlier = "Space", .expertOutlier = "Space",
+                  .countryOutlier = "Space", .continentOutlier = "Space", .expertOutlier = "Space",
                   .sequential = "Space", .lonFlag = "Space", .latFlag = "Space", .gridSummary = "Space", 
                   # Time
                   .eventDate_empty = "Time", .year_outOfRange = "Time", 
@@ -273,6 +273,7 @@ plotFlagSummary <- function(
                          .sea = "Point in sea", 
                          .val = "Coordinates invalid",
                          .countryOutlier = "Country outliers",
+                         .continentOutlier = "Continent outliers",
                          .expertOutlier = "Expert outliers",
                          .sequential = "Coordinate fill-down", 
                          .lonFlag = "Gridded longitudes", .latFlag = "Gridded latitudes",

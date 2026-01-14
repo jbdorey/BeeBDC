@@ -1,0 +1,46 @@
+# Description of the BeeBDC test checklist dataset
+# 17th June 2024
+
+#' An example of the beesChecklist file
+#'
+#'
+#' A small test checklist file for package tests. This dataset was built by filtering the 
+#' checklist data from the three test datasets, beesFlagged, beesRaw, bees3sp.
+#'
+#' @docType data
+#'
+#' @usage data("testChecklist", package = "BeeBDC")
+#'
+#' @format An object of class \code{"tibble"}
+#' \describe{
+#'  \item{validName}{The valid scientificName as it should occur in the scientificName column.}
+#'  \item{DiscoverLife_name}{The full country name as it occurs on Discover Life.}
+#'  \item{rNaturalEarth_name}{Country name from rnaturalearth's name_long and type = "map_units".}
+#'  \item{shortName}{A short version of the country name.}
+#'  \item{continent}{The continent where that country is found.}
+#'  \item{DiscoverLife_ISO}{The ISO country name as it occurs on Discover Life.}
+#'  \item{Alpha-2}{Alpha-2 from rnaturalearth.}
+#'  \item{iso_a3_eh}{iso_a3_eh from rnaturalearth.}
+#'  \item{official}{Official country name = "yes" or only a Discover Life name = "no".}
+#'  \item{Source}{A text strign denoting the source or author of the name-country pair.}
+#'  \item{matchCertainty}{Quality of the name's match to the Discover Life checklist.}
+#'  \item{canonical}{The valid species name without scientificNameAuthority.}
+#'  \item{canonical_withFlags}{The validName without the scientificNameAuthority but with Discover Life flags.}
+#'  \item{family}{Bee family.}
+#'  \item{subfamily}{Bee subfamily.}
+#'  \item{genus}{Bee genus.}
+#'  \item{subgenus}{Bee subgenus.}
+#'  \item{infraspecies}{Bee infraSpecificEpithet.}
+#'  \item{species}{Bee specificEpithet.}
+#'  \item{scientificNameAuthorship}{Bee scientificNameAuthorship.}
+#'  \item{taxon_rank}{Rank of the taxon name.}
+#'  \item{Notes}{Discover Life country name notes.}
+#'  }
+#' @references This dataset is a subset of the beesChecklist file described in:
+#' Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. & Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. https://www.doi.org/10.1038/S41597-023-02626-W
+#' @keywords datasets
+#' @examples
+#' beesRaw <- BeeBDC::testChecklist
+#' head(testChecklist)
+#' 
+"testChecklist"

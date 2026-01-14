@@ -40,7 +40,7 @@
 #' be aware that each thread can use large chunks of memory.
 #'  Default = 1.#'
 #' @details This test identifies transposed coordinates based on mismatches between the 
-#' country provided for a record and the record’s latitude and longitude coordinates. Transposed
+#' country provided for a record and the record's latitude and longitude coordinates. Transposed
 #' coordinates often fall outside of the indicated country (i.e., in other
 #' countries or in the sea). Different coordinate transformations are
 #' performed to correct country/coordinates mismatches. Importantly, verbatim
@@ -65,6 +65,7 @@
 #'
 #' @examples
 #' \donttest{
+#' if(requireNamespace("rnaturalearthdata")){
 #' database_id <- c(1, 2, 3, 4)
 #' scientificName <- c(
 #'   "Rhinella major", "Scinax ruber",
@@ -95,6 +96,7 @@
 #'   scale = "medium"
 #' ) 
 #' }
+#' } # END if require
 #'
 jbd_coordinates_transposed <- function(data,
            idcol = "database_id",

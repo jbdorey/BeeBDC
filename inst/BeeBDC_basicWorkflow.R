@@ -42,10 +42,10 @@ list.of.packages <- c("R.utils",           # To use gunzip
                       "praise",            #  To whispers sweet nothings 
                       "EML",               #  To work with .eml files
                       "emld",              #  To work with .eml files
-                      "rlang",             #  Part of the tidyverse — core functions
-                      "xml2",              #  Part of the tidyverse — reads .xml files
-                      "stringr",           #  Part of the tidyverse — works with text strings
-                      "lubridate",         #  Part of the tidyverse — works with dates
+                      "rlang",             #  Part of the tidyverse - core functions
+                      "xml2",              #  Part of the tidyverse - reads .xml files
+                      "stringr",           #  Part of the tidyverse - works with text strings
+                      "lubridate",         #  Part of the tidyverse - works with dates
                       "tidyselect",        #  Part of the tidyverse
                       "mgsub",             #  To perform multiple text substitutions
                       "bdc",               # data cleaning package
@@ -213,16 +213,16 @@ filteredData <-
 
 #### 5. Summary figures ####
 ##### 5.1 Duplicate chordDiagrams ####
-install.packages("circlize")
+utils::install.packages("circlize")
 if(!require("BiocManager", quietly = TRUE)){
-  install.packages("BiocManager")}
+  utils::install.packages("BiocManager")}
 BiocManager::install("ComplexHeatmap", force = TRUE)
-install.packages("paletteer")
+utils::install.packages("paletteer")
 library(paletteer)# Find palettes here
 renv::snapshot()
 
 # Read in the most-RECENT file
-duplicates <- fileFinder(path = "PATH TO A FOLDER CONTAINING THE duplicateRun_ — could be supp. materials folder",
+duplicates <- fileFinder(path = "PATH TO A FOLDER CONTAINING THE duplicateRun_ - could be supp. materials folder",
                           fileName = "duplicateRun_") %>%
   readr::read_csv() %>%
   # Select only the stingless bee data
@@ -263,7 +263,7 @@ chordDiagramR(
 
 ##### 5.2 Duplicate histogram ####
 # Find the existing flag file and read it in
-flagColumns <- fileFinder(path = "PATH TO A FOLDER CONTAINING THE flagsRecorded_ — could be supp. materials folder",
+flagColumns <- fileFinder(path = "PATH TO A FOLDER CONTAINING THE flagsRecorded_ - could be supp. materials folder",
                            fileName = "flagsRecorded_") %>%
   readr::read_csv() %>%
     # WARNING: alternate path if wanting to produce figures for the selected taxonData (2.0 above)

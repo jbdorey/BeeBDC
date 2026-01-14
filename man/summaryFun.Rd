@@ -7,6 +7,7 @@
 summaryFun(
   data = NULL,
   dontFilterThese = NULL,
+  onlyFilterThese = NULL,
   removeFilterColumns = FALSE,
   filterClean = FALSE
 )
@@ -15,7 +16,10 @@ summaryFun(
 \item{data}{A data frame or tibble. Occurrence records to use as input.}
 
 \item{dontFilterThese}{A character vector of flag columns to be ignored in the creation or updating
-of the .summary column.}
+of the .summary column. Cannot be specified with onlyFilterThese.}
+
+\item{onlyFilterThese}{A character vector. The inverse of dontFilterThese, where columns identified
+here will be filtered and no others. Cannot be specified with dontFilterThese.}
 
 \item{removeFilterColumns}{Logical. If TRUE all columns starting with "." will be removed in the
 output data. This only makes sense to use when filterClean = TRUE. Default = FALSE.}

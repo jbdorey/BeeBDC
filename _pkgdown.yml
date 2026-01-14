@@ -23,22 +23,22 @@ navbar:
       text: "Occurrence cleaning"
       aria-label: Occurrence data cleaning vignettes
       menu:
-      -  text: "BeeBDC full cleaning workflow"
+      -  text: "BeeBDC full cleaning workflow (0.0–9.0)"
          href: articles/BeeBDC_main.html
       -  text: "BeeBDC basic workflow"
          href: articles/basic_workflow.html
       -  text: "Bee-specific data preparation"
-         href: articles/dataPrep.html
+         href: articles/BeeBDC_data_preparation.html
     - icon: fas fa-arrow-up-right-dots
       text: "Species richness estimation"
       aria-label: Species richness estimation vignettes
       menu:
       -  text: "BeeBDC richness estimation"
-         href: articles/speciesRichness_example.html
+         href: articles/Species_richness_estimation.html
       -  text: "  1.0 Parallel estimation"
-         href: articles/speciesRichness_example.html#Parallel-estimations
+         href: articles/Species_richness_estimation.html#Parallel-estimations
       -  text: "  2.0 Estimation with checklists"
-         href: articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns
+         href: articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns
     - icon: fas fa-newspaper
       text: "News"
       href: https://jbdorey.github.io/BeeBDC/news/index.html

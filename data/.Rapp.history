@@ -1,1 +1,3 @@
 load("/Users/jamesdorey/Desktop/Uni/Packages/BeeDC/data/beesTaxonomy.rda")
+load("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/data/beesRaw.rda")
+load("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC/data/testChecklist.rda")

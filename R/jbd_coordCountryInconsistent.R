@@ -6,7 +6,7 @@
 
 #' Flags coordinates that are inconsistent with the stated country name
 #' 
-#' Compares stated country name in an occurrence record with record’s coordinates using 
+#' Compares stated country name in an occurrence record with record's coordinates using 
 #' rnaturalearth data. The prefix, jbd_ is meant
 #' to distinguish this function from the original [bdc::bdc_coordinates_country_inconsistent()].
 #' This functions will preferably use the countryCode and country_suggested columns 
@@ -17,7 +17,7 @@
 #' @param lon Character. The name of the column to use as longitude. Default = "decimalLongitude".
 #' @param lat Character. The name of the column to use as latitude. Default = "decimalLatitude".
 #' @param scale Numeric or character. To be passed to [rnaturalearth::ne_countries()]'s scale.
-#' Scale of map to return, one of 110, 50, 10 or “small”, “medium”, “large”. 
+#' Scale of map to return, one of 110, 50, 10 or "small", "medium", "large". 
 #' Smaller values return higher-resolution maps.
 #' @param pointBuffer Numeric. Amount to buffer points, in decimal degrees. If the point is outside 
 #' of a country, but within this point buffer, it will not be flagged. Default = 0.01.
@@ -34,13 +34,14 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' 
+#' if(requireNamespace("rnaturalearthdata")){
 #' beesRaw_out <- jbd_coordCountryInconsistent(
 #'   data = BeeBDC::beesRaw,
 #'   lon = "decimalLongitude",
 #'   lat = "decimalLatitude",
 #'   scale = 50,
 #'   pointBuffer = 0.01)
+#' } # END if require
 
 jbd_coordCountryInconsistent <- function(
     data = NULL,
@@ -55,6 +56,7 @@ jbd_coordCountryInconsistent <- function(
     geometry <- admin <- sovereignt <- name <- . <- NULL
   .coordinates_outOfRange <- .coordinates_empty <- indexMatch <- BeeBDC_order <- NULL
   countryCode <- country_suggested <- NULL
+  .coordinates_empt <- .data <- .coordinates_empty <- .coordinates_outOfRange <- isna_ <- NULL
   
 startTime <- Sys.time()
 requireNamespace("rnaturalearth")
@@ -63,7 +65,6 @@ requireNamespace("ggspatial")
 requireNamespace("mgsub")
 requireNamespace("terra")
 
-country
   #### 0.0 Prep ####
     ###### 0.1 fatal errors ####
 if(!any(colnames(data) %in% "country")){
@@ -73,7 +74,25 @@ stop("There is no column called 'country' in the dataset. This is a minimum requ
     ###### 0.2 Coord quality ####
 if(!any(colnames(data) %in% ".coordinates_outOfRange")){
     writeLines("No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...")
-  data <- bdc::bdc_coordinates_outOfRange(
+  
+  bdc_coordinates_outOfRange_internal <- function(data, lat = "decimalLatitude", lon = "decimalLongitude") {
+      .data <- .coordinates_outOfRange <- NULL
+      data_filtered <- data %>%
+        dplyr::select(dplyr::all_of(c(lon, lat))) %>%
+        dplyr::rename(lon = dplyr::all_of(lon), lat = dplyr::all_of(lat)) %>%
+        dplyr::mutate(dplyr::across(dplyr::everything(), ~ as.numeric(.x)))
+      data_flag <- data_filtered %>% dplyr::mutate(.coordinates_outOfRange = dplyr::case_when(
+            lat < -90 | lat > 90 ~ FALSE,
+            lon < -180 | lon > 180 ~ FALSE,TRUE ~ TRUE)) %>%
+        dplyr::select(.coordinates_outOfRange)
+      df <- dplyr::bind_cols(data, data_flag)
+      message(paste("\nbdc_coordinates_outOfRange:\nFlagged",
+          sum(df$.coordinates_outOfRange == FALSE),
+          "records.\nOne column was added to the database.\n"))
+      return(df)
+    }
+
+  data <- bdc_coordinates_outOfRange_internal(
     data = data,
     lat = lat,
     lon = lon)
@@ -81,7 +100,30 @@ if(!any(colnames(data) %in% ".coordinates_outOfRange")){
 ###### 0.3 columns present ####
 if(!any(colnames(data) %in% ".coordinates_empty")){
   writeLines("No '.coordinates_empty' column found, running bdc_coordinates_empty")
-  data <- bdc::bdc_coordinates_empty(
+  
+  check_col_internal <- function(data, col) {
+    for (i in seq_along(col)) {
+      if (!col[i] %in% colnames(data)) {
+        stop("Column `", col[i], "` is not present in the data", call. = FALSE)}}}
+  
+  bdc_coordinates_empty_internal <- function(data, lat = "decimalLatitude", lon = "decimalLongitude") {
+      if (!is.data.frame(data)) {
+        stop(deparse(substitute(data)), " is not a data.frame", call. = FALSE)}
+      check_col_internal(data, c(lat, lon))
+      df <- data %>%
+        dplyr::select(dplyr::all_of(c(lat, lon))) %>%
+        dplyr::mutate(dplyr::across(dplyr::all_of(c(lat, lon)), ~ as.numeric(.x))) %>%
+        dplyr::mutate(isna_ = dplyr::if_any(dplyr::all_of(c(lat, lon)), ~ is.na(.x)),
+          .coordinates_empty = ifelse(isna_, FALSE, TRUE)) %>%
+        dplyr::select(.coordinates_empty)
+      df <- dplyr::bind_cols(data, df)
+      message(paste("\nbdc_coordinates_empty:\nFlagged",
+          sum(df$.coordinates_empty == FALSE),
+          "records.\nOne column was added to the database.\n"))
+      return(df)
+    }
+  
+  data <- bdc_coordinates_empty_internal(
     data = data,
     lat = lat,
     lon = lon)

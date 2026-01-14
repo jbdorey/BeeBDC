@@ -312,7 +312,7 @@ iNEXTwrapper <- function(data = NULL,
       paste(failures, collapse = ", ")
     ))}
   
-  writeLines(paste0(" - Outputs can be found in a list with two tibbles called 'DataInfo' and",
+  message(paste0(" - Outputs can be found in a list with two tibbles called 'DataInfo' and",
                     " 'AsyEst' and a list of iNext outputs per groupVariable in iNextEst'."))
 
   

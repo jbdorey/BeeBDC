@@ -23,13 +23,13 @@ testOut <- plotFlagSummary(
 
 
 # Test classes
-  #   testthat::test_that("plotFlagSummary expected class", {
-  #     testthat::expect_type(testOut, "object")
-  #   })
+ testthat::test_that("plotFlagSummary expected class", {
+   testthat::expect_type(testOut, "object")
+ })
 
-    #   testthat::test_that("dupePlotR plot saved?", {
-    #     testthat::expect_true(inherits(testOut, c("ggplot", "ggplot2::ggplot")))
-    #   })
+   testthat::test_that("dupePlotR plot saved?", {
+     testthat::expect_true(inherits(testOut, c("ggplot", "ggplot2::ggplot")))
+   })
 
 
 # Check directory that the plot was saved

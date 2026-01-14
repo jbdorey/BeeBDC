@@ -10,8 +10,8 @@ summaryMaps(
   class_Style = "fisher",
   outPath = NULL,
   fileName = NULL,
-  width = 10,
-  height = 5,
+  width = 5,
+  height = 10,
   dpi = 300,
   returnPlot = FALSE,
   scale = 110,
@@ -32,9 +32,9 @@ style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", 
 \item{fileName}{A character vector with file name
 for the output figure, ending with '.pdf'.}
 
-\item{width}{Numeric. The width, in inches, of the resulting figure. Default = 10.}
+\item{width}{Numeric. The width, in inches, of the resulting figure. Default = 5.}
 
-\item{height}{Numeric. The height, in inches, of the resulting figure. Default = 5.}
+\item{height}{Numeric. The height, in inches, of the resulting figure. Default = 10.}
 
 \item{dpi}{Numeric. The resolution of the resulting plot. Default = 300.}
 
@@ -57,6 +57,7 @@ country. Breaks the data into classes for visualisation. Users may filter data t
 of interest to produce figures of interest.
 }
 \examples{
+if(requireNamespace("rnaturalearthdata")){
 # Read in data
 data(beesFlagged)
 OutPath_Figures <- tempdir()
@@ -70,6 +71,6 @@ class_Style = "fisher",
 outPath = OutPath_Figures,
 fileName = paste0("CountryMaps_fisher_TEST.pdf"),
 )
-
+} # END if require
 
 }

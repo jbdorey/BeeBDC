@@ -18,7 +18,7 @@ renv::activate(project = paste0(RootPath,"/Data_acquisition_workflow"))
 
 
 # Install BeeBDC from CRAN
-install.packages("BeeBDC")
+utils::install.packages("BeeBDC")
 # You could also install BeeBDC's development version using the below: 
 # WARNING the development version may not pass all CRAN or GitHub tests.
      remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
@@ -54,7 +54,7 @@ BeeBDC::atlasDownloader(path = DataPath,
 # Supply the path to where the data are
 # save_type is either "csv_files" or "R_file"
 DataImp <- BeeBDC::repoMerge(path = DataPath, 
-                        # Find data — Many problems can be solved by running repoFinder(path = DataPath)
+                        # Find data - Many problems can be solved by running repoFinder(path = DataPath)
                         # And looking for problems
                       occ_paths = BeeBDC::repoFinder(path = DataPath),
                       save_type = "R_file")
@@ -107,7 +107,7 @@ rm(Complete_data, DataImp, USGS_data)
 ###### a. bdc import ####
 warning(paste0("The bdc method here is not truly implemented and supported. If you use it you must do so alone.",
                " This is just a place-holder for people using the bdc package more heavily.",
-               "\nPreferably, go directly to 2.1b — BeeBDC import."))
+               "\nPreferably, go directly to 2.1b - BeeBDC import."))
 # Read in the bdc metadata
 bdc_metadata <- readr::read_csv(paste(DataPath, "Output", "bdc_integration.csv", sep = "/"))
 # Standardise the dataset to bdc
@@ -143,7 +143,7 @@ db_standardized <- readr::read_csv(occPath,
 ##### 2.2 Paige dataset ####
 # Integrate Paige Chesshire's cleaned dataset.
 # Import Paige's cleaned N. American data
-# IF you haven't figured out by now, dont worry about the column name warning — not all columns occur here.
+# IF you haven't figured out by now, dont worry about the column name warning - not all columns occur here.
 PaigeNAm <- readr::read_csv(paste(DataPath, "Paige_data", "NorAmer_highQual_only_ALLfamilies.csv",
                                   sep = "/"), col_types = BeeBDC::ColTypeR()) %>%
   # Change the column name from Source to dataSource to match the rest of the data.
@@ -264,7 +264,7 @@ Gai_Data <- BeeBDC::readr_BeeBDC(dataset = "Gai",
                       outFile = "jbd_Gai_data.csv",
                       dataLicense = "https://creativecommons.org/licenses/by-nc-sa/4.0/")
 ###### g. CAES ####
-# This is a little slower and will have a few date warnings — 215 failed to parse. 
+# This is a little slower and will have a few date warnings - 215 failed to parse. 
 CAES_Data <- BeeBDC::readr_BeeBDC(dataset = "CAES",
                                 path = paste0(DataPath, "/Additional_Datasets"),
                         inFile = "/InputDatasets/CT_BEE_DATA_FROM_PBI.xlsx",
@@ -394,7 +394,7 @@ db_standardized <- db_standardized %>%
     readr::read_csv(paste0(DataPath, "/Additional_Datasets", 
                            "/jbd_VicWam_Data.csv"), col_types = BeeBDC::ColTypeR())) %>% 
   # END bind_rows
-  suppressWarnings(classes = "warning") # End suppressWarnings — due to col_types
+  suppressWarnings(classes = "warning") # End suppressWarnings - due to col_types
 
 ##### 2.6 Match database_id ####
 # Try to match database IDs with prior runs.
@@ -419,7 +419,7 @@ db_standardized <- idMatchR(
                         # Because INHS was entered as it's own dataset but is now included in the GBIF download...
                         c("catalogNumber", "institutionCode", "dataSource",
                           "decimalLatitude","decimalLongitude")),
-  # You can exclude datasets from prior by matching their prefixs — before first underscore:
+  # You can exclude datasets from prior by matching their prefixs - before first underscore:
   excludeDataset = c("ASP", "BMin", "BMont", "CAES", "EaCO", "Ecd", "EcoS",
                      "Gai", "KP", "EPEL", "CAES", "EaCO", "FSCA", "SMC", "Lic", "Arm",
                      "VicWam"))
@@ -440,7 +440,7 @@ if(!exists("db_standardized")){
   db_standardized <- readr::read_csv(paste(OutPath_Intermediate, "00_prefilter_database.csv",
                                     sep = "/"), col_types = BeeBDC::ColTypeR())}
 
-# See here for bdc prefilter tutorial — https://brunobrr.github.io/bdc/articles/prefilter.html
+# See here for bdc prefilter tutorial - https://brunobrr.github.io/bdc/articles/prefilter.html
 ##### 3.1 SciName ####
   # Flag occurrences without scientificName provided
 check_pf <- bdc::bdc_scientificName_empty(
@@ -580,7 +580,11 @@ check_pf <- bdc::bdc_country_standardized(
     # run before)
   data = check_pf %>% dplyr::select(!tidyselect::any_of(c("countryCode", "country_suggested"))),
   country = "country"
-) 
+) %>%
+    # Sometimes when "MX" is the country, "Mexico" is not correctly assigned
+  dplyr::mutate(country_suggested = dplyr::if_else(country == "MX",
+                                                   "Mexico",
+                                                   country_suggested))
 
 ##### 3.7 TranspCoords ####
   # Flag and correct records when lat and long appear to be transposed. We have chunked 
@@ -684,7 +688,7 @@ flagFile <- BeeBDC::flagRecorder(
     # TRUE if you want to find a file from a previous part of the script to append to
   append = FALSE)
 
-# produce the .summary column in main dataset — will be FALSE if ANY .filtering column is FALSE
+# produce the .summary column in main dataset - will be FALSE if ANY .filtering column is FALSE
 check_pf <- BeeBDC::summaryFun(
   data = check_pf,
     # Don't filter these columns (or NULL)
@@ -717,7 +721,7 @@ check_pf %>%
                             sep = "/"))
 
 #### 4.0 Taxonomy ####
-# See bdc tutorial here — https://brunobrr.github.io/bdc/articles/taxonomy.html
+# See bdc tutorial here - https://brunobrr.github.io/bdc/articles/taxonomy.html
 if(!exists("check_pf")){
 # Read in the filtered dataset
 database <-
@@ -740,7 +744,7 @@ database <- database %>%
 # Flag and remove infraspecific terms (e.g., variety [var.], subspecies [subsp], forma [f.], and their spelling variations);
 # Standardize names, i.e., capitalize only the first letter of the genus name and remove extra whitespaces);
 # Parse names, i.e., separate author, date, annotations from taxon name.
-# ! MAC: You need to install gnparser through terminal — brew
+# ! MAC: You need to install gnparser through terminal - brew
   # brew tap gnames/gn
   # brew install gnparser
 parse_names <-
@@ -965,10 +969,11 @@ check_space <- BeeBDC::coordUncerFlagR(data = check_space,
                                uncerColumn = "coordinateUncertaintyInMeters",
                                threshold = 1000)
 
-##### 5.5 Country checklist ####
+##### 5.5 Country + continent checklist ####
 # Download the country-level checklist
 beesChecklist <- BeeBDC::beesChecklist()
 
+  # Flag records for country outliers
 check_space <- countryOutlieRs(checklist = beesChecklist,
                         data = check_space,
                         keepAdjacentCountry = TRUE,
@@ -978,6 +983,18 @@ check_space <- countryOutlieRs(checklist = beesChecklist,
                           # We have not attempted a scale of 10.
                         scale = 50,
                         mc.cores = 1)
+
+  # Flag records for continent outliers
+check_space <- continentOutlieRs(checklist = beesChecklist,
+                               data = check_space,
+                               keepAdjacentContinent = FALSE,
+                               pointBuffer = 0.05,
+                               # Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'
+                               # Smaller numbers will result in much longer calculation times. 
+                               # We have not attempted a scale of 10.
+                               scale = 50,
+                               mc.cores = 1)
+
   # A list of failed species-country combinations and their numbers can be output here
 check_space %>%
   dplyr::filter(.countryOutlier == FALSE) %>%
@@ -1040,7 +1057,7 @@ check_space %>%
 # .gbf == Records around the GBIF headquarters
 # .inst == Records around biodiversity institutions
 # .rou == Rounded (probably imprecise) coordinates
-# .urb == Records within urban areas — Not relevant for bees, I think.
+# .urb == Records within urban areas - Not relevant for bees, I think.
 # Example:
 figures$.rou
 
@@ -1089,7 +1106,7 @@ check_time$month <- ifelse(check_time$month > 12 | check_time$month < 1,
 check_time$day <- ifelse(check_time$day > 31 | check_time$day < 1,
                        NA, check_time$day)
 ##### 6.1 Recover dates ####
-# RESCUE some records with poor date data if possible — e.g., from other columns
+# RESCUE some records with poor date data if possible - e.g., from other columns
 check_time <- BeeBDC::dateFindR(data = check_time,
                         # Years above this are removed (from the recovered dates only)
                         maxYear = lubridate::year(Sys.Date()),
@@ -1182,7 +1199,7 @@ check_time <- BeeBDC::dupeSummary(
                      "recordedBy"),
   # The columns to combine, one-by-one with the collectionCols
   collectInfoColumns = c("catalogNumber", "otherCatalogNumbers"),
-    # Custom comparisons — as a list of columns to compare
+    # Custom comparisons - as a list of columns to compare
      # RAW custom comparisons do not use the character and number thresholds
   CustomComparisonsRAW = dplyr::lst(c("catalogNumber", "institutionCode", "scientificName")),
      # Other custom comparisons use the character and number thresholds
@@ -1288,7 +1305,6 @@ cleanData %>%
 ##### 9.1 Duplicate chordDiagrams ####
 # install ComplexHeatmap if needed
 if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
 BiocManager::install("ComplexHeatmap")
 
 # Read in the most-RECENT duplicates file.
@@ -1430,11 +1446,11 @@ BeeBDC::interactiveMapR(
   lat = "decimalLatitude",
   # Occurrence dataset column with species names
   speciesColumn = "scientificName",
-  # Which species to map — a character vector of names or "ALL"
+  # Which species to map - a character vector of names or "ALL"
   # Note: "ALL" is defined AFTER filtering for country
   speciesList = "ALL",
   countryList = NULL, # studyArea
-  # Point jitter to see stacked points — jitters an amount in decimal degrees
+  # Point jitter to see stacked points - jitters an amount in decimal degrees
   jitterValue = 0.01
 )
 

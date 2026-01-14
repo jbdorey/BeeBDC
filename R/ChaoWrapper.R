@@ -267,7 +267,7 @@ writeLines(paste0(
   paste(failures, collapse = ", ")
 ))}
   # provide user output about the file structure
-writeLines(paste0(" - Outputs can be found in a list with two tibbles called 'basicTable' and",
+message(paste0(" - Outputs can be found in a list with two tibbles called 'basicTable' and",
                   " 'richnessTable'."))
 
   # Return the output

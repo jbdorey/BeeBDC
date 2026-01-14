@@ -10,7 +10,7 @@
 #' However, it will only send the download to your email and you must do the rest yourself at this point.
 #' 
 #' @param path A character directory. The path to a folder where the download will be stored.
-#' @param userEmail A character string. The email used associated with the user’s ALA account; 
+#' @param userEmail A character string. The email used associated with the user's ALA account; 
 #' user must make an ALA account to download data. 
 #' @param ALA_taxon A character string. The taxon to download from ALA. Uses [galah::galah_identify()]
 #' @param DL_reason Numeric. The reason for data download according to [galah::galah_config()]

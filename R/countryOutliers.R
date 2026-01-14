@@ -30,10 +30,17 @@
 #' the new column: TRUE == passed, FALSE == failed (not in country or in the ocean),
 #'  NA == did not overlap with rnaturalearth map.
 #' 
+#' @seealso [BeeBDC::continentOutlieRs()] for implementation at the continent level. Implementation 
+#' at the continent level may be lighter and more manageable on the data side of things where 
+#' country-level checklists don't exist. Additionally, see [BeeBDC::beesChecklist()] for input data.
+#' Note, not all columns are necessary if you are building your own dataset. 
+#' At a minimum you will need *validName*, *country*, *iso_a3_eh* (to match rnaturalearth).
+#' 
 #' @export
 #' @importFrom dplyr %>%
 #'
 #' @examples
+#' if(requireNamespace("rnaturalearthdata")){
 #' library(magrittr)
 #'   # Load in the test dataset
 #' beesRaw <- BeeBDC::beesRaw
@@ -51,6 +58,7 @@
 #'                                stepSize = 1000000,
 #'                                mc.cores = 1)
 #' table(beesRaw_out$.countryOutlier, useNA = "always")
+#' } # END if require
 
 countryOutlieRs <- function(
     checklist = NULL,
@@ -83,6 +91,17 @@ countryOutlieRs <- function(
   }
   if(is.null(data)){
     stop("You must provide occurrence data (data). Honestly, what do you think I was gonna do without that?")
+  }
+  # Find if an older version of beesChecklist is in use (by finding the column "Alpha-3")
+  if("Alpha-3" %in% colnames(checklist)){
+    warning(paste0("Warning: an older version of beesChecklist has been detected based on the",
+                   " presence of the 'Alpha-3' column. This checklist is dated as of BeeBDC",
+                   " version 1.1.2. We will change the column name here to 'iso_a3_eh' and use it,",
+                   " but you will",
+                   "find a newer checklist with more-recent versions of BeeBDC."))
+    writeLines(" - Re-naming 'Alpha-3' column to new 'iso_a3_eh' column to match new rnaturalearth.")
+    checklist <- checklist %>%
+      dplyr::rename(iso_a3_eh = "Alpha-3")
   }
 
 #### 1.0 Data prep ####
@@ -142,7 +161,7 @@ jbd_intersection <- function(inData){
       dplyr::tibble(indexMatch = .) %>%
       # Convert to numeric
       dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
-                      # deal with problems — Take the first number where two are provided
+                      # deal with problems - Take the first number where two are provided
                       stringr::str_extract("[0-9]+") %>% 
                       # Remove zero to NA
                       stringr::str_replace("^[0]$", NA_character_) %>% as.numeric()) %>%
@@ -185,7 +204,7 @@ jbd_bufferedIntersection <- function(inData){
     dplyr::tibble(indexMatch = . ) %>%
     # Convert to numeric
     dplyr::mutate(indexMatch = indexMatch %>% as.character() %>%
-                    # deal with problems — Take the first number where two are provided
+                    # deal with problems - Take the first number where two are provided
                     stringr::str_extract("[0-9]+") %>% 
                     # Remove zero to NA
                     stringr::str_replace("^[0]$", NA_character_) %>% as.numeric()) %>%
@@ -290,7 +309,7 @@ points_extract <- data %>%
   neighbouringCountries <- checklist %>%
     dplyr::left_join(neighbouringCountries %>% 
                        dplyr::select(tidyselect::any_of(c("country", "neighboursText"))),
-                     by = c("Alpha-3" = "country"),
+                     by = c("iso_a3_eh" = "country"),
                      multiple = "all", relationship = "many-to-many")
     
 ###### c. Sea points ####
@@ -335,9 +354,9 @@ points_extract <- data %>%
     # Do the same for the ascher checklist
   checklist_simple <- checklist %>%
       # Select subset
-    dplyr::select(validName, 'Alpha-3') %>%
+    dplyr::select(validName, 'iso_a3_eh') %>%
       # Harmonise column names
-         dplyr::rename(iso_a3_eh = 'Alpha-3') %>%
+         dplyr::rename(iso_a3_eh = 'iso_a3_eh') %>%
       # Make the new column to match with full species name, authorship, and country
     dplyr::mutate(SciCountry = stringr::str_c(validName, iso_a3_eh, sep = "_"))%>% 
     # Remove grammar and caps from SciCountry

@@ -1,7 +1,10 @@
 requireNamespace("dplyr")
-requireNamespace("taxadb")
 requireNamespace("BeeBDC")
 
+# If rnaturalearthdata is present, run tests
+if(requireNamespace("taxadb")){
+
+  requireNamespace("taxadb")
 
   # Run the taxadbToBeeBDC function using the example
  ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(name = "Apis",
@@ -35,4 +38,6 @@ testthat::test_that("taxadbToBeeBDC expected number of columns", {
   testthat::expect_equal(length(colnames(ApisTaxonomy)), 29)
 })
 
+
+} # END if require
 

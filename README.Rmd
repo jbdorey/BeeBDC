@@ -90,7 +90,7 @@ You can install *BeeBDC* from CRAN or GitHub.
 install.packages("BeeBDC")
 
   # Or using the development version from GitHub (keeping in mind this may not be as stable)
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", 
                           # To use the development version use "devel"; otherwise choose "main"
                         ref = "devel", force = TRUE)
 ```
@@ -168,6 +168,7 @@ library(BeeBDC)
 ```
 
 #### 1. [**Data merge**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge)
+
 
 Integrate and merge different datasets from major the data repositories - GBIF,
 SCAN, iDigBio, the USGS, and ALA.
@@ -373,7 +374,7 @@ Flagging and, whenever possible, correction of inconsistent collection date.
     `BeeBDC::richnessEstimateR()` function in order to estimate species richness
     using iChao (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and
     iNEXT (hill numbers; `BeeBDC::iNEXTwrapper()`) for countries, continents, or
-    the entire globe.
+    the entire globe. 
 -   `richnessEstimateR()` Takes an output dataset from
     `BeeBDC::diversityPrepR()` to estimate species richness using iChao
     (non-parametric species richness; `BeeBDC::ChaoWrapper()`) and iNEXT (hill
@@ -447,7 +448,7 @@ explanation on each module.
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
 > suggestion, flick us an email (jdorey\@uow.edu.au).
 
-#### **Citation**
+#### **Citations**
 
 -   **Paper, dataset, and package citation:** Dorey, J.B., Fischer, E.E.,
     Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins,
@@ -464,7 +465,7 @@ explanation on each module.
     Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications. https://doi.org/10.21203/rs.3.rs-6372769/v1
 -   **Package citation:** Dorey, J. B., O'Reilly, R. L., Bossert, S. &
     Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package
-    version 1.3.0. url: <https://github.com/jbdorey/BeeBDC>
+    version 1.3.1. url: <https://github.com/jbdorey/BeeBDC>
 -   **Discover Life citation (for use of bee taxonomy and checklist):** Ascher,
     J.S. & Pickering, J. (2026) Discover Life bee species guide and world
     checklist (Hymenoptera: Apoidea: Anthophila).

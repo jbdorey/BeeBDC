@@ -32,6 +32,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
+#' if(requireNamespace("rnaturalearthdata")){
 #' library("dplyr")
 #' data(beesFlagged)
 #' HomePath = tempdir()
@@ -81,7 +82,7 @@
 #' beesFlagged_out$country <- beesFlagged_out$country %>%
 #'   stringr::str_replace(., pattern = paste("\\[", "\\]", "\\?",
 #'                                           sep=  "|"), replacement = "")
-
+#' } # END if require
 
 
 jbd_CfC_chunker <- function(data = NULL,
@@ -129,8 +130,7 @@ jbd_CfC_chunker <- function(data = NULL,
           check_require_cran("rnaturalearth")
           # check_require_github("ropensci/rnaturalearthdata")
         })
-        loadNamespace("bdc")
-        
+
         # create an id_temp
         inData$id_temp <- 1:nrow(inData)
         minimum_colnames <- c(lat, lon)

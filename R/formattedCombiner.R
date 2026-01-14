@@ -71,7 +71,7 @@ formattedCombiner <- function(path,
     occ_file <- most_recent[stringr::str_which(most_recent, negate = TRUE,
                                                paste("attribute|problems", sep = ""))] %>%
       # Read in .csv file and supress warnings
-      read_csv(col_types = ColTypes) %>%
+      readr::read_csv(col_types = ColTypes) %>%
       suppressWarnings(., classes = "warning")
     # Check if attributes file is in .rds format or not and preferentially read this if present
     Rdata_test <- most_recent[stringr::str_which(most_recent, paste("attribute", sep = ""))] %>%
@@ -80,7 +80,7 @@ formattedCombiner <- function(path,
     if(Rdata_test == TRUE){
       # Find the file that does include "attribute in the name
       attr_file <- most_recent[stringr::str_which(most_recent, paste("attribute", sep = ""))] %>%
-        readRDS()
+        base::readRDS()
     } # END .rds portion of csv
     # Find the most-recent .csv attributes file
     if(Rdata_test == FALSE){
@@ -99,6 +99,7 @@ formattedCombiner <- function(path,
     if(any(stringr::str_detect(most_recent,pattern = ".xml")) == TRUE){
       # Find and read in the .xml file
       xml_file <- most_recent[stringr::str_which(most_recent, paste(".xml", sep = ""))] %>%
+        file() %>%
         xml2::read_xml()
     } # END xml look
   } #END IF .csv
@@ -139,6 +140,7 @@ formattedCombiner <- function(path,
   existing_data <- list(existingOccurrences, existingEMLs) %>%
     setNames(c("Data_WebDL", "eml_files"))
 
+  
   # Return end product and print completion note
   writeLines(paste(" - Fin.", sep = "\n"))
   # Return the outfile
