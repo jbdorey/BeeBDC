@@ -147,20 +147,24 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
     if (grepl('^https?://', URL)) {
       # Windows
       if (tolower(.Platform$OS.type) == "windows") {
+        # Set method to NULL to then be over-written
+        method <- NULL
         # Try different methods if failed
         if(methodNum == 1){method <- "auto"}
         if(methodNum == 2){method <- "internal"}
           # Check also if libcurl is an option
         if(methodNum == 3 && capabilities("libcurl")){
-          method <- "libcurl"
-        }
+          method <- "libcurl"}
           # Check also if wget is an option
         if(methodNum == 4 && nzchar(Sys.which("wget")[1])){
-          method <- "wget"
-        }
+          method <- "wget"}
           # Check also if curl is an option
         if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
           method <- "curl"}
+          # If one of the above fails, use "auto"
+        if(is.null(method)){
+          method <- "auto"
+        }
         
         message(paste0("Trying download method ", method, "..."))
         
@@ -229,6 +233,8 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
     while( is.null(checklist) && attempt <= nAttempts) {    
+      # Initial message
+      print( paste("Attempt: ", attempt, " of ", nAttempts))
         # Don't attempt for the last attempt
       if(attempt <= nAttempts){
 # Windows or Mac/Linux
@@ -244,10 +250,9 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       } # END if attempt < nAttempts
 
       
-      if(attempt < nAttempts){
-      # Wait one second before the next request 
-      if(attempt > 1){Sys.sleep(5)            
-        print( paste("Attempt: ", attempt, " of ", nAttempts))}    # Inform user of number of attempts
+      if(attempt <= nAttempts){
+      # Wait five seconds before the next request 
+      if(is.null(checklist)){Sys.sleep(5)}
       } # END IF #2
       # Count the next attempt
       attempt <- attempt + 1   
