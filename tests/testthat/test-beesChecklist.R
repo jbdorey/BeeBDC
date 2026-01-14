@@ -1,9 +1,5 @@
 
 
-  # Use a user-agent to try and avoid getting forbidden
-AgentString <- "'User-Agent': 'This is my web scraping R-script for BeeBDC; Contact me at jbdorey@me.com'"
-httr::user_agent(AgentString)
-
 # load in the test dataset
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
   load()

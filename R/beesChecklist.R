@@ -152,7 +152,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         method <- NULL
         # Try different methods if failed
         if(methodNum == 1){method <- "auto"}
-        if(methodNum == 2){method <- "internal"}
+        if(methodNum == 2){method <- "wininet"}
           # Check also if libcurl is an option
         if(methodNum == 3 && capabilities("libcurl")){
           method <- "libcurl"}
@@ -162,9 +162,9 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
           # Check also if curl is an option
         if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
           method <- "curl"}
-          # If one of the above fails, use "auto"
+          # If one of the above fails, use "internal"
         if(is.null(method)){
-          method <- "wininet"
+          method <- "internal"
         }
         
         if(is.null(mode)){
