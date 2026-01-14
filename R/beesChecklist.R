@@ -261,6 +261,9 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       # Check download errors
       if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
                               "could not find function")){
+          # Remove NULL elements
+        downloadReturn <- downloadReturn[-which(sapply(downloadReturn, is.null))]
+          # Paste message
         message(paste0(" - Possible *download* error(s) returned:\n", paste0(
           names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
       # Check file errors
@@ -268,6 +271,8 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         errorCatcher()
       if(!stringr::str_detect(paste0(fileError, collapse = ""), 
                               "could not find function")){
+        # Remove NULL elements
+        fileError <- fileError[-which(sapply(fileError, is.null))]
         message(paste0(" - Possiblee *file* error(s) returned:\n", paste0(
           names(fileError), ": ", fileError, collapse = "\n")))}
     } # END while 

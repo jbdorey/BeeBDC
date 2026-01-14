@@ -271,7 +271,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     
     if(attempt <= nAttempts){
       # Wait five seconds before the next request 
-    if(is.null(checklist)){Sys.sleep(5)}            
+    if(is.null(taxonomy)){Sys.sleep(5)}            
     } # END IF #2
     # Count the next attempt
     attempt <- attempt + 1   
@@ -280,6 +280,9 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     # Check download errors
     if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
                             "could not find function")){
+        # Remove NULL elements
+      downloadReturn <- downloadReturn[-which(sapply(downloadReturn, is.null))]
+        # Paste message
       message(paste0(" - Possible *download* error(s) returned:\n", paste0(
         names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
     # Check file errors
@@ -287,6 +290,9 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
       errorCatcher()
     if(!stringr::str_detect(paste0(fileError, collapse = ""), 
                             "could not find function")){
+      # Remove NULL elements
+      fileError <- fileError[-which(sapply(fileError, is.null))]
+        # Paste message
       message(paste0(" - Possiblee *file* error(s) returned:\n", paste0(
         names(fileError), ": ", fileError, collapse = "\n")))}
   } # END while
