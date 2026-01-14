@@ -161,15 +161,20 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     # Please note that this function is taken directly from the "downloader" package version 0.4.1
     # This is the purpose of the package, but I have taken their excellent function to avoid
     # Another dependency for BeeBDC. MY apologies and thanks to the authors.
-  download <- function(URL, destfile = NULL, ...) {
+  download <- function(URL, destfile = NULL, methodNum = NULL, ...) {
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
       # Windows
       if (tolower(.Platform$OS.type) == "windows") {
-        method <- "internal"
+          # Try different methods if failed
+        if(methodNum == 1){method <- "auto"}
+        if(methodNum == 2){method <- "internal"}
+        if(methodNum == 3){method <- "libcurl"}
+        if(methodNum == 4){method <- "wget"}
+        if(methodNum == 5){method <- "auto"}
+        
         if(is.null(mode)){
-          mode <- "wb"  
-        }
+          mode <- "wb"}
         # download.file will complain about file size with something like:
         #       Warning message:
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
@@ -236,7 +241,9 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     if(attempt < nAttempts){
 # WINDOWS or MAC/Linux
         # Download the file to the outPath 
-        tryCatch(downloadReturn <- download(URL, destfile = savePath),
+        tryCatch(downloadReturn <- download(URL, destfile = savePath, 
+                                              # Change the method based on attempt number
+                                            methodNum = attempt),
                  error = error_func, warning = error_func)
         # Load the file from the outPath
         tryCatch(
