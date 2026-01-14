@@ -225,9 +225,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   # Run a code to download the data and deal with potential internet issues
   checklist <- NULL                                 
   attempt <- 1 
-  savePath <- file.path(tempdir(), "beesChecklist.Rda") %>% 
-      # Change all backlashes to forward slashes -- sometimes they mix on Windows...
-    stringr::str_replace_all("\\\\","/")
+  savePath <- file.path(tempdir(), "beesChecklist.Rda") 
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
     while( is.null(checklist) && attempt <= nAttempts) {    
@@ -271,7 +269,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                               "could not find function")){
         # Remove NULL elements
         fileError <- fileError[-which(sapply(fileError, is.null))]
-        message(paste0("\n - Possiblee *file* error(s) returned:\n", paste0(
+        message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
           names(fileError), ": ", fileError, collapse = "\n")))}
     } # END while 
   )

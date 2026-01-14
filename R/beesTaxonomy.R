@@ -248,6 +248,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   savePath <- file.path(tempdir(), "beesTaxonomy.Rda") %>% 
       # Change all backlashes to forward slashes -- sometimes they mix on Windows...
     stringr::str_replace_all("\\\\","/") 
+  savePath <- normalizePath(savePath)
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   
@@ -291,7 +292,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
       # Remove NULL elements
       fileError <- fileError[-which(sapply(fileError, is.null))]
         # Paste message
-      message(paste0("\n - Possiblee *file* error(s) returned:\n", paste0(
+      message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
         names(fileError), ": ", fileError, collapse = "\n")))}
   } # END while
   )
