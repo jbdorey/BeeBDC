@@ -100,7 +100,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   
   #### 0.0 Prep ####
   # Set the number of attempts
-  nAttempts = 6
+  nAttempts = 5
     
     ##### 0.1 Errors ####
       ###### a. messages ####
@@ -149,22 +149,18 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       if (tolower(.Platform$OS.type) == "windows") {
         # Try different methods if failed
         if(methodNum == 1){method <- "auto"}
-        
         if(methodNum == 2){method <- "internal"}
-        
           # Check also if libcurl is an option
         if(methodNum == 3 && capabilities("libcurl")){
           method <- "libcurl"
-        }else{method = "auto"}
-        
+        }
           # Check also if wget is an option
         if(methodNum == 4 && nzchar(Sys.which("wget")[1])){
           method <- "wget"
-        }else{method = "auto"} 
-        
+        }
           # Check also if curl is an option
         if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
-          method <- "curl"}else{method = "auto"}
+          method <- "curl"}
         
         message(paste0("Trying download method ", method, "..."))
         
@@ -234,7 +230,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   suppressWarnings(
     while( is.null(checklist) && attempt <= nAttempts) {    
         # Don't attempt for the last attempt
-      if(attempt < nAttempts){
+      if(attempt <= nAttempts){
 # Windows or Mac/Linux
       # Download the file
       tryCatch(downloadReturn <- download(URL, destfile = savePath, 
@@ -250,8 +246,8 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       
       if(attempt < nAttempts){
       # Wait one second before the next request 
-      if(attempt > 1){Sys.sleep(10)            
-        print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
+      if(attempt > 1){Sys.sleep(5)            
+        print( paste("Attempt: ", attempt, " of ", nAttempts))}    # Inform user of number of attempts
       } # END IF #2
       # Count the next attempt
       attempt <- attempt + 1   

@@ -170,22 +170,18 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
       if (tolower(.Platform$OS.type) == "windows") {
         # Try different methods if failed
         if(methodNum == 1){method <- "auto"}
-        
         if(methodNum == 2){method <- "internal"}
-        
         # Check also if libcurl is an option
         if(methodNum == 3 && capabilities("libcurl")){
           method <- "libcurl"
-        }else{method = "auto"}
-        
+        }
         # Check also if wget is an option
         if(methodNum == 4 && nzchar(Sys.which("wget")[1])){
           method <- "wget"
-        }else{method = "auto"}
-        
+        }
         # Check also if curl is an option
         if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
-          method <- "curl"}else{method = "auto"}
+          method <- "curl"}
         
         message(paste0("Trying download method ", method, "..."))
         
@@ -254,7 +250,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   
     # Don't attempt for the last attempt
-    if(attempt < nAttempts){
+    if(attempt <= nAttempts){
 # WINDOWS or MAC/Linux
         # Download the file to the outPath 
         tryCatch(downloadReturn <- download(URL, destfile = savePath, 
@@ -269,8 +265,8 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     
     if(attempt < nAttempts){
       # Wait one second before the next request 
-    if(attempt > 1){Sys.sleep(10)            
-      print( paste("Attempt: ", attempt, " of ", nAttempts-1))}    # Inform user of number of attempts
+    if(attempt > 1){Sys.sleep(5)            
+      print( paste("Attempt: ", attempt, " of ", nAttempts))}    # Inform user of number of attempts
     } # END IF #2
     # Count the next attempt
     attempt <- attempt + 1   
