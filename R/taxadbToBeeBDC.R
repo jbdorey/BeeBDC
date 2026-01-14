@@ -225,7 +225,7 @@ taxonomyOut <- taxonomy_taxadb %>%
       # Remove empty names
   if(removeEmptyNames == TRUE){
     taxonomyOut <- taxonomyOut %>%
-      dplyr::filter(complete.cases(species))
+      dplyr::filter(stats::complete.cases(species))
   }
   
   ##### 2.3 Add id and accid ####

@@ -463,6 +463,9 @@ explanation on each module.
 
 #### **Getting help**
 
+> This package is maintained by Dr James B Dorey, Lecturer in Biological
+> Sciences at the University of Wollongong, Australia.
+
 > If you encounter a clear bug, please file an issue
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
 > suggestion, flick us an email (jdorey@uow.edu.au).
@@ -481,14 +484,14 @@ explanation on each module.
   <https://www.doi.org/10.1038/S41597-023-02626-W>
 - **Figshare live data link:**
     <https://doi.org/10.25451/flinders.21709757>
-- **Species richness citation:** Dorey J. B., Gilpin, A.-M., Johnson,
-  N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under
-  review). How many bee species are there? A quantitative global
+- **Species richness estimation citation:** Dorey J. B., Gilpin, A.-M.,
+  Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C.
+  (Under review). How many bee species are there? A quantitative global
   estimate. Nature Communications.
   <https://doi.org/10.21203/rs.3.rs-6372769/v1>
 - **Package citation:** Dorey, J. B., O’Reilly, R. L., Bossert, S. &
   Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R
-  package version 1.3.0. url: <https://github.com/jbdorey/BeeBDC>
+  package version 1.3.1. url: <https://github.com/jbdorey/BeeBDC>
 - **Discover Life citation (for use of bee taxonomy and checklist):**
   Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide
   and world checklist (Hymenoptera: Apoidea: Anthophila).

@@ -22,7 +22,7 @@ ggRichnessWrapper(
   nrow = 3,
   ncol = 4,
   labels = NULL,
-  fileName = "richnessPlots",
+  fileName = "richnessPlots.pdf",
   outPath = tempdir(),
   base_width = 8.3,
   base_height = 11.7,
@@ -91,7 +91,8 @@ additional files. Default = 4.}
 \item{labels}{Character. The labels for each sub-plot (a, b, c, ...). The default is NULL,
 which will provide labels a-z as required.}
 
-\item{fileName}{Character. Prefix to the output files. Default = "richnessPlots".}
+\item{fileName}{Character. Prefix to the output files. Default = "richnessPlots.pdf".
+Changing the suffix is a convenient way to alter the file format.}
 
 \item{outPath}{Character. The fodler in which to save the plots. Default = \code{tempdir()}}
 
@@ -155,7 +156,7 @@ iChao_in = output_iChaowrapper,
 nrow = 2,
 ncol = 2,
 labels = NULL,
-fileName = "speciesRichnessPlots",
+fileName = "speciesRichnessPlots.pdf",
 outPath = tempdir(),
 base_width = 8.3,
 base_height = 11.7, 

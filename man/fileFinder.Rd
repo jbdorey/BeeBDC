@@ -12,8 +12,8 @@ fileFinder(path, fileName)
 \item{fileName}{A character/regex string. The file name to find.}
 }
 \value{
-Returns a directory to the most-recent file that matches the provied file Using regex
-can greatly improve specificity. Using regex can greatly improve specificity.
+Returns a directory to the most-recent file that matches the provide file. Using regex
+can greatly improve specificity.
 The function will also write into the console the file that it has found - it is worthwhile to
 check that this is the correct file to avoid complications down the line
 }

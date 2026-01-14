@@ -5,9 +5,8 @@
 \title{Download a nearly complete taxonomy of bees globally}
 \usage{
 beesTaxonomy(
-  URL = "https://open.flinders.edu.au/ndownloader/files/47089969",
-  destfile = NULL,
-  method = "auto",
+  URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+  mode = NULL,
   ...
 )
 }
@@ -15,16 +14,9 @@ beesTaxonomy(
 \item{URL}{A character vector to the FigShare location of the dataset. The default will be to
 the most-recent version.}
 
-\item{destfile}{a character string (or vector, see the url argument) with the file path where
-the downloaded file is to be saved. Tilde-expansion is performed. If NULL (default), then destfile
-is set as \code{paste0(tempdir(), "/beesTaxonomy.Rda")} (normalizePath for Windows).}
+\item{mode}{A character passed on to \code{utils::download.file()}. Default = "wb" for Windows or "w" for Mac/Linux.}
 
-\item{method}{The method to be used for downloading files. Current download methods are
-"internal", "libcurl", "wget", "curl" and "wininet" (Windows only), and there is a value
-"auto": see ‘Details’ and ‘Note’. The method can also be set through the option
-"download.file.method": see options(). description}
-
-\item{...}{Extra variables that can be passed to \code{\link[utils:download.file]{utils::download.file()}}}
+\item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }
 \value{
 A downloaded beesTaxonomy.Rda file in the \code{\link[=tempdir]{tempdir()}} and the same tibble returned to
@@ -37,7 +29,11 @@ website. The data will be sourced from the BeeBDC article's Figshare.
 
 Note that sometimes the download might not work without restarting R. In this case, you could
 alternatively download the dataset from the URL below and then read it in using
-\code{base::readRDS("filePath.Rda")}.
+\code{base::readRDS("filePath.Rda")}. Note that as of version 1.3.2, this function internally uses
+a modified version of the "download" function from the
+\code{downloader} package on CRAN. Additionally, for Windows machines, BeeBDC will try a different
+download method with each failed attempt (for Windows: "auto" > "internal" > "libcurl" > "wget" > "curl";
+or "auto" if any particular method is not available).
 }
 \details{
 \strong{Column details}
@@ -68,7 +64,7 @@ alternatively download the dataset from the URL below and then read it in using
 
 \strong{subtribe} The subtribe of bee which the species belongs to.
 
-\strong{validName} The valid scientific name as it should occur in the 'scientificName" column in a Darwin Core file.
+\strong{validName} The valid scientific name as it should occur in the “scientificName” column in a Darwin Core file.
 
 \strong{canonical} The scientificName without the scientificNameAuthority.
 
@@ -87,6 +83,16 @@ alternatively download the dataset from the URL below and then read it in using
 \strong{taxon_rank} Rank for the bee taxon addressed in the entry.
 
 \strong{notes} Additional notes about the name/taxon.
+
+\strong{Previous taxonomies:}
+\itemize{
+\item 2026-01-12 \strong{current}: https://open.flinders.edu.au/ndownloader/files/60945820
+\item 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
+\item 2023-11-29: https://open.flinders.edu.au/ndownloader/files/43331472
+\item 2023-10-10: https://open.flinders.edu.au/ndownloader/files/42613126
+\item 2023-09-20: https://open.flinders.edu.au/ndownloader/files/42402264
+\item Original: https://open.flinders.edu.au/ndownloader/files/42320595
+}
 }
 \examples{
 \dontrun{
@@ -98,13 +104,12 @@ beesTaxonomy <- BeeBDC::beesTaxonomy()
 \references{
 This dataset was created using the Discover Life taxonomy.
 Dataset is from the publication:
-Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. & Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. https://www.doi.org/10.1038/S41597-023-02626-W
+DOREY, J. B., CHESSHIRE, P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M., LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A., GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J. K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E., GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M., ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data.
 The taxonomy data are mostly compiled from Discover Life data, www.discoverlife.org:
-Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species
+ASCHER, J. S. & PICKERING, J. 2020. Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). http://www.discoverlife.org/mp/20q?guide=Apoidea_species.
 }
 \seealso{
 \code{\link[=taxadbToBeeBDC]{taxadbToBeeBDC()}} to download any other taxonomy (of any taxa or of bees)
 and \code{\link[=harmoniseR]{harmoniseR()}} for the
-taxon-cleaning function where these taxonomies are implemented. It may also be worth seeing
-\code{\link[=beesChecklist]{beesChecklist()}}.
+taxon-cleaning function where these taxonomies are implemented.
 }

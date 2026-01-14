@@ -77,7 +77,7 @@ richnessPrepR <- function(
   # locally bind variables to the function
   . <- taxonomyAcceptedNames <- taxonomy_synonyms <- data_counts <- taxonomic_status <- NULL
   taxonomic_status<- rNaturalEarth_name<- scientificName<- count_n<- validName<- name<- 
-    continent<- name_long<- continent.x<- continent.y <- country_suggested <- NULL
+    continent<- name_long<- continent.x<- continent.y <- country_suggested <- n<- NULL
   
   
   # Load required packages 

@@ -47,7 +47,7 @@ repoMerge <- function(path, save_type, occ_paths){
                     sep = ""))
   # Make an internal copy of the template for use in the loop as the template tibble
   data_template <- matrix(ncol = length(BeeBDC::ColTypeR()[[1]] %>% names()), nrow = 0) %>% as.data.frame() %>% 
-      setNames(BeeBDC::ColTypeR()[[1]] %>% names()) %>% dplyr::tibble() %>%
+    stats::setNames(BeeBDC::ColTypeR()[[1]] %>% names()) %>% dplyr::tibble() %>%
     dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
   # Copy the template
   Data_WebDL <- data_template
@@ -90,7 +90,7 @@ repoMerge <- function(path, save_type, occ_paths){
         dplyr::bind_rows()
         # Recombine the source eml dat aand the source tibble data
       data_Attributes <- list(data_Attributes[[1]][[1]], data_Source_tibbles) %>%
-        setNames(c("source_eml","Source_tibble"))
+        stats::setNames(c("source_eml","Source_tibble"))
       
       
       

@@ -43,10 +43,9 @@
 #' @export
 #' 
 #' @importFrom dplyr %>%
-#' @importFrom dplyr across
+#' @importFrom dplyr across where
 #'
 #' @examples
-#' if(requireNamespace("leaflet")){
 #' OutPath_Figures <- tempdir()
 #' 
 #' interactiveMapR(
@@ -78,7 +77,6 @@
 #'   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 #' pointColours = c("blue", "darkred","#ff7f00", "black")
 #' )
-#' } # END if require
 
 interactiveMapR <- function(
       # occurrence data
@@ -167,49 +165,6 @@ if (!dir.exists(outPath)) {
 setwd(outPath) #directory of work
 
   # data$IDall <- paste0(1:nrow(data)) #to add an ID by row
-
-  
-
-##### 0.4 leaflet test ####
-###### a. test ####
-# Check if leaflet is installed
-# TRUE if leaflet is found
-suppressWarnings(
-  suggestedTest <- system.file(package='leaflet') %>% 
-    stringr::str_count() > 0 
-)
-
-###### b. leaflet ####
-if(suggestedTest == FALSE){
-  # Set up instructions for download on fail
-  instructions <- paste(" Please try installing the package for yourself", 
-                        "using the following command: \n",
-                        "install.packages(\"leaflet\")")
-  # Set up fail function for tryCatch
-  error_func <- function(e){
-    stop(paste("Failed to install the leaflet package.\n", 
-               instructions))
-  }
-  # Begin interactive input
-  input <- 1
-  if (interactive()){
-    input <- utils::menu(c("Yes", "No"), 
-                         title = paste0("Install the leaflet package? \n"))
-  }
-  if(input == 1){
-    # Start leaflet install
-    message("Installing the leaflet package.")
-    tryCatch(
-      utils::install.packages("leaflet"), 
-      error = error_func, warning = error_func)
-  } # END input == 1
-  
-  else{
-    stop(writeLines(paste("The leaflet package is necessary for BeeBDC::interactiveMapR.\n", 
-                          instructions)))
-  } # END else
-} # END suggestedTest == FALSE
-
 
   #### 1.0 Data prep ####
     ##### 1.1 Remove na+ ####
@@ -339,7 +294,7 @@ speciesList <- speciesList[complete.cases(speciesList)]
 
 options(encoding = "UTF-8")
 
-data <- data %>% dplyr::mutate(dplyr::across(tidyselect::where(is.character), 
+data <- data %>% dplyr::mutate(dplyr::across(dplyr::where(is.character), 
                               function(x){iconv(x, 
                                                 to = "UTF-8",
                                                 sub = "")}))
