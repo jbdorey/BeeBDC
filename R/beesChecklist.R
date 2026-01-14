@@ -160,7 +160,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
           # Check also if wget is an option
         if(methodNum == 4 && nzchar(Sys.which("wget")[1])){
           method <- "wget"
-        }else{method = "auto"}
+        }else{method = "auto"} 
         
           # Check also if curl is an option
         if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
