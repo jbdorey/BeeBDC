@@ -22,9 +22,18 @@ testthat::test_that("testChecklist expected class", {
 
 # TEST the full data
 
+OS <- dplyr::if_else(.Platform$OS.type == "unix",
+                     "MacLinux",
+                     "Windows")
+if(OS == "Windows"){
+  mode <- "wb"
+}else{
+  mode <- "w"
+}
+
 beesChecklist <- NULL
 # load in the full dataset
-beesChecklist <- BeeBDC::beesChecklist()
+beesChecklist <- BeeBDC::beesChecklist(mode = mode)
 
 if(!is.null(beesChecklist)){
 # Test the expected results
