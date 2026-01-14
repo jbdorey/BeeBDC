@@ -164,28 +164,9 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   download <- function(URL, destfile = NULL, ...) {
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
-      # Check whether we are running R 3.2
-      isR32 <- getRversion() >= "3.2"
-      
       # Windows
       if (tolower(.Platform$OS.type) == "windows") {
-        if (isR32) {
-          method <- "wininet"
-        } else {
-          # If we directly use setInternet2, R CMD CHECK gives a Note on Mac/Linux
-          seti2 <- `::`(utils, 'setInternet2')
-          # Check whether we are already using internet2 for internal
-          internet2_start <- seti2(NA)
-          # If not then temporarily set it
-          if (!internet2_start) {
-            # Store initial settings, and restore on exit
-            on.exit(suppressWarnings(seti2(internet2_start)))
-            # Needed for https. Will get warning if setInternet2(FALSE) already run
-            # and internet routines are used. But the warnings don't seem to matter.
-            suppressWarnings(seti2(TRUE))
-          }
-          method <- "internal"
-        }
+        method <- "internal"
         if(is.null(mode)){
           mode <- "wb"  
         }
@@ -243,8 +224,11 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
     # Run a code to download the data and deal with potential internet issues
   taxonomy <- NULL                                 
   attempt <- 1
-  savePath <- file.path(tempdir(), "beesTaxonomy.Rda")
-  savePath <- normalizePath(savePath)
+  savePath <- file.path(tempdir(), "beesTaxonomy.Rda") %>% 
+      # Change all backlashes to forward slashes -- sometimes they mix on Windows...
+    stringr::str_replace_all("\\\\","/") %>%
+      # Make sure there is only ever one forward slahs in a row
+    stringr::str_replace_all("//", "/")
   writeLines(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   
