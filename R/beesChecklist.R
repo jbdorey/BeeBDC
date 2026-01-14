@@ -163,7 +163,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
           method <- "curl"}
           # If one of the above fails, use "auto"
         if(is.null(method)){
-          method <- "auto"
+          method <- "wininet"
         }
         
         if(is.null(mode)){
