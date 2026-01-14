@@ -167,7 +167,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
   download <- function(URL, destfile = NULL, methodNum = NULL, ...) {
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
-      # Windows
+      #### Windows ####
       if (tolower(.Platform$OS.type) == "windows") {
         # Set method to NULL to then be over-written
         method <- NULL
@@ -206,6 +206,7 @@ beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/6
             errorCatcher())
         
       } else {
+        #### Mac/Linux ####
         method <- NULL
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
         # appropriate method.

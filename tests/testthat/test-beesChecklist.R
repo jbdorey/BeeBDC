@@ -18,7 +18,9 @@ testthat::test_that("testChecklist expected class", {
   testthat::expect_equal(attributes(testChecklist)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
 })
 
-
+# Set some options for accessing the data
+options(timeout=400,
+        HTTPUserAgent = "Test download for BeeBDC's R package")
 
 # TEST the full data
 
@@ -28,7 +30,7 @@ OS <- dplyr::if_else(.Platform$OS.type == "unix",
 if(OS == "Windows"){
   mode <- "wb"
 }else{
-  mode <- "w"
+  mode <- "wb"
 }
 
 beesChecklist <- NULL
