@@ -111,7 +111,7 @@ replaced by corrected coordinates.
 ## Details
 
 This test identifies transposed coordinates based on mismatches between
-the country provided for a record and the record’s latitude and
+the country provided for a record and the record's latitude and
 longitude coordinates. Transposed coordinates often fall outside of the
 indicated country (i.e., in other countries or in the sea). Different
 coordinate transformations are performed to correct country/coordinates
@@ -127,6 +127,7 @@ function
 
 ``` r
 # \donttest{
+if(requireNamespace("rnaturalearthdata")){
 database_id <- c(1, 2, 3, 4)
 scientificName <- c(
   "Rhinella major", "Scinax ruber",
@@ -143,14 +144,6 @@ x <- data.frame(
 
 # Get country codes
 x <- bdc::bdc_country_standardized(data = x, country = "country")
-#> Loading auxiliary data: country names
-#> Standardizing country names
-#> country found: Bolivia
-#> country found: Brazil
-#> 
-#> bdc_country_standardized:
-#> The country names of 3 records were standardized.
-#> Two columns ('country_suggested' and 'countryCode') were added to the database.
 
 jbd_coordinates_transposed(
   data = x,
@@ -164,6 +157,15 @@ jbd_coordinates_transposed(
   save_outputs = FALSE,
   scale = "medium"
 ) 
+}
+#> Loading auxiliary data: country names
+#> Standardizing country names
+#> country found: Bolivia
+#> country found: Brazil
+#> 
+#> bdc_country_standardized:
+#> The country names of 3 records were standardized.
+#> Two columns ('country_suggested' and 'countryCode') were added to the database.
 #> Spherical geometry (s2) switched on
 #> Correcting latitude and longitude transposed
 #> 3 occurrences will be tested
@@ -180,5 +182,5 @@ jbd_coordinates_transposed(
 #> 4           4 Psychotria vellosiana           -13.8            -46.7 Brazil 
 #> # ℹ 3 more variables: country_suggested <chr>, countryCode <chr>,
 #> #   coordinates_transposed <lgl>
-# }
+# } # END if require
 ```

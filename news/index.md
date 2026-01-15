@@ -130,8 +130,9 @@ CRAN release: 2024-11-04
 
 CRAN release: 2024-06-21
 
-- Release of a new function, `BeeBDC::continentOutlieRs()`, which is
-  conceptually the same as
+- Release of a new function,
+  [`BeeBDC::continentOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.md),
+  which is conceptually the same as
   [`BeeBDC::countryOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/countryOutlieRs.md)
   except on a continental level. This function recognises that sometimes
   knowledge (including data) are insufficient for country-level

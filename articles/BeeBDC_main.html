@@ -34,17 +34,17 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning">
-<li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
+<li><a class="dropdown-item" href="../articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
     <li><a class="dropdown-item" href="../articles/basic_workflow.html">BeeBDC basic workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/dataPrep.html">Bee-specific data preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/BeeBDC_data_preparation.html">Bee-specific data preparation</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation">
-<li><a class="dropdown-item" href="../articles/speciesRichness_example.html">BeeBDC richness estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
+<li><a class="dropdown-item" href="../articles/Species_richness_estimation.html">BeeBDC richness estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="https://jbdorey.github.io/BeeBDC/news/index.html"><span class="fa fas fa-newspaper"></span> News</a></li>
@@ -70,7 +70,7 @@
       <h1>BeeBDC vignette</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/vignettes/articles/BeeBDC_main.Rmd" class="external-link"><code>vignettes/articles/BeeBDC_main.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/vignettes/articles/BeeBDC_main.Rmd" class="external-link"><code>vignettes/articles/BeeBDC_main.Rmd</code></a></small>
       <div class="d-none name"><code>BeeBDC_main.Rmd</code></div>
     </div>
 
@@ -719,7 +719,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.76 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.78 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -906,13 +906,6 @@ package and <a href="https://www.discoverlife.org" class="external-link">Discove
 website.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taxonomyFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesTaxonomy.html">beesTaxonomy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># load in the small test dataset i nthe background</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"testTaxonomy.rda"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># Rename the file</span></span>
-<span><span class="va">taxonomyFile</span> <span class="op">&lt;-</span> <span class="va">testTaxonomy</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">testTaxonomy</span><span class="op">)</span></span></code></pre></div>
 <div class="alert alert-info">
 <p><strong> Attention:</strong> <br> As of version 1.1.0,
 <strong>BeeBDC</strong> now has a new function that can download
@@ -936,7 +929,7 @@ occurrences without a matched name and matches names to their correct
 name according to <a href="https://www.discoverlife.org" class="external-link">Discover
 Life</a>. You can also use multiple cores to achieve this. See
 ‘?<code><a href="../reference/HarmoniseR.html">harmoniseR()</a></code>’ for details.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/HarmoniseR.html">harmoniseR</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, <span class="co">#The path to a folder that the output can be saved</span></span>
 <span>                       taxonomy <span class="op">=</span> <span class="va">taxonomyFile</span>, <span class="co"># The formatted taxonomy file</span></span>
 <span>                       data <span class="op">=</span> <span class="va">database</span>,</span>
@@ -949,10 +942,10 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">##  - Attempting to harmonise the occurrence data with ambiguous names...</span></span>
 <span><span class="co">##  - Formatting merged datasets...</span></span>
 <span><span class="co">## Removing the names_clean column...</span></span>
-<span><span class="co">##  - We matched valid names to 201 of 205 occurrence records. This leaves a total of 4 unmatched occurrence records.</span></span>
+<span><span class="co">##  - We matched valid names to 196 of 205 occurrence records. This leaves a total of 9 unmatched occurrence records.</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## harmoniseR:</span></span>
-<span><span class="co">## 4</span></span>
+<span><span class="co">## 9</span></span>
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
@@ -960,7 +953,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">taxonomyFile</span><span class="op">)</span></span></code></pre></div>
 <p>Save the harmonised file.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">database</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DataPath</span>, <span class="st">"Output"</span>, <span class="st">"Intermediate"</span>, <span class="st">"02_taxonomy_database.csv"</span>,</span>
 <span>        sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -972,7 +965,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 append your new data to it. You can double-check the data and number of
 columns if you’d like to be thorough and sure that all of data are
 intact.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flagFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/flagRecorder.html">flagRecorder</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">database</span>, outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Report</span>,</span>
 <span>    sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, fileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"flagsRecorded_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">".csv"</span><span class="op">)</span>, idColumns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"database_id"</span>,</span>
 <span>    <span class="st">"id"</span>, <span class="st">"catalogNumber"</span>, <span class="st">"occurrenceID"</span>, <span class="st">"dataSource"</span><span class="op">)</span>, append <span class="op">=</span> <span class="cn">TRUE</span>, printSummary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -983,7 +976,7 @@ intact.</p>
 </h2>
 <p><em>The final frontier or whatever.</em></p>
 <p>Read in the latest database.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"database"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"02_taxonomy_database.csv"</span>,</span>
 <span>        sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/ColTypeR.html">ColTypeR</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -1003,7 +996,7 @@ apply some rounding to one of either latitude or longitude…</p>
 <p>Coordinates with one, two, or three decimal places present a
 precision of ~11.1 km, ~1.1 km, and ~111 m at the equator,
 respectively.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/jbd_coordinates_precision.html">jbd_coordinates_precision</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">database</span>, lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>    lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>, ndec <span class="op">=</span> <span class="fl">2</span>  <span class="co"># number of decimals to be tested</span></span>
 <span><span class="op">)</span></span>
@@ -1011,10 +1004,10 @@ respectively.</p>
 <span><span class="co">## Flagged 61 records</span></span>
 <span><span class="co">## The '.rou' column was added to the database.</span></span></code></pre></div>
 <p>Remove the spent dataset.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">database</span><span class="op">)</span></span></code></pre></div>
 <p>Save the resulting file.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_inter_database.csv"</span>,</span>
 <span>        sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1024,14 +1017,14 @@ respectively.</p>
 </h3>
 <p>Only run for occurrences through <code>clean_coordinates()</code>
 that are spatially ‘valid’.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tempSpace</span> <span class="op">&lt;-</span> <span class="va">check_space</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">.coordinates_empty</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">.coordinates_outOfRange</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Next, we will flag common spatial issues using functions of the
 package <strong>CoordinateCleaner</strong>. It addresses some common
 issues in biodiversity datasets.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tempSpace</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">CoordinateCleaner</span><span class="fu">::</span><span class="fu"><a href="https://ropensci.github.io/CoordinateCleaner/reference/clean_coordinates.html" class="external-link">clean_coordinates</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span>  <span class="va">tempSpace</span>,</span>
@@ -1067,7 +1060,7 @@ issues in biodiversity datasets.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">".summary"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Re-merge the datasets.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="va">tempSpace</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="co"># Re-bind with the records that were removed earlier</span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">check_space</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1076,7 +1069,7 @@ issues in biodiversity datasets.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">tempSpace</span><span class="op">)</span></span></code></pre></div>
 <p>Save the intermediate dataset.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_inter_database.csv"</span>,</span>
 <span>        sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1091,7 +1084,7 @@ coordinates of precision ‘ndec’ (number of decimals in decimal degree
 format) will be examined. Note, that this function is very RAM-intensive
 and so the use of multiple threads should be approached with caution
 depending on your dataset. However, the option is provided.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/diagonAlley.html">diagonAlley</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">check_space</span>,</span>
 <span>  <span class="co"># The minimum number of repeats needed to find a sequence in for flagging</span></span>
@@ -1110,7 +1103,7 @@ depending on your dataset. However, the option is provided.</p>
 <span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than <code>X</code> occurrences.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">griddingDF</span> <span class="op">&lt;-</span> <span class="va">check_space</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="co"># Exclude NA lat and lon values</span></span>
 <span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"decimalLatitude"</span>, <span class="st">"decimalLongitude"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1122,7 +1115,7 @@ more than <code>X</code> occurrences.</p>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Run the gridding analysis to find datasets that might be gridded.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gridded_datasets</span> <span class="op">&lt;-</span> <span class="fu">CoordinateCleaner</span><span class="fu">::</span><span class="fu"><a href="https://ropensci.github.io/CoordinateCleaner/reference/cd_round.html" class="external-link">cd_round</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">griddingDF</span>, lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span>
 <span>    lat <span class="op">=</span> <span class="st">"decimalLatitude"</span>, ds <span class="op">=</span> <span class="st">"datasetName"</span>, T1 <span class="op">=</span> <span class="fl">7</span>, min_unique_ds_size <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>    test <span class="op">=</span> <span class="st">"both"</span>, value <span class="op">=</span> <span class="st">"dataset"</span>, graphs <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, reg_out_thresh <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -1131,7 +1124,7 @@ more than <code>X</code> occurrences.</p>
 <span><span class="co"># The griddingDF is no longer needed. remove it.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">griddingDF</span><span class="op">)</span></span></code></pre></div>
 <p>Integrate these results with the main dataset.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="va">check_space</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Join the datasets</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
@@ -1145,7 +1138,7 @@ more than <code>X</code> occurrences.</p>
 <span>  <span class="co"># Remove old columns</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lon.flag</span>, <span class="va">lat.flag</span>, <span class="va">summary</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Save the gridded_datasets file for later examination.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gridded_datasets</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_excel_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">OutPath_Intermediate</span>, <span class="st">"03_space_griddedDatasets.csv"</span>,</span>
 <span>        sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span>
@@ -1157,7 +1150,7 @@ more than <code>X</code> occurrences.</p>
 </h3>
 <p>Flag records that exceed a <em>coordinateUncertaintyInMeters</em>
 threshold in meters.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/coordUncerFlagR.html">coordUncerFlagR</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_space</span>, uncerColumn <span class="op">=</span> <span class="st">"coordinateUncertaintyInMeters"</span>,</span>
 <span>    threshold <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="co">## \coordUncerFlagR:</span></span>
@@ -1165,7 +1158,7 @@ threshold in meters.</p>
 <span><span class="co">##  The column '.uncertaintyThreshold' was added to the database.</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="country-checklist">5.5 Country checklist<a class="anchor" aria-label="anchor" href="#country-checklist"></a>
+<h3 id="country-continent-checklists">5.5 Country &amp; continent checklists<a class="anchor" aria-label="anchor" href="#country-continent-checklists"></a>
 </h3>
 <p>This step identifies mismatches between the <a href="https://www.discoverlife.org" class="external-link">Discover Life</a> country checklist
 — <code>beesChecklist</code> — for bee species and the dataset,
@@ -1173,19 +1166,38 @@ identifying potential misidentifications, outliers, etc.’</p>
 <p>I would like to eventually add checklists for other taxa or get help
 in this; if anyone is willing!</p>
 <p>Download the <strong>bee</strong> country-level checklist.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">checklistFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesChecklist.html">beesChecklist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load in the small test dataset in the background</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"testChecklist.rda"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># Rename the file</span></span>
 <span><span class="va">taxonomyFile</span> <span class="op">&lt;-</span> <span class="va">testChecklist</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">testChecklist</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/countryOutlieRs.html">countryOutlieRs</a></span><span class="op">(</span>checklist <span class="op">=</span> <span class="va">checklistFile</span>,</span>
 <span>                        data <span class="op">=</span> <span class="va">check_space</span>,</span>
 <span>                        keepAdjacentCountry <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                        pointBuffer <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>                          <span class="co"># Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'</span></span>
+<span>                          <span class="co"># Smaller numbers will result in much longer calculation times. </span></span>
+<span>                          <span class="co"># We have not attempted a scale of 10.</span></span>
+<span>                        scale <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>                        mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'checklistFile' not found</span></span></code></pre></div>
+<p>Since version 1.1.2 a new function,
+<code><a href="../reference/continentOutlieRs.html">BeeBDC::continentOutlieRs()</a></code>, has been released which is
+conceptually the same as <code><a href="../reference/countryOutlieRs.html">BeeBDC::countryOutlieRs()</a></code> except
+it works on the level of continents. Users might appreciate that
+generating a continent-level checklist is much easier than a
+country-level one and so might actually be of more wide-spread use
+(beyond bees).</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/continentOutlieRs.html">continentOutlieRs</a></span><span class="op">(</span>checklist <span class="op">=</span> <span class="va">checklistFile</span>,</span>
+<span>                        data <span class="op">=</span> <span class="va">check_space</span>,</span>
+<span>                        keepAdjacentContinent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                        pointBuffer <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>                          <span class="co"># Scale of map to return, one of 110, 50, 10 OR 'small', 'medium', 'large'</span></span>
 <span>                          <span class="co"># Smaller numbers will result in much longer calculation times. </span></span>
@@ -1335,11 +1347,11 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">##  - Formating and combining the new data..</span></span>
 <span><span class="co">##  - Merging all data, nearly there...</span></span>
 <span><span class="co">##  - Finished. </span></span>
-<span><span class="co">## We now have 1 more full eventDate cells than in the input data.</span></span>
+<span><span class="co">## We now have 2 more full eventDate cells than in the input data.</span></span>
 <span><span class="co">## We modified dates in </span></span>
-<span><span class="co">## 174 occurrences.</span></span>
-<span><span class="co">##  - As it stands, there are 174 complete eventDates and 31 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.572171211242676 secs</span></span></code></pre></div>
+<span><span class="co">## 175 occurrences.</span></span>
+<span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.62509298324585 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1349,7 +1361,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_eventDate_empty.html" class="external-link">bdc_eventDate_empty</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, eventDate <span class="op">=</span> <span class="st">"eventDate"</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## bdc_eventDate_empty:</span></span>
-<span><span class="co">## Flagged 31 records.</span></span>
+<span><span class="co">## Flagged 30 records.</span></span>
 <span><span class="co">## One column was added to the database.</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -1386,7 +1398,7 @@ occurrence records.</em> Update the <em>.summary</em> column.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 115 </span></span>
+<span><span class="co">## Flagged 116 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
@@ -1479,7 +1491,7 @@ details as this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
+<span><span class="co">## Flagged 93 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">##  - Working on CustomComparisonsRAW duplicates...</span></span>
 <span><span class="co">## </span></span>
@@ -1516,9 +1528,9 @@ details as this function is quite modifiable to user needs.</p>
 <span><span class="co">## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/Rtmp1IY0yt/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-14.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmplwcARh/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-15.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.26 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.28 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1557,7 +1569,7 @@ of the expert outliers.</p>
 <span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/Rtmp1IY0yt/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-14.csv</span></span>
+<span><span class="co">##  /tmp/RtmplwcARh/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-15.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -1590,7 +1602,7 @@ files can further be modified to include more outliers.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
+<span><span class="co">## Flagged 93 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save the uncleaned dataset</span></span>
@@ -1615,7 +1627,7 @@ it.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 91 </span></span>
+<span><span class="co">## Flagged 93 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre></div>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
@@ -1845,21 +1857,21 @@ by which to group the summary. While it is intended to work with the
 <span>    outPath <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span>
 <span><span class="co">##  - We will flag all columns starting with '.'</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 111 </span></span>
+<span><span class="co">## Flagged 107 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">## The percentages of species impacted by each flag in your analysis are as follows: </span></span>
-<span><span class="co">##   .coordinates_empty = 26.19%</span></span>
+<span><span class="co">##   .coordinates_empty = 24.05%</span></span>
 <span><span class="co">##   .coordinates_outOfRange = 0%</span></span>
-<span><span class="co">##   .basisOfRecords_notStandard = 1.19%</span></span>
-<span><span class="co">##   .coordinates_country_inconsistent = 1.19%</span></span>
-<span><span class="co">##   .occurrenceAbsent = 8.33%</span></span>
+<span><span class="co">##   .basisOfRecords_notStandard = 1.27%</span></span>
+<span><span class="co">##   .coordinates_country_inconsistent = 1.27%</span></span>
+<span><span class="co">##   .occurrenceAbsent = 8.86%</span></span>
 <span><span class="co">##   .unLicensed = 0%</span></span>
 <span><span class="co">##   .GBIFflags = 0%</span></span>
-<span><span class="co">##   .rou = 32.14%</span></span>
+<span><span class="co">##   .rou = 30.38%</span></span>
 <span><span class="co">##   .sequential = 0%</span></span>
-<span><span class="co">##   .uncertaintyThreshold = 15.48%</span></span>
-<span><span class="co">##   .eventDate_empty = 15.48%</span></span>
-<span><span class="co">##   .year_outOfRange = 16.67%</span></span>
+<span><span class="co">##   .uncertaintyThreshold = 15.19%</span></span>
+<span><span class="co">##   .eventDate_empty = 16.46%</span></span>
+<span><span class="co">##   .year_outOfRange = 16.46%</span></span>
 <span><span class="co">##   .duplicates = 0%</span></span></code></pre></div>
 </div>
 </div>

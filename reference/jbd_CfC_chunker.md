@@ -82,6 +82,7 @@ be re-merged with the data input.
 ## Examples
 
 ``` r
+if(requireNamespace("rnaturalearthdata")){
 library("dplyr")
 data(beesFlagged)
 HomePath = tempdir()
@@ -101,7 +102,6 @@ beesFlagged <- beesFlagged %>%
 beesFlagged_out <- countryNameCleanR(
   data = beesFlagged,
   commonProblems = commonProblems)
-#>  - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.
 
 suppressWarnings(
   countryOutput <- jbd_CfC_chunker(data = beesFlagged_out,
@@ -115,14 +115,6 @@ suppressWarnings(
                                    path = HomePath,
                                    scale = "medium"),
   classes = "warning")
-#>  - Running chunker with:
-#> stepSize = 1,000,000
-#> chunkStart = 1
-#> chunkEnd = 1,000,000
-#>  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.
-#> Loading required package: rnaturalearth
-#>  - Completed in 0.31 secs
-#>  - We have updated the country names of 5 occurrences that previously had no country name assigned.
 
 
 # Left join these datasets
@@ -140,4 +132,14 @@ beesFlagged_out <- left_join(beesFlagged_out, countryOutput, by = "database_id")
 beesFlagged_out$country <- beesFlagged_out$country %>%
   stringr::str_replace(., pattern = paste("\\[", "\\]", "\\?",
                                           sep=  "|"), replacement = "")
+} # END if require
+#>  - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.
+#>  - Running chunker with:
+#> stepSize = 1,000,000
+#> chunkStart = 1
+#> chunkEnd = 1,000,000
+#>  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.
+#> Loading required package: rnaturalearth
+#>  - Completed in 0.29 secs
+#>  - We have updated the country names of 5 occurrences that previously had no country name assigned.
 ```

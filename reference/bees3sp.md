@@ -41,7 +41,7 @@ An object of class `"tibble"`
 
 - subspecies:
 
-  Full scientific name with subspecies name — ALA column
+  Full scientific name with subspecies name - ALA column
 
 - specificEpithet:
 
@@ -674,15 +674,16 @@ see
 ## References
 
 This data set was created by generating a random subset of 105 rows from
-the full BeeBDC dataset from the publication: DOREY, J. B., CHESSHIRE,
-P. R., BOLAÑOS, A. N., O’REILLY, R. L., BOSSERT, S., COLLINS, S. M.,
-LICHTENBERG, E. M., TUCKER, E., SMITH-PARDO, A., FALCON-BRINDIS, A.,
-GUEVARA, D. A., RIBEIRO, B. R., DE PEDRO, D., FISCHER, E., HUNG, J.
-K.-L., PARYS, K. A., ROGAN, M. S., MINCKLEY, R. L., VELZCO, S. J. E.,
-GRISWOLD, T., ZARRILLO, T. A., SICA, Y., ORR, M. C., GUZMAN, L. M.,
-ASCHER, J., HUGHES, A. C. & COBB, N. S. In review. A globally
+the full BeeBDC dataset from the publication: Dorey, J.B., Fischer,
+E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S.,
+Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A.,
+Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung,
+J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco,
+S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C.,
+Guzman, L.M., Ascher, J., Hughes, A.C. & Cobb, N.S. (2023) A globally
 synthesised and flagged bee occurrence dataset and cleaning workflow.
-Scientific Data.
+Scientific Data, 10, 1–17.
+https://www.doi.org/10.1038/S41597-023-02626-W
 
 ## Examples
 

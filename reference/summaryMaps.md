@@ -14,8 +14,8 @@ summaryMaps(
   class_Style = "fisher",
   outPath = NULL,
   fileName = NULL,
-  width = 10,
-  height = 5,
+  width = 5,
+  height = 10,
   dpi = 300,
   returnPlot = FALSE,
   scale = 110,
@@ -53,11 +53,11 @@ summaryMaps(
 
 - width:
 
-  Numeric. The width, in inches, of the resulting figure. Default = 10.
+  Numeric. The width, in inches, of the resulting figure. Default = 5.
 
 - height:
 
-  Numeric. The height, in inches, of the resulting figure. Default = 5.
+  Numeric. The height, in inches, of the resulting figure. Default = 10.
 
 - dpi:
 
@@ -88,6 +88,7 @@ of bee occurrence species and count data from the input dataset.
 ## Examples
 
 ``` r
+if(requireNamespace("rnaturalearthdata")){
 # Read in data
 data(beesFlagged)
 OutPath_Figures <- tempdir()
@@ -101,6 +102,7 @@ class_Style = "fisher",
 outPath = OutPath_Figures,
 fileName = paste0("CountryMaps_fisher_TEST.pdf"),
 )
+} # END if require
 #> Spherical geometry (s2) switched off
 #>  - Extracting country data from points...
 #> although coordinates are longitude/latitude, st_intersects assumes that they
@@ -114,5 +116,4 @@ fileName = paste0("CountryMaps_fisher_TEST.pdf"),
 #> are planar
 #> although coordinates are longitude/latitude, st_intersects assumes that they
 #> are planar
-
 ```

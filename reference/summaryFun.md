@@ -13,6 +13,7 @@ function.
 summaryFun(
   data = NULL,
   dontFilterThese = NULL,
+  onlyFilterThese = NULL,
   removeFilterColumns = FALSE,
   filterClean = FALSE
 )
@@ -27,7 +28,14 @@ summaryFun(
 - dontFilterThese:
 
   A character vector of flag columns to be ignored in the creation or
-  updating of the .summary column.
+  updating of the .summary column. Cannot be specified with
+  onlyFilterThese.
+
+- onlyFilterThese:
+
+  A character vector. The inverse of dontFilterThese, where columns
+  identified here will be filtered and no others. Cannot be specified
+  with dontFilterThese.
 
 - removeFilterColumns:
 

@@ -126,6 +126,7 @@ where FALSE = columns that had coordinates transposed.
 ## Examples
 
 ``` r
+if(requireNamespace("rnaturalearthdata")){
 library(dplyr)
   # Import and prepare the data
 data(beesFlagged)
@@ -159,6 +160,8 @@ append = FALSE,
 scale = "medium",
 mc.cores = 1
 ) 
+table(beesFlagged_out$coordinates_transposed, useNA = "always")
+} # END if require
 #>  - Running chunker with:
 #> stepSize = 1,000,000
 #> chunkStart = 1
@@ -172,8 +175,7 @@ mc.cores = 1
 #> 0 occurrences will be tested
 #> No latitude and longitude were transposed
 #>  - Finished chunk 1 of 1. Total records examined: 20
-#>  - Completed in 4.41 secs
-table(beesFlagged_out$coordinates_transposed, useNA = "always")
+#>  - Completed in 3.77 secs
 #> 
 #> TRUE <NA> 
 #>   20    0 

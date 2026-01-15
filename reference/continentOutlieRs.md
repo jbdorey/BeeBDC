@@ -1,16 +1,16 @@
-# Flag country-level outliers with a provided checklist.
+# Flag continent-level outliers with a provided checklist.
 
-This function flags country-level outliers using the checklist provided
-with this package. For additional context and column names, see
+This function flags continent-level outliers using the checklist
+provided with this package. For additional context and column names, see
 [`beesChecklist()`](https://jbdorey.github.io/BeeBDC/reference/beesChecklist.md).
 
 ## Usage
 
 ``` r
-countryOutlieRs(
+continentOutlieRs(
   checklist = NULL,
   data = NULL,
-  keepAdjacentCountry = TRUE,
+  keepAdjacentContinent = FALSE,
   pointBuffer = NULL,
   scale = 50,
   stepSize = 1e+06,
@@ -29,14 +29,15 @@ countryOutlieRs(
 
   A data frame or tibble. The a Darwin Core occurrence dataset.
 
-- keepAdjacentCountry:
+- keepAdjacentContinent:
 
-  Logical. If TRUE, occurrences in countries that are adjacent to
-  checklist countries will be kept. If FALSE, they will be flagged.
+  Logical. If TRUE, occurrences in continents that are adjacent to
+  checklist continents will be kept. If FALSE, they will be flagged.
+  Defualt = FALSE.
 
 - pointBuffer:
 
-  Numeric. A buffer around points to help them align with a country or
+  Numeric. A buffer around points to help them align with a continent or
   coastline. This provides a good way to retain points that occur right
   along the coast or borders of the maps in rnaturalearth
 
@@ -64,21 +65,21 @@ countryOutlieRs(
 
 ## Value
 
-The input data with two new columns, .countryOutlier or .sea. There are
-three possible values for the new column: TRUE == passed, FALSE ==
-failed (not in country or in the ocean), NA == did not overlap with
+The input data with two new columns, .continentOutlier or .sea. There
+are three possible values for the new column: TRUE == passed, FALSE ==
+failed (not in continent or in the ocean), NA == did not overlap with
 rnaturalearth map.
 
 ## See also
 
-[`continentOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.md)
-for implementation at the continent level. Implementation at the
-continent level may be lighter and more manageable on the data side of
-things where country-level checklists don't exist. Additionally, see
+[`countryOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/countryOutlieRs.md)
+for implementation at the country level. Country-level implementation
+will be more data-hungry and, where data do not yet exist, difficult to
+implement. Additionally, see
 [`beesChecklist()`](https://jbdorey.github.io/BeeBDC/reference/beesChecklist.md)
 for input data. Note, not all columns are necessary if you are building
-your own dataset. At a minimum you will need *validName*, *country*,
-*iso_a3_eh* (to match rnaturalearth).
+your own dataset. At a minimum you will need *validName* and
+*continent*.
 
 ## Examples
 
@@ -92,36 +93,38 @@ system.file("extdata", "testChecklist.rda", package="BeeBDC") |> load()
   # For real examples, you might download the beesChecklist from FigShare using 
   #  [BeeBDC::beesChecklist()]
 
-beesRaw_out <- countryOutlieRs(checklist = testChecklist,
+beesRaw_out <- continentOutlieRs(checklist = testChecklist,
                                data = beesRaw %>%
                                dplyr::filter(dplyr::row_number() %in% 1:50),
-                               keepAdjacentCountry = TRUE,
+                               keepAdjacentContinent = FALSE,
                                pointBuffer = 1,
                                scale = 50,
                                stepSize = 1000000,
                                mc.cores = 1)
-table(beesRaw_out$.countryOutlier, useNA = "always")
+table(beesRaw_out$.continentOutlier, useNA = "always")
 } # END if require
-#>  - Extracting country data from points...
+#> Loading required namespace: rnaturalearthdata
+#> Spherical geometry (s2) switched off
+#>  - Extracting continent data from points...
 #>  - Buffering failed points by pointBuffer...
-#>  - Prepare the neighbouring country dataset...
+#>  - Prepare the neighbouring continent dataset...
 #> although coordinates are longitude/latitude, st_intersects assumes that they
 #> are planar
 #>  - Compare points with the checklist...
 #>  - Combining data...
 #>  - Sorting and removing potentially duplicated buffered points...
 #>  - Finished. 
-#> We have matched 24 records to their exact country and 2 to an adjacent country
-#> We failed to match 1 occurrences to any 'exact' or 'neighbouring' country.
-#> There are 23 'NA' occurrences for the .countryOutlier column.
+#> We have matched 26 records to their exact continent and 0 to an adjacent continent
+#> We failed to match 1 occurrences to any 'exact' or 'neighbouring' continent
+#> There are 23 'NA' occurrences for the .continentOutlier column.
 #> 
-#> countryOutlieRs:
-#> Flagged 1  for country outlier and flagged  0  for in the .sea records.
+#> continentOutlieRs:
+#> Flagged 1 for continent outlier and flagged 0 for in the .sea records.
 #> Three columns were added to the database:
-#>  1.  The '.countryOutlier' column was added which is a filtering column. 
-#>  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. 
-#>  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.
-#>  - Completed in 1.52 secs
+#> 1. The '.continentOutlier' column was added which is a filtering column. 
+#> 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. 
+#> 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.
+#>  - Completed in 2.33 secs
 #> 
 #> FALSE  TRUE  <NA> 
 #>     1    26    23 

@@ -1,10 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://jbdorey.github.io/BeeBDC/404.html</loc></url>
+<url><loc>https://jbdorey.github.io/BeeBDC/articles/BeeBDC_data_preparation.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html</loc></url>
+<url><loc>https://jbdorey.github.io/BeeBDC/articles/Species_richness_estimation.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/articles/basic_workflow.html</loc></url>
-<url><loc>https://jbdorey.github.io/BeeBDC/articles/dataPrep.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/articles/index.html</loc></url>
-<url><loc>https://jbdorey.github.io/BeeBDC/articles/speciesRichness_example.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/authors.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/index.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/news/index.html</loc></url>
@@ -23,6 +23,7 @@
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/beesRaw.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/beesTaxonomy.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/chordDiagramR.html</loc></url>
+<url><loc>https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/coordUncerFlagR.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/countryHarmoniseR.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/countryNameCleanR.html</loc></url>
@@ -63,5 +64,7 @@
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/summaryFun.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/summaryMaps.html</loc></url>
 <url><loc>https://jbdorey.github.io/BeeBDC/reference/taxadbToBeeBDC.html</loc></url>
+<url><loc>https://jbdorey.github.io/BeeBDC/reference/testChecklist.html</loc></url>
+<url><loc>https://jbdorey.github.io/BeeBDC/reference/testTaxonomy.html</loc></url>
 </urlset>
 

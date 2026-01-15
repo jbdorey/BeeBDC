@@ -19,8 +19,11 @@ method is not available).
 
 ``` r
 beesTaxonomy(
-  URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+  URL = "https://api.figshare.com/v2/file/download/60945820",
   mode = NULL,
+  headers = NULL,
+  token = NULL,
+  alternateURL = FALSE,
   ...
 )
 ```
@@ -37,6 +40,23 @@ beesTaxonomy(
   A character passed on to
   [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html).
   Default = "wb" for Windows or "w" for Mac/Linux.
+
+- headers:
+
+  Character. Passed on to
+  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html).
+  Default = NULL.
+
+- token:
+
+  Character. Optional personal access token from FigShare account for
+  authorisation. Default = NULL.
+
+- alternateURL:
+
+  Logical. If TRUE then the function will use the an alernate version of
+  the download URL. Might be worth trying if it is failing. Default =
+  FALSE.
 
 - ...:
 

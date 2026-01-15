@@ -65,7 +65,7 @@ testQuery <- BeeBDCQuery(
   beesTaxonomy = testTaxonomy,
   beesChecklist = testChecklist)
 #> Starting taxonomy report...
-#> Lasioglossum bicingulatum is an accpeted name with the taxon id number 31378.
+#> Lasioglossum bicingulatum is an accpeted name with the taxon id number 30809.
 #>  - 'Lasioglossum bicingulatum' has the synonyms: 
 #> Starting checklist report...
 #>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: 
@@ -82,40 +82,40 @@ testQuery <- BeeBDC::BeeBDCQuery(
   beesTaxonomy = testTaxonomy,
   beesChecklist = testChecklist)
 #> Starting taxonomy report...
-#> Lasioglossum bicingulatum is an accpeted name with the taxon id number 31378.
-#> Nomada flavopicta is an accpeted name with the taxon id number 17033.
+#> Lasioglossum bicingulatum is an accpeted name with the taxon id number 30809.
+#> Nomada flavopicta is an accpeted name with the taxon id number 16654.
 #>  - 'Lasioglossum bicingulatum' has the synonyms: 
 #>  - 'Nomada flavopicta' has the synonyms: 
 #> Starting checklist report...
 #>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: 
 #> Australia
 #>  - Nomada flavopicta (Kirby, 1802) is reportedly found in: 
-#> Austria, Azerbaijan, Belarus, Brussels, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Georgia, Germany, Greece, Guernsey, Hungary, Iran, Italy, Jersey, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Netherlands, Norway, Poland, Romania, Russian Federation, Slovakia, Slovenia, Spain, Sweden, Switzerland, Tajikistan, Turkey, Ukraine, Uzbekistan, United Kingdom
+#> Austria, Azerbaijan, Belarus, Brussels, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Georgia, Germany, Greece, Greenland, Guernsey, Hungary, Iran, Italy, Jersey, Kazakhstan, Kyrgyzstan, Latvia, Liechtenstein, Lithuania, Luxembourg, Netherlands, Norway, Poland, Romania, Russian Federation, Slovakia, Slovenia, Spain, Sweden, Switzerland, Tajikistan, Turkey, Ukraine, Uzbekistan, United Kingdom
 #> The output will be returned as a list with the elements: 'taxonomyReport', 'SynonymReport', and 'checklistReport'. 
 #> These can be accessed using 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or 'output'$failedReport.
   
     # Example way to examine a report from the output list
   testQuery$checklistReport
-#> # A tibble: 41 × 23
-#>    validName     DiscoverLife_name rNaturalEarth_name shortName DiscoverLife_ISO
-#>    <chr>         <chr>             <chr>              <chr>     <chr>           
-#>  1 Lasioglossum… Australia         Australia          Australia AS              
-#>  2 Nomada flavo… Austria           Austria            Austria   AU              
-#>  3 Nomada flavo… Azerbaijan        Azerbaijan         Azerbaij… AJ              
-#>  4 Nomada flavo… Belarus           Belarus            Belarus   BO              
-#>  5 Nomada flavo… Belgium           Brussels           Belgium   BE              
-#>  6 Nomada flavo… Bulgaria          Bulgaria           Bulgaria  BU              
-#>  7 Nomada flavo… Croatia           Croatia            Croatia   HR              
-#>  8 Nomada flavo… Czechia           Czech Republic     Czechia   EZ              
-#>  9 Nomada flavo… Denmark           Denmark            Denmark   DA              
-#> 10 Nomada flavo… Estonia           Estonia            Estonia   EN              
-#> # ℹ 31 more rows
-#> # ℹ 18 more variables: `Alpha-2` <chr>, `Alpha-3` <chr>, official <chr>,
-#> #   Source <chr>, matchCertainty <chr>, canonical <chr>,
-#> #   canonical_withFlags <chr>, family <chr>, subfamily <chr>, genus <chr>,
-#> #   subgenus <lgl>, specificEpithet <chr>, species <chr>, infraspecies <chr>,
-#> #   scientificNameAuthorship <chr>, taxon_rank <chr>,
-#> #   infraspecificEpithet <chr>, Notes <chr>
+#> # A tibble: 42 × 24
+#>    validName            DiscoverLife_name rNaturalEarth_name shortName continent
+#>    <chr>                <chr>             <chr>              <chr>     <chr>    
+#>  1 Lasioglossum bicing… Australia         Australia          Australia Oceania  
+#>  2 Nomada flavopicta (… Austria           Austria            Austria   Europe   
+#>  3 Nomada flavopicta (… Azerbaijan        Azerbaijan         Azerbaij… Asia     
+#>  4 Nomada flavopicta (… Belarus           Belarus            Belarus   Europe   
+#>  5 Nomada flavopicta (… Belgium           Brussels           Belgium   NA       
+#>  6 Nomada flavopicta (… Bulgaria          Bulgaria           Bulgaria  Europe   
+#>  7 Nomada flavopicta (… Croatia           Croatia            Croatia   Europe   
+#>  8 Nomada flavopicta (… Czechia           Czech Republic     Czechia   Europe   
+#>  9 Nomada flavopicta (… Denmark           Denmark            Denmark   Europe   
+#> 10 Nomada flavopicta (… Estonia           Estonia            Estonia   Europe   
+#> # ℹ 32 more rows
+#> # ℹ 19 more variables: DiscoverLife_ISO <chr>, `Alpha-2` <chr>,
+#> #   iso_a3_eh <chr>, official <chr>, Source <chr>, matchCertainty <chr>,
+#> #   canonical <chr>, canonical_withFlags <chr>, family <chr>, subfamily <chr>,
+#> #   genus <chr>, subgenus <lgl>, specificEpithet <chr>, species <chr>,
+#> #   infraspecies <chr>, scientificNameAuthorship <chr>, taxon_rank <chr>,
+#> #   Notes <chr>, name <chr>
 
 
 ```

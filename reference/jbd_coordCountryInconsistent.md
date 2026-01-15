@@ -1,6 +1,6 @@
 # Flags coordinates that are inconsistent with the stated country name
 
-Compares stated country name in an occurrence record with record’s
+Compares stated country name in an occurrence record with record's
 coordinates using rnaturalearth data. The prefix, jbd\_ is meant to
 distinguish this function from the original
 [`bdc::bdc_coordinates_country_inconsistent()`](https://brunobrr.github.io/bdc/reference/bdc_coordinates_country_inconsistent.html).
@@ -43,8 +43,8 @@ jbd_coordCountryInconsistent(
 
   Numeric or character. To be passed to
   [`rnaturalearth::ne_countries()`](https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html)'s
-  scale. Scale of map to return, one of 110, 50, 10 or “small”,
-  “medium”, “large”. Smaller values return higher-resolution maps.
+  scale. Scale of map to return, one of 110, 50, 10 or "small",
+  "medium", "large". Smaller values return higher-resolution maps.
 
 - pointBuffer:
 
@@ -73,12 +73,14 @@ The input occurrence data with a new column,
 ## Examples
 
 ``` r
+if(requireNamespace("rnaturalearthdata")){
 beesRaw_out <- jbd_coordCountryInconsistent(
   data = BeeBDC::beesRaw,
   lon = "decimalLongitude",
   lat = "decimalLatitude",
   scale = 50,
   pointBuffer = 0.01)
+} # END if require
 #> No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...
 #> 
 #> bdc_coordinates_outOfRange:
@@ -101,5 +103,5 @@ beesRaw_out <- jbd_coordCountryInconsistent(
 #> jbd_coordinates_country_inconsistent:
 #> Flagged 2 records.
 #> The column, '.coordinates_country_inconsistent', was added to the database.
-#>  - Completed in 1.14 secs
+#>  - Completed in 1.1 secs
 ```

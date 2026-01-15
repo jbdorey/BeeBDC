@@ -27,7 +27,7 @@ atlasDownloader(
 
 - userEmail:
 
-  A character string. The email used associated with the user’s ALA
+  A character string. The email used associated with the user's ALA
   account; user must make an ALA account to download data.
 
 - ALA_taxon:

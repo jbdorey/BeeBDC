@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,14 +145,14 @@ transforming our <em>(very simple example)</em> occurrence dataset into
 the right format and then running the function.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform the data</span></span>
-<span><span class="va">transformedAbundance</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span>, <span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">country_suggested</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">transformedAbundance</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span>, <span class="va">n</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">country_suggested</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="co"># Create the rownames</span></span>
-<span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">column_to_rownames</a></span><span class="op">(</span><span class="st">"scientificName"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">column_to_rownames</a></span><span class="op">(</span><span class="st">"scientificName"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># Run iNEXT</span></span>
 <span><span class="va">output_iNEXT</span> <span class="op">&lt;-</span> <span class="fu">iNEXT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/iNEXT/man/iNEXT.html" class="external-link">iNEXT</a></span><span class="op">(</span><span class="va">transformedAbundance</span>, datatype <span class="op">=</span> <span class="st">"abundance"</span><span class="op">)</span></span></code></pre></div>
@@ -473,8 +473,8 @@ change <code>mc.cores</code> to however many threads you’d liek to use
 on your computer!</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform data</span></span>
-<span><span class="va">data_nextWrapper</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">data_nextWrapper</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculate iNEXT with the wrapper function</span></span>
@@ -798,13 +798,13 @@ use is iChao. Let’s use the same example dataset to first run the
 <strong>SpadeR</strong> function.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform data</span></span>
-<span><span class="va">data_iChao</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span>, <span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">country_suggested</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">data_iChao</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">scientificName</span>, <span class="va">country_suggested</span>, <span class="va">n</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">country_suggested</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="co"># Create the rownames</span></span>
-<span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">column_to_rownames</a></span><span class="op">(</span><span class="st">"scientificName"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">column_to_rownames</a></span><span class="op">(</span><span class="st">"scientificName"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run ChaoSpecies for the country Fiji</span></span>
@@ -1762,15 +1762,8 @@ estimates.</p>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span>, labels <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"speciesRichnessPlots"</span>, outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    base_width <span class="op">=</span> <span class="fl">8.3</span>, base_height <span class="op">=</span> <span class="fl">11.7</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required namespace: cowplot</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 11</span></span></span>
-<span><span class="co">##   level       n observedRichness iNEXT_est iNEXT_lower iNEXT_upper</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Fiji      967               17        17          14          21</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Uganda    128               44        70          20         121</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Vietnam    39                6        14           2          26</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Zambia    354              129       187         151         223</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 5 more variables: iNEXT_increasePercent &lt;dbl&gt;, iChao_est &lt;dbl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   iChao_lower &lt;dbl&gt;, iChao_upper &lt;dbl&gt;, iChao_increasePercent &lt;dbl&gt;</span></span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> Unknown graphics device <span style="color: #0000BB;">""</span></span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -1784,187 +1777,8 @@ particular has a huge amount of uncertainty with the iChao estimates
 dataset (in fact we chose it as a test dataset because it is small), but
 it goes to show that if your data are inadequate you may not get a great
 answer. On the plus side, the 95% confidence intervals all overlap.</p>
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:350px; ">
-<table class="table  lightable-material lightable-striped lightable-hover table table-responsive" style='font-family: "Source Sans Pro", helvetica, sans-serif; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;'>
-<thead><tr>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-level
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-n
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-observedRichness
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iNEXT_est
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iNEXT_lower
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iNEXT_upper
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iNEXT_increasePercent
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iChao_est
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iChao_lower
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iChao_upper
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
-iChao_increasePercent
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:right;">
-967
-</td>
-<td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:right;">
-2.85
-</td>
-<td style="text-align:right;">
-18
-</td>
-<td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-3.54
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:right;">
-128
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
-121
-</td>
-<td style="text-align:right;">
-37.36
-</td>
-<td style="text-align:right;">
-76
-</td>
-<td style="text-align:right;">
-64
-</td>
-<td style="text-align:right;">
-97
-</td>
-<td style="text-align:right;">
-42.29
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:right;">
-39
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-26
-</td>
-<td style="text-align:right;">
-56.51
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-69
-</td>
-<td style="text-align:right;">
-56.51
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:right;">
-354
-</td>
-<td style="text-align:right;">
-129
-</td>
-<td style="text-align:right;">
-187
-</td>
-<td style="text-align:right;">
-151
-</td>
-<td style="text-align:right;">
-223
-</td>
-<td style="text-align:right;">
-30.96
-</td>
-<td style="text-align:right;">
-199
-</td>
-<td style="text-align:right;">
-178
-</td>
-<td style="text-align:right;">
-229
-</td>
-<td style="text-align:right;">
-35.21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
+<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'plot_summary' not found</span></span></code></pre>
 <p>You can see, that these functions are moving towards simplifying
 quick and mass-estimation of species richness across sites or countries!
 The is the idea behind these improvements. But, we take this further
@@ -2014,11 +1828,11 @@ explore the input files or the output list of files for modifying your
 own and pay attention to match the column names.</p>
 <p>Note as well that the <code>curveFunction</code> is the one generated
 from the Literature curve above.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download the taxonomy and checklist files</span></span>
 <span><span class="va">taxonomyFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesTaxonomy.html">beesTaxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">checklistFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesChecklist.html">beesChecklist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Generate the R file</span></span>
 <span><span class="va">estimateData</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/richnessPrepR.html">richnessPrepR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beesCountrySubset</span>,</span>
@@ -2046,7 +1860,7 @@ estimated that many times. Let’s run our estimates at the country
 (<em>or site</em>) level ten times below, drawing sample sizes from the
 non-occurrence species each time (<em>capped at the maximum sample size
 for each country</em>).</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estimates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/richnessEstimateR.html">richnessEstimateR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">estimateData</span>,</span>
 <span>  sampleSize <span class="op">=</span> <span class="fl">10000</span>,</span>
@@ -2122,16 +1936,16 @@ Fiji
 Country
 </td>
 <td style="text-align:right;">
-1069.5
+1092.5
 </td>
 <td style="text-align:right;">
-41.2800
+41.3505
 </td>
 <td style="text-align:right;">
-35.7385
+35.5145
 </td>
 <td style="text-align:right;">
-64.478
+64.6065
 </td>
 <td style="text-align:right;">
 33
@@ -2140,28 +1954,28 @@ Country
 Country
 </td>
 <td style="text-align:right;">
-1069.5
+1092.5
 </td>
 <td style="text-align:right;">
-40.13962
+39.9438
 </td>
 <td style="text-align:right;">
-18.00921
+20.93908
 </td>
 <td style="text-align:right;">
-63.07683
+58.47383
 </td>
 <td style="text-align:right;">
-21.63521
+21.04181
 </td>
 <td style="text-align:right;">
-7.139619
+6.943796
 </td>
 <td style="text-align:right;">
-25.09091
+25.30455
 </td>
 <td style="text-align:right;">
-8.2800
+8.3505
 </td>
 </tr>
 <tr>
@@ -2172,16 +1986,16 @@ Vietnam
 Country
 </td>
 <td style="text-align:right;">
-543.0
+504.5
 </td>
 <td style="text-align:right;">
-194.9365
+188.0865
 </td>
 <td style="text-align:right;">
-164.5450
+162.5790
 </td>
 <td style="text-align:right;">
-243.644
+227.0055
 </td>
 <td style="text-align:right;">
 114
@@ -2190,78 +2004,28 @@ Country
 Country
 </td>
 <td style="text-align:right;">
-543.0
+504.5
 </td>
 <td style="text-align:right;">
-182.49250
+174.7167
 </td>
 <td style="text-align:right;">
-136.45773
+135.52006
 </td>
 <td style="text-align:right;">
-227.28721
+213.91334
 </td>
 <td style="text-align:right;">
-60.08114
+53.26026
 </td>
 <td style="text-align:right;">
-68.492501
+60.716700
 </td>
 <td style="text-align:right;">
-70.99693
+64.98816
 </td>
 <td style="text-align:right;">
-80.9365
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-Country
-</td>
-<td style="text-align:right;">
-878.0
-</td>
-<td style="text-align:right;">
-348.9450
-</td>
-<td style="text-align:right;">
-320.1285
-</td>
-<td style="text-align:right;">
-384.994
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:left;">
-Country
-</td>
-<td style="text-align:right;">
-878.0
-</td>
-<td style="text-align:right;">
-325.93280
-</td>
-<td style="text-align:right;">
-280.62542
-</td>
-<td style="text-align:right;">
-370.11176
-</td>
-<td style="text-align:right;">
-43.58273
-</td>
-<td style="text-align:right;">
-98.932797
-</td>
-<td style="text-align:right;">
-53.72026
-</td>
-<td style="text-align:right;">
-121.9450
+74.0865
 </td>
 </tr>
 <tr>
@@ -2272,16 +2036,16 @@ Uganda
 Country
 </td>
 <td style="text-align:right;">
-1107.0
+1052.0
 </td>
 <td style="text-align:right;">
-405.0855
+394.2635
 </td>
 <td style="text-align:right;">
-360.8960
+353.7100
 </td>
 <td style="text-align:right;">
-466.098
+448.6710
 </td>
 <td style="text-align:right;">
 235
@@ -2290,28 +2054,78 @@ Country
 Country
 </td>
 <td style="text-align:right;">
-1107.0
+1052.0
 </td>
 <td style="text-align:right;">
-378.01122
+366.2893
 </td>
 <td style="text-align:right;">
-320.83263
+302.76618
 </td>
 <td style="text-align:right;">
-437.07824
+432.81767
 </td>
 <td style="text-align:right;">
-60.85584
+55.86779
 </td>
 <td style="text-align:right;">
-143.011221
+131.289296
 </td>
 <td style="text-align:right;">
-72.37681
+67.77170
 </td>
 <td style="text-align:right;">
-170.0855
+159.2635
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+Country
+</td>
+<td style="text-align:right;">
+926.5
+</td>
+<td style="text-align:right;">
+376.7255
+</td>
+<td style="text-align:right;">
+336.7070
+</td>
+<td style="text-align:right;">
+431.4105
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:left;">
+Country
+</td>
+<td style="text-align:right;">
+926.5
+</td>
+<td style="text-align:right;">
+354.6887
+</td>
+<td style="text-align:right;">
+293.86115
+</td>
+<td style="text-align:right;">
+416.36552
+</td>
+<td style="text-align:right;">
+56.25053
+</td>
+<td style="text-align:right;">
+127.688708
+</td>
+<td style="text-align:right;">
+65.95837
+</td>
+<td style="text-align:right;">
+149.7255
 </td>
 </tr>
 </tbody>
@@ -2356,25 +2170,54 @@ groupNo
 Fiji
 </td>
 <td style="text-align:left;">
-iNEXT
+iChao
 </td>
 <td style="text-align:right;">
-33
+NA
 </td>
 <td style="text-align:right;">
-35.49759
+36.87200
 </td>
 <td style="text-align:right;">
-5.134940
+2.514000
 </td>
 <td style="text-align:right;">
-25.433294
+34.211000
 </td>
 <td style="text-align:right;">
-45.56189
+45.38100
 </td>
 <td style="text-align:left;">
-1038
+1119
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+35.58100
+</td>
+<td style="text-align:right;">
+2.504000
+</td>
+<td style="text-align:right;">
+33.523000
+</td>
+<td style="text-align:right;">
+45.73500
+</td>
+<td style="text-align:left;">
+1055
 </td>
 <td style="text-align:right;">
 1
@@ -2400,10 +2243,10 @@ NA
 33.399000
 </td>
 <td style="text-align:right;">
-48.63300
+48.63400
 </td>
 <td style="text-align:left;">
-1038
+1180
 </td>
 <td style="text-align:right;">
 1
@@ -2420,19 +2263,48 @@ iNEXT
 33
 </td>
 <td style="text-align:right;">
-37.49583
+36.12221
 </td>
 <td style="text-align:right;">
-6.700685
+6.721335
 </td>
 <td style="text-align:right;">
-24.362732
+22.948633
 </td>
 <td style="text-align:right;">
-50.62893
+49.29578
 </td>
 <td style="text-align:left;">
-1080
+1119
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+35.08136
+</td>
+<td style="text-align:right;">
+7.273343
+</td>
+<td style="text-align:right;">
+20.825868
+</td>
+<td style="text-align:right;">
+49.33685
+</td>
+<td style="text-align:left;">
+1055
 </td>
 <td style="text-align:right;">
 1
@@ -2449,45 +2321,16 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-40.61900
+39.02100
 </td>
 <td style="text-align:right;">
-3.812000
+3.389000
 </td>
 <td style="text-align:right;">
-36.017000
+35.153000
 </td>
 <td style="text-align:right;">
-52.24000
-</td>
-<td style="text-align:left;">
-1051
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-39.11941
-</td>
-<td style="text-align:right;">
-6.890805
-</td>
-<td style="text-align:right;">
-25.613683
-</td>
-<td style="text-align:right;">
-52.62514
+49.83400
 </td>
 <td style="text-align:left;">
 1096
@@ -2507,19 +2350,77 @@ iNEXT
 33
 </td>
 <td style="text-align:right;">
-37.49575
+35.49788
 </td>
 <td style="text-align:right;">
-9.744875
+7.370337
 </td>
 <td style="text-align:right;">
-18.396147
+21.052287
 </td>
 <td style="text-align:right;">
-56.59535
+49.94348
 </td>
 <td style="text-align:left;">
-1059
+1180
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+37.89553
+</td>
+<td style="text-align:right;">
+7.819565
+</td>
+<td style="text-align:right;">
+22.569464
+</td>
+<td style="text-align:right;">
+53.22159
+</td>
+<td style="text-align:left;">
+1096
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+37.49573
+</td>
+<td style="text-align:right;">
+9.577147
+</td>
+<td style="text-align:right;">
+18.724872
+</td>
+<td style="text-align:right;">
+56.26660
+</td>
+<td style="text-align:left;">
+1055
 </td>
 <td style="text-align:right;">
 1
@@ -2548,36 +2449,7 @@ NA
 57.83400
 </td>
 <td style="text-align:left;">
-1059
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-37.49600
-</td>
-<td style="text-align:right;">
-4.798000
-</td>
-<td style="text-align:right;">
-33.814000
-</td>
-<td style="text-align:right;">
-57.83500
-</td>
-<td style="text-align:left;">
-1080
+1055
 </td>
 <td style="text-align:right;">
 1
@@ -2594,77 +2466,19 @@ iNEXT
 33
 </td>
 <td style="text-align:right;">
-39.11917
+41.99257
 </td>
 <td style="text-align:right;">
-10.968008
+9.535120
 </td>
 <td style="text-align:right;">
-17.622271
+23.304082
 </td>
 <td style="text-align:right;">
-60.61607
+60.68107
 </td>
 <td style="text-align:left;">
-1051
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-39.86900
-</td>
-<td style="text-align:right;">
-6.073000
-</td>
-<td style="text-align:right;">
-34.549000
-</td>
-<td style="text-align:right;">
-63.46200
-</td>
-<td style="text-align:left;">
-1096
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-41.94100
-</td>
-<td style="text-align:right;">
-6.586000
-</td>
-<td style="text-align:right;">
-35.460000
-</td>
-<td style="text-align:right;">
-65.49400
-</td>
-<td style="text-align:left;">
-1194
+1212
 </td>
 <td style="text-align:right;">
 1
@@ -2681,48 +2495,19 @@ iNEXT
 33
 </td>
 <td style="text-align:right;">
-41.15983
+41.99206
 </td>
 <td style="text-align:right;">
-12.437858
+10.316649
 </td>
 <td style="text-align:right;">
-16.782073
+21.771804
 </td>
 <td style="text-align:right;">
-65.53758
+62.21232
 </td>
 <td style="text-align:left;">
-1194
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-46.48758
-</td>
-<td style="text-align:right;">
-12.294538
-</td>
-<td style="text-align:right;">
-22.390729
-</td>
-<td style="text-align:right;">
-70.58443
-</td>
-<td style="text-align:left;">
-1087
+1134
 </td>
 <td style="text-align:right;">
 1
@@ -2739,77 +2524,19 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-49.86300
+43.99300
 </td>
 <td style="text-align:right;">
-8.194000
+7.790000
 </td>
 <td style="text-align:right;">
-39.839000
+36.149000
 </td>
 <td style="text-align:right;">
-74.57500
+71.37900
 </td>
 <td style="text-align:left;">
-1087
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-49.65139
-</td>
-<td style="text-align:right;">
-18.836939
-</td>
-<td style="text-align:right;">
-12.731669
-</td>
-<td style="text-align:right;">
-86.57111
-</td>
-<td style="text-align:left;">
-1091
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-57.97535
-</td>
-<td style="text-align:right;">
-24.305222
-</td>
-<td style="text-align:right;">
-10.337985
-</td>
-<td style="text-align:right;">
-105.61271
-</td>
-<td style="text-align:left;">
-1014
+1212
 </td>
 <td style="text-align:right;">
 1
@@ -2826,19 +2553,77 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-53.15100
+43.68000
 </td>
 <td style="text-align:right;">
-14.832000
+8.029000
 </td>
 <td style="text-align:right;">
-38.550000
+35.876000
 </td>
 <td style="text-align:right;">
-106.17400
+72.65700
 </td>
 <td style="text-align:left;">
-1091
+1134
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+53.23075
+</td>
+<td style="text-align:right;">
+17.106966
+</td>
+<td style="text-align:right;">
+19.701714
+</td>
+<td style="text-align:right;">
+86.75979
+</td>
+<td style="text-align:left;">
+1052
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+57.97704
+</td>
+<td style="text-align:right;">
+24.992470
+</td>
+<td style="text-align:right;">
+8.992702
+</td>
+<td style="text-align:right;">
+106.96138
+</td>
+<td style="text-align:left;">
+1089
 </td>
 <td style="text-align:right;">
 1
@@ -2855,19 +2640,396 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-61.97500
+57.73100
 </td>
 <td style="text-align:right;">
-20.732000
+15.921000
+</td>
+<td style="text-align:right;">
+40.798000
+</td>
+<td style="text-align:right;">
+111.42700
+</td>
+<td style="text-align:left;">
+1052
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+75.20945
+</td>
+<td style="text-align:right;">
+29.380467
+</td>
+<td style="text-align:right;">
+17.624796
+</td>
+<td style="text-align:right;">
+132.79411
+</td>
+<td style="text-align:left;">
+1042
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+61.97700
+</td>
+<td style="text-align:right;">
+20.733000
 </td>
 <td style="text-align:right;">
 41.218000
 </td>
 <td style="text-align:right;">
-135.16600
+135.17400
 </td>
 <td style="text-align:left;">
-1014
+1089
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+160.16270
+</td>
+<td style="text-align:right;">
+17.625118
+</td>
+<td style="text-align:right;">
+125.618105
+</td>
+<td style="text-align:right;">
+194.70730
+</td>
+<td style="text-align:left;">
+742
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+164.27917
+</td>
+<td style="text-align:right;">
+17.619660
+</td>
+<td style="text-align:right;">
+129.745274
+</td>
+<td style="text-align:right;">
+198.81307
+</td>
+<td style="text-align:left;">
+495
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+168.41300
+</td>
+<td style="text-align:right;">
+13.657000
+</td>
+<td style="text-align:right;">
+147.520000
+</td>
+<td style="text-align:right;">
+202.32600
+</td>
+<td style="text-align:left;">
+742
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+176.82100
+</td>
+<td style="text-align:right;">
+11.118000
+</td>
+<td style="text-align:right;">
+158.527000
+</td>
+<td style="text-align:right;">
+202.63100
+</td>
+<td style="text-align:left;">
+495
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+166.49129
+</td>
+<td style="text-align:right;">
+20.217302
+</td>
+<td style="text-align:right;">
+126.866111
+</td>
+<td style="text-align:right;">
+206.11648
+</td>
+<td style="text-align:left;">
+506
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+166.79483
+</td>
+<td style="text-align:right;">
+20.168696
+</td>
+<td style="text-align:right;">
+127.264912
+</td>
+<td style="text-align:right;">
+206.32475
+</td>
+<td style="text-align:left;">
+503
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+178.42000
+</td>
+<td style="text-align:right;">
+14.115000
+</td>
+<td style="text-align:right;">
+156.140000
+</td>
+<td style="text-align:right;">
+212.48000
+</td>
+<td style="text-align:left;">
+503
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+175.53503
+</td>
+<td style="text-align:right;">
+19.403397
+</td>
+<td style="text-align:right;">
+137.505076
+</td>
+<td style="text-align:right;">
+213.56499
+</td>
+<td style="text-align:left;">
+627
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+173.89837
+</td>
+<td style="text-align:right;">
+20.593909
+</td>
+<td style="text-align:right;">
+133.535046
+</td>
+<td style="text-align:right;">
+214.26168
+</td>
+<td style="text-align:left;">
+474
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+166.49100
+</td>
+<td style="text-align:right;">
+20.450000
+</td>
+<td style="text-align:right;">
+139.126000
+</td>
+<td style="text-align:right;">
+223.66300
+</td>
+<td style="text-align:left;">
+506
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+185.30500
+</td>
+<td style="text-align:right;">
+16.037000
+</td>
+<td style="text-align:right;">
+160.135000
+</td>
+<td style="text-align:right;">
+224.20600
+</td>
+<td style="text-align:left;">
+474
 </td>
 <td style="text-align:right;">
 1
@@ -2878,25 +3040,25 @@ NA
 Fiji
 </td>
 <td style="text-align:left;">
-iNEXT
+iChao
 </td>
 <td style="text-align:right;">
-33
+NA
 </td>
 <td style="text-align:right;">
-68.96418
+78.20900
 </td>
 <td style="text-align:right;">
-34.599175
+38.487000
 </td>
 <td style="text-align:right;">
-1.151042
+43.637000
 </td>
 <td style="text-align:right;">
-136.77732
+225.15600
 </td>
 <td style="text-align:left;">
-1005
+1042
 </td>
 <td style="text-align:right;">
 1
@@ -2913,48 +3075,19 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-165.51800
+190.86800
 </td>
 <td style="text-align:right;">
-10.908000
+16.250000
 </td>
 <td style="text-align:right;">
-148.175000
+165.023000
 </td>
 <td style="text-align:right;">
-191.66300
+229.80500
 </td>
 <td style="text-align:left;">
-402
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fiji
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-75.71400
-</td>
-<td style="text-align:right;">
-33.374000
-</td>
-<td style="text-align:right;">
-44.040000
-</td>
-<td style="text-align:right;">
-198.26000
-</td>
-<td style="text-align:left;">
-1005
+627
 </td>
 <td style="text-align:right;">
 1
@@ -2971,48 +3104,19 @@ iNEXT
 114
 </td>
 <td style="text-align:right;">
-162.87811
+200.94030
 </td>
 <td style="text-align:right;">
-20.046949
+23.579933
 </td>
 <td style="text-align:right;">
-123.586812
+154.724486
 </td>
 <td style="text-align:right;">
-202.16941
+247.15612
 </td>
 <td style="text-align:left;">
-402
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-171.68745
-</td>
-<td style="text-align:right;">
-18.819271
-</td>
-<td style="text-align:right;">
-134.802355
-</td>
-<td style="text-align:right;">
-208.57254
-</td>
-<td style="text-align:left;">
-616
+510
 </td>
 <td style="text-align:right;">
 1
@@ -3029,48 +3133,19 @@ iNEXT
 114
 </td>
 <td style="text-align:right;">
-169.13387
+208.33950
 </td>
 <td style="text-align:right;">
-20.300560
+31.483459
 </td>
 <td style="text-align:right;">
-129.345503
+146.633058
 </td>
 <td style="text-align:right;">
-208.92224
+270.04595
 </td>
 <td style="text-align:left;">
-606
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-182.63400
-</td>
-<td style="text-align:right;">
-13.906000
-</td>
-<td style="text-align:right;">
-160.324000
-</td>
-<td style="text-align:right;">
-215.68700
-</td>
-<td style="text-align:left;">
-606
+493
 </td>
 <td style="text-align:right;">
 1
@@ -3087,19 +3162,19 @@ iNEXT
 114
 </td>
 <td style="text-align:right;">
-178.24875
+211.69173
 </td>
 <td style="text-align:right;">
-20.373287
+31.362858
 </td>
 <td style="text-align:right;">
-138.317845
+150.221657
 </td>
 <td style="text-align:right;">
-218.17966
+273.16180
 </td>
 <td style="text-align:left;">
-487
+427
 </td>
 <td style="text-align:right;">
 1
@@ -3116,19 +3191,77 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-184.81200
+221.35700
 </td>
 <td style="text-align:right;">
-14.299000
+24.075000
 </td>
 <td style="text-align:right;">
-161.856000
+183.548000
 </td>
 <td style="text-align:right;">
-218.78100
+279.72100
 </td>
 <td style="text-align:left;">
-616
+510
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+217.14100
+</td>
+<td style="text-align:right;">
+28.418000
+</td>
+<td style="text-align:right;">
+174.699000
+</td>
+<td style="text-align:right;">
+289.25800
+</td>
+<td style="text-align:left;">
+493
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+236.06700
+</td>
+<td style="text-align:right;">
+23.333000
+</td>
+<td style="text-align:right;">
+198.207000
+</td>
+<td style="text-align:right;">
+290.94800
+</td>
+<td style="text-align:left;">
+427
 </td>
 <td style="text-align:right;">
 1
@@ -3145,570 +3278,19 @@ iNEXT
 114
 </td>
 <td style="text-align:right;">
-178.86955
+249.12661
 </td>
 <td style="text-align:right;">
-23.459225
+39.933382
 </td>
 <td style="text-align:right;">
-132.890309
+170.858616
 </td>
 <td style="text-align:right;">
-224.84878
-</td>
-<td style="text-align:left;">
-643
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
+327.39460
 </td>
 <td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-188.91401
-</td>
-<td style="text-align:right;">
-20.822637
-</td>
-<td style="text-align:right;">
-148.102396
-</td>
-<td style="text-align:right;">
-229.72563
-</td>
-<td style="text-align:left;">
-640
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-188.62400
-</td>
-<td style="text-align:right;">
-17.139000
-</td>
-<td style="text-align:right;">
-161.850000
-</td>
-<td style="text-align:right;">
-230.37900
-</td>
-<td style="text-align:left;">
-487
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-187.78641
-</td>
-<td style="text-align:right;">
-25.343983
-</td>
-<td style="text-align:right;">
-138.113112
-</td>
-<td style="text-align:right;">
-237.45970
-</td>
-<td style="text-align:left;">
-549
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-190.75800
-</td>
-<td style="text-align:right;">
-19.053000
-</td>
-<td style="text-align:right;">
-161.532000
-</td>
-<td style="text-align:right;">
-237.95500
-</td>
-<td style="text-align:left;">
-643
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-193.86232
-</td>
-<td style="text-align:right;">
-23.915989
-</td>
-<td style="text-align:right;">
-146.987845
-</td>
-<td style="text-align:right;">
-240.73680
-</td>
-<td style="text-align:left;">
-468
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-186.11546
-</td>
-<td style="text-align:right;">
-29.121147
-</td>
-<td style="text-align:right;">
-129.039057
-</td>
-<td style="text-align:right;">
-243.19186
-</td>
-<td style="text-align:left;">
-537
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-196.69344
-</td>
-<td style="text-align:right;">
-24.457159
-</td>
-<td style="text-align:right;">
-148.758288
-</td>
-<td style="text-align:right;">
-244.62859
-</td>
-<td style="text-align:left;">
-442
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-199.11500
-</td>
-<td style="text-align:right;">
-20.424000
-</td>
-<td style="text-align:right;">
-167.532000
-</td>
-<td style="text-align:right;">
-249.33300
-</td>
-<td style="text-align:left;">
-537
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-205.57500
-</td>
-<td style="text-align:right;">
-19.181000
-</td>
-<td style="text-align:right;">
-175.010000
-</td>
-<td style="text-align:right;">
-251.45400
-</td>
-<td style="text-align:left;">
-549
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-202.85600
-</td>
-<td style="text-align:right;">
-21.714000
-</td>
-<td style="text-align:right;">
-169.422000
-</td>
-<td style="text-align:right;">
-256.45900
-</td>
-<td style="text-align:left;">
-442
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-204.65000
-</td>
-<td style="text-align:right;">
-21.625000
-</td>
-<td style="text-align:right;">
-171.162000
-</td>
-<td style="text-align:right;">
-257.75600
-</td>
-<td style="text-align:left;">
-640
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Vietnam
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-204.23700
-</td>
-<td style="text-align:right;">
-24.744000
-</td>
-<td style="text-align:right;">
-167.234000
-</td>
-<td style="text-align:right;">
-266.96100
-</td>
-<td style="text-align:left;">
-468
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-313.16328
-</td>
-<td style="text-align:right;">
-25.061705
-</td>
-<td style="text-align:right;">
-264.043237
-</td>
-<td style="text-align:right;">
-362.28332
-</td>
-<td style="text-align:left;">
-888
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-333.18600
-</td>
-<td style="text-align:right;">
-14.379000
-</td>
-<td style="text-align:right;">
-308.531000
-</td>
-<td style="text-align:right;">
-365.29700
-</td>
-<td style="text-align:left;">
-888
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-320.89257
-</td>
-<td style="text-align:right;">
-22.663955
-</td>
-<td style="text-align:right;">
-276.472037
-</td>
-<td style="text-align:right;">
-365.31311
-</td>
-<td style="text-align:left;">
-875
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-320.91149
-</td>
-<td style="text-align:right;">
-23.510925
-</td>
-<td style="text-align:right;">
-274.830925
-</td>
-<td style="text-align:right;">
-366.99206
-</td>
-<td style="text-align:left;">
-946
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-324.98214
-</td>
-<td style="text-align:right;">
-22.282161
-</td>
-<td style="text-align:right;">
-281.309912
-</td>
-<td style="text-align:right;">
-368.65438
-</td>
-<td style="text-align:left;">
-848
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-322.91332
-</td>
-<td style="text-align:right;">
-23.398235
-</td>
-<td style="text-align:right;">
-277.053623
-</td>
-<td style="text-align:right;">
-368.77302
-</td>
-<td style="text-align:left;">
-991
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-326.88345
-</td>
-<td style="text-align:right;">
-22.738714
-</td>
-<td style="text-align:right;">
-282.316388
-</td>
-<td style="text-align:right;">
-371.45051
-</td>
-<td style="text-align:left;">
-789
+545
 </td>
 <td style="text-align:right;">
 1
@@ -3725,280 +3307,19 @@ iNEXT
 235
 </td>
 <td style="text-align:right;">
-329.10019
+326.95549
 </td>
 <td style="text-align:right;">
-22.843495
+23.436565
 </td>
 <td style="text-align:right;">
-284.327762
+281.020662
 </td>
 <td style="text-align:right;">
-373.87262
+372.89031
 </td>
 <td style="text-align:left;">
-1097
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-339.63400
-</td>
-<td style="text-align:right;">
-16.516000
-</td>
-<td style="text-align:right;">
-311.628000
-</td>
-<td style="text-align:right;">
-376.90800
-</td>
-<td style="text-align:left;">
-875
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-340.04500
-</td>
-<td style="text-align:right;">
-16.610000
-</td>
-<td style="text-align:right;">
-311.889000
-</td>
-<td style="text-align:right;">
-377.53900
-</td>
-<td style="text-align:left;">
-946
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-329.28571
-</td>
-<td style="text-align:right;">
-25.176376
-</td>
-<td style="text-align:right;">
-279.940925
-</td>
-<td style="text-align:right;">
-378.63050
-</td>
-<td style="text-align:left;">
-896
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-344.35800
-</td>
-<td style="text-align:right;">
-16.234000
-</td>
-<td style="text-align:right;">
-316.603000
-</td>
-<td style="text-align:right;">
-380.71000
-</td>
-<td style="text-align:left;">
-991
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-346.96200
-</td>
-<td style="text-align:right;">
-16.559000
-</td>
-<td style="text-align:right;">
-318.644000
-</td>
-<td style="text-align:right;">
-384.03000
-</td>
-<td style="text-align:left;">
-848
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-339.25597
-</td>
-<td style="text-align:right;">
-22.972102
-</td>
-<td style="text-align:right;">
-294.231474
-</td>
-<td style="text-align:right;">
-384.28046
-</td>
-<td style="text-align:left;">
-837
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-350.92800
-</td>
-<td style="text-align:right;">
-15.804000
-</td>
-<td style="text-align:right;">
-323.618000
-</td>
-<td style="text-align:right;">
-385.95800
-</td>
-<td style="text-align:left;">
-789
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-351.34000
-</td>
-<td style="text-align:right;">
-16.547000
-</td>
-<td style="text-align:right;">
-323.160000
-</td>
-<td style="text-align:right;">
-388.52800
-</td>
-<td style="text-align:left;">
-1097
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Zambia
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-351.76800
-</td>
-<td style="text-align:right;">
-17.700000
-</td>
-<td style="text-align:right;">
-321.613000
-</td>
-<td style="text-align:right;">
-391.53500
-</td>
-<td style="text-align:left;">
-896
+1068
 </td>
 <td style="text-align:right;">
 1
@@ -4015,19 +3336,19 @@ iNEXT
 235
 </td>
 <td style="text-align:right;">
-338.99729
+329.21743
 </td>
 <td style="text-align:right;">
-26.807594
+26.696622
 </td>
 <td style="text-align:right;">
-286.455375
+276.893017
 </td>
 <td style="text-align:right;">
-391.53921
+381.54185
 </td>
 <td style="text-align:left;">
-1101
+1176
 </td>
 <td style="text-align:right;">
 1
@@ -4044,19 +3365,164 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-364.95200
+349.78700
 </td>
 <td style="text-align:right;">
-15.484000
+14.602000
 </td>
 <td style="text-align:right;">
-337.971000
+324.547000
 </td>
 <td style="text-align:right;">
-399.00300
+382.14200
 </td>
 <td style="text-align:left;">
-1101
+1068
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:right;">
+330.12340
+</td>
+<td style="text-align:right;">
+27.665454
+</td>
+<td style="text-align:right;">
+275.900111
+</td>
+<td style="text-align:right;">
+384.34670
+</td>
+<td style="text-align:left;">
+1074
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+268.71000
+</td>
+<td style="text-align:right;">
+45.137000
+</td>
+<td style="text-align:right;">
+202.355000
+</td>
+<td style="text-align:right;">
+384.89700
+</td>
+<td style="text-align:left;">
+545
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+352.78000
+</td>
+<td style="text-align:right;">
+15.267000
+</td>
+<td style="text-align:right;">
+326.452000
+</td>
+<td style="text-align:right;">
+386.68700
+</td>
+<td style="text-align:left;">
+1176
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:right;">
+336.95190
+</td>
+<td style="text-align:right;">
+27.775710
+</td>
+<td style="text-align:right;">
+282.512505
+</td>
+<td style="text-align:right;">
+391.39129
+</td>
+<td style="text-align:left;">
+1009
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:right;">
+342.46287
+</td>
+<td style="text-align:right;">
+26.656080
+</td>
+<td style="text-align:right;">
+290.217913
+</td>
+<td style="text-align:right;">
+394.70783
+</td>
+<td style="text-align:left;">
+843
 </td>
 <td style="text-align:right;">
 1
@@ -4073,19 +3539,77 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-361.11400
+351.86000
 </td>
 <td style="text-align:right;">
-20.731000
+19.070000
 </td>
 <td style="text-align:right;">
-326.237000
+319.719000
 </td>
 <td style="text-align:right;">
-408.25000
+395.14300
 </td>
 <td style="text-align:left;">
-837
+1074
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:right;">
+344.48340
+</td>
+<td style="text-align:right;">
+29.821178
+</td>
+<td style="text-align:right;">
+286.034962
+</td>
+<td style="text-align:right;">
+402.93183
+</td>
+<td style="text-align:left;">
+911
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+360.82200
+</td>
+<td style="text-align:right;">
+19.771000
+</td>
+<td style="text-align:right;">
+327.334000
+</td>
+<td style="text-align:right;">
+405.48600
+</td>
+<td style="text-align:left;">
+1009
 </td>
 <td style="text-align:right;">
 1
@@ -4102,16 +3626,190 @@ iNEXT
 235
 </td>
 <td style="text-align:right;">
-368.61930
+356.15430
 </td>
 <td style="text-align:right;">
-26.656869
+27.565490
 </td>
 <td style="text-align:right;">
-316.372797
+302.126936
 </td>
 <td style="text-align:right;">
-420.86581
+410.18167
+</td>
+<td style="text-align:left;">
+1114
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+355.43977
+</td>
+<td style="text-align:right;">
+28.324638
+</td>
+<td style="text-align:right;">
+299.924502
+</td>
+<td style="text-align:right;">
+410.95504
+</td>
+<td style="text-align:left;">
+1030
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+368.33800
+</td>
+<td style="text-align:right;">
+19.781000
+</td>
+<td style="text-align:right;">
+334.574000
+</td>
+<td style="text-align:right;">
+412.69900
+</td>
+<td style="text-align:left;">
+843
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:right;">
+358.09338
+</td>
+<td style="text-align:right;">
+29.143751
+</td>
+<td style="text-align:right;">
+300.972675
+</td>
+<td style="text-align:right;">
+415.21408
+</td>
+<td style="text-align:left;">
+838
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:right;">
+357.51068
+</td>
+<td style="text-align:right;">
+30.616014
+</td>
+<td style="text-align:right;">
+297.504393
+</td>
+<td style="text-align:right;">
+417.51696
+</td>
+<td style="text-align:left;">
+930
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+370.57400
+</td>
+<td style="text-align:right;">
+21.058000
+</td>
+<td style="text-align:right;">
+334.869000
+</td>
+<td style="text-align:right;">
+418.09800
+</td>
+<td style="text-align:left;">
+911
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+227
+</td>
+<td style="text-align:right;">
+351.86674
+</td>
+<td style="text-align:right;">
+33.800729
+</td>
+<td style="text-align:right;">
+285.618527
+</td>
+<td style="text-align:right;">
+418.11495
 </td>
 <td style="text-align:left;">
 938
@@ -4122,57 +3820,28 @@ iNEXT
 </tr>
 <tr>
 <td style="text-align:left;">
-Uganda
+Zambia
 </td>
 <td style="text-align:left;">
 iNEXT
 </td>
 <td style="text-align:right;">
-235
+227
 </td>
 <td style="text-align:right;">
-363.84466
+359.47127
 </td>
 <td style="text-align:right;">
-32.199756
+30.982551
 </td>
 <td style="text-align:right;">
-300.734297
+298.746588
 </td>
 <td style="text-align:right;">
-426.95502
+420.19596
 </td>
 <td style="text-align:left;">
-1113
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-235
-</td>
-<td style="text-align:right;">
-370.89746
-</td>
-<td style="text-align:right;">
-29.746222
-</td>
-<td style="text-align:right;">
-312.595935
-</td>
-<td style="text-align:right;">
-429.19898
-</td>
-<td style="text-align:left;">
-1179
+939
 </td>
 <td style="text-align:right;">
 1
@@ -4189,19 +3858,19 @@ iNEXT
 227
 </td>
 <td style="text-align:right;">
-371.69757
+362.03691
 </td>
 <td style="text-align:right;">
-29.856021
+30.296986
 </td>
 <td style="text-align:right;">
-313.180845
+302.655911
 </td>
 <td style="text-align:right;">
-430.21430
+421.41791
 </td>
 <td style="text-align:left;">
-752
+829
 </td>
 <td style="text-align:right;">
 1
@@ -4209,36 +3878,7 @@ iNEXT
 </tr>
 <tr>
 <td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-235
-</td>
-<td style="text-align:right;">
-385.12498
-</td>
-<td style="text-align:right;">
-30.527359
-</td>
-<td style="text-align:right;">
-325.292459
-</td>
-<td style="text-align:right;">
-444.95751
-</td>
-<td style="text-align:left;">
-1146
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
+Zambia
 </td>
 <td style="text-align:left;">
 iChao
@@ -4247,45 +3887,16 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-388.63500
+374.35800
 </td>
 <td style="text-align:right;">
-24.798000
+23.654000
 </td>
 <td style="text-align:right;">
-347.198000
+334.796000
 </td>
 <td style="text-align:right;">
-445.37700
-</td>
-<td style="text-align:left;">
-1113
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-396.90900
-</td>
-<td style="text-align:right;">
-23.951000
-</td>
-<td style="text-align:right;">
-356.349000
-</td>
-<td style="text-align:right;">
-451.02600
+428.43900
 </td>
 <td style="text-align:left;">
 938
@@ -4305,19 +3916,77 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-397.83900
+385.23500
 </td>
 <td style="text-align:right;">
-25.575000
+19.864000
 </td>
 <td style="text-align:right;">
-354.919000
+351.069000
 </td>
 <td style="text-align:right;">
-456.12100
+429.45900
 </td>
 <td style="text-align:left;">
-1179
+1030
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+366.46157
+</td>
+<td style="text-align:right;">
+32.172097
+</td>
+<td style="text-align:right;">
+303.405420
+</td>
+<td style="text-align:right;">
+429.51772
+</td>
+<td style="text-align:left;">
+1121
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+381.99400
+</td>
+<td style="text-align:right;">
+22.736000
+</td>
+<td style="text-align:right;">
+343.748000
+</td>
+<td style="text-align:right;">
+433.69100
+</td>
+<td style="text-align:left;">
+1114
 </td>
 <td style="text-align:right;">
 1
@@ -4334,19 +4003,309 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-397.75200
+379.09300
 </td>
 <td style="text-align:right;">
-26.418000
+24.213000
 </td>
 <td style="text-align:right;">
-353.313000
+338.545000
 </td>
 <td style="text-align:right;">
-457.82600
+434.38200
 </td>
 <td style="text-align:left;">
-752
+838
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+380.98900
+</td>
+<td style="text-align:right;">
+23.564000
+</td>
+<td style="text-align:right;">
+341.284000
+</td>
+<td style="text-align:right;">
+434.48700
+</td>
+<td style="text-align:left;">
+930
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+366.11702
+</td>
+<td style="text-align:right;">
+35.715242
+</td>
+<td style="text-align:right;">
+296.116432
+</td>
+<td style="text-align:right;">
+436.11761
+</td>
+<td style="text-align:left;">
+987
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+378.90950
+</td>
+<td style="text-align:right;">
+30.783729
+</td>
+<td style="text-align:right;">
+318.574499
+</td>
+<td style="text-align:right;">
+439.24450
+</td>
+<td style="text-align:left;">
+1016
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+385.85900
+</td>
+<td style="text-align:right;">
+24.427000
+</td>
+<td style="text-align:right;">
+344.731000
+</td>
+<td style="text-align:right;">
+441.35400
+</td>
+<td style="text-align:left;">
+939
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+386.90100
+</td>
+<td style="text-align:right;">
+25.119000
+</td>
+<td style="text-align:right;">
+344.746000
+</td>
+<td style="text-align:right;">
+444.14800
+</td>
+<td style="text-align:left;">
+829
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+393.00300
+</td>
+<td style="text-align:right;">
+23.678000
+</td>
+<td style="text-align:right;">
+352.981000
+</td>
+<td style="text-align:right;">
+446.60100
+</td>
+<td style="text-align:left;">
+987
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+387.17263
+</td>
+<td style="text-align:right;">
+31.556289
+</td>
+<td style="text-align:right;">
+325.323440
+</td>
+<td style="text-align:right;">
+449.02182
+</td>
+<td style="text-align:left;">
+1030
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+390.91394
+</td>
+<td style="text-align:right;">
+29.752883
+</td>
+<td style="text-align:right;">
+332.599364
+</td>
+<td style="text-align:right;">
+449.22852
+</td>
+<td style="text-align:left;">
+1102
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iChao
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+395.52400
+</td>
+<td style="text-align:right;">
+24.351000
+</td>
+<td style="text-align:right;">
+354.439000
+</td>
+<td style="text-align:right;">
+450.74100
+</td>
+<td style="text-align:left;">
+1121
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+iNEXT
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+388.32554
+</td>
+<td style="text-align:right;">
+33.048609
+</td>
+<td style="text-align:right;">
+323.551460
+</td>
+<td style="text-align:right;">
+453.09963
+</td>
+<td style="text-align:left;">
+1036
 </td>
 <td style="text-align:right;">
 1
@@ -4363,48 +4322,19 @@ iNEXT
 227
 </td>
 <td style="text-align:right;">
-392.04774
+384.45085
 </td>
 <td style="text-align:right;">
-34.529010
+36.578755
 </td>
 <td style="text-align:right;">
-324.372125
+312.757808
 </td>
 <td style="text-align:right;">
-459.72335
+456.14389
 </td>
 <td style="text-align:left;">
-881
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-235
-</td>
-<td style="text-align:right;">
-396.83960
-</td>
-<td style="text-align:right;">
-33.621842
-</td>
-<td style="text-align:right;">
-330.942006
-</td>
-<td style="text-align:right;">
-462.73720
-</td>
-<td style="text-align:left;">
-1010
+923
 </td>
 <td style="text-align:right;">
 1
@@ -4421,48 +4351,19 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-412.33200
+406.13000
 </td>
 <td style="text-align:right;">
-27.956000
+27.186000
 </td>
 <td style="text-align:right;">
-365.443000
+360.588000
 </td>
 <td style="text-align:right;">
-476.07500
+468.18800
 </td>
 <td style="text-align:left;">
-1146
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-235
-</td>
-<td style="text-align:right;">
-404.38762
-</td>
-<td style="text-align:right;">
-39.128240
-</td>
-<td style="text-align:right;">
-327.697680
-</td>
-<td style="text-align:right;">
-481.07756
-</td>
-<td style="text-align:left;">
-1036
+1016
 </td>
 <td style="text-align:right;">
 1
@@ -4479,19 +4380,19 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-416.90200
+409.65600
 </td>
 <td style="text-align:right;">
-33.509000
+30.663000
 </td>
 <td style="text-align:right;">
-361.736000
+358.744000
 </td>
 <td style="text-align:right;">
-494.65600
+480.24200
 </td>
 <td style="text-align:left;">
-881
+923
 </td>
 <td style="text-align:right;">
 1
@@ -4508,48 +4409,19 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-422.00200
+424.97400
 </td>
 <td style="text-align:right;">
-32.524000
+26.056000
 </td>
 <td style="text-align:right;">
-368.323000
+380.374000
 </td>
 <td style="text-align:right;">
-497.29400
+483.25500
 </td>
 <td style="text-align:left;">
-1010
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-235
-</td>
-<td style="text-align:right;">
-427.36223
-</td>
-<td style="text-align:right;">
-42.028301
-</td>
-<td style="text-align:right;">
-344.988270
-</td>
-<td style="text-align:right;">
-509.73618
-</td>
-<td style="text-align:left;">
-1255
+1030
 </td>
 <td style="text-align:right;">
 1
@@ -4566,16 +4438,16 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-441.38800
+426.49300
 </td>
 <td style="text-align:right;">
-31.271000
+25.578000
 </td>
 <td style="text-align:right;">
-388.619000
+382.556000
 </td>
 <td style="text-align:right;">
-512.28200
+483.51300
 </td>
 <td style="text-align:left;">
 1036
@@ -4595,77 +4467,19 @@ iChao
 NA
 </td>
 <td style="text-align:right;">
-464.35200
+429.83400
 </td>
 <td style="text-align:right;">
-39.795000
+26.591000
 </td>
 <td style="text-align:right;">
-398.646000
+384.289000
 </td>
 <td style="text-align:right;">
-556.44000
+489.27400
 </td>
 <td style="text-align:left;">
-1255
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iNEXT
-</td>
-<td style="text-align:right;">
-235
-</td>
-<td style="text-align:right;">
-524.96190
-</td>
-<td style="text-align:right;">
-56.241033
-</td>
-<td style="text-align:right;">
-414.731501
-</td>
-<td style="text-align:right;">
-635.19230
-</td>
-<td style="text-align:left;">
-1196
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Uganda
-</td>
-<td style="text-align:left;">
-iChao
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-556.33300
-</td>
-<td style="text-align:right;">
-71.962000
-</td>
-<td style="text-align:right;">
-443.284000
-</td>
-<td style="text-align:right;">
-730.74000
-</td>
-<td style="text-align:left;">
-1196
+1102
 </td>
 <td style="text-align:right;">
 1
@@ -4681,10 +4495,10 @@ NA
 <p>Of course, these values are super helpful for papers on these topics.
 But similarly, we can easily make some further useful
 visualisations!</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To build the manual legend, make a small fake dataset</span></span>
 <span><span class="va">legendData</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yes"</span>,<span class="st">"yes"</span><span class="op">)</span>,</span>
-<span>                                              statistic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"iChao"</span>, <span class="st">"iNEXT"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>                                              statistic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"iChao"</span>, <span class="st">"iNEXT"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>                                                <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"iChao"</span>, <span class="st">"iNEXT"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                                              est <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Build a legend manually</span></span>
@@ -4711,8 +4525,8 @@ visualisations!</p>
 <span>   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html" class="external-link">geom_violin</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"dodge"</span>, alpha<span class="op">=</span><span class="fl">1</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">Name</span>, y<span class="op">=</span><span class="va">Estimate</span>, </span>
 <span>                                                                x<span class="op">=</span><span class="va">variable</span><span class="op">)</span>, colour <span class="op">=</span>  <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#55AD9B"</span>, <span class="st">"#FD9B63"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">estimates</span><span class="op">$</span><span class="va">SiteOutput</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>                          <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">Observed</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">estimates</span><span class="op">$</span><span class="va">SiteOutput</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>                          <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">Observed</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>                          <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="op">)</span>, </span>
 <span>                        <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">variable</span>, y <span class="op">=</span> <span class="va">Observed</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"grey40"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -4723,11 +4537,11 @@ visualisations!</p>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span>, </span>
 <span>                 axis.text.x <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">60</span>, vjust <span class="op">=</span> <span class="fl">1</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">ggdraw</a></span><span class="op">(</span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/get_legend.html" class="external-link">get_legend</a></span><span class="op">(</span><span class="va">violinLegend</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">ggdraw</a></span><span class="op">(</span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/get_legend.html" class="external-link">get_legend</a></span><span class="op">(</span><span class="va">violinLegend</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>                               <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="op">)</span>, xmin <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>                               ymin <span class="op">=</span> <span class="fl">350</span>, ymax <span class="op">=</span> <span class="fl">500</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Species_richness_estimation_files/figure-html/visualiseEstimates-1.png" width="100%"></p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<p><img src="Species_richness_estimation_files/figure-html/visualiseEstimates-1.png" class="r-plt" alt="" width="100%"></p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co">## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time</span></span>
 <span></span>
 <span><span class="co"># Save the plot</span></span>
@@ -4761,7 +4575,7 @@ Nature Communications. <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" cla
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

@@ -36,17 +36,17 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-occurrence-cleaning" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Occurrence data cleaning vignettes"><span class="fa fas fa-broom"></span> Occurrence cleaning</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-occurrence-cleaning">
-<li><a class="dropdown-item" href="articles/BeeBDC_main.html">BeeBDC full cleaning workflow</a></li>
+<li><a class="dropdown-item" href="articles/BeeBDC_main.html">BeeBDC full cleaning workflow (0.0–9.0)</a></li>
     <li><a class="dropdown-item" href="articles/basic_workflow.html">BeeBDC basic workflow</a></li>
-    <li><a class="dropdown-item" href="articles/dataPrep.html">Bee-specific data preparation</a></li>
+    <li><a class="dropdown-item" href="articles/BeeBDC_data_preparation.html">Bee-specific data preparation</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-species-richness-estimation" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Species richness estimation vignettes"><span class="fa fas fa-arrow-up-right-dots"></span> Species richness estimation</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-species-richness-estimation">
-<li><a class="dropdown-item" href="articles/speciesRichness_example.html">BeeBDC richness estimation</a></li>
-    <li><a class="dropdown-item" href="articles/speciesRichness_example.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
-    <li><a class="dropdown-item" href="articles/speciesRichness_example.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
+<li><a class="dropdown-item" href="articles/Species_richness_estimation.html">BeeBDC richness estimation</a></li>
+    <li><a class="dropdown-item" href="articles/Species_richness_estimation.html#Parallel-estimations">  1.0 Parallel estimation</a></li>
+    <li><a class="dropdown-item" href="articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns">  2.0 Estimation with checklists</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="https://jbdorey.github.io/BeeBDC/news/index.html"><span class="fa fas fa-newspaper"></span> News</a></li>
@@ -105,16 +105,25 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># Or using the development version from GitHub (keeping in mind this may not be as stable)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, user<span class="op">=</span><span class="st">"jbdorey"</span>, </span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, </span>
 <span>                          <span class="co"># To use the development version use "devel"; otherwise choose "main"</span></span>
 <span>                        ref <span class="op">=</span> <span class="st">"devel"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Two optional packages can also be downloaded prior to starting your workflow, if desired. But, these are not essential. The packages BiocManager and devtools may also be required to download the two extra packages.</p>
+<p>BeeBDC, like many other spatial packages, also relies on the <strong>sf</strong> package in R. <strong>Please follow the <a href="https://r-spatial.github.io/sf/" class="external-link">download instructions here</a> if you have trouble with installation of sf.</strong></p>
+<p><strong>Windows</strong></p>
+<p>Installing sf from source works under Windows when <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is installed.</p>
+<p><strong>MacOS</strong></p>
+<p>MacOS users are strongly encouraged to install the sf binary packages from CRAN, unless they are familiar with compilers, linking, C++ source code, and homebrew.</p>
+<p>The easiest way to install <strong>gdal</strong> is using <strong>Homebrew</strong>. Recent versions of Homebrew include a full-featured up-to-date <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/g/gdal.rb" class="external-link">gdal formula</a>, which installs <code>proj</code> and <code>gdal</code> at the same time:</p>
+<pre><code>brew install pkg-config
+brew install gdal</code></pre>
+<p><strong>Optional extras</strong></p>
+<p>There are some optional packages can also be downloaded prior to starting your workflow, if desired. But, these are not essential. The packages BiocManager and devtools may also be required to download the two extra packages.</p>
 <ol style="list-style-type: decimal">
 <li>The first package, <strong>rnaturalearthhires</strong>, is a data package that allows the usage of higher-resolution country maps and is very useful for multiple <strong>BeeBDC</strong> functions.</li>
 <li>The second package, <strong>ComplexHeatmap</strong>, is only used for one <strong>BeeBDC</strong> function (<code><a href="reference/chordDiagramR.html">chordDiagramR()</a></code>) and is less critical.</li>
 </ol>
 <p>When either of these packages are called, the user will be prompted to install them. However, the latter may try to restart your R session.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># These two packages may need to be installed in order to install the actual required packages </span></span>
 <span>    <span class="co"># below.</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
@@ -138,7 +147,7 @@
 <p><code>brew install pkg-config</code></p>
 <p><code>brew install gdal</code></p>
 <p>Followed by (note the additional configuration argument needed for Homebrew)</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Install terra</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"terra"</span>, type <span class="op">=</span> <span class="st">"source"</span>, configure.args <span class="op">=</span> <span class="st">"--with-proj-lib=$(brew --prefix)/lib/"</span><span class="op">)</span></span>
 <span>  <span class="co"># install sf</span></span>
@@ -148,7 +157,7 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span></code></pre></div>
 </blockquote>
 <p>Load the package with:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jbdorey.github.io/BeeBDC/">BeeBDC</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -238,7 +247,7 @@
 <li>
 <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code> This function flags country-level outliers using the checklist provided with this package. For additional context and column names, see <code>beesChecklist</code>.</li>
 <li>
-<code>continentOutlieRs()</code> This function flags continent-level outliers using the checklist provided with this package. This function works much the same as <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code>, but at a lower resolution. For additional context and column names, see <code>beesChecklist</code>.</li>
+<code><a href="reference/continentOutlieRs.html">continentOutlieRs()</a></code> This function flags continent-level outliers using the checklist provided with this package. This function works much the same as <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code>, but at a lower resolution. For additional context and column names, see <code>beesChecklist</code>.</li>
 <li>
 <code><a href="reference/jbd_create_figures.html">jbd_create_figures()</a></code> Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and BeeBDC packages. Works like <code><a href="https://brunobrr.github.io/bdc/reference/bdc_create_figures.html" class="external-link">bdc::bdc_create_figures()</a></code>, but it allows the user to specify a save path.</li>
 </ul>
@@ -332,7 +341,7 @@
 <code><a href="reference/beesCountrySubset.html">BeeBDC::beesCountrySubset</a></code> A very small bee occurrence dataset with the columns “scientificName” and “country_suggested” and data for four countries, Fiji, Uganda, Vietnam, and Zambia. This is the test dataset for the species richness functions.</li>
 <li>There are also two small test datasets of the beesTaxonomy and beesChecklist in the system files of the package that are filtered to include <em>only</em> those species that occur in bees3sp, beesRaw, and beesFlagged. These are accessible as follows but are only used internally for tests.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Access the test taxonomy file</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"testTaxonomy.rda"</span>, package<span class="op">=</span><span class="st">"BeeBDC"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="co"># View the file</span></span>
@@ -360,17 +369,15 @@
 </blockquote>
 </div>
 <div class="section level4">
-<h4 id="citation">
-<strong>Citation</strong><a class="anchor" aria-label="anchor" href="#citation"></a>
+<h4 id="citations">
+<strong>Citations</strong><a class="anchor" aria-label="anchor" href="#citations"></a>
 </h4>
 <ul>
 <li>
 <strong>Paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a>
-<ul>
+</li>
 <li>
 <strong>Figshare live data link:</strong> <a href="https://doi.org/10.25451/flinders.21709757" class="external-link uri">https://doi.org/10.25451/flinders.21709757</a>
-</li>
-</ul>
 </li>
 <li>
 <strong>Species richness estimation citation:</strong> Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications. <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link uri">https://doi.org/10.21203/rs.3.rs-6372769/v1</a>

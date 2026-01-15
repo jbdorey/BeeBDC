@@ -34,6 +34,8 @@
   : Download a nearly complete taxonomy of bees globally
 - [`chordDiagramR()`](https://jbdorey.github.io/BeeBDC/reference/chordDiagramR.md)
   : Build a chord diagram of duplicate occurrence links
+- [`continentOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.md)
+  : Flag continent-level outliers with a provided checklist.
 - [`coordUncerFlagR()`](https://jbdorey.github.io/BeeBDC/reference/coordUncerFlagR.md)
   : Flag occurrences with an uncertainty threshold
 - [`countryHarmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/countryHarmoniseR.md)
@@ -138,3 +140,7 @@
   : Create country-level summary maps of species and occurrence numbers
 - [`taxadbToBeeBDC()`](https://jbdorey.github.io/BeeBDC/reference/taxadbToBeeBDC.md)
   : Import and convert taxadb taxonomies to BeeBDC format
+- [`testChecklist`](https://jbdorey.github.io/BeeBDC/reference/testChecklist.md)
+  : An example of the beesChecklist file
+- [`testTaxonomy`](https://jbdorey.github.io/BeeBDC/reference/testTaxonomy.md)
+  : An example of the beesTaxonomy file

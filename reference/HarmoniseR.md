@@ -117,10 +117,10 @@ speciesColumn = "scientificName")
 #>  - Attempting to harmonise the occurrence data with ambiguous names...
 #>  - Formatting merged datasets...
 #> Removing the names_clean column...
-#>  - We matched valid names to 96 of 100 occurrence records. This leaves a total of 4 unmatched occurrence records.
+#>  - We matched valid names to 91 of 100 occurrence records. This leaves a total of 9 unmatched occurrence records.
 #> 
 #> harmoniseR:
-#> 4
+#> 9
 #> records were flagged.
 #> The column, '.invalidName' was added to the database.
 #> 
@@ -129,5 +129,5 @@ speciesColumn = "scientificName")
 table(beesRaw_out$.invalidName, useNA = "always")
 #> 
 #> FALSE  TRUE  <NA> 
-#>     4    96     0 
+#>     9    91     0 
 ```

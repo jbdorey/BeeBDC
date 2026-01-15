@@ -53,15 +53,41 @@ You can install *BeeBDC* from CRAN or GitHub.
 install.packages("BeeBDC")
 
   # Or using the development version from GitHub (keeping in mind this may not be as stable)
-remotes::install_github("https://github.com/jbdorey/BeeBDC.git", user="jbdorey", 
+remotes::install_github("https://github.com/jbdorey/BeeBDC.git", 
                           # To use the development version use "devel"; otherwise choose "main"
                         ref = "devel", force = TRUE)
 ```
 
-Two optional packages can also be downloaded prior to starting your
-workflow, if desired. But, these are not essential. The packages
-BiocManager and devtools may also be required to download the two extra
-packages.
+BeeBDC, like many other spatial packages, also relies on the **sf**
+package in R. **Please follow the [download instructions
+here](https://r-spatial.github.io/sf/) if you have trouble with
+installation of sf.**
+
+**Windows**
+
+Installing sf from source works under Windows when
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed.
+
+**MacOS**
+
+MacOS users are strongly encouraged to install the sf binary packages
+from CRAN, unless they are familiar with compilers, linking, C++ source
+code, and homebrew.
+
+The easiest way to install **gdal** is using **Homebrew**. Recent
+versions of Homebrew include a full-featured up-to-date [gdal
+formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/g/gdal.rb),
+which installs `proj` and `gdal` at the same time:
+
+    brew install pkg-config
+    brew install gdal
+
+**Optional extras**
+
+There are some optional packages can also be downloaded prior to
+starting your workflow, if desired. But, these are not essential. The
+packages BiocManager and devtools may also be required to download the
+two extra packages.
 
 1.  The first package, **rnaturalearthhires**, is a data package that
     allows the usage of higher-resolution country maps and is very
@@ -296,9 +322,9 @@ coordinates.
   This function flags country-level outliers using the checklist
   provided with this package. For additional context and column names,
   see `beesChecklist`.
-- `continentOutlieRs()` This function flags continent-level outliers
-  using the checklist provided with this package. This function works
-  much the same as
+- [`continentOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.md)
+  This function flags continent-level outliers using the checklist
+  provided with this package. This function works much the same as
   [`countryOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/countryOutlieRs.md),
   but at a lower resolution. For additional context and column names,
   see `beesChecklist`.
@@ -501,7 +527,7 @@ explanation on each module.
 > [**here**](https://github.com/jbdorey/BeeBDC/issues). For questions or
 > suggestion, flick us an email (<jdorey@uow.edu.au>).
 
-#### **Citation**
+#### **Citations**
 
 - **Paper, dataset, and package citation:** Dorey, J.B., Fischer, E.E.,
   Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S.,
@@ -513,8 +539,8 @@ explanation on each module.
   A globally synthesised and flagged bee occurrence dataset and cleaning
   workflow. Scientific Data, 10, 1–17.
   <https://www.doi.org/10.1038/S41597-023-02626-W>
-  - **Figshare live data link:**
-    <https://doi.org/10.25451/flinders.21709757>
+- **Figshare live data link:**
+  <https://doi.org/10.25451/flinders.21709757>
 - **Species richness estimation citation:** Dorey J. B., Gilpin, A.-M.,
   Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C.
   (Under review). How many bee species are there? A quantitative global
