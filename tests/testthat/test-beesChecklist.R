@@ -1,4 +1,4 @@
-
+library(httr2)
 
 # load in the test dataset
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
@@ -26,6 +26,13 @@ options(timeout=400,
                                "curl -H 'Authorization: token ", httr2::obfuscated(client$secret),
                                "'  https://api.figshare.com/v2 client_id ", client$id
                                ))
+# Create request
+httr2::request(base_url = client$token_url) %>% 
+  httr2::req_headers(BeeBDC_header = paste0("curl -H 'Authorization: token ", httr2::obfuscated(client$secret),
+                                            "'  https://api.figshare.com/v2"),
+                     client_id = client$id,
+                     client_secret = httr2::obfuscated(client$secret),
+                     name = client$name)
 
 
 # TEST the full data

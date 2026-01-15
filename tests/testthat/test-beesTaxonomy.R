@@ -1,4 +1,5 @@
-  # load in the test dataset
+library(httr2)  
+# load in the test dataset
 system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |>
   load()
 
@@ -31,6 +32,16 @@ options(timeout=400,
                                "curl -H 'Authorization: token ", httr2::obfuscated(client$secret),
                                "'  https://api.figshare.com/v2 client_id ", client$id
         ))
+  # Create request
+httr2::request(base_url = client$token_url) %>% 
+  httr2::req_headers(Host = "api.figshare.com",
+                     Authorization = httr2::obfuscated(client$secret),
+                     BeeBDC_header = paste0("curl -H 'Authorization: token ", httr2::obfuscated(client$secret),
+                               "'  https://api.figshare.com/v2"),
+                     client_id = client$id,
+                     client_secret = httr2::obfuscated(client$secret),
+                     name = client$name)
+
 
   # TEST the full data
 OS <- dplyr::if_else(.Platform$OS.type == "unix",

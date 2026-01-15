@@ -60,6 +60,7 @@ Suggests:
     htmltools,
     htmlwidgets,
     httr,
+    httr2,
     iNEXT,
     janitor,
     kableExtra,
