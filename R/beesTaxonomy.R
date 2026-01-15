@@ -86,6 +86,8 @@
 #' the most-recent version.
 #' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
 #' @param headers Character. Passed on to  `utils::download.file()`. Default = NULL.
+#' @param token Character. Optional personal access token from FigShare account for authorisation. 
+#' Default = NULL.
 #' @param alternateURL Logical. If TRUE then the function will use the an alernate version of the 
 #' download URL. Might be worth trying if it is failing. Default = FALSE.
 #' @param ... Extra variables that can be passed to `downloader::download()`.
@@ -117,6 +119,7 @@
 beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/60945820",
                          mode = NULL,
                          headers = NULL,
+                         token = NULL,
                          alternateURL = FALSE,
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
@@ -177,7 +180,6 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/609458
     # This is the purpose of the package, but I have taken their excellent function to avoid
     # Another dependency for BeeBDC. MY apologies and thanks to the authors.
   download <- function(URL, destfile = NULL, methodNum = NULL, headers = headers, ...) {
-    token <- "9a0bf31198e7a1d52c4480d357df9ac4709a9ed20bef40925f22d95a36208f5828f9b922f99479501c4ba73ff7583e6337ca30c44a0040221c614395650b145e"
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
       #### Windows ####

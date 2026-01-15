@@ -24,7 +24,8 @@ testthat::test_that("testChecklist expected class", {
 #testthat::test_that("DownloadTest_skipOnline",{
 #skip_on_cran()
 #  skip_on_ci()
-  
+Sys.getenv("BEEBDC_SECRET_GITHUB")
+Authorization <- Sys.getenv("BEEBDC_SECRET_GITHUB")
 userAgent <- paste0(sprintf("BeeBDC-tests/%s (R/%s.%s)",
                             as.character(utils::packageVersion("BeeBDC")),
                             R.version$major, R.version$minor),
@@ -48,7 +49,8 @@ if(OS == "Windows"){
 beesChecklist <- NULL
 # load in the full dataset
 beesChecklist <- BeeBDC::beesChecklist(mode = mode,
-                                       headers = NULL)
+                                       headers = NULL,
+                                       token = Authorization)
 
 if(!is.null(beesChecklist)){
 # Test the expected results

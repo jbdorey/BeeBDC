@@ -30,6 +30,8 @@ testthat::test_that("testTaxonomy expected class", {
   
 # Define download headers
 #headers <- c(Authorization = paste("token", "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448e3ca29260f6c416f581834094a898089d90f2229111845f01ef8b75f46"))
+Sys.getenv("BEEBDC_SECRET_GITHUB")
+Authorization <- Sys.getenv("BEEBDC_SECRET_GITHUB")
 ## Set some options for accessing the data
   userAgent <- paste0(sprintf("BeeBDC-tests/%s (R/%s.%s)",
                               as.character(utils::packageVersion("BeeBDC")),
@@ -39,7 +41,7 @@ testthat::test_that("testTaxonomy expected class", {
                       R.version$os,")") 
   
   options(timeout=400,
-          HTTPUserAgent =  userAgent)
+          HTTPUserAgent = userAgent)
 
 
   # TEST the full data
@@ -54,7 +56,8 @@ if(OS == "Windows"){
 taxonomyFile <- NULL
 # load in the full dataset
 taxonomyFile <- BeeBDC::beesTaxonomy(mode = mode,
-                                     headers = NULL)
+                                     headers = NULL,
+                                     token = Authorization)
 
 
 if(!is.null(taxonomyFile)){
