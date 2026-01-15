@@ -36,6 +36,9 @@ options(timeout=400,
         HTTPUserAgent =  userAgent)
 
 
+OS <- dplyr::if_else(.Platform$OS.type == "unix",
+                     "MacLinux",
+                     "Windows")
   # select mode — cna be varied by OS if needed
 if(OS == "Windows"){
   mode <- "wb"

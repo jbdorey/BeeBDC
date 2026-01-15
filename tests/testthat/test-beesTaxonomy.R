@@ -43,7 +43,9 @@ Authorization <- Sys.getenv("BEEBDC_SECRET_GITHUB")
   options(timeout=400,
           HTTPUserAgent = userAgent)
 
-
+  OS <- dplyr::if_else(.Platform$OS.type == "unix",
+                       "MacLinux",
+                       "Windows")
 if(OS == "Windows"){
   mode <- "wb"
 }else{
