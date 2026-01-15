@@ -44,8 +44,10 @@ httr2::request(base_url = client$token_url) %>%
 # Define download headers
 headers <- c("/v2/token HTTP/1.1",
              "api.figshare.com",
-             "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b") %>%
-  stats::setNames(c("GET", "Host", "Authorization"))
+             "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b",
+             "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b",
+             "425112ba97b7f583e0405535eb3a942f24910e73") %>%
+  stats::setNames(c("GET", "Host", "Authorization", "client_secret", "client_id"))
 
   # TEST the full data
 OS <- dplyr::if_else(.Platform$OS.type == "unix",
