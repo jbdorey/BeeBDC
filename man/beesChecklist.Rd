@@ -7,6 +7,7 @@
 beesChecklist(
   URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
   mode = NULL,
+  headers = NULL,
   ...
 )
 }
@@ -15,6 +16,8 @@ beesChecklist(
 the most-recent version.}
 
 \item{mode}{A character passed on to \code{utils::download.file()}. Default = "wb" for Windows or "w" for Mac/Linux.}
+
+\item{headers}{Character. Passed on to  \code{utils::download.file()}. Default = NULL.}
 
 \item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }

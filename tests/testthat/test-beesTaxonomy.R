@@ -41,6 +41,9 @@ httr2::request(base_url = client$token_url) %>%
                      client_id = client$id,
                      client_secret = httr2::obfuscated(client$secret),
                      name = client$name)
+  # Define download headers
+headers <- paste0("GET /v2/token HTTP/1.1 \n Host: ", "api.figshare.com",
+                  "\nAuthorization: token ", httr2::obfuscated(client$secret))
 
 
   # TEST the full data
@@ -54,7 +57,8 @@ if(OS == "Windows"){
 }
 taxonomyFile <- NULL
 # load in the full dataset
-taxonomyFile <- BeeBDC::beesTaxonomy(mode = mode)
+taxonomyFile <- BeeBDC::beesTaxonomy(mode = mode,
+                                     headers = headers)
 
 
 if(!is.null(taxonomyFile)){

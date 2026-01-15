@@ -22,6 +22,7 @@
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
 #' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
+#' @param headers Character. Passed on to  `utils::download.file()`. Default = NULL.
 #' @param ... Extra variables that can be passed to `downloader::download()`.
 #' 
 #' @return A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
@@ -95,6 +96,7 @@
 #'}
 beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
                           mode = NULL,
+                          headers = NULL,
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   downloadReturn <- NULL
@@ -143,7 +145,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   # Please note that this function is taken directly from the "downloader" package version 0.4.1
   # This is the purpose of the package, but I have taken their excellent function to avoid
   # Another dependency for BeeBDC. MY apologies and thanks to the authors.
-  download <- function(URL, destfile = NULL, methodNum = NULL, ...) {
+  download <- function(URL, destfile = NULL, methodNum = NULL, headers = headers, ...) {
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
       # Windows
@@ -181,6 +183,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                                                  method = method, 
                                                  destfile = destfile, 
                                                  mode = mode,
+                                                 headers = headers,
                                                  ...) %>%
             errorCatcher())
         
@@ -214,12 +217,15 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
                                                destfile = destfile, 
-                                               mode = mode, ...) %>%
+                                               mode = mode,
+                                               headers = headers,
+                                               ...) %>%
           errorCatcher()
       }
       
     } else {
-      downloadReturn <- utils::download.file(URL, destfile = destfile, mode = "wb", ...) %>%
+      downloadReturn <- utils::download.file(URL, destfile = destfile, 
+                                             mode = "wb", headers = headers, ...) %>%
         errorCatcher()
     }
     return(downloadReturn)
@@ -244,7 +250,8 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       # Download the file
       tryCatch(downloadReturn <- download(URL, destfile = savePath, 
                                           # Change the method based on attempt number
-                                          methodNum = attempt),
+                                          methodNum = attempt,
+                                          headers = headers),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
