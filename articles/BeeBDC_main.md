@@ -1442,7 +1442,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 ## We modified dates in 
 ## 175 occurrences.
 ##  - As it stands, there are 175 complete eventDates and 30 missing dates.
-##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.597900629043579 secs
+##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.602957725524902 secs
 ```
 
 ### 6.2 No eventDate
@@ -1635,7 +1635,7 @@ check_time <- BeeBDC::dupeSummary(
 ## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
 ##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
 ##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-##  - Duplicates have been saved in the file and location: /tmp/RtmpXL1lPk/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-15.csv
+##  - Duplicates have been saved in the file and location: /tmp/RtmplTaRUz/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-15.csv
 ##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.
 ##  - Completed in 0.28 secs
 ```
@@ -1682,7 +1682,7 @@ if (!exists("duplicates")) {
 }
 ##  - Dates found in file name(s). Finding most-recent file from file name...
 ##  - Found the following file(s): 
-##  /tmp/RtmpXL1lPk/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-15.csv
+##  /tmp/RtmplTaRUz/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-15.csv
 ## Rows: 0 Columns: 19
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
