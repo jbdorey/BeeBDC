@@ -298,6 +298,53 @@ fileFinder <- function(path, fileName){
 NULL
 
 
+#### fs_auth ####
+
+fs_auth <- 
+  function(cKey = getOption("FigshareKey", NULL),
+           cSecret = getOption("FigsharePrivateKey", NULL),
+           token = getOption("FigshareToken", NULL),
+           token_secret = getOption("FigsharePrivateToken", NULL)){
+    
+    FigshareAuthCache <- new.env(hash=TRUE)
+    
+    if(is.null(cKey))
+      cKey <- "Kazwg91wCdBB9ggypFVVJg"
+    if(is.null(cSecret))
+      cSecret <- "izgO06p1ymfgZTsdsZQbcA"
+    
+    endpoint <- 
+      oauth_endpoint("request_token", 
+                     "authorize", 
+                     "access_token", 
+                     base_url = "http://api.figshare.com/v1/pbl/oauth")
+    myapp <- oauth_app("rfigshare", 
+                       key = cKey, 
+                       secret = cSecret)
+    
+    if(is.null(token) && is.null(token_secret)) {
+      oauth <- oauth1.0_token(endpoint, myapp)
+    } else {
+      resp <- sign_oauth1.0(myapp, token = token, token_secret = token_secret)
+      oauth <- resp$token
+    }
+    
+    assign('oauth', oauth, envir=FigshareAuthCache)
+    
+    # Test that we have authenticated
+    response <- GET("http://api.figshare.com/v1/my_data/articles", 
+                    config(token = oauth)
+    )
+    
+    if(response$status_code != 200){
+      warning(paste("Authentication failed, please check your credentials. Got code",
+                    response$status_code, "with response", content(response)))
+      oauth <- response
+    } else {
+      message("Authentication successful")
+    }
+    invisible(oauth)
+  } 
 
 
 
