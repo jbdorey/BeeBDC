@@ -41,10 +41,11 @@ httr2::request(base_url = client$token_url) %>%
                      client_id = client$id,
                      client_secret = httr2::obfuscated(client$secret),
                      name = client$name)
-  # Define download headers
-headers <- paste0("GET /v2/token HTTP/1.1 \n Host: ", "api.figshare.com",
-                  "\nAuthorization: token ", httr2::obfuscated(client$secret))
-
+# Define download headers
+headers <- c("/v2/token HTTP/1.1",
+             "api.figshare.com",
+             httr2::obfuscated(client$secret)) %>%
+  stats::setNames(c("GET", "Host", "Authorization"))
 
   # TEST the full data
 OS <- dplyr::if_else(.Platform$OS.type == "unix",
