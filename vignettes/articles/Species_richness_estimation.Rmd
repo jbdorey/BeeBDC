@@ -306,6 +306,24 @@ Note as well that the `curveFunction` is the one generated from the Literature c
 
 
 ```{r secretDownload, include=FALSE}
+# Save the original options and restore when we exit.
+          orig_extra_options <- getOption("download.file.extra")
+          on.exit(options(download.file.extra = orig_extra_options))
+          options(download.file.extra = paste("-L", orig_extra_options))
+          
+## Set some options for accessing the data
+  userAgent <- paste0(sprintf("BeeBDC-tests/%s (R/%s.%s)",
+                              as.character(utils::packageVersion("BeeBDC")),
+                              R.version$major, R.version$minor),
+                      "; R (",R.version$major,".", R.version$minor, " ",
+                      R.version$platform, " ", R.version$arch," ",
+                      R.version$os,")") 
+  
+  print(userAgent)
+  
+  options(timeout=400,
+          HTTPUserAgent =  userAgent)
+  
 #  # Secretly read in the taxonomy and checklist files because rmarkdown can't handle it
 curl::curl_download(
   url = "https://open.flinders.edu.au/ndownloader/files/47089969",

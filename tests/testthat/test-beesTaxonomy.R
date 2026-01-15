@@ -24,9 +24,9 @@ testthat::test_that("testTaxonomy expected class", {
   testthat::expect_equal(attributes(testTaxonomy)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
 })
 
-testthat::test_that("DownloadTest_skipOnline",{
-  skip_on_cran()
-  skip_on_ci()
+#testthat::test_that("DownloadTest_skipOnline",{
+#  skip_on_cran()
+#  skip_on_ci()
   
 # Define download headers
 #headers <- c(Authorization = paste("token", "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448e3ca29260f6c416f581834094a898089d90f2229111845f01ef8b75f46"))
@@ -80,4 +80,4 @@ testthat::test_that("beesTaxonomy expected class", {
 })
 
 } #END !is.null
-}) # END testthat::test_that
+#}) # END testthat::test_that
