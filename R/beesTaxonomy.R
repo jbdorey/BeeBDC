@@ -240,7 +240,8 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/609458
           httr::GET(
             URL,
             httr::add_headers(
-              Authorization = paste("token", token)
+              Authorization = paste("token", token),
+              `User-Agent` = "R-httr/figshare"
             ),
             httr::write_disk(destfile, overwrite = TRUE)
           )} # END methodNum == 1

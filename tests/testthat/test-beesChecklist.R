@@ -36,22 +36,6 @@ options(timeout=400,
         HTTPUserAgent =  userAgent)
 
 
-OS <- dplyr::if_else(.Platform$OS.type == "unix",
-                     "MacLinux",
-                     "Windows")
-  # System command to try and let GitHub actions run the download
-if(OS == "MacLinux"){
-  cmd <- c(
-    "--http1.1",
-    "-L",
-    "-H", paste0("Authorization: token ", Authorization),
-    "-H", "User-Agent: R-httr/figshare",
-    "https://api.figshare.com/v2/file/download/60945820",
-    "-o", destfile
-  )
-  status <- system2("curl", cmd)
-}
-
   # select mode — cna be varied by OS if needed
 if(OS == "Windows"){
   mode <- "wb"
