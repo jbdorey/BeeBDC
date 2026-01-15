@@ -1,4 +1,4 @@
-library(httr2)
+
 
 # load in the test dataset
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
@@ -24,11 +24,18 @@ testthat::test_that("testChecklist expected class", {
 testthat::test_that("DownloadTest_skipOnline",{
 skip_on_cran()
   skip_on_ci()
+  
+userAgent <- paste0(sprintf("BeeBDC-tests/%s (R/%s.%s)",
+                            as.character(utils::packageVersion("BeeBDC")),
+                            R.version$major, R.version$minor),
+                    "; R (",R.version$major,".", R.version$minor, " ",
+                    R.version$platform, " ", R.version$arch," ",
+                    R.version$os,")") 
+
+print(userAgent)
 
 options(timeout=400,
-        HTTPUserAgent = sprintf("BeeBDC-tests/%s (R/%s.%s)",
-                                as.character(utils::packageVersion("BeeBDC")),
-                                R.version$major, R.version$minor)  )
+        HTTPUserAgent =  userAgent)
 
 
 OS <- dplyr::if_else(.Platform$OS.type == "unix",
