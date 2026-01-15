@@ -298,18 +298,6 @@ fileFinder <- function(path, fileName){
 NULL
 
 
-#### ++++++ ####
-#### f. Oauth client ####
-FigShare_client <- function(){
-  client <- httr2::oauth_client(
-    id = "425112ba97b7f583e0405535eb3a942f24910e73",
-    token_url = "https://figshare.com/account/applications/authorize",
-    name = "BeeBDC_R_Package_tests_oauth",
-    # Generated output by calling httr2::obfuscate
-    secret = httr2::obfuscated("ND7PVb2k4GKZ2ZxuwkGBsN0AhG-vLG27ltndIbOER0tOugQJ--UNmPyc_stLHkvKGe73KT9lq18ALtHDJKwfRKdQUkUziOnNSzXh6sD81-0LZ2EbWfs0sm_un_rPSntNjeIiAFjmsNFKgyl_54splURVv7XB4Jt4PNc4rm_8iSiVT_jbhiZ8I5FjRlrdwbjX")
-  )
-  return(client)
-}
 
 
 
