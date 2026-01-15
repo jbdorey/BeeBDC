@@ -156,6 +156,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
   # This is the purpose of the package, but I have taken their excellent function to avoid
   # Another dependency for BeeBDC. MY apologies and thanks to the authors.
   download <- function(URL, destfile = NULL, methodNum = NULL, headers = headers, ...) {
+    token <- "9a0bf31198e7a1d52c4480d357df9ac4709a9ed20bef40925f22d95a36208f5828f9b922f99479501c4ba73ff7583e6337ca30c44a0040221c614395650b145e"
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
       #### Windows ####
@@ -165,7 +166,6 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         # Try httr first
         if(methodNum == 1){
           message(paste0("Trying first download method using httr::GET..."))
-          token <- "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b"
           httr::GET(
             URL,
             httr::add_headers(
@@ -215,7 +215,6 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         # Try httr first
         if(methodNum == 1){
           message(paste0("Trying first download method using httr::GET..."))
-          token <- "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b"
           httr::GET(
             URL,
             httr::add_headers(
