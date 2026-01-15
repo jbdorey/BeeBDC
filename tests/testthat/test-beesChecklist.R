@@ -30,12 +30,13 @@ token <- "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448
 headers <- c("User-Agent" = sprintf("BeeBDC-tests/%s (R/%s.%s)",
                                     as.character(utils::packageVersion("BeeBDC")),
                                     R.version$major, R.version$minor),
-             "Authorization" = sprintf("token %s", token))
+             "Authorization: " = sprintf("token %s", token))
 
 
 OS <- dplyr::if_else(.Platform$OS.type == "unix",
                      "MacLinux",
                      "Windows")
+  # select mode — cna be varied by OS if needed
 if(OS == "Windows"){
   mode <- "wb"
 }else{
@@ -45,7 +46,7 @@ if(OS == "Windows"){
 beesChecklist <- NULL
 # load in the full dataset
 beesChecklist <- BeeBDC::beesChecklist(mode = mode,
-                                       headers = headers)
+                                       headers = NULL)
 
 if(!is.null(beesChecklist)){
 # Test the expected results
