@@ -312,6 +312,9 @@ Note as well that the `curveFunction` is the one generated from the Literature c
           options(download.file.extra = paste("-L", orig_extra_options))
           
 ## Set some options for accessing the data
+Sys.getenv("BEEBDC_SECRET_GITHUB")
+Authorization <- Sys.getenv("BEEBDC_SECRET_GITHUB")
+## Set some options for accessing the data
   userAgent <- paste0(sprintf("BeeBDC-tests/%s (R/%s.%s)",
                               as.character(utils::packageVersion("BeeBDC")),
                               R.version$major, R.version$minor),
@@ -319,24 +322,21 @@ Note as well that the `curveFunction` is the one generated from the Literature c
                       R.version$platform, " ", R.version$arch," ",
                       R.version$os,")") 
   
-  print(userAgent)
-  
-    FigToken <- "c04e8a7188995cdd9d3c04759d2874f621dc06b216b8c9af355a65e3e8d1748dfcafbf051e18cfe70f8c1e0534240c46ce988a72f93127137d6b2a30e1aacec6"
-  
   options(timeout=400,
-          HTTPUserAgent =  userAgent)
-  Sys.setenv("FIGSHARE_TOKEN"=FigToken)
+          HTTPUserAgent = userAgent)
   
 #  # Secretly read in the taxonomy and checklist files because rmarkdown can't handle it
-curl::curl_download(
-  url = "https://open.flinders.edu.au/ndownloader/files/47089969",
-  destfile = paste0(tempdir(), "/beesTaxonomy.Rda"))
-taxonomyFile <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda"))
-
-curl::curl_download(
-  url = "https://figshare.com/ndownloader/files/47092720",
-  destfile = paste0(tempdir(), "/beesChecklist.Rda"))
-checklistFile <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda"))
+checklistFile <-  BeeBDC::beesChecklist(token = Authorization)
+taxonomyFile <-  BeeBDC::beesTaxonomy(token = Authorization)
+  # curl::curl_download(
+  #   url = "https://open.flinders.edu.au/ndownloader/files/47089969",
+  #   destfile = paste0(tempdir(), "/beesTaxonomy.Rda"))
+  # taxonomyFile <- base::readRDS(paste0(tempdir(), "/beesTaxonomy.Rda"))
+  # 
+  # curl::curl_download(
+  #   url = "https://figshare.com/ndownloader/files/47092720",
+  #   destfile = paste0(tempdir(), "/beesChecklist.Rda"))
+  # checklistFile <- base::readRDS(paste0(tempdir(), "/beesChecklist.Rda"))
 ```
 
 
