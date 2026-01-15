@@ -44,7 +44,7 @@ httr2::request(base_url = client$token_url) %>%
 # Define download headers
 headers <- c("/v2/token HTTP/1.1",
              "api.figshare.com",
-             httr2::obfuscated(client$secret)) %>%
+             "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b") %>%
   stats::setNames(c("GET", "Host", "Authorization"))
 
   # TEST the full data
