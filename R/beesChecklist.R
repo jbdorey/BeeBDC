@@ -102,7 +102,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
                           alternateURL = FALSE,
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
-  downloadReturn <- NULL
+  downloadReturn <- . <- NULL
   
     # If user wants to try the Flinders URL, which seems to not be working as well
   if(alternateURL == TRUE){
@@ -165,11 +165,14 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         # Try httr first
         if(methodNum == 1){
           message(paste0("Trying first download method using httr::GET..."))
+          token <- "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b"
           httr::GET(
             URL,
+            httr::add_headers(
+              Authorization = paste("token", token)
+            ),
             httr::write_disk(destfile, overwrite = TRUE)
-          )
-          } # END methodNum == 1
+          )} # END methodNum == 1
         
         # Try different methods if failed
         if(methodNum == 2){method <- "auto"}
@@ -212,8 +215,12 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         # Try httr first
         if(methodNum == 1){
           message(paste0("Trying first download method using httr::GET..."))
+          token <- "24c8a7dacb07c3cc2a865d6885f015cc1af6eec04804116189d68652b51a3b8d676fbd4f46658703be8e74a92cad7aae4404e93a560d6192919870da63afee3b"
           httr::GET(
-            "https://api.figshare.com/v2/file/download/60945823",
+            URL,
+            httr::add_headers(
+              Authorization = paste("token", token)
+            ),
             httr::write_disk(destfile, overwrite = TRUE)
           )} # END methodNum == 1
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
