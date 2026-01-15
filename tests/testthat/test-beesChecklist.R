@@ -19,8 +19,14 @@ testthat::test_that("testChecklist expected class", {
 })
 
 # Set some options for accessing the data
+  # Return the user client
+client <- FigShare_client()
 options(timeout=400,
-        HTTPUserAgent = "Test download for BeeBDC's R package")
+        HTTPUserAgent = paste0("Test download for BeeBDC's R package",
+                               "curl -H 'Authorization: token ", httr2::obfuscated(client$secret),
+                               "'  https://api.figshare.com/v2 client_id ", client$id
+                               ))
+
 
 # TEST the full data
 
