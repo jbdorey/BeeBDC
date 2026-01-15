@@ -223,6 +223,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
               Authorization = paste("token", token),
               `User-Agent` = "R-httr/figshare"
             ),
+            httr::config(http_version = 1.1),
             httr::write_disk(destfile, overwrite = TRUE)
           )} # END methodNum == 1
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with

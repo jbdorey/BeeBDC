@@ -243,6 +243,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/609458
               Authorization = paste("token", token),
               `User-Agent` = "R-httr/figshare"
             ),
+            
             httr::write_disk(destfile, overwrite = TRUE)
           )} # END methodNum == 1
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
