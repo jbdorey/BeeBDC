@@ -54,7 +54,7 @@ if(OS == "MacLinux"){
   cmd <- c(
     "--http1.1",
     "-L",
-    "-H", paste0("Authorization: token ", token),
+    "-H", paste0("Authorization: token ", Authorization),
     "-H", "User-Agent: R-httr/figshare",
     "https://api.figshare.com/v2/file/download/60945820",
     "-o", destfile
