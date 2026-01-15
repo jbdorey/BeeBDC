@@ -2,7 +2,6 @@ requireNamespace("dplyr")
 library(dplyr)
 library(lubridate)
 library(stringr)
-source("c:\\Users\\mdw2685\\Desktop\\BeeBDC\\R\\dateFindR.R", encoding = "UTF-8")
 
 data = testData <- dplyr::tribble(
   ~database_id,               ~fieldNotes,                                                 ~eventDate, ~year, ~month, ~day,        ~verbatimEventDate, ~locality,                                ~locationRemarks, 
