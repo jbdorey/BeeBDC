@@ -26,11 +26,21 @@ testthat::test_that("testTaxonomy expected class", {
 
 
 # Define download headers
-headers <- c(Authorization = paste("token", "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448e3ca29260f6c416f581834094a898089d90f2229111845f01ef8b75f46"))
-# Set some options for accessing the data
-options(timeout=400,
-        HTTPUserAgent = paste0(names(headers), " ", headers, collapse = " ", sep = " "))
+#headers <- c(Authorization = paste("token", "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448e3ca29260f6c416f581834094a898089d90f2229111845f01ef8b75f46"))
+## Set some options for accessing the data
+#options(timeout=400,
+#        HTTPUserAgent = paste0(names(headers), " ", headers, collapse = " ", sep = " "))
+  # Set a well-formed, single-string UA just for this scope  
 
+withr::local_options(list(
+  HTTPUserAgent = sprintf("BeeBDC-tests/%s (R/%s.%s)",
+                          as.character(utils::packageVersion("BeeBDC")),
+                          R.version$major, R.version$minor)  ))
+token <- "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448e3ca29260f6c416f581834094a898089d90f2229111845f01ef8b75f46"
+headers <- c("User-Agent" = sprintf("BeeBDC-tests/%s (R/%s.%s)",
+                                    as.character(utils::packageVersion("BeeBDC")),
+                                    R.version$major, R.version$minor),
+             "Authorization" = sprintf("token %s", token))
 
   # TEST the full data
 OS <- dplyr::if_else(.Platform$OS.type == "unix",
