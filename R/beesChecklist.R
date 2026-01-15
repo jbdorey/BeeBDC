@@ -103,7 +103,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   
   #### 0.0 Prep ####
   # Set the number of attempts
-  nAttempts = 5
+  nAttempts = 6
     
     ##### 0.1 Errors ####
       ###### a. messages ####
@@ -178,14 +178,23 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
-        suppressWarnings(
-          downloadReturn <- utils::download.file(URL, 
-                                                 method = method, 
-                                                 destfile = destfile, 
-                                                 mode = mode,
-                                                 headers = headers,
-                                                 ...) %>%
-            errorCatcher())
+       if(methodNum <= 5){
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+        downloadReturn <- utils::download.file(URL, 
+                                               method = method, 
+                                               destfile = destfile, 
+                                               mode = mode,
+                                               headers = headers,
+                                               ...) %>%
+          errorCatcher()}
+        # IF all else fails...
+        if(methodNum == 6){
+          message(paste0("Trying FINAL download method, httr::GET..."))
+          httr::GET(
+            "https://api.figshare.com/v2/file/download/60945823",
+            httr::write_disk(destfile, overwrite = TRUE)
+          )
+        } # END methodNum == 6
         
       } else {
         method <- NULL
@@ -213,6 +222,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         if(is.null(mode)){
           mode <- "wb"  
         }
+        if(methodNum <= 5){
         message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
@@ -220,7 +230,16 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                                                mode = mode,
                                                headers = headers,
                                                ...) %>%
-          errorCatcher()
+          errorCatcher()}
+        # IF all else fails...
+        if(methodNum == 6){
+          message(paste0("Trying FINAL download method, httr::GET..."))
+          httr::GET(
+            "https://api.figshare.com/v2/file/download/60945823",
+            httr::write_disk(destfile, overwrite = TRUE)
+          )
+        } # END methodNum == 6
+        
       }
       
     } else {
