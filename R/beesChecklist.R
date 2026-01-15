@@ -23,6 +23,8 @@
 #' the most-recent version.
 #' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
 #' @param headers Character. Passed on to  `utils::download.file()`. Default = NULL.
+#' @param alternateURL Logical. If TRUE then the function will use the an alernate version of the 
+#' download URL. Might be worth trying if it is failing. Default = FALSE.
 #' @param ... Extra variables that can be passed to `downloader::download()`.
 #' 
 #' @return A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
@@ -94,12 +96,20 @@
 #'\dontrun{
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
-beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
+beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945823",
                           mode = NULL,
                           headers = NULL,
+                          alternateURL = FALSE,
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
   downloadReturn <- NULL
+  
+    # If user wants to try the Flinders URL, which seems to not be working as well
+  if(alternateURL == TRUE){
+    URL <- URL %>%
+      stringr::str_remove_all(".*/") %>%
+      stringr::str_c("https://open.flinders.edu.au/ndownloader/files/", .)
+  }
   
   #### 0.0 Prep ####
   # Set the number of attempts
@@ -156,9 +166,11 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         if(methodNum == 1){
           message(paste0("Trying first download method using httr::GET..."))
           httr::GET(
-            "https://api.figshare.com/v2/file/download/60945823",
+            URL,
             httr::write_disk(destfile, overwrite = TRUE)
-          )} # END methodNum == 1
+          )
+          } # END methodNum == 1
+        
         # Try different methods if failed
         if(methodNum == 2){method <- "auto"}
         if(methodNum == 3){method <- "wininet"}
@@ -191,8 +203,7 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
                                                method = method, 
                                                destfile = destfile, 
                                                mode = mode,
-                                               headers = headers,
-                                               ...) %>%
+                                               headers = headers) %>%
           errorCatcher()}
         
       } else {

@@ -86,6 +86,8 @@
 #' the most-recent version.
 #' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
 #' @param headers Character. Passed on to  `utils::download.file()`. Default = NULL.
+#' @param alternateURL Logical. If TRUE then the function will use the an alernate version of the 
+#' download URL. Might be worth trying if it is failing. Default = FALSE.
 #' @param ... Extra variables that can be passed to `downloader::download()`.
 #'
 #'
@@ -112,13 +114,21 @@
 #'}
 #' 
 #'
-beesTaxonomy <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/60945820",
                          mode = NULL,
                          headers = NULL,
+                         alternateURL = FALSE,
                          ...){
   destfile <- taxonomy <- attempt <- nAttempts <- error_funcFile <- error_func <-  NULL
   downloadReturn <- NULL
-
+  
+  # If user wants to try the Flinders URL, which seems to not be working as well
+  if(alternateURL == TRUE){
+    URL <- URL %>%
+      stringr::str_remove_all(".*/") %>%
+      stringr::str_c("https://open.flinders.edu.au/ndownloader/files/", .)
+  }
+  
     #### 0.0 Prep ####
   # Set the number of attempts
   nAttempts = 6
