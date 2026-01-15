@@ -21,9 +21,9 @@ testthat::test_that("testChecklist expected class", {
 # Define download headers
 # headers <- c(Authorization = paste("token", "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448e3ca29260f6c416f581834094a898089d90f2229111845f01ef8b75f46"))
 # # Set some options for accessing the data
-testthat::test_that("DownloadTest_skipOnline",{
-skip_on_cran()
-  skip_on_ci()
+#testthat::test_that("DownloadTest_skipOnline",{
+#skip_on_cran()
+#  skip_on_ci()
   
 userAgent <- paste0(sprintf("BeeBDC-tests/%s (R/%s.%s)",
                             as.character(utils::packageVersion("BeeBDC")),
@@ -34,8 +34,11 @@ userAgent <- paste0(sprintf("BeeBDC-tests/%s (R/%s.%s)",
 
 print(userAgent)
 
+FigToken <- "c04e8a7188995cdd9d3c04759d2874f621dc06b216b8c9af355a65e3e8d1748dfcafbf051e18cfe70f8c1e0534240c46ce988a72f93127137d6b2a30e1aacec6"
+
 options(timeout=400,
         HTTPUserAgent =  userAgent)
+Sys.setenv("FIGSHARE_TOKEN"=FigToken)
 
 
 OS <- dplyr::if_else(.Platform$OS.type == "unix",
@@ -69,4 +72,4 @@ testthat::test_that("beesChecklist expected class", {
 
 } #END !is.null
 
-}) # END testthat::test_that
+#}) # END testthat::test_that
