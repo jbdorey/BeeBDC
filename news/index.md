@@ -2,6 +2,8 @@
 
 ## Changes in version 1.3.2
 
+CRAN release: 2026-01-16
+
 - Problems with both
   [`BeeBDC::beesTaxonomy()`](https://jbdorey.github.io/BeeBDC/reference/beesTaxonomy.md)
   and
