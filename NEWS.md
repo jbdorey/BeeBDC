@@ -1,9 +1,9 @@
-# Changes in version 1.3.2 [devel]
+# Changes in version 1.3.2
 
 - Problems with both `BeeBDC::beesTaxonomy()` and `BeeBDC::beesChecklist()` are resolved by modifying the `downloader::download()` function (from version 0.4.2) function internally. A huge thanks to mitchwebb for offering to fix some of these download issues and to users (Felix Klaus and Nicolas Leclercq) for finding problems and bringing them to my attention! I have also now incorporated more error messages to hopefully better guide users when things are going wrong. Additionally, the function now uses `file.path()` in order to resolve directories and so does not rely on checking the OS (however, the OS test is still in place to help troubleshooting).
 - Updates to the `BeeBDC::BeesTaxonomy()` and `BeeBDC::BeesChecklist()` datasets to a 2026 version of Discover Life — J.S. & Pickering, J. (2026) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
 - For `BeeBDC::ggRichnessWrapper()`, users may change the *fileName* suffix to change the output format (e.g., "pdf" or "jpg"). 
-- [May not immediately be updated on devel version] Changes to `BeeBDC::dateFindR()` by mitchwebb (a huge thanks for your active help to BeeBDC and the broader community). The major changes relate to finding and correctly extracting exceptions. More info can bee seen at the pull request here — https://github.com/jbdorey/BeeBDC/pull/15; mitchwebb:dateFindR-improvements
+- Changes to `BeeBDC::dateFindR()` by mitchwebb (a huge thanks for your active help to BeeBDC and the broader community). The major changes relate to finding and correctly extracting exceptions. More info can bee seen at the pull request here — https://github.com/jbdorey/BeeBDC/pull/15; mitchwebb:dateFindR-improvements
 
 # Changes in version 1.3.1
 
