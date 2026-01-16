@@ -24,7 +24,7 @@ testthat::test_that("testChecklist expected class", {
 testthat::test_that("DownloadTest_skipOnline",{
   # Skip this test on MAC on GITHUB due to 403 error in tests
   if(stringr::str_detect(Sys.info() %>% as.character(), "Darwin") %>% any()){
-    skip_on_cran()}
+    skip_on_ci()}
 #  skip_on_ci()
 Sys.getenv("BEEBDC_SECRET_GITHUB")
 Authorization <- Sys.getenv("BEEBDC_SECRET_GITHUB")
