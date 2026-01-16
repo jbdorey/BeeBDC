@@ -696,7 +696,7 @@ check_pf <- BeeBDC::jbd_coordCountryInconsistent(data = check_pf, lon = "decimal
 ## jbd_coordinates_country_inconsistent:
 ## Flagged 2 records.
 ## The column, '.coordinates_country_inconsistent', was added to the database.
-##  - Completed in 0.8 secs
+##  - Completed in 0.78 secs
 ```
 
 Save the dataset.
@@ -1442,7 +1442,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 ## We modified dates in 
 ## 175 occurrences.
 ##  - As it stands, there are 175 complete eventDates and 30 missing dates.
-##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.594363212585449 secs
+##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.632405757904053 secs
 ```
 
 ### 6.2 No eventDate
@@ -1635,9 +1635,9 @@ check_time <- BeeBDC::dupeSummary(
 ## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
 ##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
 ##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-##  - Duplicates have been saved in the file and location: /tmp/Rtmp9sXK5d/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-16.csv
+##  - Duplicates have been saved in the file and location: /tmp/RtmpylZ2mt/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-01-16.csv
 ##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.
-##  - Completed in 0.27 secs
+##  - Completed in 0.28 secs
 ```
 
 Save the dataset into the intermediate folder.
@@ -1682,7 +1682,7 @@ if (!exists("duplicates")) {
 }
 ##  - Dates found in file name(s). Finding most-recent file from file name...
 ##  - Found the following file(s): 
-##  /tmp/Rtmp9sXK5d/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-16.csv
+##  /tmp/RtmpylZ2mt/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-01-16.csv
 ## Rows: 0 Columns: 19
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
