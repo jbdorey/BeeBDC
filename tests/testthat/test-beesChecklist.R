@@ -21,8 +21,10 @@ testthat::test_that("testChecklist expected class", {
 # Define download headers
 # headers <- c(Authorization = paste("token", "20271361303ce042ff9cce49ecd9c8f23594ed4032e83f150e535dbd2b67297ea88448e3ca29260f6c416f581834094a898089d90f2229111845f01ef8b75f46"))
 # # Set some options for accessing the data
-#testthat::test_that("DownloadTest_skipOnline",{
-#skip_on_cran()
+testthat::test_that("DownloadTest_skipOnline",{
+  # Skip this test on MAC on GITHUB due to 403 error in tests
+  if(stringr::str_detect(Sys.info() %>% as.character(), "Darwin") %>% any()){
+    skip_on_cran()}
 #  skip_on_ci()
 Sys.getenv("BEEBDC_SECRET_GITHUB")
 Authorization <- Sys.getenv("BEEBDC_SECRET_GITHUB")
@@ -68,4 +70,4 @@ testthat::test_that("beesChecklist expected class", {
 
 } #END !is.null
 
-#}) # END testthat::test_that
+}) # END testthat::test_that

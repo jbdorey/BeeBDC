@@ -24,8 +24,10 @@ testthat::test_that("testTaxonomy expected class", {
   testthat::expect_equal(attributes(testTaxonomy)$class, c("spec_tbl_df", "tbl_df","tbl","data.frame" ))
 })
 
-#testthat::test_that("DownloadTest_skipOnline",{
-#  skip_on_cran()
+testthat::test_that("DownloadTest_skipOnline",{
+# Skip this test on MAC on GITHUB due to 403 error in tests
+  if(stringr::str_detect(Sys.info() %>% as.character(), "Darwin") %>% any()){
+    skip_on_cran()}
 #  skip_on_ci()
   
 # Define download headers
@@ -42,7 +44,6 @@ Authorization <- Sys.getenv("BEEBDC_SECRET_GITHUB")
   
   options(timeout=400,
           HTTPUserAgent = userAgent)
-
   OS <- dplyr::if_else(.Platform$OS.type == "unix",
                        "MacLinux",
                        "Windows")
@@ -80,4 +81,4 @@ testthat::test_that("beesTaxonomy expected class", {
 })
 
 } #END !is.null
-#}) # END testthat::test_that
+}) # END testthat::test_that
