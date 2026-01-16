@@ -1,6 +1,6 @@
 # Changelog
 
-## Changes in version 1.3.2 \[devel\]
+## Changes in version 1.3.2
 
 - Problems with both
   [`BeeBDC::beesTaxonomy()`](https://jbdorey.github.io/BeeBDC/reference/beesTaxonomy.md)
@@ -25,7 +25,7 @@
   [`BeeBDC::ggRichnessWrapper()`](https://jbdorey.github.io/BeeBDC/reference/ggRichnessWrapper.md),
   users may change the *fileName* suffix to change the output format
   (e.g., “pdf” or “jpg”).
-- \[May not immediately be updated on devel version\] Changes to
+- Changes to
   [`BeeBDC::dateFindR()`](https://jbdorey.github.io/BeeBDC/reference/dateFindR.md)
   by mitchwebb (a huge thanks for your active help to BeeBDC and the
   broader community). The major changes relate to finding and correctly
