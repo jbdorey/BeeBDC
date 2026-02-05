@@ -87,7 +87,7 @@ renv::snapshot(project = paste0(RootPath, "/Data_acquisition_workflow"), prompt 
 ## The version of R recorded in the lockfile will be updated:
 ## - R      [* -> 4.5.2]
 ## 
-## - Lockfile written to "/tmp/Rtmpfm8sYk/Data_acquisition_workflow/renv.lock".
+## - Lockfile written to "/tmp/RtmpSmR7hY/Data_acquisition_workflow/renv.lock".
 ```
 
 Set up the directories used by **BeeBDC**. These directories include
@@ -114,7 +114,7 @@ lapply(c("ComplexHeatmap", "magrittr"), library, character.only = TRUE)
 ## 
 ##     depth
 ## ========================================
-## ComplexHeatmap version 2.26.0
+## ComplexHeatmap version 2.26.1
 ## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
 ## Github page: https://github.com/jokergoo/ComplexHeatmap
 ## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference

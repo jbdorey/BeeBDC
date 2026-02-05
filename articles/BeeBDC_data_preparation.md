@@ -133,7 +133,7 @@ lapply(c("ComplexHeatmap", "magrittr"), library, character.only = TRUE)
 ## 
 ##     depth
 ## ========================================
-## ComplexHeatmap version 2.26.0
+## ComplexHeatmap version 2.26.1
 ## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
 ## Github page: https://github.com/jokergoo/ComplexHeatmap
 ## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
