@@ -11,7 +11,7 @@ but it allows the user to specify a save path."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,6 +113,9 @@ saved in "Output/Figures" if save_figures = TRUE.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://brunobrr.github.io/bdc/" class="external-link">"bdc"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">database_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GBIF_01"</span>, <span class="st">"GBIF_02"</span>, <span class="st">"GBIF_03"</span>, <span class="st">"FISH_04"</span>, <span class="st">"FISH_05"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">19.93580</span>, <span class="op">-</span><span class="fl">13.01667</span>, <span class="op">-</span><span class="fl">22.34161</span>, <span class="op">-</span><span class="fl">6.75000</span>, <span class="op">-</span><span class="fl">15.15806</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">40.60030</span>, <span class="op">-</span><span class="fl">39.60000</span>, <span class="op">-</span><span class="fl">49.61017</span>, <span class="op">-</span><span class="fl">35.63330</span>, <span class="op">-</span><span class="fl">39.52861</span><span class="op">)</span></span></span>
@@ -138,10 +141,12 @@ saved in "Output/Figures" if save_figures = TRUE.</p>
 <span class="r-in"><span>  workflow_step <span class="op">=</span> <span class="st">"prefilter"</span>,</span></span>
 <span class="r-in"><span>  save_figures <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># End if require</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Please provide a path!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: cowplot</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: ggspatial</span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># } # End dont test</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

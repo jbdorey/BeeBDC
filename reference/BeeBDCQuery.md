@@ -65,7 +65,7 @@ testQuery <- BeeBDCQuery(
   beesTaxonomy = testTaxonomy,
   beesChecklist = testChecklist)
 #> Starting taxonomy report...
-#> Lasioglossum bicingulatum is an accpeted name with the taxon id number 30809.
+#> Lasioglossum bicingulatum is an accepted name with the taxon id number 30809.
 #>  - 'Lasioglossum bicingulatum' has the synonyms: 
 #> Starting checklist report...
 #>  - Lasioglossum bicingulatum (Smith, 1853) is reportedly found in: 
@@ -82,8 +82,8 @@ testQuery <- BeeBDC::BeeBDCQuery(
   beesTaxonomy = testTaxonomy,
   beesChecklist = testChecklist)
 #> Starting taxonomy report...
-#> Lasioglossum bicingulatum is an accpeted name with the taxon id number 30809.
-#> Nomada flavopicta is an accpeted name with the taxon id number 16654.
+#> Lasioglossum bicingulatum is an accepted name with the taxon id number 30809.
+#> Nomada flavopicta is an accepted name with the taxon id number 16654.
 #>  - 'Lasioglossum bicingulatum' has the synonyms: 
 #>  - 'Nomada flavopicta' has the synonyms: 
 #> Starting checklist report...

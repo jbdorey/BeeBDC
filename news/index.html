@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,13 @@
       <small>Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.3.4" id="changes-in-version-134">Changes in version 1.3.4<a class="anchor" aria-label="anchor" href="#changes-in-version-134"></a></h2>
+<ul><li>“Suggested” packages are now used conditionally</li>
+<li>Minor spelling mistake fixed in <code><a href="../reference/BeeBDCQuery.html">BeeBDC::BeeBDCQuery()</a></code>
+</li>
+<li>Thanks on both counts to Prof. Brian D. Ripley of CRAN!</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.2" id="changes-in-version-132">Changes in version 1.3.2<a class="anchor" aria-label="anchor" href="#changes-in-version-132"></a></h2><p class="text-muted">CRAN release: 2026-01-16</p>
 <ul><li>Problems with both <code><a href="../reference/beesTaxonomy.html">BeeBDC::beesTaxonomy()</a></code> and <code><a href="../reference/beesChecklist.html">BeeBDC::beesChecklist()</a></code> are resolved by modifying the <code>downloader::download()</code> function (from version 0.4.2) function internally. A huge thanks to mitchwebb for offering to fix some of these download issues and to users (Felix Klaus and Nicolas Leclercq) for finding problems and bringing them to my attention! I have also now incorporated more error messages to hopefully better guide users when things are going wrong. Additionally, the function now uses <code><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path()</a></code> in order to resolve directories and so does not rely on checking the OS (however, the OS test is still in place to help troubleshooting).</li>

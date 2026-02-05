@@ -90,22 +90,3 @@ the environment.
 to harmonise country names based on a short list.
 
 ## Examples
-
-``` r
-if (FALSE) { # \dontrun{
-data(beesCountrySubset)
-
-estimateDataExample <- richnessPrepR(
-  data = beesCountrySubset,
-  # Download the taxonomy
-  taxonomyFile = BeeBDC::beesTaxonomy(),
-  # Download the checklist
-  checklistFile = BeeBDC::beesChecklist(),
-  curveFunction = function(x) (228.7531 * x * x^-log(12.1593)),
-  sampleSize = 10000,
-  countryColumn = "country_suggested",
-  limitGlobal = NULL,
-  outPath = tempdir()
-)
-} # }
-```

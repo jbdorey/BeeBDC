@@ -126,6 +126,8 @@ directory.
 ## Examples
 
 ``` r
+if(require("htmlwidgets") && require("leaflet")){
+
 OutPath_Figures <- tempdir()
 
 interactiveMapR(
@@ -157,6 +159,9 @@ overWrite = TRUE,
   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 pointColours = c("blue", "darkred","#ff7f00", "black")
 )
-#> Loading required namespace: leaflet
+
+} # END if require
+#> Loading required package: htmlwidgets
+#> Loading required package: leaflet
 #> The column .expertOutlier was not found. One will be created with all values = TRUE.
 ```

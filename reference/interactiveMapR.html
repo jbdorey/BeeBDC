@@ -15,7 +15,7 @@ flagged as expert-identified or country outliers."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,7 +171,9 @@ Default = c("blue", "darkred","#ff7f00", "black").</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">OutPath_Figures</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/ramnathv/htmlwidgets" class="external-link">"htmlwidgets"</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://rstudio.github.io/leaflet/" class="external-link">"leaflet"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">OutPath_Figures</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">interactiveMapR</span><span class="op">(</span></span></span>
 <span class="r-in"><span><span class="co"># occurrence data - start with entire dataset, filter down to these species</span></span></span>
@@ -202,7 +204,10 @@ Default = c("blue", "darkred","#ff7f00", "black").</p></dd>
 <span class="r-in"><span>  <span class="co"># Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier</span></span></span>
 <span class="r-in"><span>pointColours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"darkred"</span>,<span class="st">"#ff7f00"</span>, <span class="st">"black"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: leaflet</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># END if require</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: htmlwidgets</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: leaflet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The column .expertOutlier was not found. One will be created with all values = TRUE.</span>
 </code></pre></div>
     </div>

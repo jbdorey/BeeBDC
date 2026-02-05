@@ -1,5 +1,12 @@
 # Changelog
 
+## Changes in version 1.3.4
+
+- “Suggested” packages are now used conditionally
+- Minor spelling mistake fixed in
+  [`BeeBDC::BeeBDCQuery()`](https://jbdorey.github.io/BeeBDC/reference/BeeBDCQuery.md)
+- Thanks on both counts to Prof. Brian D. Ripley of CRAN!
+
 ## Changes in version 1.3.2
 
 CRAN release: 2026-01-16

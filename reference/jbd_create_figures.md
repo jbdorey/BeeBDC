@@ -62,6 +62,9 @@ in "Output/Figures" if save_figures = TRUE.
 
 ``` r
 # \donttest{
+
+if(require("bdc")){
+
 database_id <- c("GBIF_01", "GBIF_02", "GBIF_03", "FISH_04", "FISH_05")
 lat <- c(-19.93580, -13.01667, -22.34161, -6.75000, -15.15806)
 lon <- c(-40.60030, -39.60000, -49.61017, -35.63330, -39.52861)
@@ -87,8 +90,10 @@ jbd_create_figures(
   workflow_step = "prefilter",
   save_figures = FALSE
 )
+
+} # End if require
 #> Warning: Please provide a path!
 #> Loading required package: cowplot
 #> Loading required package: ggspatial
-# }
+# } # End dont test
 ```

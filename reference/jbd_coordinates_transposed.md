@@ -127,7 +127,7 @@ function
 
 ``` r
 # \donttest{
-if(requireNamespace("rnaturalearthdata")){
+if(require("rnaturalearthdata") && require("bdc")){
 database_id <- c(1, 2, 3, 4)
 scientificName <- c(
   "Rhinella major", "Scinax ruber",
@@ -157,7 +157,14 @@ jbd_coordinates_transposed(
   save_outputs = FALSE,
   scale = "medium"
 ) 
-}
+} # END if require
+#> Loading required package: rnaturalearthdata
+#> 
+#> Attaching package: ‘rnaturalearthdata’
+#> The following object is masked from ‘package:rnaturalearth’:
+#> 
+#>     countries110
+#> Loading required package: bdc
 #> Loading auxiliary data: country names
 #> Standardizing country names
 #> country found: Bolivia
@@ -182,5 +189,5 @@ jbd_coordinates_transposed(
 #> 4           4 Psychotria vellosiana           -13.8            -46.7 Brazil 
 #> # ℹ 3 more variables: country_suggested <chr>, countryCode <chr>,
 #> #   coordinates_transposed <lgl>
-# } # END if require
+# } # RND donttest
 ```

@@ -13,7 +13,7 @@ bdc::bdc_country_standardized()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -178,7 +178,7 @@ columns "country" and "countryCode" can be retrieved by using the function
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rnaturalearthdata"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://docs.ropensci.org/rnaturalearthdata/" class="external-link">"rnaturalearthdata"</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://brunobrr.github.io/bdc/" class="external-link">"bdc"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">database_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">scientificName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Rhinella major"</span>, <span class="st">"Scinax ruber"</span>,</span></span>
@@ -208,7 +208,14 @@ columns "country" and "countryCode" can be retrieved by using the function
 <span class="r-in"><span>  save_outputs <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>  scale <span class="op">=</span> <span class="st">"medium"</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># END if require</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: rnaturalearthdata</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘rnaturalearthdata’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:rnaturalearth’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     countries110</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: bdc</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading auxiliary data: country names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Standardizing country names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> country found: Bolivia</span>
@@ -233,7 +240,7 @@ columns "country" and "countryCode" can be retrieved by using the function
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           4 Psychotria vellosiana           -<span style="color: #BB0000;">13.8</span>            -<span style="color: #BB0000;">46.7</span> Brazil </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: country_suggested &lt;chr&gt;, countryCode &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   coordinates_transposed &lt;lgl&gt;</span></span>
-<span class="r-in"><span><span class="co"># } # END if require</span></span></span>
+<span class="r-in"><span><span class="co"># } # RND donttest</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
