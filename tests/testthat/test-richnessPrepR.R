@@ -1,5 +1,5 @@
 requireNamespace("dplyr")
-
+skip_if_not_installed("rnaturalearthdata")
 
 # Load a test dataset
 beesRaw <- BeeBDC::beesRaw

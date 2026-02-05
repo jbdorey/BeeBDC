@@ -71,6 +71,9 @@ details below for a list of providers or see \code{taxadb::td_create()}.
 }
 \examples{
 \dontrun{
+
+if(require("taxadb")){
+
   # Run the function using the bee genus Apis as an example...
 ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
   name = "Apis",
@@ -82,7 +85,9 @@ ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
   fileName = NULL,
   ...
   )
-  }
+  
+  } # END if require
+  } # End dontrun
 
 }
 \seealso{

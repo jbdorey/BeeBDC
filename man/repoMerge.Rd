@@ -29,10 +29,13 @@ to how files are downloaded. current as of versions 1.0.4.
 }
 \examples{
 \dontrun{
+if(require("emld")){
+
 DataImp <- repoMerge(path = DataPath, 
 # Find data - Many problems can be solved by running [BeeBDC::repoFinder(path = DataPath)]
 # And looking for problems
 occ_paths = BeeBDC::repoFinder(path = DataPath),
 save_type = "R_file")
-}
+} # END if require
+} # END donttest
 }

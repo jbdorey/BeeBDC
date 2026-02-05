@@ -46,6 +46,8 @@
 #' @importFrom dplyr across where
 #'
 #' @examples
+#' if(require("htmlwidgets") && require("leaflet")){
+#' 
 #' OutPath_Figures <- tempdir()
 #' 
 #' interactiveMapR(
@@ -77,6 +79,8 @@
 #'   # Colours for points which are flagged as TRUE, FALSE, countryOutlier, and customOutlier
 #' pointColours = c("blue", "darkred","#ff7f00", "black")
 #' )
+#' 
+#' } # END if require
 
 interactiveMapR <- function(
       # occurrence data

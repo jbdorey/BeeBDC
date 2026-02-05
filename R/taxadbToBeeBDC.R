@@ -55,6 +55,9 @@
 #'
 #' @examples
 #' \dontrun{
+#' 
+#' if(require("taxadb")){
+#' 
 #'   # Run the function using the bee genus Apis as an example...
 #' ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
 #'   name = "Apis",
@@ -66,7 +69,9 @@
 #'   fileName = NULL,
 #'   ...
 #'   )
-#'   }
+#'   
+#'   } # END if require
+#'   } # End dontrun
 #' 
 
 taxadbToBeeBDC <- function(

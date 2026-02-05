@@ -65,7 +65,7 @@
 #'
 #' @examples
 #' \donttest{
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(require("rnaturalearthdata") && require("bdc")){
 #' database_id <- c(1, 2, 3, 4)
 #' scientificName <- c(
 #'   "Rhinella major", "Scinax ruber",
@@ -95,8 +95,8 @@
 #'   save_outputs = FALSE,
 #'   scale = "medium"
 #' ) 
-#' }
 #' } # END if require
+#' } # RND donttest
 #'
 jbd_coordinates_transposed <- function(data,
            idcol = "database_id",

@@ -1,4 +1,5 @@
 requireNamespace("dplyr")
+skip_if_not_installed("bdc")
 
 beesFlagged <- BeeBDC::beesFlagged
 

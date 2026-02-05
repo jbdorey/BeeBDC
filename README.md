@@ -54,7 +54,7 @@ The **BeeBDC** toolkit is organized using the conventions similar to
 > <https://doi.org/10.1101/2023.06.30.547152>; Package GitHub -
 > <https://github.com/jbdorey/BeeBDC/>
 
-#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
+#### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
 
 #### **Installation**
 
@@ -70,31 +70,7 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git",
                         ref = "devel", force = TRUE)
 ```
 
-BeeBDC, like many other spatial packages, also relies on the **sf** package in R. **Please follow the [download instructions here](https://r-spatial.github.io/sf/) if you have trouble with installation of sf.**
-
-**Windows**
-
-Installing sf from source works under Windows when 
-[Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed.
-
-**MacOS**
-
-MacOS users are strongly encouraged to install the sf binary packages from CRAN, unless they 
-are familiar with compilers, linking, C++ source code, and homebrew.
-
-The easiest way to install **gdal** is using **Homebrew**. Recent versions of Homebrew include a 
-full-featured up-to-date 
-[gdal formula](https://github.com/Homebrew/homebrew-core/blob/master/Formula/g/gdal.rb), 
-which installs `proj` and `gdal` at the same time:
-
-```
-brew install pkg-config
-brew install gdal
-```
-
-**Optional extras**
-
-There are some optional packages can also be downloaded prior to starting your
+Two optional packages can also be downloaded prior to starting your
 workflow, if desired. But, these are not essential. The packages
 BiocManager and devtools may also be required to download the two extra
 packages.
@@ -482,7 +458,7 @@ explanation on each module.
   A globally synthesised and flagged bee occurrence dataset and cleaning
   workflow. Scientific Data, 10, 1–17.
   <https://www.doi.org/10.1038/S41597-023-02626-W>
-- **Figshare live data link:**
+  - **Figshare live data link:**
     <https://doi.org/10.25451/flinders.21709757>
 - **Species richness estimation citation:** Dorey J. B., Gilpin, A.-M.,
   Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C.
@@ -491,9 +467,9 @@ explanation on each module.
   <https://doi.org/10.21203/rs.3.rs-6372769/v1>
 - **Package citation:** Dorey, J. B., O’Reilly, R. L., Bossert, S. &
   Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R
-  package version 1.3.1. url: <https://github.com/jbdorey/BeeBDC>
+  package version 1.3.3. url: <https://github.com/jbdorey/BeeBDC>
 - **Discover Life citation (for use of bee taxonomy and checklist):**
-  Ascher, J.S. & Pickering, J. (2020) Discover Life bee species guide
+  Ascher, J.S. & Pickering, J. (2026) Discover Life bee species guide
   and world checklist (Hymenoptera: Apoidea: Anthophila).
   <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
 

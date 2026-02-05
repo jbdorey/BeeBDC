@@ -1,3 +1,9 @@
+# Changes in version 1.3.4
+
+- "Suggested" packages are now used conditionally
+- Minor spelling mistake fixed in `BeeBDC::BeeBDCQuery()` 
+- Thanks on both counts to Prof. Brian D. Ripley of CRAN!
+
 # Changes in version 1.3.2
 
 - Problems with both `BeeBDC::beesTaxonomy()` and `BeeBDC::beesChecklist()` are resolved by modifying the `downloader::download()` function (from version 0.4.2) function internally. A huge thanks to mitchwebb for offering to fix some of these download issues and to users (Felix Klaus and Nicolas Leclercq) for finding problems and bringing them to my attention! I have also now incorporated more error messages to hopefully better guide users when things are going wrong. Additionally, the function now uses `file.path()` in order to resolve directories and so does not rely on checking the OS (however, the OS test is still in place to help troubleshooting).

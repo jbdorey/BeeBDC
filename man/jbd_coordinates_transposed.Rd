@@ -93,7 +93,7 @@ columns "country" and "countryCode" can be retrieved by using the function
 }
 \examples{
 \donttest{
-if(requireNamespace("rnaturalearthdata")){
+if(require("rnaturalearthdata") && require("bdc")){
 database_id <- c(1, 2, 3, 4)
 scientificName <- c(
   "Rhinella major", "Scinax ruber",
@@ -123,8 +123,8 @@ jbd_coordinates_transposed(
   save_outputs = FALSE,
   scale = "medium"
 ) 
-}
 } # END if require
+} # RND donttest
 
 }
 \concept{prefilter}
