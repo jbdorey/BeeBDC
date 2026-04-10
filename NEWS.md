@@ -1,4 +1,4 @@
-# Changes in version 1.3.4
+# Changes in version 1.3.3
 
 - "Suggested" packages are now used conditionally
 - Minor spelling mistake fixed in `BeeBDC::BeeBDCQuery()` 
