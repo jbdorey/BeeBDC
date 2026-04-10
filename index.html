@@ -67,64 +67,76 @@
 <div class="page-header"><h1 id="section">
 <a href="https://github.com/jbdorey/BeeBDC" class="external-link"><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"></a><a class="anchor" aria-label="anchor" href="#section"></a>
 </h1></div>
-<div class="section level2">
-<h2 id="beebdc-an-occurrence-data-cleaning-package">
+</div>
+<div class="section level1">
+<h1 id="beebdc-an-occurrence-data-cleaning-package">
 <strong>BeeBDC: an occurrence data cleaning package</strong><a class="anchor" aria-label="anchor" href="#beebdc-an-occurrence-data-cleaning-package"></a>
-</h2>
+</h1>
 <!-- badges: start -->
 
 <!-- badges: end -->
-<div class="section level4">
-<h4 id="overview">
+<div class="section level2">
+<h2 id="overview">
 <strong>Overview</strong><a class="anchor" aria-label="anchor" href="#overview"></a>
-</h4>
-<p>The consistent implementation of biodiversity data continues to be a challenge for researchers. We present the <strong>BeeBDC</strong> package which provides novel and updated functions for flagging, cleaning, and visualising occurrence datasets. Our functions are mostly general in regards to taxon; however, we also provide some functions and data that are specific for use with bee occurrence data; specifically due to their input data. We build upon functions and conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>, while also removing many dependencies on sp-related packages. Hence, our package name is <strong>Bee</strong> <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (<strong>BeeBDC</strong>).</p>
+</h2>
+<p>The reliable implementation of biodiversity data continues to be a challenge for researchers. We present the <strong>BeeBDC</strong> package which provides novel and updated functions for flagging, cleaning, visualising, and analysing occurrence datasets. Our package is general and can be applied to any taxon; however, we also provide some functions and data that are specific for use with bee occurrence data; specifically due to their input data. We add new functionality and keep conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>, while also removing many dependencies on sp-related packages. Hence, our package name is <strong>Bee</strong> <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (<strong>BeeBDC</strong>).</p>
 <p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite this primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>. For our parallelised implementation of iChao and iNEXT species richness estimations, cite this <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link">primary publication</a>.</p>
+<div class="section level3">
+<h3 id="the-beebdc-vignettes">
+<strong>The <em>BeeBDC</em> vignettes</strong><a class="anchor" aria-label="anchor" href="#the-beebdc-vignettes"></a>
+</h3>
+<p>The <strong>BeeBDC</strong> vignettes are split into several, depending on waht you’re hoping to do with the package. So far, it is broadly split into the (1) data cleaning workflow and (2) species richness estimation.</p>
+<ol style="list-style-type: decimal">
+<li>Data cleaning is broken into
+<ul>
+<li>1.1 The <a href="https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html">full cleaning workflow</a>
+</li>
+<li>1.2 A <a href="https://jbdorey.github.io/BeeBDC/articles/basic_workflow.html">more basic workflow</a>
+</li>
+<li>1.3 A <a href="https://jbdorey.github.io/BeeBDC/articles/BeeBDC_data_preparation.html">bee-data specific workflow</a> to prepare those bee datasets</li>
+</ul>
+</li>
+<li>A short, but complete, vignette to <a href="https://jbdorey.github.io/BeeBDC/articles/Species_richness_estimation.html">estimate species richness</a>
+</li>
+</ol>
 </div>
-<div class="section level4">
-<h4 id="structure-of-beebdc">
-<strong>Structure of <em>BeeBDC</em></strong><a class="anchor" aria-label="anchor" href="#structure-of-beebdc"></a>
-</h4>
-<p>The <strong>BeeBDC</strong> toolkit is organized using the conventions similar to <strong>bdc</strong> and <strong>CoordinateCleaner</strong>.</p>
+<div class="section level3">
+<h3 id="beebdcs-structure">
+<strong><em>BeeBDC</em>’s structure</strong><a class="anchor" aria-label="anchor" href="#beebdcs-structure"></a>
+</h3>
+<p>The <strong>BeeBDC</strong> toolkit is intentionally organized using conventions in <strong>bdc</strong> and <strong>CoordinateCleaner</strong>.</p>
 <blockquote>
 <p>Like in the <strong>bdc</strong> package, we provide a suggested workflow here. While our functions can mostly be run out of order, there are a few exceptions mentioned throughout the documentation. Additionally, many functions require the database_id column that is generated early on in the <strong>BeeBDC</strong> or <strong>bdc</strong> workflows. When running very large datasets (e.g., the global bee occurrence dataset) you may require a machine that has a minimum amount of RAM (~32 GB). However, we do try to provide work-arounds, especially by alowing some functions to be broken into consumable chunks. Paper DOI - <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link uri">https://doi.org/10.1101/2023.06.30.547152</a>; Package GitHub - <a href="https://github.com/jbdorey/BeeBDC/" class="external-link uri">https://github.com/jbdorey/BeeBDC/</a></p>
 </blockquote>
-</div>
 <div class="section level4">
 <h4 id="workflow-figure-from-dorey-et-al-2023">
 <img src="https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg" alt="Workflow figure from Dorey et al. 2023"><a class="anchor" aria-label="anchor" href="#workflow-figure-from-dorey-et-al-2023"></a>
 </h4>
 </div>
-<div class="section level4">
-<h4 id="installation">
+</div>
+</div>
+<div class="section level2">
+<h2 id="installation">
 <strong>Installation</strong><a class="anchor" aria-label="anchor" href="#installation"></a>
-</h4>
+</h2>
+<div class="section level3">
+<h3 id="install-beebdc">
+<strong>Install <em>BeeBDC</em></strong><a class="anchor" aria-label="anchor" href="#install-beebdc"></a>
+</h3>
 <p>You can install <em>BeeBDC</em> from CRAN or GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Install BeeBDC from CRAN</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BeeBDC"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># Or using the development version from GitHub (keeping in mind this may not be as stable)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, </span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"https://github.com/jbdorey/BeeBDC.git"</span>, </span>
 <span>                          <span class="co"># To use the development version use "devel"; otherwise choose "main"</span></span>
 <span>                        ref <span class="op">=</span> <span class="st">"devel"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Two optional packages can also be downloaded prior to starting your workflow, if desired. But, these are not essential. The packages BiocManager and devtools may also be required to download the two extra packages.</p>
-<ol style="list-style-type: decimal">
-<li>The first package, <strong>rnaturalearthhires</strong>, is a data package that allows the usage of higher-resolution country maps and is very useful for multiple <strong>BeeBDC</strong> functions.</li>
-<li>The second package, <strong>ComplexHeatmap</strong>, is only used for one <strong>BeeBDC</strong> function (<code><a href="reference/chordDiagramR.html">chordDiagramR()</a></code>) and is less critical.</li>
-</ol>
-<p>When either of these packages are called, the user will be prompted to install them. However, the latter may try to restart your R session.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  <span class="co"># These two packages may need to be installed in order to install the actual required packages </span></span>
-<span>    <span class="co"># below.</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># Install ComplexHeatmap and rnaturalearthhires</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="install-sf-and-terra">
+<strong>Install <em>sf</em> and <em>terra</em></strong><a class="anchor" aria-label="anchor" href="#install-sf-and-terra"></a>
+</h3>
 <blockquote>
 <h3 id="first-time-using-the-sf-or-terra-packages">First time using the <em>sf</em> or <em>terra</em> packages?</h3>
 <p>The first time that you use <strong>terra</strong> or <strong>sf</strong> on a new computer you may need to install some dependencies. Try to install the <strong>terra</strong> and <strong>sf</strong> packages first but then come back here if that doesn’t work.</p>
@@ -138,7 +150,7 @@
 <p><code>brew install pkg-config</code></p>
 <p><code>brew install gdal</code></p>
 <p>Followed by (note the additional configuration argument needed for Homebrew)</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Install terra</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"terra"</span>, type <span class="op">=</span> <span class="st">"source"</span>, configure.args <span class="op">=</span> <span class="st">"--with-proj-lib=$(brew --prefix)/lib/"</span><span class="op">)</span></span>
 <span>  <span class="co"># install sf</span></span>
@@ -148,9 +160,51 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span></code></pre></div>
 </blockquote>
 <p>Load the package with:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jbdorey.github.io/BeeBDC/">BeeBDC</a></span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level3">
+<h3 id="optional-packages">
+<strong>Optional packages</strong><a class="anchor" aria-label="anchor" href="#optional-packages"></a>
+</h3>
+<p>Because <strong>BeeBDC</strong> provides broad functionality that might not be required by all users, some dependencies are optional (but required for some functions). Optional packages can be downloaded prior to starting your workflow, if desired. <em>However, you will be prompted to download these packages if they aren’t already installed when you run those functions</em>. The packages BiocManager and devtools may also be required to download some extra packages.</p>
+<ol style="list-style-type: decimal">
+<li>The package, <strong>rnaturalearthhires</strong>, is a data package that allows the usage of higher-resolution country maps and is very useful for multiple <strong>BeeBDC</strong> functions.</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># rnaturalearthhires can be installed using devtools from their github page</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span>  <span class="co"># Install rnaturalearthhires</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>The package, <strong>ComplexHeatmap</strong>, is only used for one <strong>BeeBDC</strong> function (<code><a href="reference/chordDiagramR.html">BeeBDC::chordDiagramR()</a></code>) and is less critical.</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># ComplexHeatmap can be installed using BiocManager</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span>  <span class="co"># Install ComplexHeatmap</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>The package <strong>taxadb</strong> is used by <code><a href="reference/taxadbToBeeBDC.html">BeeBDC::taxadbToBeeBDC()</a></code> to download and transform taxonomy files for <strong>any taxon</strong> and from multiple providers (e.g., GBIF and ITIS) to work with <strong>BeeBDC</strong>.</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># taxadb can be installed using install.packages</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"taxadb"</span><span class="op">)</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>The packages <strong>iNEXT</strong> and <strong>SpadeR</strong> can be downloaded in order to estimate species richness using occurrence data (see the <a href="https://jbdorey.github.io/BeeBDC/articles/Species_richness_estimation.html">species richness estimation</a> vignette). Implemented in the functions <code><a href="reference/iNEXTwrapper.html">BeeBDC::iNEXTwrapper()</a></code>, <code><a href="reference/ChaoWrapper.html">BeeBDC::ChaoWrapper()</a></code>, <code><a href="reference/ggRichnessWrapper.html">BeeBDC::ggRichnessWrapper()</a></code>, and <code><a href="reference/richnessEstimateR.html">BeeBDC::richnessEstimateR()</a></code>.</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="co"># iNEXT and SpadeR can be installed using install.packages</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"iNEXT"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"SpadeR"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="beebdc-workflow-components">
+<strong>BeeBDC workflow components</strong><a class="anchor" aria-label="anchor" href="#beebdc-workflow-components"></a>
+</h2>
 <div class="section level4">
 <h4 id="id_1-data-merge">1. <a href="https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge"><strong>Data merge</strong></a>
 <a class="anchor" aria-label="anchor" href="#id_1-data-merge"></a>
@@ -332,7 +386,7 @@
 <code><a href="reference/beesCountrySubset.html">BeeBDC::beesCountrySubset</a></code> A very small bee occurrence dataset with the columns “scientificName” and “country_suggested” and data for four countries, Fiji, Uganda, Vietnam, and Zambia. This is the test dataset for the species richness functions.</li>
 <li>There are also two small test datasets of the beesTaxonomy and beesChecklist in the system files of the package that are filtered to include <em>only</em> those species that occur in bees3sp, beesRaw, and beesFlagged. These are accessible as follows but are only used internally for tests.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Access the test taxonomy file</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"testTaxonomy.rda"</span>, package<span class="op">=</span><span class="st">"BeeBDC"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="co"># View the file</span></span>
@@ -342,6 +396,10 @@
 <span>  <span class="co"># View the file</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">testChecklist</span><span class="op">)</span></span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="package-info">Package info<a class="anchor" aria-label="anchor" href="#package-info"></a>
+</h2>
 <div class="section level4">
 <h4 id="package-website">
 <strong>Package website</strong><a class="anchor" aria-label="anchor" href="#package-website"></a>
@@ -365,7 +423,7 @@
 </h4>
 <ul>
 <li>
-<strong>Paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a>
+<strong>Original paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a>
 <ul>
 <li>
 <strong>Figshare live data link:</strong> <a href="https://doi.org/10.25451/flinders.21709757" class="external-link uri">https://doi.org/10.25451/flinders.21709757</a>
@@ -373,10 +431,10 @@
 </ul>
 </li>
 <li>
-<strong>Species richness estimation citation:</strong> Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications. <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link uri">https://doi.org/10.21203/rs.3.rs-6372769/v1</a>
+<strong>Species richness estimation citation:</strong> Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (Accepted). Estimating global bee species richness and taxonomic gaps. Nature Communications. <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link uri">https://doi.org/10.21203/rs.3.rs-6372769/v1</a>
 </li>
 <li>
-<strong>Package citation:</strong> Dorey, J. B., O’Reilly, R. L., Bossert, S. &amp; Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.3.3. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a>
+<strong>BeeBDC package citation:</strong> Dorey, J. B., O’Reilly, R. L., Bossert, S. &amp; Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.3.3. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a>
 </li>
 <li>
 <strong>Discover Life citation (for use of bee taxonomy and checklist):</strong> Ascher, J.S. &amp; Pickering, J. (2026) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). <a href="https://www.discoverlife.org/mp/20q?guide=Apoidea_species" class="external-link uri">https://www.discoverlife.org/mp/20q?guide=Apoidea_species</a>
@@ -387,6 +445,7 @@
 </div>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

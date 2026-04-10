@@ -1762,8 +1762,15 @@ estimates.</p>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span>, labels <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"speciesRichnessPlots"</span>, outPath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    base_width <span class="op">=</span> <span class="fl">8.3</span>, base_height <span class="op">=</span> <span class="fl">11.7</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required namespace: cowplot</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> Unknown graphics device <span style="color: #0000BB;">""</span></span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 11</span></span></span>
+<span><span class="co">##   level       n observedRichness iNEXT_est iNEXT_lower iNEXT_upper</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Fiji      967               17        17          14          21</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Uganda    128               44        70          20         121</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Vietnam    39                6        14           2          26</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Zambia    354              129       187         151         223</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 5 more variables: iNEXT_increasePercent &lt;dbl&gt;, iChao_est &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   iChao_lower &lt;dbl&gt;, iChao_upper &lt;dbl&gt;, iChao_increasePercent &lt;dbl&gt;</span></span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -1777,8 +1784,187 @@ particular has a huge amount of uncertainty with the iChao estimates
 dataset (in fact we chose it as a test dataset because it is small), but
 it goes to show that if your data are inadequate you may not get a great
 answer. On the plus side, the 95% confidence intervals all overlap.</p>
-<pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'plot_summary' not found</span></span></code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:350px; ">
+<table class="table  lightable-material lightable-striped lightable-hover table table-responsive" style='font-family: "Source Sans Pro", helvetica, sans-serif; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead><tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+level
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+observedRichness
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iNEXT_est
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iNEXT_lower
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iNEXT_upper
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iNEXT_increasePercent
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iChao_est
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iChao_lower
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iChao_upper
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+iChao_increasePercent
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:right;">
+967
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+2.85
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+3.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:right;">
+128
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+121
+</td>
+<td style="text-align:right;">
+37.36
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+42.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+56.51
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+56.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:right;">
+354
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+151
+</td>
+<td style="text-align:right;">
+223
+</td>
+<td style="text-align:right;">
+30.96
+</td>
+<td style="text-align:right;">
+199
+</td>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;">
+229
+</td>
+<td style="text-align:right;">
+35.21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>You can see, that these functions are moving towards simplifying
 quick and mass-estimation of species richness across sites or countries!
 The is the idea behind these improvements. But, we take this further
@@ -1828,11 +2014,11 @@ explore the input files or the output list of files for modifying your
 own and pay attention to match the column names.</p>
 <p>Note as well that the <code>curveFunction</code> is the one generated
 from the Literature curve above.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download the taxonomy and checklist files</span></span>
 <span><span class="va">taxonomyFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesTaxonomy.html">beesTaxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">checklistFile</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/beesChecklist.html">beesChecklist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co"># Generate the R file</span></span>
 <span><span class="va">estimateData</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/richnessPrepR.html">richnessPrepR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">beesCountrySubset</span>,</span>
@@ -1860,7 +2046,7 @@ estimated that many times. Let’s run our estimates at the country
 (<em>or site</em>) level ten times below, drawing sample sizes from the
 non-occurrence species each time (<em>capped at the maximum sample size
 for each country</em>).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">estimates</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/richnessEstimateR.html">richnessEstimateR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">estimateData</span>,</span>
 <span>  sampleSize <span class="op">=</span> <span class="fl">10000</span>,</span>
@@ -4495,7 +4681,7 @@ NA
 <p>Of course, these values are super helpful for papers on these topics.
 But similarly, we can easily make some further useful
 visualisations!</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To build the manual legend, make a small fake dataset</span></span>
 <span><span class="va">legendData</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yes"</span>,<span class="st">"yes"</span><span class="op">)</span>,</span>
 <span>                                              statistic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"iChao"</span>, <span class="st">"iNEXT"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -4541,7 +4727,7 @@ visualisations!</p>
 <span>                               <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="op">)</span>, xmin <span class="op">=</span> <span class="fl">1</span>, xmax <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>                               ymin <span class="op">=</span> <span class="fl">350</span>, ymax <span class="op">=</span> <span class="fl">500</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Species_richness_estimation_files/figure-html/visualiseEstimates-1.png" class="r-plt" alt="" width="100%"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co">## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time</span></span>
 <span></span>
 <span><span class="co"># Save the plot</span></span>

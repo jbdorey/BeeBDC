@@ -258,8 +258,15 @@ outputs a summary of the estimates.
 
     ## Loading required namespace: cowplot
 
-    ## Error:
-    ## ! Unknown graphics device ""
+    ## # A tibble: 4 × 11
+    ##   level       n observedRichness iNEXT_est iNEXT_lower iNEXT_upper
+    ##   <chr>   <dbl>            <dbl>     <dbl>       <dbl>       <dbl>
+    ## 1 Fiji      967               17        17          14          21
+    ## 2 Uganda    128               44        70          20         121
+    ## 3 Vietnam    39                6        14           2          26
+    ## 4 Zambia    354              129       187         151         223
+    ## # ℹ 5 more variables: iNEXT_increasePercent <dbl>, iChao_est <dbl>,
+    ## #   iChao_lower <dbl>, iChao_upper <dbl>, iChao_increasePercent <dbl>
 
 ## [![Plots showing the rarefied iNext and non-parametric iChao estimates for four countries with 95% confidence intervals.](https://photos.smugmug.com/photos/i-jWR5zXJ/0/LrL7mvcxFJRzd45BbDJbvm8SSn39H86sFzSZh8pP8/X4/i-jWR5zXJ-X4.jpg)](https://github.com/jbdorey/BeeBDC)
 
@@ -271,8 +278,12 @@ dataset (in fact we chose it as a test dataset because it is small), but
 it goes to show that if your data are inadequate you may not get a great
 answer. On the plus side, the 95% confidence intervals all overlap.
 
-    ## Error:
-    ## ! object 'plot_summary' not found
+| level   |   n | observedRichness | iNEXT_est | iNEXT_lower | iNEXT_upper | iNEXT_increasePercent | iChao_est | iChao_lower | iChao_upper | iChao_increasePercent |
+|:--------|----:|-----------------:|----------:|------------:|------------:|----------------------:|----------:|------------:|------------:|----------------------:|
+| Fiji    | 967 |               17 |        17 |          14 |          21 |                  2.85 |        18 |          17 |          25 |                  3.54 |
+| Uganda  | 128 |               44 |        70 |          20 |         121 |                 37.36 |        76 |          64 |          97 |                 42.29 |
+| Vietnam |  39 |                6 |        14 |           2 |          26 |                 56.51 |        14 |           7 |          69 |                 56.51 |
+| Zambia  | 354 |              129 |       187 |         151 |         223 |                 30.96 |       199 |         178 |         229 |                 35.21 |
 
 You can see, that these functions are moving towards simplifying quick
 and mass-estimation of species richness across sites or countries! The

@@ -158,10 +158,10 @@ it later as you wish.</p>
 <code class="sourceCode R"><span><span class="co"># Install remotes if needed</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span>, repos <span class="op">=</span> <span class="st">"http://cran.us.r-project.org"</span><span class="op">)</span></span>
 <span><span class="co"># Download and then load rnaturalearthhires</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ropensci/rnaturalearthhires"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>, repos <span class="op">=</span> <span class="st">"https://ropensci.r-universe.dev"</span>,</span>
 <span>    type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rnaturalearthhires" class="external-link">rnaturalearthhires</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rnaturalearthhires</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"taxadb"</span><span class="op">)</span></span></code></pre></div>
 <p>Set up the directories used by <strong>BeeBDC</strong>. These
@@ -719,7 +719,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.78 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 1 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -949,7 +949,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 0.2 secs</span></span>
+<span><span class="co">##  - Completed in 0.59 secs</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">taxonomyFile</span><span class="op">)</span></span></code></pre></div>
 <p>Save the harmonised file.</p>
@@ -1173,7 +1173,7 @@ in this; if anyone is willing!</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"testChecklist.rda"</span>, package <span class="op">=</span> <span class="st">"BeeBDC"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># Rename the file</span></span>
-<span><span class="va">taxonomyFile</span> <span class="op">&lt;-</span> <span class="va">testChecklist</span></span>
+<span><span class="va">checklistFile</span> <span class="op">&lt;-</span> <span class="va">testChecklist</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">testChecklist</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_space</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/countryOutlieRs.html">countryOutlieRs</a></span><span class="op">(</span>checklist <span class="op">=</span> <span class="va">checklistFile</span>,</span>
@@ -1185,8 +1185,25 @@ in this; if anyone is willing!</p>
 <span>                          <span class="co"># We have not attempted a scale of 10.</span></span>
 <span>                        scale <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>                        mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'checklistFile' not found</span></span></code></pre></div>
+<span><span class="co">##  - Extracting country data from points...</span></span>
+<span><span class="co">##  - Buffering failed points by pointBuffer...</span></span>
+<span><span class="co">##  - Prepare the neighbouring country dataset...</span></span>
+<span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span>
+<span><span class="co">##  - Compare points with the checklist...</span></span>
+<span><span class="co">##  - Combining data...</span></span>
+<span><span class="co">##  - Sorting and removing potentially duplicated buffered points...</span></span>
+<span><span class="co">##  - Finished. </span></span>
+<span><span class="co">## We have matched 157 records to their exact country and 2 to an adjacent country</span></span>
+<span><span class="co">## We failed to match 2 occurrences to any 'exact' or 'neighbouring' country.</span></span>
+<span><span class="co">## There are 44 'NA' occurrences for the .countryOutlier column.</span></span>
+<span><span class="co">## countryOutlieRs:</span></span>
+<span><span class="co">## Flagged 2  for country outlier and flagged  2  for in the .sea records.</span></span>
+<span><span class="co">## Three columns were added to the database:</span></span>
+<span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
+<span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
+<span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
+<span><span class="co">##  - Completed in 1.41 secs</span></span></code></pre></div>
 <p>Since version 1.1.2 a new function,
 <code><a href="../reference/continentOutlieRs.html">BeeBDC::continentOutlieRs()</a></code>, has been released which is
 conceptually the same as <code><a href="../reference/countryOutlieRs.html">BeeBDC::countryOutlieRs()</a></code> except
@@ -1204,8 +1221,25 @@ country-level one and so might actually be of more wide-spread use
 <span>                          <span class="co"># We have not attempted a scale of 10.</span></span>
 <span>                        scale <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>                        mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
-<span><span class="co">## <span style="color: #BBBB00;">!</span> object 'checklistFile' not found</span></span></code></pre></div>
+<span><span class="co">##  - Extracting continent data from points...</span></span>
+<span><span class="co">##  - Buffering failed points by pointBuffer...</span></span>
+<span><span class="co">##  - Prepare the neighbouring continent dataset...</span></span>
+<span><span class="co">## although coordinates are longitude/latitude, st_intersects assumes that they</span></span>
+<span><span class="co">## are planar</span></span>
+<span><span class="co">##  - Compare points with the checklist...</span></span>
+<span><span class="co">##  - Combining data...</span></span>
+<span><span class="co">##  - Sorting and removing potentially duplicated buffered points...</span></span>
+<span><span class="co">##  - Finished. </span></span>
+<span><span class="co">## We have matched 159 records to their exact continent and 0 to an adjacent continent</span></span>
+<span><span class="co">## We failed to match 2 occurrences to any 'exact' or 'neighbouring' continent</span></span>
+<span><span class="co">## There are 44 'NA' occurrences for the .continentOutlier column.</span></span>
+<span><span class="co">## continentOutlieRs:</span></span>
+<span><span class="co">## Flagged 2 for continent outlier and flagged 2 for in the .sea records.</span></span>
+<span><span class="co">## Three columns were added to the database:</span></span>
+<span><span class="co">## 1. The '.continentOutlier' column was added which is a filtering column. </span></span>
+<span><span class="co">## 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. </span></span>
+<span><span class="co">## 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.</span></span>
+<span><span class="co">##  - Completed in 0.91 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A list of failed species-country combinations and their numbers can be output</span></span>
 <span><span class="co"># here</span></span>
@@ -1351,7 +1385,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We modified dates in </span></span>
 <span><span class="co">## 175 occurrences.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.60340404510498 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.637763738632202 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1398,7 +1432,7 @@ occurrence records.</em> Update the <em>.summary</em> column.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 116 </span></span>
+<span><span class="co">## Flagged 118 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">report</span> <span class="op">&lt;-</span> <span class="fu">bdc</span><span class="fu">::</span><span class="fu"><a href="https://brunobrr.github.io/bdc/reference/bdc_create_report.html" class="external-link">bdc_create_report</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">check_time</span>, database_id <span class="op">=</span> <span class="st">"database_id"</span>,</span>
@@ -1491,7 +1525,7 @@ details as this function is quite modifiable to user needs.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 93 </span></span>
+<span><span class="co">## Flagged 95 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">##  - Working on CustomComparisonsRAW duplicates...</span></span>
 <span><span class="co">## </span></span>
@@ -1528,9 +1562,9 @@ details as this function is quite modifiable to user needs.</p>
 <span><span class="co">## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/Rtmpp02X1X/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-02-05.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/Rtmp4lK1eZ/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-04-10.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.28 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.32 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1569,7 +1603,7 @@ of the expert outliers.</p>
 <span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/Rtmpp02X1X/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-02-05.csv</span></span>
+<span><span class="co">##  /tmp/Rtmp4lK1eZ/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-04-10.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -1602,7 +1636,7 @@ files can further be modified to include more outliers.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 93 </span></span>
+<span><span class="co">## Flagged 95 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span></code></pre></div>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save the uncleaned dataset</span></span>
@@ -1627,7 +1661,7 @@ it.</p>
 <span><span class="co">##  - We will NOT flag the following columns. However, they will remain in the data file.</span></span>
 <span><span class="co">## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 93 </span></span>
+<span><span class="co">## Flagged 95 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">##  - REMOVED all occurrences that were FALSE for the 'summary' column.</span></span></code></pre></div>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
@@ -1857,7 +1891,7 @@ by which to group the summary. While it is intended to work with the
 <span>    outPath <span class="op">=</span> <span class="cn">NULL</span>, fileName <span class="op">=</span> <span class="st">"flagTable.csv"</span><span class="op">)</span></span>
 <span><span class="co">##  - We will flag all columns starting with '.'</span></span>
 <span><span class="co">##  - summaryFun:</span></span>
-<span><span class="co">## Flagged 107 </span></span>
+<span><span class="co">## Flagged 109 </span></span>
 <span><span class="co">##   The .summary column was added to the database.</span></span>
 <span><span class="co">## The percentages of species impacted by each flag in your analysis are as follows: </span></span>
 <span><span class="co">##   .coordinates_empty = 24.05%</span></span>
@@ -1870,6 +1904,9 @@ by which to group the summary. While it is intended to work with the
 <span><span class="co">##   .rou = 30.38%</span></span>
 <span><span class="co">##   .sequential = 0%</span></span>
 <span><span class="co">##   .uncertaintyThreshold = 15.19%</span></span>
+<span><span class="co">##   .countryOutlier = 0%</span></span>
+<span><span class="co">##   .sea = 2.53%</span></span>
+<span><span class="co">##   .continentOutlier = 0%</span></span>
 <span><span class="co">##   .eventDate_empty = 16.46%</span></span>
 <span><span class="co">##   .year_outOfRange = 16.46%</span></span>
 <span><span class="co">##   .duplicates = 0%</span></span></code></pre></div>

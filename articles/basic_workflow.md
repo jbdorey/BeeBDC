@@ -82,12 +82,12 @@ renv::snapshot(project = paste0(RootPath, "/Data_acquisition_workflow"), prompt 
 ## The following package(s) will be updated in the lockfile:
 ## 
 ## # RSPM -----------------------------------------------------------------------
-## - renv   [* -> 1.1.7]
+## - renv   [* -> 1.2.0]
 ## 
 ## The version of R recorded in the lockfile will be updated:
-## - R      [* -> 4.5.2]
+## - R      [* -> 4.5.3]
 ## 
-## - Lockfile written to "/tmp/RtmpSmR7hY/Data_acquisition_workflow/renv.lock".
+## - Lockfile written to "/tmp/RtmpETsKZx/Data_acquisition_workflow/renv.lock".
 ```
 
 Set up the directories used by **BeeBDC**. These directories include

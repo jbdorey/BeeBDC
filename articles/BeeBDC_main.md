@@ -696,7 +696,7 @@ check_pf <- BeeBDC::jbd_coordCountryInconsistent(data = check_pf, lon = "decimal
 ## jbd_coordinates_country_inconsistent:
 ## Flagged 2 records.
 ## The column, '.coordinates_country_inconsistent', was added to the database.
-##  - Completed in 0.78 secs
+##  - Completed in 1 secs
 ```
 
 Save the dataset.
@@ -961,7 +961,7 @@ database <- BeeBDC::harmoniseR(path = DataPath, #The path to a folder that the o
 ## records were flagged.
 ## The column, '.invalidName' was added to the database.
 ##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName
-##  - Completed in 0.2 secs
+##  - Completed in 0.59 secs
 
 rm(taxonomyFile)
 ```
@@ -1229,7 +1229,7 @@ checklistFile <- BeeBDC::beesChecklist()
 system.file("extdata", "testChecklist.rda", package = "BeeBDC") |>
     load()
 # Rename the file
-taxonomyFile <- testChecklist
+checklistFile <- testChecklist
 rm(testChecklist)
 ```
 
@@ -1243,8 +1243,25 @@ check_space <- BeeBDC::countryOutlieRs(checklist = checklistFile,
                           # We have not attempted a scale of 10.
                         scale = 50,
                         mc.cores = 1)
-## Error:
-## ! object 'checklistFile' not found
+##  - Extracting country data from points...
+##  - Buffering failed points by pointBuffer...
+##  - Prepare the neighbouring country dataset...
+## although coordinates are longitude/latitude, st_intersects assumes that they
+## are planar
+##  - Compare points with the checklist...
+##  - Combining data...
+##  - Sorting and removing potentially duplicated buffered points...
+##  - Finished. 
+## We have matched 157 records to their exact country and 2 to an adjacent country
+## We failed to match 2 occurrences to any 'exact' or 'neighbouring' country.
+## There are 44 'NA' occurrences for the .countryOutlier column.
+## countryOutlieRs:
+## Flagged 2  for country outlier and flagged  2  for in the .sea records.
+## Three columns were added to the database:
+##  1.  The '.countryOutlier' column was added which is a filtering column. 
+##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. 
+##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.
+##  - Completed in 1.41 secs
 ```
 
 Since version 1.1.2 a new function,
@@ -1266,8 +1283,25 @@ check_space <- BeeBDC::continentOutlieRs(checklist = checklistFile,
                           # We have not attempted a scale of 10.
                         scale = 50,
                         mc.cores = 1)
-## Error:
-## ! object 'checklistFile' not found
+##  - Extracting continent data from points...
+##  - Buffering failed points by pointBuffer...
+##  - Prepare the neighbouring continent dataset...
+## although coordinates are longitude/latitude, st_intersects assumes that they
+## are planar
+##  - Compare points with the checklist...
+##  - Combining data...
+##  - Sorting and removing potentially duplicated buffered points...
+##  - Finished. 
+## We have matched 159 records to their exact continent and 0 to an adjacent continent
+## We failed to match 2 occurrences to any 'exact' or 'neighbouring' continent
+## There are 44 'NA' occurrences for the .continentOutlier column.
+## continentOutlieRs:
+## Flagged 2 for continent outlier and flagged 2 for in the .sea records.
+## Three columns were added to the database:
+## 1. The '.continentOutlier' column was added which is a filtering column. 
+## 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. 
+## 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.
+##  - Completed in 0.91 secs
 ```
 
 ``` r
@@ -1442,7 +1476,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 ## We modified dates in 
 ## 175 occurrences.
 ##  - As it stands, there are 175 complete eventDates and 30 missing dates.
-##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.60340404510498 secs
+##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.637763738632202 secs
 ```
 
 ### 6.2 No eventDate
@@ -1492,7 +1526,7 @@ check_time <- BeeBDC::summaryFun(
 ##  - We will NOT flag the following columns. However, they will remain in the data file.
 ## .gridSummary, .lonFlag, .latFlag, .uncer_terms
 ##  - summaryFun:
-## Flagged 116 
+## Flagged 118 
 ##   The .summary column was added to the database.
 ```
 
@@ -1598,7 +1632,7 @@ check_time <- BeeBDC::dupeSummary(
 ##  - We will NOT flag the following columns. However, they will remain in the data file.
 ## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold, .unLicensed
 ##  - summaryFun:
-## Flagged 93 
+## Flagged 95 
 ##   The .summary column was added to the database.
 ##  - Working on CustomComparisonsRAW duplicates...
 ## 
@@ -1635,9 +1669,9 @@ check_time <- BeeBDC::dupeSummary(
 ## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
 ##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
 ##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-##  - Duplicates have been saved in the file and location: /tmp/Rtmpp02X1X/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-02-05.csv
+##  - Duplicates have been saved in the file and location: /tmp/Rtmp4lK1eZ/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-04-10.csv
 ##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.
-##  - Completed in 0.28 secs
+##  - Completed in 0.32 secs
 ```
 
 Save the dataset into the intermediate folder.
@@ -1682,7 +1716,7 @@ if (!exists("duplicates")) {
 }
 ##  - Dates found in file name(s). Finding most-recent file from file name...
 ##  - Found the following file(s): 
-##  /tmp/Rtmpp02X1X/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-02-05.csv
+##  /tmp/Rtmp4lK1eZ/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-04-10.csv
 ## Rows: 0 Columns: 19
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
@@ -1719,7 +1753,7 @@ check_time <- BeeBDC::summaryFun(data = check_time, dontFilterThese = c(".gridSu
 ##  - We will NOT flag the following columns. However, they will remain in the data file.
 ## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold
 ##  - summaryFun:
-## Flagged 93 
+## Flagged 95 
 ##   The .summary column was added to the database.
 ```
 
@@ -1746,7 +1780,7 @@ cleanData <- BeeBDC::summaryFun(
 ##  - We will NOT flag the following columns. However, they will remain in the data file.
 ## .gridSummary, .lonFlag, .latFlag, .uncer_terms, .uncertaintyThreshold
 ##  - summaryFun:
-## Flagged 93 
+## Flagged 95 
 ##   The .summary column was added to the database.
 ##  - REMOVED all occurrences that were FALSE for the 'summary' column.
 ```
@@ -2002,7 +2036,7 @@ summaryTable <- BeeBDC::flagSummaryTable(data = beeData, column = "scientificNam
     outPath = NULL, fileName = "flagTable.csv")
 ##  - We will flag all columns starting with '.'
 ##  - summaryFun:
-## Flagged 107 
+## Flagged 109 
 ##   The .summary column was added to the database.
 ## The percentages of species impacted by each flag in your analysis are as follows: 
 ##   .coordinates_empty = 24.05%
@@ -2015,6 +2049,9 @@ summaryTable <- BeeBDC::flagSummaryTable(data = beeData, column = "scientificNam
 ##   .rou = 30.38%
 ##   .sequential = 0%
 ##   .uncertaintyThreshold = 15.19%
+##   .countryOutlier = 0%
+##   .sea = 2.53%
+##   .continentOutlier = 0%
 ##   .eventDate_empty = 16.46%
 ##   .year_outOfRange = 16.46%
 ##   .duplicates = 0%
