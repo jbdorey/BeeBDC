@@ -158,6 +158,47 @@ ggRichnessWrapper <- function(
   if (is.null(iNEXT_in)) {
     stop("No iNEXT_in provided. Please provide some data produced from BeeBDC::ggRichnessWrapper().")
   }
+ 
+  ##### 0.2 iNEXT test ####
+  ###### a. test ####
+  # Check if iNEXT is installed
+  # TRUE if iNEXT is found
+  suppressWarnings(
+    suggestedTest <- system.file(package='iNEXT') %>% 
+      stringr::str_count() > 0 
+  )
+  
+  ###### b. iNEXT ####
+  if(suggestedTest == FALSE){
+    # Set up instructions for download on fail
+    instructions <- paste(" Please try installing the package for yourself", 
+                          "using the following command: \n",
+                          "install.packages(\"iNEXT\")")
+    # Set up fail function for tryCatch
+    error_func <- function(e){
+      stop(paste("Failed to install the iNEXT package.\n", 
+                 instructions))
+    }
+    # Begin interactive input
+    input <- 1
+    if (interactive()){
+      input <- utils::menu(c("Yes", "No"), 
+                           title = paste0("Install the iNEXT package? \n"))
+    }
+    if(input == 1){
+      # Start iNEXT install
+      message("Installing the iNEXT package.")
+      tryCatch(
+        utils::install.packages("iNEXT"), 
+        error = error_func, warning = error_func)
+    } # END input == 1
+    
+    else{
+      stop(writeLines(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
+                            instructions)))
+    } # END else
+  } # END suggestedTest == FALSE
+  
   
     ##### 0.2 Prepare values ####
     # If no labels were provided, take them as the length of nrow and ncol a:z
@@ -443,7 +484,7 @@ ggRichnessWrapper <- function(
     cowplot::save_plot(
       plot = plotOut,
       filename = paste(outPath, "/", fileName, "_", names(plotData)[[1]], "_to_",
-                       names(plotData)[[length(plotData)]], sep = ""),
+                       names(plotData)[[length(plotData)]], ".pdf", sep = ""),
       base_width = base_height,
       base_height = base_height, 
       dpi = dpi)

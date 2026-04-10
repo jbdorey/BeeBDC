@@ -3,7 +3,7 @@
 
 # <a href='https://github.com/jbdorey/BeeBDC'><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"/></a>
 
-## **BeeBDC: an occurrence data cleaning package**
+# **BeeBDC: an occurrence data cleaning package**
 
 <!-- badges: start -->
 
@@ -14,16 +14,17 @@
 
 <!-- badges: end -->
 
-#### **Overview**
+## **Overview**
 
-The consistent implementation of biodiversity data continues to be a
+The reliable implementation of biodiversity data continues to be a
 challenge for researchers. We present the **BeeBDC** package which
-provides novel and updated functions for flagging, cleaning, and
-visualising occurrence datasets. Our functions are mostly general in
-regards to taxon; however, we also provide some functions and data that
-are specific for use with bee occurrence data; specifically due to their
-input data. We build upon functions and conventions in other fantastic R
-packages, especially [bdc](https://brunobrr.github.io/bdc/) and
+provides novel and updated functions for flagging, cleaning,
+visualising, and analysing occurrence datasets. Our package is general
+and can be applied to any taxon; however, we also provide some functions
+and data that are specific for use with bee occurrence data;
+specifically due to their input data. We add new functionality and keep
+conventions in other fantastic R packages, especially
+[bdc](https://brunobrr.github.io/bdc/) and
 [CoordinateCleaner](https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html),
 while also removing many dependencies on sp-related packages. Hence, our
 package name is **Bee** **B**iodiversity **D**ata **C**leaning
@@ -37,9 +38,26 @@ parallelised implementation of iChao and iNEXT species richness
 estimations, cite this [primary
 publication](https://doi.org/10.21203/rs.3.rs-6372769/v1).
 
-#### **Structure of *BeeBDC***
+### **The *BeeBDC* vignettes**
 
-The **BeeBDC** toolkit is organized using the conventions similar to
+The **BeeBDC** vignettes are split into several, depending on waht
+you’re hoping to do with the package. So far, it is broadly split into
+the (1) data cleaning workflow and (2) species richness estimation.
+
+1.  Data cleaning is broken into
+    - 1.1 The [full cleaning
+      workflow](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html)
+    - 1.2 A [more basic
+      workflow](https://jbdorey.github.io/BeeBDC/articles/basic_workflow.html)
+    - 1.3 A [bee-data specific
+      workflow](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_data_preparation.html)
+      to prepare those bee datasets
+2.  A short, but complete, vignette to [estimate species
+    richness](https://jbdorey.github.io/BeeBDC/articles/Species_richness_estimation.html)
+
+### ***BeeBDC*’s structure**
+
+The **BeeBDC** toolkit is intentionally organized using conventions in
 **bdc** and **CoordinateCleaner**.
 
 > Like in the **bdc** package, we provide a suggested workflow here.
@@ -56,7 +74,9 @@ The **BeeBDC** toolkit is organized using the conventions similar to
 
 #### ![Workflow figure from Dorey et al. 2023](https://photos.smugmug.com/photos/i-V37Vg2w/4/X4/i-V37Vg2w-X4.jpg)
 
-#### **Installation**
+## **Installation**
+
+### **Install *BeeBDC***
 
 You can install *BeeBDC* from CRAN or GitHub.
 
@@ -70,32 +90,7 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git",
                         ref = "devel", force = TRUE)
 ```
 
-Two optional packages can also be downloaded prior to starting your
-workflow, if desired. But, these are not essential. The packages
-BiocManager and devtools may also be required to download the two extra
-packages.
-
-1.  The first package, **rnaturalearthhires**, is a data package that
-    allows the usage of higher-resolution country maps and is very
-    useful for multiple **BeeBDC** functions.
-2.  The second package, **ComplexHeatmap**, is only used for one
-    **BeeBDC** function (`chordDiagramR()`) and is less critical.
-
-When either of these packages are called, the user will be prompted to
-install them. However, the latter may try to restart your R session.
-
-``` r
-  # These two packages may need to be installed in order to install the actual required packages 
-    # below.
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-if (!require("devtools", quietly = TRUE))
-    install.packages("devtools")
-
-  # Install ComplexHeatmap and rnaturalearthhires
-devtools::install_github("ropensci/rnaturalearthhires")
-BiocManager::install("ComplexHeatmap")
-```
+### **Install *sf* and *terra***
 
 > ### First time using the *sf* or *terra* packages?
 >
@@ -144,6 +139,64 @@ Load the package with:
 ``` r
 library(BeeBDC)
 ```
+
+### **Optional packages**
+
+Because **BeeBDC** provides broad functionality that might not be
+required by all users, some dependencies are optional (but required for
+some functions). Optional packages can be downloaded prior to starting
+your workflow, if desired. *However, you will be prompted to download
+these packages if they aren’t already installed when you run those
+functions*. The packages BiocManager and devtools may also be required
+to download some extra packages.
+
+1.  The package, **rnaturalearthhires**, is a data package that allows
+    the usage of higher-resolution country maps and is very useful for
+    multiple **BeeBDC** functions.
+
+``` r
+  # rnaturalearthhires can be installed using devtools from their github page
+if (!require("devtools", quietly = TRUE))
+    install.packages("devtools")
+  # Install rnaturalearthhires
+devtools::install_github("ropensci/rnaturalearthhires")
+```
+
+2.  The package, **ComplexHeatmap**, is only used for one **BeeBDC**
+    function (`BeeBDC::chordDiagramR()`) and is less critical.
+
+``` r
+  # ComplexHeatmap can be installed using BiocManager
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+  # Install ComplexHeatmap
+BiocManager::install("ComplexHeatmap")
+```
+
+3.  The package **taxadb** is used by `BeeBDC::taxadbToBeeBDC()` to
+    download and transform taxonomy files for **any taxon** and from
+    multiple providers (e.g., GBIF and ITIS) to work with **BeeBDC**.
+
+``` r
+  # taxadb can be installed using install.packages
+    install.packages("taxadb")
+```
+
+4.  The packages **iNEXT** and **SpadeR** can be downloaded in order to
+    estimate species richness using occurrence data (see the [species
+    richness
+    estimation](https://jbdorey.github.io/BeeBDC/articles/Species_richness_estimation.html)
+    vignette). Implemented in the functions `BeeBDC::iNEXTwrapper()`,
+    `BeeBDC::ChaoWrapper()`, `BeeBDC::ggRichnessWrapper()`, and
+    `BeeBDC::richnessEstimateR()`.
+
+``` r
+  # iNEXT and SpadeR can be installed using install.packages
+    install.packages("iNEXT")
+    install.packages("SpadeR")
+```
+
+## **BeeBDC workflow components**
 
 #### 1. [**Data merge**](https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#data-merge)
 
@@ -431,6 +484,8 @@ system.file("extdata", "testChecklist.rda", package="BeeBDC") |> load()
 View(testChecklist)
 ```
 
+## Package info
+
 #### **Package website**
 
 See *BeeBDC* package website
@@ -448,26 +503,26 @@ explanation on each module.
 
 #### **Citations**
 
-- **Paper, dataset, and package citation:** Dorey, J.B., Fischer, E.E.,
-  Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S.,
-  Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A.,
-  Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung,
-  J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L.,
-  Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V.,
-  Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. & Cobb, N.S. (2023)
-  A globally synthesised and flagged bee occurrence dataset and cleaning
-  workflow. Scientific Data, 10, 1–17.
+- **Original paper, dataset, and package citation:** Dorey, J.B.,
+  Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L.,
+  Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E.,
+  Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de
+  Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S.,
+  Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz,
+  W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &
+  Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence
+  dataset and cleaning workflow. Scientific Data, 10, 1–17.
   <https://www.doi.org/10.1038/S41597-023-02626-W>
   - **Figshare live data link:**
     <https://doi.org/10.25451/flinders.21709757>
 - **Species richness estimation citation:** Dorey J. B., Gilpin, A.-M.,
   Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C.
-  (Under review). How many bee species are there? A quantitative global
-  estimate. Nature Communications.
-  <https://doi.org/10.21203/rs.3.rs-6372769/v1>
-- **Package citation:** Dorey, J. B., O’Reilly, R. L., Bossert, S. &
-  Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R
-  package version 1.3.3. url: <https://github.com/jbdorey/BeeBDC>
+  (Accepted). Estimating global bee species richness and taxonomic gaps.
+  Nature Communications. <https://doi.org/10.21203/rs.3.rs-6372769/v1>
+- **BeeBDC package citation:** Dorey, J. B., O’Reilly, R. L.,
+  Bossert, S. & Fischer, E. (2023). BeeBDC: an occurrence data cleaning
+  package. R package version 1.3.3. url:
+  <https://github.com/jbdorey/BeeBDC>
 - **Discover Life citation (for use of bee taxonomy and checklist):**
   Ascher, J.S. & Pickering, J. (2026) Discover Life bee species guide
   and world checklist (Hymenoptera: Apoidea: Anthophila).

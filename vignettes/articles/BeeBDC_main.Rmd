@@ -1157,7 +1157,7 @@ checklistFile <- BeeBDC::beesChecklist()
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |>
   load()
   # Rename the file
-taxonomyFile <- testChecklist
+checklistFile <- testChecklist
 rm(testChecklist)
 ```
 
