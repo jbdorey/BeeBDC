@@ -1,6 +1,8 @@
 # Changelog
 
-## Changes in version 1.3.4
+## Changes in version 1.3.3
+
+CRAN release: 2026-02-06
 
 - “Suggested” packages are now used conditionally
 - Minor spelling mistake fixed in
