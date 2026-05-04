@@ -28,6 +28,15 @@
 #' @param checkVerbatim Logical. If TRUE then the verbatimScientificName will be checked as well 
 #' for species matches. This matching will ONLY be done after harmoniseR has failed for the other 
 #' name columns. NOTE: this column is *not* first run through `bdc::bdc_clean_names`. Default = FALSE
+#' @param relaxAmbiguous Logical. If TRUE, then ambiguous names will be returned as "TRUE" for 
+#' .invalidName. However, they will be listed as "ambiguouslyMatchedName" 
+#' under the "scientificNameAuthorship" column and the speciesColumn will NOT include the authority
+#' information. Hence, the names can be used but in should remain clear in the data that they must
+#' be used with caution. Default = FALSE.
+#' @param matchHigherTaxonomy Logical. If TRUE, then BeeBDC will try to match higher taxonomies
+#' (e.g., family names) using genera and such. This will work better if you have run the data through
+#' `bdc::bdc_clean_names` beforehand. The function will update the taxonRank column, if it is 
+#' otherwise empty. Default = TRUE.
 #' @param stepSize Numeric. The number of occurrences to process in each chunk. Default = 1000000.
 #' @param mc.cores Numeric. If > 1, the function will run in parallel
 #' using mclapply using the number of cores specified. If = 1 then it will be run using a serial
@@ -70,6 +79,8 @@ harmoniseR <- function(
     speciesColumn = "scientificName",
     rm_names_clean = TRUE,
     checkVerbatim = FALSE,
+    relaxAmbiguous = FALSE,
+    matchHigherTaxonomy = TRUE,
     stepSize = 1000000,
     mc.cores = 1
 ) {  
@@ -547,7 +558,7 @@ harmoniseR <- function(
   #### 3.0 Ambiguous names ####
   writeLines(paste("\n",
                    " - Attempting to harmonise the occurrence data with ambiguous names...", sep = ""))
-  ambiguousFunction <- function(data){
+  ambiguousFunction <- function(ambData){
     ##### 3.1 Prepare datasets ####
     ###### a. prep synonyms ####
     # Synonym list of ambiguous names
@@ -577,9 +588,9 @@ harmoniseR <- function(
     
     
     ###### b. author in sciName  ####
-    if(!all(is.na(data$scientificNameAuthorship))){
+    if(!all(is.na(ambData$scientificNameAuthorship))){
       # Create a list of scientificNameAuthorships that can be found in scientificName, where the former is empty
-      ambiguousAuthorFound <- data %>%
+      ambiguousAuthorFound <- ambData %>%
         # check only the data without authorship
         dplyr::filter(is.na(scientificNameAuthorship)) %>%
         # Select only UNDER genus-level IDs
@@ -599,7 +610,7 @@ harmoniseR <- function(
         dplyr::select(tidyselect::all_of(c("database_id", "authorFound")))
       
       # Add the author to those data that were lacking
-      data <- data %>%
+      ambData <- ambData %>%
         # Add authorFound to original dataset
         dplyr::left_join(ambiguousAuthorFound, by = "database_id",multiple = "all") %>%
         # If scientificNameAuthorship is empty, use authorFound from ambiguousAuthorFound
@@ -615,7 +626,7 @@ harmoniseR <- function(
     
     ###### c. ambiguous data ####
     # Filter occurrence dataset to those with ambiguous names AND authorship values
-    data_amb <- data %>%
+    data_amb <- ambData %>%
       # Keep those with authorship recorded
       dplyr::filter(stats::complete.cases(scientificNameAuthorship)) %>%
       # Keep those that are in the ambiguous names list
@@ -887,9 +898,9 @@ harmoniseR <- function(
     ) %>%
     # Combine the lists of tibbles
     dplyr::bind_rows() 
-  
-  
-  ##### 3.6 Combine 2.x & 3.x ####
+
+    
+  ##### 3.9 Combine 2.x & 3.x ####
   # Merge the results from 2.x and 3.x 
   runningOccurrences <- runningOccurrences %>%
     # Remove the ambiguous data from the prior-matched data
@@ -905,7 +916,7 @@ harmoniseR <- function(
   if(checkVerbatim == TRUE){
     writeLines(paste0("checkVerbatim = TRUE. Checking the verbatimScientificName column..."))
     
-    ###### 4.1 failedMatches ####
+    ##### 4.1 failedMatches ####
     # Find the data that did not match
     failedMatches <- data %>%
       # Remove the matched names from the OG dataset
@@ -969,7 +980,6 @@ harmoniseR <- function(
   }
   
   
-  
   #### 5.0 Merge ####
   writeLines(" - Formatting merged datasets...")
   # merge datasets
@@ -1024,7 +1034,193 @@ harmoniseR <- function(
     # Make sure no duplicates have snuck in
     dplyr::distinct(database_id, .keep_all = TRUE)
   
-  ###### c. return columns states ####
+  
+  #### 6.0 Less strict ####
+    ##### 6.1 Loosen ambiguous names ####
+  # If the user wants to loosen the requirement to exclude ambiguous names then provide that option
+  if(relaxAmbiguous == TRUE){
+    runningAmbiguous <- runningOccurrences %>%
+      # First, select the invalid names
+      dplyr::filter(.invalidName == FALSE)
+    writeLines(paste0(" You have chose to relax ambiguous names. Checking ",
+                      format(nrow(runningAmbiguous), big.mark = ","),
+               " failed names now..."))
+    
+    # Run the unambiguous function, but FIRST remove all of the ambiguous warnings by clearing the 
+    # "flags" column in the taxonomy file.
+    taxonomy <- taxonomy %>%
+      dplyr::mutate(flags = "")
+    
+    runningAmbiguous_matched <- runningAmbiguous %>%
+      # Make a new column with the ordering of rows
+      dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
+      # Group by the row number and step size
+      dplyr::group_by(BeeBDC_group = ceiling(BeeBDC_order/stepSize)) %>%
+      # Split the dataset up into a list by group
+      dplyr::group_split(.keep = TRUE) %>%
+      # Run the actual function
+      parallel::mclapply(., unAmbiguousFunction,
+                         mc.cores = mc.cores
+      ) %>%
+      # Combine the lists of tibbles
+      dplyr::bind_rows() %>%
+      # Put the scientific name into a new column called verbatimScientificName
+      dplyr::mutate(verbatimScientificName = scientificName) %>%
+      # select the columns we want to keep
+      dplyr::select( c(tidyselect::any_of(OG_colnames), validName_valid, 
+                       verbatimScientificName,
+                       family_valid, subfamily_valid,
+                       canonical_withFlags_valid, genus_valid, subgenus_valid, 
+                       species_valid, infraspecies_valid, authorship_valid)) %>%
+      # rename validName_valid to scientificName and place it where it used to sit.
+      dplyr::mutate(scientificName = validName_valid, .after = database_id) %>%
+      # Add in the other taxonomic data
+      dplyr::mutate(species = canonical_withFlags_valid,
+                    family = family_valid, 
+                    subfamily = subfamily_valid,
+                    genus = genus_valid,
+                    subgenus = subgenus_valid,
+                    specificEpithet = species_valid,
+                    infraspecificEpithet = infraspecies_valid,
+                    scientificNameAuthorship = authorship_valid,
+                    .after = scientificName) %>%
+      # Remove extra columns
+      dplyr::select(!c(canonical_withFlags_valid, family_valid, subfamily_valid, genus_valid,
+                       subgenus_valid, species_valid, infraspecies_valid, authorship_valid,
+                       validName_valid)) %>%
+      # Add the .invalidName columns as TRUE (not flagged)
+      dplyr::mutate(.invalidName = TRUE) %>%
+        # Remove the authorship from the scientificName column
+      dplyr::mutate(scientificName = stringr::str_remove(scientificName, scientificNameAuthorship) %>%
+                      stringr::str_remove_all("\\(\\)") %>% 
+                      stringr::str_squish(),
+                    scientificNameAuthorship = "ambiguouslyMatchedName")
+    # Provide some user feedback
+    writeLines(paste0(" BeeBDC has matched ",
+                      format(nrow(runningAmbiguous_matched), big.mark = ","),
+                      " rows that would otherwise be excluded as ambiguous names.\n",
+                      "Remember that these names will be listed as 'ambiguouslyMatchedName' ", 
+                      "under the 'scientificNameAuthorship' column and the speciesColumn will NOT ",
+                      "include the authority information. Hence, the names can be used but in",
+                      "should remain clear in the data that they must be used with caution. "))
+    
+    # Combine this file with all of the failed names
+    runningAmbiguous_combined <- runningAmbiguous %>% 
+        # Remove the newly matched ambiguous data
+      dplyr::filter(!database_id %in% runningAmbiguous_matched$database_id) %>%
+        # Re-add it in again
+      dplyr::bind_rows(runningAmbiguous_matched) 
+    rm(runningAmbiguous_matched, runningAmbiguous)
+    
+      # Combine with the overall file
+    # Combine this file with all of the failed names
+    runningOccurrences <- runningOccurrences %>% 
+      # Remove the newly matched ambiguous data
+      dplyr::filter(!database_id %in% runningAmbiguous_combined$database_id) %>%
+      # Re-add it in again
+      dplyr::bind_rows(runningAmbiguous_combined) 
+    rm(runningAmbiguous_combined)
+  }
+
+    ##### 6.2 Match higher taxonomy ####
+  # Names are only matched at the species level. Here, BeeBDC will also match higher taxonomy 
+  # names so that family and such can be added in
+if(matchHigherTaxonomy == TRUE){
+  # Create and order of operations. Genus goes before subgenus to avoid problems with exact matches
+  columnOrder <- c("kingdom"  ,"phylum"    ,"class",
+                   "order"    ,"family"    ,"subfamily","tribe",       
+                   "subtribe","subgenus","genus") %>% rev()
+    # Get a simplified taxonomy of subgenus and higher
+  simpleTaxonomy <- taxonomy %>%
+    # Take only valid names
+    dplyr::filter(taxonomic_status == "accepted") %>%
+    dplyr::select(tidyselect::any_of(columnOrder)) %>%
+    dplyr::distinct()
+    
+  runningHigher <- runningOccurrences %>%
+    # Get the failed names
+    dplyr::filter(.invalidName == FALSE) %>% 
+      # Remove the columns of interest
+    dplyr::select(!tidyselect::any_of(columnOrder))
+  
+
+  # Create a function to check each column for higher taxonomy from bottom up
+  higherTaxon_fun <- function(
+    higherData = runningHigher,
+    higherTaxonomy = simpleTaxonomy,
+    levelOrder = columnOrder,
+    #level = "subgenus",
+    level = NULL){
+    # Conditionally remove subgenus from match if searching for genus
+    if(level == "genus"){
+      higherTaxonomy <- higherTaxonomy %>%
+      dplyr::mutate(subgenus = NA_character_)
+    }
+    if(!level == "subgenus"){
+    # For each level, remove the preceding levels' columns
+    higherTaxonomy <- higherTaxonomy[,stringr::str_which(string = levelOrder,
+                                               pattern = paste0("^",level,"$")):length(levelOrder)]
+    }
+    # Extract the level to work with 
+    taxonLevel <- higherTaxonomy %>%
+        # Get only complete cases for that level
+      dplyr::filter(complete.cases(.data[[level]])) %>%
+        # Get only distinct data
+      dplyr::distinct()
+    
+    # look for matches
+    higherData_matched <- higherData %>%
+      dplyr::left_join(taxonLevel,
+                       by = c("names_clean" = level),
+                       keep = TRUE) %>%
+      # Re-order columns by the beebdc colTypeR order
+      dplyr::select(tidyselect::any_of(c(names(BeeBDC::ColTypeR()$cols),
+                                          # Ensure that all names are included 
+                                         c("kingdom"  ,"phylum"    ,"class",
+                                           "order"    ,"family"    ,"subfamily","tribe",       
+                                           "subtribe","subgenus","genus")))) %>% 
+      # Keep only matches
+      dplyr::filter(complete.cases(kingdom)) %>% 
+        # Add in the taxonRank column info
+      dplyr::mutate(taxonRank = dplyr::if_else(is.na(taxonRank),
+                                               level, NA_character_))
+    # Return matches
+    return(higherData_matched)
+  }
+    # Run the function to find all of the higher taxonomies
+  runningHigher_matched <- lapply(
+    X = as.list(columnOrder),
+    FUN = higherTaxon_fun,
+    higherData = runningHigher,
+    higherTaxonomy = simpleTaxonomy,
+    levelOrder = columnOrder
+  ) %>%
+    dplyr::bind_rows()  %>%
+    dplyr::distinct(database_id, .keep_all = TRUE)
+  
+  
+  # Combine this file with all of the failed names
+  runningHigher_combined <- runningHigher %>% 
+    # Remove the newly matched ambiguous data
+    dplyr::filter(!database_id %in% runningHigher_matched$database_id) %>%
+    # Re-add it in again
+    dplyr::bind_rows(runningHigher_matched) 
+  rm(runningHigher_matched, runningHigher)
+  
+  # Combine with the overall file
+  # Combine this file with all of the failed names
+  runningOccurrences <- runningOccurrences %>% 
+    # Remove the newly matched ambiguous data
+    dplyr::filter(!database_id %in% runningHigher_combined$database_id) %>%
+    # Re-add it in again
+    dplyr::bind_rows(runningHigher_combined) 
+  rm(runningHigher_combined)
+  
+}
+  
+  
+  #### 7.0 Return and output ####
+  ##### 7.1 Repair sp column ####
   # Return the speciesColumn name to it's original state
   names(runningOccurrences)[names(runningOccurrences) == "scientificName"] <- speciesColumn
   if(rm_names_clean == TRUE){
@@ -1043,7 +1239,7 @@ harmoniseR <- function(
   #                                   "Variety", "VARIETY")) 
   
   
-  ###### d. output ####
+  ##### 7.2 Output ####
   writeLines(paste(
     " - We matched valid names to ", 
     format(sum(runningOccurrences$.invalidName == TRUE), big.mark = ","), " of ",
@@ -1074,6 +1270,7 @@ harmoniseR <- function(
     units(round(endTime - startTime, digits = 2)),
     sep = ""))
   
+  ##### 7.3 Return ####
   # Return this file
   return(runningOccurrences)
 }

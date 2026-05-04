@@ -829,7 +829,9 @@ Remove *names_clean* if it already exists (i.e. you have run the following funct
 This step cleans the database's *scientificName* column. 
 	
 **! MAC**: You might need to install **gnparser** through terminal using [homebrew](https://brew.sh) — brew
+
 			brew tap gnames/gn
+			
 			brew install gnparser
 			
 			
