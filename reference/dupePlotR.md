@@ -69,6 +69,7 @@ Outputs a .pdf figure.
 ## Examples
 
 ``` r
+
 # This example will show a warning for the factor levels taht are not present in the specific 
 # test dataset
 dupePlotR(

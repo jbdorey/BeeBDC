@@ -449,6 +449,7 @@ https://www.doi.org/10.1038/S41597-023-02626-W
 ## Examples
 
 ``` r
+
 beesRaw <- BeeBDC::beesRaw
 head(beesRaw)
 #> # A tibble: 6 × 90

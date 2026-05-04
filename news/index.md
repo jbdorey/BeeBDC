@@ -1,5 +1,20 @@
 # Changelog
 
+## Changes in version 1.3.4
+
+- Updated bee taxonomy with new synonyms and names
+- Slight update to the Occurrence cleaning main workflow and how to
+  install rgnparser for **bdc**
+- Added kingdom, phylum, class, order, tribe, and subtribe to ColTypeR
+- Added functionality to
+  [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
+  so that (1) when relaxAmbiguous == TRUE the function will also match
+  ambiguous names and return these as “TRUE” for .invalidName but with
+  limited authority information and a warning in
+  “scientificNameAuthorship” and (2) when matchHigherTaxonomy == TRUE
+  the function will try to match incomplete names (e.g., “Genus sp. 1”)
+  to higher taxonomies, like family, order, etc.
+
 ## Changes in version 1.3.3
 
 CRAN release: 2026-02-06

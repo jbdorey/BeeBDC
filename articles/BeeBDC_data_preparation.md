@@ -17,10 +17,12 @@ Choose the path to the root folder in which all other folders can be
 found.
 
 ``` r
+
 RootPath <- paste0("/your/path/here")
 ```
 
 ``` r
+
 # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -64,6 +66,7 @@ setwd(paste0(RootPath, "/Data_acquisition_workflow"))
 > Homebrew)
 >
 > ``` r
+>
 > # Install terra
 > install.packages("terra", type = "source", configure.args = "--with-proj-lib=$(brew --prefix)/lib/")
 > # install sf
@@ -77,6 +80,7 @@ If you have **sf** and **terra** isntalled, you can now install
 **BeeBDC**.
 
 ``` r
+
 install.packages("BeeBDC")
 library(BeeBDC)
 ```
@@ -90,12 +94,14 @@ You can optionally install **BiocManager**, **devtools**,
 later as you wish.
 
 ``` r
+
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 
 BiocManager::install("ComplexHeatmap")
 ```
 
 ``` r
+
 # Install remotes if needed
 if (!require("remotes", quietly = TRUE)) install.packages("remotes", repos = "http://cran.us.r-project.org")
 # Download and then load rnaturalearthhires
@@ -106,6 +112,7 @@ library(rnaturalearthhires)
 ```
 
 ``` r
+
 install.packages("taxadb")
 ```
 
@@ -115,6 +122,7 @@ be a path RELATIVE to the RootPath; i.e., the file path from which the
 two diverge.
 
 ``` r
+
 BeeBDC::dirMaker(RootPath = RootPath, RDoc = "vignettes/BeeBDC_main.Rmd") %>%
     # Add paths created by this function to the environment()
 list2env(envir = parent.env(environment()))
@@ -125,6 +133,7 @@ list2env(envir = parent.env(environment()))
 Let’s go ahead and load our packages before we start!
 
 ``` r
+
 lapply(c("ComplexHeatmap", "magrittr"), library, character.only = TRUE)
 ## Loading required package: grid
 ## 
@@ -133,7 +142,7 @@ lapply(c("ComplexHeatmap", "magrittr"), library, character.only = TRUE)
 ## 
 ##     depth
 ## ========================================
-## ComplexHeatmap version 2.26.1
+## ComplexHeatmap version 2.28.0
 ## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
 ## Github page: https://github.com/jokergoo/ComplexHeatmap
 ## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference

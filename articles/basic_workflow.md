@@ -15,10 +15,12 @@ Choose the path to the root folder in which all other folders can be
 found.
 
 ``` r
+
 RootPath <- paste0("/your/path/here")
 ```
 
 ``` r
+
 # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -40,6 +42,7 @@ If you have already initialised a project, you can instead just activate
 it.
 
 ``` r
+
 renv::activate(project = paste0(RootPath, "/Data_acquisition_workflow"))
 ```
 
@@ -53,12 +56,14 @@ To start out, you will need to install **BiocManager**, **devtools**,
 use **BeeBDC**.
 
 ``` r
+
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager", repos = "http://cran.us.r-project.org")
 
 BiocManager::install("ComplexHeatmap")
 ```
 
 ``` r
+
 # Install remotes if needed
 if (!require("remotes", quietly = TRUE)) install.packages("remotes", repos = "http://cran.us.r-project.org")
 # Download and then load rnaturalearthhires
@@ -71,6 +76,7 @@ library(rnaturalearthhires)
 Now install **BeeBDC**.
 
 ``` r
+
 install.packages("BeeBDC")
 library(BeeBDC)
 ```
@@ -78,16 +84,17 @@ library(BeeBDC)
 Snapshot the renv environment.
 
 ``` r
+
 renv::snapshot(project = paste0(RootPath, "/Data_acquisition_workflow"), prompt = FALSE)
 ## The following package(s) will be updated in the lockfile:
 ## 
 ## # RSPM -----------------------------------------------------------------------
-## - renv   [* -> 1.2.0]
+## - renv   [* -> 1.2.2]
 ## 
 ## The version of R recorded in the lockfile will be updated:
-## - R      [* -> 4.5.3]
+## - R      [* -> 4.6.0]
 ## 
-## - Lockfile written to "/tmp/RtmpJKI927/Data_acquisition_workflow/renv.lock".
+## - Lockfile written to "/tmp/RtmpVwmsQR/Data_acquisition_workflow/renv.lock".
 ```
 
 Set up the directories used by **BeeBDC**. These directories include
@@ -96,6 +103,7 @@ be a path RELATIVE to the RootPath; i.e., the file path from which the
 two diverge.
 
 ``` r
+
 BeeBDC::dirMaker(RootPath = RootPath, RDoc = "vignettes/BeeBDC_main.Rmd") %>%
     # Add paths created by this function to the environment()
 list2env(envir = parent.env(environment()))
@@ -106,6 +114,7 @@ list2env(envir = parent.env(environment()))
 Load packages.
 
 ``` r
+
 lapply(c("ComplexHeatmap", "magrittr"), library, character.only = TRUE)
 ## Loading required package: grid
 ## 
@@ -114,7 +123,7 @@ lapply(c("ComplexHeatmap", "magrittr"), library, character.only = TRUE)
 ## 
 ##     depth
 ## ========================================
-## ComplexHeatmap version 2.26.1
+## ComplexHeatmap version 2.28.0
 ## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
 ## Github page: https://github.com/jokergoo/ComplexHeatmap
 ## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
@@ -148,12 +157,14 @@ can do so quite easily using **dplyr** from the **tidyverse** group of
 packages. To filter to a selected bee genus, in our case Anthophorini…
 
 ``` r
+
 # Load some package data — the taxonomy and a flagged example dataset Download
 # the full beesTaxonomy file
 taxonomyFile <- BeeBDC::beesTaxonomy()
 ```
 
 ``` r
+
 # load in the small test dataset in the background
 system.file("extdata", "testTaxonomy.rda", package = "BeeBDC") |>
     load()
@@ -163,6 +174,7 @@ rm(testTaxonomy)
 ```
 
 ``` r
+
 # Load the example beesFlagged dataset
 beesFlagged <- BeeBDC::beesFlagged
 
@@ -199,6 +211,7 @@ the records that fall in that country, if it, or the coordinates, have
 been entered incorrectly.
 
 ``` r
+
 # Select your study area
 studyArea <- c("Canada", "United states", "Mexico", "Guatemala")
 # Filter the data to that area
@@ -243,6 +256,7 @@ clean occurrences (filterClean = TRUE). For the latter, we are only
 keeping *.summary* == TRUE.
 
 ``` r
+
 filteredData <- 
   BeeBDC::summaryFun(data = beesFlagged,
    # Choose the columns to NOT filter (or NULL to filter all columns)
@@ -274,6 +288,7 @@ the **magrittr** package pipe (%\>%) to feed the outputs directly into
 to filter our data in one action!
 
 ``` r
+
 filteredData <- beesFlagged %>%
   # Remove any exiting .uncertaintyThreshold column
   dplyr::select(!tidyselect::any_of(".uncertaintyThreshold")) %>%
@@ -316,6 +331,7 @@ use
 to get results in one go.
 
 ``` r
+
 filteredData <- beesFlagged %>%
     # Remove any exisitng .year_outOfRange column
 dplyr::select(!".year_outOfRange") %>%
@@ -347,6 +363,7 @@ comes to the rescue with some very straight forward filtering within a
 year range.
 
 ``` r
+
 filteredData <- 
   # The input dataset
   beesFlagged %>%
@@ -396,6 +413,7 @@ function is very useful and it relies on two great packages,
 available on CRAN and so must be downloaded using **BiocManager**.
 
 ``` r
+
 if (!require("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
@@ -407,6 +425,7 @@ We don’t actually have an example duplicates dataset with the package,
 so I’ll magic one up behind the scences!
 
 ``` r
+
 duplicates <- fileFinder(path = "PATH TO A FOLDER CONTAINING THE duplicateRun_ — could be supp. materials folder",
     fileName = "duplicateRun_") %>%
     readr::read_csv() %>%
@@ -419,6 +438,7 @@ Then, set some parameters for figure borders and run your data through
 [`chordDiagramR()`](https://jbdorey.github.io/BeeBDC/reference/chordDiagramR.md).
 
 ``` r
+
 # Choose the global figure parameters
   par(mar = c(2, 2, 2, 2)/2, mfrow = c(1,1))
 
@@ -459,6 +479,7 @@ print the plot in R, you need to specify returnPlot = TRUE, otherwise it
 will only save to the disk
 
 ``` r
+
 data("beesFlagged", package = "BeeBDC")
 
 # Create a figure shoring the total number of duplicates, kept duplicates, and unique
@@ -497,6 +518,7 @@ maps of those species.
 #### a. all taxa in dataset
 
 ``` r
+
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
 BeeBDC::plotFlagSummary(
   data = beesFlagged,
@@ -523,6 +545,7 @@ In fact, lets build one of these single-species example below using the
 same data and the omnipresent *Apis mellifera*.
 
 ``` r
+
 # Visualise all flags for each dataSource (simplified to the text before the first underscore)
   # A clever user might also realise the potential to summarise and produce outputs in other columns
 BeeBDC::plotFlagSummary(
@@ -570,6 +593,7 @@ We can also make some overall summary maps at the country level using
 If you get an error about breaks not being unique, then reduce class_n.
 
 ``` r
+
 BeeBDC::summaryMaps(data = beesFlagged, width = 10, height = 10, class_n = 3, class_Style = "jenks",
     outPath = tempdir(), fileName = "CountryMaps_jenks.pdf", returnPlot = TRUE)
 ```
@@ -598,6 +622,7 @@ BeeBDC::summaryMaps(data = beesFlagged, width = 10, height = 10, class_n = 3, cl
 ## 6.0 Save data
 
 ``` r
+
 mapData %>%
     readr::write_excel_csv(paste0(DataPath, "/Output/Intermediate/", "cleanTaxon_",
         Sys.Date(), ".csv"))

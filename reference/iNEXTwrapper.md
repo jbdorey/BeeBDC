@@ -118,6 +118,7 @@ list the variables (columns) that lacked sufficient data to be analysed.
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
   # Read in some example data and use [BeeBDC::richnessPrepR()] to create the example input data
  #' data(beesCountrySubset)

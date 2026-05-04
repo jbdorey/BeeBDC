@@ -17,10 +17,12 @@ Choose the path to the root folder in which all other folders can be
 found.
 
 ``` r
+
 RootPath <- paste0("/your/path/here")
 ```
 
 ``` r
+
 # Create the working directory in the RootPath if it doesn't exist already
 if (!dir.exists(paste0(RootPath, "/Data_acquisition_workflow"))) {
     dir.create(paste0(RootPath, "/Data_acquisition_workflow"), recursive = TRUE)
@@ -37,6 +39,7 @@ download them the first time that you run the functions, however, let’s
 install them here and now.
 
 ``` r
+
 install.packages("SpadeR")
 install.packages("iNEXT")
 ```
@@ -65,6 +68,7 @@ rarefaction. We can start by reading in an example dataset with 1,488
 Fiji, Uganda, Vietnam, and Zambia.
 
 ``` r
+
 beesCountrySubset <- BeeBDC::beesCountrySubset
 ```
 
@@ -73,6 +77,7 @@ transforming our *(very simple example)* occurrence dataset into the
 right format and then running the function.
 
 ``` r
+
 # Transform the data
 transformedAbundance <- beesCountrySubset %>%
     dplyr::group_by(scientificName, country_suggested) %>%
@@ -90,20 +95,20 @@ output_iNEXT <- iNEXT::iNEXT(transformedAbundance, datatype = "abundance")
 We can also view the output of this function by running
 `output_iNEXT$AsyEst`
 
-| Assemblage | Diversity         |   Observed |  Estimator |       s.e. |        LCL |        UCL |
-|:-----------|:------------------|-----------:|-----------:|-----------:|-----------:|-----------:|
-| Fiji       | Species richness  |  17.000000 |  17.499483 |  1.4850098 |  17.000000 |  20.410049 |
-| Fiji       | Shannon diversity |   4.712056 |   4.754101 |  0.2164397 |   4.329887 |   5.178315 |
-| Fiji       | Simpson diversity |   2.653013 |   2.657561 |  0.1237356 |   2.415044 |   2.900078 |
-| Uganda     | Species richness  |  44.000000 |  70.243359 | 14.1752423 |  44.000000 |  98.026324 |
-| Uganda     | Shannon diversity |  19.651483 |  26.633143 |  3.4844763 |  19.803695 |  33.462591 |
-| Uganda     | Simpson diversity |   7.699248 |   8.128000 |  1.5689856 |   5.052845 |  11.203155 |
-| Vietnam    | Species richness  |   6.000000 |  13.794872 |  5.8924098 |   6.000000 |  25.343783 |
-| Vietnam    | Shannon diversity |   1.953128 |   2.307552 |  0.5923478 |   1.146572 |   3.468532 |
-| Vietnam    | Simpson diversity |   1.386509 |   1.400756 |  0.1986146 |   1.011479 |   1.790034 |
-| Zambia     | Species richness  | 129.000000 | 186.853965 | 17.7824798 | 152.000945 | 221.706985 |
-| Zambia     | Shannon diversity |  77.832700 | 104.647375 |  7.6001195 |  89.751415 | 119.543336 |
-| Zambia     | Simpson diversity |  32.753790 |  35.991359 |  6.3494595 |  23.546647 |  48.436071 |
+| Assemblage | Diversity | Observed | Estimator | s.e. | LCL | UCL |
+|:---|:---|---:|---:|---:|---:|---:|
+| Fiji | Species richness | 17.000000 | 17.499483 | 1.4850098 | 17.000000 | 20.410049 |
+| Fiji | Shannon diversity | 4.712056 | 4.754101 | 0.2164397 | 4.329887 | 5.178315 |
+| Fiji | Simpson diversity | 2.653013 | 2.657561 | 0.1237356 | 2.415044 | 2.900078 |
+| Uganda | Species richness | 44.000000 | 70.243359 | 14.1752423 | 44.000000 | 98.026324 |
+| Uganda | Shannon diversity | 19.651483 | 26.633143 | 3.4844763 | 19.803695 | 33.462591 |
+| Uganda | Simpson diversity | 7.699248 | 8.128000 | 1.5689856 | 5.052845 | 11.203155 |
+| Vietnam | Species richness | 6.000000 | 13.794872 | 5.8924098 | 6.000000 | 25.343783 |
+| Vietnam | Shannon diversity | 1.953128 | 2.307552 | 0.5923478 | 1.146572 | 3.468532 |
+| Vietnam | Simpson diversity | 1.386509 | 1.400756 | 0.1986146 | 1.011479 | 1.790034 |
+| Zambia | Species richness | 129.000000 | 186.853965 | 17.7824798 | 152.000945 | 221.706985 |
+| Zambia | Shannon diversity | 77.832700 | 104.647375 | 7.6001195 | 89.751415 | 119.543336 |
+| Zambia | Simpson diversity | 32.753790 | 35.991359 | 6.3494595 | 23.546647 | 48.436071 |
 
 The implementation of
 [`BeeBDC::iNEXTwrapper()`](https://jbdorey.github.io/BeeBDC/reference/iNEXTwrapper.md)
@@ -115,6 +120,7 @@ change them as we saw fit. The key variable is to change `mc.cores` to
 however many threads you’d liek to use on your computer!
 
 ``` r
+
 # Transform data
 data_nextWrapper <- beesCountrySubset %>%
     dplyr::group_by(scientificName, country_suggested) %>%
@@ -128,20 +134,20 @@ output_iNEXTwrapper <- BeeBDC::iNEXTwrapper(data = data_nextWrapper, variableCol
 
     ##  - Outputs can be found in a list with two tibbles called 'DataInfo' and 'AsyEst' and a list of iNext outputs per groupVariable in iNextEst'.
 
-| country_suggested | statistic         |   Observed |  Estimator |   Est_s.e. |  95% Lower |  95% Upper |
-|:------------------|:------------------|-----------:|-----------:|-----------:|-----------:|-----------:|
-| Fiji              | Species Richness  |  17.000000 |  17.499483 |  1.6650163 |  14.236111 |  20.762855 |
-| Fiji              | Shannon diversity |   4.712056 |   4.754101 |  0.2271829 |   4.308831 |   5.199372 |
-| Fiji              | Simpson diversity |   2.653013 |   2.657561 |  0.1264695 |   2.409685 |   2.905436 |
-| Uganda            | Species Richness  |  44.000000 |  70.243359 | 25.7541584 |  19.766137 | 120.720582 |
-| Uganda            | Shannon diversity |  19.651483 |  26.633143 |  4.2573468 |  18.288896 |  34.977389 |
-| Uganda            | Simpson diversity |   7.699248 |   8.128000 |  1.8631187 |   4.476354 |  11.779646 |
-| Vietnam           | Species Richness  |   6.000000 |  13.794872 |  6.1393736 |   1.761921 |  25.827823 |
-| Vietnam           | Shannon diversity |   1.953128 |   2.307552 |  0.5633747 |   1.203358 |   3.411746 |
-| Vietnam           | Simpson diversity |   1.386509 |   1.400756 |  0.1830418 |   1.042001 |   1.759511 |
-| Zambia            | Species Richness  | 129.000000 | 186.853965 | 18.1990609 | 151.184461 | 222.523469 |
-| Zambia            | Shannon diversity |  77.832700 | 104.647375 |  6.8285323 |  91.263698 | 118.031053 |
-| Zambia            | Simpson diversity |  32.753790 |  35.991359 |  5.5923079 |  25.030637 |  46.952081 |
+| country_suggested | statistic | Observed | Estimator | Est_s.e. | 95% Lower | 95% Upper |
+|:---|:---|---:|---:|---:|---:|---:|
+| Fiji | Species Richness | 17.000000 | 17.499483 | 1.6650163 | 14.236111 | 20.762855 |
+| Fiji | Shannon diversity | 4.712056 | 4.754101 | 0.2271829 | 4.308831 | 5.199372 |
+| Fiji | Simpson diversity | 2.653013 | 2.657561 | 0.1264695 | 2.409685 | 2.905436 |
+| Uganda | Species Richness | 44.000000 | 70.243359 | 25.7541584 | 19.766137 | 120.720582 |
+| Uganda | Shannon diversity | 19.651483 | 26.633143 | 4.2573468 | 18.288896 | 34.977389 |
+| Uganda | Simpson diversity | 7.699248 | 8.128000 | 1.8631187 | 4.476354 | 11.779646 |
+| Vietnam | Species Richness | 6.000000 | 13.794872 | 6.1393736 | 1.761921 | 25.827823 |
+| Vietnam | Shannon diversity | 1.953128 | 2.307552 | 0.5633747 | 1.203358 | 3.411746 |
+| Vietnam | Simpson diversity | 1.386509 | 1.400756 | 0.1830418 | 1.042001 | 1.759511 |
+| Zambia | Species Richness | 129.000000 | 186.853965 | 18.1990609 | 151.184461 | 222.523469 |
+| Zambia | Shannon diversity | 77.832700 | 104.647375 | 6.8285323 | 91.263698 | 118.031053 |
+| Zambia | Simpson diversity | 32.753790 | 35.991359 | 5.5923079 | 25.030637 | 46.952081 |
 
 ### ChaoWrapper
 
@@ -153,6 +159,7 @@ estimators. The primary one that I tend to use is iChao. Let’s use the
 same example dataset to first run the **SpadeR** function.
 
 ``` r
+
 # Transform data
 data_iChao <- beesCountrySubset %>%
     dplyr::group_by(scientificName, country_suggested) %>%
@@ -191,6 +198,7 @@ argument. Note, that in this case, we can run all sites (or countries)
 at once!
 
 ``` r
+
 # Run the wrapper function
 output_iChaowrapper <- BeeBDC::ChaoWrapper(data = data_iChao, datatype = "abundance",
     k = 10, conf = 0.95, mc.cores = 1)
@@ -251,6 +259,7 @@ this functino save a plot that visualises the data (below), it also
 outputs a summary of the estimates.
 
 ``` r
+
 (plot_summary <- BeeBDC::ggRichnessWrapper(iNEXT_in = output_iNEXTwrapper, iChao_in = output_iChaowrapper,
     nrow = 2, ncol = 2, labels = NULL, fileName = "speciesRichnessPlots", outPath = tempdir(),
     base_width = 8.3, base_height = 11.7, dpi = 300))
@@ -278,12 +287,12 @@ dataset (in fact we chose it as a test dataset because it is small), but
 it goes to show that if your data are inadequate you may not get a great
 answer. On the plus side, the 95% confidence intervals all overlap.
 
-| level   |   n | observedRichness | iNEXT_est | iNEXT_lower | iNEXT_upper | iNEXT_increasePercent | iChao_est | iChao_lower | iChao_upper | iChao_increasePercent |
-|:--------|----:|-----------------:|----------:|------------:|------------:|----------------------:|----------:|------------:|------------:|----------------------:|
-| Fiji    | 967 |               17 |        17 |          14 |          21 |                  2.85 |        18 |          17 |          25 |                  3.54 |
-| Uganda  | 128 |               44 |        70 |          20 |         121 |                 37.36 |        76 |          64 |          97 |                 42.29 |
-| Vietnam |  39 |                6 |        14 |           2 |          26 |                 56.51 |        14 |           7 |          69 |                 56.51 |
-| Zambia  | 354 |              129 |       187 |         151 |         223 |                 30.96 |       199 |         178 |         229 |                 35.21 |
+| level | n | observedRichness | iNEXT_est | iNEXT_lower | iNEXT_upper | iNEXT_increasePercent | iChao_est | iChao_lower | iChao_upper | iChao_increasePercent |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Fiji | 967 | 17 | 17 | 14 | 21 | 2.85 | 18 | 17 | 25 | 3.54 |
+| Uganda | 128 | 44 | 70 | 20 | 121 | 37.36 | 76 | 64 | 97 | 42.29 |
+| Vietnam | 39 | 6 | 14 | 2 | 26 | 56.51 | 14 | 7 | 69 | 56.51 |
+| Zambia | 354 | 129 | 187 | 151 | 223 | 30.96 | 199 | 178 | 229 | 35.21 |
 
 You can see, that these functions are moving towards simplifying quick
 and mass-estimation of species richness across sites or countries! The
@@ -350,12 +359,14 @@ Note as well that the `curveFunction` is the one generated from the
 Literature curve above.
 
 ``` r
+
 # Download the taxonomy and checklist files
 taxonomyFile <- BeeBDC::beesTaxonomy()
 checklistFile <- BeeBDC::beesChecklist()
 ```
 
 ``` r
+
   # Generate the R file
 estimateData <- BeeBDC::richnessPrepR(
   data = beesCountrySubset,
@@ -384,6 +395,7 @@ non-occurrence species each time (*capped at the maximum sample size for
 each country*).
 
 ``` r
+
 estimates <- BeeBDC::richnessEstimateR(
   data = estimateData,
   sampleSize = 10000,
@@ -401,12 +413,12 @@ estimates <- BeeBDC::richnessEstimateR(
 We can look at the median outputs of our analysis with
 `estimates$Summary`.
 
-| name    | scale   |  nChao | iChao_est | iChao_lower | iChao_upper | observedRichness | level   | niNEXT | iNEXT_est | iNEXT_lower | iNEXT_upper | iNEXT_increasePercent | iNEXT_increase | iChao_increasePercent | iChao_increase |
-|:--------|:--------|-------:|----------:|------------:|------------:|-----------------:|:--------|-------:|----------:|------------:|------------:|----------------------:|---------------:|----------------------:|---------------:|
-| Fiji    | Country | 1092.5 |   41.3505 |     35.5145 |     64.6065 |               33 | Country | 1092.5 |   39.9438 |    20.93908 |    58.47383 |              21.04181 |       6.943796 |              25.30455 |         8.3505 |
-| Vietnam | Country |  504.5 |  188.0865 |    162.5790 |    227.0055 |              114 | Country |  504.5 |  174.7167 |   135.52006 |   213.91334 |              53.26026 |      60.716700 |              64.98816 |        74.0865 |
-| Uganda  | Country | 1052.0 |  394.2635 |    353.7100 |    448.6710 |              235 | Country | 1052.0 |  366.2893 |   302.76618 |   432.81767 |              55.86779 |     131.289296 |              67.77170 |       159.2635 |
-| Zambia  | Country |  926.5 |  376.7255 |    336.7070 |    431.4105 |              227 | Country |  926.5 |  354.6887 |   293.86115 |   416.36552 |              56.25053 |     127.688708 |              65.95837 |       149.7255 |
+| name | scale | nChao | iChao_est | iChao_lower | iChao_upper | observedRichness | level | niNEXT | iNEXT_est | iNEXT_lower | iNEXT_upper | iNEXT_increasePercent | iNEXT_increase | iChao_increasePercent | iChao_increase |
+|:---|:---|---:|---:|---:|---:|---:|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Fiji | Country | 1092.5 | 41.3505 | 35.5145 | 64.6065 | 33 | Country | 1092.5 | 39.9438 | 20.93908 | 58.47383 | 21.04181 | 6.943796 | 25.30455 | 8.3505 |
+| Vietnam | Country | 504.5 | 188.0865 | 162.5790 | 227.0055 | 114 | Country | 504.5 | 174.7167 | 135.52006 | 213.91334 | 53.26026 | 60.716700 | 64.98816 | 74.0865 |
+| Uganda | Country | 1052.0 | 394.2635 | 353.7100 | 448.6710 | 235 | Country | 1052.0 | 366.2893 | 302.76618 | 432.81767 | 55.86779 | 131.289296 | 67.77170 | 159.2635 |
+| Zambia | Country | 926.5 | 376.7255 | 336.7070 | 431.4105 | 227 | Country | 926.5 | 354.6887 | 293.86115 | 416.36552 | 56.25053 | 127.688708 | 65.95837 | 149.7255 |
 
 Or, we can look at the outputs from each iteration together with
 `estimates$SiteOutput`.
@@ -500,6 +512,7 @@ Of course, these values are super helpful for papers on these topics.
 But similarly, we can easily make some further useful visualisations!
 
 ``` r
+
 # To build the manual legend, make a small fake dataset
 legendData <- dplyr::tibble(name = c("yes","yes"),
                                               statistic = c("iChao", "iNEXT") %>%
@@ -549,6 +562,7 @@ violinLegend <- ggplot2::ggplot(legendData, ggplot2::aes(x = name, y = est)) +
 ![](Species_richness_estimation_files/figure-html/visualiseEstimates-1.png)
 
 ``` r
+
   ## Tip: You can wrap the entire ggplot2 chunk of code in brackets () to print at the same time
 
 # Save the plot

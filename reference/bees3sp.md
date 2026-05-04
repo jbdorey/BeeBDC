@@ -688,6 +688,7 @@ https://www.doi.org/10.1038/S41597-023-02626-W
 ## Examples
 
 ``` r
+
 bees3sp <- BeeBDC::bees3sp
 head(bees3sp)
 #> # A tibble: 6 × 124

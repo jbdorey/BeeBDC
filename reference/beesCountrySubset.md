@@ -33,6 +33,7 @@ estimate. Journal
 ## Examples
 
 ``` r
+
 beesCountrySubset <- BeeBDC::beesCountrySubset
 head(beesCountrySubset)
 #> # A tibble: 6 × 2

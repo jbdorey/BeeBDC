@@ -46,6 +46,7 @@ species count.
 ## Examples
 
 ``` r
+
 data(beesFlagged)
 
 testOut <- dataProvTables(

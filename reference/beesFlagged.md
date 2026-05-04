@@ -673,6 +673,7 @@ https://www.doi.org/10.1038/S41597-023-02626-W
 ## Examples
 
 ``` r
+
 beesFlagged <- BeeBDC::beesFlagged
 head(beesFlagged)
 #> # A tibble: 6 × 124

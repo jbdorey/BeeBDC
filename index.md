@@ -69,6 +69,7 @@ The **BeeBDC** toolkit is intentionally organized using conventions in
 You can install *BeeBDC* from CRAN or GitHub.
 
 ``` r
+
   # Install BeeBDC from CRAN
 install.packages("BeeBDC")
 
@@ -113,6 +114,7 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git",
 > Homebrew)
 >
 > ``` r
+>
 >   # Install terra
 > install.packages("terra", type = "source", configure.args = "--with-proj-lib=$(brew --prefix)/lib/")
 >   # install sf
@@ -125,6 +127,7 @@ remotes::install_github("https://github.com/jbdorey/BeeBDC.git",
 Load the package with:
 
 ``` r
+
 library(BeeBDC)
 ```
 
@@ -143,6 +146,7 @@ to download some extra packages.
     multiple **BeeBDC** functions.
 
 ``` r
+
   # rnaturalearthhires can be installed using devtools from their github page
 if (!require("devtools", quietly = TRUE))
     install.packages("devtools")
@@ -156,6 +160,7 @@ devtools::install_github("ropensci/rnaturalearthhires")
     and is less critical.
 
 ``` r
+
   # ComplexHeatmap can be installed using BiocManager
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -169,6 +174,7 @@ BiocManager::install("ComplexHeatmap")
     multiple providers (e.g., GBIF and ITIS) to work with **BeeBDC**.
 
 ``` r
+
   # taxadb can be installed using install.packages
     install.packages("taxadb")
 ```
@@ -185,6 +191,7 @@ BiocManager::install("ComplexHeatmap")
     [`BeeBDC::richnessEstimateR()`](https://jbdorey.github.io/BeeBDC/reference/richnessEstimateR.md).
 
 ``` r
+
   # iNEXT and SpadeR can be installed using install.packages
     install.packages("iNEXT")
     install.packages("SpadeR")
@@ -533,6 +540,7 @@ We further provide five test datasets that are available with BeeBDC
   internally for tests.
 
 ``` r
+
   # Access the test taxonomy file
 system.file("extdata", "testTaxonomy.rda", package="BeeBDC") |> load()
   # View the file
