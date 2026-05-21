@@ -37,7 +37,7 @@ doi: \<https://doi.org/10.1101/2023.06.30.547152\>
     }
 
 Dorey, J. B., O'Reilly, R. L., Bossert, S., Fischer, E. E. (2023).
-BeeBDC: an occurrence data cleaning package. R package version 1.3.3.
+BeeBDC: an occurrence data cleaning package. R package version 1.3.4.
 url: \<https://github.com/jbdorey/BeeBDC\>
 
     @Manual{,

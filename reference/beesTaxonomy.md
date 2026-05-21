@@ -19,7 +19,7 @@ method is not available).
 
 ``` r
 beesTaxonomy(
-  URL = "https://api.figshare.com/v2/file/download/60945820",
+  URL = "https://api.figshare.com/v2/file/download/64193731",
   mode = NULL,
   headers = NULL,
   token = NULL,
@@ -128,8 +128,10 @@ scientificNameAuthority and with Discover Life taxonomy flags.
 
 **Previous taxonomies:**
 
-- 2026-01-12 **current**:
-  https://open.flinders.edu.au/ndownloader/files/60945820
+- 2026-05-04 **current**:
+  https://api.figshare.com/v2/file/download/64193731
+
+- 2026-01-12: https://open.flinders.edu.au/ndownloader/files/60945820
 
 - 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
 

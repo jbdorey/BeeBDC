@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>BeeBDC vignette • BeeBDC</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="BeeBDC vignette">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -719,7 +719,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.75 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.76 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -953,7 +953,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 0.28 secs</span></span>
+<span><span class="co">##  - Completed in 0.3 secs</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">taxonomyFile</span><span class="op">)</span></span></code></pre></div>
 <p>Save the harmonised file.</p>
@@ -1207,7 +1207,7 @@ in this; if anyone is willing!</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 1.38 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.94 secs</span></span></code></pre></div>
 <p>Since version 1.1.2 a new function,
 <code><a href="../reference/continentOutlieRs.html">BeeBDC::continentOutlieRs()</a></code>, has been released which is
 conceptually the same as <code><a href="../reference/countryOutlieRs.html">BeeBDC::countryOutlieRs()</a></code> except
@@ -1243,7 +1243,7 @@ country-level one and so might actually be of more wide-spread use
 <span><span class="co">## 1. The '.continentOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">## 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">## 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 0.94 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.93 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A list of failed species-country combinations and their numbers can be output</span></span>
 <span><span class="co"># here</span></span>
@@ -1389,7 +1389,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We modified dates in </span></span>
 <span><span class="co">## 175 occurrences.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.62225341796875 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.495187520980835 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1566,9 +1566,9 @@ details as this function is quite modifiable to user needs.</p>
 <span><span class="co">## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpQ9075v/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-05-04.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpAhF0LJ/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-05-21.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.28 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.26 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1607,7 +1607,7 @@ of the expert outliers.</p>
 <span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/RtmpQ9075v/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-05-04.csv</span></span>
+<span><span class="co">##  /tmp/RtmpAhF0LJ/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-05-21.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>

@@ -23,6 +23,8 @@ harmoniseR(
   speciesColumn = "scientificName",
   rm_names_clean = TRUE,
   checkVerbatim = FALSE,
+  relaxAmbiguous = FALSE,
+  matchHigherTaxonomy = TRUE,
   stepSize = 1e+06,
   mc.cores = 1
 )
@@ -65,6 +67,24 @@ harmoniseR(
   *not* first run through
   [`bdc::bdc_clean_names`](https://brunobrr.github.io/bdc/reference/bdc_clean_names.html).
   Default = FALSE
+
+- relaxAmbiguous:
+
+  Logical. If TRUE, then ambiguous names will be returned as "TRUE" for
+  .invalidName. However, they will be listed as "ambiguouslyMatchedName"
+  under the "scientificNameAuthorship" column and the speciesColumn will
+  NOT include the authority information. Hence, the names can be used
+  but in should remain clear in the data that they must be used with
+  caution. Default = FALSE.
+
+- matchHigherTaxonomy:
+
+  Logical. If TRUE, then BeeBDC will try to match higher taxonomies
+  (e.g., family names) using genera and such. This will work better if
+  you have run the data through
+  [`bdc::bdc_clean_names`](https://brunobrr.github.io/bdc/reference/bdc_clean_names.html)
+  beforehand. The function will update the taxonRank column, if it is
+  otherwise empty. Default = TRUE.
 
 - stepSize:
 
@@ -125,7 +145,7 @@ speciesColumn = "scientificName")
 #> The column, '.invalidName' was added to the database.
 #> 
 #>  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName
-#>  - Completed in 0.28 secs
+#>  - Completed in 0.29 secs
 table(beesRaw_out$.invalidName, useNA = "always")
 #> 
 #> FALSE  TRUE  <NA> 
