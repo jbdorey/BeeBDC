@@ -24,18 +24,6 @@
 #' implemented in one module of bdc/BeeBDC. When save_figures = TRUE, figures are
 #' also saved locally in a .png format.
 #'
-#' @importFrom CoordinateCleaner cc_val
-#' @importFrom readr read_csv
-#' @importFrom dplyr summarise n pull mutate group_by intersect filter full_join
-#' select mutate_if summarise_all rename
-#' @importFrom ggplot2 theme_minimal theme element_text element_line
-#' element_blank unit ggplot aes geom_col coord_flip labs geom_hline
-#' scale_y_continuous ggsave theme_void geom_polygon geom_hex coord_quickmap
-#' scale_fill_viridis_c geom_histogram
-#' @importFrom here here
-#' @importFrom stats reorder
-#' @importFrom dplyr as_tibble
-#' @importFrom tidyselect starts_with
 #' @importFrom dplyr %>%
 #' @export
 #'

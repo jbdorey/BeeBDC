@@ -11,6 +11,8 @@ harmoniseR(
   speciesColumn = "scientificName",
   rm_names_clean = TRUE,
   checkVerbatim = FALSE,
+  relaxAmbiguous = FALSE,
+  matchHigherTaxonomy = TRUE,
   stepSize = 1e+06,
   mc.cores = 1
 )
@@ -31,6 +33,17 @@ this function to help reduce confusion about this column later. Default = TRUE}
 \item{checkVerbatim}{Logical. If TRUE then the verbatimScientificName will be checked as well
 for species matches. This matching will ONLY be done after harmoniseR has failed for the other
 name columns. NOTE: this column is \emph{not} first run through \code{bdc::bdc_clean_names}. Default = FALSE}
+
+\item{relaxAmbiguous}{Logical. If TRUE, then ambiguous names will be returned as "TRUE" for
+.invalidName. However, they will be listed as "ambiguouslyMatchedName"
+under the "scientificNameAuthorship" column and the speciesColumn will NOT include the authority
+information. Hence, the names can be used but in should remain clear in the data that they must
+be used with caution. Default = FALSE.}
+
+\item{matchHigherTaxonomy}{Logical. If TRUE, then BeeBDC will try to match higher taxonomies
+(e.g., family names) using genera and such. This will work better if you have run the data through
+\code{bdc::bdc_clean_names} beforehand. The function will update the taxonRank column, if it is
+otherwise empty. Default = TRUE.}
 
 \item{stepSize}{Numeric. The number of occurrences to process in each chunk. Default = 1000000.}
 

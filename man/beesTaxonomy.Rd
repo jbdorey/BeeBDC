@@ -5,7 +5,7 @@
 \title{Download a nearly complete taxonomy of bees globally}
 \usage{
 beesTaxonomy(
-  URL = "https://api.figshare.com/v2/file/download/60945820",
+  URL = "https://api.figshare.com/v2/file/download/64193731",
   mode = NULL,
   headers = NULL,
   token = NULL,
@@ -97,7 +97,8 @@ or "auto" if any particular method is not available).
 
 \strong{Previous taxonomies:}
 \itemize{
-\item 2026-01-12 \strong{current}: https://open.flinders.edu.au/ndownloader/files/60945820
+\item 2026-05-04 \strong{current}: https://api.figshare.com/v2/file/download/64193731
+\item 2026-01-12: https://open.flinders.edu.au/ndownloader/files/60945820
 \item 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
 \item 2023-11-29: https://open.flinders.edu.au/ndownloader/files/43331472
 \item 2023-10-10: https://open.flinders.edu.au/ndownloader/files/42613126

@@ -18,7 +18,6 @@
 #' @param standardFormat Character. Some taxa may have a standard format for data. Presently,
 #' Only bees have had this encoded here as "bee". Default = NULL.
 #' 
-#' @importFrom readr col_character col_double col_factor col_integer col_logical col_datetime
 #' @importFrom dplyr %>%
 #'
 #' @return Returns an object of class col_spec. 

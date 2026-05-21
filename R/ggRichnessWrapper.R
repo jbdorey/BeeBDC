@@ -352,7 +352,7 @@ ggRichnessWrapper <- function(
                                           ymax = dataIn$AsyEst$`95% Lower`[[1]]),
                              fill = iNEXTcolour, alpha = 0.1, colour = NA) +
           # Have the plot start at zero on X and Y 
-        scale_x_continuous(expand = c(0.001, 0.001)) + scale_y_continuous(expand = c(0.001, 0.001))
+        ggplot2::scale_x_continuous(expand = c(0.001, 0.001)) + ggplot2::scale_y_continuous(expand = c(0.001, 0.001))
     } # END show_iNEXT
       
     ###### c. Chao 95% ####

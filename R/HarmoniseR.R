@@ -89,7 +89,8 @@ harmoniseR <- function(
     species<-infraspecies<-authorship<-taxonomic_status<-flags<-accid<-validName_valid<-
     family_valid<-subfamily_valid<-canonical_withFlags_valid<-genus_valid<-subgenus_valid<-
     species_valid<-infraspecies_valid<-authorship_valid<-database_id<-names_clean<-
-    scientificNameAuthorship<-taxonRank<-authorFound<-SciNameAuthorSimple<-
+    scientificNameAuthorship<-taxonRank<-authorFound<-SciNameAuthorSimple<-.invalidName<- .data <-
+    kingdom <-
     authorSimple<-united_SciName<-verbatimScientificName <- scientificName <- BeeBDC_order <- NULL
   
   
@@ -171,6 +172,8 @@ harmoniseR <- function(
       dplyr::mutate(species = scientificName)
     message("The species column was not found, filling this column with scientificName.")
   }
+  # Record the colnames of the data 
+  originalColnames <- colnames(data)
   
   # Remove non-ambiguous tags 
   taxonomy <- taxonomy %>%
@@ -1119,7 +1122,6 @@ harmoniseR <- function(
       dplyr::filter(!database_id %in% runningAmbiguous_combined$database_id) %>%
       # Re-add it in again
       dplyr::bind_rows(runningAmbiguous_combined) 
-    rm(runningAmbiguous_combined)
   }
 
     ##### 6.2 Match higher taxonomy ####
@@ -1149,7 +1151,7 @@ if(matchHigherTaxonomy == TRUE){
     higherData = runningHigher,
     higherTaxonomy = simpleTaxonomy,
     levelOrder = columnOrder,
-    #level = "subgenus",
+    #level = "family",
     level = NULL){
     # Conditionally remove subgenus from match if searching for genus
     if(level == "genus"){
@@ -1175,6 +1177,8 @@ if(matchHigherTaxonomy == TRUE){
                        keep = TRUE) %>%
       # Re-order columns by the beebdc colTypeR order
       dplyr::select(tidyselect::any_of(c(names(BeeBDC::ColTypeR()$cols),
+                                          # Keep original column names also
+                                         originalColnames,
                                           # Ensure that all names are included 
                                          c("kingdom"  ,"phylum"    ,"class",
                                            "order"    ,"family"    ,"subfamily","tribe",       
@@ -1274,3 +1278,4 @@ if(matchHigherTaxonomy == TRUE){
   # Return this file
   return(runningOccurrences)
 }
+
