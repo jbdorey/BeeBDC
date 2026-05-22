@@ -94,7 +94,7 @@ renv::snapshot(project = paste0(RootPath, "/Data_acquisition_workflow"), prompt 
 ## The version of R recorded in the lockfile will be updated:
 ## - R      [* -> 4.6.0]
 ## 
-## - Lockfile written to "/tmp/RtmpYiuooG/Data_acquisition_workflow/renv.lock".
+## - Lockfile written to "/tmp/RtmpagxCq4/Data_acquisition_workflow/renv.lock".
 ```
 
 Set up the directories used by **BeeBDC**. These directories include
