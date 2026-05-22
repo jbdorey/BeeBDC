@@ -81,11 +81,12 @@
 <a href="https://github.com/jbdorey/BeeBDC" class="external-link"><img src="https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png" alt="BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America" align="right" width="155"></a><a class="anchor" aria-label="anchor" href="#section"></a>
 </h2>
 <p>This is a basic workflow for feeding species occurrence data, a
-group’s taxonomy, and a group’s country checklist into BeeBDC in order
-to produce species richness estimates. Some of these functions are also
-generic wrappers around <code>SpadeR</code> and <code>iNEXT</code>
-functions that can be used with any abundance data. These functions have
-grown from an <a href="DOI">original publication</a>.</p>
+group’s taxonomy, and a group’s country checklist into
+<strong>BeeBDC</strong> in order to produce species richness estimates.
+Some of these functions are also generic wrappers around
+<strong>SpadeR</strong> and <strong>iNEXT</strong> functions that can be
+used with any abundance data. These functions have grown from an <a href="https://doi.org/10.1038/s41467-026-69029-4" class="external-link">original
+publication</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="script-preparation">Script preparation<a class="anchor" aria-label="anchor" href="#script-preparation"></a>
@@ -109,9 +110,9 @@ found.</p>
 <h3 id="install-packages-if-needed">Install packages (if needed)<a class="anchor" aria-label="anchor" href="#install-packages-if-needed"></a>
 </h3>
 <p>You may need to install some packages for using this workflow. In
-particular, <code>SpadeR</code> and <code>iNEXT</code> are required.
-They should prompt you to download them the first time that you run the
-functions, however, let’s install them here and now.</p>
+particular, <strong>SpadeR</strong> and <strong>iNEXT</strong> are
+required. They should prompt you to download them the first time that
+you run the functions, however, let’s install them here and now.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"SpadeR"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"iNEXT"</span><span class="op">)</span></span></code></pre></div>
@@ -120,14 +121,15 @@ functions, however, let’s install them here and now.</p>
 <div class="section level2">
 <h2 id="parallel-estimations">Parallel estimations<a class="anchor" aria-label="anchor" href="#parallel-estimations"></a>
 </h2>
-<p>We can start by looking at the relatively simple <code>iNEXT</code>
-and <code>SpadeR</code> wrapper functions that can take the usual inputs
-for those functions in their host packages. (See
-<code><a href="https://rdrr.io/pkg/iNEXT/man/iNEXT.html" class="external-link">iNEXT::iNEXT()</a></code> and <code><a href="https://rdrr.io/pkg/SpadeR/man/ChaoSpecies.html" class="external-link">SpadeR::ChaoSpecies()</a></code> for
-more info.) These functions can take your data and run multiple
-sites/countries/whatever level you want to throw at them and run them in
-parallel. This greatly simplifies the code needed to run them and also
-makes its implementation MUCH faster!</p>
+<p>We can start by looking at the relatively simple
+<strong>iNEXT</strong> and <strong>SpadeR</strong> wrapper functions
+that can take the usual inputs for those functions in their host
+packages. (See <code><a href="https://rdrr.io/pkg/iNEXT/man/iNEXT.html" class="external-link">iNEXT::iNEXT()</a></code> and
+<code><a href="https://rdrr.io/pkg/SpadeR/man/ChaoSpecies.html" class="external-link">SpadeR::ChaoSpecies()</a></code> for more info.) These functions can
+take your data and run multiple sites/countries/whatever level you want
+to throw at them and run them in parallel. This greatly simplifies the
+code needed to run them and also makes its implementation MUCH
+faster!</p>
 <div class="section level3">
 <h3 id="inextwrapper">iNEXTwrapper<a class="anchor" aria-label="anchor" href="#inextwrapper"></a>
 </h3>
@@ -140,9 +142,9 @@ in an example dataset with 1,488
 countries; Fiji, Uganda, Vietnam, and Zambia.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beesCountrySubset</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="va"><a href="../reference/beesCountrySubset.html">beesCountrySubset</a></span></span></code></pre></div>
-<p>Next, let’s look at how we would usually use iNEXT… By first
-transforming our <em>(very simple example)</em> occurrence dataset into
-the right format and then running the function.</p>
+<p>Next, let’s look at how we would usually use <strong>iNEXT</strong>…
+By first transforming our <em>(very simple example)</em> occurrence
+dataset into the right format and then running the function.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform the data</span></span>
 <span><span class="va">transformedAbundance</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -467,10 +469,10 @@ Simpson diversity
 relatively simple; including the implementation of running in parallel
 (<strong>Note: Windows machines can’t use R’s parallel
 functions</strong>). We can again modify the input data to work with the
-function as below and we could leave most of the inputs to iNEXTwrapper
-to the defaults or change them as we saw fit. The key variable is to
-change <code>mc.cores</code> to however many threads you’d liek to use
-on your computer!</p>
+function as below and we could leave most of the inputs to
+<code>iNEXTwrapper</code> to the defaults or change them as we saw fit.
+The key variable is to change <code>mc.cores</code> to however many
+threads you’d liek to use on your computer!</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform data</span></span>
 <span><span class="va">data_nextWrapper</span> <span class="op">&lt;-</span> <span class="va">beesCountrySubset</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1998,10 +2000,11 @@ occurrences at the country-level (dark blue).</em></div>
 </div>
 <p>We can then extract the formula from this curve and use it to
 randomly generate data for those missing species. These curves can be
-built using your own data; see section 1.6 of the R code for the <a href="DOI">bee species richness estimates paper</a>, which uses
-<strong>ggplot2</strong> and <strong>mosaic</strong>’s
-<code>fitModel</code> function to generate the curve function that goes
-into <code>BeeBDC::diversityPrepR()</code> below.</p>
+built using your own data; see section 1.6 of the R code for the <a href="https://doi.org/10.1038/s41467-026-69029-4" class="external-link">bee species richness
+estimates paper</a>, which uses <strong>ggplot2</strong> and
+<strong>mosaic</strong>’s <code>fitModel</code> function to generate the
+curve function that goes into <code>BeeBDC::diversityPrepR()</code>
+below.</p>
 <p>Let’s dig in… To start with, we will <em>make an R object</em> using
 our occurrence data (<em>beesCountrySubset</em>), taxonomy (from
 <code><a href="../reference/beesTaxonomy.html">BeeBDC::beesTaxonomy()</a></code> or
@@ -4746,9 +4749,9 @@ publication</a> for this workflow as well as the <a href="LINK?">original R work
 </h2>
 <p>You can read more about the implementation of this work in the
 original citation: <em>Dorey J. B., Gilpin, A.-M., Johnson, N.,
-Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (Under
-review). How many bee species are there? A quantitative global estimate.
-Nature Communications. <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link uri">https://doi.org/10.21203/rs.3.rs-6372769/v1</a></em></p>
+Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (2026).
+Estimating global bee species richness and taxonomic gaps. Nature
+Communications. <a href="https://doi.org/10.1038/s41467-026-69029-4" class="external-link uri">https://doi.org/10.1038/s41467-026-69029-4</a></em></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

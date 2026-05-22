@@ -50,12 +50,12 @@ url: \<https://github.com/jbdorey/BeeBDC\>
 
 Dorey, J. B., Gilpin, A.-M., Johnston, N., Esquerre, D., Hughes, A.C.,
 Ascher, J.S., Orr, M.,(2026). Estimating global bee species richness and
-taxonomic gaps. doi: \<https://doi.org/10.21203/rs.3.rs-6372769/v1\>
+taxonomic gaps. doi: \<https://doi.org/10.1038/s41467-026-69029-4\>
 
     @Article{,
       title = {Estimating global bee species richness and taxonomic gaps},
       author = {{Dorey, James B [aut],Gilpin, Amy-Marie [aut],Johnston, Nicolas [aut],Esquerre, Damien [aut],Hughes, Alice C [aut],Ascher, John S [aut],Orr, Michael}},
       journal = {Nature Communications},
       year = {2026},
-      doi = {10.21203/rs.3.rs-6372769/v1},
+      doi = {10.1038/s41467-026-69029-4},
     }

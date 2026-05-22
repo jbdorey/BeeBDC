@@ -80,7 +80,7 @@
 <strong>Overview</strong><a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The reliable implementation of biodiversity data continues to be a challenge for researchers. We present the <strong>BeeBDC</strong> package which provides novel and updated functions for flagging, cleaning, visualising, and analysing occurrence datasets. Our package is general and can be applied to any taxon; however, we also provide some functions and data that are specific for use with bee occurrence data; specifically due to their input data. We add new functionality and keep conventions in other fantastic R packages, especially <a href="https://brunobrr.github.io/bdc/" class="external-link">bdc</a> and <a href="https://ropensci.github.io/CoordinateCleaner/articles/Cleaning_GBIF_data_with_CoordinateCleaner.html" class="external-link">CoordinateCleaner</a>, while also removing many dependencies on sp-related packages. Hence, our package name is <strong>Bee</strong> <strong>B</strong>iodiversity <strong>D</strong>ata <strong>C</strong>leaning (<strong>BeeBDC</strong>).</p>
-<p>We provide a full workflow that uses BeeBDC, bdc, and CoordinateCleaner to clean occurrence data in our Articles page and encourage users to read and also cite this primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>. For our parallelised implementation of iChao and iNEXT species richness estimations, cite this <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link">primary publication</a>.</p>
+<p>We provide a full workflow that uses <strong>BeeBDC</strong>, <strong>bdc</strong>, and <strong>CoordinateCleaner</strong> to clean occurrence data in our Articles page and encourage users to read and also cite this primary <a href="https://doi.org/10.1101/2023.06.30.547152" class="external-link">publication</a>. For our parallelised implementation of iChao and iNEXT species richness estimations, cite this <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link">primary publication</a>.</p>
 <div class="section level3">
 <h3 id="the-beebdc-vignettes">
 <strong>The <em>BeeBDC</em> vignettes</strong><a class="anchor" aria-label="anchor" href="#the-beebdc-vignettes"></a>
@@ -167,7 +167,7 @@
 <h3 id="optional-packages">
 <strong>Optional packages</strong><a class="anchor" aria-label="anchor" href="#optional-packages"></a>
 </h3>
-<p>Because <strong>BeeBDC</strong> provides broad functionality that might not be required by all users, some dependencies are optional (but required for some functions). Optional packages can be downloaded prior to starting your workflow, if desired. <em>However, you will be prompted to download these packages if they aren’t already installed when you run those functions</em>. The packages BiocManager and devtools may also be required to download some extra packages.</p>
+<p>Because <strong>BeeBDC</strong> provides broad functionality that might not be required by all users, some dependencies are optional (but required for some functions). Optional packages can be downloaded prior to starting your workflow, if desired. <em>However, you will be prompted to download these packages if they aren’t already installed when you run those functions</em>. The packages <strong>BiocManager</strong> and <strong>devtools</strong> may also be required to download some extra packages.</p>
 <ol style="list-style-type: decimal">
 <li>The package, <strong>rnaturalearthhires</strong>, is a data package that allows the usage of higher-resolution country maps and is very useful for multiple <strong>BeeBDC</strong> functions.</li>
 </ol>
@@ -240,21 +240,21 @@
 <li>
 <code><a href="reference/readr_BeeBDC.html">readr_BeeBDC()</a></code> Read in a variety of data files that are specific to certain smaller data providers. There is an internal readr function for each dataset and each one of these functions is called by readr_BeeBDC. While these functions are internal, they are displayed in the documentation of readr_BeeBDC for clarity.</li>
 <li>
-<code><a href="reference/idMatchR.html">idMatchR()</a></code> This function attempts to match database_ids from a prior bdc or BeeBDC run in order to keep this column somewhat consistent between iterations. However, not all records contain sufficient information for this to work flawlessly.</li>
+<code><a href="reference/idMatchR.html">idMatchR()</a></code> This function attempts to match database_ids from a prior <strong>bdc</strong> or <strong>BeeBDC</strong> run in order to keep this column somewhat consistent between iterations. However, not all records contain sufficient information for this to work flawlessly.</li>
 </ul>
 </div>
 <div class="section level4">
 <h4 id="id_3-initial-flags">3. <a href="https://jbdorey.github.io/BeeBDC/articles/BeeBDC_main.html#initial-flags"><strong>Initial flags</strong></a>
 <a class="anchor" aria-label="anchor" href="#id_3-initial-flags"></a>
 </h4>
-<p>Flagging and carpentry of several, mostly general, data issues. See bdc’s <a href="https://brunobrr.github.io/bdc/articles/prefilter.html" class="external-link">pre-filter</a> for more related functions.</p>
+<p>Flagging and carpentry of several, mostly general, data issues. See <strong>bdc</strong>’s <a href="https://brunobrr.github.io/bdc/articles/prefilter.html" class="external-link">pre-filter</a> for more related functions.</p>
 <ul>
 <li>
 <code><a href="reference/countryNameCleanR.html">countryNameCleanR()</a></code> This is a basic function for a user to manually fix some country name inconsistencies.</li>
 <li>
 <code><a href="reference/jbd_CfC_chunker.html">jbd_CfC_chunker()</a></code> Because the <code>BeeBDC::jbd_country_from_coordinates()</code> function is very RAM-intensive, this wrapper allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a time. The prefix jbd_ is used to highlight the difference between this function and the original <code><a href="https://brunobrr.github.io/bdc/reference/bdc_country_from_coordinates.html" class="external-link">bdc::bdc_country_from_coordinates()</a></code>.</li>
 <li>
-<code><a href="reference/jbd_Ctrans_chunker.html">jbd_Ctrans_chunker()</a></code> Because the <code><a href="reference/jbd_coordinates_transposed.html">BeeBDC::jbd_coordinates_transposed()</a></code> function is very RAM-intensive, this wrapper allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a time. The prefix jbd_ is used to highlight the difference between this function and the original bdc::bdc_coordinates_transposed(). These functions will preferably use the countryCode column generated by <code><a href="https://brunobrr.github.io/bdc/reference/bdc_country_standardized.html" class="external-link">bdc::bdc_country_standardized()</a></code>.</li>
+<code><a href="reference/jbd_Ctrans_chunker.html">jbd_Ctrans_chunker()</a></code> Because the <code><a href="reference/jbd_coordinates_transposed.html">BeeBDC::jbd_coordinates_transposed()</a></code> function is very RAM-intensive, this wrapper allows a user to specify chunk-sizes and only analyse a small portion of the occurrence data at a time. The prefix jbd_ is used to highlight the difference between this function and the original <code><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_transposed.html" class="external-link">bdc::bdc_coordinates_transposed()</a></code>. These functions will preferably use the countryCode column generated by <code><a href="https://brunobrr.github.io/bdc/reference/bdc_country_standardized.html" class="external-link">bdc::bdc_country_standardized()</a></code>.</li>
 <li>
 <code><a href="reference/jbd_coordCountryInconsistent.html">jbd_coordCountryInconsistent()</a></code> Compares stated country name in an occurrence record with record’s coordinates using rnaturalearth data. The prefix, jbd_ is meant to distinguish this function from the original <code><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_country_inconsistent.html" class="external-link">bdc::bdc_coordinates_country_inconsistent()</a></code>. This functions will preferably use the countryCode and country_suggested columns generated by <code><a href="https://brunobrr.github.io/bdc/reference/bdc_country_standardized.html" class="external-link">bdc::bdc_country_standardized()</a></code>; please run it on your dataset prior to running this function.</li>
 <li>
@@ -262,7 +262,7 @@
 <li>
 <code><a href="reference/GBIFissues.html">GBIFissues()</a></code> This function will flag records which are subject to a user-specified vector of GBIF issues.</li>
 <li>
-<code><a href="reference/flagRecorder.html">flagRecorder()</a></code> This function is used to save the flag data for your occurrence data as you run the BeeBDC script. It will read and append existing files, if asked to. Your flags should also be saved in the occurrence file itself automatically.</li>
+<code><a href="reference/flagRecorder.html">flagRecorder()</a></code> This function is used to save the flag data for your occurrence data as you run the <strong>BeeBDC</strong> script. It will read and append existing files, if asked to. Your flags should also be saved in the occurrence file itself automatically.</li>
 </ul>
 </div>
 <div class="section level4">
@@ -272,7 +272,7 @@
 <p>Harmonisation of scientific names against a taxonomy downloaded from <strong>taxadb</strong>, from the provided <a href="https://www.discoverlife.org" class="external-link">Discover Life</a> website’s taxonomic reference, or a custom taxonomy.</p>
 <ul>
 <li>
-<code><a href="reference/taxadbToBeeBDC.html">taxadbToBeeBDC()</a></code> Uses the <strong>taxadb</strong> to download a species taxonomy from any of their sources and transforms it into the BeeBDC format that can then be exported as a .csv or into the R enviornment to be be fed directly into <code><a href="reference/HarmoniseR.html">BeeBDC::harmoniseR()</a></code>. This means that the taxonomy from ANY taxon can be used. See also <code><a href="reference/beesTaxonomy.html">BeeBDC::beesTaxonomy()</a></code> for the best global bee taxonomy.</li>
+<code><a href="reference/taxadbToBeeBDC.html">taxadbToBeeBDC()</a></code> Uses the <strong>taxadb</strong> to download a species taxonomy from any of their sources and transforms it into the <strong>BeeBDC</strong> format that can then be exported as a .csv or into the <strong>R</strong> environment to be be fed directly into <code><a href="reference/HarmoniseR.html">BeeBDC::harmoniseR()</a></code>. This means that the taxonomy from ANY taxon can be used. See also <code><a href="reference/beesTaxonomy.html">BeeBDC::beesTaxonomy()</a></code> for the best global bee taxonomy.</li>
 <li>
 <code><a href="reference/HarmoniseR.html">harmoniseR()</a></code> Uses the Discover Life taxonomy to harmonise bee occurrences and flag those that do not match the checklist. This function could be hijacked to service other taxa if a user matched the format of the beesTaxonomy file. <code><a href="reference/HarmoniseR.html">BeeBDC::harmoniseR()</a></code> prefers to use the names_clean columns that is generated by <code><a href="https://brunobrr.github.io/bdc/reference/bdc_clean_names.html" class="external-link">bdc::bdc_clean_names()</a></code>. While this is not required, you may find better results by running that function on your dataset first.</li>
 </ul>
@@ -284,7 +284,7 @@
 <p>Flagging of erroneous, suspicious, and low-precision geographic coordinates.</p>
 <ul>
 <li>
-<code><a href="reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with the original function, <code><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_precision.html" class="external-link">bdc::bdc_coordinates_precision()</a></code> that will flag occurrences where only one of latitude OR longitude are rounded. The BeeBDC approach saves occurrences that may have had terminal zeros rounded in one coordinate column.</li>
+<code><a href="reference/jbd_coordinates_precision.html">jbd_coordinates_precision()</a></code> This function flags occurrences where BOTH latitude and longitude values are rounded. This contrasts with the original function, <code><a href="https://brunobrr.github.io/bdc/reference/bdc_coordinates_precision.html" class="external-link">bdc::bdc_coordinates_precision()</a></code> that will flag occurrences where only one of latitude OR longitude are rounded. The <strong>BeeBDC</strong> approach saves occurrences that may have had terminal zeros rounded in one coordinate column.</li>
 <li>
 <code><a href="reference/diagonAlley.html">diagonAlley()</a></code> A simple function that looks for potential latitude and longitude fill-down errors by identifying consecutive occurrences with coordinates at regular intervals. This is accomplished by using a sliding window with the length determined by minRepeats.</li>
 <li>
@@ -294,7 +294,7 @@
 <li>
 <code><a href="reference/continentOutlieRs.html">continentOutlieRs()</a></code> This function flags continent-level outliers using the checklist provided with this package. This function works much the same as <code><a href="reference/countryOutlieRs.html">countryOutlieRs()</a></code>, but at a lower resolution. For additional context and column names, see <code>beesChecklist</code>.</li>
 <li>
-<code><a href="reference/jbd_create_figures.html">jbd_create_figures()</a></code> Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and BeeBDC packages. Works like <code><a href="https://brunobrr.github.io/bdc/reference/bdc_create_figures.html" class="external-link">bdc::bdc_create_figures()</a></code>, but it allows the user to specify a save path.</li>
+<code><a href="reference/jbd_create_figures.html">jbd_create_figures()</a></code> Creates figures (i.e., bar plots, maps, and histograms) reporting the results of data quality tests implemented the bdc and <strong>BeeBDC</strong> packages. Works like <code><a href="https://brunobrr.github.io/bdc/reference/bdc_create_figures.html" class="external-link">bdc::bdc_create_figures()</a></code>, but it allows the user to specify a save path.</li>
 </ul>
 </div>
 <div class="section level4">
@@ -370,16 +370,16 @@
 <p>We provide two full datasets that are downloadable using the below two functions</p>
 <ul>
 <li>
-<code><a href="reference/beesTaxonomy.html">beesTaxonomy()</a></code> Downloads the taxonomic information for the bees of the world. Source of taxonomy is listed under “source” but are mostly derived from the Discover Life website. The data will be sourced from the BeeBDC article’s Figshare. Please see also <code><a href="reference/taxadbToBeeBDC.html">BeeBDC::taxadbToBeeBDC()</a></code> for the download of any other taxonomy (for any taxa or for bees).</li>
+<code><a href="reference/beesTaxonomy.html">beesTaxonomy()</a></code> Downloads the taxonomic information for the bees of the world. Source of taxonomy is listed under “source” but are mostly derived from the Discover Life website. The data will be sourced from the <strong>BeeBDC</strong> article’s Figshare. Please see also <code><a href="reference/taxadbToBeeBDC.html">BeeBDC::taxadbToBeeBDC()</a></code> for the download of any other taxonomy (for any taxa or for bees).</li>
 <li>
-<code><a href="reference/beesChecklist.html">beesChecklist()</a></code> Download the table contains taxonomic and country information for the bees of the world based on data collated on Discover Life. The data will be sourced from the BeeBDC article’s Figshare.</li>
+<code><a href="reference/beesChecklist.html">beesChecklist()</a></code> Download the table contains taxonomic and country information for the bees of the world based on data collated on Discover Life. The data will be sourced from the <strong>BeeBDC</strong> article’s Figshare.</li>
 </ul>
-<p>We further provide five test datasets that are available with BeeBDC</p>
+<p>We further provide five test datasets that are available with <strong>BeeBDC</strong>.</p>
 <ul>
 <li>
 <code><a href="reference/bees3sp.html">BeeBDC::bees3sp</a></code> This test dataset includes 105 random occurrence records from three bee species. The included species are: “<em>Agapostemon tyleri</em> Cockerell, 1917”, “<em>Centris rhodopus</em> Cockerell, 1897”, and “<em>Perdita octomaculata</em> (Say, 1824)”.</li>
 <li>
-<code><a href="reference/beesRaw.html">BeeBDC::beesRaw</a></code> A small bee occurrence dataset with flags generated by BeeBDC used to run example script and test functions. For data types, see <code><a href="reference/ColTypeR.html">ColTypeR()</a></code>.</li>
+<code><a href="reference/beesRaw.html">BeeBDC::beesRaw</a></code> A small bee occurrence dataset with flags generated by <strong>BeeBDC</strong> used to run example script and test functions. For data types, see <code><a href="reference/ColTypeR.html">ColTypeR()</a></code>.</li>
 <li>
 <code><a href="reference/beesFlagged.html">BeeBDC::beesFlagged</a></code> A small bee occurrence dataset with flags generated by BeeBDC used to run example script and test functions. For data types, see <code><a href="reference/ColTypeR.html">ColTypeR()</a></code>.</li>
 <li>
@@ -404,7 +404,7 @@
 <h4 id="package-website">
 <strong>Package website</strong><a class="anchor" aria-label="anchor" href="#package-website"></a>
 </h4>
-<p>See <em>BeeBDC</em> package website (<a href="https://jbdorey.github.io/BeeBDC/reference/index.html" class="uri">https://jbdorey.github.io/BeeBDC/reference/index.html</a>) for detailed explanation on each module.</p>
+<p>See <strong>BeeBDC</strong> package website (<a href="https://jbdorey.github.io/BeeBDC/reference/index.html" class="uri">https://jbdorey.github.io/BeeBDC/reference/index.html</a>) for detailed explanation on each module.</p>
 </div>
 <div class="section level4">
 <h4 id="getting-help">
@@ -423,7 +423,7 @@
 </h4>
 <ul>
 <li>
-<strong>Original paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. Scientific Data, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a>
+<strong>Original paper, dataset, and package citation:</strong> Dorey, J.B., Fischer, E.E., Chesshire, P.R., Nava-Bolaños, A., O’Reilly, R.L., Bossert, S., Collins, S.M., Lichtenberg, E.M., Tucker, E., Smith-Pardo, A., Falcon-Brindis, A., Guevara, D.A., Ribeiro, B.R., de Pedro, D., Hung, J.K.-L., Parys, K.A., McCabe, L.M., Rogan, M.S., Minckley, R.L., Velzco, S.J.E., Griswold, T., Zarrillo, T.A., Jetz, W., Sica, Y.V., Orr, M.C., Guzman, L.M., Ascher, J., Hughes, A.C. &amp; Cobb, N.S. (2023) A globally synthesised and flagged bee occurrence dataset and cleaning workflow. <em>Scientific Data</em>, 10, 1–17. <a href="https://www.doi.org/10.1038/S41597-023-02626-W" class="external-link uri">https://www.doi.org/10.1038/S41597-023-02626-W</a>
 <ul>
 <li>
 <strong>Figshare live data link:</strong> <a href="https://doi.org/10.25451/flinders.21709757" class="external-link uri">https://doi.org/10.25451/flinders.21709757</a>
@@ -431,10 +431,10 @@
 </ul>
 </li>
 <li>
-<strong>Species richness estimation citation:</strong> Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (Accepted). Estimating global bee species richness and taxonomic gaps. Nature Communications. <a href="https://doi.org/10.21203/rs.3.rs-6372769/v1" class="external-link uri">https://doi.org/10.21203/rs.3.rs-6372769/v1</a>
+<strong>Species richness estimation citation:</strong> Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., &amp; Orr, M. C. (2026). Estimating global bee species richness and taxonomic gaps. <em>Nature Communications</em>. <a href="https://doi.org/10.1038/s41467-026-69029-4" class="external-link uri">https://doi.org/10.1038/s41467-026-69029-4</a>
 </li>
 <li>
-<strong>BeeBDC package citation:</strong> Dorey, J. B., O’Reilly, R. L., Bossert, S. &amp; Fischer, E. (2023). BeeBDC: an occurrence data cleaning package. R package version 1.3.3. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a>
+<strong>BeeBDC package citation:</strong> Dorey, J. B., O’Reilly, R. L., Bossert, S. &amp; Fischer, E. (2023). <strong>BeeBDC</strong>: an occurrence data cleaning package. R package version 1.3.4. url: <a href="https://github.com/jbdorey/BeeBDC" class="external-link uri">https://github.com/jbdorey/BeeBDC</a>
 </li>
 <li>
 <strong>Discover Life citation (for use of bee taxonomy and checklist):</strong> Ascher, J.S. &amp; Pickering, J. (2026) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). <a href="https://www.discoverlife.org/mp/20q?guide=Apoidea_species" class="external-link uri">https://www.discoverlife.org/mp/20q?guide=Apoidea_species</a>

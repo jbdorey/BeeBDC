@@ -3,11 +3,11 @@
 ## [![BeeBDC logo of a cuckoo bee sweeping up occurrence records in South America](https://photos.smugmug.com/photos/i-MpLFKTT/0/741daa6d/X4/i-MpLFKTT-X4.png)](https://github.com/jbdorey/BeeBDC)
 
 This is a basic workflow for feeding species occurrence data, a group’s
-taxonomy, and a group’s country checklist into BeeBDC in order to
+taxonomy, and a group’s country checklist into **BeeBDC** in order to
 produce species richness estimates. Some of these functions are also
-generic wrappers around `SpadeR` and `iNEXT` functions that can be used
-with any abundance data. These functions have grown from an [original
-publication](https://jbdorey.github.io/BeeBDC/articles/DOI).
+generic wrappers around **SpadeR** and **iNEXT** functions that can be
+used with any abundance data. These functions have grown from an
+[original publication](https://doi.org/10.1038/s41467-026-69029-4).
 
 ## Script preparation
 
@@ -34,9 +34,9 @@ setwd(paste0(RootPath, "/Data_acquisition_workflow"))
 ### Install packages (if needed)
 
 You may need to install some packages for using this workflow. In
-particular, `SpadeR` and `iNEXT` are required. They should prompt you to
-download them the first time that you run the functions, however, let’s
-install them here and now.
+particular, **SpadeR** and **iNEXT** are required. They should prompt
+you to download them the first time that you run the functions, however,
+let’s install them here and now.
 
 ``` r
 
@@ -46,9 +46,9 @@ install.packages("iNEXT")
 
 ## Parallel estimations
 
-We can start by looking at the relatively simple `iNEXT` and `SpadeR`
-wrapper functions that can take the usual inputs for those functions in
-their host packages. (See
+We can start by looking at the relatively simple **iNEXT** and
+**SpadeR** wrapper functions that can take the usual inputs for those
+functions in their host packages. (See
 [`iNEXT::iNEXT()`](https://rdrr.io/pkg/iNEXT/man/iNEXT.html) and
 [`SpadeR::ChaoSpecies()`](https://rdrr.io/pkg/SpadeR/man/ChaoSpecies.html)
 for more info.) These functions can take your data and run multiple
@@ -72,7 +72,7 @@ Fiji, Uganda, Vietnam, and Zambia.
 beesCountrySubset <- BeeBDC::beesCountrySubset
 ```
 
-Next, let’s look at how we would usually use iNEXT… By first
+Next, let’s look at how we would usually use **iNEXT**… By first
 transforming our *(very simple example)* occurrence dataset into the
 right format and then running the function.
 
@@ -115,9 +115,9 @@ The implementation of
 is also relatively simple; including the implementation of running in
 parallel (**Note: Windows machines can’t use R’s parallel functions**).
 We can again modify the input data to work with the function as below
-and we could leave most of the inputs to iNEXTwrapper to the defaults or
-change them as we saw fit. The key variable is to change `mc.cores` to
-however many threads you’d liek to use on your computer!
+and we could leave most of the inputs to `iNEXTwrapper` to the defaults
+or change them as we saw fit. The key variable is to change `mc.cores`
+to however many threads you’d liek to use on your computer!
 
 ``` r
 
@@ -337,10 +337,9 @@ occurrence records (light blue), and occurrences at the country-level
 We can then extract the formula from this curve and use it to randomly
 generate data for those missing species. These curves can be built using
 your own data; see section 1.6 of the R code for the [bee species
-richness estimates
-paper](https://jbdorey.github.io/BeeBDC/articles/DOI), which uses
-**ggplot2** and **mosaic**’s `fitModel` function to generate the curve
-function that goes into `BeeBDC::diversityPrepR()` below.
+richness estimates paper](https://doi.org/10.1038/s41467-026-69029-4),
+which uses **ggplot2** and **mosaic**’s `fitModel` function to generate
+the curve function that goes into `BeeBDC::diversityPrepR()` below.
 
 Let’s dig in… To start with, we will *make an R object* using our
 occurrence data (*beesCountrySubset*), taxonomy (from
@@ -582,6 +581,6 @@ workflow](https://jbdorey.github.io/BeeBDC/articles/LINK?) itself.
 
 You can read more about the implementation of this work in the original
 citation: *Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D.,
-Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review). How many bee
-species are there? A quantitative global estimate. Nature
-Communications. <https://doi.org/10.21203/rs.3.rs-6372769/v1>*
+Hughes, A. C., Ascher, J. S., & Orr, M. C. (2026). Estimating global bee
+species richness and taxonomic gaps. Nature Communications.
+<https://doi.org/10.1038/s41467-026-69029-4>*
