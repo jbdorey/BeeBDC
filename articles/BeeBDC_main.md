@@ -722,7 +722,7 @@ check_pf <- BeeBDC::jbd_coordCountryInconsistent(data = check_pf, lon = "decimal
 ## jbd_coordinates_country_inconsistent:
 ## Flagged 2 records.
 ## The column, '.coordinates_country_inconsistent', was added to the database.
-##  - Completed in 0.76 secs
+##  - Completed in 0.75 secs
 ```
 
 Save the dataset.
@@ -1329,7 +1329,7 @@ check_space <- BeeBDC::countryOutlieRs(checklist = checklistFile,
 ##  1.  The '.countryOutlier' column was added which is a filtering column. 
 ##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. 
 ##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.
-##  - Completed in 0.94 secs
+##  - Completed in 0.93 secs
 ```
 
 Since version 1.1.2 a new function,
@@ -1370,7 +1370,7 @@ check_space <- BeeBDC::continentOutlieRs(checklist = checklistFile,
 ## 1. The '.continentOutlier' column was added which is a filtering column. 
 ## 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. 
 ## 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.
-##  - Completed in 0.93 secs
+##  - Completed in 0.92 secs
 ```
 
 ``` r
@@ -1557,7 +1557,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 ## We modified dates in 
 ## 175 occurrences.
 ##  - As it stands, there are 175 complete eventDates and 30 missing dates.
-##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.495187520980835 secs
+##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.496208906173706 secs
 ```
 
 ### 6.2 No eventDate
@@ -1760,9 +1760,9 @@ check_time <- BeeBDC::dupeSummary(
 ## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
 ##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
 ##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-##  - Duplicates have been saved in the file and location: /tmp/RtmpAhF0LJ/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-05-21.csv
+##  - Duplicates have been saved in the file and location: /tmp/Rtmp1oWgUM/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-05-22.csv
 ##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.
-##  - Completed in 0.26 secs
+##  - Completed in 0.25 secs
 ```
 
 Save the dataset into the intermediate folder.
@@ -1811,7 +1811,7 @@ if (!exists("duplicates")) {
 }
 ##  - Dates found in file name(s). Finding most-recent file from file name...
 ##  - Found the following file(s): 
-##  /tmp/RtmpAhF0LJ/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-05-21.csv
+##  /tmp/Rtmp1oWgUM/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-05-22.csv
 ## Rows: 0 Columns: 19
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","

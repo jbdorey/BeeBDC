@@ -2,10 +2,11 @@
 
 ## Changes in version 1.3.4
 
-- Updated bee taxonomy with new synonyms and names
+- Updated bee taxonomy with new synonyms and names.
 - Slight update to the Occurrence cleaning main workflow and how to
-  install rgnparser for **bdc**
-- Added kingdom, phylum, class, order, tribe, and subtribe to ColTypeR
+  install rgnparser for **bdc**.
+- Added kingdom, phylum, class, order, tribe, and subtribe columns to
+  [`BeeBDC::ColTypeR()`](https://jbdorey.github.io/BeeBDC/reference/ColTypeR.md).
 - Added functionality to
   [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
   so that (1) when relaxAmbiguous == TRUE the function will also match
@@ -13,15 +14,20 @@
   limited authority information and a warning in
   “scientificNameAuthorship” and (2) when matchHigherTaxonomy == TRUE
   the function will try to match incomplete names (e.g., “Genus sp. 1”)
-  to higher taxonomies, like family, order, etc.
+  to higher taxonomies, like family, order, genus, etcetera.
+- Minor changes required to other packages to allow for the new columns
+  in text.
+- [`BeeBDC::ggRichnessWrapper()`](https://jbdorey.github.io/BeeBDC/reference/ggRichnessWrapper.md)
+  now checks and asks users to install **iNEXT** if required. It also
+  outputs the plot explicitly as a .pdf file.
 
 ## Changes in version 1.3.3
 
 CRAN release: 2026-02-06
 
-- “Suggested” packages are now used conditionally
+- “Suggested” packages are now used conditionally.
 - Minor spelling mistake fixed in
-  [`BeeBDC::BeeBDCQuery()`](https://jbdorey.github.io/BeeBDC/reference/BeeBDCQuery.md)
+  [`BeeBDC::BeeBDCQuery()`](https://jbdorey.github.io/BeeBDC/reference/BeeBDCQuery.md).
 - Thanks on both counts to Prof. Brian D. Ripley of CRAN!
 
 ## Changes in version 1.3.2
@@ -46,7 +52,7 @@ CRAN release: 2026-01-16
   datasets to a 2026 version of Discover Life — J.S. &
   Pickering, J. (2026) Discover Life bee species guide and world
   checklist (Hymenoptera: Apoidea: Anthophila).
-  <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
+  <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>.
 - For
   [`BeeBDC::ggRichnessWrapper()`](https://jbdorey.github.io/BeeBDC/reference/ggRichnessWrapper.md),
   users may change the *fileName* suffix to change the output format
@@ -57,7 +63,7 @@ CRAN release: 2026-01-16
   broader community). The major changes relate to finding and correctly
   extracting exceptions. More info can bee seen at the pull request here
   — <https://github.com/jbdorey/BeeBDC/pull/15>;
-  mitchwebb:dateFindR-improvements
+  mitchwebb:dateFindR-improvements.
 
 ## Changes in version 1.3.1
 
@@ -277,7 +283,7 @@ CRAN release: 2023-11-30
   get updated.
 
 - Update to atlasDownloader from mjwestgate to work with galah version
-  2.0.0
+  2.0.0.
 
 - Minor update to the bee taxonomy file (29th November 2023), especially
   in regards to a few species that were getting associated with
