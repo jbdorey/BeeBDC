@@ -74,7 +74,7 @@ knitr::opts_chunk$set(error = TRUE,
                       root.dir = normalizePath(tempdir()))
 ```
 
-This is a basic workflow for feeding species occurrence data, a group's taxonomy, and a group's country checklist into BeeBDC in order to produce species richness estimates. Some of these functions are also generic wrappers around `SpadeR` and `iNEXT` functions that can be used with any abundance data. These functions have grown from an [original publication](DOI).
+This is a basic workflow for feeding species occurrence data, a group's taxonomy, and a group's country checklist into **BeeBDC** in order to produce species richness estimates. Some of these functions are also generic wrappers around **SpadeR** and **iNEXT** functions that can be used with any abundance data. These functions have grown from an [original publication](https://doi.org/10.1038/s41467-026-69029-4).
 
 # Script preparation 
 ## Working directory 
@@ -96,7 +96,7 @@ setwd(paste0(RootPath,"/Data_acquisition_workflow"))
 
 ## Install packages (if needed) 
 
-You may need to install some packages for using this workflow. In particular, `SpadeR` and `iNEXT` are required. They should prompt you to download them the first time that you run the functions, however, let's install them here and now.
+You may need to install some packages for using this workflow. In particular, **SpadeR** and **iNEXT** are required. They should prompt you to download them the first time that you run the functions, however, let's install them here and now.
 
 ```{r installPackages, message=FALSE, warning=FALSE, results=FALSE, collapse = TRUE, eval = FALSE}
 install.packages("SpadeR")
@@ -127,7 +127,7 @@ if (!dir.exists(OutPath_Report)) {
 
 # Parallel estimations
 
-We can start by looking at the relatively simple `iNEXT` and `SpadeR` wrapper functions that can take the usual inputs for those functions in their host packages. (See `iNEXT::iNEXT()` and `SpadeR::ChaoSpecies()` for more info.) These functions can take your data and run multiple sites/countries/whatever level you want to throw at them and run them in parallel. This greatly simplifies the code needed to run them and also makes its implementation MUCH faster!
+We can start by looking at the relatively simple **iNEXT** and **SpadeR** wrapper functions that can take the usual inputs for those functions in their host packages. (See `iNEXT::iNEXT()` and `SpadeR::ChaoSpecies()` for more info.) These functions can take your data and run multiple sites/countries/whatever level you want to throw at them and run them in parallel. This greatly simplifies the code needed to run them and also makes its implementation MUCH faster!
 
 ## iNEXTwrapper
 
@@ -137,7 +137,7 @@ We can start by looking at the relatively simple `iNEXT` and `SpadeR` wrapper fu
 beesCountrySubset <- BeeBDC::beesCountrySubset
 ```
 
-Next, let's look at how we would usually use iNEXT... By first transforming our *(very simple example)* occurrence dataset into the right format and then running the function.
+Next, let's look at how we would usually use **iNEXT**... By first transforming our *(very simple example)* occurrence dataset into the right format and then running the function.
 
 ```{r iNEXT_simple}
   # Transform the data
@@ -164,7 +164,7 @@ kableExtra::kbl(output_iNEXT$AsyEst) %>%
   kableExtra::scroll_box(height = "350px")
 ```
 
-The implementation of `BeeBDC::iNEXTwrapper()` is also relatively simple; including the implementation of running in parallel (**Note: Windows machines can't use R's parallel functions**). We can again modify the input data to work with the function as below and we could leave most of the inputs to iNEXTwrapper to the defaults or change them as we saw fit. The key variable is to change `mc.cores` to however many threads you'd liek to use on your computer!
+The implementation of `BeeBDC::iNEXTwrapper()` is also relatively simple; including the implementation of running in parallel (**Note: Windows machines can't use R's parallel functions**). We can again modify the input data to work with the function as below and we could leave most of the inputs to `iNEXTwrapper` to the defaults or change them as we saw fit. The key variable is to change `mc.cores` to however many threads you'd liek to use on your computer!
 
 
 ```{r iNEXT_wrapper}
@@ -298,7 +298,7 @@ In our [bee species richness estimates paper](DOI), we had 4,819 species (from a
 
 ![*Curves generated using 497 literature species (yellow), the global occurrence records (light blue), and occurrences at the country-level (dark blue).*](<https://photos.smugmug.com/photos/i-sXCctD2/0/NCPsSsmb4PSncqxVGkkC9SSSdv99NNQFN2rx6q6rn/O/i-sXCctD2.png>){width="400px"}
 
-We can then extract the formula from this curve and use it to randomly generate data for those missing species. These curves can be built using your own data; see section 1.6 of the R code for the [bee species richness estimates paper](DOI), which uses **ggplot2** and **mosaic**'s `fitModel` function to generate the curve function that goes into `BeeBDC::diversityPrepR()` below.
+We can then extract the formula from this curve and use it to randomly generate data for those missing species. These curves can be built using your own data; see section 1.6 of the R code for the [bee species richness estimates paper](https://doi.org/10.1038/s41467-026-69029-4), which uses **ggplot2** and **mosaic**'s `fitModel` function to generate the curve function that goes into `BeeBDC::diversityPrepR()` below.
 
 Let's dig in... To start with, we will *make an R object* using our occurrence data (*beesCountrySubset*), taxonomy (from `BeeBDC::beesTaxonomy()` or `BeeBDC::taxadbToBeeBDC()`), and country checklist(`BeeBDC::beesChecklist()` or a manually-made checklist with the countries in the *rNaturalEarth_name* column and species in the *validName* column; the latter must match the remaining data — see `BeeBDC::HarmoniseR()`). Feel free to explore the input files or the output list of files for modifying your own and pay attention to match the column names.
 
@@ -472,7 +472,7 @@ There are many ways to plot or analyse these kinds of data. The rest I will leav
 
 # Read more
 You can read more about the implementation of this work in the original citation:
-*Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (Under review). How many bee species are there? A quantitative global estimate. Nature Communications. https://doi.org/10.21203/rs.3.rs-6372769/v1*
+*Dorey J. B., Gilpin, A.-M., Johnson, N., Esquerre, D., Hughes, A. C., Ascher, J. S., & Orr, M. C. (2026). Estimating global bee species richness and taxonomic gaps. Nature Communications. https://doi.org/10.1038/s41467-026-69029-4*
 
 
 
