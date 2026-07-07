@@ -41,7 +41,11 @@ navbar:
          href: articles/Species_richness_estimation.html#Estimating-richness-from-the-known-unknowns
     - icon: fas fa-newspaper
       text: "News"
-      href: https://jbdorey.github.io/BeeBDC/news/index.html
+       menu:
+       -  text: "Package news"
+          href: https://jbdorey.github.io/BeeBDC/news/index.html
+       -  text: "Data news"
+          href: articles/dataNews.html
   components: 
     home: ~
     
