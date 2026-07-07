@@ -2,6 +2,8 @@
 
 ## Changes in version 1.3.4
 
+CRAN release: 2026-05-22
+
 - Updated bee taxonomy with new synonyms and names.
 - Slight update to the Occurrence cleaning main workflow and how to
   install rgnparser for **bdc**.
