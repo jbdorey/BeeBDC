@@ -169,42 +169,166 @@ scientificName column</p></li>
 <p><em>05_cleaned_database_2024-02-15.csv.zip</em> and
 <em>05_unCleaned_database_2024-02-15.csv.zip</em></p>
 <ul>
-<li>Both of these datasets have an issue with 25 names where names were
-“successfully” matched to genus/subgenus-level taxa. This was a problem
-that was fixed in BeeBDC’s Bee taxonomy list from version 1.0.2.
+<li>
+<p>Both of these datasets have an issue with 25 names where names
+were “successfully” matched to genus/subgenus-level taxa. This was a
+problem that was fixed in BeeBDC’s Bee taxonomy list from version 1.0.2.
 However, it was perpetuated because I re-ran the dataset thinking to fix
 it, but needed to run it from an earlier step, rather than just over the
 top of the original data versions. Hence, the problems persisted. The
-problem names are as below and are over-applied in the dataset:
-<ol style="list-style-type: decimal">
-<li>“Apis mellifera Linnaeus, 1758”</li>
-<li>“Leioproctus leai (Cockerell, 1913)”</li>
-<li>“Leioproctus boroniae (Cockerell, 1921)”<br>
-[4] “Xylocopa virginica (Linnaeus, 1771)”</li>
-<li>“Bombus hypnorum (Linnaeus, 1758)”</li>
-<li>“Coelioxys texanus Cresson, 1872”</li>
-<li>“Dufourea longispinis (Wu, 1987)”</li>
-<li>“Euglossa macrorhyncha Dressler, 1982”</li>
-<li>“Melecta diligens Lieftinck, 1983”</li>
-<li>“Melissodes microstictus Cockerell, 1905”</li>
-<li>“Perditomorpha arnaui Moure, 1954”</li>
-<li>“Leioproctus michenerianus (E. A. B. Almeida, 2008)”</li>
-<li>“Macropis steironematis Robertson, 1891”</li>
-<li>“Dasypoda argentata Panzer, 1809”</li>
-<li>“Halictus simplex Blüthgen, 1923”</li>
-<li>“Lasioglossum albipenne (Robertson, 1890)”</li>
-<li>“Andrena columbiana Viereck, 1917”</li>
-<li>“Osmia coloradensis Cresson, 1878”</li>
-<li>“Colletes kincaidii Cockerell, 1898”</li>
-<li>“Lasioglossum Curtis, 1833”</li>
-<li>“Halictus Latreille, 1804”</li>
-<li>“Andrena Fabricius, 1775”</li>
-<li>“Colletes Latreille, 1802”</li>
-<li>“Osmia Panzer, 1806”</li>
-<li>“Halictus”</li>
-</ol>
+problem names are as below and are over-applied in the dataset are in
+the table below. Note, that these numbers are generated comparing the
+v1_3_3 data which has 19,890,804 rows (about a million more). Please
+consider using that dataset, where these issues are removed.</p>
+<table class="table">
+<colgroup>
+<col width="56%">
+<col width="43%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>scientificName</strong></th>
+<th><strong>Additional false records (v1_3_3 data)</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<em>Andrena</em> <em>columbiana</em> Viereck, 1917</td>
+<td>21,217</td>
+</tr>
+<tr class="even">
+<td>
+<em>Andrena</em> Fabricius, 1775</td>
+<td>20,050</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Apis</em> <em>mellifera</em> Linnaeus, 1758</td>
+<td>5,151</td>
+</tr>
+<tr class="even">
+<td>
+<em>Bombus</em> <em>hypnorum</em> (Linnaeus, 1758)</td>
+<td>87,703</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Coelioxys</em> <em>texanus</em> Cresson, 1872</td>
+<td>7,681</td>
+</tr>
+<tr class="even">
+<td>
+<em>Colletes</em> <em>kincaidii</em> Cockerell, 1898</td>
+<td>25,953</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Colletes</em> Latreille, 1802</td>
+<td>13,398</td>
+</tr>
+<tr class="even">
+<td>
+<em>Dasypoda argentata</em> Panzer, 1809</td>
+<td>99</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Dufourea longispinis</em> (Wu, 1987)</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>
+<em>Euglossa macrorhyncha</em> Dressler, 1982</td>
+<td>6,273</td>
+</tr>
+<tr class="odd">
+<td><em>Halictus</em></td>
+<td>16,199</td>
+</tr>
+<tr class="even">
+<td>
+<em>Halictus Latreille</em>, 1804</td>
+<td>4,847</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Halictus simplex</em> Blüthgen, 1923</td>
+<td>45,594</td>
+</tr>
+<tr class="even">
+<td>
+<em>Lasioglossum albipenne</em> (Robertson, 1890)</td>
+<td>179,682</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Lasioglossum</em> Curtis, 1833</td>
+<td>50,920</td>
+</tr>
+<tr class="even">
+<td>
+<em>Leioproctus boroniae</em> (Cockerell, 1921)</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Leioproctus leai</em> (Cockerell, 1913)</td>
+<td>26,794</td>
+</tr>
+<tr class="even">
+<td>
+<em>Leioproctus michenerianus</em> (E. A. B. Almeida, 2008)</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Macropis steironematis</em> Robertson, 1891</td>
+<td>41</td>
+</tr>
+<tr class="even">
+<td>
+<em>Megachile brevis</em> Say, 1837</td>
+<td>32,603</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Megachile Latreille</em>, 1802</td>
+<td>16,884</td>
+</tr>
+<tr class="even">
+<td>
+<em>Melecta diligens</em> Lieftinck, 1983</td>
+<td>484</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Melissodes microstictus</em> Cockerell, 1905</td>
+<td>38,447</td>
+</tr>
+<tr class="even">
+<td>
+<em>Osmia coloradensis</em> Cresson, 1878</td>
+<td>20,262</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Osmia Panzer</em>, 1806</td>
+<td>8,201</td>
+</tr>
+<tr class="even">
+<td>
+<em>Perditomorpha arnaui</em> Moure, 1954</td>
+<td>55</td>
+</tr>
+<tr class="odd">
+<td>
+<em>Xylocopa virginica</em> (Linnaeus, 1771)</td>
+<td>20,270</td>
+</tr>
+</tbody>
+</table>
 </li>
-<li>Download links:
+<li>
+<p>Download links:</p>
 <ul>
 <li><p><a href="https://open.flinders.edu.au/ndownloader/files/44554373" class="external-link"><em>05_cleaned_database_2024-02-15.csv.zip</em></a></p></li>
 <li><p><a href="https://open.flinders.edu.au/ndownloader/files/44554382" class="external-link"><em>05_unCleaned_database_2024-02-15.csv.zip</em></a></p></li>
