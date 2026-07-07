@@ -74,33 +74,40 @@ The bee occurrence dataset has ended up being updated least frequently. This is 
 
 - *05_cleaned_database_2024-02-15.csv.zip* and *05_unCleaned_database_2024-02-15.csv.zip*
 
-  - Both of these datasets have an issue with 25 names where names were "successfully" matched to genus/subgenus-level taxa. This was a problem that was fixed in BeeBDC's Bee taxonomy list from version 1.0.2. However, it was perpetuated because I re-ran the dataset thinking to fix it, but needed to run it from an earlier step, rather than just over the top of the original data versions. Hence, the problems persisted. The problem names are as below and are over-applied in the dataset:
-    1.  "Apis mellifera Linnaeus, 1758"
-    2.  "Leioproctus leai (Cockerell, 1913)"
-    3.  "Leioproctus boroniae (Cockerell, 1921)"\
-        [4] "Xylocopa virginica (Linnaeus, 1771)"
-    4.  "Bombus hypnorum (Linnaeus, 1758)"
-    5.  "Coelioxys texanus Cresson, 1872"
-    6.  "Dufourea longispinis (Wu, 1987)"
-    7.  "Euglossa macrorhyncha Dressler, 1982"
-    8.  "Melecta diligens Lieftinck, 1983"
-    9.  "Melissodes microstictus Cockerell, 1905"
-    10. "Perditomorpha arnaui Moure, 1954"
-    11. "Leioproctus michenerianus (E. A. B. Almeida, 2008)"
-    12. "Macropis steironematis Robertson, 1891"
-    13. "Dasypoda argentata Panzer, 1809"
-    14. "Halictus simplex Blüthgen, 1923"
-    15. "Lasioglossum albipenne (Robertson, 1890)"
-    16. "Andrena columbiana Viereck, 1917"
-    17. "Osmia coloradensis Cresson, 1878"
-    18. "Colletes kincaidii Cockerell, 1898"
-    19. "Lasioglossum Curtis, 1833"
-    20. "Halictus Latreille, 1804"
-    21. "Andrena Fabricius, 1775"
-    22. "Colletes Latreille, 1802"
-    23. "Osmia Panzer, 1806"
-    24. "Halictus"
+  - Both of these datasets have an issue with 25 names where names were "successfully" matched to genus/subgenus-level taxa. This was a problem that was fixed in BeeBDC's Bee taxonomy list from version 1.0.2. However, it was perpetuated because I re-ran the dataset thinking to fix it, but needed to run it from an earlier step, rather than just over the top of the original data versions. Hence, the problems persisted. The problem names are as below and are over-applied in the dataset are in the table below. Note, that these numbers are generated comparing the v1_3_3 data which has 19,890,804 rows (about a million more). Please consider using that dataset, where these issues are removed.
+
+    | **scientificName** | **Additional false records (v1_3_3 data)** |
+    |-----------------------------------------|-------------------------------|
+    | *Andrena* *columbiana* Viereck, 1917 | 21,217 |
+    | *Andrena* Fabricius, 1775 | 20,050 |
+    | *Apis* *mellifera* Linnaeus, 1758 | 5,151 |
+    | *Bombus* *hypnorum* (Linnaeus, 1758) | 87,703 |
+    | *Coelioxys* *texanus* Cresson, 1872 | 7,681 |
+    | *Colletes* *kincaidii* Cockerell, 1898 | 25,953 |
+    | *Colletes* Latreille, 1802 | 13,398 |
+    | *Dasypoda argentata* Panzer, 1809 | 99 |
+    | *Dufourea longispinis* (Wu, 1987) | 8 |
+    | *Euglossa macrorhyncha* Dressler, 1982 | 6,273 |
+    | *Halictus* | 16,199 |
+    | *Halictus Latreille*, 1804 | 4,847 |
+    | *Halictus simplex* Blüthgen, 1923 | 45,594 |
+    | *Lasioglossum albipenne* (Robertson, 1890) | 179,682 |
+    | *Lasioglossum* Curtis, 1833 | 50,920 |
+    | *Leioproctus boroniae* (Cockerell, 1921) | 2 |
+    | *Leioproctus leai* (Cockerell, 1913) | 26,794 |
+    | *Leioproctus michenerianus* (E. A. B. Almeida, 2008) | 4 |
+    | *Macropis steironematis* Robertson, 1891 | 41 |
+    | *Megachile brevis* Say, 1837 | 32,603 |
+    | *Megachile Latreille*, 1802 | 16,884 |
+    | *Melecta diligens* Lieftinck, 1983 | 484 |
+    | *Melissodes microstictus* Cockerell, 1905 | 38,447 |
+    | *Osmia coloradensis* Cresson, 1878 | 20,262 |
+    | *Osmia Panzer*, 1806 | 8,201 |
+    | *Perditomorpha arnaui* Moure, 1954 | 55 |
+    | *Xylocopa virginica* (Linnaeus, 1771) | 20,270 |
+
   - Download links:
+
     - [*05_cleaned_database_2024-02-15.csv.zip*](https://open.flinders.edu.au/ndownloader/files/44554373)
 
     - [*05_unCleaned_database_2024-02-15.csv.zip*](https://open.flinders.edu.au/ndownloader/files/44554382)
