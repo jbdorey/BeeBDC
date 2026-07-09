@@ -252,7 +252,15 @@ represent a new pull from Discover Life and most also represent new
 manual additions due to mistakes, missing names, changes on Discover
 Life, or recent taxonomic revisions.</p>
 <ul>
-<li><p>2026-05-04 <strong>current</strong>: <a href="https://api.figshare.com/v2/file/download/64193731" class="uri">https://api.figshare.com/v2/file/download/64193731</a></p></li>
+<li><p>2026-07-09 <strong>current</strong>: <a href="https://api.figshare.com/v2/file/download/66453893" class="uri">https://api.figshare.com/v2/file/download/66453893</a></p>
+<ul>
+<li>This version fixes an issue where not all names on Discover Life are
+separated by the usual delimiter and so not all synonyms are recognised.
+Additionally, recent Australian revisions by Leijs and Walker are
+included in addition to the new Discover Life pull. This is a major
+improvement on the prior version.</li>
+</ul></li>
+<li><p>2026-05-04: <a href="https://api.figshare.com/v2/file/download/64193731" class="uri">https://api.figshare.com/v2/file/download/64193731</a></p></li>
 <li><p>2026-01-12: <a href="https://open.flinders.edu.au/ndownloader/files/60945820" class="uri">https://open.flinders.edu.au/ndownloader/files/60945820</a></p></li>
 <li><p>2024-06-17: <a href="https://open.flinders.edu.au/ndownloader/files/47089969" class="uri">https://open.flinders.edu.au/ndownloader/files/47089969</a></p></li>
 <li><p>2023-11-29: <a href="https://open.flinders.edu.au/ndownloader/files/43331472" class="uri">https://open.flinders.edu.au/ndownloader/files/43331472</a></p></li>
@@ -295,21 +303,21 @@ highlighted below.</p>
 early dataset from start to finish using BeeBDC version 1.3.4 has the
 following changes:</p>
 <ul>
-<li><p>Now has 19,890,804 rows of data (uncleaned)</p></li>
+<li><p>Now has 19,890,804 rows of data (uncleaned).</p></li>
 <li><p>Has the below taxonomic issues fixed. However, this process has
 highlighted that some names are not formatting correctly from the
 Discover Life taxonomy (bee taxonomy version 2026-05-04) and will be
-updated in BeeBDC 1.4.0 or before</p></li>
+updated in BeeBDC 1.4.0 or before.</p></li>
 <li><p>Better matches from
 <code>BeeBDC::jbd_coordCountryInconsistent()</code> and
-<code>BeeBDC::dateFindR()</code></p></li>
+<code>BeeBDC::dateFindR()</code>.</p></li>
 <li><p><code>BeeBDC::harmoniseR()</code> now matches names in the
 verbatimScientificName column if there is no match from the
-scientificName column</p></li>
+scientificName column.</p></li>
 <li><p>Addition of flags from
-<code>BeeBDC::continentOutlieRs()</code></p></li>
+<code>BeeBDC::continentOutlieRs()</code>.</p></li>
 <li><p><code>BeeBDC::flagAbsent()</code> also now checks if
-<em>individualCount == 0</em></p></li>
+<em>individualCount == 0</em>.</p></li>
 </ul></li>
 </ul>
 <!-- -->
@@ -317,16 +325,17 @@ scientificName column</p></li>
 <li><p><em>05_cleaned_database_2024-02-15.csv.zip</em> and
 <em>05_unCleaned_database_2024-02-15.csv.zip</em></p>
 <ul>
-<li><p>Both of these datasets have an issue with 25 names where names
-were “successfully” matched to genus/subgenus-level taxa. This was a
-problem that was fixed in BeeBDC’s Bee taxonomy list from version 1.0.2.
-However, it was perpetuated because I re-ran the dataset thinking to fix
-it, but needed to run it from an earlier step, rather than just over the
-top of the original data versions. Hence, the problems persisted. The
-problem names are as below and are over-applied in the dataset are in
-the table below. Note, that these numbers are generated comparing the
-v1_3_3 data which has 19,890,804 rows (about a million more). Please
-consider using that dataset, where these issues are removed.</p>
+<li><p>Both of these datasets have an issue with 27 names where names
+were “successfully” matched to genus/subgenus-level taxa (this mostly
+applies to species-level names). This was a problem that was fixed in
+BeeBDC’s Bee taxonomy list from version 1.0.2. However, it was
+perpetuated because I re-ran the dataset thinking to fix it, but needed
+to run it from an earlier step, rather than just over the top of the
+original data versions. Hence, the problems persisted. The problem names
+are as below and are over-applied in the dataset are in the table below.
+Note, that these numbers are generated comparing the v1_3_3 data which
+has 19,890,804 rows (about a million more). Please consider using those
+datasets, where these issues are removed.</p>
 <table>
 <colgroup>
 <col width="56%" />
