@@ -14,8 +14,16 @@ represent a new pull from Discover Life and most also represent new
 manual additions due to mistakes, missing names, changes on Discover
 Life, or recent taxonomic revisions.
 
-- 2026-05-04 **current**:
-  <https://api.figshare.com/v2/file/download/64193731>
+- 2026-07-09 **current**:
+  <https://api.figshare.com/v2/file/download/66453893>
+
+  - This version fixes an issue where not all names on Discover Life are
+    separated by the usual delimiter and so not all synonyms are
+    recognised. Additionally, recent Australian revisions by Leijs and
+    Walker are included in addition to the new Discover Life pull. This
+    is a major improvement on the prior version.
+
+- 2026-05-04: <https://api.figshare.com/v2/file/download/64193731>
 
 - 2026-01-12: <https://open.flinders.edu.au/ndownloader/files/60945820>
 
@@ -63,44 +71,45 @@ may not be perfect documentation but major issues are highlighted below.
   dataset from start to finish using BeeBDC version 1.3.4 has the
   following changes:
 
-  - Now has 19,890,804 rows of data (uncleaned)
+  - Now has 19,890,804 rows of data (uncleaned).
 
   - Has the below taxonomic issues fixed. However, this process has
     highlighted that some names are not formatting correctly from the
     Discover Life taxonomy (bee taxonomy version 2026-05-04) and will be
-    updated in BeeBDC 1.4.0 or before
+    updated in BeeBDC 1.4.0 or before.
 
   - Better matches from
     [`BeeBDC::jbd_coordCountryInconsistent()`](https://jbdorey.github.io/BeeBDC/reference/jbd_coordCountryInconsistent.md)
     and
-    [`BeeBDC::dateFindR()`](https://jbdorey.github.io/BeeBDC/reference/dateFindR.md)
+    [`BeeBDC::dateFindR()`](https://jbdorey.github.io/BeeBDC/reference/dateFindR.md).
 
   - [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
     now matches names in the verbatimScientificName column if there is
-    no match from the scientificName column
+    no match from the scientificName column.
 
   - Addition of flags from
-    [`BeeBDC::continentOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.md)
+    [`BeeBDC::continentOutlieRs()`](https://jbdorey.github.io/BeeBDC/reference/continentOutlieRs.md).
 
   - [`BeeBDC::flagAbsent()`](https://jbdorey.github.io/BeeBDC/reference/flagAbsent.md)
-    also now checks if *individualCount == 0*
+    also now checks if *individualCount == 0*.
 
 &nbsp;
 
 - *05_cleaned_database_2024-02-15.csv.zip* and
   *05_unCleaned_database_2024-02-15.csv.zip*
 
-  - Both of these datasets have an issue with 25 names where names were
-    “successfully” matched to genus/subgenus-level taxa. This was a
-    problem that was fixed in BeeBDC’s Bee taxonomy list from version
-    1.0.2. However, it was perpetuated because I re-ran the dataset
-    thinking to fix it, but needed to run it from an earlier step,
-    rather than just over the top of the original data versions. Hence,
-    the problems persisted. The problem names are as below and are
-    over-applied in the dataset are in the table below. Note, that these
-    numbers are generated comparing the v1_3_3 data which has 19,890,804
-    rows (about a million more). Please consider using that dataset,
-    where these issues are removed.
+  - Both of these datasets have an issue with 27 names where names were
+    “successfully” matched to genus/subgenus-level taxa (this mostly
+    applies to species-level names). This was a problem that was fixed
+    in BeeBDC’s Bee taxonomy list from version 1.0.2. However, it was
+    perpetuated because I re-ran the dataset thinking to fix it, but
+    needed to run it from an earlier step, rather than just over the top
+    of the original data versions. Hence, the problems persisted. The
+    problem names are as below and are over-applied in the dataset are
+    in the table below. Note, that these numbers are generated comparing
+    the v1_3_3 data which has 19,890,804 rows (about a million more).
+    Please consider using those datasets, where these issues are
+    removed.
 
     | **scientificName** | **Additional false records (v1_3_3 data)** |
     |----|----|
