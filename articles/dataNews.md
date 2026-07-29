@@ -66,12 +66,10 @@ may not be perfect documentation but major issues are highlighted below.
   - A completely new 2026 pull is in the making…
 
 - *Version 1.3.4 runs of early data —
-  05_cleaned_database_2023v1_3_3.csv.zip* and
-  *05_unCleaned_database_2023v1_3_3.csv.zip —* This new run of an early
+  05_cleaned_database_2023v1_3_4.csv.zip* and
+  *05_unCleaned_database_2023v1_3_4.csv.zip —* This new run of an early
   dataset from start to finish using BeeBDC version 1.3.4 has the
   following changes:
-
-  - Now has 19,890,804 rows of data (uncleaned).
 
   - Has the below taxonomic issues fixed. However, this process has
     highlighted that some names are not formatting correctly from the
@@ -93,53 +91,82 @@ may not be perfect documentation but major issues are highlighted below.
   - [`BeeBDC::flagAbsent()`](https://jbdorey.github.io/BeeBDC/reference/flagAbsent.md)
     also now checks if *individualCount == 0*.
 
-&nbsp;
-
 - *05_cleaned_database_2024-02-15.csv.zip* and
   *05_unCleaned_database_2024-02-15.csv.zip*
 
-  - Both of these datasets have an issue with 27 names where names were
-    “successfully” matched to genus/subgenus-level taxa (this mostly
-    applies to species-level names). This was a problem that was fixed
-    in BeeBDC’s Bee taxonomy list from version 1.0.2. However, it was
-    perpetuated because I re-ran the dataset thinking to fix it, but
-    needed to run it from an earlier step, rather than just over the top
-    of the original data versions. Hence, the problems persisted. The
-    problem names are as below and are over-applied in the dataset are
-    in the table below. Note, that these numbers are generated comparing
-    the v1_3_3 data which has 19,890,804 rows (about a million more).
-    Please consider using those datasets, where these issues are
-    removed.
+  - Both of these datasets have an issue with 17 scientificNames where
+    names were “successfully” matched to genus/subgenus-level taxa. This
+    was a problem that was fixed in BeeBDC’s Bee taxonomy list from
+    version 1.0.2. However, it was perpetuated because I re-ran the
+    dataset thinking to fix it, but needed to run it from an earlier
+    step, rather than just over the top of the original data versions.
+    Hence, the problems persisted. The problem names are as below and
+    are over-applied in the dataset are in the table below. Not as well
+    that five species (across 38 records) match a species name where
+    they are missing an entry in the *genus* column. These appear in the
+    *names_clean* column, however, they are correctly flagged under the
+    *.invalidName* column.
 
-    | **scientificName** | **Additional false records (v1_3_3 data)** |
-    |----|----|
-    | *Andrena* *columbiana* Viereck, 1917 | 21,217 |
-    | *Andrena* Fabricius, 1775 | 20,050 |
-    | *Apis* *mellifera* Linnaeus, 1758 | 5,151 |
-    | *Bombus* *hypnorum* (Linnaeus, 1758) | 87,703 |
-    | *Coelioxys* *texanus* Cresson, 1872 | 7,681 |
-    | *Colletes* *kincaidii* Cockerell, 1898 | 25,953 |
-    | *Colletes* Latreille, 1802 | 13,398 |
-    | *Dasypoda argentata* Panzer, 1809 | 99 |
-    | *Dufourea longispinis* (Wu, 1987) | 8 |
-    | *Euglossa macrorhyncha* Dressler, 1982 | 6,273 |
-    | *Halictus* | 16,199 |
-    | *Halictus Latreille*, 1804 | 4,847 |
-    | *Halictus simplex* Blüthgen, 1923 | 45,594 |
-    | *Lasioglossum albipenne* (Robertson, 1890) | 179,682 |
-    | *Lasioglossum* Curtis, 1833 | 50,920 |
-    | *Leioproctus boroniae* (Cockerell, 1921) | 2 |
-    | *Leioproctus leai* (Cockerell, 1913) | 26,794 |
-    | *Leioproctus michenerianus* (E. A. B. Almeida, 2008) | 4 |
-    | *Macropis steironematis* Robertson, 1891 | 41 |
-    | *Megachile brevis* Say, 1837 | 32,603 |
-    | *Megachile Latreille*, 1802 | 16,884 |
-    | *Melecta diligens* Lieftinck, 1983 | 484 |
-    | *Melissodes microstictus* Cockerell, 1905 | 38,447 |
-    | *Osmia coloradensis* Cresson, 1878 | 20,262 |
-    | *Osmia Panzer*, 1806 | 8,201 |
-    | *Perditomorpha arnaui* Moure, 1954 | 55 |
-    | *Xylocopa virginica* (Linnaeus, 1771) | 20,270 |
+  A .csv file with the database_id for the problematic genera records is
+  available at **LINK**.
+
+  | **scientificName** | **verbatimScientificName_old** | **n_old** | **verbatimScientificName_v1.3.4** | **n_v1.3.4** |
+  |:---|:---|:---|:---|:---|
+  | Lasioglossum rohweri | Lasioglossum | 23 | Lasioglossum | 23 |
+  | Lasioglossum albuquerquense | Lasioglossum | 5 | Lasioglossum | 5 |
+  | Megachile texana | Megachile | 3 | Megachile | 3 |
+  | Augochloropsis metallica | Bombus | 2 | Bombus | 2 |
+  | Megachile apicalis | Megachile | 1 | Megachile | 1 |
+  | Megachile inermis | Bombus | 1 | Bombus | 1 |
+  | Andrena columbiana Viereck, 1917 | Andrena | 21534 | NA | NA |
+  | Apis mellifera Linnaeus, 1758 | Apis | 3226 | NA | NA |
+  | Apis mellifera Linnaeus, 1758 | Apis (Apis) | 45 | NA | NA |
+  | Bombus hypnorum (Linnaeus, 1758) | Bombus | 42394 | NA | NA |
+  | Bombus hypnorum (Linnaeus, 1758) | Bombus (Psithyrus) | 989 | NA | NA |
+  | Bombus hypnorum (Linnaeus, 1758) | Bombus (Melanopygus) | 1 | NA | NA |
+  | Bombus hypnorum (Linnaeus, 1758) | Bombus (Pyrobombus) | 4 | NA | NA |
+  | Bombus hypnorum (Linnaeus, 1758) | Bombus (Mendacibombus) | 2 | NA | NA |
+  | Coelioxys texanus Cresson, 1872 | Coelioxys | 3233 | NA | NA |
+  | Coelioxys texanus Cresson, 1872 | Coelioxys (Cyrtocoelioxys) | 228 | NA | NA |
+  | Coelioxys texanus Cresson, 1872 | Coelioxys (Glyptocoelioxys) | 112 | NA | NA |
+  | Coelioxys texanus Cresson, 1872 | Coelioxys (Acrocoelioxys) | 56 | NA | NA |
+  | Coelioxys texanus Cresson, 1872 | Coelioxys (Neocoelioxys) | 13 | NA | NA |
+  | Coelioxys texanus Cresson, 1872 | Coelioxys (Melanocoelioxys) | 2 | NA | NA |
+  | Coelioxys texanus Cresson, 1872 | Coelioxys (Haplocoelioxys) | 2 | NA | NA |
+  | Colletes kincaidii Cockerell, 1898 | Colletes | 13969 | NA | NA |
+  | Dasypoda argentata Panzer, 1809 | Dasypoda | 15 | NA | NA |
+  | Dufourea longispinis (Wu, 1987) | Halictoides | 4 | NA | NA |
+  | Euglossa macrorhyncha Dressler, 1982 | Euglossa | 2389 | NA | NA |
+  | Euglossa macrorhyncha Dressler, 1982 | Euglossa (Glossura) | 90 | NA | NA |
+  | Halictus simplex Blüthgen, 1923 | Halictus | 25346 | NA | NA |
+  | Lasioglossum albipenne (Robertson, 1890) | Lasioglossum | 102320 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus | 18544 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Andrenopsis) | 9 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Baeocolletes) | 6 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Cladocerapis) | 176 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Euryglossidia) | 82 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Exleycolletes) | 22 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Filiglossa) | 86 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Lamprocolletes) | 12 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Leioproctus) | 1230 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Protomorpha) | 58 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Protodiscelis) | 150 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Perditomorpha) | 118 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Tetraglossula) | 90 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Pygopasiphae) | 6 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Nomiocolletes) | 4 | NA | NA |
+  | Leioproctus leai (Cockerell, 1913) | Leioproctus (Goniocolletes) | 82 | NA | NA |
+  | Macropis steironematis Robertson, 1891 | Macropis | 11 | NA | NA |
+  | Megachile brevis Say, 1837 | Megachile | 19739 | NA | NA |
+  | Melecta diligens Lieftinck, 1983 | Melecta (Melecta) | 6 | NA | NA |
+  | Melecta diligens Lieftinck, 1983 | Melecta | 287 | NA | NA |
+  | Melissodes microstictus Cockerell, 1905 | Melissodes | 26646 | NA | NA |
+  | Osmia coloradensis Cresson, 1878 | Osmia | 10852 | NA | NA |
+  | Xylocopa virginica (Linnaeus, 1771) | Xylocopa | 9448 | NA | NA |
+  | Xylocopa virginica (Linnaeus, 1771) | Xylocopa (Koptortosoma) | 1216 | NA | NA |
+  | Xylocopa virginica (Linnaeus, 1771) | Xylocopa (Lestis) | 155 | NA | NA |
+  | Xylocopa virginica (Linnaeus, 1771) | Xylocopa (Schonnherria) | 75 | NA | NA |
+  | Xylocopa virginica (Linnaeus, 1771) | Xylocopa (Mesotrichia) | 18 | NA | NA |
 
   - Download links:
 
