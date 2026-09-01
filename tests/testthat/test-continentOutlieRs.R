@@ -1,5 +1,3 @@
-requireNamespace("dplyr")
-requireNamespace("readr")
 
 
   # If rnaturalearthdata is present, run tests

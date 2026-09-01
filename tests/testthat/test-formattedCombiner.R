@@ -1,6 +1,3 @@
-requireNamespace("readr")
-requireNamespace("emld")
-requireNamespace("dplyr")
 
 # If rnaturalearthdata is present, run tests
 if(requireNamespace("rnaturalearthdata")){

@@ -1,4 +1,3 @@
-requireNamespace("dplyr")
 
 
 testData <- dplyr::tibble(

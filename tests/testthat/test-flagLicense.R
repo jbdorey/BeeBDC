@@ -1,4 +1,3 @@
-requireNamespace("dplyr")
 
 
 # make some test data - this is derived from GBIF data but it is HEAVILY EDITED and USELESS

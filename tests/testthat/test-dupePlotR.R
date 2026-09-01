@@ -1,6 +1,3 @@
-requireNamespace("dplyr")
-requireNamespace("ggplot2")
-requireNamespace("BeeBDC")
 
 
 beesFlagged <- BeeBDC::beesFlagged

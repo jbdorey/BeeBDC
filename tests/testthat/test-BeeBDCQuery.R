@@ -1,7 +1,4 @@
 
-requireNamespace("dplyr")
-requireNamespace("lubridate")
-requireNamespace("mgsub")
 
 # Download the datasets
 # load in the small test dataset in the background

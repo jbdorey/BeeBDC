@@ -1,5 +1,3 @@
-requireNamespace("xml2")
-requireNamespace("dplyr")
 
 # If rnaturalearthdata is present, run tests
 if(requireNamespace("leaflet")){

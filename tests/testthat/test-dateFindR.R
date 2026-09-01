@@ -1,4 +1,3 @@
-requireNamespace("dplyr")
 
 data = testData <- dplyr::tribble(
   ~database_id,               ~fieldNotes,                                                 ~eventDate, ~year, ~month, ~day,        ~verbatimEventDate, ~locality,                                ~locationRemarks, 

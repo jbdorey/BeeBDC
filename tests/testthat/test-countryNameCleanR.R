@@ -1,5 +1,3 @@
-requireNamespace("readr")
-requireNamespace("dplyr")
 
 
 # make yourself some test data which has common problem names for the USA and one row that is already correct

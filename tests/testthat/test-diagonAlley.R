@@ -1,5 +1,3 @@
-requireNamespace("readr")
-requireNamespace("dplyr")
 
 
 # this data is derived from SCAN data, but IT HAS BEEN EDITED FOR TESTING AND IS NOT USEFUL/REAL DATA, but by all means go ahead and mine it

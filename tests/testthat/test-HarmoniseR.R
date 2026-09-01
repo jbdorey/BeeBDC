@@ -1,4 +1,3 @@
-requireNamespace("dplyr")
 
   # Load a test dataset
 beesRaw <- BeeBDC::beesRaw

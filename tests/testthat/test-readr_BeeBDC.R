@@ -1,10 +1,6 @@
   # Test each of the readr_functions
 
   # Load required packages
-requireNamespace("readr")
-requireNamespace("BeeBDC")
-requireNamespace("dplyr")
-requireNamespace("openxlsx")
 
 
 #### 1.0 EPEL ####

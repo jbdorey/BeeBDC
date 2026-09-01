@@ -1,6 +1,3 @@
-requireNamespace("readr")
-requireNamespace("BeeBDC")
-requireNamespace("dplyr")
 
 
 
