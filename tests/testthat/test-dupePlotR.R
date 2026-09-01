@@ -1,5 +1,9 @@
 
 
+# dupePlotR() opens the default graphics device; use a null device so parallel
+# workers don't create Rplots.pdf and trip the state inspector in other tests
+withr::local_options(list(device = \(...) grDevices::pdf(NULL, ...)))
+
 beesFlagged <- BeeBDC::beesFlagged
 
 
@@ -38,4 +42,3 @@ testOut <- BeeBDC::dupePlotR(
 testthat::test_that("dupePlotR plot saved?", {
   testthat::expect_true(any(stringr::str_detect(list.files(tempdir()), "duplicatePlot.pdf")))
 })
-

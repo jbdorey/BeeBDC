@@ -1,4 +1,8 @@
 
+# summaryMaps() opens the default graphics device; use a null device so parallel
+# workers don't create Rplots.pdf and trip the state inspector in other tests
+withr::local_options(list(device = \(...) grDevices::pdf(NULL, ...)))
+
 # If rnaturalearthdata is present, run tests
 if(requireNamespace("rnaturalearthdata")){
   # Load in example data
@@ -35,5 +39,3 @@ testthat::test_that("summaryMaps internals - testMap$layers[[1]]$geom_params$gro
 
 
 } # END if require
-
-
