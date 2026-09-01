@@ -112,7 +112,7 @@ jbd_CfC_chunker <- function(data = NULL,
   
   ##### 0.4 Text out ####
   # Write user output
-  message(paste(" - Running chunker with:", "\n",
+  bee_message(paste(" - Running chunker with:", "\n",
                    "stepSize = ", 
                    format(stepSize, big.mark=",",scientific=FALSE), "\n",
                    "chunkStart = ", 
@@ -205,7 +205,7 @@ jbd_CfC_chunker <- function(data = NULL,
     
     ##### 1.2 Run mclapply ####
     # User output
-    writeLines(paste(" - Starting parallel operation. Unlike the serial operation (mc.cores = 1)",
+    bee_message(paste(" - Starting parallel operation. Unlike the serial operation (mc.cores = 1)",
                      ", a parallel operation will not provide running feedback. Please be patient",
                      " as this function may take some time to complete. Each chunk will be run on",
                      " a seperate thread so also be aware of RAM usage."))
@@ -235,7 +235,7 @@ jbd_CfC_chunker <- function(data = NULL,
   colnames(CountryList) <- c("database_id", "country")
   
   endTime <- Sys.time()
-  message(paste(
+  bee_message(paste(
     " - Completed in ", 
     round(difftime(endTime, startTime), digits = 2 ),
     " ",
@@ -258,7 +258,7 @@ jbd_CfC_chunker <- function(data = NULL,
       # Assign changed == 1 if the country name has changed from the original
     dplyr::mutate(changed = dplyr::if_else(is.na(country_OG), 1, 0))
   
-  writeLines(paste0(" - We have updated the country names of ", 
+  bee_message(paste0(" - We have updated the country names of ", 
                     format(sum(summaryTable$changed), big.mark = ","), 
                     " occurrences that previously had no country name assigned."))
   

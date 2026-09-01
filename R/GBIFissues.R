@@ -54,7 +54,7 @@ GBIFissues <- function (data = NULL,
   }
   if(is.null(GBIFflags)){
     warning("\n - GBIFflags not provided. Please provide an argument. I'm a program, not a magician.")
-    writeLines(paste(
+    bee_message(paste(
       " - Possible options are:\n",
       paste("TAXON_MATCH_HIGHERRANK", "TYPE_STATUS_INVALID", "TAXON_MATCH_FUZZY",
       "GEODETIC_DATUM_ASSUMED_WGS84", "COORDINATE_ROUNDED", "COORDINATE_PRECISION_INVALID",
@@ -73,7 +73,7 @@ GBIFissues <- function (data = NULL,
     "allDates, allMetadata, allObservations, allTaxo, allSpatial, or all. ",
     "We recommend thinking about what is required.", sep = ""
     ))
-    message(paste(
+    bee_message(paste(
       "Using default of:\n",
       paste("COORDINATE_INVALID", "PRESUMED_NEGATED_LONGITUDE", "PRESUMED_NEGATED_LATITUDE", 
              "COUNTRY_COORDINATE_MISMATCH", "ZERO_COORDINATE", sep = ", "),
@@ -127,7 +127,7 @@ GBIFissues <- function (data = NULL,
   data <- data %>% dplyr::mutate(.GBIFflags = !tolower(.data[[issueColumn]]) %in% 
                                    tolower(GBIFflags))
     # User output
-  message(paste(" - jbd_GBIFissues:\nFlagged", 
+  bee_message(paste(" - jbd_GBIFissues:\nFlagged", 
                 format(sum(data$.GBIFflags == FALSE, na.rm = TRUE), big.mark = ","),
                        "\n ",
                 "The .GBIFflags column was added to the database.", "\n",

@@ -152,14 +152,14 @@ taxadbToBeeBDC <- function(
     }
     if(input == 1){
       # Start taxadb install
-      message("Installing the taxadb package.")
+      bee_message("Installing the taxadb package.")
       tryCatch(
         utils::install.packages("taxadb"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The taxadb package is necessary for BeeBDC::taxadbToBeeBDC.\n", 
+      stop(bee_message(paste("The taxadb package is necessary for BeeBDC::taxadbToBeeBDC.\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE
@@ -167,7 +167,7 @@ taxadbToBeeBDC <- function(
 
 #### 1.0 Download taxonomy ####
   ##### 1.1 Download ####
-  writeLines(" - Downloading taxonomy...")
+  bee_message(" - Downloading taxonomy...")
   taxadb::td_create(provider = provider,
                     schema = "dwc",
                     version = version,
@@ -176,7 +176,7 @@ taxadbToBeeBDC <- function(
                     }else{db = db},
                     ...)
     # User output
-  writeLines(paste0(" - taxadb save the taxonomy to: ",
+  bee_message(paste0(" - taxadb save the taxonomy to: ",
                     taxadb::taxadb_dir()))
   
   ##### 1.2 Turn into data table ####

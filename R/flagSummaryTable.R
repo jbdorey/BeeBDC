@@ -151,7 +151,7 @@ percentImpacted <- summaryColumn %>%
     # Transpose the tibble
   tidyr::pivot_longer(cols = tidyselect::starts_with("."))
     # Provide use output
-writeLines(paste0("The percentages of species impacted by each flag in your analysis are as follows: \n",
+bee_message(paste0("The percentages of species impacted by each flag in your analysis are as follows: \n",
        paste0("  ", percentImpacted$name, " = ", round(percentImpacted$value, 2), "%", 
               collapse = "\n"))
        ) # END  writeLines

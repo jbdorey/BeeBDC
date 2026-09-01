@@ -55,14 +55,14 @@ flagLicense <- function(data = NULL,
     if(!any(colnames(data) %in% "dataSource")){
     data <- data %>%
       dplyr::mutate(dataSource = NA_character_)
-    message("No dataSource provided. Filling this column with NAs...")
+    bee_message("No dataSource provided. Filling this column with NAs...")
     }
     ###### b. rights ####
     # If the rights column is not in the dataset, fill it in with "NA"s
     if(!any(colnames(data) %in% "rights")){
       data <- data %>%
         dplyr::mutate(rights = NA_character_)
-      message("No rights provided. Filling this column with NAs...")
+      bee_message("No rights provided. Filling this column with NAs...")
     }
     
     ###### c. license ####
@@ -70,7 +70,7 @@ flagLicense <- function(data = NULL,
     if(!any(colnames(data) %in% "license")){
       data <- data %>%
         dplyr::mutate(license = NA_character_)
-      message("No license provided. Filling this column with NAs...")
+      bee_message("No license provided. Filling this column with NAs...")
     }
     
     ###### a. accessRights ####
@@ -78,7 +78,7 @@ flagLicense <- function(data = NULL,
     if(!any(colnames(data) %in% "accessRights")){
       data <- data %>%
         dplyr::mutate(accessRights = NA_character_)
-      message("No accessRights provided. Filling this column with NAs...")
+      bee_message("No accessRights provided. Filling this column with NAs...")
     }
     
     
@@ -101,7 +101,7 @@ flagLicense <- function(data = NULL,
                          TRUE))
     
     # Return user output
-    message(
+    bee_message(
       paste(
         "\\.unLicensed:\n",
         "Flagged",

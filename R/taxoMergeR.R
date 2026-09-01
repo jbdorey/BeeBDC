@@ -733,7 +733,7 @@ taxoMergeR <- function(currentNames = NULL,
  #   
   
     # Write user output
-  writeLines(paste(
+  bee_message(paste(
    " - Names merged. ","\n",
    "We removed ", format(Original_newNames_Count - Original_unNew_Count, big.mark = ","), 
    " duplicate new synonyms ",
@@ -751,32 +751,32 @@ taxoMergeR <- function(currentNames = NULL,
   sep = ""))
 
   #### 3.0 Clean data ####  
-  writeLines(paste(
+  bee_message(paste(
     " - Cleaning new data...", sep = ""
   ))
   ## manage new data ##
-  writeLines(paste(
+  bee_message(paste(
     " - Adding higher names with the HigherNamer function...", sep = ""
   ))
     # Add higher order names
   merged_names_cl <- HigherNamer(HigherNameList = HigherNameList,
                       InSynList = merged_names)
     # manage flags 
-  writeLines(paste(
+  bee_message(paste(
     " - Managing flags with the FlagManager function...", sep = ""
   ))
   merged_names_cl <- FlagManager(InSynList = merged_names_cl,
                            flagCol = "notes")
 
   #### 4.0 Save ####
-    writeLines(paste(
+    bee_message(paste(
     " - Saving the matched new component of the data to the file ",
     outPath, "/", fileName, "_", Sys.Date(), ".csv",  " seperately...", sep = ""
   ))
   # Save the  current-matched new dataset
   readr::write_excel_csv(merged_names_cl, file = paste(outPath,"/",
     fileName, "_", Sys.Date(), ".csv", sep = ""))
-  writeLines(paste(" - ", nrow(failed_names), 
+  bee_message(paste(" - ", nrow(failed_names), 
     " names from the new list did not have an accepted or synonym match to the current list. They ",
     "will be removed. ", "\n",
     "Saving these no-match names to ",

@@ -17,7 +17,7 @@ taxoDuplicator <- function(
   
   #### 0.0 Prep ####
   ##### 0.1 Remove existing flags ####
-  writeLines("Removing previous flags generated with this function")
+  bee_message("Removing previous flags generated with this function")
     # Remove the xisitng flags generated from this function
   SynList <- SynList %>%
     dplyr::mutate(flags = stringr::str_remove_all(flags, "non-ambiguous can_wFlags") %>%
@@ -36,7 +36,7 @@ taxoDuplicator <- function(
     dplyr::group_by(validName) %>%
     dplyr::filter(dplyr::n() > 1)
   # User output
-  writeLines(paste(" - ", format(nrow(duplicates), big.mark = ","),
+  bee_message(paste(" - ", format(nrow(duplicates), big.mark = ","),
                                  " duplicates found in the data.", sep = ""))
   
     # Build subsetted datasets to examine 
@@ -571,7 +571,7 @@ taxoDuplicator <- function(
 
     # What an adventure that was!
     # Now, lets try and return some user information 
-writeLines(paste(    " - Cleaning complete! From an initial dataset of ", 
+bee_message(paste(    " - Cleaning complete! From an initial dataset of ", 
                  format(nrow(SynList), big.mark = ","), " names, there ",
                  "remain ", format(nrow(deDuplicated_52), big.mark = ",")," names.",  "\n",
                      " - We removed:", "\n"   ,
@@ -579,10 +579,10 @@ writeLines(paste(    " - Cleaning complete! From an initial dataset of ",
                  nrow(S2Acc2remove), " source2 'accepted' names,", "\n"))
                   # 2.2 - synonyms removed
 if(exists("nonAmbiSyns_deDuped")){
-                   writeLines(paste(
+                   bee_message(paste(
                  format(nrow(nonAmbiSyns)-nrow(nonAmbiSyns_deDuped), big.mark = ","),
                         " source1 synonyms,", "\n"   ))}
-writeLines(paste(
+bee_message(paste(
                  format(nrow(S2synonyms) - nrow(S2Unique), big.mark = ",")
                  , " source2 synonyms internally duplicated,", "\n"   ,
                  nrow(S2Duplicates)-nrow(S2Originals), " source2 synonyms duplicated with the source1 list,", "\n"   ,

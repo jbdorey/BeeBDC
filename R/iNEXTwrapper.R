@@ -144,14 +144,14 @@ iNEXTwrapper <- function(data = NULL,
     }
     if(input == 1){
       # Start iNEXT install
-      message("Installing the iNEXT package.")
+      bee_message("Installing the iNEXT package.")
       tryCatch(
         utils::install.packages("iNEXT"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
+      stop(bee_message(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE
@@ -307,12 +307,12 @@ iNEXTwrapper <- function(data = NULL,
   #### 4.0 User output ####
   # provide some user output
   if(length(failures > 0)){
-    writeLines(paste0(
+    bee_message(paste0(
       " - We could not examine the following variables (because of insufficent data or sample size): ",
       paste(failures, collapse = ", ")
     ))}
   
-  message(paste0(" - Outputs can be found in a list with two tibbles called 'DataInfo' and",
+  bee_message(paste0(" - Outputs can be found in a list with two tibbles called 'DataInfo' and",
                     " 'AsyEst' and a list of iNext outputs per groupVariable in iNextEst'."))
 
   

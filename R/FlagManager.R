@@ -11,7 +11,7 @@ FlagManager <- function(InSynList = DLdf,
   
   #### Flags option ####
   if(flagCol == "flags"){
-    base::writeLines(" - Using the flags column.")
+    bee_message(" - Using the flags column.")
   # If there is no canonical_withFlags, make one with the canonical column, assuming it has flags
   suppressWarnings( CWFtest <- InSynList$canonical_withFlags,
                     classes = "warning")
@@ -24,7 +24,7 @@ FlagManager <- function(InSynList = DLdf,
     InSynList$canonical_withFlags <- InSynList$canonical
   }
   
-  base::writeLines(" - 1. Remove flag from validName column...")
+  bee_message(" - 1. Remove flag from validName column...")
   ##### START ProgBar 1 ####
   # Initializes the progress bar
   pb1 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
@@ -73,7 +73,7 @@ FlagManager <- function(InSynList = DLdf,
     paste(collapse="|")
   
   
-  base::writeLines(" - 2. Find and add flags to the 'flags' column...")
+  bee_message(" - 2. Find and add flags to the 'flags' column...")
   #### START ProgBar 2 ####
   # Initializes the progress bar
   pb2 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
@@ -127,7 +127,7 @@ FlagManager <- function(InSynList = DLdf,
   
 #### Notes option ####
   if(flagCol == "notes"){
-    base::writeLines(" - Using the notes column.")
+    bee_message(" - Using the notes column.")
     # If there is no canonical_withFlags, make one with the canonical column, assuming it has flags
     suppressWarnings( CWFtest <- InSynList$canonical_withFlags,
                       classes = "warning")
@@ -140,7 +140,7 @@ FlagManager <- function(InSynList = DLdf,
       InSynList$canonical_withFlags <- InSynList$canonical
     }
     
-    base::writeLines(" - 1. Remove flag from validName column...")
+    bee_message(" - 1. Remove flag from validName column...")
     ##### START ProgBar 1 ####
     # Initializes the progress bar
     pb1 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
@@ -188,7 +188,7 @@ FlagManager <- function(InSynList = DLdf,
       paste(collapse="|")
     
     
-    base::writeLines(" - 2. Find and add flags to the 'flags' column...")
+    bee_message(" - 2. Find and add flags to the 'flags' column...")
     #### START ProgBar 2 ####
     # Initializes the progress bar
     pb2 <- utils::txtProgressBar(min = 0,      # Minimum value of the progress bar
@@ -242,7 +242,7 @@ FlagManager <- function(InSynList = DLdf,
   
   #### neither ####
   if(flagCol != "flags" & flagCol != "notes"){
-    base::writeLines("!! The flagCol option must equal 'flags' or 'notes' !!")
+    bee_message("!! The flagCol option must equal 'flags' or 'notes' !!")
   }
   
   #backupdf <- InSynList

@@ -114,11 +114,11 @@ jbd_create_figures <-
     )
     
     if (all((colSums(temp, na.rm = TRUE) - nrow(temp)) == 0)) {
-      message("Figures were not created.\nNo records flagged as 'FALSE' in columns starting with '.'")
+      bee_message("Figures were not created.\nNo records flagged as 'FALSE' in columns starting with '.'")
     }
     
     if (ncol(temp) == 0) {
-      message(
+      bee_message(
         "Figures were not created.\nAt least one column 'starting with '.' containing results of data-quality tests must be provided"
       )
     }
@@ -347,14 +347,14 @@ jbd_create_figures <-
       
       # Create bar plots
       if (length(w_bar) == 0 & workflow_step %in% c("prefilter", "space")) {
-        message("At least one column 'starting with '.' must be provided")
+        bee_message("At least one column 'starting with '.' must be provided")
       }
       
       if (length(w_bar) != 0) {
         w <- which(colSums(!data[{{ w_bar }}], na.rm = TRUE) == 0)
         
         if (length(w) != 0) {
-          message(
+          bee_message(
             "No records flagged for the following tests:\n",
             paste(w_bar[w], collapse = " ")
           )
@@ -393,14 +393,14 @@ jbd_create_figures <-
       
       # Create maps of invalid vs valid records
       if (length(w_maps) == 0 & workflow_step %in% c("prefilter", "space")) {
-        message("At least one of the following columns must be provided for creating maps\n", paste0(maps, sep = " "))
+        bee_message("At least one of the following columns must be provided for creating maps\n", paste0(maps, sep = " "))
       }
       
       if (length(w_maps) != 0) {
         w <- which(colSums(!data[{{ w_maps }}]) == 0)
         
         if (length(w) != 0) {
-          message(
+          bee_message(
             "No records flagged for the following tests:\n",
             paste(w_maps[w], collapse = " ")
           )
@@ -464,7 +464,7 @@ jbd_create_figures <-
       
       # Create maps of transposed and corrected coordinates
       if (length(w_tranposed) == 0 & workflow_step == "prefilter") {
-        message("file 'Output/Check/01_coordinates_transposed.csv' not found. Maps showing the results of bdc_coordinates_transposed test will not be created")
+        bee_message("file 'Output/Check/01_coordinates_transposed.csv' not found. Maps showing the results of bdc_coordinates_transposed test will not be created")
       }
       
       if (length(w_tranposed) != 0) {
@@ -496,7 +496,7 @@ jbd_create_figures <-
       }
       
       if (length(w_hist) == 0 & workflow_step == "time") {
-        message("Column 'year' not found")
+        bee_message("Column 'year' not found")
       }
       
       if (length(w_hist) != 0 & workflow_step == "time") {
@@ -555,7 +555,7 @@ jbd_create_figures <-
         )
       }
       
-      message("Check figures in ", paste(path, sep = "/"))
+      bee_message("Check figures in ", paste(path, sep = "/"))
     }
     
     return(res)

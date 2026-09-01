@@ -106,7 +106,7 @@ readr_BeeBDC <- function(
   ##### x.1 Excel functions ####
   # EXCEL test
   if(tolower(dataset) %in% tolower(c(paste0("readr_",excelTypes), excelTypes)) ){
-    message("A .xlsx data type was chosen...")
+    bee_message("A .xlsx data type was chosen...")
     # If no sheet is provided
     if(is.null(sheet)){
       stop(" - No sheet argument was provided. Please check for the sheet name to import.")
@@ -179,7 +179,7 @@ readr_BeeBDC <- function(
   ##### x.2 CSV functions ####
   # CSV test
   if(tolower(dataset) %in% tolower(c(paste0("readr_",csvTypes), csvTypes)) ){
-    message("A .csv data type was chosen...")
+    bee_message("A .csv data type was chosen...")
     
     ###### a. EPEL ####
     if(tolower(dataset) %in% tolower(c("readr_EPEL", "EPEL")) ){
@@ -1144,7 +1144,7 @@ readr_GeoL <- function(path = NULL,
       verbatimEventDate = verbatimEventDate %>% as.character()
     )
   # User output
-  writeLines(paste0(
+  bee_message(paste0(
     " - We have read in ", 
     format(nrow(GeoL_data), big.mark = ","), " occurrence records from the 'GEOLOCATE HIGH' sheet." 
   ))
@@ -1206,7 +1206,7 @@ readr_GeoL <- function(path = NULL,
       tempSource = "Bels"
     )
   # User output
-  writeLines(paste0(
+  bee_message(paste0(
     " - We have read in ", 
     format(nrow(BELS_data), big.mark = ","), " occurrence records from the 'BELS High' sheet." 
   ))
@@ -1224,7 +1224,7 @@ readr_GeoL <- function(path = NULL,
       .before = catalogNumber)
     
     # User output
-  writeLines(paste0(
+  bee_message(paste0(
     " - We have kept ", 
     format(sum(GeoL_data$tempSource == "GeoL", na.rm = FALSE), big.mark = ","), 
     " occurrences from GeoLocate, and ",

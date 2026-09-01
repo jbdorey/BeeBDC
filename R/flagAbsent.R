@@ -44,7 +44,7 @@ flagAbsent <-
     
 
     # Return user output
-    message(
+    bee_message(
       paste(
         "\\.occurrenceAbsent:\n",
         "Flagged",

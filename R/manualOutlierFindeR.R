@@ -84,7 +84,7 @@ manualOutlierFindeR <- function(
   
   #### 1.0 Data prep ####
     ##### 1.1 Find data ####
-  writeLines(" - Looking for the datasets...")
+  bee_message(" - Looking for the datasets...")
       ###### a. Paige outliers ####
   # Find the outliers from chesshire et al. 2023
   PaigeOutliers <- fileFinder(path = DataPath,
@@ -154,7 +154,7 @@ manualOutlierFindeR <- function(
   
   
     ##### 1.2 Process Paige ####
-  writeLines(" - Processing the Paige outliers...")
+  bee_message(" - Processing the Paige outliers...")
   
   # Find PaigeOutliers in the occurrence data by occurrenceID and institutionCode
   Outl_occID <- data %>%
@@ -180,7 +180,7 @@ manualOutlierFindeR <- function(
   
   #### 2.0 Find outlier duplicates ####
     ##### 2.1 Find duplicates ####
-  writeLines(" - Looking for duplicates of the outliers...")
+  bee_message(" - Looking for duplicates of the outliers...")
     # Get a list of the outliers and their duplicates
   outlierDuplicates <- duplicates %>%
     dplyr::filter(database_id %in% outliersAll$database_id | 
@@ -201,7 +201,7 @@ manualOutlierFindeR <- function(
       database_id %in% outList,
       FALSE, TRUE)) 
   # Return user output
-  message(
+  bee_message(
     paste(
       "\\manualOutlierFindeR:\n",
       "Flagged",

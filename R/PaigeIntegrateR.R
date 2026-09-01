@@ -88,7 +88,7 @@ occMatched <- dplyr::tibble(
   )], # Match by occurrenceID
   Paige_match = PaigeNAm$database_id)
 # User output
-writeLines(paste0(
+bee_message(paste0(
   " - INITIAL match with occurrenceID only ", 
   format(sum(stats::complete.cases(occMatched$Dorey_match)), big.mark = ","), " of ",
   format(nrow(occMatched), big.mark = ","), " Paige occurrences.\n",
@@ -103,7 +103,7 @@ matchedPaige <- occMatched
 #### 2.0 Loop ####
   # loop through the number of column strings
 for(i in 1:length(columnStrings)){
-  message(paste0(" - Starting iteration ", i))
+  bee_message(paste0(" - Starting iteration ", i))
   # Get the Paige occurrence records that are not matched above
   matchedPaige <- matchedPaige %>%
     dplyr::filter(stats::complete.cases(matchedPaige$Dorey_match))
@@ -136,7 +136,7 @@ for(i in 1:length(columnStrings)){
     dplyr::bind_rows(matchedPaige)
   
   # User output
-  writeLines(paste0(
+  bee_message(paste0(
     "Matched ",
     format(sum(stats::complete.cases(matchedPaige$Dorey_match)), big.mark = ","), " of ",
     format(nrow(matchedPaige), big.mark = ","), " Paige occurrences.\n",
@@ -155,7 +155,7 @@ for(i in 1:length(columnStrings)){
 
 #### 3.0 Append #### 
   # Update the data from Paige
-  writeLines(" - Updating Paige datasheet to merge...")
+  bee_message(" - Updating Paige datasheet to merge...")
 matchedPaige <- PaigeNAm %>%
     # Select the matched records.
   dplyr::filter(database_id %in% matchedPaige$Paige_match) %>%
@@ -169,7 +169,7 @@ matchedPaige <- PaigeNAm %>%
     # Make sure that all Dorey_match's are unique
   dplyr::distinct(Dorey_match, .keep_all = TRUE)
 
-writeLines(" - Updating the final datasheet with new information from Paige...")
+bee_message(" - Updating the final datasheet with new information from Paige...")
   # Merge the new information
 db_standardized <- db_standardized %>%
         # Join select fields of the Paige data

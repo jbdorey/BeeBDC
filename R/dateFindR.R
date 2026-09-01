@@ -212,7 +212,7 @@ dateFindR <- function(data = NULL,
                            "Jul", "Aug", "Sep", "Oct","Nov", "Dec")
     
           ###### b. date ranges ####
-    writeLines(" - Preparing data...")
+    bee_message(" - Preparing data...")
       # Get a count of how many eventDate rows are full
     originalDateCount <- sum(stats::complete.cases(data$eventDate))
     
@@ -378,7 +378,7 @@ dateFindR <- function(data = NULL,
     
     #### 1.0 easyDates ####
       # Retrieve dates that are much easier to recover...
-    writeLines(" - Extracting dates from year, month, day columns...")
+    bee_message(" - Extracting dates from year, month, day columns...")
     ##### 1.1 year month day ####
     # Filter down to the records that again have no eventDate
     noDATEa <- noDATEa %>%
@@ -426,7 +426,7 @@ dateFindR <- function(data = NULL,
                            replacement = "Sep ")
     
     #### 2.0 unAmb. str. dates ####
-    writeLines(paste0(
+    bee_message(paste0(
       " - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate ",
       "columns in unambiguous ymd, dmy, mdy, and my formats..."))
       # Filter down to the records that again have no eventDate
@@ -852,7 +852,7 @@ dateFindR <- function(data = NULL,
                                                  replacement = "")
     
       #### 3.0 Amb. str. dates ####
-      writeLines(paste0(
+      bee_message(paste0(
         " - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate ",
         "columns in ambiguous formats..."))
       ambiguousDateStrings <- c(
@@ -954,7 +954,7 @@ dateFindR <- function(data = NULL,
       # KEEP amb_keepers_30 at the end
 
       #### 4.0 Format+combine ####
-      writeLines(paste0(
+      bee_message(paste0(
         " - Formating and combining the new data.."))
         ##### 4.1 formatting... ####
         # Extract only the date from occYr_2
@@ -1035,7 +1035,7 @@ dateFindR <- function(data = NULL,
         dplyr::select(!date)
     
     #### 5.0 Merge ####
-      writeLines(paste0(
+      bee_message(paste0(
         " - Merging all data, nearly there..."))
         # Get all of the changed rows together
       datesMerged <- dplyr::bind_rows(
@@ -1105,7 +1105,7 @@ dateFindR <- function(data = NULL,
       timeEnd <- Sys.time()
     
     # Return user output
-    writeLines(
+    bee_message(
         paste0(
         " - Finished. \n",
         "We now have ",

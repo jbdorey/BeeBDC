@@ -78,7 +78,7 @@ for(i in 1:nrow(SynChanges)){
 }# End 2.0 Synonym loop
 
   # Use output
-writeLines( paste("The output can be used to manually check names. ", 
+bee_message( paste("The output can be used to manually check names. ", 
                   "There are ", sum(SynAnnotate_df$Correct == FALSE), " names that require checking",
                   " and ", sum(SynAnnotate_df$Correct == TRUE), " that appear fine.",
                   sep = ""))

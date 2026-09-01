@@ -131,7 +131,7 @@ jbd_Ctrans_chunker <- function(
   
   #### 0.3 User text ####
   # Write user output
-  writeLines(paste(" - Running chunker with:", "\n",
+  bee_message(paste(" - Running chunker with:", "\n",
                    "stepSize = ", 
                    format(stepSize, big.mark=",",scientific=FALSE), "\n",
                    "chunkStart = ", 
@@ -150,7 +150,7 @@ jbd_Ctrans_chunker <- function(
       base::droplevels()
 
     # User output
-    writeLines(paste(" - Starting chunk ", i, "...", "\n",
+    bee_message(paste(" - Starting chunk ", i, "...", "\n",
                      "From ",  
                      format(chunkStart, big.mark=",",scientific=FALSE), " to ", 
                      format(chunkEnd, big.mark=",",scientific=FALSE),
@@ -192,7 +192,7 @@ jbd_Ctrans_chunker <- function(
     # user output
       #### 1.3 User text ####
     # Print use output
-    writeLines(paste(" - Finished chunk ", i, " of ", nChunks, ". ",
+    bee_message(paste(" - Finished chunk ", i, " of ", nChunks, ". ",
                      "Total records examined: ", 
                      format(nrow(Tranps_tibble), big.mark=",",scientific=FALSE),
                      sep = "") )
@@ -212,7 +212,7 @@ jbd_Ctrans_chunker <- function(
   
   endTime <- Sys.time()
   
-  message(paste(
+  bee_message(paste(
     " - Completed in ", 
     round(difftime(endTime, startTime), digits = 2 ),
     " ",

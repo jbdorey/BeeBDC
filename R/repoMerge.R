@@ -45,7 +45,7 @@ repoMerge <- function(path, save_type, occ_paths){
   ###### 1.1 Loop prep. ####
   {startTime <- Sys.time()
   # print user information
-  writeLines( paste(" - Reading and joining ",length(unlist(occ_paths))," occurrence files.", "\n",
+  bee_message( paste(" - Reading and joining ",length(unlist(occ_paths))," occurrence files.", "\n",
                     "Depending on file size and number, this could take some time.","\n",
                     sep = ""))
   # Make an internal copy of the template for use in the loop as the template tibble
@@ -167,7 +167,7 @@ repoMerge <- function(path, save_type, occ_paths){
       
       ###### c. Progress print ####
       # Print the progress and number of records (rows) to user
-      writeLines( paste(" - Completed", i,"of", length(unlist(occ_paths[j])), names(occ_paths[j]),
+      bee_message( paste(" - Completed", i,"of", length(unlist(occ_paths[j])), names(occ_paths[j]),
                         "files. ","\n",
                         counter, "of", length(unlist(occ_paths)), "total files processed","\n",
                         "Cumulative number of rows =", 
@@ -187,7 +187,7 @@ repoMerge <- function(path, save_type, occ_paths){
 
   # Completion message to user with endTime
   endTime <- Sys.time()
-  writeLines( paste(" - Completed in ", round(endTime - startTime, digits = 2), " ",
+  bee_message( paste(" - Completed in ", round(endTime - startTime, digits = 2), " ",
                     units(round(endTime - startTime, digits = 2)), sep = ""))
   } # END Data Loop
   return( dplyr::lst(Data_WebDL, eml_files))

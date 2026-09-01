@@ -40,7 +40,7 @@ coordUncerFlagR <-
           !.data[[uncerColumn]] > threshold) 
 
     # Return user output
-    message(
+    bee_message(
       paste(
         "\\coordUncerFlagR:\n",
         "Flagged",

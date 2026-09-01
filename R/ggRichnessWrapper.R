@@ -187,14 +187,14 @@ ggRichnessWrapper <- function(
     }
     if(input == 1){
       # Start iNEXT install
-      message("Installing the iNEXT package.")
+      bee_message("Installing the iNEXT package.")
       tryCatch(
         utils::install.packages("iNEXT"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
+      stop(bee_message(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE

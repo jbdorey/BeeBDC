@@ -92,11 +92,11 @@ jbd_coordinates_precision <-
     
       #### 2.0 User output ####
     if(quieter == FALSE){
-    message("jbd_coordinates_precision:\nFlagged ", 
+    bee_message("jbd_coordinates_precision:\nFlagged ", 
             format(sum(!ndec_list[".rou"]), big.mark = ","), 
             " records\nThe '.rou' column was added to the database.\n")}else{
                 # QUIETER message
-              message("jbd_coordinates_precision:\nRemoved ", 
+              bee_message("jbd_coordinates_precision:\nRemoved ", 
                       format(sum(!ndec_list[".rou"]), big.mark = ","), 
                       " records.")
             }

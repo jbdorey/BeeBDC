@@ -127,7 +127,7 @@ summaryMaps <- function(
                          crs = sf::st_crs(worldMap)) 
   
     ##### 1.3 Extraction ####
-  writeLines(" - Extracting country data from points...")
+  bee_message(" - Extracting country data from points...")
   suppressWarnings({
     # Set geometries to constant for the sake of the map
   sf::st_agr(worldMap) = "constant"
@@ -163,10 +163,10 @@ data <- extracted %>%
 
 rm(extracted)
   
-  writeLines("Extraction complete.")
+  bee_message("Extraction complete.")
   
   ##### 1.4 Buffer fails ####
-  writeLines(" - Buffering naturalearth map by pointBuffer...")
+  bee_message(" - Buffering naturalearth map by pointBuffer...")
     ###### a. buffer map ####
   # Buffer the natural earth map
   suppressWarnings({

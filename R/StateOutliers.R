@@ -70,12 +70,12 @@ sf::sf_use_s2(FALSE)
 
   # Can examine missing states between the two
 if(length(setdiff(sort(unique(stateMap$postal)), sort(unique(CL$state))) > 0)){
-  message(paste0("In the Ascher list, you are mising the following state(s) that occur in the rnaturalearth package:\n",
+  bee_message(paste0("In the Ascher list, you are mising the following state(s) that occur in the rnaturalearth package:\n",
                  stringr::str_c(setdiff(sort(unique(stateMap$postal)), sort(unique(CL$state))), 
                                 collapse = ", ")
                  ))}
 if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
-  message(paste0("In the rnaturalearth list, you are mising the following state(s) that occur in the ascher list:\n",
+  bee_message(paste0("In the rnaturalearth list, you are mising the following state(s) that occur in the ascher list:\n",
                  stringr::str_c(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))), 
                                 collapse = ", ")
                  ))}
@@ -96,7 +96,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
   
     ##### 2.2 Extraction ####
     ###### a. exactState ####
-  writeLines(" - Extracting state data from points...")
+  bee_message(" - Extracting state data from points...")
     #Extract polygon information to points
   points_extract <- sf::st_intersection(stateMap,
                               points)
@@ -193,7 +193,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
 
   
   #### 3.0 Merge ####
-  writeLines(" - Combining data...")
+  bee_message(" - Combining data...")
     # Merge both points_match datasets
   bpoints_match <- dplyr::tibble(points_match) %>%
       # Join the two datasets togehter keeping only neighbourMatch and assignmentCertainty from the 
@@ -216,7 +216,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
   
   #### 4.0 Output ####
     ##### 4.1 User output ####
-  writeLines(paste0(
+  bee_message(paste0(
     " - Finished. \n",
     "We have matched ", 
     format(sum(bpoints_match$matchType == "exact", na.rm = TRUE), big.mark = ","),
@@ -249,7 +249,7 @@ if(length(setdiff( sort(unique(CL$state)), sort(unique(stateMap$postal))) > 0)){
       dplyr::distinct(database_id, .keep_all = TRUE)
 
     # return message
-    message(paste("\nchecklistOutlieR:\nFlagged", 
+    bee_message(paste("\nchecklistOutlieR:\nFlagged", 
                   format(sum(output$.stateOutlier == FALSE, na.rm = TRUE), big.mark = ","), 
                   "records.\nThe column, '.stateOutlier',",
                   "was added to the database.\n"), sep = "")

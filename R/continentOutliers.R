@@ -218,7 +218,7 @@ continentOutlieRs <- function(
   
   ##### 2.2 Extraction ####
   ###### a. exactContinent ####
-  writeLines(" - Extracting continent data from points...")
+  bee_message(" - Extracting continent data from points...")
   points_extract <- data %>%
     # Make a new column with the ordering of rows
     dplyr::mutate(BeeBDC_order = dplyr::row_number()) %>%
@@ -241,7 +241,7 @@ continentOutlieRs <- function(
     points_failed <- data %>%
       dplyr::filter(!database_id %in% points_extract$database_id)
     
-    writeLines(" - Buffering failed points by pointBuffer...")
+    bee_message(" - Buffering failed points by pointBuffer...")
     
     points_failed <- points_failed %>%
       # Make a new column with the ordering of rows
@@ -270,7 +270,7 @@ continentOutlieRs <- function(
     }
   } # End if pointBuffer
   
-  writeLines(" - Prepare the neighbouring continent dataset...")
+  bee_message(" - Prepare the neighbouring continent dataset...")
   ###### b. neighbouringContinents ####
   # Get a list of continents that share borders
   continentsBordering <- sf::st_intersects(continentMap, continentMap) %>%
@@ -326,7 +326,7 @@ continentOutlieRs <- function(
     dplyr::select(database_id)
   
   ##### 2.3 Compare ####
-  writeLines(" - Compare points with the checklist...")
+  bee_message(" - Compare points with the checklist...")
   # Get a smaller subset of the columns AND make a new columns with scientific name and country
   points_simple <- points_extract %>% 
     dplyr::select(database_id, continent, scientificName) %>%
@@ -411,7 +411,7 @@ continentOutlieRs <- function(
   
   
   #### 3.0 Merge ####
-  writeLines(" - Combining data...")
+  bee_message(" - Combining data...")
   # Merge both points_match datasets
   bpoints_match <- dplyr::tibble(points_match) %>%
     # Join the two datasets togehter keeping only neighbourMatch and assignmentCertainty from the 
@@ -461,7 +461,7 @@ continentOutlieRs <- function(
   ###### c. distinct buffer ####
   # For those buffered records that might have overlapped with >1 continent, select the unfiltered one, if it exists.
   if(!is.null(pointBuffer)){
-    writeLines(" - Sorting and removing potentially duplicated buffered points...")
+    bee_message(" - Sorting and removing potentially duplicated buffered points...")
     bpoints_match <- bpoints_match %>%
       dplyr::group_by(database_id) %>%
       dplyr::arrange(desc(.continentOutlier), .by_group = TRUE) %>%
@@ -478,7 +478,7 @@ continentOutlieRs <- function(
                                         FALSE, TRUE))
   
   
-  writeLines(paste0(
+  bee_message(paste0(
     " - Finished. \n",
     "We have matched ", 
     format(sum(bpoints_match$continentMatch == "exact", na.rm = TRUE), big.mark = ","),
@@ -496,7 +496,7 @@ continentOutlieRs <- function(
   
   
   # return message
-  message(paste0("continentOutlieRs:\nFlagged ", 
+  bee_message(paste0("continentOutlieRs:\nFlagged ", 
                 format(sum(output$.continentOutlier == FALSE, na.rm = TRUE), big.mark = ","), 
                 " for continent outlier and flagged ",
                 format(sum(output$.sea == FALSE, na.rm = TRUE), big.mark = ","), 
@@ -513,7 +513,7 @@ continentOutlieRs <- function(
   # Return file
   endTime <- Sys.time()
   # Time output
-  message(paste(
+  bee_message(paste(
     " - Completed in ", 
     round(difftime(endTime, startTime), digits = 2 )," ",
     units(round(endTime - startTime, digits = 2)),
