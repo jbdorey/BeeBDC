@@ -168,12 +168,14 @@ taxadbToBeeBDC <- function(
 #### 1.0 Download taxonomy ####
   ##### 1.1 Download ####
   bee_message(" - Downloading taxonomy...")
+  # Connect to the default database if none was provided
+  if(is.null(db)){
+    db <- taxadb::td_connect()
+  }
   taxadb::td_create(provider = provider,
                     schema = "dwc",
                     version = version,
-                    # Only provide inputs here if user-inputs are provided.
-                    if(is.null(db)){db = taxadb::td_connect()
-                    }else{db = db},
+                    db = db,
                     ...)
     # User output
   bee_message(paste0(" - taxadb save the taxonomy to: ",
@@ -186,9 +188,7 @@ taxonomy_taxadb <- taxadb::filter_rank(name,
                                        provider = provider,
                                        collect = collect,
                                        ignore_case = ignore_case,
-                                        # Only provide inputs here if user-inputs are provided.
-                                       if(is.null(db)){db = taxadb::td_connect()
-                                       }else{db = db},
+                                       db = db,
                                        version = version
 ) 
   

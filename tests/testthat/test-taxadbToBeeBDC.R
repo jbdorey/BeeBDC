@@ -10,9 +10,7 @@ if(requireNamespace("taxadb")){
                                         version = "22.12",
                                         removeEmptyNames = TRUE,
                                         outPath = tempdir(),
-                                        fileName = "TEST_out.csv",
-                                          # Must be NULL to avoid deprecation warning
-                                        overwrite = NULL, lines = NULL)
+                                        fileName = "TEST_out.csv")
  
 
 
@@ -37,4 +35,3 @@ testthat::test_that("taxadbToBeeBDC expected number of columns", {
 
 
 } # END if require
-
