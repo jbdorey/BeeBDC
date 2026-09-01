@@ -344,7 +344,7 @@ plotFlagSummary <- function(
       WorldMap_layer <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf", 
                                      country = NULL, type="map_units") 
       # Create the checklist map
-      (PointMap <- ggplot2::ggplot(data = WorldMap_layer ) +
+      PointMap <- ggplot2::ggplot(data = WorldMap_layer ) +
           # CORE plotting of map and data
           # Plot and colour the terrestrial base map
           ggplot2::geom_sf(ggplot2::aes(fill = NULL), size = 0.15)+ 
@@ -405,7 +405,7 @@ plotFlagSummary <- function(
           # Add in X and Y labels
           ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
           # Add in the title
-          ggplot2::ggtitle( speciesName) )
+          ggplot2::ggtitle( speciesName)
       # save as the map as 10*6"
       ggplot2::ggsave(paste0("/Map_FlagsPlot_", speciesName, ".pdf"), plot = PointMap, device = "pdf", 
               width = 10, height = 5, dpi = 300, path = outPath)
@@ -432,4 +432,3 @@ plotFlagSummary <- function(
     return(plot)}
   
 } # END function
-

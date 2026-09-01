@@ -257,7 +257,7 @@ rm(extracted2)
   
   ##### 2.3 Draw map ####
   # Make the map
-  (spCountryMap <- ggplot2::ggplot(data = fullMap, ) +
+  spCountryMap <- ggplot2::ggplot(data = fullMap, ) +
      # Add in a blank base-map to highlight countries with no data
      ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
       # Plot and colour the terrestrial base map
@@ -289,7 +289,7 @@ rm(extracted2)
       # Add in X and Y labels
      ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
       # Add in the title
-     ggplot2::ggtitle( "Number of species per country")  )
+     ggplot2::ggtitle( "Number of species per country")
   
   rm(spMapData)
   
@@ -340,7 +340,7 @@ rm(extracted2)
   
   ##### 2.3 Draw map ####
   # Make the map
-  (occCountryMap <- ggplot2::ggplot(data = fullMap) +
+  occCountryMap <- ggplot2::ggplot(data = fullMap) +
       # Add in a blank base-map to highlight countries with no data
      ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
       # Plot and colour the terrestrial base map
@@ -373,17 +373,17 @@ rm(extracted2)
       # Add in X and Y labels
       ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
       # Add in the title
-     ggplot2::ggtitle( "Number of occurrences per country")  )
+     ggplot2::ggtitle( "Number of occurrences per country")
   
   #### 4.0 combine + save ####
   # plot the figures together
-  (combinedPlot <- cowplot::plot_grid(spCountryMap,
+  combinedPlot <- cowplot::plot_grid(spCountryMap,
                                   #    + 
                                   # theme(legend.position = legend.position,
                                   #       legend.title = element_blank()),
                                   occCountryMap, 
                                   labels = c("(a)","(b)"),
-                                 ncol = 1, align = 'v', axis = 'l'))
+                                 ncol = 1, align = 'v', axis = 'l')
   # Save the plot
   cowplot::save_plot(filename = paste(outPath, "/", fileName, sep = ""),
                      plot = combinedPlot,
