@@ -53,7 +53,7 @@ time. The prefix jbd_ is used to highlight the difference between this function 
 \code{\link[bdc:bdc_country_from_coordinates]{bdc::bdc_country_from_coordinates()}}.
 }
 \examples{
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 library("dplyr")
 data(beesFlagged)
 HomePath = tempdir()
