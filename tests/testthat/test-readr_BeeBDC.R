@@ -6,7 +6,6 @@ requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 requireNamespace("openxlsx")
 
-library(dplyr) ## could not use %>% without loading as library
 
 #### 1.0 EPEL ####
 
@@ -102,7 +101,6 @@ unlink(rownames(testDataPath))
 
 #### 3.0 BMin ####
     
-    library(dplyr) ## could not use %>% without loading as library
     
     
     testData <- dplyr::tribble(

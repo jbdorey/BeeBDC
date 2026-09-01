@@ -2,7 +2,6 @@ requireNamespace("readr")
 requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 
-library(dplyr) ## could not use %>% without loading as library
 
 
 ## fake data

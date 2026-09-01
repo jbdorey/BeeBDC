@@ -1,7 +1,4 @@
 requireNamespace("dplyr")
-library(dplyr)
-library(lubridate)
-library(stringr)
 
 data = testData <- dplyr::tribble(
   ~database_id,               ~fieldNotes,                                                 ~eventDate, ~year, ~month, ~day,        ~verbatimEventDate, ~locality,                                ~locationRemarks, 
@@ -44,7 +41,7 @@ testOut <- dateFindR(data = testData,
                         minYear = 1700) %>%
   dplyr::select(database_id, eventDate, fieldNotes, locationRemarks, verbatimEventDate, 
                 day, month, year, startDayOfYear, endDayOfYear) %>%
-  dplyr::arrange(desc(database_id))
+  dplyr::arrange(dplyr::desc(database_id))
 
 
 # Test the expected results
@@ -110,7 +107,7 @@ testOut2 <- dateFindR(data = troubleRows,
                              maxYear = lubridate::year(Sys.Date()),
                              # Years below this are removed (from the recovered dates only)
                              minYear = 1700) %>%
-  dplyr::arrange(desc(database_id))
+  dplyr::arrange(dplyr::desc(database_id))
 
 
 

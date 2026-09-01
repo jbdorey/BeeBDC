@@ -3,7 +3,6 @@ requireNamespace("BeeBDC")
 requireNamespace("dplyr")
 requireNamespace("emld")
 
-library(dplyr) ## could not use %>% without loading as library
 
 
 ## make some data
