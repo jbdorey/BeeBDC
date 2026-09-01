@@ -89,12 +89,6 @@ ChaoWrapper <- function(
     df_list <- loopVector <- wrapper <- basicCols <- variable <- rowname <- non_empty_list_test <-
     richnessOut <- basicOut <- failures <- output <- NULL
   
-  # Load required packages 
-  requireNamespace("stringr")
-  requireNamespace("dplyr")
-  requireNamespace("iNEXT")
-  
-  
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####

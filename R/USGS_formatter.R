@@ -26,9 +26,6 @@ USGS_formatter <- function(
     time1<-time2<- occurrenceID <- NULL
   
   #### require and checks ####
-  # Load required packages
-  requireNamespace("lubridate")
-  requireNamespace("dplyr")
   # File name to search for
   USGS_fileName <- "USGS_DRO_flat"
   # Find the USGS data from the HomePath

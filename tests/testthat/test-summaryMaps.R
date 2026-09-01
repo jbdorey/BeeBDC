@@ -4,7 +4,7 @@
 withr::local_options(list(device = \(...) grDevices::pdf(NULL, ...)))
 
 # If rnaturalearthdata is present, run tests
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
   # Load in example data
 beesFlagged <- BeeBDC::beesFlagged
 

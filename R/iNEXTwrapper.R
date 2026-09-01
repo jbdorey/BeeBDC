@@ -102,12 +102,6 @@ iNEXTwrapper <- function(data = NULL,
   
   groupVariable <- groupCount <- . <- NULL
   
-  # Load required packages 
-  requireNamespace("stringr")
-  requireNamespace("dplyr")
-  requireNamespace("iNEXT")
-  
-  
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####

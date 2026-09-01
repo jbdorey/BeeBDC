@@ -62,7 +62,6 @@ idMatchR <- function(
     database_id_matched <- idContinuity <- databaseName <- database_id_current <-
     databaseNum <- missingNum <- database_id_new <- databaseNum_current <- NULL
   
-  requireNamespace("dplyr")
 
     #### 0.0 Prep ####
     ##### 0.1 Errors ####

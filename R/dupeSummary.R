@@ -144,10 +144,6 @@ dupeSummary <- function(
   database_id <- dataSource <- dupColumn_s <- completeness <- .summary <- database_id_match <-
     group <- database_id_Main <- dataSourceMain <- database_id_keep <- . <- NULL
   
-  # Load required packages
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
-  requireNamespace("igraph")
     # Record start time
   startTime <- Sys.time()
   

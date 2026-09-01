@@ -34,7 +34,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 #' beesRaw_out <- jbd_coordCountryInconsistent(
 #'   data = BeeBDC::beesRaw,
 #'   lon = "decimalLongitude",
@@ -59,11 +59,6 @@ jbd_coordCountryInconsistent <- function(
   .coordinates_empt <- .data <- .coordinates_empty <- .coordinates_outOfRange <- isna_ <- NULL
   
 startTime <- Sys.time()
-requireNamespace("rnaturalearth")
-requireNamespace("dplyr")
-requireNamespace("ggspatial")
-requireNamespace("mgsub")
-requireNamespace("terra")
 
   #### 0.0 Prep ####
     ###### 0.1 fatal errors ####

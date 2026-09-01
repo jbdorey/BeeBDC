@@ -82,10 +82,6 @@ richnessPrepR <- function(
     continent<- name_long<- continent.x<- continent.y <- country_suggested <- n<- NULL
   
   
-  # Load required packages 
-  requireNamespace("rlang")
-  requireNamespace("dplyr")
-  
   # Record start time
   startTime <- Sys.time()
   

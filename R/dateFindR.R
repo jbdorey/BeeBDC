@@ -51,9 +51,6 @@ dateFindR <- function(data = NULL,
       dmy_eventDate_in <- mdy_eventDate_in <- NULL
     
       # load required packages
-    requireNamespace("dplyr")
-    requireNamespace("lubridate")
-    requireNamespace("mgsub")
     
     timeStart <- Sys.time()
     

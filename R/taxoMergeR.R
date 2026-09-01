@@ -23,7 +23,6 @@ taxoMergeR <- function(currentNames = NULL,
   genus <- species <- . <- tempIndex <- authorship <- taxonomic_status <- 
     authorship_nameSplit <- NULL
   
-  requireNamespace("dplyr")
 
   
   #### 0.0 Prep ####

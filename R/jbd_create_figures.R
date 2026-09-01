@@ -79,7 +79,6 @@ jbd_create_figures <-
       check_require_cran("cowplot")
       check_require_cran("readr")
       check_require_cran("ggspatial")
-      requireNamespace("bdc")
     })
     
     match.arg(arg = workflow_step,

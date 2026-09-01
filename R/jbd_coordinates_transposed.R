@@ -113,7 +113,6 @@ jbd_coordinates_transposed <- function(data,
            mc.cores = 1) {
     decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
     
-    requireNamespace("dplyr")
 
     suppressWarnings({
       check_require_cran("rnaturalearth")

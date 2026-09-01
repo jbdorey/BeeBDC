@@ -43,7 +43,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 #' library(dplyr)
 #'   # Import and prepare the data
 #' data(beesFlagged)
@@ -103,7 +103,6 @@ jbd_Ctrans_chunker <- function(
     mc.cores = 1){
   database_id <- NULL
   
-  requireNamespace("dplyr")
   
   #### 0.0 Prep ####
   startTime <- Sys.time()

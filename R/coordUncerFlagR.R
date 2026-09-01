@@ -30,7 +30,6 @@ coordUncerFlagR <-
            uncerColumn = "coordinateUncertaintyInMeters",
            threshold = NULL) {
     .data <- .occurrenceAbsent <- NULL
-    requireNamespace("dplyr")
     
     # Make a new column called .occurrenceAbsent to be TRUE when occurrenceStatus is "present" or NA
     data <-

@@ -110,9 +110,6 @@ interactiveMapR <- function(
     providers <- databaseSpp <- .expertOutlier <- NULL
     
   
-  requireNamespace("htmlwidgets")
-  requireNamespace("leaflet")
-  requireNamespace("dplyr")
   
   # Ensure that working directories are maintain on exit from function
   oldwd <- getwd()           # code line i 

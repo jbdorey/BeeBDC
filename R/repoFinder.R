@@ -16,7 +16,6 @@
 #' }
 repoFinder <- function(path){
   . <- NULL
-  requireNamespace("dplyr")
   # Find ALL occurrence file downloads contained within the HomePath and return their location and 
   # their information
   AllOccLocs <- file.info(list.files(path, full.names = T, pattern = "occurrence(s)?(_raw)?\\.|^data.csv",

@@ -74,7 +74,6 @@ PaigeIntegrater <- function(
     database_id_m<-decimalLongitude_m<-scientificName_m<-genus_m<-specificEpithet_m<-
     infraspecificEpithet_m<-country_m<-coordinateUncertaintyInMeters_m <- . <- NULL
   
-  requireNamespace("dplyr")
   
 
 #### 1.0 occurrenceID ####

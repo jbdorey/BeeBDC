@@ -37,7 +37,6 @@ repoMerge <- function(path, save_type, occ_paths){
   . <- family <- data_i <- NULL
   
     #### 0.0 Prep ####
-  requireNamespace("dplyr")
     # Remove empty elements
   occ_paths <- occ_paths[lapply(occ_paths,length)>0]
   

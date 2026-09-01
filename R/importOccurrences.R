@@ -24,10 +24,6 @@ importOccurrences <- function(path = path,
            fileName = "^BeeData_" #occurrence file name. If not provided, R will search to match "BeeData_"
            ){ #spatial reference system as epsg code
   . <- NULL
-  # Load required packages
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
-  
   # if the fileName is not provided...
   if(!exists("fileName")){
     fileName = "^BeeData"

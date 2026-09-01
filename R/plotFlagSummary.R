@@ -121,10 +121,6 @@ plotFlagSummary <- function(
   OutPath_Figures <- decimalLatitude <- decimalLongitude <- . <- dataSource <- NULL
   database <- flags <- value <- count <- .data <- NULL
   
-  requireNamespace("ggspatial")
-  requireNamespace("dplyr")
-  requireNamespace("bdc")
-  requireNamespace("forcats")
   
   
   #### 0.0 Prep ####

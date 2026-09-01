@@ -147,10 +147,6 @@ ggRichnessWrapper <- function(
   decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
   country_iNEXT <- . <- Est_s.e. <- NULL
     
-  requireNamespace("magrittr")
-  requireNamespace("iNEXT")
-  requireNamespace("cowplot")
-  requireNamespace("ggplot2")
   
   
   #### 0.0 Prepare function ####

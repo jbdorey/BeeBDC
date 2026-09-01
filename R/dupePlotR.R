@@ -62,10 +62,6 @@ dupePlotR <- function(
   database_id <- duplicateStatus <- dataSource <- simpleSource <- NULL 
   
     # Load dependencies
-  requireNamespace("ggspatial")
-  requireNamespace("forcats")
-  requireNamespace("dplyr")
-  requireNamespace("cowplot")
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####

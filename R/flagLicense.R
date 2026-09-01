@@ -35,8 +35,6 @@ flagLicense <- function(data = NULL,
            strings_to_restrict = "all",
            excludeDataSource = NULL) {
     .data <- .unLicensed <- dataSource <-  NULL
-    requireNamespace("dplyr")
-    requireNamespace("rlang") 
 
     #### 1.0 Preperation ####
       ##### 1.1 strings_to_restrict ####

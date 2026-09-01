@@ -32,7 +32,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 #' library("dplyr")
 #' data(beesFlagged)
 #' HomePath = tempdir()

@@ -6,7 +6,7 @@
 # * https://r-pkgs.org/tests.html
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
-requireNamespace("testthat")
-requireNamespace("BeeBDC")
+library("testthat")
+library("BeeBDC")
 
 testthat::test_check("BeeBDC")

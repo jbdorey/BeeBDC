@@ -92,12 +92,6 @@ taxadbToBeeBDC <- function(
     taxonID <- id <- accid <- id_matched <- NULL
 
   
-  # Load required packages 
-  requireNamespace("stringr")
-  requireNamespace("dplyr")
-  requireNamespace("taxadb")
-  
-  
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####

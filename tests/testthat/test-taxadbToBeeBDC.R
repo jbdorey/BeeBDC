@@ -1,6 +1,6 @@
 
 # If rnaturalearthdata is present, run tests
-if(requireNamespace("taxadb")){
+if(requireNamespace("taxadb", quietly = TRUE)){
 
 
   # Run the taxadbToBeeBDC function using the example

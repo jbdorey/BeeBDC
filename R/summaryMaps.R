@@ -38,7 +38,7 @@
 #' @importFrom ggplot2 xlab ylab ggtitle
 #'
 #' @examples
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 #' # Read in data
 #' data(beesFlagged)
 #' OutPath_Figures <- tempdir()
@@ -72,10 +72,6 @@ summaryMaps <- function(
     scientificName<-species<-country<-stateProvince<-dataSource<-count<-class_count<-
     class_count2<-occCount <- indexMatch <- . <- iso_a2 <- n<-NULL
   
-  requireNamespace("dplyr")
-  requireNamespace("classInt")
-  requireNamespace("rnaturalearth")
-  requireNamespace("ggspatial")
   
   
   #### 0.0 Prep ####

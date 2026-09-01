@@ -128,10 +128,6 @@ chordDiagramR <- function(
     groupNumber <- groupPalette <- groupColours <- par <- NULL
   error_func_BCM <- CHtest <- error_func_CH <- input <- instructions <- NULL
   
-    requireNamespace("circlize")
-  requireNamespace("dplyr")
-  requireNamespace("paletteer")
-  requireNamespace("grid")
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####

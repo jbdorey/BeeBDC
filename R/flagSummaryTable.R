@@ -50,12 +50,6 @@ flagSummaryTable <- function(
   flagCol <- .summary <- totalFailed <- totalFailed <- total <- OutPath_Report <- NULL
   .scientificName_empty <- .invalidName <- NULL
   
-  # Load required packages
-  requireNamespace("dplyr")
-  requireNamespace("tidyselect")
-  requireNamespace("stats")
-  requireNamespace("readr")
-  
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####

@@ -12,9 +12,6 @@ taxoDuplicator <- function(
   # locally bind variables to the function
   validName <- accid <- id <- flags <- taxonomic_status <- canonical_withFlags <- canonical <- NULL
   
-    # Load required packages
-  requireNamespace("dplyr")
-  
   #### 0.0 Prep ####
   ##### 0.1 Remove existing flags ####
   bee_message("Removing previous flags generated with this function")

@@ -53,7 +53,6 @@ atlasDownloader <- function(path, userEmail = NULL, ALA_taxon, DL_reason = 4, at
   if(grepl( ".[^@]+@{1}.+\\..+", userEmail) == FALSE){
     stop("The email you entered might be incorrect, please double-check the format.")
   }
-  requireNamespace("galah")
   # Define ColsToKeep
   ColsToKeep <- BeeBDC::ColTypeR()[[1]] %>% names()
   # Create a new working directory for ALA data in the path provided

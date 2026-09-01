@@ -156,15 +156,6 @@ richnessEstimateR <- function(
     } # END else
   } # END suggestedTest == FALSE
   
-  # Load required packages 
-  requireNamespace("stringr")
-  requireNamespace("dplyr")
-  requireNamespace("iNEXT")
-  
-  
-
-  
-  
   ##### 0.3 iNEXT test ####
   ###### a. test ####
   # Check if iNEXT is installed
