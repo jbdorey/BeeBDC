@@ -159,11 +159,6 @@ jbd_coordinates_transposed(
 ) 
 } # END if require
 #> Loading required package: rnaturalearthdata
-#> 
-#> Attaching package: ‘rnaturalearthdata’
-#> The following object is masked from ‘package:rnaturalearth’:
-#> 
-#>     countries110
 #> Loading required package: bdc
 #> Loading auxiliary data: country names
 #> Standardizing country names

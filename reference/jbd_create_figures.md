@@ -93,7 +93,5 @@ jbd_create_figures(
 
 } # End if require
 #> Warning: Please provide a path!
-#> Loading required package: cowplot
-#> Loading required package: ggspatial
 # } # End dont test
 ```

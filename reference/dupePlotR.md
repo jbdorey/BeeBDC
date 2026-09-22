@@ -88,7 +88,5 @@ dupePlotR(
   ASP = "ASP", CAES = "CAES", 'B. Mont.' = "BMont", 'B. Minckley' = "BMin", Ecd = "Ecd",
   Gaiarsa = "Gai", EPEL = "EPEL", Lic = "Lic", Bal = "Bal", Arm = "Arm"
   )
-#> Loading required namespace: forcats
-#> Loading required namespace: cowplot
 #> Warning: Unknown levels in `f`: CAES, BMont, BMin, Ecd, Gai, EPEL, Lic, Bal, Arm
 ```

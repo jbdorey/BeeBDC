@@ -17,7 +17,7 @@ this function."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">BeeBDC</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,7 @@ this function."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Flags coordinates that are inconsistent with the stated country name</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/devel/R/jbd_coordCountryInconsistent.R" class="external-link"><code>R/jbd_coordCountryInconsistent.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jbdorey/BeeBDC/blob/main/R/jbd_coordCountryInconsistent.R" class="external-link"><code>R/jbd_coordCountryInconsistent.R</code></a></small>
       <div class="d-none name"><code>jbd_coordCountryInconsistent.Rd</code></div>
     </div>
 
@@ -128,7 +128,7 @@ Default = 1.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rnaturalearthdata"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rnaturalearthdata"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">beesRaw_out</span> <span class="op">&lt;-</span> <span class="fu">jbd_coordCountryInconsistent</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="va"><a href="beesRaw.html">beesRaw</a></span>,</span></span>
 <span class="r-in"><span>  lon <span class="op">=</span> <span class="st">"decimalLongitude"</span>,</span></span>
@@ -136,29 +136,29 @@ Default = 1.</p></dd>
 <span class="r-in"><span>  scale <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span>  pointBuffer <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># END if require</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_outOfRange:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 0 records.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No '.coordinates_empty' column found, running bdc_coordinates_empty</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No '.coordinates_empty' column found, running bdc_coordinates_empty</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> bdc_coordinates_empty:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 23 records.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> One column was added to the database.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No 'country_suggested' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No 'countryCode' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Downloading naturalearth map...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No 'country_suggested' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No 'countryCode' column found, adding an empty (NA) placeholder. This column can be added by running bdc::bdc_country_standardized() on the input data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Downloading naturalearth map...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Spherical geometry (s2) switched off</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting initial country names without buffer...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Buffering naturalearth map by pointBuffer...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Extracting initial country names without buffer...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Buffering naturalearth map by pointBuffer...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> dist is assumed to be in decimal degrees (arc_degrees).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - Extracting FAILED country names WITH buffer...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Extracting FAILED country names WITH buffer...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> jbd_coordinates_country_inconsistent:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flagged 2 records.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The column, '.coordinates_country_inconsistent', was added to the database.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Completed in 0.83 secs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - Completed in 1.09 secs</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

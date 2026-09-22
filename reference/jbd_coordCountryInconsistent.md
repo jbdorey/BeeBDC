@@ -73,7 +73,7 @@ The input occurrence data with a new column,
 ## Examples
 
 ``` r
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 beesRaw_out <- jbd_coordCountryInconsistent(
   data = BeeBDC::beesRaw,
   lon = "decimalLongitude",
@@ -103,5 +103,5 @@ beesRaw_out <- jbd_coordCountryInconsistent(
 #> jbd_coordinates_country_inconsistent:
 #> Flagged 2 records.
 #> The column, '.coordinates_country_inconsistent', was added to the database.
-#>  - Completed in 0.83 secs
+#>  - Completed in 1.09 secs
 ```

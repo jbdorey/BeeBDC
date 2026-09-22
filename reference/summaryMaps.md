@@ -88,7 +88,7 @@ of bee occurrence species and count data from the input dataset.
 ## Examples
 
 ``` r
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 # Read in data
 data(beesFlagged)
 OutPath_Figures <- tempdir()

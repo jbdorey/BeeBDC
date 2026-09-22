@@ -16,7 +16,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/jbdorey/BeeBDC/blob/devel/inst/CITATION)
+[`inst/CITATION`](https://github.com/jbdorey/BeeBDC/blob/main/inst/CITATION)
 
 Dorey, J. B., Fischer, E. E., Chesshire, P. R., Bolaños, A. N.,
 O'reilly, R. L., Bossert, S., Collins, S. M., Lichtenberg, E. M.,
@@ -37,14 +37,14 @@ doi: \<https://doi.org/10.1101/2023.06.30.547152\>
     }
 
 Dorey, J. B., O'Reilly, R. L., Bossert, S., Fischer, E. E. (2023).
-BeeBDC: an occurrence data cleaning package. R package version 1.3.5.
+BeeBDC: an occurrence data cleaning package. R package version 1.3.4.
 url: \<https://github.com/jbdorey/BeeBDC\>
 
     @Manual{,
       title = {BeeBDC: an occurrence data cleaning package},
       author = {{Dorey, James B. [aut],O'Reilly, Robert L. [aut],Bossert, Silas [aut],Fischer, Erica E. [aut]}},
       year = {2023},
-      note = {R package version 1.3.5},
+      note = {R package version 1.3.1},
       url = {https://github.com/jbdorey/BeeBDC},
     }
 

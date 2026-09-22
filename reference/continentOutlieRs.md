@@ -84,7 +84,7 @@ your own dataset. At a minimum you will need *validName* and
 ## Examples
 
 ``` r
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 library(magrittr)
   # Load in the test dataset
 beesRaw <- BeeBDC::beesRaw
@@ -103,7 +103,6 @@ beesRaw_out <- continentOutlieRs(checklist = testChecklist,
                                mc.cores = 1)
 table(beesRaw_out$.continentOutlier, useNA = "always")
 } # END if require
-#> Loading required namespace: rnaturalearthdata
 #> Spherical geometry (s2) switched off
 #>  - Extracting continent data from points...
 #>  - Buffering failed points by pointBuffer...
@@ -117,14 +116,13 @@ table(beesRaw_out$.continentOutlier, useNA = "always")
 #> We have matched 26 records to their exact continent and 0 to an adjacent continent
 #> We failed to match 1 occurrences to any 'exact' or 'neighbouring' continent
 #> There are 23 'NA' occurrences for the .continentOutlier column.
-#> 
 #> continentOutlieRs:
 #> Flagged 1 for continent outlier and flagged 0 for in the .sea records.
 #> Three columns were added to the database:
 #> 1. The '.continentOutlier' column was added which is a filtering column. 
 #> 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. 
 #> 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.
-#>  - Completed in 2.38 secs
+#>  - Completed in 2.39 secs
 #> 
 #> FALSE  TRUE  <NA> 
 #>     1    26    23 

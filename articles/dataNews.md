@@ -63,12 +63,13 @@ may not be perfect documentation but major issues are highlighted below.
 
 - Upcoming version…
 
-  - A completely new 2026 pull is in the making… it is *possible* to get
-    early access if you are willing to collaborate.
+  - A completely new 2026 pull is in the making…
 
-- *Version 1.3.4 runs of early data* This new run of an early dataset
-  from start to finish using BeeBDC version 1.3.4 has the following
-  changes:
+- *Version 1.3.4 runs of early data —
+  05_cleaned_database_2023v1_3_4.csv.zip* and
+  *05_unCleaned_database_2023v1_3_4.csv.zip —* This new run of an early
+  dataset from start to finish using BeeBDC version 1.3.4 has the
+  following changes:
 
   - Has the below taxonomic issues fixed. However, this process has
     highlighted that some names are not formatting correctly from the
@@ -80,7 +81,7 @@ may not be perfect documentation but major issues are highlighted below.
     and
     [`BeeBDC::dateFindR()`](https://jbdorey.github.io/BeeBDC/reference/dateFindR.md).
 
-  - [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
+  - [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)
     now matches names in the verbatimScientificName column if there is
     no match from the scientificName column.
 
@@ -89,12 +90,6 @@ may not be perfect documentation but major issues are highlighted below.
 
   - [`BeeBDC::flagAbsent()`](https://jbdorey.github.io/BeeBDC/reference/flagAbsent.md)
     also now checks if *individualCount == 0*.
-
-  - Download links:
-
-    - [*05_cleaned_database_2024-02-15_v1_3_4.csv.zip*](https://open.flinders.edu.au/ndownloader/files/69213001)
-
-    - [*05_unCleaned_database_2024-02-15_v1_3_4.csv.zip*](https://open.flinders.edu.au/ndownloader/files/69213007)
 
 - *05_cleaned_database_2024-02-15.csv.zip* and
   *05_unCleaned_database_2024-02-15.csv.zip*

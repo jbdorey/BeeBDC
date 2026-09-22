@@ -5,7 +5,7 @@ transforms it into the input BeeBDC format. This means that any taxonomy
 in their databases can be used with BeeBDC. You can also save the output
 to your computer and to the R environment for immediate use. See details
 below for a list of providers or see
-[`taxadb::td_download()`](https://rdrr.io/pkg/taxadb/man/td_download.html).
+[`taxadb::td_create()`](https://rdrr.io/pkg/taxadb/man/td_create.html).
 
 ## Usage
 
@@ -14,14 +14,13 @@ taxadbToBeeBDC(
   name = NULL,
   rank = NULL,
   provider = "gbif",
-  version = taxadb::available_versions(db = taxadb::td_connect()),
+  version = "22.12",
   collect = TRUE,
   ignore_case = TRUE,
   db = NULL,
   removeEmptyNames = TRUE,
   outPath = getwd(),
   fileName = NULL,
-  overwrite = FALSE,
   ...
 )
 ```
@@ -43,7 +42,7 @@ taxadbToBeeBDC(
   Character. From which provider should the hierarchy be returned?
   Default is 'gbif', which can also be configured using
   options(default_taxadb_provide = ..."). See
-  [`taxadb::td_download()`](https://rdrr.io/pkg/taxadb/man/td_download.html)
+  [`taxadb::td_create()`](https://rdrr.io/pkg/taxadb/man/td_create.html)
   for a list of recognized providers. NOTE: gbif seems to have the
   most-complete columns, especially in terms of
   scientificNameAuthorship, which is important for matching ambiguous
@@ -53,8 +52,8 @@ taxadbToBeeBDC(
 - version:
 
   Character. Which version of the taxadb provider database should we
-  use? defaults to latest. See available_versions() for details. Default
-  = 22.12. As defined by
+  use? defaults to latest. See tl_import for details. Default = 22.12.
+  As defined by
   [`taxadb::filter_rank()`](https://rdrr.io/pkg/taxadb/man/filter_rank.html).
 
 - collect:
@@ -92,27 +91,22 @@ taxadbToBeeBDC(
 
   Character. The name of the output file, ending in '.csv'.
 
-- overwrite:
-
-  Logical. Should we re-download files that are already present? Default
-  FALSE.
-
 - ...:
 
   Arguments passed to
-  [`taxadb::td_download()`](https://rdrr.io/pkg/taxadb/man/td_download.html).
+  [`taxadb::td_create()`](https://rdrr.io/pkg/taxadb/man/td_create.html).
 
 ## Value
 
 Returns a taxonomy file (to the R environment and to the disk, if a
 fileName is provided) as a tibble that can be used with
-[`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md).
+[`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md).
 
 ## See also
 
 [`beesTaxonomy()`](https://jbdorey.github.io/BeeBDC/reference/beesTaxonomy.md)
 for the bee taxonomy and
-[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
+[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)
 for the taxon-cleaning function where these taxonomies are implemented.
 
 ## Examples
@@ -131,7 +125,6 @@ ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
   removeEmptyNames = TRUE,
   outPath = getwd(),
   fileName = NULL,
-  overwrite = FALSE,
   ...
   )
   

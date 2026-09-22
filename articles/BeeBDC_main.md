@@ -544,8 +544,6 @@ suppressWarnings(
                                    scale = "medium",
                                    mc.cores = 1),
   classes = "warning")
-##  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.
-##  - We have updated the country names of 39 occurrences that previously had no country name assigned.
 ```
 
 #### c. re-merge
@@ -666,14 +664,6 @@ check_pf <- BeeBDC::jbd_Ctrans_chunker(
   path = OutPath_Check,
   mc.cores = 1
 ) 
-##  - Running chunker with:
-## stepSize = 1,000,000
-## chunkStart = 1
-## chunkEnd = 1,000,000
-## append = FALSE
-##  - Starting chunk 1...
-## From 1 to 1,000,000
-##  - Finished chunk 1 of 1. Total records examined: 205
 ```
 
 Get a quick summary of the number of transposed records.
@@ -722,7 +712,7 @@ check_pf <- BeeBDC::jbd_coordCountryInconsistent(data = check_pf, lon = "decimal
 ## jbd_coordinates_country_inconsistent:
 ## Flagged 2 records.
 ## The column, '.coordinates_country_inconsistent', was added to the database.
-##  - Completed in 0.89 secs
+##  - Completed in 0.88 secs
 ```
 
 Save the dataset.
@@ -986,7 +976,7 @@ Harmonise the names in the occurrence tibble. This flags the occurrences
 without a matched name and matches names to their correct name according
 to [Discover Life](https://www.discoverlife.org). You can also use
 multiple cores to achieve this. See
-‘?[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)’
+‘?[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)’
 for details.
 
 ``` r
@@ -1557,7 +1547,7 @@ check_time <- BeeBDC::dateFindR(data = check_time,
 ## We modified dates in 
 ## 175 occurrences.
 ##  - As it stands, there are 175 complete eventDates and 30 missing dates.
-##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.527799129486084 secs
+##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.5157310962677 secs
 ```
 
 ### 6.2 No eventDate
@@ -1760,9 +1750,9 @@ check_time <- BeeBDC::dupeSummary(
 ## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
 ##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
 ##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-##  - Duplicates have been saved in the file and location: /tmp/RtmpoxXSkT/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-09-22.csv
+##  - Duplicates have been saved in the file and location: /tmp/Rtmpz8NsYx/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-09-22.csv
 ##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.
-##  - Completed in 0.3 secs
+##  - Completed in 0.29 secs
 ```
 
 Save the dataset into the intermediate folder.
@@ -1811,7 +1801,7 @@ if (!exists("duplicates")) {
 }
 ##  - Dates found in file name(s). Finding most-recent file from file name...
 ##  - Found the following file(s): 
-##  /tmp/RtmpoxXSkT/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-09-22.csv
+##  /tmp/Rtmpz8NsYx/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-09-22.csv
 ## Rows: 0 Columns: 19
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
