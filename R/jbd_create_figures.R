@@ -24,23 +24,14 @@
 #' implemented in one module of bdc/BeeBDC. When save_figures = TRUE, figures are
 #' also saved locally in a .png format.
 #'
-#' @importFrom CoordinateCleaner cc_val
-#' @importFrom readr read_csv
-#' @importFrom dplyr summarise n pull mutate group_by intersect filter full_join
-#' select mutate_if summarise_all rename
-#' @importFrom ggplot2 theme_minimal theme element_text element_line
-#' element_blank unit ggplot aes geom_col coord_flip labs geom_hline
-#' scale_y_continuous ggsave theme_void geom_polygon geom_hex coord_quickmap
-#' scale_fill_viridis_c geom_histogram
-#' @importFrom here here
-#' @importFrom stats reorder
-#' @importFrom dplyr as_tibble
-#' @importFrom tidyselect starts_with
 #' @importFrom dplyr %>%
 #' @export
 #'
 #' @examples
 #' \donttest{
+#' 
+#' if(require("bdc")){
+#' 
 #' database_id <- c("GBIF_01", "GBIF_02", "GBIF_03", "FISH_04", "FISH_05")
 #' lat <- c(-19.93580, -13.01667, -22.34161, -6.75000, -15.15806)
 #' lon <- c(-40.60030, -39.60000, -49.61017, -35.63330, -39.52861)
@@ -66,7 +57,9 @@
 #'   workflow_step = "prefilter",
 #'   save_figures = FALSE
 #' )
-#' }
+#' 
+#' } # End if require
+#' } # End dont test
 jbd_create_figures <-
   function(data,
            path = OutPath_Figures,

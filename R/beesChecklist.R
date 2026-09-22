@@ -22,6 +22,11 @@
 #' @param URL A character vector to the FigShare location of the dataset. The default will be to
 #' the most-recent version.
 #' @param mode A character passed on to `utils::download.file()`. Default = "wb" for Windows or "w" for Mac/Linux.
+#' @param headers Character. Passed on to  `utils::download.file()`. Default = NULL.
+#' @param token Character. Optional personal access token from FigShare account for authorisation. 
+#' Default = NULL.
+#' @param alternateURL Logical. If TRUE then the function will use the an alernate version of the 
+#' download URL. Might be worth trying if it is failing. Default = FALSE.
 #' @param ... Extra variables that can be passed to `downloader::download()`.
 #' 
 #' @return A downloaded beesChecklist.Rda file in the outPath and the same tibble returned to
@@ -93,15 +98,25 @@
 #'\dontrun{
 #' beesChecklist <- BeeBDC::beesChecklist()
 #'}
-beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
+beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945823",
                           mode = NULL,
+                          headers = NULL,
+                          token = NULL,
+                          alternateURL = FALSE,
                           ...){
   destfile <- checklist <- attempt <- nAttempts <- error_funcFile <- error_func <- NULL
-  downloadReturn <- NULL
+  downloadReturn <- . <- NULL
+  
+    # If user wants to try the Flinders URL, which seems to not be working as well
+  if(alternateURL == TRUE){
+    URL <- URL %>%
+      stringr::str_remove_all(".*/") %>%
+      stringr::str_c("https://open.flinders.edu.au/ndownloader/files/", .)
+  }
   
   #### 0.0 Prep ####
   # Set the number of attempts
-  nAttempts = 5
+  nAttempts = 6
     
     ##### 0.1 Errors ####
       ###### a. messages ####
@@ -143,24 +158,35 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
   # Please note that this function is taken directly from the "downloader" package version 0.4.1
   # This is the purpose of the package, but I have taken their excellent function to avoid
   # Another dependency for BeeBDC. MY apologies and thanks to the authors.
-  download <- function(URL, destfile = NULL, methodNum = NULL, ...) {
+  download <- function(URL, destfile = NULL, methodNum = NULL, headers = headers, ...) {
     # First, check protocol. If http or https, check platform:
     if (grepl('^https?://', URL)) {
-      # Windows
+      #### Windows ####
       if (tolower(.Platform$OS.type) == "windows") {
         # Set method to NULL to then be over-written
         method <- NULL
+        # Try httr first
+        if(methodNum == 1){
+          message(paste0("Trying first download method using httr::GET..."))
+          httr::GET(
+            URL,
+            httr::add_headers(
+              Authorization = paste("token", token)
+            ),
+            httr::write_disk(destfile, overwrite = TRUE)
+          )} # END methodNum == 1
+        
         # Try different methods if failed
-        if(methodNum == 1){method <- "auto"}
-        if(methodNum == 2){method <- "wininet"}
+        if(methodNum == 2){method <- "auto"}
+        if(methodNum == 3){method <- "wininet"}
           # Check also if libcurl is an option
-        if(methodNum == 3 && capabilities("libcurl")){
+        if(methodNum == 4 && capabilities("libcurl")){
           method <- "libcurl"}
           # Check also if wget is an option
-        if(methodNum == 4 && nzchar(Sys.which("wget")[1])){
+        if(methodNum == 5 && nzchar(Sys.which("wget")[1])){
           method <- "wget"}
           # Check also if curl is an option
-        if(methodNum == 5 && nzchar(Sys.which("curl")[1])){
+        if(methodNum == 6 && nzchar(Sys.which("curl")[1])){
           method <- "curl"}
           # If one of the above fails, use "internal"
         if(is.null(method)){
@@ -176,32 +202,44 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
-        suppressWarnings(
-          downloadReturn <- utils::download.file(URL, 
-                                                 method = method, 
-                                                 destfile = destfile, 
-                                                 mode = mode,
-                                                 ...) %>%
-            errorCatcher())
+       if(methodNum > 1){
+        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+        downloadReturn <- utils::download.file(URL, 
+                                               method = method, 
+                                               destfile = destfile, 
+                                               mode = mode,
+                                               headers = headers) %>%
+          errorCatcher()}
         
       } else {
+        #### Mac/Linux ####
         method <- NULL
+        # Try httr first
+        if(methodNum == 1){
+          message(paste0("Trying first download method using httr::GET..."))
+          httr::GET(
+            URL,
+            httr::add_headers(
+              Authorization = paste("token", token)
+            ),
+            httr::write_disk(destfile, overwrite = TRUE)
+          )} # END methodNum == 1
         # If non-Windows, check for libcurl/curl/wget/lynx, then call download.file with
         # appropriate method.
-        if (capabilities("libcurl") && methodNum == 1) {
+        if (capabilities("libcurl") && methodNum == 2) {
           method <- "libcurl"
-        } else if (nzchar(Sys.which("wget")[1]) && methodNum == 2) {
+        } else if (nzchar(Sys.which("wget")[1]) && methodNum == 3) {
           method <- "wget"
-        } else if (nzchar(Sys.which("curl")[1]) && methodNum == 3) {
+        } else if (nzchar(Sys.which("curl")[1]) && methodNum == 4) {
           method <- "curl"
           # curl needs to add a -L option to follow redirects.
           # Save the original options and restore when we exit.
           orig_extra_options <- getOption("download.file.extra")
           on.exit(options(download.file.extra = orig_extra_options))
           options(download.file.extra = paste("-L", orig_extra_options))
-        } else if (nzchar(Sys.which("lynx")[1]) && methodNum == 4) {
+        } else if (nzchar(Sys.which("lynx")[1]) && methodNum == 5) {
           method <- "lynx"
-        } else if(methodNum == 5){
+        } else if(methodNum == 6){
           method <- "auto"
         }
         if(is.null(method)){
@@ -210,16 +248,19 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
         if(is.null(mode)){
           mode <- "wb"  
         }
+        if(methodNum > 1){
         message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
                                                destfile = destfile, 
-                                               mode = mode, ...) %>%
-          errorCatcher()
+                                               mode = mode,
+                                               headers = headers,
+                                               ...) %>%
+          errorCatcher()}
       }
-      
     } else {
-      downloadReturn <- utils::download.file(URL, destfile = destfile, mode = "wb", ...) %>%
+      downloadReturn <- utils::download.file(URL, destfile = destfile, 
+                                             mode = "wb", headers = headers, ...) %>%
         errorCatcher()
     }
     return(downloadReturn)
@@ -244,7 +285,8 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       # Download the file
       tryCatch(downloadReturn <- download(URL, destfile = savePath, 
                                           # Change the method based on attempt number
-                                          methodNum = attempt),
+                                          methodNum = attempt,
+                                          headers = headers),
           error = error_func, warning = error_func)
       # Load the file 
         tryCatch(
@@ -260,24 +302,26 @@ beesChecklist <- function(URL = "https://open.flinders.edu.au/ndownloader/files/
       # Count the next attempt
       attempt <- attempt + 1   
       
-      # Output errors per run
-      # Check download errors
-      if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
-                              "could not find function")){
-          # Remove NULL elements
+      if(attempt > 1 && !is.null(downloadReturn)){
+        # Output errors per run
+        # Check download errors
+        if(!stringr::str_detect(paste0(downloadReturn, collapse = ""), 
+        "could not find function")){
+        # Remove NULL elements
         downloadReturn <- downloadReturn[-which(sapply(downloadReturn, is.null))]
-          # Paste message
+        # Paste message
         message(paste0("\n - Possible *download* error(s) returned:\n", paste0(
-          names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
-      # Check file errors
-      fileError <- base::readRDS(savePath) %>% 
+        names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
+        # Check file errors
+        fileError <- base::readRDS(savePath) %>% 
         errorCatcher()
-      if(!stringr::str_detect(paste0(fileError, collapse = ""), 
-                              "could not find function")){
+        if(!stringr::str_detect(paste0(fileError, collapse = ""), 
+        "could not find function")){
         # Remove NULL elements
         fileError <- fileError[-which(sapply(fileError, is.null))]
         message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
-          names(fileError), ": ", fileError, collapse = "\n")))}
+        names(fileError), ": ", fileError, collapse = "\n")))}
+      } # END if( attempt > 1){
     } # END while 
   )
   

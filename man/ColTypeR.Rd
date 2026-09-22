@@ -10,9 +10,9 @@ ColTypeR(..., standardFormat = NULL)
 \item{...}{Additional arguments. These can be specified in addition to the ones default to the
 function.  For example:
 \itemize{
-\item newCharacterColumn = \code{\link[readr:parse_atomic]{readr::col_character()}},
-\item newNumericColumn = \code{\link[readr:parse_atomic]{readr::col_integer()}},
-\item newLogicalColumn = \code{\link[readr:parse_atomic]{readr::col_logical()}}
+\item newCharacterColumn = \code{\link[readr:col_character]{readr::col_character()}},
+\item newNumericColumn = \code{\link[readr:col_integer]{readr::col_integer()}},
+\item newLogicalColumn = \code{\link[readr:col_logical]{readr::col_logical()}}
 }}
 
 \item{standardFormat}{Character. Some taxa may have a standard format for data. Presently,
@@ -23,10 +23,10 @@ Returns an object of class col_spec.
 See \code{\link[readr:as.col_spec]{readr::as.col_spec()}} for additional context and explication.
 }
 \description{
-This function uses \code{\link[readr:cols]{readr::cols_only()}} to assign a column name and the type of data
-(e.g., \code{\link[readr:parse_atomic]{readr::col_character()}},
-and \code{\link[readr:parse_atomic]{readr::col_integer()}}). To see the default columns simply run \code{\link[=ColTypeR]{ColTypeR()}}.
-This is intended for use with \code{\link[readr:read_delim]{readr::read_csv()}}. Columns that are not present will NOT be included
+This function uses \code{\link[readr:cols_only]{readr::cols_only()}} to assign a column name and the type of data
+(e.g., \code{\link[readr:col_character]{readr::col_character()}},
+and \code{\link[readr:col_integer]{readr::col_integer()}}). To see the default columns simply run \code{\link[=ColTypeR]{ColTypeR()}}.
+This is intended for use with \code{\link[readr:read_csv]{readr::read_csv()}}. Columns that are not present will NOT be included
 in the resulting tibble unless they are specified using \link{...}.
 }
 \examples{

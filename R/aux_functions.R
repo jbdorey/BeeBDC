@@ -296,3 +296,6 @@ fileFinder <- function(path, fileName){
 #' @importFrom dplyr %>%
 #' @usage lhs \%>\% rhs
 NULL
+
+
+

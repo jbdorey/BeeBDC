@@ -149,23 +149,23 @@ dateFindR <- function(data = NULL,
         # swap Roman numerals
         dplyr::mutate(
           dateEnd = mgsub::mgsub(dateEnd,
-                                 pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
-                                 replacement = paste(" ", numeralConversion, " "))  %>% 
+                                 pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
+                                 replacement = paste0(" ", numeralConversion, " "))  %>% 
             stringr::str_squish() %>% 
             # remove "Sept."
             stringr::str_replace(pattern = "[Ss]ept[\\s-/\\.]",replacement = "Sep "),
           dateStart = mgsub::mgsub(dateStart,
-                                   pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
-                                   replacement = paste(" ", numeralConversion, " "))  %>% 
+                                   pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
+                                   replacement = paste0(" ", numeralConversion, " "))  %>% 
             stringr::str_squish() %>% 
             # remove "Sept."
             stringr::str_replace(pattern = "[Ss]ept[\\s-/\\.]",replacement = "Sep "),
           eventDate = mgsub::mgsub(dateEnd,
-                                   pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
-                                   replacement = paste(" ", numeralConversion, " "))  %>% 
+                                   pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
+                                   replacement = paste0(" ", numeralConversion, " "))  %>% 
             stringr::str_squish() %>% 
             # remove "Sept."
-            stringr::str_replace(pattern = "[Ss]ept[\\s-/\\.]",replacement = "Sep ")
+            stringr::str_replace(pattern = "[Ss]ept[\\s-/\\.]", replacement = "Sep ")
         ) %>% 
         # Guess the formats
         dplyr::mutate(
@@ -210,7 +210,6 @@ dateFindR <- function(data = NULL,
                            "Jul", "Aug", "Sep", "Oct","Nov", "Dec",
                            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                            "Jul", "Aug", "Sep", "Oct","Nov", "Dec")
-    
     
           ###### b. date ranges ####
     writeLines(" - Preparing data...")
@@ -369,8 +368,7 @@ dateFindR <- function(data = NULL,
                     .before = eventDate) %>%
       rangeFinder(rangeData = .,
                   rangeColumn = "eventDate_in")
-       
-    
+
     
       # Save this dataset to be merged at the end...
     ymd_hms_0 <- noDATEa %>%
@@ -427,22 +425,20 @@ dateFindR <- function(data = NULL,
       stringr::str_replace(pattern = "[Ss]ept[\\s-/]",
                            replacement = "Sep ")
     
-
     #### 2.0 unAmb. str. dates ####
-    writeLines(paste(
+    writeLines(paste0(
       " - Extracting dates from fieldNotes, locationRemarks, and verbatimEventDate ",
-      "columns in unambiguous ymd, dmy, mdy, and my formats...", sep = ""))
+      "columns in unambiguous ymd, dmy, mdy, and my formats..."))
       # Filter down to the records that again have no eventDate
     noDATEa <- noDATEa %>%
       dplyr::filter(is.na(eventDate))
-      
     
       ##### 2.1 ymd ####
       # enter ymd strings...
     ymd_strings <- c(
       "[0-9]{4}[\\s- /]+[0-9]{2}[\\s- /]+[0-9]{2}",
       paste("[0-9]{4}", monthStrings,"[0-9]{2}", collapse = "|", sep = "[\\s-/]+"),
-      paste("[0-9]{4}", romanNumerals,"[0-9]{2}", collapse = "|", sep = "[\\s-/]+"),
+      paste("[0-9]{4}", romanNumerals,"[0-9]{2}", collapse = "|", sep = "[.\\s-/]+"),
       # "2015-08-14T16:00:00/2015-08-15T16:00:00"
       "[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}T[0-9]{2}\\:[0-9]{2}\\:[0-9]{2}\\/[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}T[0-9]{2}\\:[0-9]{2}\\:[0-9]{2}",
       # "2019-07-29T14:00:00+02:00/2019-07-29T15:00:00+02:00"
@@ -463,17 +459,17 @@ dateFindR <- function(data = NULL,
     ymd_unambiguous <- noDATEa %>%
       dplyr::mutate(
         ymd_vEV = stringr::str_extract(verbatimEventDate,
-                                              pattern = paste(ymd_strings, 
-                                                              collapse = "|", sep = "")),
+                                              pattern = paste0(ymd_strings, 
+                                                              collapse = "|")),
         ymd_fieldNotes = stringr::str_extract(fieldNotes,
-                                  pattern = paste(ymd_strings, 
-                                  collapse = "|", sep = "")),
+                                  pattern = paste0(ymd_strings, 
+                                  collapse = "|")),
         ymd_locationRemarks = stringr::str_extract(locationRemarks,
-                                  pattern = paste(ymd_strings, 
-                                  collapse = "|", sep = "")),
+                                  pattern = paste0(ymd_strings, 
+                                  collapse = "|")),
         ymd_eventDate_in = stringr::str_extract(eventDate_in,
-                                                   pattern = paste(ymd_strings, 
-                                                                   collapse = "|", sep = ""))
+                                                   pattern = paste0(ymd_strings, 
+                                                                    collapse = "|"))
         ) %>% # END mutate
       dplyr::select(database_id, 
                     ymd_vEV,
@@ -489,7 +485,7 @@ dateFindR <- function(data = NULL,
         # FORMAT the ymd_fieldNotes column
       ymd_unambiguous$ymd_fieldNotes <- ymd_unambiguous$ymd_fieldNotes %>%
           # Remove 00 values to truncate the lubridate 
-      stringr::str_replace(pattern = "/00$|/00/00$", replacement = "") 
+        stringr::str_replace(pattern = "/00$|/00/00$", replacement = "") 
       #
           # FORMAT the ymd_locationRemarks column
       ymd_unambiguous$ymd_locationRemarks <- ymd_unambiguous$ymd_locationRemarks %>%
@@ -500,7 +496,7 @@ dateFindR <- function(data = NULL,
       ymd_unambiguous$ymd_eventDate_in <- ymd_unambiguous$ymd_eventDate_in %>%
         # Remove 00 values to truncate the lubridate 
         stringr::str_replace(pattern = "/00$|/00/00$", replacement = "") 
-      
+
         # Combine the columns
       ymd_keepers_21 <- ymd_unambiguous %>%
         dplyr::filter(stats::complete.cases(ymd_vEV)|
@@ -513,18 +509,14 @@ dateFindR <- function(data = NULL,
         # add ymd_keepers_21 at the end
       
 
-
     ##### 2.2 dmy ####
     dmy_strings <- stringr::str_c(
       # 12-JUL-2002; 12 Jul 2002; 12/July/2002
-    paste("[0-9]{1,2}[\\s-/ ]+", monthStrings,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
-    paste("[0-9]{1,2}[\\s-/ ]+", monthStrings,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
+    paste0("[0-9]{1,2}[\\s-/]+", monthStrings,"[\\s-/]+([0-9]{4}|[0-9]{2})", collapse = "|"),
       # 12-XII-2022; 12 XII 2022; 12 xii 2022;
-    paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
-    paste("[0-9]{1,2}[\\s-/ ]+", romanNumerals,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
+    paste0("[0-9]{1,2}[.\\s-/]+", romanNumerals,"[.\\s-/]+([0-9]{4}|[0-9]{2})", collapse = "|"),
       # >12 <12 1992 - dmy
-    "([1][3-9]|[2-3][0-9])[\\s-/ ]+(0[1-9]|[1-9]|1[0-2])[\\s-/ ]+[0-9]{4}",
-    "([1][3-9]|[2-3][0-9])[\\s-/ ]+(0[1-9]|[1-9]|1[0-2])[\\s-/ ]+[0-9]{2}",
+    "([1][3-9]|[2-3][0-9])[\\s-/ ]+(0[1-9]|[1-9]|1[0-2])[\\s-/]+([0-9]{4}|[0-9]{2})",
     stringr::str_c("[0-9]{1,2}[-\\.\\s]",romanNumerals,
                    "[-\\.\\s][0-9]{4}\\/[0-9]{1,2}[-\\.\\s]",
                    romanNumerals,"[-\\.\\s][0-9]{4}", collapse = "|"),
@@ -595,12 +587,12 @@ dateFindR <- function(data = NULL,
         ) %>% # END mutate
         dplyr::select(database_id, dmy_vEV, dmy_locality,
                       dmy_fieldNotes, dmy_locationRemarks, dmy_eventDate_in)  
-      
+
       # FORMAT the dmy_vEV column
       dmy_unambiguous$dmy_vEV <- dmy_unambiguous$dmy_vEV %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
+          pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
         # Remove 00 values to truncate the lubridate 
         stringr::str_replace(pattern = "/00$|/00/00$|^00", replacement = "")
@@ -609,7 +601,7 @@ dateFindR <- function(data = NULL,
       dmy_unambiguous$dmy_locality <- dmy_unambiguous$dmy_locality %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
+          pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
         # Remove 00 values to truncate the lubridate 
         stringr::str_replace(pattern = "/00$|/00/00$", replacement = "") 
@@ -618,7 +610,7 @@ dateFindR <- function(data = NULL,
       dmy_unambiguous$dmy_fieldNotes <- dmy_unambiguous$dmy_fieldNotes %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
+          pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
         # Remove 00 values to truncate pthe lubridate 
         stringr::str_replace(pattern = "/00$|/00/00$", replacement = "") 
@@ -627,7 +619,7 @@ dateFindR <- function(data = NULL,
       dmy_unambiguous$dmy_locationRemarks <- dmy_unambiguous$dmy_locationRemarks %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
+          pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
         # Remove 00 values to truncate the lubridate 
         stringr::str_replace(pattern = "/00$|/00/00$", replacement = "") 
@@ -635,7 +627,7 @@ dateFindR <- function(data = NULL,
       dmy_unambiguous$dmy_eventDate_in <- dmy_unambiguous$dmy_eventDate_in %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
+          pattern = paste0("[-/ \\.]", romanNumerals, "[ -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
         # Remove 00 values to truncate the lubridate 
         stringr::str_replace(pattern = "/00$|/00/00$", replacement = "") 
@@ -658,28 +650,17 @@ dateFindR <- function(data = NULL,
     ##### 2.3 mdy ####
     mdy_strings <- c(
       # Aug 2, 2019
-    paste(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+[0-9]{4}", collapse = "|", sep = ""),
-    paste(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+[0-9]{2}", collapse = "|", sep = ""),
-     # Aug 1-10 2019
-    paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
-    paste(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
+    paste0(monthStrings,"[\\s-/ ]+[0-9]{1,2}[\\s-/, ]+([0-9]{4}|[0-9]{2})", collapse = "|"),
+      # Aug 1-10 2019
+    paste0(monthStrings,"[0-9]+[-\\u2013][0-9]+[\\s-/ ]+([0-9]{4}|[0-9]{2})", collapse = "|"),
       # V. 17 1901
-    paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
-    paste(romanNumerals,"[\\s-/\\. ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
+    paste0("(?:^|\\s|\\(|\"\')", romanNumerals,"[\\s-/\\.]+[0-9]{1,2}[\\s-/ ]+([0-9]{4}|[0-9]{2})", collapse = "|"),
     
-     # <12 >12 1992 - mdy
-    "(1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}",
-    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{4}",
-    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}",
-    "(1[0-2])|^[1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{4}",
-    "(1[0-2])|^[1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}",
-    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{2}",
-    "(1[0-2])|[\\s-/\\. ][1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
-    "(1[0-2])|^[1-9][\\s- /]+([1][3-9])[\\s- /]+[0-9]{2}",
-    "(1[0-2])|^[1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
-    "(1[0-2])[\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
-    "0[1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{2}",
-    "0[1-9][\\s- /]+([2-3][0-9])[\\s- /]+[0-9]{4}",
+    # <12 >12 1992 - mdy
+    "(0?[1-9]|1[0-2])[\\s- /]+(1[3-9]|2[0-9]|3[01])[\\s- /]+([0-9]{4})",
+    "(0?[1-9]|1[0-2])[\\s- /]+(1[3-9]|2[0-9]|3[01])[\\s- /]+([0-9]{2})",
+    "(0?[1-9])[\\s- /]+(1[3-9]|2[0-9]|3[01])[\\s- /]+([0-9]{4})",
+    "(0?[1-9])[\\s- /]+(1[3-9]|2[0-9]|3[01])[\\s- /]+([0-9]{2})",
     # Nov 15 to Jan 10.1918
     stringr::str_c("(", stringr::str_c(monthStrings, collapse = "|"),")",
                    "[\\s\\/-][0-9]{1,2}",
@@ -695,7 +676,6 @@ dateFindR <- function(data = NULL,
                     "[\\s\\/-][0-9]{1,2}",
                     "[\\s\\/-][0-9]{4}",  collapse = "|")
     )
-
       # Get the IDs to remove...
       id2remove_23 <- c(ymd_keepers_21$database_id, dmy_keepers_22$database_id)
     
@@ -705,64 +685,64 @@ dateFindR <- function(data = NULL,
         dplyr::filter(!database_id %in% id2remove_23) %>%
         dplyr::mutate(
           mdy_vEV = stringr::str_extract(verbatimEventDate,
-                                              pattern = paste(mdy_strings, 
-                                                              collapse = "|", sep = "")),
+                                              pattern = paste0(mdy_strings, 
+                                                               collapse = "|")),
           mdy_locality = stringr::str_extract(locality,
-                                              pattern = paste(mdy_strings, 
-                                                              collapse = "|", sep = "")),
+                                              pattern = paste0(mdy_strings, 
+                                                               collapse = "|")),
           mdy_fieldNotes = stringr::str_extract(fieldNotes,
-                                                pattern = paste(mdy_strings, 
-                                                                collapse = "|", sep = "")),
+                                                pattern = paste0(mdy_strings, 
+                                                                 collapse = "|")),
           mdy_locationRemarks = stringr::str_extract(locationRemarks,
-                                                     pattern = paste(mdy_strings, 
-                                                                     collapse = "|", sep = "")),
+                                                     pattern = paste0(mdy_strings, 
+                                                                      collapse = "|")),
           mdy_eventDate_in = stringr::str_extract(eventDate_in,
-                                                     pattern = paste(mdy_strings, 
-                                                                     collapse = "|", sep = ""))
+                                                     pattern = paste0(mdy_strings, 
+                                                                      collapse = "|"))
         ) %>% # END mutate
           # select a subset of columns
         dplyr::select(database_id, mdy_vEV, mdy_locality,
                       mdy_fieldNotes, mdy_locationRemarks, mdy_eventDate_in)  
-      
+
       # FORMAT the mdy_vEV column
       mdy_unambiguous$mdy_vEV <- mdy_unambiguous$mdy_vEV %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
-          replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish()
-        
+          pattern = paste0("^", romanNumerals, "[ -/\\.]"),
+          replacement = paste0(numeralConversion, " ") ) %>% stringr::str_squish()
+
       #
       # FORMAT the mdy_locality column
       mdy_unambiguous$mdy_locality <- mdy_unambiguous$mdy_locality %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
-          replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
+          pattern = paste0("^", romanNumerals, "[ -/\\.]"),
+          replacement = paste0(numeralConversion, " ") ) %>% stringr::str_squish() %>%
         stringr::str_replace( pattern = "^The ", replacement = "")  
       #
       # FORMAT the mdy_fieldNotes column
       mdy_unambiguous$mdy_fieldNotes <- mdy_unambiguous$mdy_fieldNotes %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("[-/ \\.]", romanNumerals, "[ -/\\.]", sep = ""),
-          replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() 
-        
+          pattern = paste0("^", romanNumerals, "[ -/\\.]"),
+          replacement = paste0(numeralConversion, " ") ) %>% stringr::str_squish()
+
       #
       # FORMAT the mdy_locationRemarks column
       mdy_unambiguous$mdy_locationRemarks <- mdy_unambiguous$mdy_locationRemarks %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("^",romanNumerals, "( |\\.|-)", sep = ""),
-          replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
+          pattern = paste0("^", romanNumerals, "[-/ \\.]"),
+          replacement = paste0(numeralConversion, " ") ) %>% stringr::str_squish() %>%
         lubridate::mdy(truncated = 2, quiet = TRUE) 
       # FORMAT the mdy_eventDate_in column
       mdy_unambiguous$mdy_eventDate_in <- mdy_unambiguous$mdy_eventDate_in %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("^",romanNumerals, "( |\\.|-)", sep = ""),
-          replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() 
+          pattern = paste0("^", romanNumerals, "[ -/\\.]"),
+          replacement = paste0(numeralConversion, " ") ) %>% stringr::str_squish()
       #
-      
+
       # Combine the columns
       mdy_keepers_23 <- mdy_unambiguous %>%
         dplyr::filter( stats::complete.cases(mdy_vEV) |
@@ -782,50 +762,47 @@ dateFindR <- function(data = NULL,
     ##### 2.4 my ####
     my_strings <- c(
       # VIII-1946
-    paste(romanNumerals,"[\\s-/ \\.]+[0-9]{4}", collapse = "|", sep = ""),
+    paste0("(?:^|\\s|\\(|\"|\')", romanNumerals, "[\\s-/ \\.]+([0-9]{4}|[0-9]{2})", collapse = "|"),
       # July 1995; July, 1995
-    paste(monthStrings,"[\\s-/ \\.]+[0-9]{4}", collapse = "|", sep = ""),
-    paste(monthStrings,"[\\s-/ \\.]+[0-9]{2}", collapse = "|", sep = ""),
+    paste0(monthStrings, "[\\s-/ \\.]+([0-9]{4}|[0-9]{2})", collapse = "|"),
       # April 1899
-    paste(monthStrings,"[\\s-/ ]+[0-9]{4}", collapse = "|", sep = ""),
-    paste(monthStrings,"[\\s-/ ]+[0-9]{2}", collapse = "|", sep = ""),
+    paste0(monthStrings, "[\\s-/ ]+([0-9]{4}|[0-9]{2})", collapse = "|"),
       # 1899 April 
-    paste("[\\s- /]+[0-9]{4}", monthStrings, collapse = "|", sep = ""),
-    paste("[\\s- /]+[0-9]{2}", monthStrings, collapse = "|", sep = ""),
-     # 4/1957
-    "([1-9]|1[0-2])[\\s- /]+[0-9]{4}"
+    paste0("([0-9]{4}|[0-9]{2})[\\s-/ ]+", monthStrings, collapse = "|"),
+      # 4/1957
+    "(?:^|\\s|\\(|\"\')(0?[1-9]|1[0-2])[\\s- /]+[0-9]{4}"
     )
     
       # Get the IDs to remove...
       id2remove_24 <- c(mdy_keepers_23$database_id, id2remove_23)
-      
+
       # Extract the matching strings to three columns
       my_unambiguous <- noDATEa %>%
         # First, remove the strings matched prior
         dplyr::filter(!database_id %in% id2remove_24) %>%
         dplyr::mutate(
           my_vEV = stringr::str_extract(verbatimEventDate,
-                                             pattern = paste(my_strings, 
-                                                             collapse = "|", sep = "")),
+                                             pattern = paste0(my_strings, 
+                                                              collapse = "|")),
           my_locality = stringr::str_extract(locality,
-                                              pattern = paste(my_strings, 
-                                                              collapse = "|", sep = "")),
+                                              pattern = paste0(my_strings, 
+                                                               collapse = "|")),
           my_fieldNotes = stringr::str_extract(fieldNotes,
-                                                pattern = paste(my_strings, 
-                                                                collapse = "|", sep = "")),
+                                                pattern = paste0(my_strings, 
+                                                                 collapse = "|")),
           my_locationRemarks = stringr::str_extract(locationRemarks,
-                                                     pattern = paste(my_strings, 
-                                                                     collapse = "|", sep = ""))
+                                                     pattern = paste0(my_strings, 
+                                                                      collapse = "|"))
         ) %>% # END mutate
         # select a subset of columns
         dplyr::select(database_id, my_vEV, my_locality,
                       my_fieldNotes, my_locationRemarks) 
-      
+
       # FORMAT the my_vEV column
       my_unambiguous$my_vEV <- my_unambiguous$my_vEV %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]", sep = ""),
+          pattern = paste0("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish()  %>%
         # format
         lubridate::my( quiet = TRUE) 
@@ -834,7 +811,7 @@ dateFindR <- function(data = NULL,
       my_unambiguous$my_locality <- my_unambiguous$my_locality %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]", sep = ""),
+          pattern = paste0("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish() %>%
           # format
         lubridate::my(quiet = TRUE) 
@@ -843,7 +820,7 @@ dateFindR <- function(data = NULL,
       my_unambiguous$my_fieldNotes <- my_unambiguous$my_fieldNotes %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]", sep = ""),
+          pattern = paste0("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish()  %>%
         # format
         lubridate::my(quiet = TRUE) 
@@ -852,12 +829,12 @@ dateFindR <- function(data = NULL,
       my_unambiguous$my_locationRemarks <- my_unambiguous$my_locationRemarks %>%
         # Convert roman numerals to readable by lubridate
         mgsub::mgsub(
-          pattern = paste("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]", sep = ""),
+          pattern = paste0("(^|[-/ \\.])", romanNumerals, "[\\s -/\\.]"),
           replacement = paste0(" ", numeralConversion, " ") ) %>% stringr::str_squish()  %>%
         # format
         lubridate::my(quiet = TRUE) 
       #
-      
+
       # Combine the columns
       my_keepers_24 <- my_unambiguous %>%
         dplyr::filter(stats::complete.cases(my_vEV) |
@@ -873,12 +850,11 @@ dateFindR <- function(data = NULL,
       my_keepers_24$date <- stringr::str_replace(my_keepers_24$date,
                                                  pattern = "-[0-9]+-[0-9]+-[0-9]+", 
                                                  replacement = "")
-
-      
+    
       #### 3.0 Amb. str. dates ####
-      writeLines(paste(
+      writeLines(paste0(
         " - Extracting year from fieldNotes, locationRemarks, and verbatimEventDate ",
-        "columns in ambiguous formats...", sep = ""))
+        "columns in ambiguous formats..."))
       ambiguousDateStrings <- c(
         # dmy or mdy; 10 02 1946
         "[0-9]{1,2}[\\s-/ ]+[0-9]{1,2}[\\s-/ ]+[0-9]{4}",
@@ -886,7 +862,9 @@ dateFindR <- function(data = NULL,
         "[0-9]{1,2}[\\s-/ ]+[0-9]{1,2}[\\s-/ ]+[0-9]{2}",
         "[0-9]{2}[\\s-/ ]+[0-9]{2}[\\s-/ ]+[0-9]{2}"
       )
-      
+
+      ambiguousDatePattern = paste0(ambiguousDateStrings, collapse="|")
+
       # Get the IDs to remove...
       id2remove_30 <- c(my_keepers_24$database_id, id2remove_24)
       
@@ -895,23 +873,15 @@ dateFindR <- function(data = NULL,
         # First, remove the strings matched prior
         dplyr::filter(!database_id %in% id2remove_30) %>%
         dplyr::mutate(
-          amb_vEV = stringr::str_extract(verbatimEventDate,
-                                              pattern = paste(ambiguousDateStrings, 
-                                                              collapse = "|", sep = "")),
-          amb_locality = stringr::str_extract(locality,
-                                             pattern = paste(ambiguousDateStrings, 
-                                                             collapse = "|", sep = "")),
-          amb_fieldNotes = stringr::str_extract(fieldNotes,
-                                               pattern = paste(ambiguousDateStrings, 
-                                                               collapse = "|", sep = "")),
-          amb_locationRemarks = stringr::str_extract(locationRemarks,
-                                                    pattern = paste(ambiguousDateStrings, 
-                                                                    collapse = "|", sep = ""))
+          amb_vEV = stringr::str_extract(verbatimEventDate, pattern=ambiguousDatePattern),
+          amb_locality = stringr::str_extract(locality, pattern=ambiguousDatePattern),
+          amb_fieldNotes = stringr::str_extract(fieldNotes, pattern=ambiguousDatePattern),
+          amb_locationRemarks = stringr::str_extract(locationRemarks, pattern=ambiguousDatePattern)
         ) %>% # END mutate
         # select a subset of columns
         dplyr::select(database_id, amb_vEV, amb_locality,
                       amb_fieldNotes, amb_locationRemarks) 
-      
+
       # FORMAT the amb_vEV column
       ambiguousNames$amb_vEV <- ambiguousNames$amb_vEV %>%
         # Remove 00 values to truncate the lubridate 
@@ -919,36 +889,57 @@ dateFindR <- function(data = NULL,
         stringr::str_replace(pattern = "00[-/ ]", replacement = "01-") %>%
         stringr::str_replace(pattern = "00-00-|[-/ ]00$|[-/ ]00[-/ ]00$|^00|^00[-/ ]00[-/ ]",
                              replacement = "") %>%
-        lubridate::dmy(truncated = 2, quiet = TRUE) 
-      # FORMAT the amb_locality column
+        # Attempt to build date from remaining string
+        lubridate::dmy(truncated = 2, quiet = TRUE) %>%
+        # Safely extract just the year
+        lubridate::year() %>%
+        # Build date from Jan 1st
+        lubridate::make_date(1, 1)
       #
+      # FORMAT the amb_locality column
       ambiguousNames$amb_locality <- ambiguousNames$amb_locality %>%
         # Remove 00 values to truncate the lubridate 
         stringr::str_replace(pattern = "00[-/ ]00[-/ ]", replacement = "01-01-") %>%
         stringr::str_replace(pattern = "00[-/ ]", replacement = "01-") %>%
+        # Remove any remaining leading/trailing zeroes
         stringr::str_replace(pattern = "00-00-|[-/ ]00$|[-/ ]00[-/ ]00$|^00|^00[-/ ]00[-/ ]",
                              replacement = "") %>%
-        lubridate::dmy(truncated = 2, quiet = TRUE) 
+        # Attempt to build date from remaining string
+        lubridate::dmy(truncated = 2, quiet = TRUE) %>%
+        # Extract just the year
+        lubridate::year() %>%
+        # Build date from Jan 1st
+        lubridate::make_date(1, 1)
+      #
       # FORMAT the amb_fieldNotes column
       ambiguousNames$amb_fieldNotes <- ambiguousNames$amb_fieldNotes %>%
-        # Remove 00 values to truncate the lubridate 
-        stringr::str_replace(pattern = "00[-/ ]00[-/ ]", replacement = "01-01-") %>%
-        stringr::str_replace(pattern = "00[-/ ]", replacement = "01-") %>%
-        stringr::str_replace(pattern = "00-00-|[-/ ]00$|[-/ ]00[-/ ]00$|^00|^00[-/ ]00[-/ ]",
-                             replacement = "") %>%
-        lubridate::dmy(truncated = 2, quiet = TRUE) 
-      #
-      # FORMAT the amb_locationRemarks column
-      ambiguousNames$amb_locationRemarks <- ambiguousNames$amb_locationRemarks %>%
       # Remove 00 values to truncate the lubridate 
       stringr::str_replace(pattern = "00[-/ ]00[-/ ]", replacement = "01-01-") %>%
         stringr::str_replace(pattern = "00[-/ ]", replacement = "01-") %>%
         stringr::str_replace(pattern = "00-00-|[-/ ]00$|[-/ ]00[-/ ]00$|^00|^00[-/ ]00[-/ ]",
                              replacement = "") %>%
-        lubridate::dmy(truncated = 2, quiet = TRUE) 
-      
-      
-      
+        # Attempt to build date from remaining string
+        lubridate::dmy(truncated = 2, quiet = TRUE) %>%
+        # Extract just the year
+        lubridate::year() %>%
+        # Build date from Jan 1st
+        lubridate::make_date(1, 1)
+      #
+      # FORMAT the amb_locationRemarks column
+      ambiguousNames$amb_locationRemarks <- ambiguousNames$amb_locationRemarks %>%
+        # Remove 00 values to truncate the lubridate 
+        stringr::str_replace(pattern = "00[-/ ]00[-/ ]", replacement = "01-01-") %>%
+        stringr::str_replace(pattern = "00[-/ ]", replacement = "01-") %>%
+        stringr::str_replace(pattern = "00-00-|[-/ ]00$|[-/ ]00[-/ ]00$|^00|^00[-/ ]00[-/ ]",
+                            replacement = "") %>%
+        # Attempt to build date from remaining string
+        lubridate::dmy(truncated = 2, quiet = TRUE) %>%
+        # Extract just the year
+        lubridate::year() %>%
+        # Build date from Jan 1st
+        lubridate::make_date(1, 1)
+
+
       # Combine the columns
       amb_keepers_30 <- ambiguousNames %>%
         dplyr::filter(stats::complete.cases(amb_vEV)|
@@ -961,10 +952,10 @@ dateFindR <- function(data = NULL,
         rangeFinder(rangeData = .,
                     rangeColumn = "date")
       # KEEP amb_keepers_30 at the end
-      
+
       #### 4.0 Format+combine ####
-      writeLines(paste(
-        " - Formating and combining the new data..", sep = ""))
+      writeLines(paste0(
+        " - Formating and combining the new data.."))
         ##### 4.1 formatting... ####
         # Extract only the date from occYr_2
       occYr_2$date <- as.character(occYr_2$date) %>% lubridate::ymd_hms() %>% lubridate::date()
@@ -974,12 +965,12 @@ dateFindR <- function(data = NULL,
       mdy_keepers_23$date <- lubridate::ymd(mdy_keepers_23$eventDate)
       my_keepers_24$date <- lubridate::ymd(my_keepers_24$eventDate)
         # merge these data...
-      
+
       saveTheDates <- dplyr::bind_rows(ymd_hms_0, dmy_1, occYr_2, 
         ymd_keepers_21, dmy_keepers_22, mdy_keepers_23) %>%
         dplyr::select(database_id, date, startDayOfYear, endDayOfYear) 
-      
-      
+
+
       ##### 4.2 Full dates ####
         # Join these dates to the original rows...
       datesOut_full <- data %>% 
@@ -998,10 +989,9 @@ dateFindR <- function(data = NULL,
         dplyr::filter(!year > maxYear) %>%
           # Remove PAST dates 
         dplyr::filter(!year < minYear) %>%
-         # remove the date column
+          # remove the date column
         dplyr::select(!date)
-        
-      
+
       ##### 4.3 No day ####
         # Join these dates to the original rows...
       datesOut_noDay <- data %>% 
@@ -1023,9 +1013,7 @@ dateFindR <- function(data = NULL,
         dplyr::filter(!year < minYear) %>%
          # remove the date column
         dplyr::select(!date)
-      
-      
-      
+
       ##### 4.4 No month ####
         # Join these dates to the original rows...
       datesOut_noMonth <- data %>% 
@@ -1045,15 +1033,14 @@ dateFindR <- function(data = NULL,
         dplyr::filter(!year < minYear) %>%
           # remove the date column
         dplyr::select(!date)
-      
-
+    
     #### 5.0 Merge ####
-      writeLines(paste(
-        " - Merging all data, nearly there...", sep = ""))
+      writeLines(paste0(
+        " - Merging all data, nearly there..."))
         # Get all of the changed rows together
       datesMerged <- dplyr::bind_rows(
         datesOut_full, datesOut_noDay, datesOut_noMonth)
-        
+
         # Format the original eventDate column into a new sheet - datesOut
       datesOut <- data
       datesOut$eventDate <- lubridate::ymd_hms(datesOut$eventDate,
@@ -1062,7 +1049,7 @@ dateFindR <- function(data = NULL,
       datesOut <- datesOut %>% 
           # Remove the dates that are to be replaced
         dplyr::filter(!database_id %in% datesMerged$database_id) 
-      
+
       # Extract year, month, and day where possible
         # year
       datesOut$year <- ifelse(is.na(datesOut$year),
@@ -1076,7 +1063,7 @@ dateFindR <- function(data = NULL,
       datesOut$day <- ifelse(is.na(datesOut$day),
                                lubridate::day(datesOut$eventDate),
                                datesOut$day)
-      
+
       # Remove the months and days where the year is incorrect.
       datesOut$month <- ifelse(datesOut$year > maxYear | datesOut$year < minYear,
                                NA,
@@ -1093,12 +1080,12 @@ dateFindR <- function(data = NULL,
                                      lubridate::year(datesOut$eventDate) < minYear,
                                      NA,
                                      as.character(datesOut$eventDate))
-      
 
+    
         # For simplicity's sake, return the date columns as character...
       datesOut$eventDate  <- as.character(datesOut$eventDate)
       datesMerged$eventDate  <- as.character(datesMerged$eventDate)
-      
+
       # MERGE all datsets
       dates_complete <- data %>%
         dplyr::mutate(eventDate = as.character(eventDate)) %>%
@@ -1106,20 +1093,20 @@ dateFindR <- function(data = NULL,
         dplyr::filter(!database_id %in% c( datesMerged$database_id, datesOut$database_id)) %>%
           # Merge the new rows back in
         dplyr::bind_rows(datesMerged, datesOut)
-      
+
         # Return to date format <3 
       dates_complete$eventDate <- lubridate::ymd_hms(dates_complete$eventDate,
                          truncated = 5, quiet = TRUE)
-      
+    
       # Plot the dates
       # graphics::hist(dates_complete$eventDate, breaks = 100,
       #      main = "Histogram of eventDate output")
-      
+    
       timeEnd <- Sys.time()
     
     # Return user output
     writeLines(
-      paste(
+        paste0(
         " - Finished. \n",
         "We now have ",
         format((sum(stats::complete.cases(dates_complete$eventDate)) - originalDateCount),
@@ -1141,8 +1128,7 @@ dateFindR <- function(data = NULL,
         " occurrences on the basis of missing",
         " year",
         " - Operation time: ", (timeEnd - timeStart)," ",
-        units(round(timeEnd - timeStart, digits = 2)),
-      sep = "")
+        units(round(timeEnd - timeStart, digits = 2)))
     )
     return(dates_complete)
   }

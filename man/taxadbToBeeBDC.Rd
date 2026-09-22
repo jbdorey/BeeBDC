@@ -8,13 +8,14 @@ taxadbToBeeBDC(
   name = NULL,
   rank = NULL,
   provider = "gbif",
-  version = "22.12",
+  version = taxadb::available_versions(db = taxadb::td_connect()),
   collect = TRUE,
   ignore_case = TRUE,
   db = NULL,
   removeEmptyNames = TRUE,
   outPath = getwd(),
   fileName = NULL,
+  overwrite = FALSE,
   ...
 )
 }
@@ -27,13 +28,13 @@ As defined by \code{taxadb::filter_rank()}.}
 
 \item{provider}{Character. From which provider should the hierarchy be returned?
 Default is 'gbif', which can also be configured using options(default_taxadb_provide = ...").
-See \code{taxadb::td_create()} for a list of recognized providers. NOTE: gbif seems to have the most-complete
+See \code{taxadb::td_download()} for a list of recognized providers. NOTE: gbif seems to have the most-complete
 columns, especially in terms of scientificNameAuthorship, which is important for matching
 ambiguous names.
 As defined by \code{taxadb::filter_rank()}.}
 
 \item{version}{Character. Which version of the taxadb provider database should we use? defaults
-to latest. See tl_import for details. Default = 22.12.
+to latest. See available_versions() for details. Default = 22.12.
 As defined by \code{taxadb::filter_rank()}.}
 
 \item{collect}{Logical. Should we return an in-memory data.frame
@@ -57,7 +58,9 @@ for specificEpithet.}
 
 \item{fileName}{Character. The name of the output file, ending in '.csv'.}
 
-\item{...}{Arguments passed to \code{taxadb::td_create()}.}
+\item{overwrite}{Logical. Should we re-download files that are already present? Default FALSE.}
+
+\item{...}{Arguments passed to \code{taxadb::td_download()}.}
 }
 \value{
 Returns a taxonomy file (to the R environment and to the disk, if a fileName is
@@ -67,10 +70,13 @@ provided) as a tibble that can be used with \code{BeeBDC::harmoniseR()}.
 Uses the taxadb R package to download a requested taxonomy and then transforms it into the input
 BeeBDC format. This means that any taxonomy in their databases can be used with BeeBDC. You can
 also save the output to your computer and to the R environment for immediate use. See
-details below for a list of providers or see \code{taxadb::td_create()}.
+details below for a list of providers or see \code{taxadb::td_download()}.
 }
 \examples{
 \dontrun{
+
+if(require("taxadb")){
+
   # Run the function using the bee genus Apis as an example...
 ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
   name = "Apis",
@@ -80,9 +86,12 @@ ApisTaxonomy <- BeeBDC::taxadbToBeeBDC(
   removeEmptyNames = TRUE,
   outPath = getwd(),
   fileName = NULL,
+  overwrite = FALSE,
   ...
   )
-  }
+  
+  } # END if require
+  } # End dontrun
 
 }
 \seealso{

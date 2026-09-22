@@ -58,11 +58,6 @@
 #' @export
 #' 
 #' @importFrom dplyr across desc %>%
-#' @importFrom ggplot2 geom_sf geom_point geom_jitter scale_color_manual coord_sf 
-#'   element_rect scale_fill_viridis_d
-#' xlab ylab ggtitle 
-#' @importFrom ggspatial north_arrow_fancy_orienteering annotation_north_arrow
-#' @importFrom grDevices gray
 #'
 #' @examples
 #' # import data

@@ -35,7 +35,7 @@ base::saveRDS(beeChecklist,
 
   # TAXONOMY
 beeTaxonomy <- readr::read_csv(paste0(dataPath, 
-        "/restrictedScripts/TaxonomyFiles/TaxonomyComplete_2026-01-12.csv")) 
+        "/restrictedScripts/TaxonomyFiles/TaxonomyComplete_2026-05-04.csv")) 
 base::saveRDS(beeTaxonomy, 
               file = paste0("/Users/jamesdorey/Desktop/Uni/Packages/BeeBDC_development/",
                             "beesTaxonomy_", Sys.Date(), ".Rda"),

@@ -5,8 +5,11 @@
 \title{Download a country-level checklist of bees from Discover Life}
 \usage{
 beesChecklist(
-  URL = "https://open.flinders.edu.au/ndownloader/files/60945823",
+  URL = "https://api.figshare.com/v2/file/download/60945823",
   mode = NULL,
+  headers = NULL,
+  token = NULL,
+  alternateURL = FALSE,
   ...
 )
 }
@@ -15,6 +18,14 @@ beesChecklist(
 the most-recent version.}
 
 \item{mode}{A character passed on to \code{utils::download.file()}. Default = "wb" for Windows or "w" for Mac/Linux.}
+
+\item{headers}{Character. Passed on to  \code{utils::download.file()}. Default = NULL.}
+
+\item{token}{Character. Optional personal access token from FigShare account for authorisation.
+Default = NULL.}
+
+\item{alternateURL}{Logical. If TRUE then the function will use the an alernate version of the
+download URL. Might be worth trying if it is failing. Default = FALSE.}
 
 \item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }

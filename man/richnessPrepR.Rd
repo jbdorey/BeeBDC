@@ -58,6 +58,7 @@ iChao and iNEXT (hill numbers) for countries, continents, or the entire globe.
 
 \dontrun{
 data(beesCountrySubset)
+if(require("htmlwidgets"){
 
 estimateDataExample <- richnessPrepR(
   data = beesCountrySubset,
@@ -71,7 +72,8 @@ estimateDataExample <- richnessPrepR(
   limitGlobal = NULL,
   outPath = tempdir()
 )
-}
+} # End if require
+} # End dontrun
 }
 \seealso{
 \code{\link[=countryHarmoniseR]{countryHarmoniseR()}} to harmonise country names based on a short list.

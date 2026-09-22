@@ -47,6 +47,7 @@
 #' 
 #' \dontrun{
 #' data(beesCountrySubset)
+#' if(require("htmlwidgets"){
 #' 
 #' estimateDataExample <- richnessPrepR(
 #'   data = beesCountrySubset,
@@ -60,7 +61,8 @@
 #'   limitGlobal = NULL,
 #'   outPath = tempdir()
 #' )
-#' }
+#' } # End if require
+#' } # End dontrun
 
 richnessPrepR <- function(
     data = NULL,

@@ -18,7 +18,6 @@
 #' @param standardFormat Character. Some taxa may have a standard format for data. Presently,
 #' Only bees have had this encoded here as "bee". Default = NULL.
 #' 
-#' @importFrom readr col_character col_double col_factor col_integer col_logical col_datetime
 #' @importFrom dplyr %>%
 #'
 #' @return Returns an object of class col_spec. 
@@ -62,7 +61,11 @@ ColTypeR <- function(...,
     # Character Strings
     # CHR - taxonomy
     database_id  = readr::col_character(), scientificName = readr::col_character(), 
-    family = readr::col_character(), subfamily = readr::col_character(), genus = readr::col_character(), 
+    kingdom = readr::col_character(),phylum = readr::col_character(),class = readr::col_character(),
+    order = readr::col_character(),
+    family = readr::col_character(), subfamily = readr::col_character(), 
+    tribe = readr::col_character(), subtribe = readr::col_character(),
+    genus = readr::col_character(), 
     subgenus = readr::col_character(), subspecies = readr::col_character(), species = readr::col_character(), 
     specificEpithet = readr::col_character(), infraspecificEpithet = readr::col_character(), 
     acceptedNameUsage = readr::col_character(), taxonRank = readr::col_character(),

@@ -130,7 +130,7 @@ BeeBDCQuery <- function(
                report_beesTaxonomy$id[[i]],
                ".")
       }else{ # IF accepted
-        paste0("an accpeted name with the taxon id number ", report_beesTaxonomy$id[[i]], ".")
+        paste0("an accepted name with the taxon id number ", report_beesTaxonomy$id[[i]], ".")
       } # END else
     ))
   } # End loop

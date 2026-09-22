@@ -5,8 +5,11 @@
 \title{Download a nearly complete taxonomy of bees globally}
 \usage{
 beesTaxonomy(
-  URL = "https://open.flinders.edu.au/ndownloader/files/60945820",
+  URL = "https://api.figshare.com/v2/file/download/64193731",
   mode = NULL,
+  headers = NULL,
+  token = NULL,
+  alternateURL = FALSE,
   ...
 )
 }
@@ -15,6 +18,14 @@ beesTaxonomy(
 the most-recent version.}
 
 \item{mode}{A character passed on to \code{utils::download.file()}. Default = "wb" for Windows or "w" for Mac/Linux.}
+
+\item{headers}{Character. Passed on to  \code{utils::download.file()}. Default = NULL.}
+
+\item{token}{Character. Optional personal access token from FigShare account for authorisation.
+Default = NULL.}
+
+\item{alternateURL}{Logical. If TRUE then the function will use the an alernate version of the
+download URL. Might be worth trying if it is failing. Default = FALSE.}
 
 \item{...}{Extra variables that can be passed to \code{downloader::download()}.}
 }
@@ -86,7 +97,8 @@ or "auto" if any particular method is not available).
 
 \strong{Previous taxonomies:}
 \itemize{
-\item 2026-01-12 \strong{current}: https://open.flinders.edu.au/ndownloader/files/60945820
+\item 2026-05-04 \strong{current}: https://api.figshare.com/v2/file/download/64193731
+\item 2026-01-12: https://open.flinders.edu.au/ndownloader/files/60945820
 \item 2024-06-17: https://open.flinders.edu.au/ndownloader/files/47089969
 \item 2023-11-29: https://open.flinders.edu.au/ndownloader/files/43331472
 \item 2023-10-10: https://open.flinders.edu.au/ndownloader/files/42613126

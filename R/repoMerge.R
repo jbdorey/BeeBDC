@@ -24,12 +24,15 @@
 #'
 #' @examples
 #' \dontrun{
+#' if(require("emld")){
+#' 
 #' DataImp <- repoMerge(path = DataPath, 
 #' # Find data - Many problems can be solved by running [BeeBDC::repoFinder(path = DataPath)]
 #' # And looking for problems
 #' occ_paths = BeeBDC::repoFinder(path = DataPath),
 #' save_type = "R_file")
-#' }
+#' } # END if require
+#' } # END donttest
 repoMerge <- function(path, save_type, occ_paths){
   . <- family <- data_i <- NULL
   
