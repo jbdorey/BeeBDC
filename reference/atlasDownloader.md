@@ -33,7 +33,7 @@ atlasDownloader(
 - ALA_taxon:
 
   A character string. The taxon to download from ALA. Uses
-  [`galah::galah_identify()`](https://galah.ala.org.au/R/reference/identify.data_request.html)
+  [`galah::galah_identify()`](https://galah.ala.org.au/R/reference/superseded_functions.html)
 
 - DL_reason:
 

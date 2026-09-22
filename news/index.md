@@ -1,5 +1,10 @@
 # Changelog
 
+## Changes in version 1.3.5
+
+- Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work
+  with the new CRAN release of **taxadb** v0.3.0
+
 ## Changes in version 1.3.4
 
 CRAN release: 2026-05-22
