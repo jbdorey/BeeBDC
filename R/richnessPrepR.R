@@ -82,10 +82,6 @@ richnessPrepR <- function(
     continent<- name_long<- continent.x<- continent.y <- country_suggested <- n<- NULL
   
   
-  # Load required packages 
-  requireNamespace("rlang")
-  requireNamespace("dplyr")
-  
   # Record start time
   startTime <- Sys.time()
   
@@ -155,7 +151,7 @@ richnessPrepR <- function(
     ##### 3.1 Plot curve ####
   # Build a plot of the points and the model
   suppressWarnings({
-  (curvePlot <- ggplot2::ggplot(data = siteSpeciesCounts, 
+  curvePlot <- ggplot2::ggplot(data = siteSpeciesCounts,
                                ggplot2::aes(x = n, y = count_n)) +
      # Literature curve data 
      ggplot2::geom_function(fun = curveFunction, 
@@ -177,7 +173,7 @@ richnessPrepR <- function(
                                                              linetype = "solid"),
                     panel.border = ggplot2::element_rect(fill = NA,
                                                          colour = "black",
-                                                         linetype = "solid")) )
+                                                         linetype = "solid"))
   
   # Save the plot
   ggplot2::ggsave(paste0(outPath, "/curvePlot.pdf"), 

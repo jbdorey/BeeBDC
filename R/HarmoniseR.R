@@ -95,10 +95,6 @@ harmoniseR <- function(
   
   
   
-  # Load required packages 
-  requireNamespace("rlang")
-  requireNamespace("dplyr")
-  
   # Record start time
   startTime <- Sys.time()
   
@@ -123,7 +119,7 @@ harmoniseR <- function(
   
   #### 1.0  _match columns ####
   # Make a synonym index list
-  writeLines(paste(" - Formatting taxonomy for matching..."))
+  bee_message(paste(" - Formatting taxonomy for matching..."))
   # save the original column names
   OG_colnames <- unique(c("database_id", colnames(data)))
   # Save the original number of rows
@@ -141,7 +137,7 @@ harmoniseR <- function(
   if(!"names_clean" %in% colnames(data)){
     data <- data %>%
       dplyr::mutate(names_clean = scientificName)
-    message(paste0("The names_clean column was not found and will be temporarily copied from",
+    bee_message(paste0("The names_clean column was not found and will be temporarily copied from",
                    " scientificName"))
   }
   ###### c. database_id ####
@@ -149,28 +145,28 @@ harmoniseR <- function(
   if(!"database_id" %in% colnames(data)){
     data <- data %>%
       dplyr::mutate(database_id = paste0("BeeBDC_TempCode_", dplyr::row_number()), .before = 1)
-    message("The database_idcolumn was not found, making this column with 'BeeBDC_TempCode_'...")
+    bee_message("The database_idcolumn was not found, making this column with 'BeeBDC_TempCode_'...")
   }
   ###### d. scientificNameAuthorship ####
   # If there is no scientificNameAuthorship, make all NA
   if(!"scientificNameAuthorship" %in% colnames(data)){
     data <- data %>%
       dplyr::mutate(scientificNameAuthorship = NA_character_)
-    message("The scientificNameAuthorship column was not found, making this column full of NAs.")
+    bee_message("The scientificNameAuthorship column was not found, making this column full of NAs.")
   }
   ###### e. taxonRank ####
   # If there is no taxonRank, make all NA
   if(!"taxonRank" %in% colnames(data)){
     data <- data %>%
       dplyr::mutate(taxonRank = NA_character_)
-    message("The taxonRank column was not found, making this column full of NAs.")
+    bee_message("The taxonRank column was not found, making this column full of NAs.")
   }
   ###### f. species ####
   # If there is no species, make all NA
   if(!"species" %in% colnames(data)){
     data <- data %>%
       dplyr::mutate(species = scientificName)
-    message("The species column was not found, filling this column with scientificName.")
+    bee_message("The species column was not found, filling this column with scientificName.")
   }
   # Record the colnames of the data 
   originalColnames <- colnames(data)
@@ -219,7 +215,7 @@ harmoniseR <- function(
   
   
   #### 2.0 Harmonise data ####
-  writeLines(paste("\n",
+  bee_message(paste("\n",
                    " - Harmonise the occurrence data with unambiguous names...", sep = ""))
   # Create the parallel-able function
   unAmbiguousFunction <- function(data){
@@ -559,7 +555,7 @@ harmoniseR <- function(
     dplyr::bind_rows() 
   
   #### 3.0 Ambiguous names ####
-  writeLines(paste("\n",
+  bee_message(paste("\n",
                    " - Attempting to harmonise the occurrence data with ambiguous names...", sep = ""))
   ambiguousFunction <- function(ambData){
     ##### 3.1 Prepare datasets ####
@@ -917,7 +913,7 @@ harmoniseR <- function(
   
   #### 4.0 verbatimScientificName ####
   if(checkVerbatim == TRUE){
-    writeLines(paste0("checkVerbatim = TRUE. Checking the verbatimScientificName column..."))
+    bee_message(paste0("checkVerbatim = TRUE. Checking the verbatimScientificName column..."))
     
     ##### 4.1 failedMatches ####
     # Find the data that did not match
@@ -984,7 +980,7 @@ harmoniseR <- function(
   
   
   #### 5.0 Merge ####
-  writeLines(" - Formatting merged datasets...")
+  bee_message(" - Formatting merged datasets...")
   # merge datasets
   runningOccurrences <- runningOccurrences %>%
     # Put the scientific name into a new column called verbatimScientificName
@@ -1045,7 +1041,7 @@ harmoniseR <- function(
     runningAmbiguous <- runningOccurrences %>%
       # First, select the invalid names
       dplyr::filter(.invalidName == FALSE)
-    writeLines(paste0(" You have chose to relax ambiguous names. Checking ",
+    bee_message(paste0(" You have chose to relax ambiguous names. Checking ",
                       format(nrow(runningAmbiguous), big.mark = ","),
                " failed names now..."))
     
@@ -1099,7 +1095,7 @@ harmoniseR <- function(
                       stringr::str_squish(),
                     scientificNameAuthorship = "ambiguouslyMatchedName")
     # Provide some user feedback
-    writeLines(paste0(" BeeBDC has matched ",
+    bee_message(paste0(" BeeBDC has matched ",
                       format(nrow(runningAmbiguous_matched), big.mark = ","),
                       " rows that would otherwise be excluded as ambiguous names.\n",
                       "Remember that these names will be listed as 'ambiguouslyMatchedName' ", 
@@ -1228,7 +1224,7 @@ if(matchHigherTaxonomy == TRUE){
   # Return the speciesColumn name to it's original state
   names(runningOccurrences)[names(runningOccurrences) == "scientificName"] <- speciesColumn
   if(rm_names_clean == TRUE){
-    message("Removing the names_clean column...")
+    bee_message("Removing the names_clean column...")
     runningOccurrences <- runningOccurrences %>% 
       dplyr::select(!tidyselect::any_of("names_clean"))
   }
@@ -1244,7 +1240,7 @@ if(matchHigherTaxonomy == TRUE){
   
   
   ##### 7.2 Output ####
-  writeLines(paste(
+  bee_message(paste(
     " - We matched valid names to ", 
     format(sum(runningOccurrences$.invalidName == TRUE), big.mark = ","), " of ",
     format(OG_rowNum, big.mark = ","), " occurrence records. This leaves a total of ",
@@ -1254,12 +1250,12 @@ if(matchHigherTaxonomy == TRUE){
     #  " are only identified to genus rank or higher.",
     sep = ""))
   
-  writeLines(paste("\nharmoniseR:"))
-  message(paste(format(sum(runningOccurrences$.invalidName == FALSE), big.mark = ","))) 
-  writeLines(paste(
+  bee_message(paste("\nharmoniseR:"))
+  bee_message(paste(format(sum(runningOccurrences$.invalidName == FALSE), big.mark = ","))) 
+  bee_message(paste(
     "records were flagged.\nThe column, '.invalidName' was added to the database.\n"))
   
-  message(paste0(
+  bee_message(paste0(
     " - We updated the following columns: ", speciesColumn,", species, family, subfamily, genus, subgenus, ",
     "specificEpithet, infraspecificEpithet, and scientificNameAuthorship. ",
     "The previous ",speciesColumn," column was converted to verbatimScientificName"
@@ -1267,7 +1263,7 @@ if(matchHigherTaxonomy == TRUE){
   
   # End time message
   endTime <- Sys.time()
-  message(paste(
+  bee_message(paste(
     " - Completed in ", 
     round(difftime(endTime, startTime), digits = 2 ),
     " ",

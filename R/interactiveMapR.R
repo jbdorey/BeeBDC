@@ -110,9 +110,6 @@ interactiveMapR <- function(
     providers <- databaseSpp <- .expertOutlier <- NULL
     
   
-  requireNamespace("htmlwidgets")
-  requireNamespace("leaflet")
-  requireNamespace("dplyr")
   
   # Ensure that working directories are maintain on exit from function
   oldwd <- getwd()           # code line i 
@@ -185,19 +182,19 @@ if(nrow(data) == 0){
 
 # If there is no .expertOutlier then add one as all NA
 if(!".expertOutlier" %in% colnames(data)){
-  message("The column .expertOutlier was not found. One will be created with all values = TRUE.")
+  bee_message("The column .expertOutlier was not found. One will be created with all values = TRUE.")
   data <- data %>% 
     dplyr::mutate(.expertOutlier = TRUE)
 }
 # If there is no .countryOutlier then add one as all NA
 if(!".countryOutlier" %in% colnames(data)){
-  message("The column .countryOutlier was not found. One will be created with all values = TRUE.")
+  bee_message("The column .countryOutlier was not found. One will be created with all values = TRUE.")
   data <- data %>% 
     dplyr::mutate(.countryOutlier = TRUE)
 }
 # If there is no .summary then add one as all NA
 if(!".summary" %in% colnames(data)){
-  message("The column .summary was not found. One will be created with all values = TRUE.")
+  bee_message("The column .summary was not found. One will be created with all values = TRUE.")
   data <- data %>% 
     dplyr::mutate(.summary = TRUE)
 }

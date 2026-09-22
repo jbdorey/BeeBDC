@@ -147,10 +147,6 @@ ggRichnessWrapper <- function(
   decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
   country_iNEXT <- . <- Est_s.e. <- NULL
     
-  requireNamespace("magrittr")
-  requireNamespace("iNEXT")
-  requireNamespace("cowplot")
-  requireNamespace("ggplot2")
   
   
   #### 0.0 Prepare function ####
@@ -187,14 +183,14 @@ ggRichnessWrapper <- function(
     }
     if(input == 1){
       # Start iNEXT install
-      message("Installing the iNEXT package.")
+      bee_message("Installing the iNEXT package.")
       tryCatch(
         utils::install.packages("iNEXT"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
+      stop(bee_message(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE

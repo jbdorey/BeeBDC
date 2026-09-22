@@ -78,7 +78,7 @@ BeeBDCQuery <- function(
   beeNameExact <- paste0("^",  beeName, "$")
   
   #### 2.0 Taxonomy check ####
-  message("Starting taxonomy report...")
+  bee_message("Starting taxonomy report...")
   ##### 2.1 Taxonomy report ####
   # Get a report of the queried names and their matched rows in beesTaxonomy 
   report_beesTaxonomy <- 
@@ -121,7 +121,7 @@ BeeBDCQuery <- function(
   
     ##### 2.2 Taxonomy output ####
   for(i in 1:nrow(report_beesTaxonomy)){
-    writeLines(paste0(
+    bee_message(paste0(
       report_beesTaxonomy$inputName[[i]], " is ", 
       # IF Synonym
       if(report_beesTaxonomy$inputID[[i]] > 0){
@@ -153,7 +153,7 @@ BeeBDCQuery <- function(
         dplyr::filter(accid == report_beesTaxonomy$inputID[[i]])
       if(nrow(synonymsLoop) > 0){
         # Print user output
-      writeLines(paste0(
+      bee_message(paste0(
         " - '", report_beesTaxonomy$inputName[[i]], "'",
         " has the synonyms: ", paste0(synonymsLoop$validName, collapse = ", ")
       ))} # END if > 0
@@ -161,7 +161,7 @@ BeeBDCQuery <- function(
         synonymsLoop <- synonymsMatched %>%
           dplyr::filter(accid == report_beesTaxonomy$id[[i]])
         # Print user output
-        writeLines(paste0(
+        bee_message(paste0(
           " - '", report_beesTaxonomy$inputName[[i]], "'",
           " has the synonyms: ", unique(paste0(synonymsLoop$validName, collapse = ", ") %>%
                                           stringr::str_remove(report_beesTaxonomy$inputName[[i]]))
@@ -175,7 +175,7 @@ BeeBDCQuery <- function(
   #### 3.0 Checklist ####
     ##### 3.1 Checklist user output ####
   if(searchChecklist == TRUE){
-    message("Starting checklist report...")
+    bee_message("Starting checklist report...")
       # Get the relevant rows of accepted names in the beesChecklist
     checklistMatched <- beesChecklist %>%
       dplyr::filter(validName %in% unique(report_beesTaxonomy$validName)) %>% 
@@ -186,7 +186,7 @@ BeeBDCQuery <- function(
         loopSpecies <- checklistMatched %>%
           dplyr::filter(validName == checklistMatched$validName[[i]])
           # User output
-        writeLines(paste0(
+        bee_message(paste0(
           " - ", checklistMatched$validName[[i]],
           " is reportedly found in: \n",
           paste0(unique(loopSpecies$rNaturalEarth_name), collapse = ", ")
@@ -205,7 +205,7 @@ BeeBDCQuery <- function(
   if(searchChecklist == TRUE){
     output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, checklistMatched, failedReport) %>%
       stats::setNames(c("taxonomyReport", "SynonymReport", "checklistReport", "failedReport"))
-    writeLines(paste0(
+    bee_message(paste0(
       "The output will be returned as a list with the elements: ",
       "'taxonomyReport', 'SynonymReport', and 'checklistReport'. \n", "These can be accessed using",
       " 'output'$taxonomyReport, 'output'$SynonymReport, 'output'$checklistReport, or ",
@@ -214,7 +214,7 @@ BeeBDCQuery <- function(
   }else{
     output <- dplyr::lst(report_beesTaxonomy, synonymsMatched, failedReport) %>%
       stats::setNames(c("taxonomyReport", "SynonymReport", "failedReport"))
-    writeLines(paste0(
+    bee_message(paste0(
       "The output will be returned as a list with the elements: ",
       "'taxonomyReport' and 'SynonymReport'. \n", "These can be accessed using",
       " 'output'$taxonomyReport, 'output'$SynonymReport, or ",

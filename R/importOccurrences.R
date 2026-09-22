@@ -24,10 +24,6 @@ importOccurrences <- function(path = path,
            fileName = "^BeeData_" #occurrence file name. If not provided, R will search to match "BeeData_"
            ){ #spatial reference system as epsg code
   . <- NULL
-  # Load required packages
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
-  
   # if the fileName is not provided...
   if(!exists("fileName")){
     fileName = "^BeeData"
@@ -38,7 +34,7 @@ importOccurrences <- function(path = path,
   most_recent <- BeeBDC::fileFinder(path = path, fileName = fileName)
   
   # Return information to user
-  writeLines(paste(" - Great, R has detected file(s), including... ", "\n",
+  bee_message(paste(" - Great, R has detected file(s), including... ", "\n",
                    paste(most_recent, collapse = "\n") ), sep = "")
   
   #### Detect format ####
@@ -53,7 +49,7 @@ importOccurrences <- function(path = path,
   #### Both present ####
   # IF their is a complete .rds file among the most-recent files AND a .csv version...
   if(rdata_query == TRUE && csv_query == TRUE){
-    writeLines(paste("\n", 
+    bee_message(paste("\n", 
                      " - Oh boy, it looks like there are both .csv and .rds versions of your data!", 
                      "\n", "R will preferentially use the .rds file.", "\n",
                      "NOTE: the .rds file can be very slow to load"))
@@ -61,7 +57,7 @@ importOccurrences <- function(path = path,
     fileLoc <- most_recent[intersect(grep(".*\\.rds{1}", most_recent),
                                      grep("([aA]ttributes)", most_recent, invert = TRUE))]
     # Read in the .rds file
-    writeLines(paste("Reading in ", fileLoc, "...", sep = ""))
+    bee_message(paste("Reading in ", fileLoc, "...", sep = ""))
    
     # Find the index of the string that matches and select that to read in
     occurDF <- fileLoc %>%
@@ -71,25 +67,25 @@ importOccurrences <- function(path = path,
   #### RData present ####
   # IF their is ONLY a complete .rds file among the most-recent files...
   if(rdata_query == TRUE && csv_query == FALSE){
-    writeLines(paste(" - .rds export version found. Loading this file...", "\n",
+    bee_message(paste(" - .rds export version found. Loading this file...", "\n",
                      "NOTE: the .rds file can be very slow to load"))
     # File to read:
     fileLoc <- most_recent[intersect(grep(".*\\.rds{1}", most_recent),
                                      grep("([aA]ttributes)", most_recent, invert = TRUE))]
     # Read in the .rds file
-    writeLines(paste("Reading in ", 
+    bee_message(paste("Reading in ", 
                      fileLoc,
                "...", sep = ""))
     # Find the index of the string that matches and select that to read in
     occurDF <- as.character(fileLoc) %>%
       readRDS()
-    writeLines("Completed reading in .rds file")
+    bee_message("Completed reading in .rds file")
   } #END IF .rds
 
   #### CSV present ####
   # IF their is ONLY a complete .csv file among the most-recent files...
   if(csv_query == TRUE && rdata_query == FALSE){
-    writeLines(paste(" - .csv exported version found. Loading this file..."))
+    bee_message(paste(" - .csv exported version found. Loading this file..."))
     ColTypes <- ColTypeR()
     # Find the most-recent .csv occurrence file
     occurDF <- most_recent[intersect(grep(".*\\.csv", most_recent),
@@ -99,9 +95,9 @@ importOccurrences <- function(path = path,
     attr_loc <- most_recent[stringr::str_which(most_recent, "(.*[aA]ttribute)(.*\\.rds)")] 
       # Check to see if the attributes file exists or not
     if(length(attr_loc) == 0){
-      writeLines("No attribute file found... Please make sure that one exists to include the EML data")
+      bee_message("No attribute file found... Please make sure that one exists to include the EML data")
     }else{
-      writeLines(
+      bee_message(
         paste("Reading attribute file named ", attr_loc, "..." ))
       attr_file <- readRDS(attr_loc)
       }
@@ -137,7 +133,7 @@ importOccurrences <- function(path = path,
   # Return the Data_WebDL
   return(Data_WebDL)
   # Return end product and print completion note
-  writeLines(paste(" - Fin.", sep = "\n"))
+  bee_message(paste(" - Fin.", sep = "\n"))
 } # END data_importer
 
 

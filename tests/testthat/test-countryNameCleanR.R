@@ -1,6 +1,3 @@
-requireNamespace("readr")
-requireNamespace("dplyr")
-library(dplyr) ## could not use %>% without loading as library
 
 
 # make yourself some test data which has common problem names for the USA and one row that is already correct
@@ -33,7 +30,7 @@ testOut <- BeeBDC::countryNameCleanR(data = testData, commonProblems = commonPro
 
 
 # check that country column has only one value (correct value)
-numberOfCountries <- testOut %>% group_by(country) %>% summarise()
+numberOfCountries <- testOut %>% dplyr::group_by(country) %>% dplyr::summarise()
 
 
 # number of NA values in fix column
@@ -49,7 +46,3 @@ testthat::test_that("number of country names in the fixed country column" , {
 testthat::test_that("number of unchanged rows in data", {
   testthat::expect_equal(numberNAs, 1)
 })
-
-
-
-

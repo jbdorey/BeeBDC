@@ -1,5 +1,3 @@
-requireNamespace("BeeBDC")
-requireNamespace("dplyr")
 
 
 ## test data - these have been abbreviated for sanity and also edited. And duplicated. They're not totally real

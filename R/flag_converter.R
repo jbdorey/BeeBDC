@@ -10,7 +10,6 @@ flag_converter <- function(SynFile = DLdf){
   # locally bind variables to the function
   DLdf <- . <- Combined <- NULL
   
-requireNamespace("dplyr")
   
   #### 1.1 doubtful ####
   # Doubtful species strings to find and matches

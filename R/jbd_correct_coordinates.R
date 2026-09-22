@@ -216,7 +216,7 @@ jbd_correct_coordinates <-
     
     # now this database have all those records with potential error that be
     # corrected
-    message(occ_country %>% nrow(), " occurrences will be tested")
+    bee_message(occ_country %>% nrow(), " occurrences will be tested")
     
     # If occ_country have no data 
     if(nrow(occ_country)==0){

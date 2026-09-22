@@ -57,7 +57,7 @@ country. Breaks the data into classes for visualisation. Users may filter data t
 of interest to produce figures of interest.
 }
 \examples{
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 # Read in data
 data(beesFlagged)
 OutPath_Figures <- tempdir()

@@ -67,7 +67,7 @@ dataSaver <- function(path = NULL,
     # Discard empty columns
   occurrences <- occurrences %>% 
     dplyr::select(tidyselect::all_of(colKeeps$column))
-  message(paste0(
+  bee_message(paste0(
     " - We have removed empty columns. This is standard, but as an FYI, these columns are: ",
     paste(colRemoves$column, collapse = ", ")
   ))
@@ -76,7 +76,7 @@ dataSaver <- function(path = NULL,
   #### R save ####
   # Save R data
   if(save_type == "R_file"){
-    writeLines( paste(" - Writing occurrence, attribute, and EML data file in .rds format...", "\n",
+    bee_message( paste(" - Writing occurrence, attribute, and EML data file in .rds format...", "\n",
                       "Number of records: ", format(nrow(occurrences), big.mark=",",scientific=FALSE), "\n",
                       "Number of attribute sources: ", format(nrow(occurrences_attributes$dataSource), 
                                                               big.mark=",",scientific=FALSE), "\n",
@@ -94,7 +94,7 @@ dataSaver <- function(path = NULL,
   # Save csv files
   if(save_type == "CSV_file"){
     ##### Occ. file ####
-    writeLines( paste(" - Writing occurrence data file in csv format...", "\n",
+    bee_message( paste(" - Writing occurrence data file in csv format...", "\n",
                       "Number of rows (records): ", format(nrow(occurrences), big.mark=",",scientific=FALSE), "\n",
                       "Writing to file called ", paste(file_prefix, "combined_", Sys.Date(), ".csv", sep = ""),
                       " at location ", outPath,"...",
@@ -105,7 +105,7 @@ dataSaver <- function(path = NULL,
     #### Attr. file ####
     # Notfiy user that attribute data are being written
     occurrences_attributes <- attributes(occurrences)
-    writeLines( paste(" - Writing attribute data file in csv format...", "\n",
+    bee_message( paste(" - Writing attribute data file in csv format...", "\n",
                       "Number of rows (sources): ", format(nrow(occurrences_attributes$dataSource), 
                                                            big.mark=",",scientific=FALSE), "\n",
                       "Written to file called ", paste(file_prefix, "attributes_", Sys.Date(), ".csv", 
@@ -128,7 +128,7 @@ dataSaver <- function(path = NULL,
     #### EML file ####
     if(!is.null(eml_files)){
     # Notify user that the .eml file is being written
-    writeLines( paste(" - Writing eml file in xml format...", "\n",
+    bee_message( paste(" - Writing eml file in xml format...", "\n",
                       "The ", length(names(eml_files)), " eml sources are ", 
                       paste(names(eml_files), collapse = ", "), "\n",
                       "Written to file called ", paste("eml_files", Sys.Date(),".xml", sep="" ),
@@ -142,7 +142,7 @@ dataSaver <- function(path = NULL,
       saveRDS(., file = paste(outPath, "/", file_prefix, "completeAttributes_", Sys.Date(), ".rds", sep = ""))
   }}
   # Print completion note
-  writeLines(paste(" - dataSaver. Fin.", sep = "\n"))
+  bee_message(paste(" - dataSaver. Fin.", sep = "\n"))
 } # END dataSaver
 
 
@@ -161,7 +161,7 @@ Bee_Families <- c("Andrenidae","Apidae", "Colletidae","Halictidae","Megachilidae
 ##### c. outFile_maker ####
 outFile_maker <- function(path = path, file2make = "out_file"){
   # Write user output...
-  writeLines(" - Checking for existing out_file directory...")
+  bee_message(" - Checking for existing out_file directory...")
   # Look for outfile
   outFileLoc <- file.info(list.files(path, full.names = T, 
                                      pattern = file2make,
@@ -170,12 +170,12 @@ outFile_maker <- function(path = path, file2make = "out_file"){
   )
   # IF there is not outfile, create one.
   if(nrow(outFileLoc) == 0){
-    writeLines(paste(" - No existing,", file2make, " directory found. Creating directory...", sep = ""))
+    bee_message(paste(" - No existing,", file2make, " directory found. Creating directory...", sep = ""))
     dir.create(path = paste(path, file2make, sep = "/"))
   } # END create outfile
   # IF there IS an outfile, create one.
   if(nrow(outFileLoc) != 0){
-    writeLines(paste(" - Existing ", file2make, "directory found. Data will be saved here.", sep = ""))
+    bee_message(paste(" - Existing ", file2make, "directory found. Data will be saved here.", sep = ""))
   } # END create outfile
   return(paste(path, file2make, sep = "/"))
 } # END outFile_maker
@@ -264,7 +264,7 @@ fileFinder <- function(path, fileName){
   ##### Date from ctime ####
   # IF there are NO dates in the file names, use the file's ctime
   if(sum(complete.cases(FileName_dates$dates)) == 0){
-    writeLines(" - No dates in file name(s). Finding most-recent from file save time...")
+    bee_message(" - No dates in file name(s). Finding most-recent from file save time...")
     # Find the most-recent file
     maxTime <- max(locations$ctime)
     # Extract the correct rowname (path)
@@ -272,12 +272,12 @@ fileFinder <- function(path, fileName){
                                                  pattern = as.character(maxTime))]
     
   }else{
-    writeLines(" - Dates found in file name(s). Finding most-recent file from file name...")
+    bee_message(" - Dates found in file name(s). Finding most-recent file from file name...")
     # Return the strings containing this date
     most_recent <- FileName_dates[1,1] 
   } # END else
   # User output text
-  writeLines(paste(
+  bee_message(paste(
     " - Found the following file(s):", "\n",
     most_recent
   ))

@@ -81,7 +81,7 @@ diagonAlley <- function(
     ##### 1.1 ndec ####
     # If an ndec is provided, then filter to remove decimal places lower than ndec
   if(!is.null(ndec)){
-    writeLines("Removing rounded coordinates with BeeBDC::jbd_coordinates_precision...")
+    bee_message("Removing rounded coordinates with BeeBDC::jbd_coordinates_precision...")
     runningData <- data %>%
     BeeBDC::jbd_coordinates_precision(
       data = .,
@@ -141,7 +141,7 @@ diagonAlley <- function(
       }# End LatLonFun
     
     ##### 2.2 Lat sequences ####
-    writeLines(" - Starting the latitude sequence...")
+    bee_message(" - Starting the latitude sequence...")
   # Find the groups where ALL of the differences between values is the same (is.sequential)
     # Return their database_id
   runningData_Lat <- runningData %>% 
@@ -210,7 +210,7 @@ diagonAlley <- function(
   
   
   ##### 2.3 Lon sequences ####
-  writeLines(" - Starting the longitude sequence...")
+  bee_message(" - Starting the longitude sequence...")
   # Find the groups where ALL of the differences between values is the same (is.sequential)
     # Return their database_id
   runningData_Lon <- runningData %>% 
@@ -285,20 +285,20 @@ diagonAlley <- function(
 
   
   #### 3.0 Merge ####
-  writeLines(" - Merging results and adding the .sequential column...")
+  bee_message(" - Merging results and adding the .sequential column...")
     # Add a new column called .sequential to flag sequential lats and longs as FALSE
   data <- data %>%
     dplyr::mutate(.sequential = !database_id %in% flagRecords$database_id)
 
     # Use output
-  message("\ndiagonAlley:\nFlagged ", 
+  bee_message("\ndiagonAlley:\nFlagged ", 
           format(sum(data$.sequential == FALSE, na.rm = TRUE), big.mark = ","),
           " records\nThe .sequential column was added to the database.\n")
   
     # Return runtime
   endTime <- Sys.time()
   
-  message(paste(
+  bee_message(paste(
     " - Completed in ", 
     round(difftime(endTime, startTime), digits = 2 )," ",
     units(round(endTime - startTime, digits = 2)),

@@ -34,7 +34,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 #' beesRaw_out <- jbd_coordCountryInconsistent(
 #'   data = BeeBDC::beesRaw,
 #'   lon = "decimalLongitude",
@@ -59,11 +59,6 @@ jbd_coordCountryInconsistent <- function(
   .coordinates_empt <- .data <- .coordinates_empty <- .coordinates_outOfRange <- isna_ <- NULL
   
 startTime <- Sys.time()
-requireNamespace("rnaturalearth")
-requireNamespace("dplyr")
-requireNamespace("ggspatial")
-requireNamespace("mgsub")
-requireNamespace("terra")
 
   #### 0.0 Prep ####
     ###### 0.1 fatal errors ####
@@ -73,7 +68,7 @@ stop("There is no column called 'country' in the dataset. This is a minimum requ
   
     ###### 0.2 Coord quality ####
 if(!any(colnames(data) %in% ".coordinates_outOfRange")){
-    writeLines("No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...")
+    bee_message("No '.coordinates_outOfRange' column found, running bdc_coordinates_outOfRange...")
   
   bdc_coordinates_outOfRange_internal <- function(data, lat = "decimalLatitude", lon = "decimalLongitude") {
       .data <- .coordinates_outOfRange <- NULL
@@ -86,7 +81,7 @@ if(!any(colnames(data) %in% ".coordinates_outOfRange")){
             lon < -180 | lon > 180 ~ FALSE,TRUE ~ TRUE)) %>%
         dplyr::select(.coordinates_outOfRange)
       df <- dplyr::bind_cols(data, data_flag)
-      message(paste("\nbdc_coordinates_outOfRange:\nFlagged",
+      bee_message(paste("\nbdc_coordinates_outOfRange:\nFlagged",
           sum(df$.coordinates_outOfRange == FALSE),
           "records.\nOne column was added to the database.\n"))
       return(df)
@@ -99,7 +94,7 @@ if(!any(colnames(data) %in% ".coordinates_outOfRange")){
 }
 ###### 0.3 columns present ####
 if(!any(colnames(data) %in% ".coordinates_empty")){
-  writeLines("No '.coordinates_empty' column found, running bdc_coordinates_empty")
+  bee_message("No '.coordinates_empty' column found, running bdc_coordinates_empty")
   
   check_col_internal <- function(data, col) {
     for (i in seq_along(col)) {
@@ -117,7 +112,7 @@ if(!any(colnames(data) %in% ".coordinates_empty")){
           .coordinates_empty = ifelse(isna_, FALSE, TRUE)) %>%
         dplyr::select(.coordinates_empty)
       df <- dplyr::bind_cols(data, df)
-      message(paste("\nbdc_coordinates_empty:\nFlagged",
+      bee_message(paste("\nbdc_coordinates_empty:\nFlagged",
           sum(df$.coordinates_empty == FALSE),
           "records.\nOne column was added to the database.\n"))
       return(df)
@@ -129,14 +124,14 @@ if(!any(colnames(data) %in% ".coordinates_empty")){
     lon = lon)
 }
 if(!any(colnames(data) %in% "country_suggested")){
-  writeLines(paste0("No 'country_suggested' column found, adding an empty (NA) placeholder. This",
+  bee_message(paste0("No 'country_suggested' column found, adding an empty (NA) placeholder. This",
                     " column can be added by running bdc::bdc_country_standardized() on the ",
                     "input data."))
   data <- data %>%
     dplyr::mutate(country_suggested = NA_character_)
 }
 if(!any(colnames(data) %in% "countryCode")){
-  writeLines(paste0("No 'countryCode' column found, adding an empty (NA) placeholder. This",
+  bee_message(paste0("No 'countryCode' column found, adding an empty (NA) placeholder. This",
                     " column can be added by running bdc::bdc_country_standardized() on the ",
                     "input data."))
   data <- data %>%
@@ -160,7 +155,7 @@ dataR <- data %>%
   
   #### 1.1 Terrestrial map ####
       ##### 1.1 rnaturalearth DL ####
-  writeLines(" - Downloading naturalearth map...")
+  bee_message(" - Downloading naturalearth map...")
   suppressWarnings({
   # Download the rnaturalearth countries
 vectEarth <- rnaturalearth::ne_countries(scale = scale, type = "countries", 
@@ -198,7 +193,7 @@ intersectFun <- function(sp){
 
 
     ##### 2.2 Country name ####
-writeLines(" - Extracting initial country names without buffer...")
+bee_message(" - Extracting initial country names without buffer...")
 suppressWarnings({
       # Turn the points into an sf object
 sp <- sf::st_as_sf(dataR, coords = c(lon, lat),
@@ -255,14 +250,14 @@ rm(country_extracted)
 
 
     ##### 2.4 Buffer fails ####
-writeLines(" - Buffering naturalearth map by pointBuffer...")
+bee_message(" - Buffering naturalearth map by pointBuffer...")
   # Buffer the natural earth map
 suppressWarnings({
   vectEarth <- vectEarth %>% 
   sf::st_buffer(dist = pointBuffer)
 })
 
-writeLines(" - Extracting FAILED country names WITH buffer...")
+bee_message(" - Extracting FAILED country names WITH buffer...")
 # Extract the country for the points from the vectEarth map
 suppressWarnings({
   failed_extract_2 = failed_extract %>%
@@ -314,13 +309,13 @@ data <- data %>%
   dplyr::mutate(.coordinates_country_inconsistent = !database_id %in% ids2remove$database_id)
 
     # return message
-message(paste("\njbd_coordinates_country_inconsistent:\nFlagged", 
+bee_message(paste("\njbd_coordinates_country_inconsistent:\nFlagged", 
               format(sum(data$.coordinates_country_inconsistent == FALSE, na.rm = TRUE), big.mark = ","),
               "records.\nThe column, '.coordinates_country_inconsistent',",
               "was added to the database.\n"), sep = "")
  endTime <- Sys.time()
     # Time output
- message(paste(
+ bee_message(paste(
    " - Completed in ", 
    round(difftime(endTime, startTime), digits = 2 ),
    " ",

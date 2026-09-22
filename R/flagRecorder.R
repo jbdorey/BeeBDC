@@ -52,10 +52,6 @@ flagRecorder <- function(
   
     #### 0.0 Prep ####
       ##### 0.1 Packages ####
-  requireNamespace("dplyr")
-  requireNamespace("tidyselect")
-  requireNamespace("lubridate")
-  requireNamespace("readr")
 
       ##### 0.2 Warnings ####
   if(is.null(data)){
@@ -121,7 +117,7 @@ flagRecorder <- function(
   data <- data %>%
     dplyr::mutate(.summary = summaryCol$.summary)
   # User output
-  message(" - .summary column detected. This will be over-written.")
+  bee_message(" - .summary column detected. This will be over-written.")
   }
   
   #### 2.0 No .summary ####
@@ -144,7 +140,7 @@ flagRecorder <- function(
     data <- data %>%
       dplyr::mutate(.summary = summaryCol$.summary)
       # User output
-    message(" - NO .summary column detected. This will added to the data.")
+    bee_message(" - NO .summary column detected. This will added to the data.")
   }
   
   #### 3.0 Save ####
@@ -152,12 +148,12 @@ flagRecorder <- function(
   readr::write_excel_csv(data,
                    paste0(outPath, "/", fileName, sep = ""))
     # User output
-  message(paste(
+  bee_message(paste(
     " - Data saved to ", paste0(outPath, "/", fileName, sep = ""), 
     sep = ""))
   
     # User output
-  writeLines(paste(
+  bee_message(paste(
     " - Selected ", ncol(data), " columns. These include:\n",
     paste(colnames(data)[1:ncol(data)-1], collapse = ", "),
     ", and ", paste(colnames(data)[ncol(data)]),

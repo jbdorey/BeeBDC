@@ -144,10 +144,6 @@ dupeSummary <- function(
   database_id <- dataSource <- dupColumn_s <- completeness <- .summary <- database_id_match <-
     group <- database_id_Main <- dataSourceMain <- database_id_keep <- . <- NULL
   
-  # Load required packages
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
-  requireNamespace("igraph")
     # Record start time
   startTime <- Sys.time()
   
@@ -165,7 +161,7 @@ dupeSummary <- function(
   }
   ###### b. Warnings ####
   if(is.null(duplicatedBy)){
-    message(paste("Warning message: \n",
+    bee_message(paste("Warning message: \n",
           " - No duplicatedBy provided. Consider if you want to choose to find duplicates by (i)",
           " 'ID' columns only (for pre-cleaned data), by (ii) 'collectionInfo' columns only ",
           "(for cleaned data), or (ii) 'both'.\n",
@@ -173,14 +169,14 @@ dupeSummary <- function(
           sep = ""))
   }
   if(is.null(idColumns) & stringr::str_detect(duplicatedBy, "ID|both")){
-    message(paste("Warning message: \n",
+    bee_message(paste("Warning message: \n",
                   " - No idColumns provided. Using default of: ",
                   "c('gbifID',  'occurrenceID', 'recordId', and 'id')",
                   sep=""))
     idColumns = c("gbifID", "occurrenceID", "recordId","id")
   }
   if(is.null(completeness_cols)){
-    message(paste("Warning message: \n",
+    bee_message(paste("Warning message: \n",
                   " - No completeness_cols provided. Using default of: ",
                   "c('decimalLatitude',  'decimalLongitude', 'scientificName', and 'eventDate')",
                   sep=""))
@@ -188,7 +184,7 @@ dupeSummary <- function(
                           "scientificName", "eventDate")
   }
   if(is.null(collectionCols)){
-    message(paste("Warning message: \n",
+    bee_message(paste("Warning message: \n",
                   " - No collectionCols provided. Using default of: ",
       "c('decimalLatitude',  'decimalLongitude', 'scientificName', 'eventDate', and 'recordedBy')",
                   sep=""))
@@ -196,7 +192,7 @@ dupeSummary <- function(
                        "recordedBy")
   }
   if(is.null(collectInfoColumns)){
-    message(paste("Warning message: \n",
+    bee_message(paste("Warning message: \n",
                   " - No collectInfoColumns provided. Using default of: ",
       "c('recordNumber',  'eventID', 'catalogNumber', 'otherCatalogNumbers', and 'collectionID')",
                   sep=""))
@@ -209,7 +205,7 @@ dupeSummary <- function(
     ###### a. completeness ####
   # Get the sum of the complete.cases of four important fields. Preference will be given to keeping 
   # the most-complete records
-  writeLines(paste(
+  bee_message(paste(
     " - Generating a basic completeness summary from the ", 
     paste(completeness_cols, collapse = ", "), " columns.","\n",
     "This summary is simply the sum of complete.cases in each column. It ranges from zero to the N",
@@ -219,7 +215,7 @@ dupeSummary <- function(
   
   
   # Update the .summary column, ignoring the dontFilterThese columns.
-  writeLines(" - Updating the .summary column to sort by...")
+  bee_message(" - Updating the .summary column to sort by...")
   data <- summaryFun(
     data = data,
     # Don't filter these columns (or NULL)
@@ -270,7 +266,7 @@ dupeSummary <- function(
     
     #### 1.0 CUSTOM_RAW ####
     if(!is.null(CustomComparisonsRAW)){
-      message(" - Working on CustomComparisonsRAW duplicates...")
+      bee_message(" - Working on CustomComparisonsRAW duplicates...")
       # Get complete cases of CustomComparisonsRAW from each dataset
       
       ##### 1.1 Loop ####
@@ -319,10 +315,10 @@ dupeSummary <- function(
           dplyr::distinct(database_id, database_id_match, .keep_all = TRUE)
         
         ##### c. User output ####
-        message(paste0(
+        bee_message(paste0(
           "\nCompleted iteration ", i, " of ", length(CustomComparisonsRAW), ":"
         ))
-        writeLines(
+        bee_message(
           paste0(" - Identified ", 
                  format(duplicates2record, big.mark = ","), 
                  " duplicate records and kept ",
@@ -384,7 +380,7 @@ dupeSummary <- function(
     
     #### 3.0 CUSTOM ####
     if(!is.null(CustomComparisons)){
-      message(" - Working on CustomComparisons duplicates...")
+      bee_message(" - Working on CustomComparisons duplicates...")
       # Get complete cases of CustomComparisons from each dataset
       
       ##### 3.1 Loop ####
@@ -433,10 +429,10 @@ dupeSummary <- function(
           dplyr::distinct(database_id, database_id_match, .keep_all = TRUE)
         
         ##### c. User output ####
-        message(paste0(
+        bee_message(paste0(
           "\nCompleted iteration ", i, " of ", length(CustomComparisons), ":"
         ))
-        writeLines(
+        bee_message(
           paste0(" - Identified ", 
                  format(duplicates2record, big.mark = ","), 
                  " duplicate records and kept ",
@@ -451,7 +447,7 @@ dupeSummary <- function(
     
   #### 4.0 ID ####
   if(duplicatedBy %in% c("ID","both")){
-    message(" - Working on ID duplicates...")
+    bee_message(" - Working on ID duplicates...")
     # Get complete cases of collectionInfo from each dataset
     
     ##### 4.1 Loop ####
@@ -499,10 +495,10 @@ dupeSummary <- function(
 
       
       ##### c. User output ####
-      message(paste0(
+      bee_message(paste0(
         "\nCompleted iteration ", i, " of ", length(idColumns), ":"
       ))
-      writeLines(
+      bee_message(
         paste(" - Identified ", 
               format(duplicates2record, big.mark = ","), 
               " duplicate records and kept ",
@@ -519,7 +515,7 @@ dupeSummary <- function(
   
   #### 5.0 collectionInfo ####
   if(duplicatedBy %in% c("collectionInfo","both")){
-    message(" - Working on collectionInfo duplicates...")
+    bee_message(" - Working on collectionInfo duplicates...")
     # Get complete cases of collectionInfo from each dataset
 
           ##### 5.1 Loop ####
@@ -571,10 +567,10 @@ dupeSummary <- function(
 
 
         ##### c. User output ####
-    message(paste0(
+    bee_message(paste0(
       "\nCompleted iteration ", i, " of ", length(collectInfoColumns), ":"
     ))
-    writeLines(
+    bee_message(
       paste0(" - Identified ", 
              format(duplicates2record, big.mark = ","), 
              " duplicate records and kept ",
@@ -592,7 +588,7 @@ dupeSummary <- function(
 
     #### 6.0 runningDuplicates File ####
     ##### 6.1 Clustering duplicates####
-    writeLines(" - Clustering duplicate pairs...")
+    bee_message(" - Clustering duplicate pairs...")
       # Cluster the id pairs into groups
     clusteredDuplicates <- runningDuplicates %>% 
       dplyr::select(database_id_match, database_id) %>% 
@@ -628,7 +624,7 @@ dupeSummary <- function(
       dplyr::group_by(group) 
     
     # User output
-    writeLines(paste0(
+    bee_message(paste0(
       "Duplicate pairs clustered. There are ", 
       format(nrow(clusteredDuplicates) - clusteredDuplicates %>% dplyr::n_groups(), 
              big.mark = ","), " duplicates across ", 
@@ -638,7 +634,7 @@ dupeSummary <- function(
     ##### 6.2 Arrange data ####
     # Prepare data order
     if(!is.null(prefixOrder)){
-      writeLines(" - Ordering prefixs...")
+      bee_message(" - Ordering prefixs...")
       prefixOrder = prefixOrder
       clusteredDuplicates <- clusteredDuplicates %>%
         # Make a new column with the database_id SOURCE, not the full database_id with numbers
@@ -653,7 +649,7 @@ dupeSummary <- function(
     }
     
     
-    writeLines(paste0(" - Ordering data by 1. dataSource, 2. completeness",
+    bee_message(paste0(" - Ordering data by 1. dataSource, 2. completeness",
                " and 3. .summary column..."))
     clusteredDuplicates <- clusteredDuplicates %>%
       # Extract only the actual source, not the taxonomic level
@@ -671,7 +667,7 @@ dupeSummary <- function(
       dplyr::select(!c(dataSourceMain)) 
     
     ##### 6.3 Keep first #####
-    writeLines(paste0(" - Find and FIRST duplicate to keep and assign other associated", 
+    bee_message(paste0(" - Find and FIRST duplicate to keep and assign other associated", 
                       " duplicates to that one (i.e., across multiple tests a 'kept duplicate', ",
                       "could otherwise be removed)..."))
     # Find the first duplicate and assign the match to that one as the kept dupicate
@@ -689,7 +685,7 @@ dupeSummary <- function(
                                   "_", Sys.Date(),
                                   ".csv") %>% 
                        stringr::str_replace_all("//duplicateRun_", "/duplicateRun_"))
-  writeLines(paste0(
+  bee_message(paste0(
     " - Duplicates have been saved in the file and location: ", 
     paste0(path, 
            "duplicateRun_", paste(duplicatedBy, collapse = "_"),
@@ -715,14 +711,14 @@ dupeSummary <- function(
   
     #### Final output ####
  
-    writeLines(paste0(
+    bee_message(paste0(
       " - Across the entire dataset, there are now ",
       format(sum(Loop_data$.duplicates == FALSE), big.mark = ","), " duplicates from a total of ",
       format(nrow(Loop_data), big.mark = ","), " occurrences."
     ))
 
   endTime <- Sys.time()
-  message(paste(
+  bee_message(paste(
     " - Completed in ", 
     round(difftime(endTime, startTime), digits = 2 ),
     " ",

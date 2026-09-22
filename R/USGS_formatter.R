@@ -26,9 +26,6 @@ USGS_formatter <- function(
     time1<-time2<- occurrenceID <- NULL
   
   #### require and checks ####
-  # Load required packages
-  requireNamespace("lubridate")
-  requireNamespace("dplyr")
   # File name to search for
   USGS_fileName <- "USGS_DRO_flat"
   # Find the USGS data from the HomePath
@@ -48,7 +45,7 @@ USGS_formatter <- function(
   
   #### Find and import ####
   if(grepl(pattern =  ".txt.gz", USGS_loc) == TRUE){ # If the zipped file is present
-    writeLines("Only one zip file detected. Unzipping file to be read in.")
+    bee_message("Only one zip file detected. Unzipping file to be read in.")
     # unzip the file
     R.utils::gunzip(
       # File to unzip
@@ -59,13 +56,13 @@ USGS_formatter <- function(
       remove = FALSE) 
     USGS_loc <- stringr::str_remove(USGS_loc, ".gz")
     # User output
-    writeLines(paste(" - Unzipped file to: ", USGS_loc))
+    bee_message(paste(" - Unzipped file to: ", USGS_loc))
   }
   # If already extracted, use the extracted file
   if(stringr::str_detect(pattern = USGS_fileName, 
                          # Select the string that matches only (avoids a warning but works without)
                          string = USGS_loc)){
-    writeLines(paste(" - Reading in data file. This should not take too long.","\n",
+    bee_message(paste(" - Reading in data file. This should not take too long.","\n",
                      "There may be some errors upon reading in depending on the state of the data.",
                      "\n", "One might consider reporting errors to Sam Droege to improve the dataset."))
     # Read in the data file using "$" as the delimiter 
@@ -136,9 +133,9 @@ USGS_formatter <- function(
   
   
   #### Format the data ####
-  writeLines(" - Formatting the USGS dataset...")
+  bee_message(" - Formatting the USGS dataset...")
   
-  writeLines(" - Formatting the dateTime...")
+  bee_message(" - Formatting the dateTime...")
   # Convert time1 and time2 to dateTime format
   # Convert time1
   USGS_data$time1 <- USGS_data$time1 %>% 
@@ -147,7 +144,7 @@ USGS_formatter <- function(
   USGS_data$time2 <- USGS_data$time2 %>% 
     lubridate::ymd_hms(., truncated = 5)  
   
-  writeLines(" - Creating samplingProtocol and samplingEffort columns...")
+  bee_message(" - Creating samplingProtocol and samplingEffort columns...")
   # Create new columns with extra information that doesn't fit the established columns well
   # Merge all of the extra collection info
   USGS_data <- USGS_data %>% dplyr::mutate(
@@ -183,7 +180,7 @@ USGS_formatter <- function(
     )
 
   
-  writeLines(" - Creating the fieldNotes and dataSource columns...")
+  bee_message(" - Creating the fieldNotes and dataSource columns...")
   # Enter these extra data into a new column.
   USGS_data <- USGS_data %>% dplyr::mutate(
     fieldNotes = stringr::str_c(
@@ -217,7 +214,7 @@ USGS_formatter <- function(
   # Set the dataSource
   USGS_data$dataSource <- "USGS_data"
 
-  writeLines(" - Renaming and selecting columns...")
+  bee_message(" - Renaming and selecting columns...")
   # These data must be formatted to match the other data sets.
   # that we created at the top of the R-script
   USGS_data <- USGS_data %>%  # The data frame to match with
@@ -249,7 +246,7 @@ USGS_formatter <- function(
   # Check for and create outpath if needed
   outPath <- outFile_maker(path = path)
   # Notfiy user that occurrence file is being written
-  writeLines( paste(" - Writing occurrence data file...", "\n",
+  bee_message( paste(" - Writing occurrence data file...", "\n",
                     "Number of rows (records): ", format(nrow(USGS_data), big.mark=",",scientific=FALSE), "\n",
                     "Written to file called ", paste("USGS_formatted_", Sys.Date(), ".csv", sep = ""),
                     " at location ", outPath,
@@ -257,7 +254,7 @@ USGS_formatter <- function(
   # Write the occurence file
   readr::write_excel_csv(USGS_data, paste(outPath, "/USGS_formatted_", Sys.Date(), ".csv", sep = ""))
   # Notify user that the .eml file is being written
-  writeLines( paste(" - Writing attributes file...", "\n",
+  bee_message( paste(" - Writing attributes file...", "\n",
                     "Written to file called ", paste("USGS_attribute_files", Sys.Date(),".xml", sep="" ),
                     " at location ", outPath,
                     sep = "")) 
@@ -271,13 +268,13 @@ USGS_formatter <- function(
                                                        Sys.Date(),".csv", sep="" ))
   # IF there were problems detected, write these to a .csv file and notify the user
   if(nrow(USGS_problems) > 0){
-    writeLines(" - Problems detected with the tibble. Saving to a .csv file...")
+    bee_message(" - Problems detected with the tibble. Saving to a .csv file...")
     readr::write_excel_csv(USGS_problems, file = paste(outPath, "/USGS_problems", 
                                           Sys.Date(),".csv", sep="" ))
   }
   
   # Return end product and print completion note
-  writeLines(paste(" - Fin.", sep = "\n"))
+  bee_message(paste(" - Fin.", sep = "\n"))
   return( dplyr::lst(USGS_data, EML_attributes) )
 } # END USGS_import
 

@@ -133,7 +133,7 @@ dirMaker <- function(
   if(is.null(ScriptPath)){
   if (!dir.exists(paste0(RootPath, "/BDC_repo/BeeBDC/R"))) {
     dir.create(paste0(RootPath, "/BDC_repo/BeeBDC/R"), recursive = TRUE)
-    message(paste0(" - We created the ", 
+    bee_message(paste0(" - We created the ", 
                    paste0(RootPath, "/BDC_repo/BeeBDC/R"),
                    "file. This file needs to have the NewFunctions added to it otherise things won't",
                    " work. These can be added from our GitHub"))
@@ -145,7 +145,7 @@ dirMaker <- function(
     if(ScriptPath != FALSE){
     if (!dir.exists(ScriptPath)) {
       dir.create(ScriptPath, recursive = TRUE)
-      message(paste0(" - We created the ", 
+      bee_message(paste0(" - We created the ", 
                      ScriptPath,
                      "file. This file needs to have the NewFunctions added to it otherise things won't",
                      " work. These can be added from our GitHub"))
@@ -160,7 +160,7 @@ dirMaker <- function(
   if (!dir.exists(paste0(RootPath, DataSubPath))) {
     dir.create(paste0(RootPath, DataSubPath), recursive = TRUE)
     # User message
-    message(paste0(" - We created the ", 
+    bee_message(paste0(" - We created the ", 
                    paste0(RootPath, DataSubPath),
                    "file. This file needs to have the occurrence data that you want to use ",
                    "added to it otherise things won't",
@@ -173,7 +173,7 @@ dirMaker <- function(
     if (!dir.exists(DataPath)) {
       dir.create(DataPath, recursive = TRUE)
       # User message
-      message(paste0(" - We created the ", 
+      bee_message(paste0(" - We created the ", 
                      DataPath,
                      "file. This file needs to have the occurrence data that you want to use ",
                      "added to it otherise things won't",
@@ -191,7 +191,7 @@ dirMaker <- function(
     {
       dir.create(paste0(RootPath, "/BDC_repo/DiscoverLife_Data"), recursive = TRUE)
         # User message
-      message(paste0(" - We created the ", 
+      bee_message(paste0(" - We created the ", 
                      paste0(RootPath, "/BDC_repo/DiscoverLife_Data"),
                      "file. This file needs to have the DiscoverLife_Data added to it otherise things won't",
                      " work. These can be added from our GitHub"))
@@ -207,7 +207,7 @@ dirMaker <- function(
       {
         dir.create(DiscLifePath, recursive = TRUE)
         # User message
-        message(paste0(" - We created the ", 
+        bee_message(paste0(" - We created the ", 
                        DiscLifePath,
                        "file. This file needs to have the DiscoverLife_Data added to it otherise things won't",
                        " work. These can be added from our GitHub"))
@@ -226,7 +226,7 @@ dirMaker <- function(
       {
         dir.create(paste0(DataPath, "/", OutPathName), recursive = TRUE)
         # User message
-        message(paste0(" - We created the ", 
+        bee_message(paste0(" - We created the ", 
                        paste0(DataPath,  "/", OutPathName),
                        "file."))
       }
@@ -240,7 +240,7 @@ dirMaker <- function(
       {
         dir.create(OutPath, recursive = TRUE)
         # User message
-        message(paste0(" - We created the ", 
+        bee_message(paste0(" - We created the ", 
                        OutPath,
                        "file."))
     }}

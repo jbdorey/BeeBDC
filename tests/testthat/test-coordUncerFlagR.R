@@ -1,5 +1,3 @@
-requireNamespace("readr")
-requireNamespace("BeeBDC")
 
 
 # make us some data - this is FAKE DATA derived from records from SCAN

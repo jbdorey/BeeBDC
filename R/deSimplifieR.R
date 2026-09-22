@@ -8,7 +8,6 @@ deSimplifieR <- function(inputData = NULL,
                          numberOnlyThreshold = 5)
 {
   
-  requireNamespace("dplyr")
   
   #### 1.0 Remove simple strings ####
     # Remove simple codes, only do for each column if that column exists

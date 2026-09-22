@@ -5,7 +5,6 @@ dataReader <-  function(path_i, home_path){
     # locally bind variables to the function
 dplyr <- mgsub <- setNames <- . <- family <- day <- NULL
   
-requireNamespace("dplyr", "mgsub")
 
   #Set up bee family list
   Bee_Families <- c("Andrenidae","Apidae", "Colletidae","Halictidae","Megachilidae","Melittidae",
@@ -143,4 +142,3 @@ requireNamespace("dplyr", "mgsub")
   }  # END SCAN IF statement
   return(data_i)
 }
-
