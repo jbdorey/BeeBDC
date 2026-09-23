@@ -144,26 +144,17 @@ richnessEstimateR <- function(
     }
     if(input == 1){
       # Start SpadeR install
-      message("Installing the SpadeR package.")
+      bee_message("Installing the SpadeR package.")
       tryCatch(
         utils::install.packages("SpadeR"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The SpadeR package is necessary for BeeBDC::ChaoWrapper\n", 
+      stop(bee_message(paste("The SpadeR package is necessary for BeeBDC::ChaoWrapper\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE
-  
-  # Load required packages 
-  requireNamespace("stringr")
-  requireNamespace("dplyr")
-  requireNamespace("iNEXT")
-  
-  
-
-  
   
   ##### 0.3 iNEXT test ####
   ###### a. test ####
@@ -193,14 +184,14 @@ richnessEstimateR <- function(
     }
     if(input == 1){
       # Start iNEXT install
-      message("Installing the iNEXT package.")
+      bee_message("Installing the iNEXT package.")
       tryCatch(
         utils::install.packages("iNEXT"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
+      stop(bee_message(paste("The iNEXT package is necessary for BeeBDC::iNEXTwrapper\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE
@@ -740,7 +731,7 @@ richnessEstimateR <- function(
   
   suppressWarnings({
   # Make a plot of the iChao values and the confidence intervals
-  (count_sampledPlot <- ggplot2::ggplot(data = combined_site_ChaoiNext) + 
+  count_sampledPlot <- ggplot2::ggplot(data = combined_site_ChaoiNext) +
       ggplot2::geom_violin(position="dodge", alpha=0.5,
                            ggplot2::aes(fill=Name, 
                                         y=`95%Lower`, x=variable), colour =  NA) +
@@ -757,7 +748,6 @@ richnessEstimateR <- function(
         strip.background = ggplot2::element_blank(),
         strip.text.x = ggplot2::element_blank()
       )
-  )
   # Save the plot
   ggplot2::ggsave(file = paste0("country_", fileName), 
                   path = outPath,
@@ -929,7 +919,7 @@ richnessEstimateR <- function(
   
   suppressWarnings({
   # Make a plot of the iChao values and the confidence intervals
-  (cont_sampledPlot <- ggplot2::ggplot(data = combined_cont_ChaoiNext) + 
+  cont_sampledPlot <- ggplot2::ggplot(data = combined_cont_ChaoiNext) +
       ggplot2::geom_violin(position="dodge", alpha=0.5,
                            ggplot2::aes(fill=Name, 
                                         y=`95%Lower`, x=variable)#,
@@ -947,7 +937,7 @@ richnessEstimateR <- function(
                            colour =  "black") +
       ggplot2::scale_fill_manual(values=c("#55AD9B", "#FD9B63")) +
       ggplot2::theme_classic() + ggplot2::xlab("Continent") + ggplot2::ylab("Species estimate") +
-      ggplot2::guides(fill= ggplot2::guide_legend(title="Statistic"))) 
+      ggplot2::guides(fill= ggplot2::guide_legend(title="Statistic"))
   # Save the plot
   ggplot2::ggsave(file = paste0( "continent_", fileName),
                   path = outPath,
@@ -1015,7 +1005,3 @@ richnessEstimateR <- function(
   return(output)
 
 } # End function
-
-
-
-

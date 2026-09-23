@@ -38,7 +38,7 @@
 #' @importFrom ggplot2 xlab ylab ggtitle
 #'
 #' @examples
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 #' # Read in data
 #' data(beesFlagged)
 #' OutPath_Figures <- tempdir()
@@ -72,10 +72,6 @@ summaryMaps <- function(
     scientificName<-species<-country<-stateProvince<-dataSource<-count<-class_count<-
     class_count2<-occCount <- indexMatch <- . <- iso_a2 <- n<-NULL
   
-  requireNamespace("dplyr")
-  requireNamespace("classInt")
-  requireNamespace("rnaturalearth")
-  requireNamespace("ggspatial")
   
   
   #### 0.0 Prep ####
@@ -127,7 +123,7 @@ summaryMaps <- function(
                          crs = sf::st_crs(worldMap)) 
   
     ##### 1.3 Extraction ####
-  writeLines(" - Extracting country data from points...")
+  bee_message(" - Extracting country data from points...")
   suppressWarnings({
     # Set geometries to constant for the sake of the map
   sf::st_agr(worldMap) = "constant"
@@ -163,10 +159,10 @@ data <- extracted %>%
 
 rm(extracted)
   
-  writeLines("Extraction complete.")
+  bee_message("Extraction complete.")
   
   ##### 1.4 Buffer fails ####
-  writeLines(" - Buffering naturalearth map by pointBuffer...")
+  bee_message(" - Buffering naturalearth map by pointBuffer...")
     ###### a. buffer map ####
   # Buffer the natural earth map
   suppressWarnings({
@@ -257,7 +253,7 @@ rm(extracted2)
   
   ##### 2.3 Draw map ####
   # Make the map
-  (spCountryMap <- ggplot2::ggplot(data = fullMap, ) +
+  spCountryMap <- ggplot2::ggplot(data = fullMap, ) +
      # Add in a blank base-map to highlight countries with no data
      ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
       # Plot and colour the terrestrial base map
@@ -289,7 +285,7 @@ rm(extracted2)
       # Add in X and Y labels
      ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
       # Add in the title
-     ggplot2::ggtitle( "Number of species per country")  )
+     ggplot2::ggtitle( "Number of species per country")
   
   rm(spMapData)
   
@@ -340,7 +336,7 @@ rm(extracted2)
   
   ##### 2.3 Draw map ####
   # Make the map
-  (occCountryMap <- ggplot2::ggplot(data = fullMap) +
+  occCountryMap <- ggplot2::ggplot(data = fullMap) +
       # Add in a blank base-map to highlight countries with no data
      ggplot2::geom_sf(data = worldMap, size = 0.15, fill = "white")+ 
       # Plot and colour the terrestrial base map
@@ -373,17 +369,17 @@ rm(extracted2)
       # Add in X and Y labels
       ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
       # Add in the title
-     ggplot2::ggtitle( "Number of occurrences per country")  )
+     ggplot2::ggtitle( "Number of occurrences per country")
   
   #### 4.0 combine + save ####
   # plot the figures together
-  (combinedPlot <- cowplot::plot_grid(spCountryMap,
+  combinedPlot <- cowplot::plot_grid(spCountryMap,
                                   #    + 
                                   # theme(legend.position = legend.position,
                                   #       legend.title = element_blank()),
                                   occCountryMap, 
                                   labels = c("(a)","(b)"),
-                                 ncol = 1, align = 'v', axis = 'l'))
+                                 ncol = 1, align = 'v', axis = 'l')
   # Save the plot
   cowplot::save_plot(filename = paste(outPath, "/", fileName, sep = ""),
                      plot = combinedPlot,

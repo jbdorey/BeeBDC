@@ -27,7 +27,6 @@ flagAbsent <-
   function(data = NULL,
            PresAbs = "occurrenceStatus") {
     .data <- .occurrenceAbsent <- individualCount <- NULL
-    requireNamespace("dplyr")
     
       # Make a new column called .occurrenceAbsent to be TRUE when occurrenceStatus is "present" or NA
     data <-
@@ -44,7 +43,7 @@ flagAbsent <-
     
 
     # Return user output
-    message(
+    bee_message(
       paste(
         "\\.occurrenceAbsent:\n",
         "Flagged",

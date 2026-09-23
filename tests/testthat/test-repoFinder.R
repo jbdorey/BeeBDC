@@ -1,5 +1,3 @@
-requireNamespace("readr")
-requireNamespace("BeeBDC")
 
 
 # make some data files for repoFinder to search and save the files 

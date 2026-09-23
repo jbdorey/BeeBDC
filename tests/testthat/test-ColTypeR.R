@@ -1,4 +1,3 @@
-requireNamespace("testthat")
 testthat::test_that("ColTypeR class is correct", {
   testthat::expect_type(BeeBDC::ColTypeR(), "list")
 })

@@ -62,7 +62,6 @@ idMatchR <- function(
     database_id_matched <- idContinuity <- databaseName <- database_id_current <-
     databaseNum <- missingNum <- database_id_new <- databaseNum_current <- NULL
   
-  requireNamespace("dplyr")
 
     #### 0.0 Prep ####
     ##### 0.1 Errors ####
@@ -79,7 +78,7 @@ idMatchR <- function(
   
   ###### b. Warnings ####
   if(is.null(completeness_cols)){
-    message(paste("Warning message: \n",
+    bee_message(paste("Warning message: \n",
                   " - No completeness_cols provided. Using default of: ",
                   "c('decimalLatitude',  'decimalLongitude', 'scientificName', and 'eventDate')",
                   sep=""))
@@ -133,7 +132,7 @@ idMatchR <- function(
   ###### a. completeness ####
   # Get the sum of the complete.cases of four important fields. Preference will be given to keeping 
   # the most-complete records
-  writeLines(paste(
+  bee_message(paste(
     " - Generating a basic completeness summary from the ", 
     paste(completeness_cols, collapse = ", "), " columns.","\n",
     "This summary is simply the sum of complete.cases in each column. It ranges from zero to the N",
@@ -152,7 +151,7 @@ idMatchR <- function(
   
     #### 1.0 loop ####
   
-  writeLines(" - Starting core loop...")
+  bee_message(" - Starting core loop...")
     # Set up a loop dataframe to enter into
   loopDF <- dplyr::tibble()
   # Create a dataset to put unique values into
@@ -186,7 +185,7 @@ idMatchR <- function(
         tidyr::drop_na()
       
       # User output
-      writeLines(paste0(" - we matched ", 
+      bee_message(paste0(" - we matched ", 
                         format(nrow(matched), big.mark = ","),
                         " records using ", 
                         paste0(currentMatch, collapse = ", "), "."))
@@ -224,7 +223,7 @@ idMatchR <- function(
         tidyr::drop_na()
       
       # User output
-      writeLines(paste0(" - we matched ", 
+      bee_message(paste0(" - we matched ", 
                         format(nrow(matched), big.mark = ","),
                         " records using ", paste0(currentMatch, collapse = ", "), "."))
       # Merge with loopDF
@@ -240,7 +239,7 @@ idMatchR <- function(
       dplyr::filter(!database_id %in% loopDF$database_id_current)
     
       # User output
-    writeLines(paste0("This leaves ",
+    bee_message(paste0("This leaves ",
                       format(nrow(priorData), big.mark = ","),
                       " unmatched data in the priorData file"))
     }# END LOOP
@@ -250,7 +249,7 @@ idMatchR <- function(
   
   
   #### 2.0 Data return ####
-  writeLines(" - Combining ids and assigning new ones where needed...")
+  bee_message(" - Combining ids and assigning new ones where needed...")
     # Add a column to that matched data:
       # idContinuity, that shows that these ids are continuous with prior versions
   loopDF <- loopDF %>%
@@ -329,7 +328,7 @@ idMatchR <- function(
     dplyr::filter(!dataSourceShort %in% excludeDataset)
 
   # User output
-  writeLines(paste0(" - We matched a total of ",
+  bee_message(paste0(" - We matched a total of ",
                     format(sum(complete.cases(checkedData$databaseNum)), big.mark = ","),
                     " database_id numbers. We then assigned new database_id numbers to ",
                     format(sum(complete.cases(checkedData$missingNum)), big.mark = ","),

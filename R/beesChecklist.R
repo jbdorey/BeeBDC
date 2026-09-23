@@ -122,10 +122,10 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
       ###### a. messages ####
     # Set up the error message function
   error_func <- function(e){
-    message(paste("Checklist download attempt failed..."))
+    bee_message(paste("Checklist download attempt failed..."))
   }
   error_funcFile <- function(e){
-    message(paste("Could not read checklist download..."))
+    bee_message(paste("Could not read checklist download..."))
   }
   
       ###### b. error catcher ####
@@ -152,7 +152,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
   OS <- dplyr::if_else(.Platform$OS.type == "unix",
                                              "MacLinux",
                                              "Windows")
-  writeLines(paste0("The operating system detected is ", OS, "."))
+  bee_message(paste0("The operating system detected is ", OS, "."))
   
     ##### 0.3 Downloader function ####
   # Please note that this function is taken directly from the "downloader" package version 0.4.1
@@ -167,7 +167,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         method <- NULL
         # Try httr first
         if(methodNum == 1){
-          message(paste0("Trying first download method using httr::GET..."))
+          bee_message(paste0("Trying first download method using httr::GET..."))
           httr::GET(
             URL,
             httr::add_headers(
@@ -196,14 +196,14 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         if(is.null(mode)){
           mode <- "wb"}
         
-        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+        bee_message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         # download.file will complain about file size with something like:
         #       Warning message:
         #         In download.file(urURLl, ...) : downloaded length 19457 != reported length 200
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
        if(methodNum > 1){
-        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+        bee_message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
                                                destfile = destfile, 
@@ -216,7 +216,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         method <- NULL
         # Try httr first
         if(methodNum == 1){
-          message(paste0("Trying first download method using httr::GET..."))
+          bee_message(paste0("Trying first download method using httr::GET..."))
           httr::GET(
             URL,
             httr::add_headers(
@@ -249,7 +249,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
           mode <- "wb"  
         }
         if(methodNum > 1){
-        message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+        bee_message(paste0("Trying download method ", method, " and mode ", mode, "..."))
         downloadReturn <- utils::download.file(URL, 
                                                method = method, 
                                                destfile = destfile, 
@@ -274,11 +274,11 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
   savePath <- file.path(tempdir(), "beesChecklist.Rda") %>% 
       # Change all backlashes to forward slashes -- sometimes they mix on Windows...
     stringr::str_replace_all("\\\\","/")
-  writeLines(paste0("Saving file temporarily to ", savePath))
+  bee_message(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
     while( is.null(checklist) && attempt <= nAttempts) {    
       # Initial message
-      print( paste("Attempt: ", attempt, " of ", nAttempts))
+      bee_message( paste("Attempt: ", attempt, " of ", nAttempts))
         # Don't attempt for the last attempt
       if(attempt <= nAttempts){
 # Windows or Mac/Linux
@@ -310,7 +310,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         # Remove NULL elements
         downloadReturn <- downloadReturn[-which(sapply(downloadReturn, is.null))]
         # Paste message
-        message(paste0("\n - Possible *download* error(s) returned:\n", paste0(
+        bee_message(paste0("\n - Possible *download* error(s) returned:\n", paste0(
         names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
         # Check file errors
         fileError <- base::readRDS(savePath) %>% 
@@ -319,7 +319,7 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
         "could not find function")){
         # Remove NULL elements
         fileError <- fileError[-which(sapply(fileError, is.null))]
-        message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
+        bee_message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
         names(fileError), ": ", fileError, collapse = "\n")))}
       } # END if( attempt > 1){
     } # END while 
@@ -328,14 +328,14 @@ beesChecklist <- function(URL = "https://api.figshare.com/v2/file/download/60945
     #### 2.0 Error list ####
   if(is.null(checklist)){
     # Check system capacities
-    message(paste0(
+    bee_message(paste0(
       "System capabilities are:\n",
       " * Has libcurl? ", capabilities("libcurl"),
       "\n * Has wget? ", nzchar(Sys.which("wget")[1]),
       "\n * Has curl? ", nzchar(Sys.which("curl")[1])
     ))
     
-    message(paste0(" - Checklist download failed. Please check your internet connection.\n",
+    bee_message(paste0(" - Checklist download failed. Please check your internet connection.\n",
                 "Alternatively, feel free to paste the download url into your browser (",
                 URL, ")",
                 " and download the file directly. \n",

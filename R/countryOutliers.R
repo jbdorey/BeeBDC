@@ -40,7 +40,7 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
-#' if(requireNamespace("rnaturalearthdata")){
+#' if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 #' library(magrittr)
 #'   # Load in the test dataset
 #' beesRaw <- BeeBDC::beesRaw
@@ -99,7 +99,7 @@ countryOutlieRs <- function(
                    " version 1.1.2. We will change the column name here to 'iso_a3_eh' and use it,",
                    " but you will",
                    "find a newer checklist with more-recent versions of BeeBDC."))
-    writeLines(" - Re-naming 'Alpha-3' column to new 'iso_a3_eh' column to match new rnaturalearth.")
+    bee_message(" - Re-naming 'Alpha-3' column to new 'iso_a3_eh' column to match new rnaturalearth.")
     checklist <- checklist %>%
       dplyr::rename(iso_a3_eh = "Alpha-3")
   }
@@ -222,7 +222,7 @@ jbd_bufferedIntersection <- function(inData){
 
 ##### 2.2 Extraction ####
 ###### a. exactCountry ####
-writeLines(" - Extracting country data from points...")
+bee_message(" - Extracting country data from points...")
 points_extract <- data %>%
   # remove the existing iso_a3_eh column 
   dplyr::select(!tidyselect::any_of("iso_a3_eh")) %>%
@@ -247,7 +247,7 @@ points_extract <- data %>%
   points_failed <- data %>%
     dplyr::filter(!database_id %in% points_extract$database_id)
   
-  writeLines(" - Buffering failed points by pointBuffer...")
+  bee_message(" - Buffering failed points by pointBuffer...")
   
   points_failed <- points_failed %>%
     # Make a new column with the ordering of rows
@@ -276,7 +276,7 @@ points_extract <- data %>%
   }
   } # End if pointBuffer
   
-  writeLines(" - Prepare the neighbouring country dataset...")
+  bee_message(" - Prepare the neighbouring country dataset...")
   ###### b. neighbouringCountries ####
     # Get a list of countries that share borders
   countriesBordering <- sf::st_intersects(countryMap, countryMap) %>%
@@ -329,7 +329,7 @@ points_extract <- data %>%
     dplyr::select(database_id)
   
     ##### 2.3 Compare ####
-  writeLines(" - Compare points with the checklist...")
+  bee_message(" - Compare points with the checklist...")
     # Get a smaller subset of the columns AND make a new columns with scientific name and country
   points_simple <- points_extract %>% 
     dplyr::select(database_id, iso_a3_eh, scientificName, country) %>%
@@ -419,7 +419,7 @@ points_extract <- data %>%
   
   
   #### 3.0 Merge ####
-  writeLines(" - Combining data...")
+  bee_message(" - Combining data...")
     # Merge both points_match datasets
   bpoints_match <- dplyr::tibble(points_match) %>%
       # Join the two datasets togehter keeping only neighbourMatch and assignmentCertainty from the 
@@ -469,7 +469,7 @@ points_extract <- data %>%
   ###### c. distinct buffer ####
     # For those buffered records that might have overlapped with >1 country, select the unfiltered one, if it exists.
   if(!is.null(pointBuffer)){
-    writeLines(" - Sorting and removing potentially duplicated buffered points...")
+    bee_message(" - Sorting and removing potentially duplicated buffered points...")
     bpoints_match <- bpoints_match %>%
       dplyr::group_by(database_id) %>%
       dplyr::arrange(desc(.countryOutlier), .by_group = TRUE) %>%
@@ -486,7 +486,7 @@ points_extract <- data %>%
                                           FALSE, TRUE))
     
     
-    writeLines(paste0(
+    bee_message(paste0(
       " - Finished. \n",
       "We have matched ", 
       format(sum(bpoints_match$countryMatch == "exact", na.rm = TRUE), big.mark = ","),
@@ -504,7 +504,7 @@ points_extract <- data %>%
 
     
     # return message
-    message(paste("countryOutlieRs:\nFlagged", 
+    bee_message(paste("countryOutlieRs:\nFlagged", 
                   format(sum(output$.countryOutlier == FALSE, na.rm = TRUE), big.mark = ","), 
                   " for country outlier and flagged ",
                   format(sum(output$.sea == FALSE, na.rm = TRUE), big.mark = ","), 
@@ -521,7 +521,7 @@ points_extract <- data %>%
   # Return file
     endTime <- Sys.time()
     # Time output
-    message(paste(
+    bee_message(paste(
       " - Completed in ", 
       round(difftime(endTime, startTime), digits = 2 )," ",
       units(round(endTime - startTime, digits = 2)),

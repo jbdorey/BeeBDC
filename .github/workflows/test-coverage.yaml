@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      BEEBDC_SECRET_GITHUB: ${{ secrets.BEEBDC_SECRET_GITHUB }}
 
     steps:
       - uses: actions/checkout@v4

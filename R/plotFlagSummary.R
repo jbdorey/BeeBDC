@@ -121,10 +121,6 @@ plotFlagSummary <- function(
   OutPath_Figures <- decimalLatitude <- decimalLongitude <- . <- dataSource <- NULL
   database <- flags <- value <- count <- .data <- NULL
   
-  requireNamespace("ggspatial")
-  requireNamespace("dplyr")
-  requireNamespace("bdc")
-  requireNamespace("forcats")
   
   
   #### 0.0 Prep ####
@@ -147,15 +143,15 @@ plotFlagSummary <- function(
             "that this might result in an intense task to run... Maybe not... Enjoy!")
   }
   if(is.null(fileName)){
-    writeLines(" - No argument provided for fileName. Using default of 'FlagsPlot_DATE.pdf'")
+    bee_message(" - No argument provided for fileName. Using default of 'FlagsPlot_DATE.pdf'")
     fileName = paste0("FlagsPlot_", Sys.Date(),".pdf")
   }
   if(is.null(filterColumn)){
-    writeLines(" - No argument provided for filterColumn Using default of '.summary'")
+    bee_message(" - No argument provided for filterColumn Using default of '.summary'")
     filterColumn = ".summary"
   }
   if(!is.null(speciesName) & is.null(nameColumn)){
-    writeLines(" - nameColumn is not provided. Defaulting to scientificName.\n")
+    bee_message(" - nameColumn is not provided. Defaulting to scientificName.\n")
     nameColumn = "scientificName"
   }
 
@@ -165,12 +161,12 @@ plotFlagSummary <- function(
   ##### 1.1 Optional species filter ####
     # If a species name is provided then filter to ONLY that/those species
   if(!is.null(speciesName)){
-    writeLines(" - Filtering to selected species...")
+    bee_message(" - Filtering to selected species...")
       ###### a. filter ####
       # Filter data
     data <- data %>%
       dplyr::filter( data[[nameColumn]] %in% speciesName)
-    writeLines(paste0(" - Selected species has ",
+    bee_message(paste0(" - Selected species has ",
                format(nrow(data), big.mark = ","),
                " occurrences."))
     # OPTIONAL save filtered data
@@ -198,7 +194,7 @@ plotFlagSummary <- function(
   
 
   ##### 1.3 Prepare for plot ####
-  writeLines(" - Preparing data to plot...")
+  bee_message(" - Preparing data to plot...")
   # Make a column with the dataSource without numbers
   data <- data %>%
     # Make a new column with the dataSource names but not the specifics
@@ -302,7 +298,7 @@ plotFlagSummary <- function(
   
 #### 2.0 Plot ####
     ##### 2.1 Build plot ####
-  writeLines(" - Building plot...")
+  bee_message(" - Building plot...")
   plot <-  ggplot2::ggplot(data = data) +
     # Set up the plot facets
     ggplot2::facet_grid( flagType~database, scales = "free", space= "free_y") + 
@@ -344,7 +340,7 @@ plotFlagSummary <- function(
       WorldMap_layer <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf", 
                                      country = NULL, type="map_units") 
       # Create the checklist map
-      (PointMap <- ggplot2::ggplot(data = WorldMap_layer ) +
+      PointMap <- ggplot2::ggplot(data = WorldMap_layer ) +
           # CORE plotting of map and data
           # Plot and colour the terrestrial base map
           ggplot2::geom_sf(ggplot2::aes(fill = NULL), size = 0.15)+ 
@@ -405,7 +401,7 @@ plotFlagSummary <- function(
           # Add in X and Y labels
           ggplot2::xlab("Longitude") + ggplot2::ylab("Latitude") + 
           # Add in the title
-          ggplot2::ggtitle( speciesName) )
+          ggplot2::ggtitle( speciesName)
       # save as the map as 10*6"
       ggplot2::ggsave(paste0("/Map_FlagsPlot_", speciesName, ".pdf"), plot = PointMap, device = "pdf", 
               width = 10, height = 5, dpi = 300, path = outPath)
@@ -432,4 +428,3 @@ plotFlagSummary <- function(
     return(plot)}
   
 } # END function
-

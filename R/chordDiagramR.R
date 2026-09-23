@@ -128,10 +128,6 @@ chordDiagramR <- function(
     groupNumber <- groupPalette <- groupColours <- par <- NULL
   error_func_BCM <- CHtest <- error_func_CH <- input <- instructions <- NULL
   
-    requireNamespace("circlize")
-  requireNamespace("dplyr")
-  requireNamespace("paletteer")
-  requireNamespace("grid")
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####
@@ -192,14 +188,14 @@ chordDiagramR <- function(
     if(input == 1){
       # Check for BiocManager
       if( suppressWarnings(system.file(package='BiocManager')) %>% stringr::str_count() == 0){
-        message("Installing the BiocManager package.")
+        bee_message("Installing the BiocManager package.")
         tryCatch(
           utils::install.packages("BiocManager"), 
           error = error_func_BCM, warning = error_func_BCM)
       }# END BiocManager check
     
     else{
-      stop(writeLines(paste("The ComplexHeatmap package is necessary for BeeBDC::chordDiagramR.\n", 
+      stop(bee_message(paste("The ComplexHeatmap package is necessary for BeeBDC::chordDiagramR.\n", 
                             instructions)))
     } # END else
     } # END input == 1
@@ -227,14 +223,14 @@ chordDiagramR <- function(
     }
     if(input == 1){
         # Start ComplexHeatmap install
-      message("Installing the ComplexHeatmap package.")
+      bee_message("Installing the ComplexHeatmap package.")
       tryCatch(
         BiocManager::install("ComplexHeatmap"), 
         error = error_func_CH, warning = error_func_CH)
       } # END input == 1
       
     else{
-      stop(writeLines(paste("The ComplexHeatmap package is necessary for BeeBDC::chordDiagramR.\n", 
+      stop(bee_message(paste("The ComplexHeatmap package is necessary for BeeBDC::chordDiagramR.\n", 
                  instructions)))
     } # END else
   } # END CHtest == FALSE

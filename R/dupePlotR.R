@@ -62,10 +62,6 @@ dupePlotR <- function(
   database_id <- duplicateStatus <- dataSource <- simpleSource <- NULL 
   
     # Load dependencies
-  requireNamespace("ggspatial")
-  requireNamespace("forcats")
-  requireNamespace("dplyr")
-  requireNamespace("cowplot")
   
   #### 0.0 Prep ####
   ##### 0.1 errors ####
@@ -143,12 +139,12 @@ dupePlotR <- function(
   
   #### 4.0 combine + save ####
   # plot the figures together
-  (dupPlot <- cowplot::plot_grid(dupHist + 
+  dupPlot <- cowplot::plot_grid(dupHist +
                                    ggplot2::theme(legend.position.inside = legend.position.inside,
                                          legend.title = ggplot2::element_blank()),
                                  dupeBar, 
                                  labels = c("(a)","(b)"),
-                                 ncol = 1, align = 'v', axis = 'l'))
+                                 ncol = 1, align = 'v', axis = 'l')
   # Save the plot
   cowplot::save_plot(filename = paste(outPath, fileName, sep = "/"),
                      plot = dupPlot,
@@ -160,5 +156,3 @@ dupePlotR <- function(
   
   
 } # END function
-
-

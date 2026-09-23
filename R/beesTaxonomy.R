@@ -141,10 +141,10 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
         ###### a. messages ####
   # Set up the error message function
   error_func <- function(e){
-    message(paste("Taxonomy download attempt failed..."))
+    bee_message(paste("Taxonomy download attempt failed..."))
   }
   error_funcFile <- function(e){
-    message(paste("Could not read taxonomy download..."))
+    bee_message(paste("Could not read taxonomy download..."))
   }
   
   
@@ -174,7 +174,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
                        "MacLinux",
                        "Windows")
   
-  writeLines(paste0("The operating system detected is ", OS, "."))
+  bee_message(paste0("The operating system detected is ", OS, "."))
   
     ##### 0.3 Downloader function ####
     # Please note that this function is taken directly from the "downloader" package version 0.4.1
@@ -187,7 +187,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
       if (tolower(.Platform$OS.type) == "windows") {
         # Try httr first
         if(methodNum == 1){
-          message(paste0("Trying first download method using httr::GET..."))
+          bee_message(paste0("Trying first download method using httr::GET..."))
           httr::GET(
             URL,
             httr::add_headers(
@@ -223,7 +223,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
         # because apparently it compares the length with the status code returned (?)
         # so we supress that
         if(methodNum > 1){
-          message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+          bee_message(paste0("Trying download method ", method, " and mode ", mode, "..."))
           downloadReturn <- utils::download.file(URL, 
                                                  method = method, 
                                                  destfile = destfile, 
@@ -237,7 +237,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
         method <- NULL
         # Try httr first
         if(methodNum == 1){
-          message(paste0("Trying first download method using httr::GET..."))
+          bee_message(paste0("Trying first download method using httr::GET..."))
           httr::GET(
             URL,
             httr::add_headers(
@@ -270,7 +270,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
           mode <- "wb"  
         }
         if(methodNum > 1){
-          message(paste0("Trying download method ", method, " and mode ", mode, "..."))
+          bee_message(paste0("Trying download method ", method, " and mode ", mode, "..."))
           downloadReturn <- utils::download.file(URL, 
                                                  method = method, 
                                                  destfile = destfile, 
@@ -297,11 +297,11 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
   savePath <- file.path(tempdir(), "beesTaxonomy.Rda") %>% 
       # Change all backlashes to forward slashes -- sometimes they mix on Windows...
     stringr::str_replace_all("\\\\","/") 
-  writeLines(paste0("Saving file temporarily to ", savePath))
+  bee_message(paste0("Saving file temporarily to ", savePath))
   suppressWarnings(
   while( is.null(taxonomy) && attempt <= nAttempts) {   
       # Initial message
-    print( paste("Attempt: ", attempt, " of ", nAttempts))
+    bee_message( paste("Attempt: ", attempt, " of ", nAttempts))
     # Don't attempt for the last attempt
     if(attempt <= nAttempts){
 # WINDOWS or MAC/Linux
@@ -331,7 +331,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
       # Remove NULL elements
       downloadReturn <- downloadReturn[-which(sapply(downloadReturn, is.null))]
       # Paste message
-      message(paste0("\n - Possible *download* error(s) returned:\n", paste0(
+      bee_message(paste0("\n - Possible *download* error(s) returned:\n", paste0(
       names(downloadReturn), ": ", downloadReturn, collapse = "\n")))}
       # Check file errors
       fileError <- base::readRDS(savePath) %>% 
@@ -341,7 +341,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
       # Remove NULL elements
       fileError <- fileError[-which(sapply(fileError, is.null))]
       # Paste message
-      message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
+      bee_message(paste0("\n - Possible *file* error(s) returned:\n", paste0(
       names(fileError), ": ", fileError, collapse = "\n")))}
       } # END if( attempt > 1){
   } # END while
@@ -350,7 +350,7 @@ beesTaxonomy <- function(URL = "https://api.figshare.com/v2/file/download/641937
   #### 2.0 Error list ####
   if(is.null(taxonomy)){
       # Check system capacities
-    message(paste0(
+    bee_message(paste0(
       "System capabilities are:\n",
         " * Has libcurl? ", capabilities("libcurl"),
       "\n * Has wget? ", nzchar(Sys.which("wget")[1]),

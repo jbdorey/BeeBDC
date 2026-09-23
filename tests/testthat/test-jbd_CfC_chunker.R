@@ -1,9 +1,6 @@
-requireNamespace("rnaturalearth")
-requireNamespace("BeeBDC")
-requireNamespace("dplyr")
 
 # If rnaturalearthdata is present, run tests
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 
 bees3sp <- BeeBDC::bees3sp
 

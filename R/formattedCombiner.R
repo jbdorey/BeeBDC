@@ -39,8 +39,6 @@ formattedCombiner <- function(path,
   # locally bind variables to the function
   . <- NULL
   
-  requireNamespace("dplyr")
-  requireNamespace("xml2")
   # Find all of the previously-produced data files
   BeeData_Locs <- file.info(list.files(path, full.names = T, pattern = strings,
                                        recursive = TRUE))
@@ -57,14 +55,14 @@ formattedCombiner <- function(path,
   most_recent <- stringr::str_subset(rownames(BeeData_Locs), 
                                      pattern = file_dates[1]) 
   # Return information to user
-  writeLines(paste(" - Great, R has detected some files. These files include: ", "\n",
+  bee_message(paste(" - Great, R has detected some files. These files include: ", "\n",
                    paste(most_recent, collapse = "\n") ), sep = "")
   
   #### CSV import ####
   # IF there is ONLY a complete .csv file among the most-recent files...
   if(any(stringr::str_detect(most_recent, paste(strings,".csv", sep = ""))) == TRUE &&
      all(stringr::str_detect(most_recent, paste(strings,".rds", sep = ""))) == FALSE){
-    writeLines(paste(" - .csv export version found. Loading this file..."))
+    bee_message(paste(" - .csv export version found. Loading this file..."))
     ColTypes <- ColTypeR()
     # Find the most-recent .csv occurrence file
     # Find the file that deos NOT include "attribute" or "problems" in the string
@@ -106,7 +104,7 @@ formattedCombiner <- function(path,
   
   #### Merge ####
   # print user information
-  writeLines( paste(" - Merging occurrence and attribute files.", "\n",
+  bee_message( paste(" - Merging occurrence and attribute files.", "\n",
                     "Depending on file size, this could take some time...","\n",
                     sep = ""))
   ##### dataset and attrs ####
@@ -142,7 +140,7 @@ formattedCombiner <- function(path,
 
   
   # Return end product and print completion note
-  writeLines(paste(" - Fin.", sep = "\n"))
+  bee_message(paste(" - Fin.", sep = "\n"))
   # Return the outfile
   return(existing_data)
 } # COMPLETE formattedCombiner

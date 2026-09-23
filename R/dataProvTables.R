@@ -40,7 +40,6 @@ dataProvTables <- function(
     outPath = OutPath_Report,
     fileName = NULL
 ){
-  requireNamespace("dplyr")
   
   # locally bind variables to the function
   OutPath_Report <- occurrenceCount <- NULL

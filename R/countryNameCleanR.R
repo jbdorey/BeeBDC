@@ -52,7 +52,7 @@ countryNameCleanR <- function(
   
   ##### 0.2 Data defaults ####
   if(is.null(ISO2_table)){
-    writeLines(" - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.")
+    bee_message(" - Using default country names and codes from https:en.wikipedia.org/wiki/ISO_3166-1_alpha-2 - static version from July 2022.")
     # Use countryCode to extract country name using the Wikipedia table - https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     # Make a tibble with 
     ISO2_table <- dplyr::tibble(

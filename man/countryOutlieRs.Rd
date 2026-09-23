@@ -51,7 +51,7 @@ This function flags country-level outliers using the checklist provided with thi
 For additional context and column names, see \code{\link[=beesChecklist]{beesChecklist()}}.
 }
 \examples{
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 library(magrittr)
   # Load in the test dataset
 beesRaw <- BeeBDC::beesRaw

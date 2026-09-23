@@ -106,7 +106,7 @@ readr_BeeBDC <- function(
   ##### x.1 Excel functions ####
   # EXCEL test
   if(tolower(dataset) %in% tolower(c(paste0("readr_",excelTypes), excelTypes)) ){
-    message("A .xlsx data type was chosen...")
+    bee_message("A .xlsx data type was chosen...")
     # If no sheet is provided
     if(is.null(sheet)){
       stop(" - No sheet argument was provided. Please check for the sheet name to import.")
@@ -179,7 +179,7 @@ readr_BeeBDC <- function(
   ##### x.2 CSV functions ####
   # CSV test
   if(tolower(dataset) %in% tolower(c(paste0("readr_",csvTypes), csvTypes)) ){
-    message("A .csv data type was chosen...")
+    bee_message("A .csv data type was chosen...")
     
     ###### a. EPEL ####
     if(tolower(dataset) %in% tolower(c("readr_EPEL", "EPEL")) ){
@@ -311,8 +311,6 @@ readr_EPEL <- function(path = NULL,
     location_name<-habitat<-.<-catalogNumber <- month<-NULL
   
   #### 1.1 Prep ####
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
 
   #### 1.2 Read+ ####
   EPEL_Data <- readr::read_csv(paste(path, inFile, sep = "/"),
@@ -391,9 +389,7 @@ readr_ASP <- function(path = NULL,
   Tribe <- Morphospecies <- Successional_Stage <- genus <- specificEpithet <- NULL
   eventDate <- catalogNumber <- . <- elevation <- NULL
   #### 2.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   
@@ -467,9 +463,7 @@ readr_BMin <- function(path = NULL,
   
   
   #### 3.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   #### 3.2 Read+ ####
@@ -515,9 +509,7 @@ readr_BMont <- function(path = NULL,
   
   
   #### 4.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   
@@ -596,9 +588,7 @@ readr_Ecd <- function(path = NULL,
   year <- day <- institutionCode <- id <- . <- catalogNumber <- recordID <-month<- NULL
   
   #### 5.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   
@@ -646,9 +636,7 @@ readr_Gai <- function(path = NULL,
     WindEnd<-SkyStart<-SkyEnd<-Site<-siteLocality<-syd<-eventDate<-.<-institutionCode <- NULL
   
   #### 6.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   #### 6.2 Read+ ####
@@ -736,11 +724,8 @@ readr_CAES <- function(path = NULL,
     Lat_Lon_Accuracy<-Host_species<-Host_Family<-catalogNumber <- NULL
   
     #### 7.1 Prep ####
-    # This will load the requireNamespaced packages. These packages may still need to be installed to 
-      # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   #### 7.2 Read+ ####
@@ -894,11 +879,8 @@ readr_KP <- function(path = NULL,
     genus<-specificEpithet<-infraspecificEpithet<-Collection_date<-catalogNumber <- NULL
   
   #### 9.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1024,11 +1006,8 @@ readr_EcoS <- function(path = NULL,
   Collection <- ID_project <- NULL
   
   #### 11.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1112,11 +1091,8 @@ readr_GeoL <- function(path = NULL,
   island <- municipality <- verbatimEventDate <- catalogNumber <- NULL
   
   #### 12.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1144,7 +1120,7 @@ readr_GeoL <- function(path = NULL,
       verbatimEventDate = verbatimEventDate %>% as.character()
     )
   # User output
-  writeLines(paste0(
+  bee_message(paste0(
     " - We have read in ", 
     format(nrow(GeoL_data), big.mark = ","), " occurrence records from the 'GEOLOCATE HIGH' sheet." 
   ))
@@ -1206,7 +1182,7 @@ readr_GeoL <- function(path = NULL,
       tempSource = "Bels"
     )
   # User output
-  writeLines(paste0(
+  bee_message(paste0(
     " - We have read in ", 
     format(nrow(BELS_data), big.mark = ","), " occurrence records from the 'BELS High' sheet." 
   ))
@@ -1224,7 +1200,7 @@ readr_GeoL <- function(path = NULL,
       .before = catalogNumber)
     
     # User output
-  writeLines(paste0(
+  bee_message(paste0(
     " - We have kept ", 
     format(sum(GeoL_data$tempSource == "GeoL", na.rm = FALSE), big.mark = ","), 
     " occurrences from GeoLocate, and ",
@@ -1265,11 +1241,8 @@ readr_EaCO <- function(path = NULL,
     .<-catalogNumber <- NULL
   
   #### 13.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1388,11 +1361,8 @@ readr_MABC <- function(path = NULL,
   . <- catalogNumber <- NULL
   
   #### 14.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1499,11 +1469,8 @@ readr_Col <- function(path = NULL,
   scientificName <- . <- catalogNumber <-month<- NULL
   
   #### 15.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1660,11 +1627,8 @@ readr_FSCA <- function(path = NULL,
   . <- catalogNumber <- recordID <- NULL
   
   #### 16.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1716,9 +1680,7 @@ readr_SMC <- function(path = NULL,
   observationDate <- eventDate <- . <- NULL
   
   #### 17.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   #### 17.2 Read+ ####
@@ -1780,11 +1742,8 @@ readr_Bal <- function(path = NULL,
     samplingIntensity<-eventDate<-catalogNumber <- NULL
   
   #### 18.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1867,11 +1826,8 @@ readr_Lic <- function(path = NULL,
     occurrenceID<-eventID<-eventDate<-.<-catalogNumber<-family <- NULL
   
   #### 19.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -1962,11 +1918,8 @@ readr_Arm <- function(path = NULL,
     veget<-g<-m<-s<-G<-M<-S<-day<-year<-.<-family <- month<-NULL
   
   #### 20.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
 
   
@@ -2078,9 +2031,7 @@ readr_Dor <- function(path = NULL,
   . <- catalogNumber <- eventDate <- stateOrProvince <- NULL
   
   #### 21.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   
@@ -2133,9 +2084,7 @@ readr_MEPB <- function(path = NULL,
     location_name<-habitat<-.<-catalogNumber <- NULL
   
   #### 22.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   
@@ -2197,9 +2146,7 @@ readr_BBD <- function(path = NULL,
   identifiedBy <- Spcslink.identifiedby <-month <- NULL
   
   #### 23.1 Prep ####
-  requireNamespace("dplyr")
   
-  requireNamespace("lubridate")
 
 
   
@@ -2318,10 +2265,7 @@ readr_MPUJ <- function(path = NULL,
   `Start Date (Year)` <- `Start Date (Month)` <- `Start Date (Day)` <- month<-NULL
   
   #### 24.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
+
 
 
   
@@ -2436,11 +2380,8 @@ readr_STRI <- function(path = NULL,
   fieldNotes <- Catalognumber <- . <- day <- year <- catalogNumber <-  recordId <-month<- NULL
   
   #### 25.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
+
   
-  requireNamespace("lubridate")
 
   
   
@@ -2506,12 +2447,8 @@ readr_PALA <- function(path = NULL,
   family <- genus <- references <- specificEpithet <- scientificName <- . <- eventDate <- NULL
   
   #### 26.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
 
-  requireNamespace("mgsub")
+
   
   
   #### 26.2 Read+ ####
@@ -2607,10 +2544,7 @@ readr_JoLa <- function(path = NULL,
   year <- . <- NULL
   
   #### 27.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
+
 
   
   
@@ -2690,10 +2624,7 @@ readr_VicWam <- function(path = NULL,
     decimalLongitude2 <- NULL
   
   #### 28.1 Prep ####
-  # This will load the requireNamespaced packages. These packages may still need to be installed to 
-  # R using install.packages("dplyr")... etc.
-  requireNamespace("dplyr")
-  requireNamespace("lubridate")
+
   
   
   #### 28.2 Read+ ####

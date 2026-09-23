@@ -95,12 +95,6 @@ taxadbToBeeBDC <- function(
     taxonID <- id <- accid <- id_matched <- NULL
 
   
-  # Load required packages 
-  requireNamespace("stringr")
-  requireNamespace("dplyr")
-  requireNamespace("taxadb")
-  
-  
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
@@ -156,37 +150,33 @@ taxadbToBeeBDC <- function(
     }
     if(input == 1){
       # Start taxadb install
-      message("Installing the taxadb package.")
+      bee_message("Installing the taxadb package.")
       tryCatch(
         utils::install.packages("taxadb"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The taxadb package is necessary for BeeBDC::taxadbToBeeBDC.\n", 
+      stop(bee_message(paste("The taxadb package is necessary for BeeBDC::taxadbToBeeBDC.\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE
   
 
 #### 1.0 Download taxonomy ####
-  ##### 1.1 Download ####
-  writeLines(" - Downloading taxonomy...")
+  bee_message(" - Downloading taxonomy...")
   # Connect to the default database if none was provided
   if(is.null(db)){
     db <- taxadb::td_connect()
   }
-  taxadb::td_download(provider = provider,
+  taxadb::td_create(provider = provider,
                     schema = "dwc",
                     version = version,
-                    # Only provide inputs here if user-inputs are provided.
-                    if(is.null(db)){db = taxadb::td_connect()
-                    }else{db = db},
+                    db = db,
                     overwrite = overwrite,
-                    ...
-                    )
+                    ...)
     # User output
-  writeLines(paste0(" - taxadb save the taxonomy to: ",
+  bee_message(paste0(" - taxadb save the taxonomy to: ",
                     taxadb::taxadb_dir()))
   
   ##### 1.2 Turn into data table ####
@@ -196,7 +186,6 @@ taxonomy_taxadb <- taxadb::filter_rank(name,
                                        provider = provider,
                                        collect = collect,
                                        ignore_case = ignore_case,
-                                        # Only provide inputs here if user-inputs are provided.
                                        db = db,
                                        version = version
 ) 

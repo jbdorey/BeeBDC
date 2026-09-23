@@ -1,5 +1,3 @@
-requireNamespace("dplyr")
-requireNamespace("stringr")
 
   # Read in a flagged test dataset
 beesFlagged <- BeeBDC::beesFlagged

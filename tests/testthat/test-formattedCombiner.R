@@ -1,9 +1,6 @@
-requireNamespace("readr")
-requireNamespace("emld")
-requireNamespace("dplyr")
 
 # If rnaturalearthdata is present, run tests
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 
 # Be sure that the testData is not already in tempdir
 tempdirFiles <- list.files(tempdir(), include.dirs = F, full.names = T, recursive = FALSE)

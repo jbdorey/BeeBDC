@@ -1,9 +1,7 @@
-requireNamespace("dplyr")
-requireNamespace("readr")
 
 
   # If rnaturalearthdata is present, run tests
-if(requireNamespace("rnaturalearthdata")){
+if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
 
 # Load in the test checklist data
 system.file("extdata", "testChecklist.rda", package="BeeBDC") |>

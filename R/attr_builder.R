@@ -7,9 +7,6 @@ attr_builder <- function(path_i = path_i, occ_input = data_i){
   # locally bind variables to the function
   lubridate <- stringr <- family <- data_i <- NULL
   
-  requireNamespace("lubridate")
-  requireNamespace("dplyr")
-  requireNamespace("xml2")
   # This function behaves differently depending on the data source, but returns common outputs.
   #### ALA START ####
   if(grepl("/data.csv", path_i) == "TRUE"){

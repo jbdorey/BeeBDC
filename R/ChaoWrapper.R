@@ -89,12 +89,6 @@ ChaoWrapper <- function(
     df_list <- loopVector <- wrapper <- basicCols <- variable <- rowname <- non_empty_list_test <-
     richnessOut <- basicOut <- failures <- output <- NULL
   
-  # Load required packages 
-  requireNamespace("stringr")
-  requireNamespace("dplyr")
-  requireNamespace("iNEXT")
-  
-  
   #### 0.0 Prep ####
   ##### 0.1 Errors ####
   ###### a. FATAL errors ####
@@ -131,14 +125,14 @@ ChaoWrapper <- function(
     }
     if(input == 1){
       # Start SpadeR install
-      message("Installing the SpadeR package.")
+      bee_message("Installing the SpadeR package.")
       tryCatch(
         utils::install.packages("SpadeR"), 
         error = error_func, warning = error_func)
     } # END input == 1
     
     else{
-      stop(writeLines(paste("The SpadeR package is necessary for BeeBDC::ChaoWrapper\n", 
+      stop(bee_message(paste("The SpadeR package is necessary for BeeBDC::ChaoWrapper\n", 
                             instructions)))
     } # END else
   } # END suggestedTest == FALSE
@@ -262,12 +256,12 @@ output <- dplyr::lst(basicOut, richnessOut) %>%
 #### 4.0 User output ####
   # provide some user output on the failures
 if(length(failures > 0)){
-writeLines(paste0(
+bee_message(paste0(
   " - We could not examine the following variables (because of insufficent data or sample size): ",
   paste(failures, collapse = ", ")
 ))}
   # provide user output about the file structure
-message(paste0(" - Outputs can be found in a list with two tibbles called 'basicTable' and",
+bee_message(paste0(" - Outputs can be found in a list with two tibbles called 'basicTable' and",
                   " 'richnessTable'."))
 
   # Return the output

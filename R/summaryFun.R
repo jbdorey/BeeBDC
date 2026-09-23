@@ -81,7 +81,7 @@ summaryFun <- function(
     ##### 1.1 dontFilterThese present ####
     # User output
   if(!is.null(dontFilterThese)){
-    writeLines(paste0(" - We will NOT flag the following columns. However, they will remain",
+    bee_message(paste0(" - We will NOT flag the following columns. However, they will remain",
                       " in the data file.\n",
                       paste(dontFilterThese, collapse = ", ") ))
       # Run function
@@ -108,7 +108,7 @@ summaryFun <- function(
   
   ##### 1.2 dontFilterThese NULL ####
   if(is.null(dontFilterThese)){
-    writeLines(paste0(" - We will flag all columns starting with '.'"))
+    bee_message(paste0(" - We will flag all columns starting with '.'"))
       # Run function
     dataOut <-
       data %>%
@@ -130,7 +130,7 @@ summaryFun <- function(
   }
   
   ##### 1.3 User message ####
-  message(paste(" - summaryFun:\nFlagged", 
+  bee_message(paste(" - summaryFun:\nFlagged", 
                 format(sum(dataOut$.summary == FALSE, na.rm = TRUE), big.mark = ","),
                 "\n ",
                 "The .summary column was added to the database.",
@@ -144,7 +144,7 @@ summaryFun <- function(
     dataOut <- dataOut   %>%
       # FILTER HERE
       dplyr::filter(.summary == TRUE) 
-    message(paste(" - REMOVED all occurrences that were FALSE for the 'summary' column.")) 
+    bee_message(paste(" - REMOVED all occurrences that were FALSE for the 'summary' column.")) 
   }
   
   ##### 2.2 Remove filtering columns ####

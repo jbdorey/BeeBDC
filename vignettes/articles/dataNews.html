@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Data news</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Data news</h1>
+
+
+
+<div id="data-updates" class="section level1">
+<h1>Data updates</h1>
+<p>Here I will try to manage a list of data updates and the over-arching
+changes in the datasets. These changes are commensurate with those in
+the “Package news” section where changes of functions within
+<strong>BeeBDC</strong> themselves are documented.</p>
+<div id="bees-taxonomy" class="section level2">
+<h2>Bees taxonomy</h2>
+<p>The bee taxonomy files have been changed as below. Most changes
+represent a new pull from Discover Life and most also represent new
+manual additions due to mistakes, missing names, changes on Discover
+Life, or recent taxonomic revisions.</p>
+<ul>
+<li><p>2026-07-09 <strong>current</strong>: <a href="https://api.figshare.com/v2/file/download/66453893" class="uri">https://api.figshare.com/v2/file/download/66453893</a></p>
+<ul>
+<li>This version fixes an issue where not all names on Discover Life are
+separated by the usual delimiter and so not all synonyms are recognised.
+Additionally, recent Australian revisions by Leijs and Walker are
+included in addition to the new Discover Life pull. This is a major
+improvement on the prior version.</li>
+</ul></li>
+<li><p>2026-05-04: <a href="https://api.figshare.com/v2/file/download/64193731" class="uri">https://api.figshare.com/v2/file/download/64193731</a></p></li>
+<li><p>2026-01-12: <a href="https://open.flinders.edu.au/ndownloader/files/60945820" class="uri">https://open.flinders.edu.au/ndownloader/files/60945820</a></p></li>
+<li><p>2024-06-17: <a href="https://open.flinders.edu.au/ndownloader/files/47089969" class="uri">https://open.flinders.edu.au/ndownloader/files/47089969</a></p></li>
+<li><p>2023-11-29: <a href="https://open.flinders.edu.au/ndownloader/files/43331472" class="uri">https://open.flinders.edu.au/ndownloader/files/43331472</a></p></li>
+<li><p>2023-10-10: <a href="https://open.flinders.edu.au/ndownloader/files/42613126" class="uri">https://open.flinders.edu.au/ndownloader/files/42613126</a></p></li>
+<li><p>2023-09-20: <a href="https://open.flinders.edu.au/ndownloader/files/42402264" class="uri">https://open.flinders.edu.au/ndownloader/files/42402264</a></p></li>
+<li><p>Original: <a href="https://open.flinders.edu.au/ndownloader/files/42320595" class="uri">https://open.flinders.edu.au/ndownloader/files/42320595</a></p></li>
+</ul>
+</div>
+<div id="bees-checklist" class="section level2">
+<h2>Bees checklist</h2>
+<p>The updated checklist files represent new pulls from Discover
+Life.</p>
+<ul>
+<li><p>2026-01-12 <strong>current</strong>: <a href="https://open.flinders.edu.au/ndownloader/files/60945823" class="uri">https://open.flinders.edu.au/ndownloader/files/60945823</a></p></li>
+<li><p>2024-06-17: <a href="https://open.flinders.edu.au/ndownloader/files/47092720" class="uri">https://open.flinders.edu.au/ndownloader/files/47092720</a></p></li>
+<li><p>Original: <a href="https://open.flinders.edu.au/ndownloader/files/42320598" class="uri">https://open.flinders.edu.au/ndownloader/files/42320598</a></p></li>
+</ul>
+</div>
+<div id="bee-occurrence-dataset" class="section level2">
+<h2>Bee occurrence dataset</h2>
+<p>The bee occurrence dataset has ended up being updated least
+frequently. This is in part because it takes this longest and because I
+prioritise updating the package and allowing researchers to use the
+datasets and functions as they see fit. This is, however, naive as many
+researchers will simply take the dateset provided and run with it. There
+are known issues with the dataset version and, thanks to Zach Portman,
+it has been pointed out that these should be made more obvious and
+documented. This may not be perfect documentation but major issues are
+highlighted below.</p>
+<div id="clean-and-unclean-datasets" class="section level3">
+<h3>Clean and unclean datasets</h3>
+<ul>
+<li><p>Upcoming version…</p>
+<ul>
+<li>A completely new 2026 pull is in the making…</li>
+</ul></li>
+<li><p><em>Version 1.3.4 runs of early data —
+05_cleaned_database_2023v1_3_4.csv.zip</em> and
+<em>05_unCleaned_database_2023v1_3_4.csv.zip —</em> This new run of an
+early dataset from start to finish using BeeBDC version 1.3.4 has the
+following changes:</p>
+<ul>
+<li><p>Has the below taxonomic issues fixed. However, this process has
+highlighted that some names are not formatting correctly from the
+Discover Life taxonomy (bee taxonomy version 2026-05-04) and will be
+updated in BeeBDC 1.4.0 or before.</p></li>
+<li><p>Better matches from
+<code>BeeBDC::jbd_coordCountryInconsistent()</code> and
+<code>BeeBDC::dateFindR()</code>.</p></li>
+<li><p><code>BeeBDC::harmoniseR()</code> now matches names in the
+verbatimScientificName column if there is no match from the
+scientificName column.</p></li>
+<li><p>Addition of flags from
+<code>BeeBDC::continentOutlieRs()</code>.</p></li>
+<li><p><code>BeeBDC::flagAbsent()</code> also now checks if
+<em>individualCount == 0</em>.</p></li>
+</ul></li>
+<li><p><em>05_cleaned_database_2024-02-15.csv.zip</em> and
+<em>05_unCleaned_database_2024-02-15.csv.zip</em></p>
+<ul>
+<li>Both of these datasets have an issue with 17 scientificNames where
+names were “successfully” matched to genus/subgenus-level taxa. This was
+a problem that was fixed in BeeBDC’s Bee taxonomy list from version
+1.0.2. However, it was perpetuated because I re-ran the dataset thinking
+to fix it, but needed to run it from an earlier step, rather than just
+over the top of the original data versions. Hence, the problems
+persisted. The problem names are as below and are over-applied in the
+dataset are in the table below. Not as well that five species (across 38
+records) match a species name where they are missing an entry in the
+<em>genus</em> column. These appear in the <em>names_clean</em> column,
+however, they are correctly flagged under the <em>.invalidName</em>
+column.</li>
+</ul>
+<p>A .csv file with the database_id for the problematic genera records
+is available at <strong>LINK</strong>.</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><strong>scientificName</strong></th>
+<th align="left"><strong>verbatimScientificName_old</strong></th>
+<th align="left"><strong>n_old</strong></th>
+<th align="left"><strong>verbatimScientificName_v1.3.4</strong></th>
+<th align="left"><strong>n_v1.3.4</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lasioglossum rohweri</td>
+<td align="left">Lasioglossum</td>
+<td align="left">23</td>
+<td align="left">Lasioglossum</td>
+<td align="left">23</td>
+</tr>
+<tr class="even">
+<td align="left">Lasioglossum albuquerquense</td>
+<td align="left">Lasioglossum</td>
+<td align="left">5</td>
+<td align="left">Lasioglossum</td>
+<td align="left">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Megachile texana</td>
+<td align="left">Megachile</td>
+<td align="left">3</td>
+<td align="left">Megachile</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">Augochloropsis metallica</td>
+<td align="left">Bombus</td>
+<td align="left">2</td>
+<td align="left">Bombus</td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Megachile apicalis</td>
+<td align="left">Megachile</td>
+<td align="left">1</td>
+<td align="left">Megachile</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Megachile inermis</td>
+<td align="left">Bombus</td>
+<td align="left">1</td>
+<td align="left">Bombus</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Andrena columbiana Viereck, 1917</td>
+<td align="left">Andrena</td>
+<td align="left">21534</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Apis mellifera Linnaeus, 1758</td>
+<td align="left">Apis</td>
+<td align="left">3226</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Apis mellifera Linnaeus, 1758</td>
+<td align="left">Apis (Apis)</td>
+<td align="left">45</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Bombus hypnorum (Linnaeus, 1758)</td>
+<td align="left">Bombus</td>
+<td align="left">42394</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Bombus hypnorum (Linnaeus, 1758)</td>
+<td align="left">Bombus (Psithyrus)</td>
+<td align="left">989</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Bombus hypnorum (Linnaeus, 1758)</td>
+<td align="left">Bombus (Melanopygus)</td>
+<td align="left">1</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Bombus hypnorum (Linnaeus, 1758)</td>
+<td align="left">Bombus (Pyrobombus)</td>
+<td align="left">4</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Bombus hypnorum (Linnaeus, 1758)</td>
+<td align="left">Bombus (Mendacibombus)</td>
+<td align="left">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Coelioxys texanus Cresson, 1872</td>
+<td align="left">Coelioxys</td>
+<td align="left">3233</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Coelioxys texanus Cresson, 1872</td>
+<td align="left">Coelioxys (Cyrtocoelioxys)</td>
+<td align="left">228</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Coelioxys texanus Cresson, 1872</td>
+<td align="left">Coelioxys (Glyptocoelioxys)</td>
+<td align="left">112</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Coelioxys texanus Cresson, 1872</td>
+<td align="left">Coelioxys (Acrocoelioxys)</td>
+<td align="left">56</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Coelioxys texanus Cresson, 1872</td>
+<td align="left">Coelioxys (Neocoelioxys)</td>
+<td align="left">13</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Coelioxys texanus Cresson, 1872</td>
+<td align="left">Coelioxys (Melanocoelioxys)</td>
+<td align="left">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Coelioxys texanus Cresson, 1872</td>
+<td align="left">Coelioxys (Haplocoelioxys)</td>
+<td align="left">2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Colletes kincaidii Cockerell, 1898</td>
+<td align="left">Colletes</td>
+<td align="left">13969</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Dasypoda argentata Panzer, 1809</td>
+<td align="left">Dasypoda</td>
+<td align="left">15</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Dufourea longispinis (Wu, 1987)</td>
+<td align="left">Halictoides</td>
+<td align="left">4</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Euglossa macrorhyncha Dressler, 1982</td>
+<td align="left">Euglossa</td>
+<td align="left">2389</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Euglossa macrorhyncha Dressler, 1982</td>
+<td align="left">Euglossa (Glossura)</td>
+<td align="left">90</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Halictus simplex Blüthgen, 1923</td>
+<td align="left">Halictus</td>
+<td align="left">25346</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Lasioglossum albipenne (Robertson, 1890)</td>
+<td align="left">Lasioglossum</td>
+<td align="left">102320</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus</td>
+<td align="left">18544</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Andrenopsis)</td>
+<td align="left">9</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Baeocolletes)</td>
+<td align="left">6</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Cladocerapis)</td>
+<td align="left">176</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Euryglossidia)</td>
+<td align="left">82</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Exleycolletes)</td>
+<td align="left">22</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Filiglossa)</td>
+<td align="left">86</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Lamprocolletes)</td>
+<td align="left">12</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Leioproctus)</td>
+<td align="left">1230</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Protomorpha)</td>
+<td align="left">58</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Protodiscelis)</td>
+<td align="left">150</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Perditomorpha)</td>
+<td align="left">118</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Tetraglossula)</td>
+<td align="left">90</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Pygopasiphae)</td>
+<td align="left">6</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Nomiocolletes)</td>
+<td align="left">4</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Leioproctus leai (Cockerell, 1913)</td>
+<td align="left">Leioproctus (Goniocolletes)</td>
+<td align="left">82</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Macropis steironematis Robertson, 1891</td>
+<td align="left">Macropis</td>
+<td align="left">11</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Megachile brevis Say, 1837</td>
+<td align="left">Megachile</td>
+<td align="left">19739</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Melecta diligens Lieftinck, 1983</td>
+<td align="left">Melecta (Melecta)</td>
+<td align="left">6</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Melecta diligens Lieftinck, 1983</td>
+<td align="left">Melecta</td>
+<td align="left">287</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Melissodes microstictus Cockerell, 1905</td>
+<td align="left">Melissodes</td>
+<td align="left">26646</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Osmia coloradensis Cresson, 1878</td>
+<td align="left">Osmia</td>
+<td align="left">10852</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Xylocopa virginica (Linnaeus, 1771)</td>
+<td align="left">Xylocopa</td>
+<td align="left">9448</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Xylocopa virginica (Linnaeus, 1771)</td>
+<td align="left">Xylocopa (Koptortosoma)</td>
+<td align="left">1216</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Xylocopa virginica (Linnaeus, 1771)</td>
+<td align="left">Xylocopa (Lestis)</td>
+<td align="left">155</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Xylocopa virginica (Linnaeus, 1771)</td>
+<td align="left">Xylocopa (Schonnherria)</td>
+<td align="left">75</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Xylocopa virginica (Linnaeus, 1771)</td>
+<td align="left">Xylocopa (Mesotrichia)</td>
+<td align="left">18</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Download links:</p>
+<ul>
+<li><p><a href="https://open.flinders.edu.au/ndownloader/files/44554373"><em>05_cleaned_database_2024-02-15.csv.zip</em></a></p></li>
+<li><p><a href="https://open.flinders.edu.au/ndownloader/files/44554382"><em>05_unCleaned_database_2024-02-15.csv.zip</em></a></p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -113,7 +113,6 @@ jbd_coordinates_transposed <- function(data,
            mc.cores = 1) {
     decimalLatitude <- decimalLongitude <- database_id <- scientificName <- NULL
     
-    requireNamespace("dplyr")
 
     suppressWarnings({
       check_require_cran("rnaturalearth")
@@ -175,7 +174,7 @@ jbd_coordinates_transposed <- function(data,
     worldmap <- jbd_get_world_map(scale = scale)  # get world map and country iso
 
     # Correct latitude and longitude transposed
-    message("Correcting latitude and longitude transposed\n")
+    bee_message("Correcting latitude and longitude transposed\n")
     corrected_coordinates <-
       jbd_correct_coordinates(
         data = data,
@@ -204,7 +203,7 @@ jbd_coordinates_transposed <- function(data,
           readr::write_excel_csv(
             paste(path, fileName, sep = "/"),
                            append = TRUE)
-        message(
+        bee_message(
           paste(
             "\nCheck database containing coordinates corrected in:\nOutput/Check/01_coordinates_transposed.csv",
             "\n", "This will be appended to any existing rows from THIS run."
@@ -232,7 +231,7 @@ jbd_coordinates_transposed <- function(data,
         names(data)[w] <- ".summary"
       }
       
-      message(
+      bee_message(
         paste(
           "\njbd_coordinates_transposed:\nCorrected",
           format(sum(data$coordinates_transposed == FALSE, na.rm = TRUE), big.mark = ","),
@@ -249,7 +248,7 @@ jbd_coordinates_transposed <- function(data,
         names(data)[w] <- ".summary"
       }
       
-      message("No latitude and longitude were transposed\n")
+      bee_message("No latitude and longitude were transposed\n")
       return(data)
     }
     setwd(OGwd)

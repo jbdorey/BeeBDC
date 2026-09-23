@@ -5,3 +5,5 @@
 README.Rmd
 docs
 inst/doc
+.httr-oauth
+.DS_Store
