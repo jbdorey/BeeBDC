@@ -90,6 +90,6 @@ empty, that record will be excluded.
 #> diagonAlley:
 #> Flagged 0 records
 #> The .sequential column was added to the database.
-#>  - Completed in 0.03 secs
+#>  - Completed in 0.02 secs
   
 ```

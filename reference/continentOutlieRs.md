@@ -122,7 +122,7 @@ table(beesRaw_out$.continentOutlier, useNA = "always")
 #> 1. The '.continentOutlier' column was added which is a filtering column. 
 #> 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. 
 #> 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.
-#>  - Completed in 1.99 secs
+#>  - Completed in 1.91 secs
 #> 
 #> FALSE  TRUE  <NA> 
 #>     1    26    23 
