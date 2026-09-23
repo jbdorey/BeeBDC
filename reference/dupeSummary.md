@@ -196,7 +196,6 @@ characterThreshold = 2,
 numberThreshold = 3,
 # Minimum number of numbers WITHOUT any characters
 numberOnlyThreshold = 5)
-#> Loading required namespace: igraph
 #>  - Generating a basic completeness summary from the decimalLatitude, decimalLongitude, scientificName, eventDate columns.
 #> This summary is simply the sum of complete.cases in each column. It ranges from zero to the N of columns. This will be used to sort duplicate rows and select the most-complete rows.
 #>  - Updating the .summary column to sort by...
@@ -240,8 +239,8 @@ numberOnlyThreshold = 5)
 #> Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.
 #>  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...
 #>  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...
-#>  - Duplicates have been saved in the file and location: /tmp/Rtmp3bWV9J/duplicateRun_collectionInfo_2026-09-23.csv
+#>  - Duplicates have been saved in the file and location: /tmp/RtmpP1abpm/duplicateRun_collectionInfo_2026-09-23.csv
 #>  - Across the entire dataset, there are now 0 duplicates from a total of 100 occurrences.
-#>  - Completed in 0.22 secs
+#>  - Completed in 0.31 secs
 
 ```

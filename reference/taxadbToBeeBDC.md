@@ -106,13 +106,13 @@ taxadbToBeeBDC(
 
 Returns a taxonomy file (to the R environment and to the disk, if a
 fileName is provided) as a tibble that can be used with
-[`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md).
+[`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md).
 
 ## See also
 
 [`beesTaxonomy()`](https://jbdorey.github.io/BeeBDC/reference/beesTaxonomy.md)
 for the bee taxonomy and
-[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
+[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)
 for the taxon-cleaning function where these taxonomies are implemented.
 
 ## Examples

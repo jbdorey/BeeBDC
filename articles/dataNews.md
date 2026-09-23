@@ -80,7 +80,7 @@ may not be perfect documentation but major issues are highlighted below.
     and
     [`BeeBDC::dateFindR()`](https://jbdorey.github.io/BeeBDC/reference/dateFindR.md).
 
-  - [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
+  - [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)
     now matches names in the verbatimScientificName column if there is
     no match from the scientificName column.
 

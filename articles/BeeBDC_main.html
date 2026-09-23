@@ -578,9 +578,7 @@ actual run you should use scale = “large”</p>
 <span>                                    <span class="co"># Normally, please use scale = "large"</span></span>
 <span>                                   scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>                                   mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
-<span><span class="co">##  - Starting parallel operation. Unlike the serial operation (mc.cores = 1) , a parallel operation will not provide running feedback. Please be patient  as this function may take some time to complete. Each chunk will be run on  a seperate thread so also be aware of RAM usage.</span></span>
-<span><span class="co">##  - We have updated the country names of 39 occurrences that previously had no country name assigned.</span></span></code></pre></div>
+<span>  classes <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="c--re-merge">c. re-merge<a class="anchor" aria-label="anchor" href="#c--re-merge"></a>
@@ -682,15 +680,7 @@ rnaturalearthhires</p>
 <span>  scale <span class="op">=</span> <span class="st">"medium"</span>,</span>
 <span>  path <span class="op">=</span> <span class="va">OutPath_Check</span>,</span>
 <span>  mc.cores <span class="op">=</span> <span class="fl">1</span></span>
-<span><span class="op">)</span> </span>
-<span><span class="co">##  - Running chunker with:</span></span>
-<span><span class="co">## stepSize = 1,000,000</span></span>
-<span><span class="co">## chunkStart = 1</span></span>
-<span><span class="co">## chunkEnd = 1,000,000</span></span>
-<span><span class="co">## append = FALSE</span></span>
-<span><span class="co">##  - Starting chunk 1...</span></span>
-<span><span class="co">## From 1 to 1,000,000</span></span>
-<span><span class="co">##  - Finished chunk 1 of 1. Total records examined: 205</span></span></code></pre></div>
+<span><span class="op">)</span> </span></code></pre></div>
 <p>Get a quick summary of the number of transposed records.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">check_pf</span><span class="op">$</span><span class="va">coordinates_transposed</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></code></pre></div>
@@ -725,7 +715,7 @@ coordinates are inconsistent with the provided country name.</p>
 <span><span class="co">## jbd_coordinates_country_inconsistent:</span></span>
 <span><span class="co">## Flagged 2 records.</span></span>
 <span><span class="co">## The column, '.coordinates_country_inconsistent', was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.69 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.85 secs</span></span></code></pre></div>
 <p>Save the dataset.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_pf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -938,9 +928,9 @@ bee genus <em>Apis</em>:</p>
 occurrences without a matched name and matches names to their correct
 name according to <a href="https://www.discoverlife.org" class="external-link">Discover
 Life</a>. You can also use multiple cores to achieve this. See
-‘?<code><a href="../reference/HarmoniseR.html">harmoniseR()</a></code>’ for details.</p>
+‘?<code><a href="../reference/harmoniseR.html">harmoniseR()</a></code>’ for details.</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/HarmoniseR.html">harmoniseR</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, <span class="co">#The path to a folder that the output can be saved</span></span>
+<code class="sourceCode R"><span><span class="va">database</span> <span class="op">&lt;-</span> <span class="fu">BeeBDC</span><span class="fu">::</span><span class="fu"><a href="../reference/harmoniseR.html">harmoniseR</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">DataPath</span>, <span class="co">#The path to a folder that the output can be saved</span></span>
 <span>                       taxonomy <span class="op">=</span> <span class="va">taxonomyFile</span>, <span class="co"># The formatted taxonomy file</span></span>
 <span>                       data <span class="op">=</span> <span class="va">database</span>,</span>
 <span>                       mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -959,7 +949,7 @@ Life</a>. You can also use multiple cores to achieve this. See
 <span><span class="co">## records were flagged.</span></span>
 <span><span class="co">## The column, '.invalidName' was added to the database.</span></span>
 <span><span class="co">##  - We updated the following columns: scientificName, species, family, subfamily, genus, subgenus, specificEpithet, infraspecificEpithet, and scientificNameAuthorship. The previous scientificName column was converted to verbatimScientificName</span></span>
-<span><span class="co">##  - Completed in 0.22 secs</span></span>
+<span><span class="co">##  - Completed in 0.28 secs</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">taxonomyFile</span><span class="op">)</span></span></code></pre></div>
 <p>Save the harmonised file.</p>
@@ -1110,7 +1100,7 @@ depending on your dataset. However, the option is provided.</p>
 <span><span class="co">## diagonAlley:</span></span>
 <span><span class="co">## Flagged 0 records</span></span>
 <span><span class="co">## The .sequential column was added to the database.</span></span>
-<span><span class="co">##  - Completed in 0.03 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.04 secs</span></span></code></pre></div>
 <p>Spatial gridding from rasterisation: Select only the records with
 more than <code>X</code> occurrences.</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
@@ -1213,7 +1203,7 @@ in this; if anyone is willing!</p>
 <span><span class="co">##  1.  The '.countryOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">##  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">##  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 0.73 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.9 secs</span></span></code></pre></div>
 <p>Since version 1.1.2 a new function,
 <code><a href="../reference/continentOutlieRs.html">BeeBDC::continentOutlieRs()</a></code>, has been released which is
 conceptually the same as <code><a href="../reference/countryOutlieRs.html">BeeBDC::countryOutlieRs()</a></code> except
@@ -1249,7 +1239,7 @@ country-level one and so might actually be of more wide-spread use
 <span><span class="co">## 1. The '.continentOutlier' column was added which is a filtering column. </span></span>
 <span><span class="co">## 2. The 'continentMatch' columns indicates exact, neighbour, or noMatch. </span></span>
 <span><span class="co">## 3. The '.sea' column was added as a filtering column for points in the ocean. The '.sea' column includes the user input buffer in its calculation.</span></span>
-<span><span class="co">##  - Completed in 0.75 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.94 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A list of failed species-country combinations and their numbers can be output</span></span>
 <span><span class="co"># here</span></span>
@@ -1395,7 +1385,7 @@ were a) missing and b) located in one of the searched columns.</p>
 <span><span class="co">## We modified dates in </span></span>
 <span><span class="co">## 175 occurrences.</span></span>
 <span><span class="co">##  - As it stands, there are 175 complete eventDates and 30 missing dates.</span></span>
-<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.414899587631226 secs</span></span></code></pre></div>
+<span><span class="co">##  - There are also 175 complete year occurrences to filter from. This is up from an initial count of 174 At this rate, you will stand to lose 30 occurrences on the basis of missing year - Operation time: 0.514902114868164 secs</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="no-eventdate">6.2 No eventDate<a class="anchor" aria-label="anchor" href="#no-eventdate"></a>
@@ -1572,9 +1562,9 @@ details as this function is quite modifiable to user needs.</p>
 <span><span class="co">## Duplicate pairs clustered. There are 0 duplicates across 0 kept duplicates.</span></span>
 <span><span class="co">##  - Ordering data by 1. dataSource, 2. completeness and 3. .summary column...</span></span>
 <span><span class="co">##  - Find and FIRST duplicate to keep and assign other associated duplicates to that one (i.e., across multiple tests a 'kept duplicate', could otherwise be removed)...</span></span>
-<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpiOvTKy/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-09-23.csv</span></span>
+<span><span class="co">##  - Duplicates have been saved in the file and location: /tmp/RtmpoqSSeK/Data_acquisition_workflow/Output/ReportduplicateRun_collectionInfo_2026-09-23.csv</span></span>
 <span><span class="co">##  - Across the entire dataset, there are now 0 duplicates from a total of 205 occurrences.</span></span>
-<span><span class="co">##  - Completed in 0.22 secs</span></span></code></pre></div>
+<span><span class="co">##  - Completed in 0.27 secs</span></span></code></pre></div>
 <p>Save the dataset into the intermediate folder.</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1613,7 +1603,7 @@ of the expert outliers.</p>
 <span><span class="op">}</span></span>
 <span><span class="co">##  - Dates found in file name(s). Finding most-recent file from file name...</span></span>
 <span><span class="co">##  - Found the following file(s): </span></span>
-<span><span class="co">##  /tmp/RtmpiOvTKy/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-09-23.csv</span></span>
+<span><span class="co">##  /tmp/RtmpoqSSeK/Data_acquisition_workflow/Output/Report/duplicateRun_collectionInfo_2026-09-23.csv</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">0</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">19</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>

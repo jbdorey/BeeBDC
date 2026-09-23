@@ -94,7 +94,7 @@ renv::snapshot(project = paste0(RootPath, "/Data_acquisition_workflow"), prompt 
 ## The version of R recorded in the lockfile will be updated:
 ## - R      [* -> 4.6.1]
 ## 
-## - Lockfile written to "/tmp/RtmpOocSAo/Data_acquisition_workflow/renv.lock".
+## - Lockfile written to "/tmp/RtmpfepuLJ/Data_acquisition_workflow/renv.lock".
 ```
 
 Set up the directories used by **BeeBDC**. These directories include
@@ -535,6 +535,7 @@ BeeBDC::plotFlagSummary(
 ```
 
     ##  - Preparing data to plot...
+
     ##  - Building plot...
 
 ![](basic_workflow_files/figure-html/5.3a-1.png)
@@ -580,8 +581,11 @@ BeeBDC::plotFlagSummary(
 ```
 
     ##  - Filtering to selected species...
+
     ##  - Selected species has 8 occurrences.
+
     ##  - Preparing data to plot...
+
     ##  - Building plot...
 
 ![](basic_workflow_files/figure-html/5.3b-1.png)
@@ -604,14 +608,15 @@ BeeBDC::summaryMaps(data = beesFlagged, width = 10, height = 10, class_n = 3, cl
 
     ## although coordinates are longitude/latitude, st_intersects assumes that they
     ## are planar
-
     ## although coordinates are longitude/latitude, st_intersects assumes that they
     ## are planar
 
     ## Extraction complete.
+
     ##  - Buffering naturalearth map by pointBuffer...
 
     ## dist is assumed to be in decimal degrees (arc_degrees).
+
     ## although coordinates are longitude/latitude, st_intersects assumes that they
     ## are planar
     ## although coordinates are longitude/latitude, st_intersects assumes that they
