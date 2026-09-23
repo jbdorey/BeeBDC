@@ -1,5 +1,10 @@
 # Changelog
 
+## Changes in version 1.3.5
+
+- Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work
+  with the new CRAN release of **taxadb** v0.3.0
+
 ## Changes in version 1.3.4
 
 CRAN release: 2026-05-22
@@ -10,7 +15,7 @@ CRAN release: 2026-05-22
 - Added kingdom, phylum, class, order, tribe, and subtribe columns to
   [`BeeBDC::ColTypeR()`](https://jbdorey.github.io/BeeBDC/reference/ColTypeR.md).
 - Added functionality to
-  [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)
+  [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
   so that (1) when relaxAmbiguous == TRUE the function will also match
   ambiguous names and return these as “TRUE” for .invalidName but with
   limited authority information and a warning in
@@ -206,7 +211,7 @@ CRAN release: 2024-03-20
   that can use the **taxadb** package to download taxonomic data for any
   taxa. The function will transform the **taxadb** format into the
   **BeeBDC** format that can be put directly into
-  [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md).
+  [`BeeBDC::harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md).
   Users may choose their data source (e.g., “gbif” or “itis”), but some
   formats may be better than others. *Comments and issues are welcome in
   regards to how well the function works, or not, for your taxon.*

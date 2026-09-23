@@ -83,7 +83,7 @@ your own dataset. At a minimum you will need *validName*, *country*,
 ## Examples
 
 ``` r
-if(requireNamespace("rnaturalearthdata", quietly = TRUE)){
+if(requireNamespace("rnaturalearthdata")){
 library(magrittr)
   # Load in the test dataset
 beesRaw <- BeeBDC::beesRaw
@@ -114,13 +114,14 @@ table(beesRaw_out$.countryOutlier, useNA = "always")
 #> We have matched 24 records to their exact country and 2 to an adjacent country
 #> We failed to match 1 occurrences to any 'exact' or 'neighbouring' country.
 #> There are 23 'NA' occurrences for the .countryOutlier column.
+#> 
 #> countryOutlieRs:
 #> Flagged 1  for country outlier and flagged  0  for in the .sea records.
 #> Three columns were added to the database:
 #>  1.  The '.countryOutlier' column was added which is a filtering column. 
 #>  2.  The 'countryMatch' columns indicates exact, neighbour, or noMatch. 
 #>  3. The '.sea' column was added as a filtering column for points in the ocean.  The '.sea' column includes the user input buffer in its calculation.
-#>  - Completed in 1.02 secs
+#>  - Completed in 0.89 secs
 #> 
 #> FALSE  TRUE  <NA> 
 #>     1    26    23 

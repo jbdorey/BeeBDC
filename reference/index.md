@@ -10,6 +10,8 @@
   : Sets up column names and types
 - [`GBIFissues()`](https://jbdorey.github.io/BeeBDC/reference/GBIFissues.md)
   : Flags records with GBIF issues
+- [`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
+  : Harmonise taxonomy of occurrence data
 - [`PaigeIntegrater()`](https://jbdorey.github.io/BeeBDC/reference/PaigeIntegrater.md)
   : Integrate manually-cleaned data from Paige Chesshire
 - [`USGS_formatter()`](https://jbdorey.github.io/BeeBDC/reference/USGS_formatter.md)
@@ -70,8 +72,6 @@
   : Combine the formatted USGS data with the main dataset
 - [`ggRichnessWrapper()`](https://jbdorey.github.io/BeeBDC/reference/ggRichnessWrapper.md)
   : ggplot2 extension for a Chao- and iNEXT-wrapper outputs
-- [`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)
-  : Harmonise taxonomy of occurrence data
 - [`iNEXTwrapper()`](https://jbdorey.github.io/BeeBDC/reference/iNEXTwrapper.md)
   : Parallel estimation of species richness in a community using iNEXT
 - [`idMatchR()`](https://jbdorey.github.io/BeeBDC/reference/idMatchR.md)

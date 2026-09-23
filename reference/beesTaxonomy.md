@@ -163,7 +163,7 @@ http://www.discoverlife.org/mp/20q?guide=Apoidea_species.
 
 [`taxadbToBeeBDC()`](https://jbdorey.github.io/BeeBDC/reference/taxadbToBeeBDC.md)
 to download any other taxonomy (of any taxa or of bees) and
-[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/harmoniseR.md)
+[`harmoniseR()`](https://jbdorey.github.io/BeeBDC/reference/HarmoniseR.md)
 for the taxon-cleaning function where these taxonomies are implemented.
 
 ## Examples

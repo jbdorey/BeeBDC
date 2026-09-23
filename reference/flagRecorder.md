@@ -47,8 +47,8 @@ flagRecorder(
 - printSummary:
 
   Logical. If TRUE, print a
-  [`summary()`](https://rspatial.github.io/terra/reference/summary.html)
-  of all filter columns - i.e. those which tidyselect::starts_with(".")
+  [`base::summary()`](https://rdrr.io/r/base/summary.html) of all filter
+  columns - i.e. those which tidyselect::starts_with(".")
 
 ## Value
 
@@ -71,7 +71,7 @@ flagFile <- flagRecorder(
   # TRUE if you want to find a file from a previous part of the script to append to
   append = FALSE)
 #>  - .summary column detected. This will be over-written.
-#>  - Data saved to /tmp/RtmpvBoei2/flagsRecorded_2026-09-22.csv
+#>  - Data saved to /tmp/Rtmp3bWV9J/flagsRecorded_2026-09-23.csv
 #>  - Selected 34 columns. These include:
 #> database_id, id, catalogNumber, occurrenceID, dataSource, .scientificName_empty, .coordinates_empty, .coordinates_outOfRange, .basisOfRecords_notStandard, .coordinates_country_inconsistent, .occurrenceAbsent, .unLicensed, .GBIFflags, .uncer_terms, .invalidName, .rou, .val, .equ, .zer, .cap, .cen, .gbf, .inst, .sequential, .lonFlag, .latFlag, .gridSummary, .uncertaintyThreshold, .countryOutlier, .sea, .summary, .eventDate_empty, .year_outOfRange, and .duplicates
 ```

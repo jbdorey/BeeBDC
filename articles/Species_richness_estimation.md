@@ -265,6 +265,8 @@ outputs a summary of the estimates.
     base_width = 8.3, base_height = 11.7, dpi = 300))
 ```
 
+    ## Loading required namespace: cowplot
+
     ## # A tibble: 4 × 11
     ##   level       n observedRichness iNEXT_est iNEXT_lower iNEXT_upper
     ##   <chr>   <dbl>            <dbl>     <dbl>       <dbl>       <dbl>
