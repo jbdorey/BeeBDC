@@ -1,12 +1,12 @@
 # Changelog
 
-## Changes in version 1.3.5
+## BeeBDC 1.3.5
 
 - Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work
   with the new CRAN release of **taxadb** v0.3.0
   ([\#17](https://github.com/jbdorey/BeeBDC/issues/17))
 
-## Changes in version 1.3.4
+## BeeBDC 1.3.4
 
 CRAN release: 2026-05-22
 
@@ -29,7 +29,7 @@ CRAN release: 2026-05-22
   now checks and asks users to install **iNEXT** if required. It also
   outputs the plot explicitly as a .pdf file.
 
-## Changes in version 1.3.3
+## BeeBDC 1.3.3
 
 CRAN release: 2026-02-06
 
@@ -38,7 +38,7 @@ CRAN release: 2026-02-06
   [`BeeBDC::BeeBDCQuery()`](https://jbdorey.github.io/BeeBDC/reference/BeeBDCQuery.md).
 - Thanks on both counts to Prof. Brian D. Ripley of CRAN!
 
-## Changes in version 1.3.2
+## BeeBDC 1.3.2
 
 CRAN release: 2026-01-16
 
@@ -60,7 +60,7 @@ CRAN release: 2026-01-16
   datasets to a 2026 version of Discover Life — J.S. &
   Pickering, J. (2026) Discover Life bee species guide and world
   checklist (Hymenoptera: Apoidea: Anthophila).
-  <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>.
+  `https://www.discoverlife.org/mp/20q?guide=Apoidea_species`.
 - For
   [`BeeBDC::ggRichnessWrapper()`](https://jbdorey.github.io/BeeBDC/reference/ggRichnessWrapper.md),
   users may change the *fileName* suffix to change the output format
@@ -73,7 +73,7 @@ CRAN release: 2026-01-16
   — <https://github.com/jbdorey/BeeBDC/pull/15>;
   mitchwebb:dateFindR-improvements.
 
-## Changes in version 1.3.1
+## BeeBDC 1.3.1
 
 CRAN release: 2025-09-22
 
@@ -86,7 +86,7 @@ CRAN release: 2025-09-22
 - Fixes for the richness estimation vignette where the download would
   not work within a markdown environment.
 
-## Changes in version 1.3.0
+## BeeBDC 1.3.0
 
 CRAN release: 2025-08-23
 
@@ -155,7 +155,7 @@ CRAN release: 2025-08-23
 - Slight re-jig of the main vignettes by splitting out the bee-specific
   data preparation into its own page.
 
-## Changes in version 1.2.1
+## BeeBDC 1.2.1
 
 CRAN release: 2024-11-04
 
