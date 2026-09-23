@@ -22,7 +22,6 @@
 #' @return Completes an ALA data download and saves those data to the path provided.
 #' 
 #' @importFrom dplyr %>%
-#' @importFrom utils unzip
 #' @export
 #'
 #' @examples

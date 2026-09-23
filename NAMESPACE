@@ -126,4 +126,3 @@ importFrom(stringr,
   str_replace,
   str_to_sentence
 )
-importFrom(utils,unzip)

@@ -45,23 +45,17 @@ USGS_formatter <- function(
   
   #### Find and import ####
   if(grepl(pattern =  ".txt.gz", USGS_loc) == TRUE){ # If the zipped file is present
-    bee_message("Only one zip file detected. Unzipping file to be read in.")
-    # unzip the file
-    R.utils::gunzip(
-      # File to unzip
-      fileName = USGS_loc, 
-      # Where to put the extracted file
-      destname = stringr::str_remove(USGS_loc, ".gz"),
-      overwrite = FALSE,
-      remove = FALSE) 
-    USGS_loc <- stringr::str_remove(USGS_loc, ".gz")
-    # User output
-    bee_message(paste(" - Unzipped file to: ", USGS_loc))
+    bee_message("Only one zip file detected. Reading it in...")
+      # Read in the file
+    USGS_data <- readr::read_delim(gzfile(USGS_loc[[1]]),
+                                   delim = "$")
+    # Make a copy of the problems, if they exist
+    USGS_problems <- readr::problems(USGS_data)
   }
   # If already extracted, use the extracted file
   if(stringr::str_detect(pattern = USGS_fileName, 
                          # Select the string that matches only (avoids a warning but works without)
-                         string = USGS_loc)){
+                         string = USGS_loc) & !exists("USGS_data")){
     bee_message(paste(" - Reading in data file. This should not take too long.","\n",
                      "There may be some errors upon reading in depending on the state of the data.",
                      "\n", "One might consider reporting errors to Sam Droege to improve the dataset."))

@@ -11,7 +11,7 @@ if(requireNamespace("taxadb", quietly = TRUE)){
                                         removeEmptyNames = TRUE,
                                         outPath = tempdir(),
                                         fileName = "TEST_out.csv",
-                                        overwrite = FALSE)
+                                        overwrite = TRUE)
  
 
 

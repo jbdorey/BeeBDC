@@ -1,5 +1,6 @@
 # BeeBDC 1.3.5
 - Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work with the new CRAN release of **taxadb** v0.3.0 (#17)
+- Removed dependency on `R.utils` by changing `R.utils::gunzip()` to reading the data in using the base function `base::gzfile()` in `BeeBDC::USGS_formatter()`. 
 
 # BeeBDC 1.3.4
 - Updated bee taxonomy with new synonyms and names.
