@@ -16,7 +16,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/jbdorey/BeeBDC/blob/devel/inst/CITATION)
+[`inst/CITATION`](https://github.com/jbdorey/BeeBDC/blob/main/inst/CITATION)
 
 Dorey, J. B., Fischer, E. E., Chesshire, P. R., Bolaños, A. N.,
 O'reilly, R. L., Bossert, S., Collins, S. M., Lichtenberg, E. M.,
