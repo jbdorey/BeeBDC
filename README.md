@@ -528,7 +528,7 @@ explanation on each module.
 - **Discover Life citation (for use of bee taxonomy and checklist):**
   Ascher, J.S. & Pickering, J. (2026) Discover Life bee species guide
   and world checklist (Hymenoptera: Apoidea: Anthophila).
-  <https://www.discoverlife.org/mp/20q?guide=Apoidea_species>
+  https://www.discoverlife.org/mp/20q?guide=Apoidea_species
 
 This package and its data sets were created with the support, and as a
 part, of the iDigBees project
