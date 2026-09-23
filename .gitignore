@@ -7,3 +7,4 @@ docs
 inst/doc
 .httr-oauth
 .DS_Store
+vignettes/articles/.DS_Store
