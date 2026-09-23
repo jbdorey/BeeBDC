@@ -1,5 +1,5 @@
 # Changes in version 1.3.5
-- Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work with the new CRAN release of **taxadb** v0.3.0
+- Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work with the new CRAN release of **taxadb** v0.3.0 (#17)
 
 # Changes in version 1.3.4
 - Updated bee taxonomy with new synonyms and names.
