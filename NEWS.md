@@ -1,7 +1,7 @@
-# Changes in version 1.3.5
+# BeeBDC 1.3.5
 - Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work with the new CRAN release of **taxadb** v0.3.0 (#17)
 
-# Changes in version 1.3.4
+# BeeBDC 1.3.4
 - Updated bee taxonomy with new synonyms and names.
 - Slight update to the Occurrence cleaning main workflow and how to install rgnparser for **bdc**.
 - Added kingdom, phylum, class, order, tribe, and subtribe columns to `BeeBDC::ColTypeR()`.
@@ -9,27 +9,27 @@
 - Minor changes required to other packages to allow for the new columns in text.
 - `BeeBDC::ggRichnessWrapper()` now checks and asks users to install **iNEXT** if required. It also outputs the plot explicitly as a .pdf file.
 
-# Changes in version 1.3.3
+# BeeBDC 1.3.3
 
 - "Suggested" packages are now used conditionally.
 - Minor spelling mistake fixed in `BeeBDC::BeeBDCQuery()`.
 - Thanks on both counts to Prof. Brian D. Ripley of CRAN!
 
-# Changes in version 1.3.2
+# BeeBDC 1.3.2
 
 - Problems with both `BeeBDC::beesTaxonomy()` and `BeeBDC::beesChecklist()` are resolved by modifying the `downloader::download()` function (from version 0.4.2) function internally. A huge thanks to mitchwebb for offering to fix some of these download issues and to users (Felix Klaus and Nicolas Leclercq) for finding problems and bringing them to my attention! I have also now incorporated more error messages to hopefully better guide users when things are going wrong. Additionally, the function now uses `file.path()` in order to resolve directories and so does not rely on checking the OS (however, the OS test is still in place to help troubleshooting).
-- Updates to the `BeeBDC::BeesTaxonomy()` and `BeeBDC::BeesChecklist()` datasets to a 2026 version of Discover Life — J.S. & Pickering, J. (2026) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). https://www.discoverlife.org/mp/20q?guide=Apoidea_species.
+- Updates to the `BeeBDC::BeesTaxonomy()` and `BeeBDC::BeesChecklist()` datasets to a 2026 version of Discover Life — J.S. & Pickering, J. (2026) Discover Life bee species guide and world checklist (Hymenoptera: Apoidea: Anthophila). `https://www.discoverlife.org/mp/20q?guide=Apoidea_species`.
 - For `BeeBDC::ggRichnessWrapper()`, users may change the *fileName* suffix to change the output format (e.g., "pdf" or "jpg"). 
 - Changes to `BeeBDC::dateFindR()` by mitchwebb (a huge thanks for your active help to BeeBDC and the broader community). The major changes relate to finding and correctly extracting exceptions. More info can bee seen at the pull request here — https://github.com/jbdorey/BeeBDC/pull/15; mitchwebb:dateFindR-improvements.
 
-# Changes in version 1.3.1
+# BeeBDC 1.3.1
 
 -   Turn back on ggplot2 tests after update.
 -   Fix issues with richness functions and vignette - name problems and make multi core functions run quietly.
 -   Small changes to `BeeBDC::BeesTaxonomy()` and `BeeBDC::BeesChecklist()` to allow users to choose their download method.
 -   Fixes for the richness estimation vignette where the download would not work within a markdown environment.
 
-# Changes in version 1.3.0
+# BeeBDC 1.3.0
 
 -   Updates `BeeBDC::flagAbsent()` to also check the *individualCount* count and flag those where *individualCount == 0*.
 -   updated `BeeBDC::ColTypeR()` to include a bee-specific Darwin Core data standard using the new argument *standardFormat = "bee"*.
@@ -51,7 +51,7 @@
 -   `BeeBDC::interactiverMapR()` now allows the inclusion of up to two custom columns to report on in the map. These are input with customColumn1 and customColumn2.
 -   Slight re-jig of the main vignettes by splitting out the bee-specific data preparation into its own page.
 
-# Changes in version 1.2.1
+# BeeBDC 1.2.1
 
 -   `BeeBDC::taxadbToBeeBDC()` now prompts users to install taxadb when it's not already installed.
 -   Minor updates to fix breaks with external updates.
