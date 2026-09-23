@@ -58,9 +58,9 @@ The bee occurrence dataset has ended up being updated least frequently. This is 
 
 - Upcoming version...
 
-  - A completely new 2026 pull is in the making...
+  - A completely new 2026 pull is in the making... it is *possible* to get early access if you are willing to collaborate.
 
-- *Version 1.3.4 runs of early data — 05_cleaned_database_2023v1_3_4.csv.zip* and *05_unCleaned_database_2023v1_3_4.csv.zip —* This new run of an early dataset from start to finish using BeeBDC version 1.3.4 has the following changes:
+- *Version 1.3.4 runs of early data* This new run of an early dataset from start to finish using BeeBDC version 1.3.4 has the following changes:
 
   - Has the below taxonomic issues fixed. However, this process has highlighted that some names are not formatting correctly from the Discover Life taxonomy (bee taxonomy version 2026-05-04) and will be updated in BeeBDC 1.4.0 or before.
 
@@ -71,6 +71,12 @@ The bee occurrence dataset has ended up being updated least frequently. This is 
   - Addition of flags from `BeeBDC::continentOutlieRs()`.
 
   - `BeeBDC::flagAbsent()` also now checks if *individualCount == 0*.
+  
+  - Download links:
+
+    - [*05_cleaned_database_2024-02-15_v1_3_4.csv.zip*](https://open.flinders.edu.au/ndownloader/files/69213001)
+
+    - [*05_unCleaned_database_2024-02-15_v1_3_4.csv.zip*](https://open.flinders.edu.au/ndownloader/files/69213007)
 
 
 - *05_cleaned_database_2024-02-15.csv.zip* and *05_unCleaned_database_2024-02-15.csv.zip*
