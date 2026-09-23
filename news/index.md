@@ -5,6 +5,11 @@
 - Updated BeeBDC::taxadbToBeeBDC() and BeeBDC::taxoDuplicator() to work
   with the new CRAN release of **taxadb** v0.3.0
   ([\#17](https://github.com/jbdorey/BeeBDC/issues/17))
+- Removed dependency on `R.utils` by changing
+  [`R.utils::gunzip()`](https://henrikbengtsson.github.io/R.utils/reference/compressFile.html)
+  to reading the data in using the base function
+  [`base::gzfile()`](https://rdrr.io/r/base/connections.html) in
+  [`BeeBDC::USGS_formatter()`](https://jbdorey.github.io/BeeBDC/reference/USGS_formatter.md).
 
 ## BeeBDC 1.3.4
 
