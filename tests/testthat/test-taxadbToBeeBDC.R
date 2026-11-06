@@ -2,19 +2,23 @@
 # If rnaturalearthdata is present, run tests
 if(requireNamespace("taxadb", quietly = TRUE)){
 
-
   # Run the taxadbToBeeBDC function using the example
- ApisTaxonomy <- taxadbToBeeBDC(name = "Apis",
-                                        rank = "Genus",
-                                        provider = "gbif",
-                                        version = taxadb::latest_version(),
-                                        removeEmptyNames = TRUE,
-                                        outPath = tempdir(),
-                                        fileName = "TEST_out.csv",
-                                        overwrite = TRUE)
- 
+ApisTaxonomy <- tryCatch(
+  suppressWarnings({
+    taxaDBtest <- BeeBDC::taxadbToBeeBDC(name = "Apis",
+                   rank = "Genus",
+                   provider = "gbif",
+                   version = taxadb::latest_version(),
+                   removeEmptyNames = TRUE,
+                   outPath = tempdir(),
+                   fileName = "TEST_out.csv",
+                   overwrite = TRUE)}),
+    error = function(x) {
+      message("Unable to access taxadb online. Check your internet connection.")
+      return(NULL)}
+  )
 
-
+if(!is.null(ApisTaxonomy)){
 # Test the expected results
 # Test classes
 testthat::test_that("taxadbToBeeBDC expected class", {
@@ -33,6 +37,6 @@ testthat::test_that("taxadbToBeeBDC plot saved?", {
 testthat::test_that("taxadbToBeeBDC expected number of columns", {
   testthat::expect_equal(length(colnames(ApisTaxonomy)), 33)
 })
-
+} # END if(!is.null(ApisTaxonomy))
 
 } # END if require
