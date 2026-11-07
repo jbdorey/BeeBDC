@@ -32,8 +32,7 @@ renv::init()
 # Choose packages that need to be installed 
 # You may need to install gdal on your computer. This can be done on mac by using
 # Homebrew in the terminal and the command "brew install gdal"
-list.of.packages <- c("R.utils",           # To use gunzip
-                      "magrittr",          # to use pipes
+list.of.packages <- c("magrittr",          # to use pipes
                       "dplyr",             #  Part of the tidyverse
                       "forcats",           # tidyverse for working with factors
                       "tidyr",             #  Part of the tidyverse
